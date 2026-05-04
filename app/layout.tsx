@@ -1,0 +1,48 @@
+import type { Metadata } from "next"
+import { Plus_Jakarta_Sans, DM_Mono } from "next/font/google"
+import "./globals.css"
+import PageTransition from "@/components/PageTransition"
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+})
+
+const dmMono = DM_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "500"],
+  display: "swap",
+})
+
+export const metadata: Metadata = {
+  title: "Sorted. Good online work. Without agency prices.",
+  description:
+    "Websites, design, ads and small digital jobs for UK businesses, done properly.",
+  openGraph: {
+    title: "Sorted. Good online work. Without agency prices.",
+    description:
+      "Websites, design, ads and small digital jobs for UK businesses, done properly.",
+    locale: "en_GB",
+  },
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html
+      lang="en-GB"
+      className={`${plusJakarta.variable} ${dmMono.variable}`}
+    >
+      <body>
+        <div className="scroll-progress" />
+        {children}
+      </body>
+    </html>
+  )
+}
