@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import type { PriceResult } from "@/app/api/price/route"
+import { getPrice, type PriceResult } from "@/lib/pricing"
 
 type Step = 1 | 2 | 3 | 4 | 5 | 6
 
@@ -62,12 +62,7 @@ export default function IntakeAgent() {
   useEffect(() => {
     if (step !== 5) return
     setPricing({ loading: true, result: null, error: null })
-    fetch("/api/price", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ whatYouNeed: form.whatYouNeed, business: form.business, timeline: form.timeline }),
-    })
-      .then((r) => r.json())
+    getPrice(form.whatYouNeed, form.business)
       .then((result: PriceResult) => setPricing({ loading: false, result, error: null }))
       .catch(() => setPricing({ loading: false, result: null, error: "Something went wrong. Please try again." }))
   }, [step])
