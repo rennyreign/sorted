@@ -1,5 +1,3 @@
-import Logo from "@/components/Logo"
-
 export default function Footer() {
   return (
     <footer className="bg-[#0A0A0A] px-6 sm:px-10 lg:px-16 pt-24 pb-10">
@@ -23,7 +21,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/[0.08] pt-8 flex flex-col sm:flex-row justify-between gap-4 items-start sm:items-center">
-          <span className="text-white"><Logo size={28} /></span>
+          <span className="font-sans font-extrabold text-white text-xl tracking-tight">Sorted.</span>
           <div className="flex items-center gap-6">
             <a href="#" className="text-xs text-[#525252] hover:text-[#A3A3A3] transition-colors font-medium">Privacy</a>
             <a href="#" className="text-xs text-[#525252] hover:text-[#A3A3A3] transition-colors font-medium">Terms</a>

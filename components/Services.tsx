@@ -7,6 +7,7 @@ const services = [
   "Facebook & Instagram ads",
   "TikTok ad creative",
   "Chat agents for your site",
+  "AI Automation",
   "Fixes and edits",
 ]
 
