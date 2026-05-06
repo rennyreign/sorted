@@ -1,18 +1,18 @@
 const tiers = [
   {
     label: "Quick jobs",
-    price: "From £49",
+    price: "From £99",
     description: "Small fixes, simple design work",
   },
   {
     label: "One-day jobs",
-    price: "From £149",
+    price: "From £249",
     description: "Landing pages, ads setup, full design pieces",
     featured: true,
   },
   {
     label: "Starter pack",
-    price: "£299",
+    price: "£499",
     description: "One-page website + everything to get online properly",
   },
 ]

@@ -19,43 +19,43 @@ export interface PriceResult {
 
 const pricing: Record<JobType, { price: number; deliveryDays: number; includes: string[]; label: string }> = {
   "website": {
-    price: 149,
+    price: 499,
     deliveryDays: 2,
     label: "business website",
     includes: ["Up to 5 pages", "Mobile responsive", "Contact form", "Hosted and live"],
   },
   "landing-page": {
-    price: 99,
+    price: 249,
     deliveryDays: 1,
     label: "landing page",
     includes: ["Single page", "Mobile responsive", "Lead capture form", "Hosted and live"],
   },
   "logo": {
-    price: 79,
+    price: 99,
     deliveryDays: 1,
     label: "logo design",
     includes: ["3 initial concepts", "PNG, SVG and PDF files", "Full usage rights"],
   },
   "ads": {
-    price: 129,
+    price: 249,
     deliveryDays: 2,
     label: "social ad campaign",
     includes: ["3 ad creatives", "Copy written for you", "All platform sizes", "Ready to publish"],
   },
   "google-profile": {
-    price: 49,
+    price: 99,
     deliveryDays: 1,
     label: "Google Business Profile",
     includes: ["Full profile setup", "Categories and keywords", "Photo upload", "Review strategy"],
   },
   "social": {
-    price: 99,
+    price: 249,
     deliveryDays: 2,
     label: "social content pack",
     includes: ["10 branded posts", "Captions written", "Sized per platform", "Content calendar"],
   },
   "other": {
-    price: 149,
+    price: 249,
     deliveryDays: 2,
     label: "digital job",
     includes: ["Scoped to your brief", "Delivered digitally", "3 versions included"],

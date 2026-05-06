@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
+import Logo from "@/components/Logo"
 
 const links = [
   { label: "Home", href: "/" },
@@ -26,9 +27,10 @@ export default function Nav() {
         <Link
           href="/"
           onClick={scrollToTop}
-          className="pointer-events-auto font-sans font-extrabold text-[#0A0A0A] text-xl tracking-tight leading-none"
+          className="pointer-events-auto text-[#0A0A0A]"
+          aria-label="Sorted. Home"
         >
-          Sorted.
+          <Logo size={32} />
         </Link>
 
         {/* Desktop pill */}

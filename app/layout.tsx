@@ -21,6 +21,11 @@ export const metadata: Metadata = {
   title: "Sorted. Good online work. Without agency prices.",
   description:
     "Websites, design, ads and small digital jobs for UK businesses, done properly.",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+  },
   openGraph: {
     title: "Sorted. Good online work. Without agency prices.",
     description:
