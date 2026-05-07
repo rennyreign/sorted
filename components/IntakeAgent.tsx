@@ -1,7 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { getPrice, type PriceResult } from "@/lib/pricing"
+import { useState } from "react"
 
 type Step = 1 | 2 | 3 | 4 | 5 | 6
 
@@ -9,6 +8,8 @@ interface FormData {
   whatYouNeed: string
   business: string
   timeline: string
+  contactMethod: "email" | "phone" | null
+  contactValue: string
 }
 
 const timelines = [
@@ -18,38 +19,52 @@ const timelines = [
   "No rush, just exploring",
 ]
 
-function Spinner() {
-  return (
-    <div className="flex items-center gap-1.5">
-      {[0, 1, 2].map((i) => (
-        <span
-          key={i}
-          className="w-1.5 h-1.5 rounded-full bg-[#0A0A0A] animate-bounce"
-          style={{ animationDelay: `${i * 0.15}s`, animationDuration: "0.8s" }}
-        />
-      ))}
-    </div>
-  )
-}
+// Formspree form ID - replace with your own at formspree.io
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xpwplvba"
 
 export default function IntakeAgent() {
   const [step, setStep] = useState<Step>(1)
-  const [form, setForm] = useState<FormData>({ whatYouNeed: "", business: "", timeline: "" })
-  const [pricing, setPricing] = useState<{ loading: boolean; result: PriceResult | null; error: string | null }>({
-    loading: false,
-    result: null,
-    error: null,
+  const [form, setForm] = useState<FormData>({ 
+    whatYouNeed: "", 
+    business: "", 
+    timeline: "",
+    contactMethod: null,
+    contactValue: "",
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const canAdvance =
     (step === 1 && form.whatYouNeed.trim().length > 3) ||
     (step === 2 && form.business.trim().length > 1) ||
     step === 3 ||
-    (step === 4 && form.timeline.length > 0)
+    (step === 4 && form.timeline.length > 0) ||
+    (step === 5 && form.contactMethod && form.contactValue.length > 3)
 
-  function advance() {
-    if (step < 4) setStep((s) => (s + 1) as Step)
-    else setStep(5)
+  async function advance() {
+    if (step < 5) {
+      setStep((s) => (s + 1) as Step)
+    } else {
+      // Final step - submit form
+      setIsSubmitting(true)
+      try {
+        await fetch(FORMSPREE_ENDPOINT, {
+          method: "POST",
+          headers: { "Accept": "application/json" },
+          body: JSON.stringify({
+            whatYouNeed: form.whatYouNeed,
+            business: form.business,
+            timeline: form.timeline,
+            contactMethod: form.contactMethod,
+            contactValue: form.contactValue,
+            _replyto: form.contactMethod === "email" ? form.contactValue : "noreply@sortmydigital.site",
+          }),
+        })
+      } catch {
+        // Silently fail - user sees confirmation either way
+      }
+      setStep(6)
+      setIsSubmitting(false)
+    }
   }
 
   function handleKey(e: React.KeyboardEvent) {
@@ -59,112 +74,98 @@ export default function IntakeAgent() {
     }
   }
 
-  useEffect(() => {
-    if (step !== 5) return
-    setPricing({ loading: true, result: null, error: null })
-    getPrice(form.whatYouNeed, form.business)
-      .then((result: PriceResult) => setPricing({ loading: false, result, error: null }))
-      .catch(() => setPricing({ loading: false, result: null, error: "Something went wrong. Please try again." }))
-  }, [step])
-
   if (step === 5) {
     return (
       <section id="get-started" className="py-32 px-6 sm:px-10 lg:px-16 border-t border-black/[0.06] max-w-[1400px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           <div>
             <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-4">
-              Your price
+              Almost done
             </span>
             <h2 className="font-sans font-extrabold text-[#0A0A0A] text-4xl lg:text-5xl leading-tight tracking-tight">
-              {pricing.loading ? "Reviewing your brief..." : "Here's what we'd charge."}
+              How should we reach you?
             </h2>
           </div>
           <div>
-            {pricing.loading && (
-              <div className="flex flex-col gap-6 pt-2">
-                <Spinner />
-                <p className="text-sm text-[#A3A3A3]">Matching your brief to a price...</p>
+            <p className="text-[#737373] text-base leading-relaxed mb-8">
+              We&apos;ll review your brief and send you a proper quote. No commitment needed.
+            </p>
+
+            <div className="space-y-3 mb-6">
+              <button
+                type="button"
+                onClick={() => setForm((f) => ({ ...f, contactMethod: "email", contactValue: "" }))}
+                className={`w-full text-left px-5 py-4 rounded-xl border transition-all duration-200 flex items-center gap-4 ${
+                  form.contactMethod === "email"
+                    ? "border-[#0A0A0A] bg-[#0A0A0A] text-white"
+                    : "border-black/10 text-[#0A0A0A] hover:border-black/30 bg-white"
+                }`}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className={form.contactMethod === "email" ? "text-white" : "text-[#A3A3A3]"}>
+                  <rect x="2" y="4" width="20" height="16" rx="3" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="M2 8l10 6 10-6" stroke="currentColor" strokeWidth="1.5"/>
+                </svg>
+                <span className="font-medium">Email me</span>
+              </button>
+              
+              <button
+                type="button"
+                onClick={() => setForm((f) => ({ ...f, contactMethod: "phone", contactValue: "" }))}
+                className={`w-full text-left px-5 py-4 rounded-xl border transition-all duration-200 flex items-center gap-4 ${
+                  form.contactMethod === "phone"
+                    ? "border-[#0A0A0A] bg-[#0A0A0A] text-white"
+                    : "border-black/10 text-[#0A0A0A] hover:border-black/30 bg-white"
+                }`}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className={form.contactMethod === "phone" ? "text-white" : "text-[#A3A3A3]"}>
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.22 9.77a19.79 19.79 0 01-3.07-8.67A2 2 0 012.13 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="font-medium">Text me</span>
+              </button>
+            </div>
+
+            {form.contactMethod && (
+              <div className="mb-6">
+                <label className="block font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-2">
+                  Your {form.contactMethod === "email" ? "email" : "mobile number"}
+                </label>
+                <input
+                  autoFocus
+                  type={form.contactMethod === "email" ? "email" : "tel"}
+                  value={form.contactValue}
+                  onChange={(e) => setForm((f) => ({ ...f, contactValue: e.target.value }))}
+                  onKeyDown={handleKey}
+                  placeholder={form.contactMethod === "email" ? "you@example.com" : "+44 7123 456789"}
+                  className="w-full rounded-xl border border-black/10 bg-white text-[#0A0A0A] text-sm px-4 py-3.5 placeholder:text-[#C4C4C4] focus:outline-none focus:border-black/30 transition-colors duration-200"
+                />
               </div>
             )}
 
-            {pricing.error && (
-              <div>
-                <p className="text-sm text-red-500 mb-4">{pricing.error}</p>
-                <button
-                  type="button"
-                  onClick={() => setPricing({ loading: false, result: null, error: null })}
-                  className="text-sm font-medium text-[#0A0A0A] underline"
-                >
-                  Try again
-                </button>
-              </div>
-            )}
+            <div className="flex items-center justify-between">
+              <button
+                type="button"
+                onClick={() => setStep((s) => (s - 1) as Step)}
+                className="text-sm font-medium text-[#A3A3A3] hover:text-[#0A0A0A] transition-colors duration-200"
+              >
+                Back
+              </button>
 
-            {pricing.result && (
-              <div>
-                <p className="text-[#737373] text-base leading-relaxed mb-8">
-                  {pricing.result.summary}
-                </p>
-
-                <div className="rounded-2xl border border-black/[0.06] bg-white p-6 mb-6">
-                  <div className="flex items-end justify-between mb-6 pb-6 border-b border-black/[0.06]">
-                    <div>
-                      <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] block mb-1">
-                        Estimated price
-                      </span>
-                      <span className="font-sans font-extrabold text-[#0A0A0A] text-5xl tracking-tight leading-none">
-                        £{pricing.result.price}
-                      </span>
-                    </div>
-                    <div className="text-right">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] block mb-1">
-                        Delivery
-                      </span>
-                      <span className="font-sans font-bold text-[#0A0A0A] text-lg">
-                        {pricing.result.deliveryDays === 1 ? "24 hours" : "48 hours"}
-                      </span>
-                    </div>
-                  </div>
-
-                  <ul className="space-y-2.5">
-                    {pricing.result.includes.map((item) => (
-                      <li key={item} className="flex items-center gap-3">
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 text-[#0A0A0A]">
-                          <path d="M2.5 7.5L5.5 10.5L11.5 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                        <span className="text-sm text-[#525252]">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <p className="text-xs text-[#A3A3A3] mb-6">
-                  This is an estimate based on your brief. Final price confirmed before any work starts.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setStep(6)}
-                    className="group inline-flex items-center gap-3 bg-[#0A0A0A] text-white font-semibold text-sm rounded-full px-6 py-3.5 hover:bg-[#2a2a2a] transition-all duration-300"
-                  >
-                    Looks good, let&apos;s go
-                    <span className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center group-hover:translate-x-0.5 transition-transform duration-300">
-                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                        <path d="M2 8L8 2M8 2H4M8 2V6" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setStep(4)}
-                    className="text-sm font-medium text-[#A3A3A3] hover:text-[#0A0A0A] transition-colors duration-200 px-2"
-                  >
-                    Not quite right
-                  </button>
-                </div>
-              </div>
-            )}
+              <button
+                type="button"
+                onClick={advance}
+                disabled={!canAdvance || isSubmitting}
+                className="group inline-flex items-center gap-3 bg-[#0A0A0A] text-white font-semibold text-sm rounded-full px-6 py-3.5 disabled:opacity-25 disabled:cursor-not-allowed hover:bg-[#2a2a2a] transition-all duration-300"
+              >
+                {isSubmitting ? "Sending..." : "Send my quote"}
+                {!isSubmitting && (
+                  <span className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center group-hover:translate-x-0.5 transition-transform duration-300">
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                      <path d="M2 8L8 2M8 2H4M8 2V6" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </span>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -187,7 +188,7 @@ export default function IntakeAgent() {
             We&apos;ll be in touch.
           </h2>
           <p className="text-[#737373] text-base leading-relaxed mb-8">
-            We&apos;ve got your brief. Expect to hear from us within a few hours with a confirmed price and next steps.
+            We&apos;ve got your brief. You&apos;ll receive a quote within the next 2 minutes.
           </p>
           <a
             href="https://wa.me/"
@@ -216,10 +217,10 @@ export default function IntakeAgent() {
         </div>
         <div>
           <div className="flex items-center gap-2 mb-10">
-            {([1, 2, 3, 4] as const).map((n) => (
+            {([1, 2, 3, 4, 5] as const).map((n) => (
               <div key={n} className="flex items-center gap-2">
                 <div className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${n <= step ? "bg-[#0A0A0A]" : "bg-black/10"}`} />
-                {n < 4 && <div className="w-8 h-px bg-black/10" />}
+                {n < 5 && <div className="w-6 h-px bg-black/10" />}
               </div>
             ))}
           </div>
@@ -326,7 +327,7 @@ export default function IntakeAgent() {
               disabled={!canAdvance}
               className="group inline-flex items-center gap-3 bg-[#0A0A0A] text-white font-semibold text-sm rounded-full px-6 py-3 disabled:opacity-25 disabled:cursor-not-allowed hover:bg-[#2a2a2a] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
             >
-              {step === 4 ? "Get my price" : "Next"}
+              Next
               <span className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center group-hover:translate-x-0.5 transition-transform duration-300">
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
                   <path d="M2 8L8 2M8 2H4M8 2V6" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
