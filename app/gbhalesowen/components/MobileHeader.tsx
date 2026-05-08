@@ -60,7 +60,7 @@ export function MobileHeader() {
 
         <div className="flex items-center gap-3">
           <a
-            href="/gbhalesowen#contact"
+            href="https://cal.com/adxengine/free-intro?theme=light"
             className="hidden sm:inline-flex items-center justify-center bg-[#C8102E] px-4 py-3 text-xs font-extrabold uppercase tracking-[0.08em] text-white transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-[#A90E27] active:translate-y-0"
           >
             Join now
@@ -92,7 +92,7 @@ export function MobileHeader() {
               </Link>
             ))}
             <a
-              href="/gbhalesowen#contact"
+              href="https://cal.com/adxengine/free-intro?theme=light"
               onClick={() => setIsOpen(false)}
               className="mt-4 inline-flex items-center justify-center bg-[#C8102E] px-5 py-4 text-sm font-extrabold uppercase tracking-[0.08em] text-white"
             >
