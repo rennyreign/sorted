@@ -18,9 +18,9 @@ export const metadata: Metadata = {
   description:
     "Brazilian Jiu-Jitsu classes for beginners, kids, women and competitors in Halesowen. Book a free intro class with Gracie Barra Halesowen.",
   icons: {
-    icon: "/gbhalesowen/gbhalesowen-logo.png",
-    shortcut: "/gbhalesowen/gbhalesowen-logo.png",
-    apple: "/gbhalesowen/gbhalesowen-logo.png",
+    icon: "gbhalesowen/gbhalesowen-logo.png",
+    shortcut: "gbhalesowen/gbhalesowen-logo.png",
+    apple: "gbhalesowen/gbhalesowen-logo.png",
   },
   openGraph: {
     title: "Gracie Barra Halesowen",
@@ -32,10 +32,10 @@ export const metadata: Metadata = {
 
 const navLinks = [
   { label: "Home", href: "/gbhalesowen" },
-  { label: "Programs", href: "/gbhalesowen/programs" },
-  { label: "Timetable", href: "/gbhalesowen/timetable" },
-  { label: "About", href: "/gbhalesowen/about" },
-  { label: "Gallery", href: "/gbhalesowen/gallery" },
+  { label: "Programs", href: "gbhalesowen/programs" },
+  { label: "Timetable", href: "gbhalesowen/timetable" },
+  { label: "About", href: "gbhalesowen/about" },
+  { label: "Gallery", href: "gbhalesowen/gallery" },
   { label: "Contact", href: "/gbhalesowen#contact" },
 ]
 
@@ -43,7 +43,7 @@ function GBLogo({ compact = false }: { compact?: boolean }) {
   return (
     <div className="flex items-center gap-3">
       <img
-        src="/gbhalesowen/gbhalesowen-logo.png"
+        src="gbhalesowen/gbhalesowen-logo.png"
         alt="Gracie Barra Halesowen"
         className="size-14 shrink-0 rounded-full border-[3px] border-[#D9DDE7] bg-white object-cover shadow-[0_12px_30px_rgba(0,47,134,0.16)]"
       />
@@ -118,11 +118,11 @@ export default function GBLayout({
           <div>
             <h3 className="text-xs font-extrabold uppercase tracking-[0.18em] text-white/58">Programs</h3>
             <div className="mt-4 grid gap-2 text-sm font-semibold text-white/78">
-              <Link href="/gbhalesowen/programs/fundamentals" className="transition-colors hover:text-white">Fundamentals</Link>
-              <Link href="/gbhalesowen/programs/advanced" className="transition-colors hover:text-white">Advanced</Link>
-              <Link href="/gbhalesowen/programs/kids" className="transition-colors hover:text-white">Kids Classes</Link>
-              <Link href="/gbhalesowen/programs/female" className="transition-colors hover:text-white">Female Training</Link>
-              <Link href="/gbhalesowen/programs/fitness" className="transition-colors hover:text-white">Barbell / Fitness</Link>
+              <Link href="gbhalesowen/programs/fundamentals" className="transition-colors hover:text-white">Fundamentals</Link>
+              <Link href="gbhalesowen/programs/advanced" className="transition-colors hover:text-white">Advanced</Link>
+              <Link href="gbhalesowen/programs/kids" className="transition-colors hover:text-white">Kids Classes</Link>
+              <Link href="gbhalesowen/programs/female" className="transition-colors hover:text-white">Female Training</Link>
+              <Link href="gbhalesowen/programs/fitness" className="transition-colors hover:text-white">Barbell / Fitness</Link>
             </div>
           </div>
           <div>
@@ -160,8 +160,8 @@ export default function GBLayout({
           <div className="mx-auto flex max-w-[1400px] flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <p>&copy; 2026 Gracie Barra Halesowen. All rights reserved.</p>
             <div className="flex gap-4">
-              <Link href="/gbhalesowen/terms" className="hover:text-white">Terms & Conditions</Link>
-              <Link href="/gbhalesowen/privacy" className="hover:text-white">Privacy Policy</Link>
+              <Link href="gbhalesowen/terms" className="hover:text-white">Terms & Conditions</Link>
+              <Link href="gbhalesowen/privacy" className="hover:text-white">Privacy Policy</Link>
             </div>
           </div>
         </div>

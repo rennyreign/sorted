@@ -6,25 +6,25 @@ import { useState } from "react"
 
 // Instagram-style gallery grid images
 const galleryImages = [
-  { src: "/gbhalesowen/gi-bjj.jpg", alt: "Gi training session", category: "training" },
-  { src: "/gbhalesowen/nogi-bjj.jpg", alt: "No-gi training", category: "training" },
-  { src: "/gbhalesowen/kids-jits.jpg", alt: "Kids class", category: "kids" },
-  { src: "/gbhalesowen/girls-bjj.jpg", alt: "Female training", category: "female" },
-  { src: "/gbhalesowen/daytime-warriors.jpg", alt: "Daytime warriors", category: "training" },
-  { src: "/gbhalesowen/functional-fitness_1.jpg", alt: "Functional fitness", category: "fitness" },
-  { src: "/gbhalesowen/functional-fitness_2.jpg", alt: "Fitness training", category: "fitness" },
-  { src: "/gbhalesowen/functional-fitness_3.jpg", alt: "Gym area", category: "facilities" },
-  { src: "/gbhalesowen/functional-fitness_5.jpg", alt: "Weight training", category: "fitness" },
-  { src: "/gbhalesowen/functional-fitness_6.jpg", alt: "Cardio equipment", category: "facilities" },
-  { src: "/gbhalesowen/functional-fitness_8.jpg", alt: "Training equipment", category: "facilities" },
-  { src: "/gbhalesowen/functional-fitness_14.jpg", alt: "Gym space", category: "facilities" },
+  { src: "gbhalesowen/gi-bjj.jpg", alt: "Gi training session", category: "training" },
+  { src: "gbhalesowen/nogi-bjj.jpg", alt: "No-gi training", category: "training" },
+  { src: "gbhalesowen/kids-jits.jpg", alt: "Kids class", category: "kids" },
+  { src: "gbhalesowen/girls-bjj.jpg", alt: "Female training", category: "female" },
+  { src: "gbhalesowen/daytime-warriors.jpg", alt: "Daytime warriors", category: "training" },
+  { src: "gbhalesowen/functional-fitness_1.jpg", alt: "Functional fitness", category: "fitness" },
+  { src: "gbhalesowen/functional-fitness_2.jpg", alt: "Fitness training", category: "fitness" },
+  { src: "gbhalesowen/functional-fitness_3.jpg", alt: "Gym area", category: "facilities" },
+  { src: "gbhalesowen/functional-fitness_5.jpg", alt: "Weight training", category: "fitness" },
+  { src: "gbhalesowen/functional-fitness_6.jpg", alt: "Cardio equipment", category: "facilities" },
+  { src: "gbhalesowen/functional-fitness_8.jpg", alt: "Training equipment", category: "facilities" },
+  { src: "gbhalesowen/functional-fitness_14.jpg", alt: "Gym space", category: "facilities" },
 ]
 
 // Simulated Instagram feed posts
 const instagramPosts = [
   { 
     type: "image", 
-    src: "/gbhalesowen/gi-bjj.jpg", 
+    src: "gbhalesowen/gi-bjj.jpg", 
     caption: "Fundamentals class working hard tonight! 🥋💪",
     likes: 47,
     comments: 8,
@@ -32,7 +32,7 @@ const instagramPosts = [
   },
   { 
     type: "image", 
-    src: "/gbhalesowen/kids-jits.jpg", 
+    src: "gbhalesowen/kids-jits.jpg", 
     caption: "Our young champions building confidence and discipline 🌟",
     likes: 62,
     comments: 12,
@@ -40,7 +40,7 @@ const instagramPosts = [
   },
   { 
     type: "image", 
-    src: "/gbhalesowen/functional-fitness_1.jpg", 
+    src: "gbhalesowen/functional-fitness_1.jpg", 
     caption: "Strength training session tonight. Push your limits! 🔥",
     likes: 38,
     comments: 5,
@@ -48,7 +48,7 @@ const instagramPosts = [
   },
   { 
     type: "image", 
-    src: "/gbhalesowen/girls-bjj.jpg", 
+    src: "gbhalesowen/girls-bjj.jpg", 
     caption: "Ladies night every Wednesday. All women welcome! 💪",
     likes: 54,
     comments: 9,
@@ -56,7 +56,7 @@ const instagramPosts = [
   },
   { 
     type: "image", 
-    src: "/gbhalesowen/nogi-bjj.jpg", 
+    src: "gbhalesowen/nogi-bjj.jpg", 
     caption: "No-gi Thursday nights. Different game, same passion 🌊",
     likes: 41,
     comments: 6,
@@ -64,7 +64,7 @@ const instagramPosts = [
   },
   { 
     type: "image", 
-    src: "/gbhalesowen/functional-fitness_5.jpg", 
+    src: "gbhalesowen/functional-fitness_5.jpg", 
     caption: "New equipment added to the functional fitness area! 🏋️",
     likes: 73,
     comments: 15,
@@ -92,7 +92,7 @@ export default function GalleryPage() {
       {/* Hero Section */}
       <section className="relative isolate overflow-hidden bg-[#001D58]">
         <img
-          src="/gbhalesowen/girls-bjj.jpg"
+          src="gbhalesowen/girls-bjj.jpg"
           alt="Gallery at Gracie Barra Halesowen"
           className="absolute inset-0 h-full w-full object-cover opacity-30"
         />
@@ -316,8 +316,8 @@ export default function GalleryPage() {
                   Next open mat is tomorrow at 12pm - all levels welcome!
                 </p>
                 <div className="grid grid-cols-2 gap-2">
-                  <img src="/gbhalesowen/gi-bjj.jpg" alt="Training" className="aspect-video rounded object-cover" />
-                  <img src="/gbhalesowen/daytime-warriors.jpg" alt="Team" className="aspect-video rounded object-cover" />
+                  <img src="gbhalesowen/gi-bjj.jpg" alt="Training" className="aspect-video rounded object-cover" />
+                  <img src="gbhalesowen/daytime-warriors.jpg" alt="Team" className="aspect-video rounded object-cover" />
                 </div>
                 <div className="flex items-center gap-4 pt-2 text-xs text-white/60">
                   <span>👍 124 likes</span>

@@ -70,7 +70,7 @@ export default function FundamentalsPage() {
       {/* Hero Section */}
       <section className="relative isolate overflow-hidden bg-[#3158A7]">
         <img
-          src="/gbhalesowen/gi-bjj.jpg"
+          src="gbhalesowen/gi-bjj.jpg"
           alt="Fundamentals class at Gracie Barra Halesowen"
           className="absolute inset-0 h-full w-full object-cover opacity-40"
         />
@@ -78,7 +78,7 @@ export default function FundamentalsPage() {
         
         <div className="relative mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12">
           <div className="flex items-center gap-2 text-sm font-semibold text-white/80">
-            <Link href="/gbhalesowen/programs" className="hover:text-white">Programs</Link>
+            <Link href="gbhalesowen/programs" className="hover:text-white">Programs</Link>
             <ChevronRight className="size-4" />
             <span className="text-white">Fundamentals</span>
           </div>
@@ -104,7 +104,7 @@ export default function FundamentalsPage() {
                 <ChevronRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2.2} />
               </a>
               <Link
-                href="/gbhalesowen/timetable"
+                href="gbhalesowen/timetable"
                 className="inline-flex items-center justify-center gap-2 border-2 border-white/80 px-6 py-4 text-sm font-extrabold uppercase tracking-[0.05em] text-white transition-[transform,background-color,color,border-color] duration-300 hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-[#3158A7] active:translate-y-0"
               >
                 <Clock className="size-4" />
@@ -146,7 +146,7 @@ export default function FundamentalsPage() {
             <div className="relative">
               <div className="overflow-hidden rounded-lg border border-black/10 shadow-[0_24px_70px_rgba(0,47,134,0.13)]">
                 <img
-                  src="/gbhalesowen/gi-bjj.jpg"
+                  src="gbhalesowen/gi-bjj.jpg"
                   alt="Fundamentals class"
                   className="aspect-[4/3] w-full object-cover"
                 />
@@ -237,7 +237,7 @@ export default function FundamentalsPage() {
             
             <div className="relative overflow-hidden rounded-lg border border-black/10">
               <img
-                src="/gbhalesowen/daytime-warriors.jpg"
+                src="gbhalesowen/daytime-warriors.jpg"
                 alt="Training session"
                 className="h-full w-full object-cover"
               />
