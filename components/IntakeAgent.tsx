@@ -7,6 +7,8 @@ type Step = 1 | 2 | 3 | 4 | 5 | 6
 interface FormData {
   whatYouNeed: string
   business: string
+  references: string
+  fileNames: string[]
   timeline: string
   contactMethod: "email" | "phone" | null
   contactValue: string
@@ -27,6 +29,8 @@ export default function IntakeAgent() {
   const [form, setForm] = useState<FormData>({ 
     whatYouNeed: "", 
     business: "", 
+    references: "",
+    fileNames: [],
     timeline: "",
     contactMethod: null,
     contactValue: "",
@@ -53,6 +57,8 @@ export default function IntakeAgent() {
           body: JSON.stringify({
             whatYouNeed: form.whatYouNeed,
             business: form.business,
+            references: form.references || "(none)",
+            filesAttached: form.fileNames.length > 0 ? form.fileNames.join(", ") : "(none)",
             timeline: form.timeline,
             contactMethod: form.contactMethod,
             contactValue: form.contactValue,
@@ -234,7 +240,6 @@ export default function IntakeAgent() {
                 A sentence is enough. Be as vague or specific as you like.
               </p>
               <textarea
-                autoFocus
                 value={form.whatYouNeed}
                 onChange={(e) => setForm((f) => ({ ...f, whatYouNeed: e.target.value }))}
                 onKeyDown={handleKey}
@@ -270,17 +275,59 @@ export default function IntakeAgent() {
               <label className="block font-sans font-bold text-[#0A0A0A] text-xl mb-2">
                 Do you have anything already?
               </label>
-              <p className="text-sm text-[#A3A3A3] mb-5">
-                Logo, existing site, brand colours. Anything useful. Optional.
+              <p className="text-sm text-[#A3A3A3] mb-6">
+                Existing website, references you like, logo files — anything useful. Optional.
               </p>
-              <label className="flex items-center justify-center gap-2 rounded-xl border border-dashed border-black/10 px-4 py-10 cursor-pointer hover:border-black/30 transition-colors duration-200 group">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-[#A3A3A3] group-hover:text-[#0A0A0A] transition-colors">
-                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <span className="text-sm text-[#A3A3A3] group-hover:text-[#0A0A0A] transition-colors">Upload files</span>
-                <input type="file" multiple className="sr-only" />
-              </label>
-              <p className="mt-3 text-xs text-[#C4C4C4]">PNG, JPG, PDF, up to 10MB each</p>
+
+              <div className="mb-5">
+                <label className="block font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-2">
+                  Website or reference links
+                </label>
+                <textarea
+                  value={form.references}
+                  onChange={(e) => setForm((f) => ({ ...f, references: e.target.value }))}
+                  onKeyDown={handleKey}
+                  rows={3}
+                  placeholder={"e.g. my current site is example.com\nI like the style of stripe.com"}
+                  className="w-full rounded-xl border border-black/10 bg-white text-[#0A0A0A] text-sm px-4 py-3.5 placeholder:text-[#C4C4C4] focus:outline-none focus:border-black/30 resize-none transition-colors duration-200"
+                />
+              </div>
+
+              <div>
+                <label className="block font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-2">
+                  Upload files
+                </label>
+                <label className="flex items-center justify-center gap-2 rounded-xl border border-dashed border-black/10 px-4 py-8 cursor-pointer hover:border-black/30 transition-colors duration-200 group">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-[#A3A3A3] group-hover:text-[#0A0A0A] transition-colors">
+                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <span className="text-sm text-[#A3A3A3] group-hover:text-[#0A0A0A] transition-colors">
+                    {form.fileNames.length > 0 ? `${form.fileNames.length} file${form.fileNames.length > 1 ? "s" : ""} selected` : "Choose files"}
+                  </span>
+                  <input
+                    type="file"
+                    multiple
+                    className="sr-only"
+                    onChange={(e) => {
+                      const files = e.target.files
+                      if (files) {
+                        setForm((f) => ({ ...f, fileNames: Array.from(files).map((file) => file.name) }))
+                      }
+                    }}
+                  />
+                </label>
+                {form.fileNames.length > 0 && (
+                  <div className="mt-2 space-y-1">
+                    {form.fileNames.map((name, i) => (
+                      <p key={i} className="text-xs text-[#525252] flex items-center gap-1.5">
+                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6 11.5L13 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        {name}
+                      </p>
+                    ))}
+                  </div>
+                )}
+                <p className="mt-2 text-xs text-[#C4C4C4]">PNG, JPG, PDF — we&apos;ll ask you to email these after submitting.</p>
+              </div>
             </div>
           )}
 
