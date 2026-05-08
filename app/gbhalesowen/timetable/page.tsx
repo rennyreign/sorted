@@ -281,7 +281,7 @@ export default function TimetablePage() {
                 </Link>
                 <a
                   href="tel:01212854555"
-                  className="inline-flex items-center justify-center gap-2 border-2 border-white/80 px-6 py-4 text-sm font-extrabold uppercase tracking-[0.05em] text-white transition-[transform,background-color,color,border-color] duration-300 hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-[#002F86] active:translate-y-0"
+                  className="inline-flex items-center justify-center gap-2 bg-[#C8102E] px-6 py-4 text-sm font-extrabold uppercase tracking-[0.05em] text-white transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-[#A90E27] active:translate-y-0"
                 >
                   <Phone className="size-4" />
                   Call 0121 285 4555

@@ -7,6 +7,7 @@ import {
   Mail,
 } from "lucide-react"
 import Link from "next/link"
+import { MobileHeader } from "./components/MobileHeader"
 
 const navy = "#002F86"
 const deepNavy = "#001D58"
@@ -90,30 +91,7 @@ export default function GBLayout({
       </div>
 
       {/* Navigation */}
-      <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-md">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-5 py-4 sm:px-8 lg:px-12">
-          <Link href="/gbhalesowen" aria-label="Gracie Barra Halesowen home">
-            <GBLogo />
-          </Link>
-          <nav className="hidden items-center gap-8 text-[0.78rem] font-extrabold uppercase tracking-[0.06em] text-[#002F86] lg:flex">
-            {navLinks.map((link) => (
-              <Link 
-                key={link.label} 
-                href={link.href} 
-                className="border-b-2 border-transparent py-2 transition-colors hover:border-[#C8102E] hover:text-[#C8102E]"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-          <a
-            href="/gbhalesowen#contact"
-            className="inline-flex items-center justify-center bg-[#C8102E] px-5 py-3 text-xs font-extrabold uppercase tracking-[0.08em] text-white transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-[#A90E27] active:translate-y-0"
-          >
-            Join now
-          </a>
-        </div>
-      </header>
+      <MobileHeader />
 
       {/* Main content */}
       <main>{children}</main>

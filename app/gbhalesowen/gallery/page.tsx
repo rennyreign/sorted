@@ -1,11 +1,8 @@
+"use client"
+
 import { Instagram, Facebook, Camera, ChevronRight, ExternalLink } from "lucide-react"
 import Link from "next/link"
-import type { Metadata } from "next"
-
-export const metadata: Metadata = {
-  title: "Gallery | Gracie Barra Halesowen",
-  description: "View photos from Gracie Barra Halesowen. Training sessions, competitions, academy events, and community highlights.",
-}
+import { useState } from "react"
 
 // Instagram-style gallery grid images
 const galleryImages = [
@@ -85,6 +82,11 @@ const categories = [
 ]
 
 export default function GalleryPage() {
+  const [activeFilter, setActiveFilter] = useState("all")
+  
+  const filteredImages = activeFilter === "all" 
+    ? galleryImages 
+    : galleryImages.filter(img => img.category === activeFilter)
   return (
     <>
       {/* Hero Section */}
@@ -213,13 +215,14 @@ export default function GalleryPage() {
             <p className="mt-2 text-sm text-[#4B5563]">Training, facilities, and community</p>
           </div>
 
-          {/* Category Filter - Static for now, could be made interactive */}
+          {/* Category Filter */}
           <div className="mb-8 flex flex-wrap gap-2">
             {categories.map((cat) => (
               <button
                 key={cat.id}
+                onClick={() => setActiveFilter(cat.id)}
                 className={`rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors ${
-                  cat.id === "all" 
+                  cat.id === activeFilter
                     ? "bg-[#002F86] text-white" 
                     : "border border-black/10 bg-white text-[#4B5563] hover:border-[#002F86] hover:text-[#002F86]"
                 }`}
@@ -231,7 +234,7 @@ export default function GalleryPage() {
 
           {/* Masonry-style Grid */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {galleryImages.map((image, idx) => (
+            {filteredImages.map((image, idx) => (
               <div 
                 key={idx} 
                 className={`group relative overflow-hidden border border-black/10 ${

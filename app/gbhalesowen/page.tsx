@@ -170,7 +170,7 @@ export default function GBHalesowenPage() {
         <img
           src="/gbhalesowen/gi-bjj.jpg"
           alt="Gracie Barra Halesowen adult students with instructor"
-          className="absolute inset-0 h-full w-full object-cover object-[70%_center] scale-x-[-1]"
+          className="absolute inset-0 h-full w-full object-cover object-center scale-x-[-1] md:object-[60%_center] lg:object-[70%_center]"
         />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,29,88,0.92)_0%,rgba(0,29,88,0.65)_40%,rgba(0,29,88,0.2)_100%)]" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(0deg,rgba(0,29,88,0.9),rgba(0,29,88,0))]" />
@@ -411,7 +411,7 @@ export default function GBHalesowenPage() {
             </div>
             <a
               href="tel:01212854555"
-              className="inline-flex items-center justify-center gap-2 bg-white px-5 py-3 text-sm font-extrabold uppercase tracking-[0.06em] text-[#002F86] transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-0"
+              className="inline-flex items-center justify-center gap-2 bg-[#C8102E] px-5 py-3 text-sm font-extrabold uppercase tracking-[0.06em] text-white transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-[#A90E27] active:translate-y-0"
             >
               <Phone className="size-4" strokeWidth={2.2} />
               Call the team
@@ -487,7 +487,7 @@ export default function GBHalesowenPage() {
 
           <div className="px-5 py-14 sm:px-8 lg:px-12">
             <div className="mx-auto max-w-3xl">
-              <SectionKicker>Visit us</SectionKicker>
+              <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.24em] text-white">Visit us</p>
               <h2 className="text-[clamp(2.2rem,5vw,4.25rem)] font-extrabold leading-[0.94] tracking-tight">
                 We would love to meet you.
               </h2>
