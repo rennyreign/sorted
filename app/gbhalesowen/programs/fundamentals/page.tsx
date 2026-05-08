@@ -70,7 +70,7 @@ export default function FundamentalsPage() {
       {/* Hero Section */}
       <section className="relative isolate overflow-hidden bg-[#3158A7]">
         <img
-          src="gi-bjj.jpg"
+          src="../../gi-bjj.jpg"
           alt="Fundamentals class at Gracie Barra Halesowen"
           className="absolute inset-0 h-full w-full object-cover opacity-40"
         />
@@ -146,7 +146,7 @@ export default function FundamentalsPage() {
             <div className="relative">
               <div className="overflow-hidden rounded-lg border border-black/10 shadow-[0_24px_70px_rgba(0,47,134,0.13)]">
                 <img
-                  src="gi-bjj.jpg"
+                  src="../../gi-bjj.jpg"
                   alt="Fundamentals class"
                   className="aspect-[4/3] w-full object-cover"
                 />
@@ -237,7 +237,7 @@ export default function FundamentalsPage() {
             
             <div className="relative overflow-hidden rounded-lg border border-black/10">
               <img
-                src="daytime-warriors.jpg"
+                src="../../daytime-warriors.jpg"
                 alt="Training session"
                 className="h-full w-full object-cover"
               />

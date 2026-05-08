@@ -50,7 +50,7 @@ export default function KidsPage() {
     <>
       {/* Hero */}
       <section className="relative isolate overflow-hidden bg-[#168CC9]">
-        <img src="kids-jits.jpg" alt="Kids classes" className="absolute inset-0 h-full w-full object-cover opacity-40" />
+        <img src="../../kids-jits.jpg" alt="Kids classes" className="absolute inset-0 h-full w-full object-cover opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#168CC9]/95 to-[#168CC9]/70" />
         <div className="relative mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12">
           <div className="flex items-center gap-2 text-sm font-semibold text-white/80">

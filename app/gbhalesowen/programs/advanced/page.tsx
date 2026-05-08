@@ -37,7 +37,7 @@ export default function AdvancedPage() {
     <>
       {/* Hero */}
       <section className="relative isolate overflow-hidden bg-[#7647B9]">
-        <img src="daytime-warriors.jpg" alt="Advanced training" className="absolute inset-0 h-full w-full object-cover opacity-40" />
+        <img src="../../daytime-warriors.jpg" alt="Advanced training" className="absolute inset-0 h-full w-full object-cover opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#7647B9]/95 to-[#7647B9]/70" />
         <div className="relative mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12">
           <div className="flex items-center gap-2 text-sm font-semibold text-white/80">
