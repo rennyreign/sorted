@@ -53,7 +53,7 @@ export default function AboutPage() {
         
         <div className="relative mx-auto max-w-[1400px] px-5 py-24 sm:px-8 lg:px-12">
           <div className="max-w-3xl text-white">
-            <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.24em] text-[#C8102E]">
+            <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.24em] text-white">
               About Our Academy
             </p>
             <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-extrabold uppercase leading-[0.92] tracking-tight">
@@ -218,8 +218,8 @@ export default function AboutPage() {
             <div className="border border-black/10 bg-white p-6 text-center shadow-[0_18px_50px_rgba(0,47,134,0.08)]">
               <div className="mx-auto size-24 rounded-full bg-[#E8EDF7]">
                 <img
-                  src="/gbhalesowen/gi-bjj.jpg"
-                  alt="Head Instructor"
+                  src="/gbhalesowen/stu-headshot.png"
+                  alt="Professor Stuart - Head Instructor"
                   className="h-full w-full rounded-full object-cover"
                 />
               </div>

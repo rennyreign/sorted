@@ -109,7 +109,7 @@ export default function ProgramsPage() {
         
         <div className="relative mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12">
           <div className="max-w-3xl text-white">
-            <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.24em] text-[#C8102E]">
+            <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.24em] text-white">
               Our Programs
             </p>
             <h1 className="text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold uppercase leading-[0.92] tracking-tight">
@@ -236,19 +236,19 @@ export default function ProgramsPage() {
             
             <div className="grid grid-cols-2 gap-4">
               <div className="border border-white/20 bg-white/5 p-5 text-center">
-                <p className="text-3xl font-extrabold text-[#C8102E]">5</p>
+                <p className="text-3xl font-extrabold text-white">5</p>
                 <p className="mt-1 text-sm font-semibold text-white/72">Programs</p>
               </div>
               <div className="border border-white/20 bg-white/5 p-5 text-center">
-                <p className="text-3xl font-extrabold text-[#C8102E]">20+</p>
+                <p className="text-3xl font-extrabold text-white">20+</p>
                 <p className="mt-1 text-sm font-semibold text-white/72">Weekly Classes</p>
               </div>
               <div className="border border-white/20 bg-white/5 p-5 text-center">
-                <p className="text-3xl font-extrabold text-[#C8102E]">4+</p>
+                <p className="text-3xl font-extrabold text-white">4+</p>
                 <p className="mt-1 text-sm font-semibold text-white/72">Kids Age Groups</p>
               </div>
               <div className="border border-white/20 bg-white/5 p-5 text-center">
-                <p className="text-3xl font-extrabold text-[#C8102E]">100%</p>
+                <p className="text-3xl font-extrabold text-white">100%</p>
                 <p className="mt-1 text-sm font-semibold text-white/72">Beginner Friendly</p>
               </div>
             </div>

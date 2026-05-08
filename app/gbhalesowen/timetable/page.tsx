@@ -109,7 +109,7 @@ export default function TimetablePage() {
         
         <div className="relative mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12">
           <div className="max-w-3xl text-white">
-            <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.24em] text-[#C8102E]">
+            <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.24em] text-white">
               Class Schedule
             </p>
             <h1 className="text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold uppercase leading-[0.92] tracking-tight">
