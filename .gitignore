@@ -7,3 +7,6 @@ out
 npm-debug.log*
 .DS_Store
 tsconfig.tsbuildinfo
+
+# Local Netlify folder
+.netlify
