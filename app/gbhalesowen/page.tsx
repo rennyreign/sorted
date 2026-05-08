@@ -502,7 +502,7 @@ export default function GBHalesowenPage() {
                   </span>
                 </a>
                 <div className="grid gap-4">
-                  <a href="tel:01212854555" className="flex items-center gap-3 border border-white/18 p-4 text-sm font-extrabold transition-colors hover:bg-white/8">
+                  <a href="tel:01212854555" className="flex items-center gap-3 bg-[#C8102E] p-4 text-sm font-extrabold transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-[#A90E27] active:translate-y-0">
                     <Phone className="size-5" strokeWidth={2} />
                     0121 285 4555
                   </a>
@@ -527,7 +527,7 @@ export default function GBHalesowenPage() {
                   href="https://cal.com/adxengine/free-intro?theme=light"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 bg-white px-8 py-4 text-sm font-extrabold uppercase tracking-[0.06em] text-[#002F86] transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-gray-100 active:translate-y-0"
+                  className="inline-flex items-center justify-center gap-2 bg-[#C8102E] px-8 py-4 text-sm font-extrabold uppercase tracking-[0.06em] text-white transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-[#A90E27] active:translate-y-0"
                 >
                   <CalendarDays className="size-4" />
                   Book now

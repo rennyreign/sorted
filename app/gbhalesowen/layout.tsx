@@ -126,19 +126,6 @@ export default function GBLayout({
             <p className="mt-5 max-w-xs text-sm font-semibold leading-6 text-white/72">
               Jiu-Jitsu for everyone. Classes for beginners, kids, women, competitors and families in Halesowen.
             </p>
-            {/* Live Map */}
-            <div className="mt-5 aspect-video w-full max-w-[280px] overflow-hidden rounded-lg border border-white/20">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2431.788768483836!2d-2.050832923465558!3d52.45081337204049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4870989a5c8c3c2f%3A0x5d2e2a33c5b2e1a0!2sGracie%20Barra%20Halesowen!5e0!3m2!1sen!2suk!4v1704067200000!5m2!1sen!2suk"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Gracie Barra Halesowen Location"
-              />
-            </div>
           </div>
           <div>
             <h3 className="text-xs font-extrabold uppercase tracking-[0.18em] text-white/58">Quick links</h3>
