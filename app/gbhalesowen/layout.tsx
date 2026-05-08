@@ -18,9 +18,9 @@ export const metadata: Metadata = {
   description:
     "Brazilian Jiu-Jitsu classes for beginners, kids, women and competitors in Halesowen. Book a free intro class with Gracie Barra Halesowen.",
   icons: {
-    icon: "gbhalesowen-logo.png",
-    shortcut: "gbhalesowen-logo.png",
-    apple: "gbhalesowen-logo.png",
+    icon: "/gbhalesowen/gbhalesowen-logo.png",
+    shortcut: "/gbhalesowen/gbhalesowen-logo.png",
+    apple: "/gbhalesowen/gbhalesowen-logo.png",
   },
   openGraph: {
     title: "Gracie Barra Halesowen",
@@ -43,7 +43,7 @@ function GBLogo({ compact = false }: { compact?: boolean }) {
   return (
     <div className="flex items-center gap-3">
       <img
-        src="gbhalesowen-logo.png"
+        src="/gbhalesowen/gbhalesowen-logo.png"
         alt="Gracie Barra Halesowen"
         className="size-14 shrink-0 rounded-full border-[3px] border-[#D9DDE7] bg-white object-cover shadow-[0_12px_30px_rgba(0,47,134,0.16)]"
       />

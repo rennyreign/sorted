@@ -30,11 +30,11 @@ export default function FemalePage() {
     <>
       {/* Hero */}
       <section className="relative isolate overflow-hidden bg-[#D85B94]">
-        <img src="../../girls-bjj.jpg" alt="Female training" className="absolute inset-0 h-full w-full object-cover opacity-40" />
+        <img src="/gbhalesowen/girls-bjj.jpg" alt="Female training" className="absolute inset-0 h-full w-full object-cover opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#D85B94]/95 to-[#D85B94]/70" />
         <div className="relative mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12">
           <div className="flex items-center gap-2 text-sm font-semibold text-white/80">
-            <Link href="programs" className="hover:text-white">Programs</Link>
+            <Link href="/gbhalesowen/programs" className="hover:text-white">Programs</Link>
             <ChevronRight className="size-4" />
             <span className="text-white">Female</span>
           </div>
@@ -51,7 +51,7 @@ export default function FemalePage() {
               Build confidence, get fit, and master practical self-defence.
             </p>
             <div className="mt-8">
-              <a href="/gbhalesowen#contact" className="group inline-flex items-center justify-center gap-2 bg-[#C8102E] px-6 py-4 text-sm font-extrabold uppercase tracking-[0.05em] text-white transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-[#A90E27] active:translate-y-0">
+              <a href="https://cal.com/adxengine/free-intro?theme=light" className="group inline-flex items-center justify-center gap-2 bg-[#C8102E] px-6 py-4 text-sm font-extrabold uppercase tracking-[0.05em] text-white transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-[#A90E27] active:translate-y-0">
                 Book free trial
                 <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
               </a>
@@ -114,7 +114,7 @@ export default function FemalePage() {
           <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-extrabold">Train in a supportive space.</h2>
           <p className="mx-auto mt-4 max-w-lg text-white/75">Your first class is free. All fitness levels welcome.</p>
           <div className="mt-8 flex justify-center gap-4">
-            <a href="/gbhalesowen#contact" className="inline-flex items-center gap-2 bg-[#C8102E] px-6 py-4 text-sm font-extrabold uppercase tracking-[0.05em] text-white hover:bg-[#A90E27]">
+            <a href="https://cal.com/adxengine/free-intro?theme=light" className="inline-flex items-center gap-2 bg-[#C8102E] px-6 py-4 text-sm font-extrabold uppercase tracking-[0.05em] text-white hover:bg-[#A90E27]">
               Book free trial
             </a>
             <a href="tel:01212854555" className="inline-flex items-center gap-2 border-2 border-white/80 px-6 py-4 text-sm font-extrabold uppercase tracking-[0.05em] text-white hover:bg-white hover:text-[#D85B94]">
