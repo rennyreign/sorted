@@ -67,9 +67,9 @@ export default function GBLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-[100dvh] overflow-x-hidden bg-white text-[#111827]">
-      {/* Top contact bar */}
-      <div className="bg-[#003384] text-white">
+    <div className="min-h-[100dvh] bg-white text-[#111827]">
+      {/* Fixed Contact Bar */}
+      <div className="fixed left-0 right-0 top-0 z-50 bg-[#003384] text-white">
         <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-5 py-2.5 text-xs font-bold sm:px-8 lg:px-12">
           <span>Gracie Barra Halesowen</span>
           <div className="flex items-center gap-4">
@@ -90,11 +90,11 @@ export default function GBLayout({
         </div>
       </div>
 
-      {/* Navigation */}
+      {/* Fixed Navigation */}
       <MobileHeader />
 
-      {/* Main content */}
-      <main>{children}</main>
+      {/* Main content - padded for both fixed bars */}
+      <main className="animate-fade-in pt-[114px]">{children}</main>
 
       {/* Footer */}
       <footer className="bg-[#002766] text-white">

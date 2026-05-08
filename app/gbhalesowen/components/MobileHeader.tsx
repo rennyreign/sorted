@@ -39,7 +39,7 @@ export function MobileHeader() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-md">
+    <header className="fixed left-0 right-0 top-[42px] z-40 border-b border-black/10 bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-5 py-4 sm:px-8 lg:px-12">
         <Link href="/gbhalesowen" aria-label="Gracie Barra Halesowen home">
           <GBLogo />
