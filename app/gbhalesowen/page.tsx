@@ -188,7 +188,7 @@ export default function GBHalesowenPage() {
               Build confidence. Get fit. Learn self-defence. Join a supportive team that feels like family.
             </p>
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-              <PrimaryButton href="/gbhalesowen#contact">Book a free intro</PrimaryButton>
+              <PrimaryButton href="https://cal.com/adxengine/free-intro?theme=light">Book a free intro</PrimaryButton>
               <SecondaryButton href="/gbhalesowen/timetable">View timetable</SecondaryButton>
             </div>
           </div>
@@ -524,9 +524,12 @@ export default function GBHalesowenPage() {
                   </p>
                 </div>
                 <a
-                  href="mailto:info@graciebarrahalesowen.com?subject=Free%20intro%20class%20request"
-                  className="inline-flex items-center justify-center bg-[#C8102E] px-8 py-4 text-sm font-extrabold uppercase tracking-[0.06em] text-white transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-[#A90E27] active:translate-y-0"
+                  href="https://cal.com/adxengine/free-intro?theme=light"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 bg-white px-8 py-4 text-sm font-extrabold uppercase tracking-[0.06em] text-[#002F86] transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-gray-100 active:translate-y-0"
                 >
+                  <CalendarDays className="size-4" />
                   Book now
                 </a>
               </div>
