@@ -30,17 +30,23 @@ async function cropImage(inputPath, outputPath) {
   let cropWidth, cropHeight, left, top
 
   if (sourceRatio > targetRatio) {
-    // Source is wider than 4:5 — crop sides, keep full height
+    // Source is wider than 4:5 — crop sides, center horizontally and vertically
     cropHeight = height
     cropWidth = Math.round(height * targetRatio)
     left = Math.round((width - cropWidth) / 2)
     top = 0
   } else {
-    // Source is taller than 4:5 — crop bottom, keep full width
+    // Source is taller than 4:5 — crop vertically, keep full width
     cropWidth = width
     cropHeight = Math.round(width / targetRatio)
     left = 0
-    top = 0 // crop from top
+    // For very tall page screenshots (ratio <= 0.5), crop from top
+    // For squarer images, center the crop vertically
+    if (sourceRatio <= 0.5) {
+      top = 0
+    } else {
+      top = Math.round((height - cropHeight) / 2)
+    }
   }
 
   await sharp(inputPath)

@@ -20,7 +20,7 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   title: "Sorted. Good online work. Without agency prices.",
   description:
-    "Websites, design, ads and small digital jobs for UK businesses, done properly.",
+    "Websites, design, ads and small digital jobs for businesses, done properly.",
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sorted. Good online work. Without agency prices.",
     description:
-      "Websites, design, ads and small digital jobs for UK businesses, done properly.",
+      "Websites, design, ads and small digital jobs for businesses, done properly.",
     locale: "en_GB",
   },
 }

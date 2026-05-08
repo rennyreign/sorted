@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
+import { createPortal } from "react-dom"
 
 interface Example {
   id: number
@@ -14,11 +15,11 @@ interface Example {
 const examples: Example[] = [
   {
     id: 1,
-    title: "Ad platform website",
+    title: "AI services company website",
     client: "ADX Engine",
     type: "Website",
     img: "/examples/adxengine.jpg",
-    description: "Full marketing site for an ad-tech platform. Hero, features, pricing, and CTA sections. Delivered in 48 hours.",
+    description: "Full marketing site for an AI services company. Hero, features, pricing, and CTA sections. Delivered in 48 hours.",
   },
   {
     id: 2,
@@ -30,19 +31,11 @@ const examples: Example[] = [
   },
   {
     id: 3,
-    title: "Ad variant set",
-    client: "ADX Engine",
+    title: "Healthcare ad campaign",
+    client: "Michigan State University",
     type: "Social ads",
-    img: "/examples/adxengine-ad2.jpg",
-    description: "Second variant in an A/B split test campaign. Different hook, same brand consistency.",
-  },
-  {
-    id: 4,
-    title: "Retargeting creative",
-    client: "ADX Engine",
-    type: "Social ads",
-    img: "/examples/adxengine-ad3.jpg",
-    description: "Retargeting ad for warm audiences. Social proof and urgency-driven copy.",
+    img: "/examples/msu-healthcare.jpg",
+    description: "Digital ad for a university healthcare programme. Clean layout, strong CTA, professional tone.",
   },
   {
     id: 5,
@@ -54,11 +47,11 @@ const examples: Example[] = [
   },
   {
     id: 6,
-    title: "Capability tracker app",
-    client: "Internal Tool",
-    type: "Landing page",
+    title: "Children's capability tracking platform",
+    client: "Capability Tracker",
+    type: "Platform",
     img: "/examples/capabaility-tracker.jpg",
-    description: "Dashboard UI for tracking team capabilities and skill progression. Clean data presentation.",
+    description: "Platform for tracking children's capabilities and developmental milestones. Clean, intuitive dashboard.",
   },
   {
     id: 7,
@@ -70,43 +63,51 @@ const examples: Example[] = [
   },
   {
     id: 8,
-    title: "University department site",
+    title: "University advertising campaign",
     client: "Emory University",
-    type: "Website",
+    type: "Social ads",
     img: "/examples/emory-university.jpg",
-    description: "Academic department landing page with programme info, faculty, and application CTAs.",
+    description: "Recruitment ad creative for a top university. Eye-catching visuals with clear enrolment CTA.",
   },
   {
     id: 9,
-    title: "E-commerce storefront",
+    title: "Personality type platform",
     client: "Kyntra",
     type: "Website",
     img: "/examples/kyntra.jpg",
-    description: "Modern e-commerce layout with product grid, filtering, and checkout flow. Mobile-first.",
+    description: "Interactive personality type platform with quiz flow, results pages, and sharing. Mobile-first.",
   },
   {
     id: 10,
-    title: "Supply chain portal",
-    client: "MSU SCM",
-    type: "Website",
+    title: "University advertising campaign",
+    client: "Michigan State University",
+    type: "Social ads",
     img: "/examples/msu-scm1.jpg",
-    description: "Information hub for a supply chain management programme. Events, news, and resource library.",
+    description: "Recruitment ad for a supply chain management programme. Bold visuals, clear value prop.",
   },
   {
     id: 11,
-    title: "Event venue website",
-    client: "Palace Barns",
+    title: "Property portfolio website",
+    client: "Palace & Barns",
     type: "Website",
     img: "/examples/palacebarns.jpg",
-    description: "Wedding and event venue site with gallery, packages, and enquiry form. Elegant and fast.",
+    description: "Luxury property portfolio site with listings, gallery, and enquiry form. Elegant and fast.",
   },
   {
     id: 12,
     title: "University ad creative",
-    client: "USF",
+    client: "University of South Florida",
     type: "Social ads",
     img: "/examples/usf-ad.jpg",
     description: "Digital ad for university recruitment campaign. Eye-catching design with clear enrolment CTA.",
+  },
+  {
+    id: 13,
+    title: "BJJ gym website",
+    client: "Gracie Barra Halesowen",
+    type: "Website",
+    img: "/examples/graciebarra-halesowen.jpg",
+    description: "Full website for a Brazilian Jiu-Jitsu gym. Timetable, programmes, gallery, and sign-up flow.",
   },
 ]
 
@@ -115,6 +116,7 @@ const typeColour: Record<string, string> = {
   "Landing page": "bg-violet-50 text-violet-700",
   "Logo & brand": "bg-amber-50 text-amber-700",
   "Social ads": "bg-green-50 text-green-700",
+  "Platform": "bg-teal-50 text-teal-700",
   "Google profile": "bg-orange-50 text-orange-700",
   "Print & flyer": "bg-rose-50 text-rose-700",
 }
@@ -172,56 +174,30 @@ export default function ExamplesGrid() {
         ))}
       </div>
 
-      {selected && (
+      {selected && createPortal(
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-8 bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8 bg-black/80 backdrop-blur-sm cursor-pointer"
           onClick={close}
         >
-          <div
-            className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-white rounded-2xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.2)]"
-            onClick={(e) => e.stopPropagation()}
+          <button
+            onClick={close}
+            className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors duration-200"
+            aria-label="Close"
           >
-            <button
-              onClick={close}
-              className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-black/10 hover:bg-black/20 flex items-center justify-center transition-colors duration-200"
-              aria-label="Close"
-            >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M1 1L11 11M11 1L1 11" stroke="black" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
-            </button>
+            <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
+              <path d="M1 1L11 11M11 1L1 11" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          </button>
 
-            <div className="aspect-[4/5] overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={selected.img} alt={selected.title} className="w-full h-full object-cover" />
-            </div>
-
-            <div className="p-6 sm:p-8">
-              <span className={`inline-block font-mono text-[10px] uppercase tracking-[0.15em] font-medium px-2 py-0.5 rounded-full mb-4 ${typeColour[selected.type] ?? "bg-black/5 text-black/60"}`}>
-                {selected.type}
-              </span>
-              <h3 className="font-sans font-extrabold text-[#0A0A0A] text-2xl tracking-tight leading-tight mb-1">
-                {selected.title}
-              </h3>
-              <p className="font-sans text-sm text-[#A3A3A3] mb-4">{selected.client}</p>
-              <p className="font-sans text-base text-[#525252] leading-relaxed mb-6">
-                {selected.description}
-              </p>
-              <a
-                href="/#get-started"
-                onClick={close}
-                className="group inline-flex items-center gap-3 bg-[#0A0A0A] text-white font-semibold text-sm rounded-full px-6 py-3 hover:bg-[#2a2a2a] transition-all duration-300"
-              >
-                Get something like this
-                <span className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                    <path d="M2 8L8 2M8 2H4M8 2V6" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={selected.img}
+            alt={selected.title}
+            className="max-w-full max-h-[90vh] rounded-xl shadow-[0_32px_80px_rgba(0,0,0,0.4)] object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>,
+        document.body
       )}
     </>
   )

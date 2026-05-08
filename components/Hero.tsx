@@ -4,7 +4,7 @@ export default function Hero() {
 
       <div className="mb-8">
         <span className="inline-flex items-center gap-2 rounded-full border border-black/20 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.15em] text-[#404040] font-medium">
-          UK digital production
+          Digital production
         </span>
       </div>
 
@@ -16,7 +16,7 @@ export default function Hero() {
 
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 border-t border-black/10 pt-8">
         <p className="text-[#525252] text-lg font-medium leading-relaxed max-w-md">
-          Websites, design, ads and digital fixes for UK businesses – priced today, built in 48 hours.
+          Websites, design, ads and digital fixes for businesses – priced today, built in 48 hours.
         </p>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">

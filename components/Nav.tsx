@@ -45,14 +45,14 @@ export default function Nav() {
             )}
           </div>
           <a href="/#get-started" className="text-xs font-semibold text-[#FAFAFA] bg-[#0A0A0A] rounded-full px-4 py-2 hover:bg-[#2a2a2a] transition-colors duration-200">
-            Get started
+            Get sorted
           </a>
         </nav>
 
         {/* Mobile controls */}
         <div className="pointer-events-auto flex md:hidden items-center gap-2.5">
           <a href="/#get-started" onClick={() => setOpen(false)} className="text-xs font-semibold text-[#FAFAFA] bg-[#0A0A0A] rounded-full px-4 py-2">
-            Get started
+            Get sorted
           </a>
           <button
             type="button"
@@ -93,7 +93,7 @@ export default function Nav() {
             onClick={() => setOpen(false)}
             className="mt-8 block w-full text-center font-semibold text-sm text-white bg-[#0A0A0A] rounded-full py-4 hover:bg-[#2a2a2a] transition-colors duration-200"
           >
-            Get started
+            Get sorted
           </a>
         </div>
       )}
