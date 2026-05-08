@@ -119,7 +119,7 @@ export default function GalleryPage() {
           </p>
           <div className="flex items-center gap-3">
             <a 
-              href="https://instagram.com" 
+              href="https://www.instagram.com/graciebarrahalesowen/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 px-5 py-2.5 text-sm font-bold text-white transition-transform hover:scale-105"
@@ -128,7 +128,7 @@ export default function GalleryPage() {
               @gbhalesowen
             </a>
             <a 
-              href="https://facebook.com" 
+              href="https://www.facebook.com/GracieBarraHalesowen/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 rounded-full bg-[#1877F2] px-5 py-2.5 text-sm font-bold text-white transition-transform hover:scale-105"
@@ -154,7 +154,7 @@ export default function GalleryPage() {
               </div>
             </div>
             <a 
-              href="https://instagram.com" 
+              href="https://www.instagram.com/graciebarrahalesowen/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="hidden items-center gap-1 text-sm font-bold text-[#C8102E] hover:underline sm:flex"
@@ -193,7 +193,7 @@ export default function GalleryPage() {
 
           <div className="mt-6 text-center sm:hidden">
             <a 
-              href="https://instagram.com" 
+              href="https://www.instagram.com/graciebarrahalesowen/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-sm font-bold text-[#C8102E] hover:underline"
@@ -278,7 +278,7 @@ export default function GalleryPage() {
               
               <div className="mt-6 flex flex-col gap-4 sm:flex-row">
                 <a 
-                  href="https://facebook.com" 
+                  href="https://www.facebook.com/GracieBarraHalesowen/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="group inline-flex items-center justify-center gap-2 bg-[#1877F2] px-6 py-4 text-sm font-extrabold uppercase tracking-[0.05em] text-white transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-[#166fe5] active:translate-y-0"
@@ -340,7 +340,7 @@ export default function GalleryPage() {
           </p>
           <div className="mt-6 flex justify-center gap-3">
             <a 
-              href="https://instagram.com" 
+              href="https://www.instagram.com/graciebarrahalesowen/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="grid size-10 place-items-center rounded-full bg-white text-[#C8102E] transition-transform hover:scale-110"
@@ -348,7 +348,7 @@ export default function GalleryPage() {
               <Instagram className="size-5" />
             </a>
             <a 
-              href="https://facebook.com" 
+              href="https://www.facebook.com/GracieBarraHalesowen/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="grid size-10 place-items-center rounded-full bg-white text-[#C8102E] transition-transform hover:scale-110"

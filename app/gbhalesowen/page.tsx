@@ -213,23 +213,23 @@ export default function GBHalesowenPage() {
                 <Link
                   key={program.title}
                   href={`/gbhalesowen/programs/${program.title.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="group overflow-hidden border border-black/10 bg-white shadow-[0_18px_45px_rgba(0,47,134,0.10)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#C8102E]/35 hover:shadow-[0_24px_60px_rgba(0,47,134,0.16)]"
+                  className="group border border-black/10 bg-white shadow-[0_18px_45px_rgba(0,47,134,0.10)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#C8102E]/35 hover:shadow-[0_24px_60px_rgba(0,47,134,0.16)]"
                 >
                   <div className="relative aspect-[1.35] overflow-hidden bg-[#E8EDF7]">
                     <img
                       src={program.image}
                       alt={`${program.title} training at Gracie Barra Halesowen`}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"
                     />
-                    {/* Icon positioned to overlap image and content area */}
-                    <div
-                      className="absolute -bottom-7 left-1/2 z-50 grid size-14 -translate-x-1/2 place-items-center rounded-full border-4 border-white text-white shadow-[0_8px_20px_rgba(0,0,0,0.25)]"
-                      style={{ backgroundColor: program.accent }}
-                    >
-                      <Icon className="size-7" strokeWidth={2} />
-                    </div>
                   </div>
-                  <div className="px-6 pb-7 pt-12 text-center">
+                  {/* Icon positioned to overlap image and content area */}
+                  <div
+                    className="relative -top-7 mx-auto grid size-14 place-items-center rounded-full border-4 border-white text-white shadow-[0_8px_20px_rgba(0,0,0,0.25)]"
+                    style={{ backgroundColor: program.accent }}
+                  >
+                    <Icon className="size-7" strokeWidth={2} />
+                  </div>
+                  <div className="px-6 pb-7 pt-5 text-center">
                     <h3 className="text-lg font-extrabold uppercase tracking-[0.04em] text-[#002F86]">
                       {program.title}
                     </h3>

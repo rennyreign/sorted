@@ -78,10 +78,10 @@ export default function GBLayout({
             </a>
             <span className="hidden h-4 w-px bg-white/30 sm:block" />
             <span className="flex items-center gap-2" aria-label="Social links">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-80">
+              <a href="https://www.facebook.com/GracieBarraHalesowen/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80">
                 <Facebook className="size-4" strokeWidth={2.2} />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-80">
+              <a href="https://www.instagram.com/graciebarrahalesowen/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80">
                 <Instagram className="size-4" strokeWidth={2.2} />
               </a>
             </span>
@@ -167,7 +167,7 @@ export default function GBLayout({
             </p>
             <div className="mt-5 flex gap-3">
               <a 
-                href="https://facebook.com" 
+                href="https://www.facebook.com/GracieBarraHalesowen/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="grid size-10 place-items-center rounded-full bg-white text-[#002766] transition-transform hover:scale-110" 
@@ -176,7 +176,7 @@ export default function GBLayout({
                 <Facebook className="size-5" strokeWidth={2.1} />
               </a>
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/graciebarrahalesowen/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="grid size-10 place-items-center rounded-full bg-white text-[#002766] transition-transform hover:scale-110" 

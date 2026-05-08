@@ -328,9 +328,9 @@ export default function TimetablePage() {
               <p className="font-bold text-[#002F86]">Timetable Updates</p>
               <p className="mt-1 text-sm text-[#4B5563]">
                 Class times may change during holidays or special events. Follow us on 
-                <a href="#" className="mx-1 text-[#C8102E] hover:underline">Facebook</a> 
+                <a href="https://www.facebook.com/GracieBarraHalesowen/" target="_blank" rel="noopener noreferrer" className="mx-1 text-[#C8102E] hover:underline">Facebook</a> 
                 or 
-                <a href="#" className="mx-1 text-[#C8102E] hover:underline">Instagram</a> 
+                <a href="https://www.instagram.com/graciebarrahalesowen/" target="_blank" rel="noopener noreferrer" className="mx-1 text-[#C8102E] hover:underline">Instagram</a> 
                 for real-time updates, or call ahead to confirm.
               </p>
             </div>
