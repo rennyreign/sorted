@@ -54,14 +54,14 @@ export default function HowItWorks() {
                   Our guarantee
                 </span>
                 <h3 className="font-sans font-extrabold text-white text-2xl leading-tight tracking-tight mb-3">
-                  You get 3 versions. If we still can&apos;t nail it, full refund.
+                  You only pay when you&apos;re happy.
                 </h3>
                 <p className="text-[#737373] text-sm leading-relaxed max-w-xl">
-                  We&apos;ll give you up to 3 rounds of the work. If after that we genuinely can&apos;t agree on something you&apos;re happy with, we&apos;ll give you your money back and part ways, no hard feelings. At these prices, we can&apos;t do open-ended revisions. But we&apos;re not in the business of taking money for work you don&apos;t want either.
+                  We build it first, you pay on delivery. If what we create doesn&apos;t meet what you want, you don&apos;t pay for it. Simple as that. No deposits, no commitments, no awkward conversations.
                 </p>
               </div>
               <div className="shrink-0 flex flex-col gap-3 sm:text-right">
-                {["3 versions included", "Full refund if not right", "No questions asked"].map((point) => (
+                {["Pay on delivery", "No upfront deposits", "Don't like it, don't pay"].map((point) => (
                   <div key={point} className="flex sm:justify-end items-center gap-2">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 text-white/40">
                       <path d="M2.5 7.5L5.5 10.5L11.5 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
