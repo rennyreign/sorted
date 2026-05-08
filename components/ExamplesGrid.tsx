@@ -14,99 +14,99 @@ interface Example {
 const examples: Example[] = [
   {
     id: 1,
-    title: "Local plumber website",
-    client: "Bradshaw Plumbing",
+    title: "Ad platform website",
+    client: "ADX Engine",
     type: "Website",
-    img: "https://picsum.photos/seed/sorted01/800/560",
-    description: "One-page site with contact form, service list, and Google Maps embed. Done in 36 hours.",
+    img: "/examples/adxengine.jpg",
+    description: "Full marketing site for an ad-tech platform. Hero, features, pricing, and CTA sections. Delivered in 48 hours.",
   },
   {
     id: 2,
-    title: "Restaurant landing page",
-    client: "The Yard Kitchen",
-    type: "Landing page",
-    img: "https://picsum.photos/seed/sorted02/800/560",
-    description: "Menu showcase, booking link, and Instagram feed integration. Clean and mobile-first.",
+    title: "Facebook ad campaign",
+    client: "ADX Engine",
+    type: "Social ads",
+    img: "/examples/adxengine-ad.jpg",
+    description: "High-converting ad creative for paid social. Bold visuals, clear value prop, direct CTA.",
   },
   {
     id: 3,
-    title: "Hair salon rebrand",
-    client: "Studio Noire",
-    type: "Logo & brand",
-    img: "https://picsum.photos/seed/sorted03/800/560",
-    description: "New logo, colour palette, and social media template set. Delivered same day.",
+    title: "Ad variant set",
+    client: "ADX Engine",
+    type: "Social ads",
+    img: "/examples/adxengine-ad2.jpg",
+    description: "Second variant in an A/B split test campaign. Different hook, same brand consistency.",
   },
   {
     id: 4,
-    title: "Facebook ad campaign",
-    client: "Midlands Fencing Co.",
+    title: "Retargeting creative",
+    client: "ADX Engine",
     type: "Social ads",
-    img: "https://picsum.photos/seed/sorted04/800/560",
-    description: "3 ad variants for a local fencing company. Targeted 25-mile radius, 4x ROAS.",
+    img: "/examples/adxengine-ad3.jpg",
+    description: "Retargeting ad for warm audiences. Social proof and urgency-driven copy.",
   },
   {
     id: 5,
-    title: "Electrician Google profile",
-    client: "Spark & Sons",
-    type: "Google profile",
-    img: "https://picsum.photos/seed/sorted05/800/560",
-    description: "Optimised Google Business profile, photos, and review strategy. 3x more calls in 2 weeks.",
+    title: "Healthcare clinic flow",
+    client: "Clinic Flow",
+    type: "Website",
+    img: "/examples/clinic-flow.jpg",
+    description: "Patient booking system with service pages, doctor profiles, and integrated scheduling.",
   },
   {
     id: 6,
-    title: "Gym membership page",
-    client: "Ironworks Leeds",
+    title: "Capability tracker app",
+    client: "Internal Tool",
     type: "Landing page",
-    img: "https://picsum.photos/seed/sorted06/800/560",
-    description: "High-converting sign-up page with pricing table, FAQs, and payment integration.",
+    img: "/examples/capabaility-tracker.jpg",
+    description: "Dashboard UI for tracking team capabilities and skill progression. Clean data presentation.",
   },
   {
     id: 7,
-    title: "Florist Instagram pack",
-    client: "Bloom & Co.",
-    type: "Social ads",
-    img: "https://picsum.photos/seed/sorted07/800/560",
-    description: "10-post content pack, story templates, and highlight covers. Ready to post.",
+    title: "Health & wellness platform",
+    client: "Clario",
+    type: "Website",
+    img: "/examples/clario.jpg",
+    description: "Multi-page site for a clinical research platform. Professional, trustworthy, conversion-focused.",
   },
   {
     id: 8,
-    title: "Accountancy firm website",
-    client: "Heaton & Partners",
+    title: "University department site",
+    client: "Emory University",
     type: "Website",
-    img: "https://picsum.photos/seed/sorted08/800/560",
-    description: "Professional 4-page site with services, team profiles, and contact. Built in 48 hours.",
+    img: "/examples/emory-university.jpg",
+    description: "Academic department landing page with programme info, faculty, and application CTAs.",
   },
   {
     id: 9,
-    title: "Estate agent logo",
-    client: "Harrow & Green",
-    type: "Logo & brand",
-    img: "https://picsum.photos/seed/sorted09/800/560",
-    description: "Mark, wordmark, and business card design. Clean and timeless.",
+    title: "E-commerce storefront",
+    client: "Kyntra",
+    type: "Website",
+    img: "/examples/kyntra.jpg",
+    description: "Modern e-commerce layout with product grid, filtering, and checkout flow. Mobile-first.",
   },
   {
     id: 10,
-    title: "Café menu flyer",
-    client: "The Morning Press",
-    type: "Print & flyer",
-    img: "https://picsum.photos/seed/sorted10/800/560",
-    description: "Double-sided A5 menu flyer, print-ready PDF. Turnaround: same day.",
+    title: "Supply chain portal",
+    client: "MSU SCM",
+    type: "Website",
+    img: "/examples/msu-scm1.jpg",
+    description: "Information hub for a supply chain management programme. Events, news, and resource library.",
   },
   {
     id: 11,
-    title: "TikTok ad creative",
-    client: "Skin by Layla",
-    type: "Social ads",
-    img: "https://picsum.photos/seed/sorted11/800/560",
-    description: "Short-form video script, captions, and still creative for a skincare brand launch.",
+    title: "Event venue website",
+    client: "Palace Barns",
+    type: "Website",
+    img: "/examples/palacebarns.jpg",
+    description: "Wedding and event venue site with gallery, packages, and enquiry form. Elegant and fast.",
   },
   {
     id: 12,
-    title: "Cleaning company site",
-    client: "Bright & Tidy",
-    type: "Website",
-    img: "https://picsum.photos/seed/sorted12/800/560",
-    description: "Quote request form, before/after gallery, and local SEO setup. Live in 48 hours.",
+    title: "University ad creative",
+    client: "USF",
+    type: "Social ads",
+    img: "/examples/usf-ad.jpg",
+    description: "Digital ad for university recruitment campaign. Eye-catching design with clear enrolment CTA.",
   },
 ]
 
@@ -147,7 +147,7 @@ export default function ExamplesGrid() {
             onClick={() => setSelected(ex)}
             className="group text-left rounded-2xl overflow-hidden border border-black/[0.06] bg-white hover:border-black/20 hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
           >
-            <div className="relative overflow-hidden aspect-[4/3]">
+            <div className="relative overflow-hidden aspect-[4/5]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={ex.img}
@@ -178,7 +178,7 @@ export default function ExamplesGrid() {
           onClick={close}
         >
           <div
-            className="relative w-full max-w-2xl bg-white rounded-2xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.2)]"
+            className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-white rounded-2xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.2)]"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -191,7 +191,7 @@ export default function ExamplesGrid() {
               </svg>
             </button>
 
-            <div className="aspect-[16/10] overflow-hidden">
+            <div className="aspect-[4/5] overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={selected.img} alt={selected.title} className="w-full h-full object-cover" />
             </div>
