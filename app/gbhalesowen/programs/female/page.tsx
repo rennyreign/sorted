@@ -30,11 +30,11 @@ export default function FemalePage() {
     <>
       {/* Hero */}
       <section className="relative isolate overflow-hidden bg-[#D85B94]">
-        <img src="gbhalesowen/girls-bjj.jpg" alt="Female training" className="absolute inset-0 h-full w-full object-cover opacity-40" />
+        <img src="girls-bjj.jpg" alt="Female training" className="absolute inset-0 h-full w-full object-cover opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#D85B94]/95 to-[#D85B94]/70" />
         <div className="relative mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12">
           <div className="flex items-center gap-2 text-sm font-semibold text-white/80">
-            <Link href="gbhalesowen/programs" className="hover:text-white">Programs</Link>
+            <Link href="programs" className="hover:text-white">Programs</Link>
             <ChevronRight className="size-4" />
             <span className="text-white">Female</span>
           </div>

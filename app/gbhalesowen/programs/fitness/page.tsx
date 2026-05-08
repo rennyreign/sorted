@@ -39,11 +39,11 @@ export default function FitnessPage() {
     <>
       {/* Hero */}
       <section className="relative isolate overflow-hidden bg-[#22C55E]">
-        <img src="gbhalesowen/functional-fitness_1.jpg" alt="Functional fitness" className="absolute inset-0 h-full w-full object-cover opacity-40" />
+        <img src="functional-fitness_1.jpg" alt="Functional fitness" className="absolute inset-0 h-full w-full object-cover opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#22C55E]/95 to-[#22C55E]/70" />
         <div className="relative mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12">
           <div className="flex items-center gap-2 text-sm font-semibold text-white/80">
-            <Link href="gbhalesowen/programs" className="hover:text-white">Programs</Link>
+            <Link href="programs" className="hover:text-white">Programs</Link>
             <ChevronRight className="size-4" />
             <span className="text-white">Fitness</span>
           </div>
@@ -80,10 +80,10 @@ export default function FitnessPage() {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <img src="gbhalesowen/functional-fitness_2.jpg" alt="Gym" className="aspect-square rounded-lg object-cover" />
-              <img src="gbhalesowen/functional-fitness_3.jpg" alt="Equipment" className="aspect-square rounded-lg object-cover" />
-              <img src="gbhalesowen/functional-fitness_5.jpg" alt="Weights" className="aspect-square rounded-lg object-cover" />
-              <img src="gbhalesowen/functional-fitness_6.jpg" alt="Training" className="aspect-square rounded-lg object-cover" />
+              <img src="functional-fitness_2.jpg" alt="Gym" className="aspect-square rounded-lg object-cover" />
+              <img src="functional-fitness_3.jpg" alt="Equipment" className="aspect-square rounded-lg object-cover" />
+              <img src="functional-fitness_5.jpg" alt="Weights" className="aspect-square rounded-lg object-cover" />
+              <img src="functional-fitness_6.jpg" alt="Training" className="aspect-square rounded-lg object-cover" />
             </div>
           </div>
         </div>

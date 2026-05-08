@@ -6,10 +6,10 @@ import { Menu, X } from "lucide-react"
 
 const navLinks = [
   { label: "Home", href: "/gbhalesowen" },
-  { label: "Programs", href: "gbhalesowen/programs" },
-  { label: "Timetable", href: "gbhalesowen/timetable" },
-  { label: "About", href: "gbhalesowen/about" },
-  { label: "Gallery", href: "gbhalesowen/gallery" },
+  { label: "Programs", href: "programs" },
+  { label: "Timetable", href: "timetable" },
+  { label: "About", href: "about" },
+  { label: "Gallery", href: "gallery" },
   { label: "Contact", href: "/gbhalesowen#contact" },
 ]
 
@@ -17,7 +17,7 @@ function GBLogo({ compact = false }: { compact?: boolean }) {
   return (
     <div className="flex items-center gap-3">
       <img
-        src="gbhalesowen/gbhalesowen-logo.png"
+        src="gbhalesowen-logo.png"
         alt="Gracie Barra Halesowen"
         className="size-14 shrink-0 rounded-full border-[3px] border-[#D9DDE7] bg-white object-cover shadow-[0_12px_30px_rgba(0,47,134,0.16)]"
       />

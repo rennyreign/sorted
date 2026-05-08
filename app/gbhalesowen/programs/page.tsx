@@ -13,7 +13,7 @@ const programs = [
     title: "Fundamentals",
     subtitle: "Beginner-Friendly Classes",
     description: "Beginner-friendly classes that build the core movements, positions and confidence to train safely. Perfect for first-timers and those returning to training.",
-    image: "gbhalesowen/gi-bjj.jpg",
+    image: "gi-bjj.jpg",
     icon: GraduationCap,
     accent: "#3158A7",
     features: [
@@ -30,7 +30,7 @@ const programs = [
     title: "Advanced",
     subtitle: "GB2 & Competition Team",
     description: "Sharper rounds, technical detail and live training for students ready to push their Jiu-Jitsu further. For blue belts and above, or by instructor invitation.",
-    image: "gbhalesowen/daytime-warriors.jpg",
+    image: "daytime-warriors.jpg",
     icon: Medal,
     accent: "#7647B9",
     features: [
@@ -47,7 +47,7 @@ const programs = [
     title: "Kids Classes",
     subtitle: "Ages 4-14 Years",
     description: "Structured sessions for ages 4+ focused on confidence, discipline, movement and respect. A fun, positive environment where children develop lifelong skills.",
-    image: "gbhalesowen/kids-jits.jpg",
+    image: "kids-jits.jpg",
     icon: Users,
     accent: "#168CC9",
     features: [
@@ -64,7 +64,7 @@ const programs = [
     title: "Female Training",
     subtitle: "Women-Only Sessions",
     description: "A supportive training environment for women learning Jiu-Jitsu, fitness and practical self-defence. Empower yourself in a comfortable, confidence-building setting.",
-    image: "gbhalesowen/girls-bjj.jpg",
+    image: "girls-bjj.jpg",
     icon: Venus,
     accent: "#D85B94",
     features: [
@@ -81,7 +81,7 @@ const programs = [
     title: "Barbell / Fitness",
     subtitle: "Strength & Conditioning",
     description: "Strength and conditioning support to improve performance, resilience and all-round wellbeing. Fully equipped gym open to all academy members.",
-    image: "gbhalesowen/functional-fitness_1.jpg",
+    image: "functional-fitness_1.jpg",
     icon: Dumbbell,
     accent: "#22C55E",
     features: [
@@ -101,7 +101,7 @@ export default function ProgramsPage() {
       {/* Hero Section */}
       <section className="relative isolate overflow-hidden bg-[#001D58]">
         <img
-          src="gbhalesowen/gi-bjj.jpg"
+          src="gi-bjj.jpg"
           alt="Programs at Gracie Barra Halesowen"
           className="absolute inset-0 h-full w-full object-cover opacity-30"
         />
@@ -219,7 +219,7 @@ export default function ProgramsPage() {
               
               <div className="mt-6 flex flex-col gap-4 sm:flex-row">
                 <Link
-                  href="gbhalesowen/timetable"
+                  href="timetable"
                   className="group inline-flex items-center justify-center gap-2 bg-[#C8102E] px-6 py-4 text-sm font-extrabold uppercase tracking-[0.05em] text-white transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-[#A90E27] active:translate-y-0"
                 >
                   View timetable

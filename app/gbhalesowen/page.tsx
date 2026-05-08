@@ -29,35 +29,35 @@ const programs = [
   {
     title: "Fundamentals",
     text: "Beginner-friendly classes that build the core movements, positions and confidence to train safely.",
-    image: "gbhalesowen/gi-bjj.jpg",
+    image: "gi-bjj.jpg",
     icon: GraduationCap,
     accent: "#3158A7",
   },
   {
     title: "Advanced",
     text: "Sharper rounds, technical detail and live training for students ready to push their Jiu-Jitsu further.",
-    image: "gbhalesowen/daytime-warriors.jpg",
+    image: "daytime-warriors.jpg",
     icon: Medal,
     accent: "#7647B9",
   },
   {
     title: "Kids Classes",
     text: "Structured sessions for ages 4+ focused on confidence, discipline, movement and respect.",
-    image: "gbhalesowen/kids-jits.jpg",
+    image: "kids-jits.jpg",
     icon: Users,
     accent: "#168CC9",
   },
   {
     title: "Female Training",
     text: "A supportive training environment for women learning Jiu-Jitsu, fitness and practical self-defence.",
-    image: "gbhalesowen/girls-bjj.jpg",
+    image: "girls-bjj.jpg",
     icon: Venus,
     accent: "#D85B94",
   },
   {
     title: "Barbell / Fitness",
     text: "Strength and conditioning support to improve performance, resilience and all-round wellbeing.",
-    image: "gbhalesowen/functional-fitness_1.jpg",
+    image: "functional-fitness_1.jpg",
     icon: Dumbbell,
     accent: "#D1414C",
   },
@@ -168,7 +168,7 @@ export default function GBHalesowenPage() {
       {/* Hero Section - Flipped horizontally with instructor visible */}
       <section className="relative isolate min-h-[calc(100dvh-80px)] overflow-hidden bg-[#001D58]">
         <img
-          src="gbhalesowen/gi-bjj.jpg"
+          src="gi-bjj.jpg"
           alt="Gracie Barra Halesowen adult students with instructor"
           className="absolute inset-0 h-full w-full object-cover object-center scale-x-[-1] md:object-[60%_center] lg:object-[70%_center]"
         />
@@ -189,7 +189,7 @@ export default function GBHalesowenPage() {
             </p>
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <PrimaryButton href="https://cal.com/adxengine/free-intro?theme=light">Book a free intro</PrimaryButton>
-              <SecondaryButton href="gbhalesowen/timetable">View timetable</SecondaryButton>
+              <SecondaryButton href="timetable">View timetable</SecondaryButton>
             </div>
           </div>
         </div>
@@ -282,7 +282,7 @@ export default function GBHalesowenPage() {
       {/* Kids Feature Section */}
       <section className="relative isolate overflow-hidden bg-[#F4F7FC] px-5 py-24 sm:px-8 lg:px-12">
         <img
-          src="gbhalesowen/kids-jits.jpg"
+          src="kids-jits.jpg"
           alt="Kids Jiu-Jitsu students at Gracie Barra Halesowen"
           className="absolute inset-y-0 right-0 h-full w-full object-cover object-center lg:w-[64%]"
         />
@@ -298,7 +298,7 @@ export default function GBHalesowenPage() {
               Our kids programme combines Jiu-Jitsu, character development and real-life skills in a fun, positive environment.
             </p>
             <div className="mt-8">
-              <PrimaryButton href="gbhalesowen/programs/kids">View kids program</PrimaryButton>
+              <PrimaryButton href="programs/kids">View kids program</PrimaryButton>
             </div>
           </div>
         </div>
@@ -309,7 +309,7 @@ export default function GBHalesowenPage() {
         <div className="mx-auto grid max-w-[1320px] items-center gap-10 lg:grid-cols-[0.96fr_1fr]">
           <div className="relative overflow-hidden border border-black/10 bg-[#E9EEF7] shadow-[0_24px_70px_rgba(0,47,134,0.13)]">
             <img
-              src="gbhalesowen/daytime-warriors.jpg"
+              src="daytime-warriors.jpg"
               alt="Gracie Barra Halesowen academy team in the training room"
               className="aspect-[1.22] h-full w-full object-cover"
             />
@@ -347,7 +347,7 @@ export default function GBHalesowenPage() {
 
             <div className="mt-9">
               <Link
-                href="gbhalesowen/about"
+                href="about"
                 className="group inline-flex items-center justify-center gap-2 bg-[#C8102E] px-6 py-4 text-sm font-extrabold uppercase tracking-[0.05em] text-white shadow-[0_16px_30px_rgba(200,16,46,0.25)] transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-[#A90E27] hover:shadow-[0_20px_40px_rgba(200,16,46,0.32)] active:translate-y-0"
               >
                 Learn more about us
@@ -372,7 +372,7 @@ export default function GBHalesowenPage() {
               </p>
               <div className="mt-6">
                 <Link
-                  href="gbhalesowen/timetable"
+                  href="timetable"
                   className="group inline-flex items-center gap-2 text-sm font-extrabold uppercase tracking-[0.05em] text-[#C8102E] transition-colors hover:text-[#002F86]"
                 >
                   View full timetable

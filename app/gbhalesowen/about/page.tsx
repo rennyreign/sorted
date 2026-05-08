@@ -45,7 +45,7 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="relative isolate overflow-hidden bg-[#001D58]">
         <img
-          src="gbhalesowen/daytime-warriors.jpg"
+          src="daytime-warriors.jpg"
           alt="Gracie Barra Halesowen team training"
           className="absolute inset-0 h-full w-full object-cover opacity-40"
         />
@@ -103,7 +103,7 @@ export default function AboutPage() {
             <div className="relative">
               <div className="relative overflow-hidden border border-black/10 shadow-[0_24px_70px_rgba(0,47,134,0.13)]">
                 <img
-                  src="gbhalesowen/gi-bjj.jpg"
+                  src="gi-bjj.jpg"
                   alt="Gracie Barra lineage and tradition"
                   className="aspect-[4/3] w-full object-cover"
                 />
@@ -168,7 +168,7 @@ export default function AboutPage() {
             <div className="order-2 lg:order-1">
               <div className="relative overflow-hidden border border-black/10 shadow-[0_24px_70px_rgba(0,47,134,0.13)]">
                 <img
-                  src="gbhalesowen/kids-jits.jpg"
+                  src="kids-jits.jpg"
                   alt="Kids training at Gracie Barra Halesowen"
                   className="aspect-[4/3] w-full object-cover"
                 />
@@ -218,7 +218,7 @@ export default function AboutPage() {
             <div className="border border-black/10 bg-white p-6 text-center shadow-[0_18px_50px_rgba(0,47,134,0.08)]">
               <div className="mx-auto size-24 rounded-full bg-[#E8EDF7]">
                 <img
-                  src="gbhalesowen/stu-headshot.png"
+                  src="stu-headshot.png"
                   alt="Professor Stuart - Head Instructor"
                   className="h-full w-full rounded-full object-cover"
                 />
@@ -234,7 +234,7 @@ export default function AboutPage() {
             <div className="border border-black/10 bg-white p-6 text-center shadow-[0_18px_50px_rgba(0,47,134,0.08)]">
               <div className="mx-auto size-24 rounded-full bg-[#E8EDF7]">
                 <img
-                  src="gbhalesowen/daytime-warriors.jpg"
+                  src="daytime-warriors.jpg"
                   alt="Coach"
                   className="h-full w-full rounded-full object-cover"
                 />
@@ -250,7 +250,7 @@ export default function AboutPage() {
             <div className="border border-black/10 bg-white p-6 text-center shadow-[0_18px_50px_rgba(0,47,134,0.08)]">
               <div className="mx-auto size-24 rounded-full bg-[#E8EDF7]">
                 <img
-                  src="gbhalesowen/nogi-bjj.jpg"
+                  src="nogi-bjj.jpg"
                   alt="Coach"
                   className="h-full w-full rounded-full object-cover"
                 />
