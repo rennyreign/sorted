@@ -28,6 +28,7 @@ export const metadata: Metadata = {
 const programs = [
   {
     title: "Fundamentals",
+    slug: "fundamentals",
     text: "Beginner-friendly classes that build the core movements, positions and confidence to train safely.",
     image: "/gbhalesowen/gi-bjj.jpg",
     icon: GraduationCap,
@@ -35,6 +36,7 @@ const programs = [
   },
   {
     title: "Advanced",
+    slug: "advanced",
     text: "Sharper rounds, technical detail and live training for students ready to push their Jiu-Jitsu further.",
     image: "/gbhalesowen/daytime-warriors.jpg",
     icon: Medal,
@@ -42,6 +44,7 @@ const programs = [
   },
   {
     title: "Kids Classes",
+    slug: "kids",
     text: "Structured sessions for ages 4+ focused on confidence, discipline, movement and respect.",
     image: "/gbhalesowen/kids-jits.jpg",
     icon: Users,
@@ -49,6 +52,7 @@ const programs = [
   },
   {
     title: "Female Training",
+    slug: "female",
     text: "A supportive training environment for women learning Jiu-Jitsu, fitness and practical self-defence.",
     image: "/gbhalesowen/girls-bjj.jpg",
     icon: Venus,
@@ -56,6 +60,7 @@ const programs = [
   },
   {
     title: "Barbell / Fitness",
+    slug: "fitness",
     text: "Strength and conditioning support to improve performance, resilience and all-round wellbeing.",
     image: "/gbhalesowen/functional-fitness_1.jpg",
     icon: Dumbbell,
@@ -212,7 +217,7 @@ export default function GBHalesowenPage() {
               return (
                 <Link
                   key={program.title}
-                  href={`/gbhalesowen/programs/${program.title.toLowerCase().replace(/\s+/g, '-')}`}
+                  href={`/gbhalesowen/programs/${program.slug}`}
                   className="group border border-black/10 bg-white shadow-[0_18px_45px_rgba(0,47,134,0.10)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#C8102E]/35 hover:shadow-[0_24px_60px_rgba(0,47,134,0.16)]"
                 >
                   <div className="relative aspect-[1.35] overflow-hidden bg-[#E8EDF7]">
@@ -298,7 +303,7 @@ export default function GBHalesowenPage() {
               Our kids programme combines Jiu-Jitsu, character development and real-life skills in a fun, positive environment.
             </p>
             <div className="mt-8">
-              <PrimaryButton href="programs/kids">View kids program</PrimaryButton>
+              <PrimaryButton href="/gbhalesowen/programs/kids">View kids program</PrimaryButton>
             </div>
           </div>
         </div>
