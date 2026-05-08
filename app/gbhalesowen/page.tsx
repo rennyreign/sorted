@@ -458,14 +458,28 @@ export default function GBHalesowenPage() {
       <section id="contact" className="bg-[#003384] text-white">
         <div className="grid lg:grid-cols-[0.92fr_1.08fr]">
           <div className="relative min-h-[24rem] overflow-hidden bg-[#E9EEF7]">
-            <div className="absolute inset-0 opacity-80 [background-image:linear-gradient(30deg,rgba(0,47,134,0.13)_1px,transparent_1px),linear-gradient(120deg,rgba(0,47,134,0.11)_1px,transparent_1px)] [background-size:58px_58px]" />
-            <div className="absolute left-[52%] top-[42%] -translate-x-1/2 -translate-y-1/2">
-              <div className="relative grid size-20 place-items-center rounded-full bg-[#003384] text-white shadow-[0_28px_60px_rgba(0,47,134,0.35)]">
-                <MapPin className="size-9" strokeWidth={1.9} />
-                <span className="absolute -bottom-2 size-5 rotate-45 bg-[#003384]" />
+            {/* Live Google Map */}
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2431.7!2d-2.060065!3d52.461649!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4870989a5c8c3c2f%3A0x5d2e2a33c5b2e1a0!2sGracie%20Barra%20Halesowen!5e0!3m2!1sen!2suk!4v1704067200000!5m2!1sen!2suk"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Gracie Barra Halesowen Location"
+              className="absolute inset-0 h-full w-full"
+            />
+            {/* Pulsing marker overlay */}
+            <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="relative">
+                <div className="absolute -inset-4 animate-ping rounded-full bg-[#C8102E]/30" />
+                <div className="relative grid size-10 place-items-center rounded-full bg-[#C8102E] text-white shadow-[0_8px_20px_rgba(200,16,46,0.4)]">
+                  <MapPin className="size-6" strokeWidth={2} />
+                </div>
               </div>
             </div>
-            <div className="absolute bottom-6 left-6 right-6 bg-white/90 p-5 text-[#002F86] shadow-[0_20px_55px_rgba(0,47,134,0.16)] backdrop-blur-sm">
+            <div className="absolute bottom-6 left-6 right-6 bg-white/95 p-5 text-[#002F86] shadow-[0_20px_55px_rgba(0,47,134,0.16)] backdrop-blur-sm">
               <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#C8102E]">Visit us</p>
               <p className="mt-2 text-lg font-extrabold">Harvey Works, Shelah Road</p>
             </div>

@@ -296,7 +296,7 @@ export default function GalleryPage() {
             </div>
             
             <div className="relative overflow-hidden rounded-lg border border-white/20 bg-white/5 p-6">
-              {/* Simulated Facebook feed preview */}
+              {/* Facebook feed preview - replace with real feed when admin access available */}
               <div className="space-y-4">
                 <div className="flex items-center gap-3 border-b border-white/10 pb-4">
                   <div className="grid size-10 place-items-center rounded-full bg-[#1877F2]">
