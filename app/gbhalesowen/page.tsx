@@ -221,15 +221,15 @@ export default function GBHalesowenPage() {
                       alt={`${program.title} training at Gracie Barra Halesowen`}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    {/* Icon moved above the overlay, not hidden behind white box */}
+                    {/* Icon positioned to overlap image and content area */}
                     <div
-                      className="absolute left-1/2 top-4 z-10 grid size-14 -translate-x-1/2 place-items-center rounded-full border-4 border-white text-white shadow-[0_8px_20px_rgba(0,0,0,0.25)]"
+                      className="absolute -bottom-7 left-1/2 z-50 grid size-14 -translate-x-1/2 place-items-center rounded-full border-4 border-white text-white shadow-[0_8px_20px_rgba(0,0,0,0.25)]"
                       style={{ backgroundColor: program.accent }}
                     >
                       <Icon className="size-7" strokeWidth={2} />
                     </div>
                   </div>
-                  <div className="px-6 pb-7 pt-10 text-center">
+                  <div className="px-6 pb-7 pt-12 text-center">
                     <h3 className="text-lg font-extrabold uppercase tracking-[0.04em] text-[#002F86]">
                       {program.title}
                     </h3>
