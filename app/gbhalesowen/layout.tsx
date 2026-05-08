@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   title: "Gracie Barra Halesowen | Brazilian Jiu-Jitsu Classes",
   description:
     "Brazilian Jiu-Jitsu classes for beginners, kids, women and competitors in Halesowen. Book a free intro class with Gracie Barra Halesowen.",
+  icons: {
+    icon: "/gbhalesowen/gbhalesowen-logo.png",
+    shortcut: "/gbhalesowen/gbhalesowen-logo.png",
+    apple: "/gbhalesowen/gbhalesowen-logo.png",
+  },
   openGraph: {
     title: "Gracie Barra Halesowen",
     description:
@@ -36,11 +41,11 @@ const navLinks = [
 function GBLogo({ compact = false }: { compact?: boolean }) {
   return (
     <div className="flex items-center gap-3">
-      <div className="relative grid size-14 shrink-0 place-items-center rounded-full border-[3px] border-[#D9DDE7] bg-white shadow-[0_12px_30px_rgba(0,47,134,0.16)]">
-        <div className="absolute inset-1.5 rounded-full bg-[#C8102E]" />
-        <div className="relative size-8 rotate-45 border-l-[9px] border-t-[9px] border-white" />
-        <div className="absolute bottom-2 h-1.5 w-8 rounded-full bg-white" />
-      </div>
+      <img
+        src="/gbhalesowen/gbhalesowen-logo.png"
+        alt="Gracie Barra Halesowen"
+        className="size-14 shrink-0 rounded-full border-[3px] border-[#D9DDE7] bg-white object-cover shadow-[0_12px_30px_rgba(0,47,134,0.16)]"
+      />
       {!compact && (
         <div className="leading-none">
           <p className="text-[1.05rem] font-extrabold uppercase tracking-tight text-[#C8102E]">
