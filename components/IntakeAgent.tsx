@@ -209,7 +209,7 @@ export default function IntakeAgent() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
         <div>
           <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-4">
-            Get started
+            Get sorted
           </span>
           <h2 className="font-sans font-extrabold text-[#0A0A0A] text-4xl lg:text-5xl leading-tight tracking-tight">
             Tell us what you need.

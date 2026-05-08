@@ -2,7 +2,7 @@ const points = [
   "No contracts",
   "Price agreed before work starts",
   "No calls unless you want them",
-  "UK-based throughout",
+  "Real people throughout",
 ]
 
 export default function Trust() {

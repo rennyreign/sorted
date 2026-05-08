@@ -19,7 +19,7 @@ const questionsByJobType: Record<JobType, Question[]> = {
     {
       id: "hasDomain",
       label: "Do you have a domain name?",
-      hint: "e.g. yourbusiness.co.uk",
+      hint: "e.g. yourbusiness.com",
       type: "choice",
       options: ["Yes, I own it", "No, I need one", "Not sure"],
     },

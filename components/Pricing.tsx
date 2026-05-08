@@ -58,7 +58,7 @@ export default function Pricing() {
                     : "bg-white/10 text-white hover:bg-white/20"
                 }`}
               >
-                Get started
+                Get sorted
               </a>
             </div>
           ))}
