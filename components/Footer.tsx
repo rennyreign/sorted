@@ -30,6 +30,9 @@ export default function Footer() {
             </p>
           </div>
         </div>
+        <p className="text-xs text-[#3A3A3A] font-medium mt-4">
+          Renaldo Lee Edmondson trading as Sort My Digital
+        </p>
 
       </div>
     </footer>
