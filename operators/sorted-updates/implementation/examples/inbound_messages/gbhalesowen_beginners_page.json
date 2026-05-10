@@ -1,0 +1,10 @@
+{
+  "source": "whatsapp",
+  "message_id": "wamid_example_beginners_001",
+  "from_phone": "+447000000000",
+  "from_name": "GB Halesowen Owner",
+  "received_at": "2026-05-10T12:00:00Z",
+  "body": "Can you add a beginners page to the site?",
+  "attachments": []
+}
+

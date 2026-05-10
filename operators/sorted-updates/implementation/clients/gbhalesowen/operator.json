@@ -1,0 +1,55 @@
+{
+  "client_id": "gbhalesowen",
+  "operator_id": "gbhalesowen-website-operator",
+  "business_name": "Gracie Barra Halesowen",
+  "site_route": "/gbhalesowen",
+  "repo": "rennyreign/sorted",
+  "site_paths": {
+    "app_root": "app/gbhalesowen",
+    "components": "app/gbhalesowen/components",
+    "public_assets": "public/gbhalesowen",
+    "client_context": "client/gbhalesowen"
+  },
+  "brand": {
+    "palette": ["navy", "red", "white", "cool grey"],
+    "tone": "supportive, local, confident, beginner-friendly",
+    "primary_cta": "Book a free intro",
+    "secondary_cta": "View timetable"
+  },
+  "allowed_update_types": [
+    "contact_update",
+    "copy_update",
+    "testimonial_update",
+    "timetable_update",
+    "announcement_banner",
+    "predefined_page_addition",
+    "gallery_update",
+    "cta_update"
+  ],
+  "predefined_pages": [
+    "kids-classes",
+    "beginners",
+    "womens-classes",
+    "timetable",
+    "privacy",
+    "terms",
+    "event"
+  ],
+  "approval_required_for": [
+    "pricing",
+    "legal",
+    "payments",
+    "medical_claims",
+    "new_integrations",
+    "brand_identity_change",
+    "delete_page"
+  ],
+  "known_contacts": [
+    {
+      "name": "GB Halesowen Owner",
+      "phone": "+447000000000",
+      "role": "owner"
+    }
+  ]
+}
+

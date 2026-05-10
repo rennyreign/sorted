@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sorted Updates Dry Run Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "status",
+    "client_id",
+    "operator_id",
+    "request_type",
+    "summary",
+    "approval_required",
+    "clarification_required",
+    "target_files",
+    "proposed_actions",
+    "blocked_reasons",
+    "suggested_whatsapp_reply"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["dry_run_ready", "approval_required", "clarification_required", "unsupported"]
+    },
+    "client_id": { "type": "string" },
+    "operator_id": { "type": "string" },
+    "request_type": { "type": "string" },
+    "summary": { "type": "string" },
+    "approval_required": { "type": "boolean" },
+    "clarification_required": { "type": "boolean" },
+    "target_route": { "type": ["string", "null"] },
+    "target_files": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "proposed_actions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "suggested_whatsapp_reply": { "type": "string" }
+  }
+}
+

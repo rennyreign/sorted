@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sorted Updates Update Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "request_id",
+    "client_id",
+    "operator_id",
+    "source",
+    "raw_message",
+    "classification",
+    "intent",
+    "status"
+  ],
+  "properties": {
+    "request_id": { "type": "string" },
+    "client_id": { "type": "string" },
+    "operator_id": { "type": "string" },
+    "source": { "type": "string" },
+    "raw_message": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["dry_run_ready", "approval_required", "clarification_required", "unsupported"]
+    },
+    "classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "confidence", "requires_approval", "requires_clarification"],
+      "properties": {
+        "type": { "type": "string" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "requires_approval": { "type": "boolean" },
+        "requires_clarification": { "type": "boolean" }
+      }
+    },
+    "intent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target_files", "missing_information"],
+      "properties": {
+        "page_type": { "type": ["string", "null"] },
+        "target_route": { "type": ["string", "null"] },
+        "target_files": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "missing_information": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}
+
