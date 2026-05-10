@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sorted Updates Client Operator Config",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "client_id",
+    "operator_id",
+    "business_name",
+    "site_route",
+    "repo",
+    "site_paths",
+    "brand",
+    "allowed_update_types",
+    "predefined_pages",
+    "approval_required_for",
+    "known_contacts"
+  ],
+  "properties": {
+    "client_id": { "type": "string" },
+    "operator_id": { "type": "string" },
+    "business_name": { "type": "string" },
+    "site_route": { "type": "string" },
+    "repo": { "type": "string" },
+    "site_paths": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "brand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["palette", "tone", "primary_cta", "secondary_cta"],
+      "properties": {
+        "palette": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "tone": { "type": "string" },
+        "primary_cta": { "type": "string" },
+        "secondary_cta": { "type": "string" }
+      }
+    },
+    "allowed_update_types": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "predefined_pages": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "approval_required_for": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "known_contacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "phone", "role"],
+        "properties": {
+          "name": { "type": "string" },
+          "phone": { "type": "string" },
+          "role": { "type": "string" }
+        }
+      }
+    }
+  }
+}
+

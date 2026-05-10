@@ -7,6 +7,11 @@ out
 npm-debug.log*
 .DS_Store
 tsconfig.tsbuildinfo
+.venv
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.sorted-updates-state/
 
 # Local Netlify folder
 .netlify

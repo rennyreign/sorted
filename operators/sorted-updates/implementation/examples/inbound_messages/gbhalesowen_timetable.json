@@ -1,0 +1,10 @@
+{
+  "source": "whatsapp",
+  "message_id": "wamid_example_timetable_001",
+  "from_phone": "+447000000000",
+  "from_name": "GB Halesowen Owner",
+  "received_at": "2026-05-10T12:05:00Z",
+  "body": "Change Saturday kids class to 10am",
+  "attachments": []
+}
+

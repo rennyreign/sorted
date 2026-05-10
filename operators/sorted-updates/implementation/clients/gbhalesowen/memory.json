@@ -1,0 +1,21 @@
+{
+  "client_id": "gbhalesowen",
+  "learned_preferences": {
+    "preferred_update_style": "preview_first",
+    "default_cta": "Book a free intro",
+    "tone": "supportive and beginner-friendly"
+  },
+  "common_requests": [],
+  "approved_phrases": [
+    "Book a free intro",
+    "View timetable"
+  ],
+  "restricted_phrases": [],
+  "aliases": [
+    "GB Halesowen",
+    "Gracie Barra Halesowen",
+    "GBH"
+  ],
+  "last_updated": null
+}
+

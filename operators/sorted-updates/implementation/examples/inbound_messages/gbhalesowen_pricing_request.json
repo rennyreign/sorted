@@ -1,0 +1,10 @@
+{
+  "source": "whatsapp",
+  "message_id": "wamid_example_pricing_001",
+  "from_phone": "+447000000000",
+  "from_name": "GB Halesowen Owner",
+  "received_at": "2026-05-10T12:10:00Z",
+  "body": "Add \u00a389 membership pricing",
+  "attachments": []
+}
+
