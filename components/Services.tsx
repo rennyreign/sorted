@@ -1,5 +1,5 @@
 const services = [
-  "Simple websites",
+  "Websites",
   "Landing pages",
   "Logo & brand design",
   "Flyers, menus, social posts",
