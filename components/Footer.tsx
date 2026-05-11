@@ -31,7 +31,7 @@ export default function Footer() {
           </div>
         </div>
         <p className="text-xs text-[#3A3A3A] font-medium mt-4">
-          Renaldo Lee Edmondson trading as Sort My Digital
+          Sort My Digital
         </p>
 
       </div>
