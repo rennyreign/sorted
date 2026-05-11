@@ -44,6 +44,9 @@ export default function Nav() {
               )
             )}
           </div>
+          <a href="https://wa.me/447386468085" target="_blank" rel="noopener noreferrer" className="text-xs font-medium text-[#525252] hover:text-[#0A0A0A] transition-colors duration-200">
+            Chat with us
+          </a>
           <a href="/#get-started" className="text-xs font-semibold text-[#FAFAFA] bg-[#0A0A0A] rounded-full px-4 py-2 hover:bg-[#2a2a2a] transition-colors duration-200">
             Get sorted
           </a>
@@ -89,9 +92,18 @@ export default function Nav() {
             ))}
           </nav>
           <a
+            href="https://wa.me/447386468085"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setOpen(false)}
+            className="mt-8 block w-full text-center font-semibold text-sm text-[#0A0A0A] bg-transparent border border-black/20 rounded-full py-4 hover:bg-black/5 transition-colors duration-200"
+          >
+            Chat with us
+          </a>
+          <a
             href="/#get-started"
             onClick={() => setOpen(false)}
-            className="mt-8 block w-full text-center font-semibold text-sm text-white bg-[#0A0A0A] rounded-full py-4 hover:bg-[#2a2a2a] transition-colors duration-200"
+            className="mt-3 block w-full text-center font-semibold text-sm text-white bg-[#0A0A0A] rounded-full py-4 hover:bg-[#2a2a2a] transition-colors duration-200"
           >
             Get sorted
           </a>
