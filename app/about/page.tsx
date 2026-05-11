@@ -1,4 +1,5 @@
 import Nav from "@/components/Nav"
+import Image from "next/image"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -101,6 +102,31 @@ export default function AboutPage() {
               ))}
             </div>
 
+          </div>
+        </section>
+
+        <section className="py-20 px-6 sm:px-10 lg:px-16 border-t border-black/[0.06] max-w-[1400px] mx-auto">
+          <div className="flex flex-col sm:flex-row items-start gap-10 sm:gap-16">
+            <div className="shrink-0">
+              <Image
+                src="/renaldo-bw.png"
+                alt="Renaldo Edmondson"
+                width={120}
+                height={120}
+                className="rounded-full grayscale object-cover"
+              />
+            </div>
+            <div className="max-w-xl">
+              <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-4">
+                The founder
+              </span>
+              <p className="font-sans font-bold text-[#0A0A0A] text-xl leading-snug tracking-tight mb-3">
+                Renaldo Edmondson
+              </p>
+              <p className="text-[#525252] text-base leading-relaxed">
+                13 years in marketing operations — most recently VP of Marketing, running creative and revenue pipelines for universities across the US. The same problem kept appearing: skilled teams buried in execution work. Sorted exists to fix that for smaller businesses who just need things done properly.
+              </p>
+            </div>
           </div>
         </section>
 
