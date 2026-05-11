@@ -116,7 +116,7 @@ export default function AboutPage() {
                 className="rounded-full grayscale object-cover"
               />
             </div>
-            <div className="max-w-xl">
+            <div className="flex-1">
               <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-4">
                 The founder
               </span>
@@ -126,9 +126,8 @@ export default function AboutPage() {
               <div className="space-y-4 text-[#525252] text-base leading-relaxed">
                 <p>Hi, I&apos;m Renaldo.</p>
                 <p>I run Sorted.</p>
-                <p>I&apos;ve spent 14+ years working in digital, marketing, and online systems, helping businesses improve how they show up and operate online.</p>
+                <p>I&apos;ve spent 14+ years working in digital, marketing, and online systems, leading teams across the UK and US and helping businesses build credibility online at an international level.</p>
                 <p>Sorted was built to offer the kind of fast, straightforward help most small businesses genuinely need, minus the usual agency process, delays, or pricing.</p>
-                <p>Most projects are completed quickly, upfront, kept simple, and built so they&apos;re easy to manage long-term.</p>
               </div>
               <a
                 href="https://wa.me/447386468085"
