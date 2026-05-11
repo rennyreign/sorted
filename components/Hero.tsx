@@ -8,7 +8,7 @@ export default function Hero() {
         </span>
       </div>
 
-      <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(2.5rem,10vw,9rem)] leading-[0.92] tracking-[-0.03em] mb-10 max-w-5xl">
+      <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(3.5rem,10vw,9rem)] leading-[0.92] tracking-[-0.03em] mb-10 max-w-5xl">
         Whatever you need online.
         <br />
         <span className="text-[#525252]">Sorted.</span>
