@@ -124,9 +124,7 @@ export default function AboutPage() {
                 Renaldo Edmondson
               </p>
               <div className="space-y-4 text-[#525252] text-base leading-relaxed">
-                <p>Hi, I&apos;m Renaldo.</p>
-                <p>I run Sorted.</p>
-                <p>I&apos;ve spent 14+ years working in digital, marketing, and online systems, leading teams across the UK and US and helping businesses build credibility online at an international level.</p>
+                <p>Renaldo has spent 14+ years in digital and marketing — working on global brands like Gracie Barra and behind campaigns for some of the biggest universities in the US, including Michigan State and Villanova.</p>
                 <p>Sorted was built to offer the kind of fast, straightforward help most small businesses genuinely need, minus the usual agency process, delays, or pricing.</p>
               </div>
               <a
