@@ -1,10 +1,34 @@
 # Client Site Scaffold
 
-A Next.js static site template derived from the Gracie Barra Halesowen build — the first working application of Sorted design skills.
+A Next.js static site template for building principled, flexible client sites. This scaffold embodies the **Sorted design system** — principled in concept, flexible in execution.
 
-## Purpose
+## Design Philosophy
 
-This scaffold provides the **framework and patterns** for building new client sites. It is not a finished design — it is the starting point that gets customized for each client's brand, content, and requirements.
+This template is built on a **cascading skill hierarchy**:
+
+```
+Foundational Principles          Concrete Application
+         ↓                              ↓
+┌─────────────────────┐        ┌─────────────────────────┐
+│   taste-skills      │   →    │ sorted-local-site-refresh│
+│                     │        │                         │
+│ • visual-hierarchy  │        │ Component patterns      │
+│ • color-system      │        │ Section structures      │
+│ • typography-scale  │        │ Layout templates          │
+│ • feedback-patterns │        │ Page types                │
+│ • micro-interaction │        └─────────────────────────┘
+└─────────────────────┘                 ↓
+                                         ↓
+                              ┌─────────────────────┐
+                              │   Your Client Site  │
+                              │                     │
+                              │ • Brand-customized  │
+                              │ • Content-specific    │
+                              │ • Purpose-built       │
+                              └─────────────────────┘
+```
+
+**The principle:** Start from foundational taste skills, apply through `sorted-local-site-refresh` patterns, then customize freely for the client's specific needs. The skills provide guardrails, not constraints.
 
 ## Workflow: Template → Client Repo
 
@@ -28,17 +52,33 @@ git remote add origin https://github.com/rennyreign/newclient-site.git
 git push -u origin main
 ```
 
-### 2. Reference skills during build
+### 2. Apply the skill cascade
 
-During development, reference these skill files from the `sorted` repo:
+Build using this decision hierarchy:
 
-| Skill | Location | Purpose |
-|-------|----------|---------|
-| **visual-hierarchy** | `sorted/.agents/skills/visual-hierarchy/SKILL.md` | Spacing, type scale, layout principles |
-| **feedback-patterns** | `sorted/.agents/skills/feedback-patterns/SKILL.md` | Button states, transitions, micro-interactions |
-| **micro-interaction-spec** | `sorted/.agents/skills/micro-interaction-spec/SKILL.md` | Animation timing, easing curves |
-| **color-system** | `sorted/.agents/skills/color-system/SKILL.md` | Palette generation, accessibility |
-| **sorted-local-site-refresh** | `sorted/.agents/skills/sorted-local-site-refresh/SKILL.md` | Component patterns, section structures |
+#### Level 1: Foundation (taste-skills)
+These are the **principles** — always reference first:
+- `taste-skill/skills/visual-hierarchy/` — spacing, type scale, layout
+- `taste-skill/skills/color-system/` — palette, accessibility
+- `taste-skill/skills/typography-scale/` — font relationships
+- `taste-skill/skills/feedback-patterns/` — button states, transitions
+- `taste-skill/skills/micro-interaction-spec/` — animation timing
+
+#### Level 2: Application (sorted-local-site-refresh) ⭐ CENTERPIECE
+This is the **pattern library** — your primary reference:
+- `sorted/.agents/skills/sorted-local-site-refresh/SKILL.md`
+- Component patterns derived from GB Halesowen
+- Section templates (hero, feature grids, CTAs)
+- Page type structures
+
+#### Level 3: Implementation (your build)
+**Customize freely** within the principles:
+- Brand colors override defaults
+- Content drives layout choices
+- Client-specific features added
+- New patterns invented as needed
+
+**Rule of thumb:** If a design decision isn't covered by Level 1 or 2, make the call that serves the client best. The skills are guardrails, not shackles.
 
 ### 3. Customize for the client
 
@@ -143,23 +183,43 @@ From `globals.css`:
 
 ## Skills Reference Quick Guide
 
-When building a new client site, keep these skill principles in mind:
+Reference these in order when making design decisions:
 
-### From visual-hierarchy
-- **Section spacing**: 5rem (80px) mobile, 8rem (128px) desktop
-- **Type scale**: Use `clamp()` for fluid sizing
-- **Max-width**: `1400px` for main containers
-- **Grid gap**: 32px (2rem) default
+### Level 1: Principles (taste-skills)
+These constrain the **how** — the mechanics of good design:
 
-### From feedback-patterns
-- **Button hover**: `hover:bg-[#2a2a2a]` for primary buttons
-- **Link transitions**: `transition-colors duration-200`
-- **Focus states**: ensure visible focus rings
+| Principle | Key Rules |
+|-----------|-----------|
+| **visual-hierarchy** | Section spacing: 5rem→8rem; Max-width: 1400px; Grid gap: 2rem |
+| **color-system** | Accessible contrast; semantic palette mapping |
+| **typography-scale** | Fluid sizing with `clamp()`; max 3 weights per page |
+| **feedback-patterns** | Hover: 200ms transitions; Focus: visible rings |
+| **micro-interaction-spec** | Page enter: 0.55s `cubic-bezier(0.32, 0.72, 0, 1)` |
 
-### From micro-interaction-spec
-- **Page enter**: `0.55s cubic-bezier(0.32, 0.72, 0, 1)`
-- **Fade in**: `0.4s cubic-bezier(0.32, 0.72, 0, 1)`
-- **Arrow icons**: translate on hover `group-hover:translate-x-0.5`
+### Level 2: Patterns (sorted-local-site-refresh) ⭐
+These provide the **what** — tested component structures:
+
+| Pattern | Use When |
+|---------|----------|
+| **Hero section** | Homepage above-fold, needs strong value prop |
+| **Feature grid** | 3-4 value propositions, equal hierarchy |
+| **Split content** | Text + image, narrative sections |
+| **CTA block** | Conversion moment, dark background preferred |
+| **Pill navigation** | 4-6 nav items, sticky header required |
+
+*Reference: `sorted/.agents/skills/sorted-local-site-refresh/SKILL.md`*
+
+### Level 3: Your Call
+When patterns don't fit, decide based on:
+1. Client brand voice (what feels right for them?)
+2. Content needs (what serves the information best?)
+3. User context (what will visitors actually need?)
+
+**Examples of valid deviations:**
+- Using a sidebar nav instead of pill (content-heavy site)
+- Adding video backgrounds (brand calls for it)
+- Inventing new card patterns (client has unique offering)
+- Changing color system completely (brand has established palette)
 
 ## Build Commands
 
@@ -188,6 +248,8 @@ This is a **living document**. After each client build:
 
 ---
 
-**Current template version**: Derived from Gracie Barra Halesowen (May 2026)  
-**Skills reference**: `sorted/.agents/skills/`  
+**Design System**: Principled → Flexible  
+**Foundation**: [taste-skills](https://github.com/rennyreign/taste-skill) — visual-hierarchy, color-system, typography-scale, feedback-patterns, micro-interaction-spec  
+**Application**: [sorted-local-site-refresh](https://github.com/rennyreign/taste-skill/tree/main/skills/sorted-local-site-refresh) — component patterns, section structures  
+**Provenance**: Derived from Gracie Barra Halesowen (May 2026)  
 **Questions**: Reference sorted project context or ask Cascade
