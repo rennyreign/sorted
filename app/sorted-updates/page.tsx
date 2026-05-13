@@ -100,8 +100,8 @@ export default function SortedUpdatesPage() {
             </div>
 
             <div className="space-y-2">
-              <h4 className="font-sans font-semibold text-[#0A0A0A]">New pages</h4>
-              <p className="text-[#525252] text-sm">Add services, team members, locations, or landing pages.</p>
+              <h4 className="font-sans font-semibold text-[#0A0A0A]">New pages & listings</h4>
+              <p className="text-[#525252] text-sm">Add services, team members, locations, property listings, or landing pages.</p>
             </div>
 
             <div className="space-y-2">
