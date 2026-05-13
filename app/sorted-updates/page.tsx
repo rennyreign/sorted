@@ -23,8 +23,8 @@ export default function SortedUpdatesPage() {
             <span className="text-[#525252]">Get them done.</span>
           </h1>
           <p className="text-[#525252] text-lg font-medium leading-relaxed max-w-xl">
-            No emails. No tickets. No waiting weeks. Send a WhatsApp message, 
-            approve the preview, and your changes go live.
+            No emails. No tickets. Send a WhatsApp message, get a preview in minutes, 
+            reply "yes" and it&apos;s live. Most updates done while you&apos;re still in the chat.
           </p>
         </section>
 
@@ -34,7 +34,7 @@ export default function SortedUpdatesPage() {
             How it works
           </span>
           <h2 className="font-sans font-extrabold text-[#0A0A0A] text-3xl leading-tight tracking-tight mb-12">
-            Four steps. No friction.
+            Four steps. Minutes, not days.
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -55,8 +55,8 @@ export default function SortedUpdatesPage() {
               </div>
               <h3 className="font-sans font-bold text-[#0A0A0A] text-lg">Process</h3>
               <p className="text-[#525252] text-sm leading-relaxed">
-                Sorted understands your request, checks it against your site rules, 
-                and prepares the changes with a cost estimate.
+                Sorted reads your request, understands the context, and queues 
+                the changes immediately. Usually 2-5 minutes.
               </p>
             </div>
 
@@ -66,8 +66,8 @@ export default function SortedUpdatesPage() {
               </div>
               <h3 className="font-sans font-bold text-[#0A0A0A] text-lg">Preview</h3>
               <p className="text-[#525252] text-sm leading-relaxed">
-                Get a private preview link. See exactly how the changes look 
-                before they go anywhere near your live site.
+                Get a private preview link. See exactly how it looks before 
+                it touches your live site. Review at your pace.
               </p>
             </div>
 
@@ -75,9 +75,9 @@ export default function SortedUpdatesPage() {
               <div className="w-12 h-12 rounded-full bg-[#25D366] flex items-center justify-center text-white font-bold text-lg">
                 4
               </div>
-              <h3 className="font-sans font-bold text-[#0A0A0A] text-lg">Live</h3>
+              <h3 className="font-sans font-bold text-[#25D366] text-lg">Live</h3>
               <p className="text-[#525252] text-sm leading-relaxed">
-                Reply "yes" and changes go live immediately. Reply "no" 
+                Reply "yes" and changes deploy in seconds. Reply "no" 
                 or request tweaks. You're in control.
               </p>
             </div>
@@ -146,15 +146,18 @@ export default function SortedUpdatesPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Monthly */}
-            <div className="p-8 border border-black/[0.08] rounded-2xl bg-white">
+            <div className="p-8 border-2 border-[#0A0A0A] rounded-2xl bg-white relative">
+              <span className="absolute -top-3 left-6 bg-[#0A0A0A] text-white text-xs font-semibold px-3 py-1 rounded-full">
+                Best value
+              </span>
               <div className="flex items-baseline gap-2 mb-4">
-                <span className="font-sans font-extrabold text-[#0A0A0A] text-4xl">£149</span>
+                <span className="font-sans font-extrabold text-[#0A0A0A] text-4xl">£59</span>
                 <span className="text-[#525252] text-sm">/month</span>
               </div>
               <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Unlimited Updates</h3>
               <p className="text-[#525252] text-sm leading-relaxed mb-6">
-                For businesses that change frequently. Unlimited WhatsApp requests, 
-                48-hour turnaround, priority handling.
+                For businesses that update regularly. Unlimited WhatsApp requests, 
+                typically done in 2-5 minutes each. Priority handling.
               </p>
               <ul className="space-y-3 text-sm">
                 <li className="flex items-start gap-3">
@@ -167,7 +170,13 @@ export default function SortedUpdatesPage() {
                   <svg className="w-5 h-5 text-[#25D366] mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-[#525252]">48-hour turnaround</span>
+                  <span className="text-[#525252]">Typically 2-5 minutes per update</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-[#25D366] mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-[#525252]">Images, video, text — all via WhatsApp</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-5 h-5 text-[#25D366] mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
@@ -179,7 +188,7 @@ export default function SortedUpdatesPage() {
                   <svg className="w-5 h-5 text-[#25D366] mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-[#525252]">Monthly billing, cancel anytime</span>
+                  <span className="text-[#525252]">Cancel anytime</span>
                 </li>
               </ul>
             </div>
@@ -187,13 +196,13 @@ export default function SortedUpdatesPage() {
             {/* Per-request */}
             <div className="p-8 border border-black/[0.08] rounded-2xl bg-[#FAFAFA]">
               <div className="flex items-baseline gap-2 mb-4">
-                <span className="font-sans font-extrabold text-[#0A0A0A] text-4xl">£49</span>
+                <span className="font-sans font-extrabold text-[#0A0A0A] text-4xl">£19</span>
                 <span className="text-[#525252] text-sm">/request</span>
               </div>
               <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Pay As You Go</h3>
               <p className="text-[#525252] text-sm leading-relaxed mb-6">
-                For businesses with occasional needs. One request at a time, 
-                no commitment, same quality.
+                For occasional needs. One request at a time, no commitment, 
+                same speed. Perfect for trying it out.
               </p>
               <ul className="space-y-3 text-sm">
                 <li className="flex items-start gap-3">
@@ -206,13 +215,13 @@ export default function SortedUpdatesPage() {
                   <svg className="w-5 h-5 text-[#25D366] mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-[#525252]">72-hour turnaround</span>
+                  <span className="text-[#525252]">Same 2-5 minute speed</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-5 h-5 text-[#25D366] mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-[#525252]">Preview before every change</span>
+                  <span className="text-[#525252]">Images, video, text — all via WhatsApp</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-5 h-5 text-[#25D366] mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
@@ -244,6 +253,69 @@ export default function SortedUpdatesPage() {
             <p className="text-[#525252] text-xs mt-4">
               Questions first? Message us. We&apos;ll reply within a few hours.
             </p>
+          </div>
+        </section>
+
+        {/* Mini FAQ */}
+        <section className="py-16 px-6 sm:px-10 lg:px-16 border-t border-black/[0.06] max-w-[1400px] mx-auto">
+          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6">
+            Quick answers
+          </span>
+          <h2 className="font-sans font-extrabold text-[#0A0A0A] text-2xl leading-tight tracking-tight mb-8">
+            How media works.
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <h4 className="font-sans font-semibold text-[#0A0A0A] text-sm">Can I send images via WhatsApp?</h4>
+              <p className="text-[#525252] text-sm leading-relaxed">
+                Yes. Attach photos directly in the chat. We&apos;ll optimize them for web 
+                and place them where you need. Works for team photos, product shots, 
+                or gallery updates.
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <h4 className="font-sans font-semibold text-[#0A0A0A] text-sm">What about video?</h4>
+              <p className="text-[#525252] text-sm leading-relaxed">
+                Short clips work great. Send them as you would to any contact. 
+                We&apos;ll compress for web, handle hosting, and embed them properly. 
+                For long-form video, we may suggest YouTube/Vimeo embedding instead.
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <h4 className="font-sans font-semibold text-[#0A0A0A] text-sm">Do I need to describe exactly where things go?</h4>
+              <p className="text-[#525252] text-sm leading-relaxed">
+                No. Say "add this photo to the team page" or "replace the hero image." 
+                We understand context. If unclear, we&apos;ll ask before doing anything.
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <h4 className="font-sans font-semibold text-[#0A0A0A] text-sm">What if I send the wrong file?</h4>
+              <p className="text-[#525252] text-sm leading-relaxed">
+                Just say "wait, use this one instead" and send the correct file. 
+                Nothing goes live until you approve the preview, so mistakes don&apos;t matter.
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <h4 className="font-sans font-semibold text-[#0A0A0A] text-sm">Can I send multiple images at once?</h4>
+              <p className="text-[#525252] text-sm leading-relaxed">
+                Absolutely. Send a batch with a message like "add these to the gallery" 
+                or "these are the new team photos." We&apos;ll handle them as one request.
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <h4 className="font-sans font-semibold text-[#0A0A0A] text-sm">What about documents or PDFs?</h4>
+              <p className="text-[#525252] text-sm leading-relaxed">
+                PDF menus, price lists, or schedules can be uploaded and linked. 
+                For complex document-heavy sites, we may suggest a different approach 
+                — we&apos;ll tell you if something is better handled outside WhatsApp.
+              </p>
+            </div>
           </div>
         </section>
       </main>
