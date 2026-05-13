@@ -131,6 +131,36 @@ export default function AboutPage() {
           </div>
         </section>
 
+        <section className="py-20 px-6 sm:px-10 lg:px-16 border-t border-black/[0.06] max-w-[1400px] mx-auto">
+          <div className="max-w-3xl">
+            <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6">
+              Mission
+            </span>
+            <h2 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(2rem,5vw,3.5rem)] leading-tight tracking-tight mb-8">
+              Help small businesses become digitally excellent.
+            </h2>
+            <div className="space-y-5 text-[#525252] text-lg leading-relaxed">
+              <p>
+                Digital excellence means two things: being visible where your customers 
+                are looking, and operating smoothly behind the scenes. Most small 
+                businesses struggle with one or both. And most agencies charge too 
+                much to fix it.
+              </p>
+              <p>
+                We believe every business deserves to look professional online and 
+                run efficiently in the background, whether they&apos;re a one-person 
+                operation or a growing team. The price should match where they are, 
+                not where an agency thinks they should be.
+              </p>
+              <p className="text-[#0A0A0A] font-semibold">
+                That&apos;s why our pricing is negotiable. A complex site might be £3,000. 
+                Or £400 to a business that needs the break. The same quality work, 
+                priced for the relationship and the situation.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section className="py-20 px-6 sm:px-10 lg:px-16 bg-[#0A0A0A]">
           <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row lg:items-end justify-between gap-10">
 
