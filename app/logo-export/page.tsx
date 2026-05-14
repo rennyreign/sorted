@@ -35,13 +35,13 @@ export default function LogoExport() {
     img.src = url;
   };
 
-  const sLogoBlack = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" stroke="#0A0A0A" stroke-width="7" fill="none"/><text x="50" y="68" font-family="system-ui, -apple-system, sans-serif" font-size="50" font-weight="900" fill="#0A0A0A" text-anchor="middle">S</text></svg>`;
+  const sLogoBlack = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="70" font-weight="900" fill="#0A0A0A" text-anchor="middle">S.</text></svg>`;
   
-  const sLogoWhite = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" stroke="#FFFFFF" stroke-width="7" fill="none"/><text x="50" y="68" font-family="system-ui, -apple-system, sans-serif" font-size="50" font-weight="900" fill="#FFFFFF" text-anchor="middle">S</text></svg>`;
+  const sLogoWhite = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="70" font-weight="900" fill="#FFFFFF" text-anchor="middle">S.</text></svg>`;
   
-  const fullLogoBlack = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60"><g transform="translate(0,5)"><circle cx="25" cy="25" r="22" stroke="#0A0A0A" stroke-width="4" fill="none"/><text x="25" y="34" font-family="system-ui,-apple-system,sans-serif" font-size="28" font-weight="900" fill="#0A0A0A" text-anchor="middle">S</text></g><text x="56" y="40" font-family="system-ui,-apple-system,sans-serif" font-size="28" font-weight="800" fill="#0A0A0A" letter-spacing="-0.02em">sorted</text><text x="131" y="40" font-family="system-ui,-apple-system,sans-serif" font-size="28" font-weight="800" fill="#0A0A0A">.</text></svg>`;
+  const fullLogoBlack = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40"><text x="0" y="32" font-family="system-ui,-apple-system,sans-serif" font-size="32" font-weight="800" fill="#0A0A0A" letter-spacing="-0.02em">Sorted.</text></svg>`;
   
-  const fullLogoWhite = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60"><g transform="translate(0,5)"><circle cx="25" cy="25" r="22" stroke="#FFFFFF" stroke-width="4" fill="none"/><text x="25" y="34" font-family="system-ui,-apple-system,sans-serif" font-size="28" font-weight="900" fill="#FFFFFF" text-anchor="middle">S</text></g><text x="56" y="40" font-family="system-ui,-apple-system,sans-serif" font-size="28" font-weight="800" fill="#FFFFFF" letter-spacing="-0.02em">sorted</text><text x="131" y="40" font-family="system-ui,-apple-system,sans-serif" font-size="28" font-weight="800" fill="#FFFFFF">.</text></svg>`;
+  const fullLogoWhite = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40"><text x="0" y="32" font-family="system-ui,-apple-system,sans-serif" font-size="32" font-weight="800" fill="#FFFFFF" letter-spacing="-0.02em">Sorted.</text></svg>`;
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] p-10 font-sans">
