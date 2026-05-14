@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 70" fill="none">
+  <!-- S Mark Circle -->
+  <g transform="translate(5, 10)">
+    <circle cx="25" cy="25" r="22" stroke="#0A0A0A" stroke-width="4" fill="none"/>
+    <!-- Geometric S -->
+    <path fill="#0A0A0A" d="M32 17H18v6h12v4H18v9h14v-6H23v-4h9V17z"/>
+  </g>
+  <!-- sorted wordmark -->
+  <text x="65" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="800" fill="#0A0A0A" letter-spacing="-0.02em">sorted</text>
+  <text x="175" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="800" fill="#0A0A0A">.</text>
+</svg>
