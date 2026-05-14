@@ -137,7 +137,7 @@ export default function AboutPage() {
               Mission
             </span>
             <h2 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(2rem,5vw,3.5rem)] leading-tight tracking-tight mb-8">
-              Help small businesses become digitally excellent.
+              Helping small businesses become digitally excellent.
             </h2>
             <div className="space-y-5 text-[#525252] text-lg leading-relaxed">
               <p>
