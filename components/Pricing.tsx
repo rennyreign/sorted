@@ -24,7 +24,7 @@ export default function Pricing() {
             <p>
               This means a complex site might be £3,000. Or £400 to a small 
               business that needs the break. The price matches the value 
-              and the relationship — decided after you know what you&apos;re 
+              and the relationship, decided after you know what you&apos;re 
               getting, not before.
             </p>
           </div>
@@ -38,9 +38,9 @@ export default function Pricing() {
             <div>
               <h4 className="font-sans font-semibold text-white mb-1">One month of Sorted Updates included</h4>
               <p className="text-[#737373] text-sm leading-relaxed">
-                Every new site comes with unlimited WhatsApp updates for the first month. 
-                Change text, swap images, add pages — text us and it&apos;s done. 
-                Then £59/mo if you want to keep it, or pay as you go at £19/request.
+                Every new site comes with one month of SortedUpdates free. 
+                Unlimited updates via your site&apos;s portal. Change text, swap images, 
+                add pages. Type it and it&apos;s done. Then £59/mo or £19 per update.
               </p>
             </div>
           </div>

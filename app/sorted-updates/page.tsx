@@ -186,7 +186,7 @@ export default function SortedUpdatesPage() {
               </div>
               <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Pay As You Go</h3>
               <p className="text-[#525252] text-sm leading-relaxed mb-6">
-                For occasional updates. Email your request to updates@sorted.com, 
+                For occasional updates. Send an email with your request, 
                 the agent handles it remotely and replies when done.
               </p>
               <ul className="space-y-3 text-sm">
@@ -223,7 +223,7 @@ export default function SortedUpdatesPage() {
               href="/#get-started"
               className="group inline-flex items-center gap-3 bg-[#0A0A0A] text-white font-semibold text-sm rounded-full px-8 py-4 hover:bg-[#2a2a2a] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
             >
-              Get Sorted Updates
+              Get Sorted
               <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                   <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
