@@ -57,13 +57,14 @@ export default function BrandGuidelines() {
     img.src = url;
   };
 
-  // Logo SVGs
-  const sMarkBlack = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="70" font-weight="900" fill="#0A0A0A" text-anchor="middle">S.</text></svg>`;
-  const sMarkWhite = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="70" font-weight="900" fill="#FFFFFF" text-anchor="middle">S.</text></svg>`;
-  const sortedBlack = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40"><text x="0" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="800" fill="#0A0A0A" letter-spacing="-0.02em">Sorted.</text></svg>`;
-  const sortedWhite = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40"><text x="0" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="800" fill="#FFFFFF" letter-spacing="-0.02em">Sorted.</text></svg>`;
-  const sMarkCircleBlack = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" stroke="#0A0A0A" stroke-width="7" fill="none"/><text x="50" y="68" font-family="system-ui, -apple-system, sans-serif" font-size="50" font-weight="900" fill="#0A0A0A" text-anchor="middle">S.</text></svg>`;
-  const sMarkCircleWhite = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" stroke="#FFFFFF" stroke-width="7" fill="none"/><text x="50" y="68" font-family="system-ui, -apple-system, sans-serif" font-size="50" font-weight="900" fill="#FFFFFF" text-anchor="middle">S.</text></svg>`;
+  // Logo SVGs - using Plus Jakarta Sans
+  const fontFamily = "'Plus Jakarta Sans', system-ui, -apple-system, sans-serif";
+  const sMarkBlack = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="75" font-family="${fontFamily}" font-size="70" font-weight="900" fill="#0A0A0A" text-anchor="middle">S.</text></svg>`;
+  const sMarkWhite = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="75" font-family="${fontFamily}" font-size="70" font-weight="900" fill="#FFFFFF" text-anchor="middle">S.</text></svg>`;
+  const sortedBlack = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40"><text x="0" y="32" font-family="${fontFamily}" font-size="32" font-weight="800" fill="#0A0A0A" letter-spacing="-0.02em">Sorted.</text></svg>`;
+  const sortedWhite = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40"><text x="0" y="32" font-family="${fontFamily}" font-size="32" font-weight="800" fill="#FFFFFF" letter-spacing="-0.02em">Sorted.</text></svg>`;
+  const sMarkCircleBlack = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" stroke="#0A0A0A" stroke-width="7" fill="none"/><text x="50" y="68" font-family="${fontFamily}" font-size="50" font-weight="900" fill="#0A0A0A" text-anchor="middle">S.</text></svg>`;
+  const sMarkCircleWhite = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" stroke="#FFFFFF" stroke-width="7" fill="none"/><text x="50" y="68" font-family="${fontFamily}" font-size="50" font-weight="900" fill="#FFFFFF" text-anchor="middle">S.</text></svg>`;
 
   const colors = [
     { name: 'Primary Black', hex: '#0A0A0A', rgb: '10, 10, 10' },
@@ -255,7 +256,7 @@ export default function BrandGuidelines() {
           </div>
 
           <p className="text-[#525252] text-lg mb-8 max-w-3xl">
-            We use system fonts for performance and familiarity. The type hierarchy is bold and direct, 
+            We use Plus Jakarta Sans for performance and familiarity. The type hierarchy is bold and direct, 
             with tight tracking for headings and comfortable line-heights for reading.
           </p>
 
@@ -263,14 +264,15 @@ export default function BrandGuidelines() {
             <div className="bg-white rounded-xl p-8 shadow-sm border border-[#E5E5E5]">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-bold text-[#0A0A0A]">Primary Font</h3>
-                <span className="px-3 py-1 bg-[#0A0A0A] text-white text-xs rounded-full">System UI</span>
+                <span className="px-3 py-1 bg-[#0A0A0A] text-white text-xs rounded-full">Plus Jakarta Sans</span>
               </div>
               <div className="space-y-4">
-                <p className="text-5xl font-black text-[#0A0A0A] tracking-tight">Aa</p>
-                <p className="text-[#525252]">System UI, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif</p>
+                <p className="text-5xl font-black text-[#0A0A0A] tracking-tight" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Aa</p>
+                <p className="text-[#525252]">'Plus Jakarta Sans', system-ui, -apple-system, sans-serif</p>
                 <div className="flex gap-4 text-sm text-[#525252]">
-                  <span>Weights: 400, 600, 800, 900</span>
+                  <span>Weights: 400, 500, 600, 700, 800</span>
                 </div>
+                <p className="text-xs text-[#525252]">Google Font — <a href="https://fonts.google.com/specimen/Plus+Jakarta+Sans" className="underline hover:text-[#0A0A0A]">fonts.google.com</a></p>
               </div>
             </div>
 
