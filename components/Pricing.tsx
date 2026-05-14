@@ -50,7 +50,7 @@ export default function Pricing() {
             href="/#get-started"
             className="group inline-flex items-center gap-3 bg-white text-[#0A0A0A] font-semibold text-sm rounded-full px-8 py-4 hover:bg-white/90 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
           >
-            Start a build (no deposit)
+            Get your demo site
             <span className="w-6 h-6 rounded-full bg-[#0A0A0A]/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                 <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="#0A0A0A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
