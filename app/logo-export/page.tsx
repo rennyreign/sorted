@@ -57,7 +57,7 @@ export default function LogoExport() {
             <div dangerouslySetInnerHTML={{ __html: sLogoBlack }} className="w-48 h-48" />
           </div>
           <button 
-            onClick={() => downloadPNG(sLogoBlack, 'logo-s-white-bg.png', 400, 300, '#FFFFFF')}
+            onClick={() => downloadPNG(sLogoBlack, 'logo-s-white-bg.png', 400, 400, '#FFFFFF')}
             className="mt-3 px-4 py-2 bg-[#0A0A0A] text-white text-sm rounded hover:bg-gray-800"
           >
             Download (white bg)
@@ -71,7 +71,7 @@ export default function LogoExport() {
             <div dangerouslySetInnerHTML={{ __html: sLogoBlack }} className="w-48 h-48" />
           </div>
           <button 
-            onClick={() => downloadPNG(sLogoBlack, 'logo-s-transparent.png', 400, 300)}
+            onClick={() => downloadPNG(sLogoBlack, 'logo-s-transparent.png', 400, 400)}
             className="mt-3 px-4 py-2 bg-[#0A0A0A] text-white text-sm rounded hover:bg-gray-800"
           >
             Download (transparent)
@@ -84,7 +84,7 @@ export default function LogoExport() {
             <div dangerouslySetInnerHTML={{ __html: sLogoWhite }} className="w-48 h-48" />
           </div>
           <button 
-            onClick={() => downloadPNG(sLogoWhite, 'logo-s-black-bg.png', 400, 300, '#0A0A0A')}
+            onClick={() => downloadPNG(sLogoWhite, 'logo-s-black-bg.png', 400, 400, '#0A0A0A')}
             className="mt-3 px-4 py-2 bg-[#0A0A0A] text-white text-sm rounded hover:bg-gray-800"
           >
             Download (black bg)
@@ -101,7 +101,7 @@ export default function LogoExport() {
             <div dangerouslySetInnerHTML={{ __html: fullLogoBlack }} className="w-full" />
           </div>
           <button 
-            onClick={() => downloadPNG(fullLogoBlack, 'logo-full-white-bg.png', 400, 180, '#FFFFFF')}
+            onClick={() => downloadPNG(fullLogoBlack, 'logo-full-white-bg.png', 600, 200, '#FFFFFF')}
             className="mt-3 px-4 py-2 bg-[#0A0A0A] text-white text-sm rounded hover:bg-gray-800"
           >
             Download (white bg)
@@ -115,7 +115,7 @@ export default function LogoExport() {
             <div dangerouslySetInnerHTML={{ __html: fullLogoBlack }} className="w-full" />
           </div>
           <button 
-            onClick={() => downloadPNG(fullLogoBlack, 'logo-full-transparent.png', 400, 180)}
+            onClick={() => downloadPNG(fullLogoBlack, 'logo-full-transparent.png', 600, 200)}
             className="mt-3 px-4 py-2 bg-[#0A0A0A] text-white text-sm rounded hover:bg-gray-800"
           >
             Download (transparent)
@@ -128,7 +128,7 @@ export default function LogoExport() {
             <div dangerouslySetInnerHTML={{ __html: fullLogoWhite }} className="w-full" />
           </div>
           <button 
-            onClick={() => downloadPNG(fullLogoWhite, 'logo-full-black-bg.png', 400, 180, '#0A0A0A')}
+            onClick={() => downloadPNG(fullLogoWhite, 'logo-full-black-bg.png', 600, 200, '#0A0A0A')}
             className="mt-3 px-4 py-2 bg-[#0A0A0A] text-white text-sm rounded hover:bg-gray-800"
           >
             Download (black bg)
