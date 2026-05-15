@@ -69,17 +69,6 @@ const websites: Example[] = [
   },
 ]
 
-// Ad creative (no outbound links, opens modal)
-const adCreative: Example[] = [
-  {
-    id: 2,
-    title: "Facebook ad campaign",
-    client: "ADX Engine",
-    type: "Social ads",
-    img: "/examples/adxengine-ad.jpg",
-    description: "High-converting ad creative for paid social. Bold visuals, clear value prop, direct CTA.",
-  },
-]
 
 const typeColour: Record<string, string> = {
   "Website": "bg-blue-50 text-blue-700",
@@ -173,16 +162,6 @@ export default function ExamplesGrid() {
         <h2 className="text-2xl font-bold text-[#0A0A0A] mb-6">Websites</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {websites.map((ex) => (
-            <ExampleCard key={ex.id} ex={ex} onClick={setSelected} />
-          ))}
-        </div>
-      </div>
-
-      {/* Ad Creative Section */}
-      <div>
-        <h2 className="text-2xl font-bold text-[#0A0A0A] mb-6">Ad Creative</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {adCreative.map((ex) => (
             <ExampleCard key={ex.id} ex={ex} onClick={setSelected} />
           ))}
         </div>

@@ -4,19 +4,19 @@ export default function Hero() {
 
       <div className="mb-8">
         <span className="inline-flex items-center gap-2 rounded-full border border-black/20 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.15em] text-[#404040] font-medium">
-          Digital production
+          New websites
         </span>
       </div>
 
       <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(3.5rem,10vw,9rem)] leading-[0.92] tracking-[-0.03em] mb-10 max-w-5xl">
-        Whatever you need online.
+        Your new website.
         <br />
         <span className="text-[#525252]">Sorted.</span>
       </h1>
 
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 border-t border-black/10 pt-8">
         <p className="text-[#525252] text-lg font-medium leading-relaxed max-w-md">
-          Websites, design, ads and digital fixes for businesses – priced today, built in 48 hours.
+          Built first. No cost upfront. See your site in 36-48 hours, then decide.
         </p>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">

@@ -5,7 +5,7 @@ export default function Footer() {
 
         <div className="mb-16">
           <p className="font-sans font-extrabold text-white text-[clamp(2.5rem,7vw,6rem)] leading-[0.9] tracking-tight mb-10">
-            Just tell us<br/>what you need.
+            Your new website<br/>starts here.
           </p>
           <a
             href="#get-started"
@@ -37,7 +37,7 @@ export default function Footer() {
           </div>
         </div>
         <p className="text-xs text-[#3A3A3A] font-medium mt-4">
-          Sort My Digital
+          Sorted Websites
         </p>
 
       </div>
