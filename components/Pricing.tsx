@@ -3,38 +3,20 @@
 const testimonials = [
   {
     quote: "They built our site in 36 hours. I paid after I saw it. Simple.",
-    author: "Sarah T.",
-    role: "Owner, Halesowen Gym",
+    author: "Stuart G.",
+    role: "Owner, Gracie Barra Halesowen",
     rating: 5,
   },
   {
     quote: "No meetings, no briefs. Just sent my old URL and got something way better.",
-    author: "Marcus L.",
-    role: "Director, Palace Barns",
+    author: "Tish M.",
+    role: "Owner, Palace Barns",
     rating: 5,
   },
   {
     quote: "The price was fair because they saw what I actually needed. Not guesswork.",
-    author: "Priya K.",
-    role: "Founder, ClinicFlow",
-    rating: 5,
-  },
-  {
-    quote: "Finally, a web team that understands small business budgets. No bloated proposals.",
-    author: "James R.",
-    role: "Owner, The Craft Kitchen",
-    rating: 5,
-  },
-  {
-    quote: "Our new site loads in under a second. Conversions up 40% in the first month.",
-    author: "Emma W.",
-    role: "Marketing Director, ADX Engine",
-    rating: 5,
-  },
-  {
-    quote: "Had a broken booking form on a Friday night. Fixed by Saturday morning.",
-    author: "David K.",
-    role: "Manager, ClinicFlow",
+    author: "Kayleigh DM",
+    role: "Founder, Kyntra",
     rating: 5,
   },
 ]
