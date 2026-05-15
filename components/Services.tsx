@@ -41,8 +41,11 @@ export default function Services() {
             <p className="font-sans font-extrabold text-[#0A0A0A] text-4xl leading-tight tracking-tight mb-6">
               Good work doesn&apos;t need to cost agency money anymore.
             </p>
-            <p className="text-[#737373] text-base leading-relaxed">
+            <p className="text-[#737373] text-base leading-relaxed mb-4">
               We use a faster production model to deliver professional digital work at prices that make sense for small businesses.
+            </p>
+            <p className="text-[#525252] text-base leading-relaxed">
+              <span className="font-semibold text-[#0A0A0A]">We handle everything on this list.</span> But we always start with your website. It&apos;s where customers convert, and where everything else connects.
             </p>
           </div>
         </div>

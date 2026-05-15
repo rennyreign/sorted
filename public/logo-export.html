@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Sorted Logo Export</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 40px; background: #f5f5f5; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 40px; }
+    .logo-box { 
+      width: 400px; 
+      height: 300px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .white { background: #FFFFFF; }
+    .transparent { background: repeating-conic-gradient(#e5e5e5 0% 25%, transparent 0% 50%) 50% / 20px 20px; }
+    .black { background: #0A0A0A; }
+    .black svg { filter: invert(1); }
+    
+    h2 { margin: 20px 0 10px; font-size: 14px; color: #666; }
+    .download-btn { 
+      margin-top: 10px; 
+      padding: 8px 16px; 
+      background: #0A0A0A; 
+      color: white; 
+      border: none; 
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .download-btn:hover { background: #333; }
+    
+    /* Logo sizes */
+    .logo-s svg { width: 200px; height: 200px; }
+    .logo-full svg { width: 320px; height: 100px; }
+  </style>
+</head>
+<body>
+  <h1>Sorted Logo Export (PNG)</h1>
+  <p>Right-click each logo and "Save image as" or use the download button.</p>
+  
+  <h2>S Mark Logo (logo-s)</h2>
+  <div class="grid">
+    <div>
+      <div class="logo-box white logo-s" id="s-white">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="45" stroke="#0A0A0A" stroke-width="8" fill="none"/>
+          <path fill="#0A0A0A" d="M65 32H35v12h22v8H35v18h30v-12H43v-8h22V32z"/>
+        </svg>
+      </div>
+      <button class="download-btn" onclick="downloadPNG('s-white', 'logo-s-white.png')">Download PNG</button>
+    </div>
+    
+    <div>
+      <div class="logo-box transparent logo-s" id="s-transparent">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="45" stroke="#0A0A0A" stroke-width="8" fill="none"/>
+          <path fill="#0A0A0A" d="M65 32H35v12h22v8H35v18h30v-12H43v-8h22V32z"/>
+        </svg>
+      </div>
+      <button class="download-btn" onclick="downloadPNG('s-transparent', 'logo-s-transparent.png')">Download PNG</button>
+    </div>
+    
+    <div>
+      <div class="logo-box black logo-s" id="s-black">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="45" stroke="#0A0A0A" stroke-width="8" fill="none"/>
+          <path fill="#0A0A0A" d="M65 32H35v12h22v8H35v18h30v-12H43v-8h22V32z"/>
+        </svg>
+      </div>
+      <button class="download-btn" onclick="downloadPNG('s-black', 'logo-s-black.png')">Download PNG</button>
+    </div>
+  </div>
+  
+  <h2>Full Logo (logo-full)</h2>
+  <div class="grid">
+    <div>
+      <div class="logo-box white logo-full" id="full-white">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 70" fill="none">
+          <g transform="translate(5, 10)">
+            <circle cx="25" cy="25" r="22" stroke="#0A0A0A" stroke-width="4" fill="none"/>
+            <path fill="#0A0A0A" d="M32 17H18v6h12v4H18v9h14v-6H23v-4h9V17z"/>
+          </g>
+          <text x="65" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="800" fill="#0A0A0A" letter-spacing="-0.02em">sorted</text>
+          <text x="175" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="800" fill="#0A0A0A">.</text>
+        </svg>
+      </div>
+      <button class="download-btn" onclick="downloadPNG('full-white', 'logo-full-white.png')">Download PNG</button>
+    </div>
+    
+    <div>
+      <div class="logo-box transparent logo-full" id="full-transparent">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 70" fill="none">
+          <g transform="translate(5, 10)">
+            <circle cx="25" cy="25" r="22" stroke="#0A0A0A" stroke-width="4" fill="none"/>
+            <path fill="#0A0A0A" d="M32 17H18v6h12v4H18v9h14v-6H23v-4h9V17z"/>
+          </g>
+          <text x="65" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="800" fill="#0A0A0A" letter-spacing="-0.02em">sorted</text>
+          <text x="175" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="800" fill="#0A0A0A">.</text>
+        </svg>
+      </div>
+      <button class="download-btn" onclick="downloadPNG('full-transparent', 'logo-full-transparent.png')">Download PNG</button>
+    </div>
+    
+    <div>
+      <div class="logo-box black logo-full" id="full-black">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 70" fill="none">
+          <g transform="translate(5, 10)">
+            <circle cx="25" cy="25" r="22" stroke="#FFFFFF" stroke-width="4" fill="none"/>
+            <path fill="#FFFFFF" d="M32 17H18v6h12v4H18v9h14v-6H23v-4h9V17z"/>
+          </g>
+          <text x="65" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="800" fill="#FFFFFF" letter-spacing="-0.02em">sorted</text>
+          <text x="175" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="800" fill="#FFFFFF">.</text>
+        </svg>
+      </div>
+      <button class="download-btn" onclick="downloadPNG('full-black', 'logo-full-black.png')">Download PNG</button>
+    </div>
+  </div>
+
+  <script>
+    function downloadPNG(elementId, filename) {
+      const element = document.getElementById(elementId);
+      const svg = element.querySelector('svg');
+      
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      const svgData = new XMLSerializer().serializeToString(svg);
+      const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+      const url = URL.createObjectURL(svgBlob);
+      
+      img.onload = function() {
+        canvas.width = element.offsetWidth * 2;
+        canvas.height = element.offsetHeight * 2;
+        ctx.scale(2, 2);
+        
+        // Fill background if not transparent
+        const isTransparent = element.classList.contains('transparent');
+        const isBlack = element.classList.contains('black');
+        
+        if (!isTransparent) {
+          ctx.fillStyle = isBlack ? '#0A0A0A' : '#FFFFFF';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        
+        ctx.drawImage(img, 0, 0, element.offsetWidth, element.offsetHeight);
+        
+        const pngUrl = canvas.toDataURL('image/png');
+        const downloadLink = document.createElement('a');
+        downloadLink.href = pngUrl;
+        downloadLink.download = filename;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        
+        URL.revokeObjectURL(url);
+      };
+      
+      img.src = url;
+    }
+  </script>
+</body>
+</html>

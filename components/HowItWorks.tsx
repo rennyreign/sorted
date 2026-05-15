@@ -1,18 +1,18 @@
 const steps = [
   {
     number: "01",
-    title: "Tell us what you need",
-    body: "A sentence is enough. No brief, no calls. Plain English works fine.",
+    title: "We mock up",
+    body: "Give us your URL. We'll design something better. 48 hours, free. No commitment.",
   },
   {
     number: "02",
-    title: "We price it the same day",
-    body: "You get a clear number before anything starts. No hidden extras.",
+    title: "We build it",
+    body: "Like the mockup? We'll build the full site. Still no payment until you approve.",
   },
   {
     number: "03",
-    title: "Done in 24–48 hours",
-    body: "You'll have something to review quickly. Rarely longer.",
+    title: "We agree on price",
+    body: "Price comes after you see it. Based on what we built, not what we guessed.",
   },
 ]
 
@@ -30,7 +30,7 @@ export default function HowItWorks() {
           </h2>
         </div>
 
-        <div className="flex-1 flex flex-col gap-12">
+        <div className="flex-1">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-6">
             {steps.map((step) => (
               <div key={step.number}>
@@ -46,33 +46,6 @@ export default function HowItWorks() {
               </div>
             ))}
           </div>
-
-          <div className="rounded-2xl bg-[#0A0A0A] p-8 lg:p-10">
-            <div className="flex flex-col sm:flex-row sm:items-start gap-8">
-              <div className="flex-1">
-                <span className="inline-block font-mono text-[10px] uppercase tracking-[0.15em] text-[#525252] font-medium mb-4">
-                  Our guarantee
-                </span>
-                <h3 className="font-sans font-extrabold text-white text-2xl leading-tight tracking-tight mb-3">
-                  You only pay when you&apos;re happy.
-                </h3>
-                <p className="text-[#737373] text-sm leading-relaxed max-w-xl">
-                  We build it first, you pay on delivery. If what we create doesn&apos;t meet what you want, you don&apos;t pay for it. Simple as that. No deposits, no commitments, no awkward conversations.
-                </p>
-              </div>
-              <div className="shrink-0 flex flex-col gap-3 sm:text-right">
-                {["Pay on delivery", "No upfront deposits", "Don't like it, don't pay"].map((point) => (
-                  <div key={point} className="flex sm:justify-end items-center gap-2">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 text-white/40">
-                      <path d="M2.5 7.5L5.5 10.5L11.5 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    <span className="font-mono text-[11px] text-white/50 whitespace-nowrap">{point}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
         </div>
 
       </div>

@@ -24,7 +24,7 @@ export default function Hero() {
             href="#get-started"
             className="group inline-flex items-center gap-3 bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-full px-6 py-3.5 hover:bg-[#2a2a2a] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
           >
-            Tell us what you need
+            Get your free mockup
             <span className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                 <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -32,7 +32,7 @@ export default function Hero() {
             </span>
           </a>
           <span className="text-sm text-[#A3A3A3] font-medium">
-            Priced the same day
+            48-hour demo
           </span>
         </div>
       </div>
