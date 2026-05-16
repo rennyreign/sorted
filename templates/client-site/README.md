@@ -57,16 +57,16 @@ git push -u origin main
 Build using this decision hierarchy:
 
 #### Level 1: Foundation (taste-skills)
-These are the **principles** — always reference first:
-- `taste-skill/skills/visual-hierarchy/` — spacing, type scale, layout
-- `taste-skill/skills/color-system/` — palette, accessibility
-- `taste-skill/skills/typography-scale/` — font relationships
-- `taste-skill/skills/feedback-patterns/` — button states, transitions
-- `taste-skill/skills/micro-interaction-spec/` — animation timing
+These are the **principles** — always reference first (https://github.com/rennyreign/taste-skill):
+- `skills/visual-hierarchy/` — spacing, type scale, layout
+- `skills/color-system/` — palette, accessibility
+- `skills/typography-scale/` — font relationships
+- `skills/feedback-patterns/` — button states, transitions
+- `skills/micro-interaction-spec/` — animation timing
 
 #### Level 2: Application (sorted-local-site-refresh) ⭐ CENTERPIECE
 This is the **pattern library** — your primary reference:
-- `sorted/.agents/skills/sorted-local-site-refresh/SKILL.md`
+- https://github.com/rennyreign/taste-skill/tree/main/skills/sorted-local-site-refresh
 - Component patterns derived from GB Halesowen
 - Section templates (hero, feature grids, CTAs)
 - Page type structures
@@ -207,7 +207,7 @@ These provide the **what** — tested component structures:
 | **CTA block** | Conversion moment, dark background preferred |
 | **Pill navigation** | 4-6 nav items, sticky header required |
 
-*Reference: `sorted/.agents/skills/sorted-local-site-refresh/SKILL.md`*
+*Reference: https://github.com/rennyreign/taste-skill/tree/main/skills/sorted-local-site-refresh*
 
 ### Level 3: Your Call
 When patterns don't fit, decide based on:
@@ -249,7 +249,8 @@ This is a **living document**. After each client build:
 ---
 
 **Design System**: Principled → Flexible  
-**Foundation**: [taste-skills](https://github.com/rennyreign/taste-skill) — visual-hierarchy, color-system, typography-scale, feedback-patterns, micro-interaction-spec  
-**Application**: [sorted-local-site-refresh](https://github.com/rennyreign/taste-skill/tree/main/skills/sorted-local-site-refresh) — component patterns, section structures  
+**Skills repo**: https://github.com/rennyreign/taste-skill  
+**Foundation**: taste-skills — visual-hierarchy, color-system, typography-scale, feedback-patterns, micro-interaction-spec  
+**Application**: sorted-local-site-refresh — component patterns, section structures  
 **Provenance**: Derived from Gracie Barra Halesowen (May 2026)  
 **Questions**: Reference sorted project context or ask Cascade
