@@ -39,7 +39,7 @@ const websites: Example[] = [
     client: "ADX Engine",
     type: "Website",
     img: "/examples/adxengine.jpg",
-    description: "Full marketing site for an AI services company. Hero, features, pricing, and CTA sections. Delivered in 48 hours.",
+    description: "Full marketing site for an AI services company. Hero, features, pricing, and CTA sections. Delivered in 24 hours.",
     url: "https://adxengine.net",
   },
   {

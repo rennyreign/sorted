@@ -68,7 +68,7 @@ export default function IntakeAgent() {
             We&apos;ll be in touch.
           </h2>
           <p className="text-[#737373] text-base leading-relaxed mb-8">
-            Expect your mockup within 48 hours. If you have questions in the meantime, just reply to the confirmation email.
+            Expect your mockup within 24 hours. If you have questions in the meantime, just reply to the confirmation email.
           </p>
         </div>
       </section>
@@ -121,7 +121,7 @@ export default function IntakeAgent() {
             </label>
             <p className="text-sm text-[#A3A3A3] mb-4">
               {form.hasWebsite
-                ? "We'll mock up something better. 48 hours, free."
+                ? "We'll mock up something better. 24 hours, free."
                 : "What do you do? We'll design from scratch."}
             </p>
             {form.hasWebsite ? (
@@ -175,7 +175,7 @@ export default function IntakeAgent() {
           </button>
 
           <p className="text-xs text-[#A3A3A3] text-center">
-            No commitment. We&apos;ll send a mockup within 48 hours. Once your site is sorted, we can handle everything else. Logos, ads, social, the lot.
+            No commitment. We&apos;ll send a mockup within 24 hours. Once your site is sorted, we can handle everything else. Logos, ads, social, the lot.
           </p>
         </form>
       </div>

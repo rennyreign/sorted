@@ -1,7 +1,7 @@
 const features = [
   {
     title: "See it first",
-    description: "We build a working version of your site in 36-48 hours. You click through it before committing."
+    description: "We build a working mockup of your site in 24 hours. You click through it before committing."
   },
   {
     title: "Pay second",

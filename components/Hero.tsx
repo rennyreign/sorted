@@ -8,7 +8,7 @@ export default function Hero() {
         </span>
       </div>
 
-      <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(3.5rem,10vw,9rem)] leading-[0.92] tracking-[-0.03em] mb-10 max-w-5xl">
+      <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(4.5rem,10vw,9rem)] leading-[0.92] tracking-[-0.03em] mb-10 max-w-5xl">
         Your new website.
         <br />
         <span className="text-[#525252]">Sorted.</span>
@@ -16,7 +16,7 @@ export default function Hero() {
 
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 border-t border-black/10 pt-8">
         <p className="text-[#525252] text-lg font-medium leading-relaxed max-w-md">
-          Built first. No cost upfront. See your site in 36-48 hours, then decide.
+          Built first. No cost upfront. See your mockup in 24 hours, then decide.
         </p>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -32,7 +32,7 @@ export default function Hero() {
             </span>
           </a>
           <span className="text-sm text-[#A3A3A3] font-medium">
-            48-hour demo
+            24-hour mockup
           </span>
         </div>
       </div>

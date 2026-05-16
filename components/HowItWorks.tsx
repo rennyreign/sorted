@@ -2,7 +2,7 @@ const steps = [
   {
     number: "01",
     title: "We mock up",
-    body: "Give us your URL. We'll design something better. 48 hours, free. No commitment.",
+    body: "Give us your URL. We'll design something better. 24 hours, free. No commitment.",
   },
   {
     number: "02",
