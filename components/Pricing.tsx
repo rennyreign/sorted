@@ -1,5 +1,7 @@
 "use client"
 
+import { useGeoPricing } from "@/hooks/useGeoPricing"
+
 const testimonials = [
   {
     quote: "They built our site in 36 hours. I paid after I saw it. Simple.",
@@ -22,6 +24,7 @@ const testimonials = [
 ]
 
 export default function Pricing() {
+  const pricing = useGeoPricing()
 
   return (
     <section id="pricing" className="py-32 px-6 sm:px-10 lg:px-16 bg-[#0A0A0A]">
@@ -47,7 +50,7 @@ export default function Pricing() {
                 your situation.
               </p>
               <p>
-                This means a complex site might be £3,000. Or £400 to a small 
+                This means a complex site might be {pricing.siteTo}. Or {pricing.siteFrom} to a small 
                 business that needs the break. The price matches the value 
                 and the relationship, decided after you know what you&apos;re 
                 getting, not before.
@@ -66,7 +69,7 @@ export default function Pricing() {
                 <p className="text-[#737373] text-sm leading-relaxed">
                   Every new site comes with one month of SortedUpdates free. 
                   Unlimited updates via your site&apos;s portal. Change text, swap images, 
-                  add pages. Type it and it&apos;s done. Then £59/mo or £19 per update.
+                  add pages. Type it and it&apos;s done. Then {pricing.monthlyUpdates}/mo or {pricing.perUpdate} per update.
                 </p>
               </div>
             </div>

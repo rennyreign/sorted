@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav"
 import Footer from "@/components/Footer"
+import UpdatesPricing from "@/components/UpdatesPricing"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -135,88 +136,7 @@ export default function SortedUpdatesPage() {
             SortedUpdates options.
           </h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Portal - Monthly */}
-            <div className="p-8 border-2 border-[#0A0A0A] rounded-2xl bg-white relative">
-              <span className="absolute -top-3 left-6 bg-[#0A0A0A] text-white text-xs font-semibold px-3 py-1 rounded-full">
-                Portal access
-              </span>
-              <div className="flex items-baseline gap-2 mb-4">
-                <span className="font-sans font-extrabold text-[#0A0A0A] text-4xl">£59</span>
-                <span className="text-[#525252] text-sm">/month</span>
-              </div>
-              <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Unlimited Updates</h3>
-              <p className="text-[#525252] text-sm leading-relaxed mb-6">
-                Full access to your site&apos;s SortedUpdates portal. Unlimited requests, 
-                safe changes in 30 seconds, chat with the agent directly.
-              </p>
-              <ul className="space-y-3 text-sm">
-                <li className="flex items-start gap-3">
-                  <svg className="w-5 h-5 text-[#25D366] mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-[#525252]">Unlimited requests via portal</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <svg className="w-5 h-5 text-[#25D366] mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-[#525252]">Chat with the agent in real-time</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <svg className="w-5 h-5 text-[#25D366] mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-[#525252]">Safe changes: 30 seconds</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <svg className="w-5 h-5 text-[#25D366] mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-[#525252]">Cancel anytime</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Email - Per request */}
-            <div className="p-8 border border-black/[0.08] rounded-2xl bg-[#FAFAFA]">
-              <div className="flex items-baseline gap-2 mb-4">
-                <span className="font-sans font-extrabold text-[#0A0A0A] text-4xl">£19</span>
-                <span className="text-[#525252] text-sm">/update</span>
-              </div>
-              <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Pay As You Go</h3>
-              <p className="text-[#525252] text-sm leading-relaxed mb-6">
-                For occasional updates. Send an email with your request, 
-                the agent handles it remotely and replies when done.
-              </p>
-              <ul className="space-y-3 text-sm">
-                <li className="flex items-start gap-3">
-                  <svg className="w-5 h-5 text-[#25D366] mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-[#525252]">Per-request billing</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <svg className="w-5 h-5 text-[#25D366] mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-[#525252]">Same agent, via email</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <svg className="w-5 h-5 text-[#25D366] mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-[#525252]">No subscription</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <svg className="w-5 h-5 text-[#25D366] mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-[#525252]">Perfect for trying it out</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <UpdatesPricing />
 
           <div className="mt-12 text-center">
             <a
