@@ -7,218 +7,184 @@ export const metadata: Metadata = {
   robots: "noindex",
 }
 
-const phases = [
-  {
-    num: "01",
-    title: "Artist Identity & Positioning",
-    body: "Developing a clear and compelling public identity around your story and artistic voice, messaging and tone, audience identity, emotional positioning, and visual direction. This creates a stronger reason for people to follow you beyond individual songs alone.",
-  },
-  {
-    num: "02",
-    title: "Content & Audience Growth",
-    body: "Consistent visibility is one of the biggest drivers of audience growth today. YouTube content strategy, storytelling and artist-focused content, short-form clips, music promotion content, and a consistent publishing rhythm — converting listeners into long-term supporters.",
-  },
-  {
-    num: "03",
-    title: "Digital Presence & Authority",
-    body: "A strong digital presence creates credibility and reinforces the seriousness of the artist brand. This includes a website mockup through Sorted — a professional home for your music, videos, and story, with booking and contact infrastructure built in.",
-  },
-  {
-    num: "04",
-    title: "Long-Term Audience Infrastructure",
-    body: "Building an audience ecosystem that supports music releases, fan engagement, live performances, direct communication, and future monetization. Something that compounds in value over time rather than relying only on streaming platforms.",
-  },
-]
-
-const roadmap = [
-  {
-    phase: "Phase 1",
-    title: "Foundation & Positioning",
-    items: ["Artist positioning strategy", "Audience definition", "Platform optimization", "Website mockup and brand direction", "Content strategy framework", "Initial growth infrastructure"],
-  },
-  {
-    phase: "Phase 2",
-    title: "Visibility & Audience Growth",
-    items: ["Ongoing publishing strategy", "YouTube and social growth planning", "Short-form content direction", "Audience engagement development", "Consistent visibility and brand reinforcement"],
-  },
-  {
-    phase: "Phase 3",
-    title: "Audience Expansion & Influence",
-    items: ["Fanbase and community growth", "Performance and event opportunities", "Collaboration opportunities", "Expanded reach and authority", "Long-term audience retention and development"],
-  },
-]
-
 export default function RoyeProposal() {
   return (
     <>
       <Nav />
-      <main>
+      <main className="max-w-[680px] mx-auto px-6 sm:px-10 pt-40 pb-32">
 
-        {/* Hero */}
-        <section className="pt-40 pb-20 px-6 sm:px-10 lg:px-16 max-w-[1400px] mx-auto">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6">
-            Prepared for Roye Abramson
-          </span>
-          <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(3rem,7vw,6.5rem)] leading-[0.92] tracking-tight max-w-5xl mb-8">
-            Artist Growth &<br />
-            <span className="text-[#525252]">Digital Presence.</span>
-          </h1>
-          <p className="text-[#525252] text-lg font-medium leading-relaxed max-w-xl">
-            A strategy built around your voice, your story, and the audience that's waiting for both.
+        {/* Date + Address */}
+        <div className="mb-16">
+          <p className="font-mono text-xs text-[#A3A3A3] uppercase tracking-[0.15em] mb-1">May 2026</p>
+          <p className="font-mono text-xs text-[#A3A3A3] uppercase tracking-[0.15em]">Private — for Roye Abramson</p>
+        </div>
+
+        {/* Salutation */}
+        <h1 className="font-sans font-extrabold text-[#0A0A0A] text-4xl sm:text-5xl leading-tight tracking-tight mb-10">
+          Roye,
+        </h1>
+
+        {/* Opening letter */}
+        <div className="space-y-6 text-[#525252] text-lg leading-relaxed mb-16">
+          <p>
+            After our conversation, I spent some time thinking more carefully about what the opportunity in front of you actually is — and I want to be honest with you about what I see.
           </p>
-        </section>
+          <p>
+            This isn&apos;t simply about promoting music or increasing streams. The real opportunity is to build a meaningful audience around your voice, your story, your perspective, and the music that carries it.
+          </p>
+          <p>
+            One of the biggest advantages you have is authenticity. You have life experience, perspective, and a grounded voice that younger artists simply cannot replicate. That creates a different type of connection — one built on meaning and emotional resonance rather than trends alone.
+          </p>
+          <p className="text-[#0A0A0A] font-semibold">
+            The goal isn&apos;t to make you go viral. It&apos;s to build something that lasts.
+          </p>
+        </div>
 
-        {/* Opening */}
-        <section className="py-20 px-6 sm:px-10 lg:px-16 border-t border-black/[0.06] max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32">
-            <div>
-              <p className="font-sans font-bold text-[#0A0A0A] text-2xl leading-snug tracking-tight mb-6">
-                This isn't simply about promoting music or increasing streams.
-              </p>
-              <div className="space-y-5 text-[#525252] text-base leading-relaxed">
-                <p>
-                  The real opportunity is to build a meaningful audience around your voice, your story, your perspective, and the music that carries it.
-                </p>
-                <p>
-                  In today's world, artists grow not only through songs themselves, but through connection, consistency, storytelling, and identity. People follow artists they feel something from — artists who represent something authentic and recognizable.
-                </p>
-                <p>
-                  That is where the greatest value and long-term potential exists for you.
-                </p>
-              </div>
-            </div>
-            <div className="space-y-5 text-[#525252] text-base leading-relaxed">
-              <p className="font-sans font-bold text-[#0A0A0A] text-2xl leading-snug tracking-tight mb-6">
-                Your biggest advantage is authenticity.
-              </p>
-              <p>
-                You have life experience, perspective, stories, and a grounded voice that younger artists simply cannot replicate. That creates a different type of audience connection — one built on meaning and emotional resonance rather than trends alone.
-              </p>
-              <p>
-                The objective is to position you not just as "someone making music," but as an artist with something genuine to say and a world people want to step into.
-              </p>
-              <p className="font-semibold text-[#0A0A0A]">
-                That combination of music, personality, perspective, and storytelling is what creates true fans.
-              </p>
-            </div>
-          </div>
-        </section>
+        {/* Divider */}
+        <div className="border-t border-black/[0.08] mb-16" />
 
-        {/* Strategy */}
-        <section className="py-20 px-6 sm:px-10 lg:px-16 border-t border-black/[0.06] max-w-[1400px] mx-auto">
-          <div className="flex flex-col lg:flex-row lg:items-start gap-16 lg:gap-0">
-            <div className="lg:w-64 shrink-0">
-              <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-4 block">
-                The strategy
-              </span>
-              <h2 className="font-sans font-extrabold text-[#0A0A0A] text-4xl leading-tight tracking-tight">
-                Four areas.<br />One direction.
-              </h2>
-            </div>
-            <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-10">
-              {phases.map((item) => (
-                <div key={item.num}>
-                  <span className="block font-mono text-[11px] text-[#A3A3A3] mb-4 tabular-nums">{item.num}</span>
-                  <h3 className="font-sans font-bold text-[#0A0A0A] text-lg leading-snug tracking-tight mb-3">{item.title}</h3>
-                  <p className="text-sm text-[#737373] leading-relaxed">{item.body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Roadmap */}
-        <section className="py-20 px-6 sm:px-10 lg:px-16 border-t border-black/[0.06] max-w-[1400px] mx-auto">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-10 block">
-            Roadmap
+        {/* What I'm proposing */}
+        <div className="mb-16">
+          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6 block">
+            What I&apos;m proposing
           </span>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
-            {roadmap.map((item) => (
-              <div key={item.phase}>
-                <span className="block font-mono text-[11px] text-[#A3A3A3] mb-3 uppercase tracking-widest">{item.phase}</span>
-                <h3 className="font-sans font-bold text-[#0A0A0A] text-lg leading-snug tracking-tight mb-5">{item.title}</h3>
-                <ul className="space-y-0 divide-y divide-black/[0.06]">
-                  {item.items.map((point) => (
-                    <li key={point} className="flex items-start gap-3 py-3">
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="shrink-0 mt-0.5 text-[#0A0A0A]">
-                        <path d="M3 8.5L6 11.5L13 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      <span className="text-sm text-[#525252] leading-snug">{point}</span>
-                    </li>
-                  ))}
-                </ul>
+          <div className="space-y-10">
+            {[
+              {
+                num: "01",
+                title: "Artist Identity & Positioning",
+                body: "Before anything else, we get clear on who you are as an artist in public — your story, your tone, your audience, your visual direction. This is the foundation everything else is built on.",
+              },
+              {
+                num: "02",
+                title: "Content & Audience Growth",
+                body: "Consistent visibility is what drives discovery. We build a content rhythm around you — YouTube, short-form, storytelling — that gradually converts listeners into people who genuinely follow your journey.",
+              },
+              {
+                num: "03",
+                title: "Digital Presence via Sorted",
+                body: "Through my brand Sorted, I'll build a proper artist website — a professional home for your music, your story, booking, and contact. I'll show you a mockup first, before anything is paid for.",
+              },
+              {
+                num: "04",
+                title: "Long-Term Audience Infrastructure",
+                body: "The long game is an audience that doesn't depend entirely on algorithms. We build the infrastructure — email, community, direct communication — so you own the relationship with your fans.",
+              },
+            ].map((item) => (
+              <div key={item.num} className="flex gap-8">
+                <span className="font-mono text-[11px] text-[#C4C4C4] tabular-nums pt-1 shrink-0">{item.num}</span>
+                <div>
+                  <h3 className="font-sans font-bold text-[#0A0A0A] text-lg leading-snug tracking-tight mb-2">{item.title}</h3>
+                  <p className="text-[#737373] text-base leading-relaxed">{item.body}</p>
+                </div>
               </div>
             ))}
           </div>
-        </section>
+        </div>
+
+        {/* Divider */}
+        <div className="border-t border-black/[0.08] mb-16" />
+
+        {/* Roadmap */}
+        <div className="mb-16">
+          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6 block">
+            How it unfolds
+          </span>
+          <div className="space-y-8">
+            {[
+              {
+                phase: "Phase 1 — Foundation",
+                items: ["Artist positioning and audience definition", "Platform optimization", "Website mockup and brand direction", "Content strategy framework"],
+              },
+              {
+                phase: "Phase 2 — Visibility",
+                items: ["Ongoing publishing strategy", "YouTube and social growth", "Short-form content direction", "Audience engagement development"],
+              },
+              {
+                phase: "Phase 3 — Growth",
+                items: ["Fanbase and community building", "Performance and event opportunities", "Expanded reach and authority", "Long-term audience retention"],
+              },
+            ].map((item) => (
+              <div key={item.phase} className="flex gap-8">
+                <div className="w-2 shrink-0 mt-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#0A0A0A]" />
+                </div>
+                <div>
+                  <p className="font-sans font-semibold text-[#0A0A0A] text-base mb-3">{item.phase}</p>
+                  <ul className="space-y-1">
+                    {item.items.map((point) => (
+                      <li key={point} className="text-sm text-[#737373] leading-relaxed">{point}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="border-t border-black/[0.08] mb-16" />
 
         {/* Investment */}
-        <section className="py-20 px-6 sm:px-10 lg:px-16 border-t border-black/[0.06] max-w-[1400px] mx-auto">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-10 block">
+        <div className="mb-16">
+          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">
             Investment
           </span>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl">
-            <div className="p-8 border border-black/[0.08] rounded-2xl">
-              <span className="block font-mono text-[11px] text-[#A3A3A3] mb-4 uppercase tracking-widest">Foundation</span>
-              <p className="font-sans font-extrabold text-[#0A0A0A] text-4xl tracking-tight mb-4">$5,000</p>
-              <p className="text-sm text-[#737373] leading-relaxed mb-6">One-time</p>
-              <ul className="space-y-2 text-sm text-[#525252]">
-                {["Artist positioning", "Brand direction", "Website mockup via Sorted", "Platform optimization", "Content and audience strategy", "Growth infrastructure setup"].map((item) => (
-                  <li key={item} className="flex items-center gap-2">
-                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0 text-[#0A0A0A]">
-                      <path d="M3 8.5L6 11.5L13 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    {item}
-                  </li>
-                ))}
-              </ul>
+          <div className="space-y-6">
+            <div className="flex items-start justify-between gap-8 py-6 border-t border-black/[0.08]">
+              <div>
+                <p className="font-sans font-bold text-[#0A0A0A] text-lg mb-1">Foundation & Strategy Build</p>
+                <p className="text-sm text-[#737373] leading-relaxed">Artist positioning, brand direction, website mockup via Sorted, platform optimization, content and audience strategy, growth infrastructure setup.</p>
+              </div>
+              <p className="font-sans font-extrabold text-[#0A0A0A] text-2xl tracking-tight shrink-0">$5,000</p>
             </div>
-            <div className="p-8 border border-black/[0.08] rounded-2xl bg-[#0A0A0A]">
-              <span className="block font-mono text-[11px] text-[#737373] mb-4 uppercase tracking-widest">Ongoing</span>
-              <p className="font-sans font-extrabold text-white text-4xl tracking-tight mb-4">$2,000<span className="text-xl font-medium text-[#737373]">/mo</span></p>
-              <p className="text-sm text-[#737373] leading-relaxed mb-6">Monthly retainer</p>
-              <ul className="space-y-2 text-sm text-[#737373]">
-                {["Monthly strategy and planning", "Content direction", "Audience growth support", "Platform management oversight", "Performance review and refinement", "Ongoing visibility and brand development"].map((item) => (
-                  <li key={item} className="flex items-center gap-2">
-                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0 text-white">
-                      <path d="M3 8.5L6 11.5L13 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    {item}
-                  </li>
-                ))}
-              </ul>
+            <div className="flex items-start justify-between gap-8 py-6 border-t border-black/[0.08]">
+              <div>
+                <p className="font-sans font-bold text-[#0A0A0A] text-lg mb-1">Ongoing Audience Growth</p>
+                <p className="text-sm text-[#737373] leading-relaxed">Monthly strategy, content direction, audience growth support, platform oversight, performance review, ongoing visibility and brand development.</p>
+              </div>
+              <p className="font-sans font-extrabold text-[#0A0A0A] text-2xl tracking-tight shrink-0">$2,000<span className="text-sm font-medium text-[#A3A3A3]">/mo</span></p>
             </div>
           </div>
-        </section>
+        </div>
 
-        {/* Closing */}
-        <section className="py-20 px-6 sm:px-10 lg:px-16 bg-[#0A0A0A]">
-          <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row lg:items-end justify-between gap-10">
-            <div className="max-w-2xl">
-              <p className="font-sans font-extrabold text-white text-[clamp(2rem,5vw,4rem)] leading-tight tracking-tight mb-6">
-                Authenticity and meaningful storytelling are increasingly rare online.
-              </p>
-              <p className="text-[#525252] text-base leading-relaxed mb-4">
-                The opportunity is to build an artist presence that feels real, grounded, and emotionally resonant — while gradually developing an audience that connects deeply with both the music and the person behind it.
-              </p>
-              <p className="text-[#737373] text-base leading-relaxed">
-                That kind of audience takes time to build, but it also tends to become far more loyal, valuable, and lasting over the long run.
-              </p>
-              <p className="text-white font-semibold mt-8">— Renaldo</p>
-            </div>
-            <a
-              href="mailto:renaldo@sortmydigital.site?subject=Roye Music Proposal"
-              className="group inline-flex items-center gap-3 bg-white text-[#0A0A0A] font-semibold text-sm rounded-full px-6 py-3.5 hover:bg-white/90 transition-all duration-300 shrink-0"
-            >
-              Let&apos;s talk
-              <span className="w-6 h-6 rounded-full bg-black/5 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </span>
-            </a>
-          </div>
-        </section>
+        {/* Divider */}
+        <div className="border-t border-black/[0.08] mb-16" />
+
+        {/* Closing letter */}
+        <div className="space-y-6 text-[#525252] text-lg leading-relaxed mb-16">
+          <p>
+            I genuinely believe there is something unique here — not because this is about chasing trends, but because authenticity and meaningful storytelling are increasingly rare online.
+          </p>
+          <p>
+            That kind of audience takes time to build. But it also tends to become far more loyal, valuable, and lasting than anything built on short-term attention.
+          </p>
+          <p>
+            I&apos;m excited about the potential of what this could become.
+          </p>
+        </div>
+
+        {/* Signature */}
+        <div className="mb-16">
+          <p className="font-sans font-bold text-[#0A0A0A] text-lg">Renaldo Edmondson</p>
+          <p className="text-sm text-[#A3A3A3] mt-1">Sorted. — sortmydigital.site</p>
+        </div>
+
+        {/* CTA */}
+        <div className="border-t border-black/[0.08] pt-12">
+          <p className="text-sm text-[#A3A3A3] mb-6">Ready to move forward, or have questions?</p>
+          <a
+            href="mailto:renaldo@sortmydigital.site?subject=Re: Roye Music Proposal"
+            className="group inline-flex items-center gap-3 bg-[#0A0A0A] text-white font-semibold text-sm rounded-full px-6 py-3.5 hover:bg-[#2a2a2a] transition-all duration-300"
+          >
+            Reply to this proposal
+            <span className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center group-hover:translate-x-0.5 transition-transform duration-300">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M2 8L8 2M8 2H4M8 2V6" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </span>
+          </a>
+        </div>
 
       </main>
     </>
