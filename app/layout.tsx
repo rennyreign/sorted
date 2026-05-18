@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     "Websites, design, ads and small digital jobs for businesses, done properly.",
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.png", type: "image/png" },
     ],
   },
   openGraph: {
