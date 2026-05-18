@@ -7,11 +7,13 @@ The first Client Website Operator is the GB Halesowen Operator for `app/gbhaleso
 ## Pattern
 
 ```txt
-WhatsApp Intake
+Portal Chat / WhatsApp Intake
 -> Client Router
 -> Client Website Operator
 -> Client Rules + Memory + Templates
 -> Dry Run Plan
+-> Execution Plan
+-> Preview / Apply / Escalate
 ```
 
 ## Run Locally
@@ -40,6 +42,37 @@ Create a local `.env` from `.env.example` when provider credentials are availabl
 cd operators/sorted-updates/implementation
 make serve
 ```
+
+## Run Local Portal API
+
+The portal-facing scaffold exposes REST endpoints for the Next.js `/sorted` portal. These endpoints use local JSON stores under `.sorted-updates-state/` until Supabase, GitHub, Netlify, and notification providers are wired in.
+
+```bash
+cd operators/sorted-updates/implementation
+make serve
+```
+
+Available local endpoints:
+
+| Endpoint | Purpose |
+|---|---|
+| `POST /portal/chat` | Accept portal chat messages and return dry-run, preview, apply, or escalation state |
+| `GET /portal/history?client_id=gbhalesowen` | Return stored conversation messages and change records |
+| `POST /portal/reset` | Validate reset confirmation and plan a `sorted-handoff` restore |
+| `POST /portal/approval` | Approve or reject a previewed change |
+| `GET /health` | Health check |
+
+Next.js portal routes are scaffolded at:
+
+| Route | Purpose |
+|---|---|
+| `/sorted` | Entry redirect |
+| `/sorted/chat` | Client conversation UI |
+| `/sorted/history` | Change history |
+| `/sorted/preview` | Preview queue placeholder |
+| `/sorted/reset` | Reset failsafe confirmation |
+
+Set `SORTED_UPDATES_API_URL=http://127.0.0.1:8787` for the Next.js API proxy routes.
 
 Then verify:
 
@@ -79,3 +112,14 @@ Sorted Updates must not auto-apply pricing, legal/policy content beyond draft sc
 The first Netlify preview branch design is documented in [docs/preview-branch-design.md](docs/preview-branch-design.md).
 
 The implementation currently includes a preview planner in `implementation/preview.py`. It validates approved dry-runs, checks target files against the client operator paths, and returns deterministic branch/PR metadata. It does not create GitHub branches or pull requests yet.
+
+## Infrastructure Seams
+
+- `implementation/portal.py` owns the portal chat contract and persists conversation/change records through `memory.py`.
+- `implementation/execution.py` decides whether a request is auto-apply, preview, clarification, or escalation.
+- `implementation/master.py` stores escalation records and fixes the notification contract for email, WhatsApp, and dashboard.
+- `implementation/provisioning.py` produces the onboarding checklist for client repos, secrets, routes, and the immutable handoff tag.
+- `implementation/assets.py` defines the upload optimisation plan for images and PDFs.
+- `implementation/providers.py` defines GitHub, Netlify, and notification provider seams as no-network planning adapters.
+- `implementation/reset.py` plans protected `sorted-handoff` restores.
+- `implementation/approvals.py` records preview approve/reject decisions.

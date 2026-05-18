@@ -20,7 +20,7 @@ def test_builds_preview_branch_plan_for_allowed_request():
     assert preview.status == "preview_plan_ready"
     assert preview.branch_name == "sorted-updates/gbhalesowen/upd_cli_message-predefined_page_addition"
     assert preview.pr_title == "Sorted Updates: gbhalesowen predefined_page_addition"
-    assert "app/gbhalesowen/beginners/page.tsx" in preview.pr_body
+    assert "app/beginners/page.tsx" in preview.pr_body
 
 
 def test_blocks_preview_branch_for_approval_required_request():
@@ -39,7 +39,7 @@ def test_blocks_target_outside_allowed_client_paths():
     unsafe_plan = DryRunPlan(
         **{
             **plan.model_dump(),
-            "target_files": ["app/page.tsx"],
+            "target_files": ["next.config.mjs"],
         }
     )
 
@@ -47,13 +47,12 @@ def test_blocks_target_outside_allowed_client_paths():
 
     assert preview.status == "preview_blocked"
     assert preview.branch_name is None
-    assert preview.blocked_reasons == ["target file is outside allowed client paths: app/page.tsx"]
+    assert preview.blocked_reasons == ["target file is outside allowed client paths: next.config.mjs"]
 
 
 def test_allowed_path_validation_accepts_client_roots():
     config = load_client_config("gbhalesowen")
 
-    assert target_is_allowed("app/gbhalesowen/timetable/page.tsx", config)
+    assert target_is_allowed("app/timetable/page.tsx", config)
     assert target_is_allowed("public/gbhalesowen", config)
-    assert not target_is_allowed("app/about/page.tsx", config)
-
+    assert not target_is_allowed("next.config.mjs", config)

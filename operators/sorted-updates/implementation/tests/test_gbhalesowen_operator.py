@@ -6,7 +6,7 @@ def test_client_config_loads_correctly():
     config = load_client_config("gbhalesowen")
 
     assert config.business_name == "Gracie Barra Halesowen"
-    assert config.site_paths["app_root"] == "app/gbhalesowen"
+    assert config.site_paths["app_root"] == "app"
     assert "predefined_page_addition" in config.allowed_update_types
 
 
@@ -19,4 +19,3 @@ def test_dry_run_plan_contains_suggested_whatsapp_reply():
     assert plan.status == "dry_run_ready"
     assert plan.suggested_whatsapp_reply
     assert "preview" in plan.suggested_whatsapp_reply.casefold()
-

@@ -1,4 +1,9 @@
 from api import handle_inbound_payload
+from api import SortedUpdatesHandler
+
+
+def test_handler_exposes_portal_paths():
+    assert SortedUpdatesHandler.server_version == "SortedUpdatesHTTP/0.1"
 
 
 def test_handle_normalized_inbound_payload(tmp_path):

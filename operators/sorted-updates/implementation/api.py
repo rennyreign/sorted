@@ -8,8 +8,12 @@ from typing import Any
 from urllib.parse import parse_qs, urlparse
 
 from adapters.meta_whatsapp import MetaWebhookError, normalise_meta_webhook, verify_challenge, verify_signature
+from approvals import decide_change
 from env import load_env_file
 from models import InboundMessage
+from portal import handle_portal_chat, portal_history
+from models import PortalChatRequest
+from reset import build_reset_plan, record_reset_plan
 from replies import ReplyStore, prepare_auto_reply
 
 
@@ -26,6 +30,15 @@ class SortedUpdatesHandler(BaseHTTPRequestHandler):
             self._json_response(200, {"status": "ok"})
             return
 
+        if parsed.path == "/portal/history":
+            query = parse_qs(parsed.query)
+            client_id = query.get("client_id", [None])[0]
+            if not client_id:
+                self._json_response(400, {"error": "missing client_id"})
+                return
+            self._json_response(200, portal_history(client_id))
+            return
+
         if parsed.path == "/whatsapp/inbound":
             query = {key: values for key, values in parse_qs(parsed.query).items()}
             challenge = verify_challenge(query, os.getenv("META_WHATSAPP_VERIFY_TOKEN", ""))
@@ -39,6 +52,48 @@ class SortedUpdatesHandler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:
         parsed = urlparse(self.path)
+        if parsed.path == "/portal/chat":
+            raw_body = self.rfile.read(int(self.headers.get("Content-Length", "0")))
+            try:
+                payload = json.loads(raw_body.decode("utf-8"))
+                response = handle_portal_chat(PortalChatRequest.model_validate(payload))
+            except (json.JSONDecodeError, ValueError) as exc:
+                self._json_response(400, {"error": str(exc)})
+                return
+            self._json_response(200, response.model_dump(mode="json"))
+            return
+
+        if parsed.path == "/portal/reset":
+            raw_body = self.rfile.read(int(self.headers.get("Content-Length", "0")))
+            try:
+                payload = json.loads(raw_body.decode("utf-8"))
+            except json.JSONDecodeError as exc:
+                self._json_response(400, {"error": f"invalid JSON: {exc}"})
+                return
+            reset_plan = build_reset_plan(str(payload.get("client_id", "")), str(payload.get("confirmation", "")))
+            if reset_plan.status == "blocked":
+                self._json_response(400, reset_plan.model_dump(mode="json"))
+                return
+            record_reset_plan(reset_plan)
+            self._json_response(202, reset_plan.model_dump(mode="json"))
+            return
+
+        if parsed.path == "/portal/approval":
+            raw_body = self.rfile.read(int(self.headers.get("Content-Length", "0")))
+            try:
+                payload = json.loads(raw_body.decode("utf-8"))
+            except json.JSONDecodeError as exc:
+                self._json_response(400, {"error": f"invalid JSON: {exc}"})
+                return
+            decision = decide_change(
+                client_id=str(payload.get("client_id", "")),
+                change_id=str(payload.get("change_id", "")),
+                decision=str(payload.get("decision", "")),
+                decided_by=str(payload.get("decided_by", "portal")),
+            )
+            self._json_response(200 if decision.status != "not_found" else 404, decision.model_dump(mode="json"))
+            return
+
         if parsed.path != "/whatsapp/inbound":
             self._json_response(404, {"error": "not found"})
             return

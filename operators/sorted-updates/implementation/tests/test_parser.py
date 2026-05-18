@@ -18,7 +18,7 @@ def test_classifies_timetable_update():
     request = parse_update_request(inbound, config)
 
     assert request.classification.type == "timetable_update"
-    assert request.intent.target_route == "/gbhalesowen/timetable"
+    assert request.intent.target_route == "/timetable"
 
 
 def test_target_route_and_file_for_predefined_page():
@@ -26,6 +26,5 @@ def test_target_route_and_file_for_predefined_page():
     inbound = build_cli_inbound("Please add a kids page", client_id="gbhalesowen")
     request = parse_update_request(inbound, config)
 
-    assert request.intent.target_route == "/gbhalesowen/kids-classes"
-    assert request.intent.target_files == ["app/gbhalesowen/kids-classes/page.tsx"]
-
+    assert request.intent.target_route == "/kids-classes"
+    assert request.intent.target_files == ["app/kids-classes/page.tsx"]

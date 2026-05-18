@@ -2,11 +2,11 @@
   "client_id": "gbhalesowen",
   "operator_id": "gbhalesowen-website-operator",
   "business_name": "Gracie Barra Halesowen",
-  "site_route": "/gbhalesowen",
+  "site_route": "",
   "repo": "rennyreign/gbhalesowen",
   "site_paths": {
-    "app_root": "app/gbhalesowen",
-    "components": "app/gbhalesowen/components",
+    "app_root": "app",
+    "components": "app/components",
     "public_assets": "public",
     "client_context": "client"
   },
@@ -52,4 +52,3 @@
     }
   ]
 }
-

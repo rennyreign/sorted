@@ -27,6 +27,27 @@ class InboundMessage(BaseModel):
     client_id: str | None = None
 
 
+class PortalSession(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    session_id: str
+    client_id: str
+    user_id: str | None = None
+    email: str | None = None
+    first_login: bool = False
+    intro_completed: bool = False
+
+
+class PortalChatRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    session: PortalSession
+    message_id: str
+    body: str
+    attachments: list[Attachment | dict[str, Any]] = Field(default_factory=list)
+    requested_mode: str = "auto"
+
+
 class Classification(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -75,6 +96,95 @@ class DryRunPlan(BaseModel):
     suggested_whatsapp_reply: str
 
 
+class ConversationMessage(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    id: str
+    role: str
+    content: str
+    created_at: datetime
+    attachments: list[Attachment | dict[str, Any]] = Field(default_factory=list)
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class ChangeRecord(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    change_id: str
+    request_id: str
+    client_id: str
+    status: str
+    summary: str
+    created_at: datetime
+    updated_at: datetime
+    target_route: str | None = None
+    preview_url: str | None = None
+    live_url: str | None = None
+    blocked_reasons: list[str] = Field(default_factory=list)
+    execution: dict[str, Any] = Field(default_factory=dict)
+
+
+class PortalChatResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    status: str
+    client_id: str
+    request_id: str
+    assistant_message: ConversationMessage
+    dry_run_plan: dict[str, Any]
+    preview_branch_plan: dict[str, Any]
+    change: ChangeRecord
+
+
+class EscalationRecord(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    escalation_id: str
+    client_id: str
+    request_id: str
+    status: str
+    reason: str
+    summary: str
+    created_at: datetime
+    notification_channels: list[str] = Field(default_factory=list)
+
+
+class ProvisioningPlan(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    client_id: str
+    repo: str
+    site_domain: str
+    portal_routes: list[str]
+    required_secrets: list[str]
+    handoff_tag: str = "sorted-handoff"
+
+
+class ResetPlan(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    status: str
+    client_id: str
+    repo: str
+    handoff_tag: str
+    branch_name: str
+    commit_message: str
+    deploy_required: bool = True
+    blocked_reasons: list[str] = Field(default_factory=list)
+
+
+class ApprovalDecision(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    change_id: str
+    client_id: str
+    decision: str
+    decided_by: str
+    decided_at: datetime
+    status: str
+    message: str
+
+
 class BrandConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -106,4 +216,3 @@ class ClientOperatorConfig(BaseModel):
     predefined_pages: list[str]
     approval_required_for: list[str]
     known_contacts: list[KnownContact] = Field(default_factory=list)
-
