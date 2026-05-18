@@ -134,12 +134,12 @@ export default function AboutPage() {
         <section className="py-20 px-6 sm:px-10 lg:px-16 border-t border-black/[0.06] max-w-[1400px] mx-auto">
           <div className="flex flex-col sm:flex-row items-start gap-10 sm:gap-16">
             <div className="shrink-0">
-              <Image
+              <img
                 src="/assets/kay0headshot.png"
                 alt="Kayleigh"
                 width={120}
                 height={120}
-                className="rounded-full grayscale object-cover"
+                className="rounded-full grayscale object-cover w-[120px] h-[120px]"
               />
             </div>
             <div className="flex-1">
