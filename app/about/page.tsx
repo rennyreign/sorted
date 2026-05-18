@@ -151,7 +151,7 @@ export default function AboutPage() {
               </p>
               <div className="space-y-4 text-[#525252] text-base leading-relaxed">
                 <p>Kayleigh brings a rare combination of commercial instinct and people intelligence to Sorted. With a background spanning talent agency direction, COO of a multi-site skin clinic group, and expert-level personality assessment, she understands how businesses work from the inside out.</p>
-                <p>She leads client relationships at Sorted — making sure the right work gets to the right people, expectations are clear from day one, and every client feels looked after throughout.</p>
+                <p>She leads client relationships at Sorted, making sure the right work gets to the right people, expectations are clear from day one, and every client feels looked after throughout.</p>
               </div>
             </div>
           </div>
