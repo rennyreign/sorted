@@ -19,10 +19,31 @@ from replies import ReplyStore, prepare_auto_reply
 
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8787
+CORS_ORIGINS = os.getenv(
+    "SORTED_UPDATES_CORS_ORIGINS",
+    "https://graciebarrahalesowen.com,https://www.graciebarrahalesowen.com,http://localhost:3000",
+)
 
 
 class SortedUpdatesHandler(BaseHTTPRequestHandler):
     server_version = "SortedUpdatesHTTP/0.1"
+
+    def _cors_origin(self) -> str:
+        origin = self.headers.get("Origin", "")
+        allowed = [o.strip() for o in CORS_ORIGINS.split(",") if o.strip()]
+        return origin if origin in allowed else (allowed[0] if allowed else "*")
+
+    def _add_cors_headers(self) -> None:
+        self.send_header("Access-Control-Allow-Origin", self._cors_origin())
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        self.send_header("Access-Control-Max-Age", "86400")
+
+    def do_OPTIONS(self) -> None:
+        self.send_response(204)
+        self._add_cors_headers()
+        self.send_header("Content-Length", "0")
+        self.end_headers()
 
     def do_GET(self) -> None:
         parsed = urlparse(self.path)
@@ -133,6 +154,7 @@ class SortedUpdatesHandler(BaseHTTPRequestHandler):
     def _json_response(self, status_code: int, payload: dict[str, Any]) -> None:
         encoded = json.dumps(payload, indent=2).encode("utf-8")
         self.send_response(status_code)
+        self._add_cors_headers()
         self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(encoded)))
         self.end_headers()
@@ -141,6 +163,7 @@ class SortedUpdatesHandler(BaseHTTPRequestHandler):
     def _text_response(self, status_code: int, text: str) -> None:
         encoded = text.encode("utf-8")
         self.send_response(status_code)
+        self._add_cors_headers()
         self.send_header("Content-Type", "text/plain")
         self.send_header("Content-Length", str(len(encoded)))
         self.end_headers()
