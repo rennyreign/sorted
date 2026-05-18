@@ -10,6 +10,14 @@ import Footer from "@/components/Footer"
 export default function Home() {
   return (
     <main>
+      {/* Hidden form for Netlify build-time detection */}
+      <form name="mockup-request" netlify-honeypot="bot-field" data-netlify="true" hidden>
+        <input type="hidden" name="form-name" value="mockup-request" />
+        <input name="bot-field" />
+        <input name="email" type="email" />
+        <input name="websiteUrl" type="text" />
+        <textarea name="businessDescription" />
+      </form>
       <Nav />
       <Hero />
       <HowItWorks />
