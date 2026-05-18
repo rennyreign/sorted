@@ -9,9 +9,6 @@ interface FormData {
   hasWebsite: boolean
 }
 
-// Formspree form ID - replace with your own at formspree.io
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/xpwplvba"
-
 export default function IntakeAgent() {
   const [form, setForm] = useState<FormData>({
     websiteUrl: "",
@@ -35,15 +32,15 @@ export default function IntakeAgent() {
 
     setIsSubmitting(true)
     try {
-      await fetch(FORMSPREE_ENDPOINT, {
+      const data = new FormData()
+      data.append("form-name", "mockup-request")
+      data.append("email", form.email)
+      data.append("websiteUrl", form.hasWebsite ? form.websiteUrl : "(no website)")
+      data.append("businessDescription", form.businessDescription || "(none provided)")
+      await fetch("/", {
         method: "POST",
-        headers: { "Accept": "application/json" },
-        body: JSON.stringify({
-          websiteUrl: form.hasWebsite ? form.websiteUrl : "(no website)",
-          businessDescription: form.businessDescription || "(none provided)",
-          email: form.email,
-          _replyto: form.email,
-        }),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
       })
     } catch {
       // Silently fail - user sees confirmation either way
@@ -87,7 +84,8 @@ export default function IntakeAgent() {
           </h2>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form name="mockup-request" method="POST" data-netlify="true" onSubmit={handleSubmit} className="space-y-6">
+          <input type="hidden" name="form-name" value="mockup-request" />
           {/* Toggle */}
           <div className="flex gap-2 p-1 bg-black/5 rounded-xl">
             <button
