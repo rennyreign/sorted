@@ -132,6 +132,32 @@ export default function AboutPage() {
         </section>
 
         <section className="py-20 px-6 sm:px-10 lg:px-16 border-t border-black/[0.06] max-w-[1400px] mx-auto">
+          <div className="flex flex-col sm:flex-row items-start gap-10 sm:gap-16">
+            <div className="shrink-0">
+              <Image
+                src="/assets/kay0headshot.png"
+                alt="Kayleigh"
+                width={120}
+                height={120}
+                className="rounded-full grayscale object-cover"
+              />
+            </div>
+            <div className="flex-1">
+              <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-4">
+                Director of Sales &amp; Client Relations
+              </span>
+              <p className="font-sans font-bold text-[#0A0A0A] text-xl leading-snug tracking-tight mb-3">
+                Kayleigh
+              </p>
+              <div className="space-y-4 text-[#525252] text-base leading-relaxed">
+                <p>Kayleigh brings a rare combination of commercial instinct and people intelligence to Sorted. With a background spanning talent agency direction, COO of a multi-site skin clinic group, and expert-level personality assessment, she understands how businesses work from the inside out.</p>
+                <p>She leads client relationships at Sorted — making sure the right work gets to the right people, expectations are clear from day one, and every client feels looked after throughout.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 px-6 sm:px-10 lg:px-16 border-t border-black/[0.06] max-w-[1400px] mx-auto">
           <div className="max-w-3xl">
             <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6">
               Mission
