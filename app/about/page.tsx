@@ -147,7 +147,7 @@ export default function AboutPage() {
                 Director of Sales &amp; Client Relations
               </span>
               <p className="font-sans font-bold text-[#0A0A0A] text-xl leading-snug tracking-tight mb-3">
-                Kayleigh
+                Kayleigh Dupont-Modeste
               </p>
               <div className="space-y-4 text-[#525252] text-base leading-relaxed">
                 <p>Kayleigh brings a rare combination of commercial instinct and people intelligence to Sorted. With a background spanning talent agency direction, COO of a multi-site skin clinic group, and expert-level personality assessment, she understands how businesses work from the inside out.</p>
