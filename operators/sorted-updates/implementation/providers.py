@@ -122,9 +122,13 @@ class PlannedNetlifyProvider:
     enabled: bool = False
 
     def preview_url(self, config: ClientOperatorConfig, branch_name: str) -> str:
-        slug = branch_name.replace("/", "--")
-        site_id = os.getenv("NETLIFY_SITE_ID") or config.client_id
-        return f"https://{slug}--{site_id}.netlify.app"
+        site_name = os.getenv("NETLIFY_SITE_NAME") or config.client_id
+        # Netlify branch deploy subdomain: {branch-slug}--{site-name}.netlify.app
+        # Subdomain must be <= 63 chars total
+        raw_slug = branch_name.replace("/", "--").replace("_", "-").lower()
+        max_branch_len = 63 - len(site_name) - 2  # 2 for "--"
+        branch_slug = raw_slug[:max_branch_len].rstrip("-")
+        return f"https://{branch_slug}--{site_name}.netlify.app"
 
     def trigger_deploy(self, config: ClientOperatorConfig, ref: str) -> dict:
         return {
