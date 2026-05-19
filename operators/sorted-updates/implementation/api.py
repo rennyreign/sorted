@@ -21,7 +21,7 @@ DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8787
 CORS_ORIGINS = os.getenv(
     "SORTED_UPDATES_CORS_ORIGINS",
-    "https://graciebarrahalesowen.com,https://www.graciebarrahalesowen.com,http://localhost:3000",
+    "https://graciebarrahalesowen.com,https://www.graciebarrahalesowen.com,https://gbhalesowen.netlify.app,http://localhost:3000,http://localhost:3001",
 )
 
 
