@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import json
 import os
+import urllib.request
 from dataclasses import dataclass
 from typing import Protocol
 
@@ -29,6 +31,26 @@ class NotificationProvider(Protocol):
         ...
 
 
+def _github_api(method: str, path: str, body: dict | None = None) -> dict:
+    token = os.getenv("GITHUB_TOKEN", "")
+    url = f"https://api.github.com{path}"
+    data = json.dumps(body).encode() if body else None
+    req = urllib.request.Request(
+        url, data=data, method=method,
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/vnd.github+json",
+            "Content-Type": "application/json",
+            "X-GitHub-Api-Version": "2022-11-28",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            return json.loads(resp.read())
+    except urllib.error.HTTPError as e:
+        return {"error": e.code, "message": e.read().decode()}
+
+
 @dataclass(frozen=True)
 class PlannedGitHubProvider:
     enabled: bool = False
@@ -36,14 +58,52 @@ class PlannedGitHubProvider:
     def prepare_preview_branch(self, config: ClientOperatorConfig, preview: PreviewBranchPlan) -> dict:
         if preview.status != "preview_plan_ready" or not preview.branch_name:
             return {"status": "blocked", "blocked_reasons": preview.blocked_reasons}
+
+        if not self.enabled:
+            return {
+                "status": "planned",
+                "provider": "github",
+                "repo": config.repo,
+                "branch_name": preview.branch_name,
+                "pr_title": preview.pr_title,
+                "target_files": preview.target_files,
+                "network_enabled": False,
+            }
+
+        repo = config.repo
+        branch = preview.branch_name
+
+        # Get current SHA of main
+        ref_data = _github_api("GET", f"/repos/{repo}/git/ref/heads/main")
+        if "error" in ref_data:
+            return {"status": "error", "message": f"Could not get main ref: {ref_data}"}
+        sha = ref_data["object"]["sha"]
+
+        # Create the branch
+        create = _github_api("POST", f"/repos/{repo}/git/refs", {
+            "ref": f"refs/heads/{branch}",
+            "sha": sha,
+        })
+        if "error" in create and create["error"] != 422:
+            return {"status": "error", "message": f"Branch creation failed: {create}"}
+
+        # Open a PR
+        pr = _github_api("POST", f"/repos/{repo}/pulls", {
+            "title": preview.pr_title or f"Sorted preview: {preview.request_id}",
+            "body": preview.pr_body or "",
+            "head": branch,
+            "base": "main",
+            "draft": True,
+        })
+
         return {
-            "status": "planned",
+            "status": "branch_created",
             "provider": "github",
-            "repo": config.repo,
-            "branch_name": preview.branch_name,
-            "pr_title": preview.pr_title,
-            "target_files": preview.target_files,
-            "network_enabled": self.enabled,
+            "repo": repo,
+            "branch_name": branch,
+            "pr_url": pr.get("html_url"),
+            "pr_number": pr.get("number"),
+            "network_enabled": True,
         }
 
     def plan_reset_to_tag(self, config: ClientOperatorConfig, handoff_tag: str) -> dict:
