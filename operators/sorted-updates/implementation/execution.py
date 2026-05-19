@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from models import ClientOperatorConfig, DryRunPlan, UpdateRequest
 from preview import PreviewBranchPlan, build_preview_branch_plan
 from providers import DeployProvider, GitProvider, default_deploy_provider, default_git_provider
+from writer import write_preview_edits
 
 
 @dataclass(frozen=True)
@@ -65,7 +66,10 @@ def plan_change_execution(
         )
 
     if preview_plan.status == "preview_plan_ready":
-        git.prepare_preview_branch(config, preview_plan)
+        branch_result = git.prepare_preview_branch(config, preview_plan)
+        # If branch was actually created (network enabled), write the file edits
+        if branch_result.get("status") == "branch_created" and preview_plan.branch_name:
+            write_preview_edits(update_request, dry_run, config, preview_plan.branch_name)
 
     return ExecutionPlan(
         status="preview_planned" if preview_plan.status == "preview_plan_ready" else "preview_blocked",
