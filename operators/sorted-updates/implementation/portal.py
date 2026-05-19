@@ -10,11 +10,11 @@ from memory import ConversationStore
 from models import (
     ChangeRecord,
     ConversationMessage,
-    InboundMessage,
     PortalChatRequest,
     PortalChatResponse,
 )
-from parser import dry_run_plan, parse_update_request
+from llm import llm_parse_update_request
+from parser import dry_run_plan
 
 
 def handle_portal_chat(
@@ -38,17 +38,17 @@ def handle_portal_chat(
     )
     memory.append_message(config.client_id, user_message)
 
-    inbound = InboundMessage(
-        source="portal",
+    update_request = llm_parse_update_request(
+        inbound_body=request.body,
         message_id=request.message_id,
-        from_name=request.session.email,
-        received_at=now,
-        body=request.body,
-        attachments=request.attachments,
         client_id=config.client_id,
+        source="portal",
+        config=config,
     )
-    update_request = parse_update_request(inbound, config)
     dry_run = dry_run_plan(update_request, config)
+    llm_reply = getattr(update_request, "_suggested_reply", None)
+    if llm_reply:
+        dry_run = dry_run.model_copy(update={"suggested_whatsapp_reply": llm_reply})
     execution = plan_change_execution(update_request, dry_run, config, request.requested_mode)
 
     if execution.status == "escalation_required":
