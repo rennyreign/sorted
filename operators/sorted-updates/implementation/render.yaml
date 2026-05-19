@@ -18,7 +18,7 @@ services:
       - key: SORTED_UPDATES_HTTP_LOGS
         value: "1"
       - key: SORTED_UPDATES_CORS_ORIGINS
-        value: "https://graciebarrahalesowen.com,https://www.graciebarrahalesowen.com"
+        value: "https://gbhalesowen.com,https://www.gbhalesowen.com,https://sortmydigital.netlify.app,https://gbhalesowen.netlify.app,http://localhost:3000,http://localhost:3001"
       - key: META_WHATSAPP_ACCESS_TOKEN
         sync: false
       - key: META_WHATSAPP_VERIFY_TOKEN
