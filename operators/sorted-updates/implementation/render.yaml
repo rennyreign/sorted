@@ -34,7 +34,7 @@ services:
       - key: NETLIFY_SITE_ID
         sync: false
       - key: NETLIFY_SITE_NAME
-        value: gbhalesowen
+        value: gbhalesowen-academy
       - key: SUPABASE_URL
         sync: false
       - key: SUPABASE_SERVICE_ROLE_KEY
