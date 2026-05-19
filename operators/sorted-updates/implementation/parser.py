@@ -9,9 +9,11 @@ from policies import evaluate_policy, unsupported_reply
 
 PAGE_ALIASES: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("beginners", ("beginner", "beginners")),
-    ("kids-classes", ("kids", "children")),
+    ("kids-classes", ("kids", "children", "gb2", "gb3", "junior")),
     ("womens-classes", ("women", "ladies", "female")),
     ("timetable", ("timetable", "schedule")),
+    ("about", ("about", "about us", "our story")),
+    ("programs", ("programme", "programs", "program", "classes", "fundamentals", "advanced", "fitness")),
     ("privacy", ("privacy",)),
     ("terms", ("terms",)),
     ("event", ("camp", "seminar", "event", "open day")),
@@ -69,6 +71,11 @@ def classify_request_type(text: str, page_type: str | None = None) -> tuple[str,
         return "gallery_update", 0.84
     if any(keyword in lower for keyword in ("button", "cta", "link")):
         return "cta_update", 0.84
+    if any(keyword in lower for keyword in (
+        "change", "update", "rename", "reword", "text", "heading", "title",
+        "copy", "wording", "paragraph", "description", "read", "say", "label",
+    )):
+        return "copy_update", 0.78
 
     return "unsupported", 0.35
 
@@ -90,18 +97,51 @@ def target_for_request(
         if page_type not in config.predefined_pages:
             missing.append("approved_predefined_page_type")
             return None, [], missing
-        return f"{config.site_route}/{page_type}", [f"{app_root}/{page_type}/page.tsx"], missing
+        route = PAGE_FILE_MAP.get(page_type, f"(site)/{page_type}")
+        return f"{config.site_route}/{page_type}", [_page_path(app_root, route)], missing
 
     if request_type == "timetable_update":
-        return f"{config.site_route}/timetable", [f"{app_root}/timetable/page.tsx"], missing
+        return f"{config.site_route}/timetable", [_page_path(app_root, "(site)/timetable")], missing
     if request_type == "announcement_banner":
-        return config.site_route, [f"{components_path}/AnnouncementBanner.tsx", f"{app_root}/page.tsx"], missing
+        return config.site_route, [f"{components_path}/AnnouncementBanner.tsx", _page_path(app_root, "(site)")], missing
     if request_type == "gallery_update":
-        return f"{config.site_route}/gallery", [f"{app_root}/gallery/page.tsx", public_assets], missing
+        return f"{config.site_route}/gallery", [_page_path(app_root, "(site)/gallery")], missing
     if request_type in {"contact_update", "testimonial_update", "cta_update"}:
-        return config.site_route, [f"{app_root}/page.tsx"], missing
+        return config.site_route, [_page_path(app_root, "(site)")], missing
+    if request_type == "copy_update":
+        return _copy_update_target(app_root, page_type, config, missing)
 
     return None, [], missing
+
+
+def _page_path(app_root: str, route: str) -> str:
+    return f"{app_root}/{route}/page.tsx"
+
+
+PAGE_FILE_MAP: dict[str, str] = {
+    "kids-classes": "(site)/programs/kids",
+    "beginners": "(site)/programs/fundamentals",
+    "womens-classes": "(site)/programs/female",
+    "timetable": "(site)/timetable",
+    "about": "(site)/about",
+    "programs": "(site)/programs",
+    "privacy": "(site)/privacy",
+    "terms": "(site)/terms",
+    "event": "(site)/event",
+}
+
+
+def _copy_update_target(
+    app_root: str,
+    page_type: str | None,
+    config: ClientOperatorConfig,
+    missing: list[str],
+) -> tuple[str | None, list[str], list[str]]:
+    if page_type and page_type in PAGE_FILE_MAP:
+        route = PAGE_FILE_MAP[page_type]
+        return f"{config.site_route}/{page_type}", [_page_path(app_root, route)], missing
+    # No specific page identified — target homepage
+    return config.site_route, [_page_path(app_root, "(site)")], missing
 
 
 def make_request_id(inbound: InboundMessage) -> str:
@@ -228,6 +268,7 @@ def dry_run_plan(update_request: UpdateRequest, config: ClientOperatorConfig) ->
         "announcement_banner": f"Prepare an announcement banner for {config.business_name}.",
         "gallery_update": f"Prepare a gallery update for {config.business_name}.",
         "cta_update": f"Prepare a call-to-action update for {config.business_name}.",
+        "copy_update": f"Prepare a copy/text update for {config.business_name}.",
     }
 
     actions = {
@@ -266,6 +307,11 @@ def dry_run_plan(update_request: UpdateRequest, config: ClientOperatorConfig) ->
             "Keep booking-led conversion flow intact.",
             "Avoid payment or integration changes without approval.",
         ],
+        "copy_update": [
+            "Make only the specific text change requested.",
+            "Preserve all surrounding layout, styles, and structure.",
+            "Do not alter pricing, legal text, or booking flows.",
+        ],
     }
 
     replies = {
@@ -279,6 +325,7 @@ def dry_run_plan(update_request: UpdateRequest, config: ClientOperatorConfig) ->
         "announcement_banner": "Sorted - I can prepare a short announcement banner preview for the site.",
         "gallery_update": "Sorted - I can prepare the gallery update as a preview first.",
         "cta_update": "Sorted - I can prepare that CTA update as a preview first.",
+        "copy_update": "Sorted - I can make that text change as a preview first.",
     }
 
     return DryRunPlan(
