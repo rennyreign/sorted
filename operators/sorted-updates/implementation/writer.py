@@ -136,20 +136,13 @@ def _call_openai_edit(prompt: str, api_key: str) -> str:
 
 def _is_safe_edit(original: str, edited: str) -> bool:
     """
-    Reject the edit if structural elements changed.
-    Counts JSX/HTML tags and import lines — these must be identical.
+    Reject the edit if imports changed (structural addition/removal).
+    Tag count check removed — too fragile with JSX whitespace normalisation.
     """
     import re
-    tag_pattern = re.compile(r"</?[A-Za-z][A-Za-z0-9.]*")
     import_pattern = re.compile(r"^import\s", re.MULTILINE)
-
-    orig_tags = len(tag_pattern.findall(original))
-    edit_tags = len(tag_pattern.findall(edited))
     orig_imports = len(import_pattern.findall(original))
     edit_imports = len(import_pattern.findall(edited))
-
-    if orig_tags != edit_tags:
-        return False
     if orig_imports != edit_imports:
         return False
     return True

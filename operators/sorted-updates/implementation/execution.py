@@ -72,7 +72,8 @@ def plan_change_execution(
         branch_result = git.prepare_preview_branch(config, preview_plan)
         # If branch was actually created (network enabled), write the file edits
         if branch_result.get("status") == "branch_created" and preview_plan.branch_name:
-            write_preview_edits(update_request, dry_run, config, preview_plan.branch_name)
+            writer_result = write_preview_edits(update_request, dry_run, config, preview_plan.branch_name)
+            branch_result = {**branch_result, "writer_result": writer_result}
 
     return ExecutionPlan(
         status="preview_planned" if preview_plan.status == "preview_plan_ready" else "preview_blocked",
