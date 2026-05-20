@@ -11,6 +11,7 @@ from adapters.meta_whatsapp import MetaWebhookError, normalise_meta_webhook, ver
 from approvals import decide_change
 from env import load_env_file
 from models import InboundMessage
+from netlify_webhook import handle_netlify_webhook
 from portal import handle_portal_chat, portal_history
 from models import PortalChatRequest
 from reset import build_reset_plan, record_reset_plan
@@ -113,6 +114,16 @@ class SortedUpdatesHandler(BaseHTTPRequestHandler):
                 decided_by=str(payload.get("decided_by", "portal")),
             )
             self._json_response(200 if decision.status != "not_found" else 404, decision.model_dump(mode="json"))
+            return
+
+        if parsed.path == "/netlify/webhook":
+            raw_body = self.rfile.read(int(self.headers.get("Content-Length", "0")))
+            result = handle_netlify_webhook(
+                raw_body,
+                self.headers.get("X-Netlify-Signature"),
+            )
+            status = 403 if result.get("status") == "forbidden" else 200
+            self._json_response(status, result)
             return
 
         if parsed.path != "/whatsapp/inbound":
