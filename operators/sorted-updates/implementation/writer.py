@@ -94,13 +94,16 @@ CURRENT FILE CONTENT:
 {current_content}
 ```
 
-Rules:
-- Return ONLY the complete updated file content, no explanation, no markdown fences.
-- Make only the minimum changes needed to fulfil the request.
-- Preserve all imports, exports, structure, and existing styles.
-- Never change pricing, payment logic, or legal text.
-- Never add new dependencies or imports not already present.
-- If you cannot make the change safely, return the original file unchanged.
+STRICT RULES — READ CAREFULLY:
+- Return ONLY the complete updated file content. No explanation, no markdown fences, no comments.
+- You may ONLY modify the text content inside string literals (e.g. "some text", `some text`).
+- You must NOT add, remove, reorder, or restructure any JSX elements, components, props, or HTML tags.
+- You must NOT add, remove, or change any imports, exports, or function signatures.
+- You must NOT change any className, style, id, href, src, or other attribute values.
+- You must NOT change any TypeScript types, interfaces, or variable declarations.
+- You must NOT change pricing, payment logic, legal text, or booking flow text.
+- If the requested change cannot be made by modifying string literals only, return the original file EXACTLY unchanged — do not attempt a structural edit.
+- If you are uncertain, return the original file unchanged.
 """
 
 
@@ -127,6 +130,29 @@ def _call_openai_edit(prompt: str, api_key: str) -> str:
         return body["choices"][0]["message"]["content"].strip()
     except Exception:
         return ""
+
+
+# ── Safety validation ─────────────────────────────────────────────────────────
+
+def _is_safe_edit(original: str, edited: str) -> bool:
+    """
+    Reject the edit if structural elements changed.
+    Counts JSX/HTML tags and import lines — these must be identical.
+    """
+    import re
+    tag_pattern = re.compile(r"</?[A-Za-z][A-Za-z0-9.]*")
+    import_pattern = re.compile(r"^import\s", re.MULTILINE)
+
+    orig_tags = len(tag_pattern.findall(original))
+    edit_tags = len(tag_pattern.findall(edited))
+    orig_imports = len(import_pattern.findall(original))
+    edit_imports = len(import_pattern.findall(edited))
+
+    if orig_tags != edit_tags:
+        return False
+    if orig_imports != edit_imports:
+        return False
+    return True
 
 
 # ── Public entry point ────────────────────────────────────────────────────────
@@ -166,6 +192,11 @@ def write_preview_edits(
 
         if not new_content or new_content == current_content:
             results.append({"file": file_path, "status": "unchanged"})
+            continue
+
+        # Safety validation — reject if structure changed
+        if not _is_safe_edit(current_content, new_content):
+            results.append({"file": file_path, "status": "rejected", "reason": "structural change detected"})
             continue
 
         # Commit to branch

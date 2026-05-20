@@ -84,6 +84,7 @@ def handle_portal_chat(
         execution={
             "mode": execution.mode,
             "notification_results": notification_results,
+            "preview_branch_plan": execution.preview_branch_plan.as_dict(),
         },
     )
     memory.upsert_change(change)
