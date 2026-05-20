@@ -71,46 +71,37 @@ def _edit_prompt(
     config: ClientOperatorConfig,
     dry_run: DryRunPlan,
 ) -> str:
-    return f"""You are making a precise, minimal edit to a Next.js TypeScript file for {config.business_name}.
+    return f"""You are making a precise, minimal text edit to a Next.js TypeScript file for {config.business_name}.
 
 CHANGE REQUESTED BY CLIENT:
 {raw_message}
 
-DRY RUN SUMMARY:
-{dry_run.summary}
-
-PROPOSED ACTIONS:
-{chr(10).join(f'- {a}' for a in dry_run.proposed_actions)}
-
-BRAND CONSTRAINTS:
-- Palette: {', '.join(config.brand.palette)}
-- Tone: {config.brand.tone}
-- Primary CTA: {config.brand.primary_cta}
-
-FILE TO EDIT: {file_path}
+FILE: {file_path}
 
 CURRENT FILE CONTENT:
 ```tsx
 {current_content}
 ```
 
-STRICT RULES — READ CAREFULLY:
-- Return ONLY the complete updated file content. No explanation, no markdown fences, no comments.
-- You may ONLY modify the text content inside string literals (e.g. "some text", `some text`).
-- You must NOT add, remove, reorder, or restructure any JSX elements, components, props, or HTML tags.
-- You must NOT add, remove, or change any imports, exports, or function signatures.
-- You must NOT change any className, style, id, href, src, or other attribute values.
-- You must NOT change any TypeScript types, interfaces, or variable declarations.
-- You must NOT change pricing, payment logic, legal text, or booking flow text.
-- If the requested change cannot be made by modifying string literals only, return the original file EXACTLY unchanged — do not attempt a structural edit.
-- If you are uncertain, return the original file unchanged.
+Your task: identify the EXACT string(s) that need changing and return ONLY a JSON array of find/replace pairs.
+
+Rules:
+- You may ONLY change text inside string literals or template literals.
+- Do NOT change JSX tags, props, classNames, imports, or TypeScript types.
+- Return ONLY valid JSON — an array of objects with "find" and "replace" keys.
+- Each "find" value must be an EXACT substring from the file above (copy it precisely).
+- If no change is needed or possible, return an empty array: []
+
+Example output format:
+[{{"find": "old text here", "replace": "new text here"}}]
 """
 
 
-def _call_openai_edit(prompt: str, api_key: str) -> str:
+def _call_openai_patch(prompt: str, api_key: str) -> list[dict]:
+    """Call GPT and return a list of {find, replace} patch dicts."""
     payload = json.dumps({
         "model": MODEL,
-        "max_tokens": 4000,
+        "max_tokens": 1000,
         "temperature": 0.1,
         "messages": [{"role": "user", "content": prompt}],
     }).encode("utf-8")
@@ -127,25 +118,36 @@ def _call_openai_edit(prompt: str, api_key: str) -> str:
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
             body = json.loads(resp.read().decode("utf-8"))
-        return body["choices"][0]["message"]["content"].strip()
+        raw = body["choices"][0]["message"]["content"].strip()
+        # Strip markdown fences if present
+        if raw.startswith("```"):
+            raw = raw.split("```")[1]
+            if raw.startswith("json"):
+                raw = raw[4:]
+        patches = json.loads(raw)
+        if isinstance(patches, list):
+            return patches
+        return []
     except Exception:
-        return ""
+        return []
 
 
 # ── Safety validation ─────────────────────────────────────────────────────────
 
-def _is_safe_edit(original: str, edited: str) -> bool:
+def _apply_patches(content: str, patches: list[dict]) -> tuple[str, int]:
     """
-    Reject the edit if imports changed (structural addition/removal).
-    Tag count check removed — too fragile with JSX whitespace normalisation.
+    Apply find/replace patches to content.
+    Returns (updated_content, number_of_replacements_made).
     """
-    import re
-    import_pattern = re.compile(r"^import\s", re.MULTILINE)
-    orig_imports = len(import_pattern.findall(original))
-    edit_imports = len(import_pattern.findall(edited))
-    if orig_imports != edit_imports:
-        return False
-    return True
+    result = content
+    count = 0
+    for patch in patches:
+        find = patch.get("find", "")
+        replace = patch.get("replace", "")
+        if find and find in result:
+            result = result.replace(find, replace, 1)
+            count += 1
+    return result, count
 
 
 # ── Public entry point ────────────────────────────────────────────────────────
@@ -179,17 +181,18 @@ def write_preview_edits(
 
         current_content, sha = fetched
 
-        # Generate edit
+        # Generate patch
         prompt = _edit_prompt(update_request.raw_message, file_path, current_content, config, dry_run)
-        new_content = _call_openai_edit(prompt, api_key)
+        patches = _call_openai_patch(prompt, api_key)
 
-        if not new_content or new_content == current_content:
-            results.append({"file": file_path, "status": "unchanged"})
+        if not patches:
+            results.append({"file": file_path, "status": "unchanged", "reason": "no patches returned"})
             continue
 
-        # Safety validation — reject if structure changed
-        if not _is_safe_edit(current_content, new_content):
-            results.append({"file": file_path, "status": "rejected", "reason": "structural change detected"})
+        new_content, replacements = _apply_patches(current_content, patches)
+
+        if replacements == 0 or new_content == current_content:
+            results.append({"file": file_path, "status": "unchanged", "reason": "patches did not match", "patches": patches})
             continue
 
         # Commit to branch
