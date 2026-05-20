@@ -15,6 +15,7 @@ class ExecutionPlan:
     preview_url: str | None
     live_url: str | None
     preview_branch_plan: PreviewBranchPlan
+    branch_result: dict | None = None
 
     def as_dict(self) -> dict:
         return {
@@ -23,6 +24,7 @@ class ExecutionPlan:
             "preview_url": self.preview_url,
             "live_url": self.live_url,
             "preview_branch_plan": self.preview_branch_plan.as_dict(),
+            "branch_result": self.branch_result,
         }
 
 
@@ -65,6 +67,7 @@ def plan_change_execution(
             preview_branch_plan=preview_plan,
         )
 
+    branch_result: dict | None = None
     if preview_plan.status == "preview_plan_ready":
         branch_result = git.prepare_preview_branch(config, preview_plan)
         # If branch was actually created (network enabled), write the file edits
@@ -77,6 +80,7 @@ def plan_change_execution(
         preview_url=preview_url_for(config, preview_plan, deploy),
         live_url=None,
         preview_branch_plan=preview_plan,
+        branch_result=branch_result,
     )
 
 
