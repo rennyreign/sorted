@@ -10,7 +10,13 @@ services:
     startCommand: gunicorn --worker-class=gthread --threads=4 --bind=0.0.0.0:$PORT wsgi:application
     healthCheckPath: /health
     autoDeploy: true
+    disk:
+      name: sorted-state
+      mountPath: /opt/sorted-state
+      sizeGB: 1
     envVars:
+      - key: SORTED_UPDATES_MEMORY_ROOT
+        value: /opt/sorted-state/memory
       - key: SORTED_UPDATES_ENV
         value: production
       - key: SORTED_UPDATES_DEFAULT_CLIENT
