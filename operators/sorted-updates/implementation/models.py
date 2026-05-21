@@ -108,7 +108,7 @@ class ConversationMessage(BaseModel):
 
 
 class ChangeRecord(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="ignore")
 
     change_id: str
     request_id: str

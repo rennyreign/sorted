@@ -71,7 +71,7 @@ class SortedUpdatesHandler(BaseHTTPRequestHandler):
             from memory import ConversationStore
             store = ConversationStore()
             change = store.get_change(client_id, change_id)
-            if not change:
+            if change is None:
                 self._json_response(404, {"error": "change not found"})
                 return
             self._json_response(200, change.model_dump(mode="json"))
