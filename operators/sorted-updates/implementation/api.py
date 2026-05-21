@@ -13,6 +13,7 @@ from env import load_env_file
 from models import InboundMessage
 from netlify_webhook import handle_netlify_webhook
 from portal import handle_portal_chat, portal_history
+from providers import get_netlify_deploy_url_for_branch
 from models import PortalChatRequest
 from reset import build_reset_plan, record_reset_plan
 from replies import ReplyStore, prepare_auto_reply
@@ -93,6 +94,7 @@ class SortedUpdatesHandler(BaseHTTPRequestHandler):
                     )
                 self._json_response(404, payload)
                 return
+            change = _hydrate_preview_url(change, store)
             self._json_response(200, change.model_dump(mode="json"))
             return
 
@@ -234,6 +236,30 @@ def handle_inbound_payload(payload: dict[str, Any], state_path: str | None = Non
 
     store = ReplyStore(state_path or ".sorted-updates-state/replied_messages.json")
     return [prepare_auto_reply(inbound, store=store) for inbound in inbound_messages]
+
+
+def _hydrate_preview_url(change: Any, store: Any) -> Any:
+    if change.preview_url:
+        return change
+    branch_name = change.execution.get("preview_branch_plan", {}).get("branch_name")
+    if not branch_name:
+        return change
+    deploy_url = get_netlify_deploy_url_for_branch(branch_name)
+    if not deploy_url:
+        return change
+    updated = change.model_copy(
+        update={
+            "preview_url": deploy_url,
+            "execution": {
+                **change.execution,
+                "build_status": "preview_ready",
+                "build_message": f"Your preview is ready. View it at {deploy_url}",
+                "deploy_url": deploy_url,
+            },
+        }
+    )
+    store.upsert_change(updated)
+    return updated
 
 
 def main() -> None:

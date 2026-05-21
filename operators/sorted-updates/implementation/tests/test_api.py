@@ -1,5 +1,9 @@
 from api import handle_inbound_payload
 from api import SortedUpdatesHandler
+from api import _hydrate_preview_url
+from memory import ConversationStore
+from models import ChangeRecord
+from datetime import UTC, datetime
 
 
 def test_handler_exposes_portal_paths():
@@ -57,3 +61,30 @@ def test_handle_meta_webhook_payload(tmp_path):
     assert responses[0]["status"] == "reply_prepared"
     assert responses[0]["dry_run_plan"]["status"] == "approval_required"
     assert responses[0]["reply_required"] is True
+
+
+def test_hydrate_preview_url_from_netlify_lookup(monkeypatch, tmp_path):
+    store = ConversationStore(tmp_path / "memory")
+    now = datetime.now(UTC)
+    change = ChangeRecord(
+        change_id="chg_upd_test",
+        request_id="upd_test",
+        client_id="gbhalesowen",
+        status="preview_planned",
+        summary="Preview a homepage update.",
+        created_at=now,
+        updated_at=now,
+        execution={
+            "preview_branch_plan": {
+                "branch_name": "sorted-updates/gbhalesowen/upd-test",
+            }
+        },
+    )
+
+    monkeypatch.setattr("api.get_netlify_deploy_url_for_branch", lambda branch: "https://deploy-preview.netlify.app")
+
+    updated = _hydrate_preview_url(change, store)
+
+    assert updated.preview_url == "https://deploy-preview.netlify.app"
+    assert updated.execution["build_status"] == "preview_ready"
+    assert store.get_change("gbhalesowen", "chg_upd_test").preview_url == "https://deploy-preview.netlify.app"
