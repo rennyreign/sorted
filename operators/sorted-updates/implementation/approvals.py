@@ -90,16 +90,10 @@ def decide_change(
             message="Decision must be approve or reject.",
         )
 
-    if decision == APPROVE and _requires_preview_before_approval(change):
-        return ApprovalDecision(
-            change_id=change_id,
-            client_id=client_id,
-            decision=decision,
-            decided_by=decided_by,
-            decided_at=datetime.now(UTC),
-            status="blocked",
-            message="Preview is still building. Review the preview link before publishing.",
-        )
+    # NOTE: Preview requirement disabled for cost-saving mode (no branch deploys)
+    # When re-enabling branch deploys, uncomment this block:
+    # if decision == APPROVE and _requires_preview_before_approval(change):
+    #     return ApprovalDecision(...)
 
     merge_result = None
     if decision == APPROVE and os.getenv("SORTED_UPDATES_ENABLE_NETWORK") == "1":
