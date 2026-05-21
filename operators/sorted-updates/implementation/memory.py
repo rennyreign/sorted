@@ -19,16 +19,19 @@ def _supa_url() -> str:
 def _supa_key() -> str:
     return os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
 
-def _supa_request(method: str, path: str, body: dict | None = None, params: str = "") -> Any:
+def _supa_request(method: str, path: str, body: dict | None = None, params: str = "", upsert: bool = False) -> Any:
     url = f"{_supa_url()}/rest/v1{path}"
     if params:
         url = f"{url}?{params}"
     data = json.dumps(body).encode() if body else None
+    prefer = "return=representation"
+    if upsert:
+        prefer = "return=representation,resolution=merge-duplicates"
     headers = {
         "apikey": _supa_key(),
         "Authorization": f"Bearer {_supa_key()}",
         "Content-Type": "application/json",
-        "Prefer": "return=representation",
+        "Prefer": prefer,
     }
     req = urllib.request.Request(url, data=data, headers=headers, method=method)
     try:
@@ -99,8 +102,7 @@ class ConversationStore:
                 "attachments": message.attachments or [],
                 "metadata": message.metadata or {},
             }
-            _supa_request("POST", "/sorted_messages", row,
-                         params="on_conflict=client_id,id")
+            _supa_request("POST", "/sorted_messages", row, upsert=True)
         else:
             fs = _FileStore()
             data = fs.read(client_id)
@@ -137,8 +139,7 @@ class ConversationStore:
                 "blocked_reasons": d.get("blocked_reasons", []),
                 "execution": d.get("execution", {}),
             }
-            _supa_request("POST", "/sorted_changes", row,
-                         params="on_conflict=change_id")
+            _supa_request("POST", "/sorted_changes", row, upsert=True)
         else:
             fs = _FileStore()
             data = fs.read(change.client_id)
@@ -184,8 +185,7 @@ class ConversationStore:
                 "attachments": [],
                 "metadata": {"session_id": session_id, "intro_completed": True},
             }
-            _supa_request("POST", "/sorted_messages", row,
-                         params="on_conflict=client_id,id")
+            _supa_request("POST", "/sorted_messages", row, upsert=True)
         else:
             fs = _FileStore()
             data = fs.read(client_id)
