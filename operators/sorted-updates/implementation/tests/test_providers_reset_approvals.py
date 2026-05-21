@@ -128,6 +128,43 @@ def test_netlify_branch_lookup_queries_supabase(monkeypatch):
     assert "execution-%3Epreview_branch_plan-%3E%3Ebranch_name=eq.sorted-updates%2Fgbhalesowen%2Fupd-test" in calls[0]["params"]
 
 
+def test_netlify_branch_lookup_falls_back_to_recent_supabase_rows(monkeypatch):
+    monkeypatch.setenv("SUPABASE_URL", "https://example.supabase.co")
+    monkeypatch.setenv("SUPABASE_SERVICE_ROLE_KEY", "service-role-key")
+    now = datetime.now(UTC).isoformat()
+    calls = []
+
+    def fake_supa_request(method, path, body=None, params="", upsert=False):
+        calls.append({"method": method, "path": path, "params": params})
+        if "execution-%3Epreview_branch_plan" in params:
+            return {"error": 400, "message": "bad json path"}
+        return [
+            {
+                "change_id": "chg_upd_test",
+                "request_id": "upd_test",
+                "client_id": "gbhalesowen",
+                "status": "preview_planned",
+                "summary": "Preview a timetable update.",
+                "created_at": now,
+                "updated_at": now,
+                "blocked_reasons": [],
+                "execution": {
+                    "preview_branch_plan": {
+                        "branch_name": "sorted-updates/gbhalesowen/upd-test",
+                    }
+                },
+            }
+        ]
+
+    monkeypatch.setattr("netlify_webhook._supa_request", fake_supa_request)
+
+    result = find_change_by_branch("sorted-updates/gbhalesowen/upd-test", ConversationStore())
+
+    assert result is not None
+    assert result[1].change_id == "chg_upd_test"
+    assert calls[1]["params"] == "order=created_at.desc&limit=100"
+
+
 def test_conversation_message_from_supabase_row_ignores_table_columns():
     message = conversation_message_from_row(
         {

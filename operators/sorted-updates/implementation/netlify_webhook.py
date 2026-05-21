@@ -45,6 +45,16 @@ def find_change_by_branch(branch_name: str, store: ConversationStore) -> tuple[s
         if isinstance(rows, list) and rows:
             change = change_record_from_row(rows[0])
             return change.client_id, change
+        recent_rows = _supa_request(
+            "GET",
+            "/sorted_changes",
+            params=_supa_params({"order": "created_at.desc", "limit": "100"}),
+        )
+        if isinstance(recent_rows, list):
+            for row in recent_rows:
+                change = change_record_from_row(row)
+                if change.execution.get("preview_branch_plan", {}).get("branch_name") == branch_name:
+                    return change.client_id, change
 
     root = pathlib.Path(store.memory_root or os.getenv("SORTED_UPDATES_MEMORY_ROOT", ".sorted-updates-state/memory"))
     if not root.exists():
@@ -75,12 +85,16 @@ def handle_netlify_webhook(body: bytes, signature: str | None) -> dict:
     deploy_url = payload.get("deploy_ssl_url") or payload.get("url") or ""
 
     if not branch or event_type not in {"ready", "error"}:
-        return {"status": "ignored", "branch": branch, "state": event_type}
+        result = {"status": "ignored", "branch": branch, "state": event_type}
+        print(f"netlify_webhook: {result}", flush=True)
+        return result
 
     store = ConversationStore()
     result = find_change_by_branch(branch, store)
     if not result:
-        return {"status": "no_match", "branch": branch}
+        response = {"status": "no_match", "branch": branch, "state": event_type}
+        print(f"netlify_webhook: {response}", flush=True)
+        return response
 
     client_id, change = result
 
@@ -107,9 +121,11 @@ def handle_netlify_webhook(body: bytes, signature: str | None) -> dict:
     updated = change.model_copy(update=update_fields)
     store.upsert_change(updated)
 
-    return {
+    response = {
         "status": "updated",
         "client_id": client_id,
         "change_id": change.change_id,
         "build_status": build_status,
     }
+    print(f"netlify_webhook: {response}", flush=True)
+    return response
