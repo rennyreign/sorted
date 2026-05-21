@@ -20,7 +20,7 @@ def test_builds_preview_branch_plan_for_allowed_request():
     assert preview.status == "preview_plan_ready"
     assert preview.branch_name == "sorted-updates/gbhalesowen/upd_cli_message-predefined_page_addition"
     assert preview.pr_title == "Sorted Updates: gbhalesowen predefined_page_addition"
-    assert "app/beginners/page.tsx" in preview.pr_body
+    assert "app/(site)/programs/fundamentals/page.tsx" in preview.pr_body
 
 
 def test_blocks_preview_branch_for_approval_required_request():

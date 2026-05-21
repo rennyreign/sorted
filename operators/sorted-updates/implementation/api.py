@@ -70,9 +70,28 @@ class SortedUpdatesHandler(BaseHTTPRequestHandler):
                 return
             from memory import ConversationStore
             store = ConversationStore()
-            change = store.get_change(client_id, change_id)
+            try:
+                change = store.get_change(client_id, change_id)
+            except Exception as exc:
+                self._json_response(500, {"error": "change lookup failed", "detail": str(exc)})
+                return
             if change is None:
-                self._json_response(404, {"error": "change not found"})
+                payload: dict[str, Any] = {"error": "change not found"}
+                if os.getenv("SORTED_UPDATES_DEBUG_CHANGE_LOOKUP") == "1":
+                    from memory import _supa_params, _supa_request
+
+                    payload["raw_supabase"] = _supa_request(
+                        "GET",
+                        "/sorted_changes",
+                        params=_supa_params(
+                            {
+                                "change_id": f"eq.{change_id}",
+                                "client_id": f"eq.{client_id}",
+                                "limit": "1",
+                            }
+                        ),
+                    )
+                self._json_response(404, payload)
                 return
             self._json_response(200, change.model_dump(mode="json"))
             return

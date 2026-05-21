@@ -36,7 +36,8 @@ def test_portal_chat_records_messages_and_change(tmp_path):
     )
 
     assert response.status == "preview_planned"
-    assert response.change.preview_url is not None
+    assert response.change.preview_url is None
+    assert response.change.execution["preview_branch_plan"]["branch_name"]
     history = portal_history("gbhalesowen", store=store)
     assert len(history["messages"]) == 2
     assert history["changes"][0]["status"] == "preview_planned"

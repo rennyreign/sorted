@@ -27,4 +27,4 @@ def test_target_route_and_file_for_predefined_page():
     request = parse_update_request(inbound, config)
 
     assert request.intent.target_route == "/kids-classes"
-    assert request.intent.target_files == ["app/kids-classes/page.tsx"]
+    assert request.intent.target_files == ["app/(site)/programs/kids/page.tsx"]

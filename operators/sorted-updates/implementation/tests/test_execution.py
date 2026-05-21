@@ -28,4 +28,5 @@ def test_preview_mode_forces_preview_for_safe_request():
 
     assert execution.status == "preview_planned"
     assert execution.mode == "preview"
-    assert execution.preview_url is not None
+    assert execution.preview_url is None
+    assert execution.branch_result["branch_name"]

@@ -11,8 +11,9 @@ import hashlib
 import hmac
 import json
 import os
+import pathlib
 
-from memory import ConversationStore
+from memory import ConversationStore, _supa_params, _supa_request, change_record_from_row
 from models import ChangeRecord
 
 
@@ -27,17 +28,27 @@ def _verify_signature(body: bytes, signature_header: str | None, secret: str) ->
 
 def find_change_by_branch(branch_name: str, store: ConversationStore) -> tuple[str, ChangeRecord] | None:
     """
-    Scan all known clients for a ChangeRecord whose preview branch matches.
+    Find a ChangeRecord whose preview branch matches.
     Returns (client_id, change) or None.
     """
-    clients_dir = os.path.join(
-        os.getenv("SORTED_UPDATES_MEMORY_ROOT", ".sorted-updates-state/memory")
-    )
-    import pathlib
-    root = pathlib.Path(clients_dir)
+    if store._use_supabase():
+        rows = _supa_request(
+            "GET",
+            "/sorted_changes",
+            params=_supa_params(
+                {
+                    "execution->preview_branch_plan->>branch_name": f"eq.{branch_name}",
+                    "limit": "1",
+                }
+            ),
+        )
+        if isinstance(rows, list) and rows:
+            change = change_record_from_row(rows[0])
+            return change.client_id, change
+
+    root = pathlib.Path(store.memory_root or os.getenv("SORTED_UPDATES_MEMORY_ROOT", ".sorted-updates-state/memory"))
     if not root.exists():
         return None
-
     for client_dir in root.iterdir():
         if not client_dir.is_dir():
             continue

@@ -90,6 +90,17 @@ def decide_change(
             message="Decision must be approve or reject.",
         )
 
+    if decision == APPROVE and _requires_preview_before_approval(change):
+        return ApprovalDecision(
+            change_id=change_id,
+            client_id=client_id,
+            decision=decision,
+            decided_by=decided_by,
+            decided_at=datetime.now(UTC),
+            status="blocked",
+            message="Preview is still building. Review the preview link before publishing.",
+        )
+
     merge_result = None
     if decision == APPROVE and os.getenv("SORTED_UPDATES_ENABLE_NETWORK") == "1":
         # Extract branch name from preview_branch_plan stored in change execution
@@ -133,3 +144,11 @@ def find_change(memory: ConversationStore, client_id: str, change_id: str) -> Ch
         if change.change_id == change_id:
             return change
     return None
+
+
+def _requires_preview_before_approval(change: ChangeRecord) -> bool:
+    if change.preview_url:
+        return False
+    mode = change.execution.get("mode")
+    has_preview_branch = bool(change.execution.get("preview_branch_plan", {}).get("branch_name"))
+    return change.status == "preview_planned" or mode == "preview" or has_preview_branch
