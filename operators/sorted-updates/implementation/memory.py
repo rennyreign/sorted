@@ -36,6 +36,12 @@ class ConversationStore:
         data = self._read(client_id)
         return [ChangeRecord.model_validate(item) for item in data.get("changes", [])]
 
+    def get_change(self, client_id: str, change_id: str) -> ChangeRecord | None:
+        for change in self.list_changes(client_id):
+            if change.change_id == change_id:
+                return change
+        return None
+
     def mark_intro_completed(self, client_id: str, session_id: str) -> None:
         data = self._read(client_id)
         sessions = data.setdefault("sessions", {})

@@ -61,6 +61,22 @@ class SortedUpdatesHandler(BaseHTTPRequestHandler):
             self._json_response(200, portal_history(client_id))
             return
 
+        if parsed.path == "/portal/change":
+            query = parse_qs(parsed.query)
+            client_id = query.get("client_id", [None])[0]
+            change_id = query.get("change_id", [None])[0]
+            if not client_id or not change_id:
+                self._json_response(400, {"error": "missing client_id or change_id"})
+                return
+            from memory import ConversationStore
+            store = ConversationStore()
+            change = store.get_change(client_id, change_id)
+            if not change:
+                self._json_response(404, {"error": "change not found"})
+                return
+            self._json_response(200, change.model_dump(mode="json"))
+            return
+
         if parsed.path == "/whatsapp/inbound":
             query = {key: values for key, values in parse_qs(parsed.query).items()}
             challenge = verify_challenge(query, os.getenv("META_WHATSAPP_VERIFY_TOKEN", ""))

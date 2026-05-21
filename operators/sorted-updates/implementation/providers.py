@@ -31,6 +31,42 @@ class NotificationProvider(Protocol):
         ...
 
 
+def _netlify_api(path: str) -> dict | list:
+    token = os.getenv("NETLIFY_TOKEN") or os.getenv("NETLIFY_SITE_ID", "")
+    # Use Netlify personal access token if available
+    netlify_pat = os.getenv("NETLIFY_TOKEN", "")
+    site_id = os.getenv("NETLIFY_SITE_ID", "")
+    url = f"https://api.netlify.com/api/v1{path}"
+    req = urllib.request.Request(
+        url,
+        headers={
+            "Authorization": f"Bearer {netlify_pat}",
+            "Content-Type": "application/json",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            return json.loads(resp.read())
+    except Exception:
+        return {}
+
+
+def get_netlify_deploy_url_for_branch(branch_name: str) -> str | None:
+    """
+    Look up the most recent ready deploy URL for a branch via the Netlify API.
+    Called on-demand (e.g. from the webhook handler or a status check).
+    """
+    site_id = os.getenv("NETLIFY_SITE_ID", "")
+    if not site_id:
+        return None
+    deploys = _netlify_api(f"/sites/{site_id}/deploys?per_page=20")
+    if isinstance(deploys, list):
+        for d in deploys:
+            if d.get("branch") == branch_name and d.get("state") == "ready":
+                return d.get("deploy_ssl_url") or d.get("url")
+    return None
+
+
 def _github_api(method: str, path: str, body: dict | None = None) -> dict:
     token = os.getenv("GITHUB_TOKEN", "")
     url = f"https://api.github.com{path}"
@@ -121,14 +157,10 @@ class PlannedGitHubProvider:
 class PlannedNetlifyProvider:
     enabled: bool = False
 
-    def preview_url(self, config: ClientOperatorConfig, branch_name: str) -> str:
-        site_name = os.getenv("NETLIFY_SITE_NAME") or config.client_id
-        # Netlify branch deploy subdomain: {branch-slug}--{site-name}.netlify.app
-        # Subdomain must be <= 63 chars total
-        raw_slug = branch_name.replace("/", "--").replace("_", "-").lower()
-        max_branch_len = 63 - len(site_name) - 2  # 2 for "--"
-        branch_slug = raw_slug[:max_branch_len].rstrip("-")
-        return f"https://{branch_slug}--{site_name}.netlify.app"
+    def preview_url(self, config: ClientOperatorConfig, branch_name: str) -> str | None:
+        # Returns None — the real deploy URL (deploy-ID based) is set by the Netlify webhook
+        # once the build completes. Portal fetches it via /portal/change/{change_id}.
+        return None
 
     def trigger_deploy(self, config: ClientOperatorConfig, ref: str) -> dict:
         return {

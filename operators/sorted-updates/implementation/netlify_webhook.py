@@ -79,15 +79,21 @@ def handle_netlify_webhook(body: bytes, signature: str | None) -> dict:
     else:
         build_status = "preview_build_failed"
         build_message = "Something went wrong preparing your preview — I've flagged it for review."
+        deploy_url = ""
 
-    updated = change.model_copy(update={
+    update_fields: dict = {
         "execution": {
             **change.execution,
             "build_status": build_status,
             "build_message": build_message,
             "deploy_url": deploy_url,
         }
-    })
+    }
+    # Save the real Netlify deploy URL onto the change record
+    if deploy_url:
+        update_fields["preview_url"] = deploy_url
+
+    updated = change.model_copy(update=update_fields)
     store.upsert_change(updated)
 
     return {
