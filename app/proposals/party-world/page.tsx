@@ -312,9 +312,13 @@ export default function PartyWorldProposal() {
                   className="flex-1 px-4 py-3 bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] placeholder:text-[#A3A3A3] focus:outline-none focus:border-black/[0.3] transition-colors"
                 />
                 <button
-                  onClick={() => setShowAgreement(true)}
+                  type="button"
+                  onClick={() => {
+                    console.log("Opening agreement modal")
+                    setShowAgreement(true)
+                  }}
                   disabled={!signerName.trim()}
-                  className="bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-6 py-3 hover:bg-[#2a2a2a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-6 py-3 hover:bg-[#2a2a2a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
                 >
                   Review & Accept
                 </button>
@@ -334,8 +338,12 @@ export default function PartyWorldProposal() {
 
         {/* Agreement Modal */}
         {showAgreement && (
-          <div className="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-black/50 flex items-center justify-center p-4 z-[100]" onClick={() => setShowAgreement(false)}>
-            <div className="bg-white rounded-2xl max-w-lg w-full max-h-[80vh] overflow-y-auto shadow-2xl" onClick={(e) => e.stopPropagation()}>
+          <div 
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+            style={{ zIndex: 9999 }}
+            onClick={() => setShowAgreement(false)}
+          >
+            <div className="bg-white rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl relative" onClick={(e) => e.stopPropagation()}>
               <div className="p-8">
                 <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-6">Service Agreement</h3>
                 
