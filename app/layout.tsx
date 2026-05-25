@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Plus_Jakarta_Sans, DM_Mono } from "next/font/google"
+import { Plus_Jakarta_Sans, DM_Mono, Dancing_Script } from "next/font/google"
 import "./globals.css"
 import PageTransition from "@/components/PageTransition"
 
@@ -14,6 +14,13 @@ const dmMono = DM_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   weight: ["400", "500"],
+  display: "swap",
+})
+
+const dancingScript = Dancing_Script({
+  subsets: ["latin"],
+  variable: "--font-signature",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 })
 
@@ -42,7 +49,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-GB"
-      className={`${plusJakarta.variable} ${dmMono.variable}`}
+      className={`${plusJakarta.variable} ${dmMono.variable} ${dancingScript.variable}`}
     >
       <body>
         <div className="scroll-progress" />

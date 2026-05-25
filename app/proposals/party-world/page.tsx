@@ -7,6 +7,12 @@ export default function PartyWorldProposal() {
   const [password, setPassword] = useState("")
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [error, setError] = useState(false)
+  
+  // Signature states
+  const [signerName, setSignerName] = useState("")
+  const [showAgreement, setShowAgreement] = useState(false)
+  const [isSigned, setIsSigned] = useState(false)
+  const [signedAt, setSignedAt] = useState<string | null>(null)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -251,7 +257,95 @@ export default function PartyWorldProposal() {
           </p>
         </div>
 
-        {/* Signature */}
+        {/* Client Signature Section */}
+        <div className="mb-16 pt-8 border-t border-black/[0.08]">
+          {!isSigned ? (
+            <>
+              <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] mb-4">Accept this proposal</p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <input
+                  type="text"
+                  value={signerName}
+                  onChange={(e) => setSignerName(e.target.value)}
+                  placeholder="Enter your full name"
+                  className="flex-1 px-4 py-3 bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] placeholder:text-[#A3A3A3] focus:outline-none focus:border-black/[0.3] transition-colors"
+                />
+                <button
+                  onClick={() => setShowAgreement(true)}
+                  disabled={!signerName.trim()}
+                  className="bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-6 py-3 hover:bg-[#2a2a2a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  Review & Accept
+                </button>
+              </div>
+              <p className="text-xs text-[#A3A3A3] mt-3">By accepting, you agree to the terms outlined in this proposal.</p>
+            </>
+          ) : (
+            <div className="bg-green-50 border border-green-200 rounded-xl p-6">
+              <p className="font-mono text-xs uppercase tracking-[0.15em] text-green-700 mb-2">Proposal Accepted</p>
+              <p className="text-green-800 text-[2rem]" style={{ fontFamily: "var(--font-signature), cursive" }}>
+                {signerName}
+              </p>
+              <p className="text-xs text-green-600 mt-2">Signed on {signedAt}</p>
+            </div>
+          )}
+        </div>
+
+        {/* Agreement Modal */}
+        {showAgreement && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50" onClick={() => setShowAgreement(false)}>
+            <div className="bg-white rounded-2xl max-w-lg w-full max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+              <div className="p-8">
+                <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-6">Service Agreement</h3>
+                
+                <div className="space-y-4 text-sm text-[#525252] leading-relaxed mb-8">
+                  <p>
+                    <strong className="text-[#0A0A0A]">1. Services:</strong> Sorted agrees to provide the services described in this proposal: Store Design, Shopify Development, Store Setup & Testing, and Product Catalogue Setup.
+                  </p>
+                  <p>
+                    <strong className="text-[#0A0A0A]">2. Payment:</strong> Total project cost is €2,000. 50% deposit (€1,000) due on project commencement. Balance (€1,000) due before final handover.
+                  </p>
+                  <p>
+                    <strong className="text-[#0A0A0A]">3. Timeline:</strong> Estimated 2-3 weeks from deposit receipt to launch, subject to timely provision of materials and feedback.
+                  </p>
+                  <p>
+                    <strong className="text-[#0A0A0A]">4. Intellectual Property:</strong> Upon full payment, client owns all rights to the final website design and content. Sorted retains the right to display the work in portfolio.
+                  </p>
+                  <p>
+                    <strong className="text-[#0A0A0A]">5. Revisions:</strong> Two rounds of revisions included per stage. Additional revisions may incur extra charges.
+                  </p>
+                  <p>
+                    <strong className="text-[#0A0A0A]">6. Cancellation:</strong> Deposit is non-refundable once work has commenced. If project is cancelled by client, work completed to date will be billed proportionally.
+                  </p>
+                  <p>
+                    <strong className="text-[#0A0A0A]">7. Limitation:</strong> Sorted is not liable for third-party service failures (Shopify, payment processors) or losses beyond the project fee.
+                  </p>
+                </div>
+
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setShowAgreement(false)}
+                    className="flex-1 px-4 py-3 border border-black/[0.12] rounded-lg text-[#525252] font-medium text-sm hover:bg-black/[0.02] transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsSigned(true)
+                      setShowAgreement(false)
+                      setSignedAt(new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }))
+                    }}
+                    className="flex-1 bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-4 py-3 hover:bg-[#2a2a2a] transition-colors"
+                  >
+                    I Accept - Sign as {signerName}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* My Signature */}
         <div className="mb-24">
           <p className="font-sans font-bold text-[#0A0A0A] text-lg">Renaldo</p>
           <p className="text-[#A3A3A3] text-sm">Sorted</p>
