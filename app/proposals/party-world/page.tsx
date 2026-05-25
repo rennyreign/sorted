@@ -67,7 +67,7 @@ export default function PartyWorldProposal() {
 
         {/* Salutation */}
         <h1 className="font-sans font-extrabold text-[#0A0A0A] text-4xl sm:text-5xl leading-tight tracking-tight mb-10">
-          Your Online Store
+          Natasha & Hemans,
         </h1>
 
         {/* Opening letter */}
@@ -261,7 +261,7 @@ export default function PartyWorldProposal() {
         <div className="mb-16 pt-8 border-t border-black/[0.08]">
           {!isSigned ? (
             <>
-              <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] mb-4">Accept this proposal</p>
+              <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] mb-4">Accept This Proposal: Enter Your Name</p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <input
                   type="text"
@@ -293,8 +293,8 @@ export default function PartyWorldProposal() {
 
         {/* Agreement Modal */}
         {showAgreement && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50" onClick={() => setShowAgreement(false)}>
-            <div className="bg-white rounded-2xl max-w-lg w-full max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+          <div className="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-black/50 flex items-center justify-center p-4 z-[100]" onClick={() => setShowAgreement(false)}>
+            <div className="bg-white rounded-2xl max-w-lg w-full max-h-[80vh] overflow-y-auto shadow-2xl" onClick={(e) => e.stopPropagation()}>
               <div className="p-8">
                 <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-6">Service Agreement</h3>
                 
