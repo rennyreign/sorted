@@ -1,12 +1,16 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import type { Metadata } from "next"
+
+const AUTH_KEY = "partyworld_auth"
+const AUTH_EXPIRY_DAYS = 30
 
 export default function PartyWorldProposal() {
   const [password, setPassword] = useState("")
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [error, setError] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   
   // Signature states
   const [signerName, setSignerName] = useState("")
@@ -14,14 +18,51 @@ export default function PartyWorldProposal() {
   const [isSigned, setIsSigned] = useState(false)
   const [signedAt, setSignedAt] = useState<string | null>(null)
 
+  // Check localStorage on mount
+  useEffect(() => {
+    const stored = localStorage.getItem(AUTH_KEY)
+    if (stored) {
+      try {
+        const { expires } = JSON.parse(stored)
+        if (new Date().getTime() < expires) {
+          setIsAuthenticated(true)
+        } else {
+          localStorage.removeItem(AUTH_KEY)
+        }
+      } catch {
+        localStorage.removeItem(AUTH_KEY)
+      }
+    }
+    setIsLoading(false)
+  }, [])
+
+  const saveAuth = () => {
+    const expires = new Date().getTime() + (AUTH_EXPIRY_DAYS * 24 * 60 * 60 * 1000)
+    localStorage.setItem(AUTH_KEY, JSON.stringify({ expires }))
+  }
+
+  const handleSignOut = () => {
+    localStorage.removeItem(AUTH_KEY)
+    setIsAuthenticated(false)
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (password.toLowerCase() === "thepresidents") {
       setIsAuthenticated(true)
       setError(false)
+      saveAuth()
     } else {
       setError(true)
     }
+  }
+  
+  if (isLoading) {
+    return (
+      <main className="min-h-screen flex items-center justify-center">
+        <div className="w-6 h-6 border-2 border-black/[0.1] border-t-[#0A0A0A] rounded-full animate-spin" />
+      </main>
+    )
   }
 
   if (!isAuthenticated) {
@@ -352,8 +393,14 @@ export default function PartyWorldProposal() {
         </div>
 
         {/* Subtle footer */}
-        <div className="border-t border-black/[0.06] pt-8">
+        <div className="border-t border-black/[0.06] pt-8 flex items-center justify-between">
           <p className="text-xs text-[#C4C4C4] font-mono">Sorted. — sortmydigital.netlify.app</p>
+          <button 
+            onClick={handleSignOut}
+            className="text-xs text-[#A3A3A3] hover:text-[#525252] transition-colors font-mono"
+          >
+            Sign out
+          </button>
         </div>
       </main>
     </>
