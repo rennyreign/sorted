@@ -358,10 +358,23 @@ export default function PartyWorldProposal() {
               style={{ maxHeight: "calc(100vh - 2rem)" }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="p-8 overflow-y-auto">
-                <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-6">Service Agreement</h3>
-                
-                <div className="space-y-4 text-sm text-[#525252] leading-relaxed mb-8">
+              {/* Sticky header */}
+              <div className="flex items-center justify-between px-6 py-4 border-b border-black/[0.08] shrink-0">
+                <h3 className="font-sans font-bold text-[#0A0A0A] text-lg">Service Agreement</h3>
+                <button
+                  type="button"
+                  onClick={() => setShowAgreement(false)}
+                  className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-black/[0.06] transition-colors text-[#525252]"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                </button>
+              </div>
+
+              {/* Scrollable content */}
+              <div className="px-6 py-5 overflow-y-auto flex-1">
+                <div className="space-y-4 text-sm text-[#525252] leading-relaxed">
                   <p>
                     <strong className="text-[#0A0A0A]">1. Services:</strong> Sorted agrees to provide the services described in this proposal: Store Design, Shopify Development, Store Setup & Testing, and Product Catalogue Setup.
                   </p>
@@ -384,25 +397,28 @@ export default function PartyWorldProposal() {
                     <strong className="text-[#0A0A0A]">7. Limitation:</strong> Sorted is not liable for third-party service failures (Shopify, payment processors) or losses beyond the project fee.
                   </p>
                 </div>
+              </div>
 
-                <div className="flex gap-3">
-                  <button
-                    onClick={() => setShowAgreement(false)}
-                    className="flex-1 px-4 py-3 border border-black/[0.12] rounded-lg text-[#525252] font-medium text-sm hover:bg-black/[0.02] transition-colors"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={() => {
-                      setIsSigned(true)
-                      setShowAgreement(false)
-                      setSignedAt(new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }))
-                    }}
-                    className="flex-1 bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-4 py-3 hover:bg-[#2a2a2a] transition-colors"
-                  >
-                    I Accept - Sign as {signerName}
-                  </button>
-                </div>
+              {/* Sticky footer */}
+              <div className="flex gap-3 px-6 py-4 border-t border-black/[0.08] shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setShowAgreement(false)}
+                  className="flex-1 px-4 py-3 border border-black/[0.12] rounded-lg text-[#525252] font-medium text-sm hover:bg-black/[0.02] transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsSigned(true)
+                    setShowAgreement(false)
+                    setSignedAt(new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }))
+                  }}
+                  className="flex-1 bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-4 py-3 hover:bg-[#2a2a2a] transition-colors"
+                >
+                  I Accept - Sign as {signerName}
+                </button>
               </div>
             </div>
           </div>,
