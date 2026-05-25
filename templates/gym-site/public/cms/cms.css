@@ -1,0 +1,194 @@
+/* Custom Decap CMS Styling */
+
+/* Brand Colors */
+:root {
+  --primary: #C8102E;
+  --primary-dark: #A90E27;
+  --navy: #002F86;
+  --deep-navy: #001D58;
+  --background: #F7F7F5;
+  --card-bg: #ffffff;
+  --text: #0A0A0A;
+  --text-muted: #666666;
+  --border: rgba(0, 0, 0, 0.08);
+}
+
+/* Sidebar - cleaner, modern */
+.css-1hhtf6z {
+  background: var(--card-bg) !important;
+  border-right: 1px solid var(--border) !important;
+}
+
+/* Collection items with icons */
+.css-1v1reko {
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px !important;
+  border-radius: 8px !important;
+  margin: 2px 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+.css-1v1reko:hover {
+  background: var(--background) !important;
+}
+
+.css-1v1reko.css-18hnax3 {
+  background: var(--primary) !important;
+  color: white !important;
+}
+
+/* Main content area */
+.css-1f8rt4 {
+  background: var(--background) !important;
+}
+
+/* Cards/panels */
+.css-1bct0e {
+  background: var(--card-bg) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid var(--border) !important;
+}
+
+/* Form fields */
+.css-1f3k9o4 input,
+.css-1f3k9o4 textarea,
+.css-1f3k9o4 select {
+  border-radius: 8px !important;
+  border: 1px solid var(--border) !important;
+  padding: 12px 14px !important;
+  font-size: 15px !important;
+  transition: all 0.2s ease !important;
+}
+
+.css-1f3k9o4 input:focus,
+.css-1f3k9o4 textarea:focus,
+.css-1f3k9o4 select:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.1) !important;
+  outline: none !important;
+}
+
+/* Labels */
+.css-1xlq8h {
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  color: var(--text) !important;
+  margin-bottom: 6px !important;
+}
+
+/* Hints */
+.css-1xlq8h + div {
+  font-size: 13px !important;
+  color: var(--text-muted) !important;
+  margin-top: 4px !important;
+}
+
+/* Section headers */
+.css-1x4p5 {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: var(--text) !important;
+  padding: 16px 0 !important;
+  border-bottom: 1px solid var(--border) !important;
+  margin-bottom: 20px !important;
+}
+
+/* Description text */
+.css-1x4p5 + p {
+  color: var(--text-muted) !important;
+  font-size: 14px !important;
+  margin-bottom: 24px !important;
+}
+
+/* Buttons */
+.css-1tjdp9h {
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  padding: 10px 20px !important;
+  transition: all 0.2s ease !important;
+}
+
+.css-1tjdp9h.css-1jd8zyc {
+  background: var(--primary) !important;
+}
+
+.css-1tjdp9h.css-1jd8zyc:hover {
+  background: var(--primary-dark) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Secondary button */
+.css-1tjdp9h:not(.css-1jd8zyc) {
+  border: 1px solid var(--border) !important;
+  background: white !important;
+  color: var(--text) !important;
+}
+
+/* List items */
+.css-1hbir2 {
+  background: var(--card-bg) !important;
+  border-radius: 10px !important;
+  border: 1px solid var(--border) !important;
+  margin-bottom: 12px !important;
+  padding: 16px !important;
+}
+
+/* Summary in list */
+.css-1hbir2 .css-1xlq8h {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+}
+
+/* Top bar */
+.css-1hhtf6z.css-1hhtf6z {
+  background: var(--card-bg) !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+/* Editor pane */
+.css-1f8rt4 {
+  background: var(--background) !important;
+}
+
+/* Preview pane */
+.css-1l8n1qi {
+  background: white !important;
+}
+
+/* Highlight Getting Started section */
+.css-1v1reko:first-of-type {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.css-1v1reko:first-of-type:hover {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(200, 16, 46, 0.3) !important;
+}
+
+/* Make markdown content in notice prettier */
+.css-1f8rt4 .css-1bct0e .css-1f3k9o4[data-slate-editor] {
+  background: #FEF9E7 !important;
+  border-left: 4px solid #F4D03F !important;
+  padding: 16px 20px !important;
+  border-radius: 8px !important;
+}
+
+/* Sidebar first item (Getting Started) - make it stand out */
+.css-1hhtf6z .css-1v1reko[href*="info"] {
+  background: var(--primary) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  margin-bottom: 16px !important;
+}
+
+/* Smooth transitions everywhere */
+* {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+}

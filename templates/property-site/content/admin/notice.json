@@ -1,0 +1,5 @@
+{
+  "title": "Welcome to the CMS",
+  "message": "Use this panel to edit your website content. All changes are saved to your repository and will be live within 60 seconds after publishing.",
+  "deployNotice": "After clicking Publish, please wait approximately 60 seconds for changes to appear on the live site."
+}

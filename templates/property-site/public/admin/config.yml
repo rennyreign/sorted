@@ -1,0 +1,277 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+media_folder: public/uploads
+public_folder: /uploads
+
+publish_mode: editorial_workflow
+
+collections:
+  - name: admin
+    label: "Getting Started"
+    files:
+      - label: "CMS Notice"
+        name: notice
+        file: content/admin/notice.json
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Message, name: message, widget: text }
+          - { label: Deploy Notice, name: deployNotice, widget: text }
+
+  - name: homepage
+    label: "Homepage"
+    files:
+      - label: "Hero"
+        name: hero
+        file: content/homepage/hero.json
+        fields:
+          - { label: Heading, name: heading, widget: string }
+          - { label: Subheading, name: subheading, widget: text }
+          - { label: Image, name: image, widget: image, required: false }
+          - { label: Image Alt Text, name: imageAlt, widget: string }
+          - { label: Primary CTA Label, name: primaryCtaLabel, widget: string }
+          - { label: Primary CTA Link, name: primaryCtaHref, widget: string }
+          - { label: Secondary CTA Label, name: secondaryCtaLabel, widget: string }
+          - { label: Secondary CTA Link, name: secondaryCtaHref, widget: string }
+      - label: "Trust Strip"
+        name: trust
+        file: content/homepage/trust.json
+        fields:
+          - label: Items
+            name: items
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - label: Icon
+                name: icon
+                widget: select
+                options: [map-pin, shield-check, calendar-check, check-circle, briefcase, home, users]
+              - { label: Title, name: title, widget: string }
+              - { label: Copy, name: copy, widget: text }
+      - label: "Who We Help"
+        name: audiences
+        file: content/homepage/audiences.json
+        fields:
+          - { label: Eyebrow, name: eyebrow, widget: string }
+          - { label: Heading, name: heading, widget: string }
+          - label: Audiences
+            name: items
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Copy, name: copy, widget: text }
+              - label: Icon
+                name: icon
+                widget: select
+                options: [briefcase, home, calendar-check, users, map-pin, check-circle]
+              - { label: Link, name: href, widget: string }
+              - { label: Image, name: image, widget: image, required: false }
+      - label: "Enquiry CTA"
+        name: cta
+        file: content/homepage/cta.json
+        fields:
+          - { label: Heading, name: heading, widget: string }
+          - { label: Copy, name: copy, widget: text }
+          - { label: Button Label, name: primaryLabel, widget: string }
+          - { label: Button Link, name: primaryHref, widget: string }
+
+  - name: properties
+    label: "Properties"
+    files:
+      - label: "Property Listings"
+        name: list
+        file: content/properties/list.json
+        fields:
+          - label: Properties
+            name: properties
+            widget: list
+            summary: "{{fields.name}} - {{fields.location}}"
+            fields:
+              - { label: Slug, name: slug, widget: string, hint: "Used in the URL, e.g. property-name" }
+              - { label: Name, name: name, widget: string }
+              - { label: Location, name: location, widget: string }
+              - { label: Postcode, name: postcode, widget: string }
+              - { label: Summary, name: summary, widget: text }
+              - { label: Description, name: description, widget: text }
+              - { label: Bedrooms, name: bedrooms, widget: number, value_type: int, min: 0 }
+              - { label: Sleeps, name: sleeps, widget: number, value_type: int, min: 0 }
+              - { label: Bathrooms, name: bathrooms, widget: number, value_type: int, min: 0 }
+              - { label: Price From, name: priceFrom, widget: number, value_type: int, min: 0 }
+              - { label: Hero Image, name: heroImage, widget: image, required: false }
+              - { label: Image Alt Text, name: imageAlt, widget: string }
+              - label: Gallery
+                name: gallery
+                widget: list
+                field: { label: Image, name: image, widget: image, required: false }
+              - label: Highlights
+                name: highlights
+                widget: list
+                field: { label: Highlight, name: highlight, widget: string }
+              - label: Amenities
+                name: amenities
+                widget: list
+                field: { label: Amenity, name: amenity, widget: string }
+              - label: Best For
+                name: bestFor
+                widget: list
+                field: { label: Audience, name: audience, widget: string }
+              - { label: Map Label, name: mapLabel, widget: string }
+
+  - name: benefits
+    label: "Benefits"
+    files:
+      - label: "Why Stay With Us"
+        name: list
+        file: content/benefits/list.json
+        fields:
+          - { label: Eyebrow, name: eyebrow, widget: string }
+          - { label: Heading, name: heading, widget: string }
+          - label: Benefits
+            name: items
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Copy, name: copy, widget: text }
+              - label: Icon
+                name: icon
+                widget: select
+                options: [home, wifi, cooking-pot, car, shield-check, calendar-check, users, bed-double]
+
+  - name: about
+    label: "About Page"
+    files:
+      - label: "About Content"
+        name: content
+        file: content/about/content.json
+        fields:
+          - { label: Hero Eyebrow, name: heroEyebrow, widget: string }
+          - { label: Hero Heading, name: heroHeading, widget: string }
+          - { label: Hero Description, name: heroDescription, widget: text }
+          - { label: Hero Secondary Text, name: heroSecondaryText, widget: text }
+          - { label: Hero Main Image, name: heroMainImage, widget: image, required: false }
+          - { label: Hero Main Image Alt, name: heroMainImageAlt, widget: string }
+          - { label: Hero Inset Image, name: heroInsetImage, widget: image, required: false }
+          - { label: Hero Inset Image Alt, name: heroInsetImageAlt, widget: string }
+          - { label: Who We Help Heading, name: whoWeHelpHeading, widget: string }
+          - { label: Who We Help Description, name: whoWeHelpDescription, widget: text }
+          - { label: Included Heading, name: includedHeading, widget: string }
+          - { label: Included Description, name: includedDescription, widget: text }
+          - label: Included Items
+            name: includedItems
+            widget: list
+            field: { label: Item, name: item, widget: string }
+          - { label: How It Works Heading, name: howItWorksHeading, widget: string }
+          - { label: How It Works Description, name: howItWorksDescription, widget: text }
+          - label: How It Works Steps
+            name: howItWorksSteps
+            widget: list
+            fields:
+              - { label: Step Number, name: step, widget: string }
+              - { label: Title, name: title, widget: string }
+              - { label: Copy, name: copy, widget: text }
+          - { label: CTA Heading, name: ctaHeading, widget: string }
+          - { label: CTA Description, name: ctaDescription, widget: text }
+
+  - name: businessStays
+    label: "Business Stays Page"
+    files:
+      - label: "Business Stays Content"
+        name: content
+        file: content/business-stays/content.json
+        fields:
+          - { label: Hero Heading, name: heroHeading, widget: string }
+          - { label: Hero Description, name: heroDescription, widget: text }
+          - { label: Hero CTA Label, name: heroCtaLabel, widget: string }
+          - { label: Why Section Eyebrow, name: whyEyebrow, widget: string }
+          - { label: Why Section Heading, name: whyHeading, widget: string }
+          - { label: Why Section Description, name: whyDescription, widget: text }
+          - label: Reasons
+            name: reasons
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - label: Icon
+                name: icon
+                widget: select
+                options: [users, calendar-check, cooking-pot, wifi, coffee, message-circle]
+              - { label: Title, name: title, widget: string }
+              - { label: Copy, name: copy, widget: text }
+          - { label: Properties Section Eyebrow, name: propertiesEyebrow, widget: string }
+          - { label: Properties Section Heading, name: propertiesHeading, widget: string }
+          - { label: CTA Eyebrow, name: ctaEyebrow, widget: string }
+          - { label: CTA Heading, name: ctaHeading, widget: string }
+          - { label: CTA Description, name: ctaDescription, widget: text }
+
+  - name: relocationStays
+    label: "Relocation Stays Page"
+    files:
+      - label: "Relocation Stays Content"
+        name: content
+        file: content/relocation-stays/content.json
+        fields:
+          - { label: Hero Heading, name: heroHeading, widget: string }
+          - { label: Hero Description, name: heroDescription, widget: text }
+          - { label: Hero CTA Label, name: heroCtaLabel, widget: string }
+          - { label: Features Heading, name: featuresHeading, widget: string }
+          - label: Features
+            name: features
+            widget: list
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Copy, name: copy, widget: text }
+          - { label: CTA Heading, name: ctaHeading, widget: string }
+          - { label: CTA Description, name: ctaDescription, widget: text }
+
+  - name: contact
+    label: "Contact"
+    files:
+      - label: "Contact Page"
+        name: info
+        file: content/contact/info.json
+        fields:
+          - { label: Eyebrow, name: eyebrow, widget: string }
+          - { label: Heading, name: heading, widget: string }
+          - { label: Subheading, name: subheading, widget: text }
+          - { label: Form Heading, name: formHeading, widget: string }
+          - { label: Form Intro, name: formIntro, widget: text }
+          - { label: Based In Heading, name: basedInHeading, widget: string }
+          - { label: Based In Copy, name: basedInCopy, widget: text }
+
+  - name: footer
+    label: "Footer"
+    files:
+      - label: "Footer Content"
+        name: content
+        file: content/footer/content.json
+        fields:
+          - { label: Description, name: description, widget: text }
+          - label: Quick Links
+            name: quickLinks
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: URL, name: href, widget: string }
+          - { label: Credits Text, name: credits, widget: string }
+
+  - name: site
+    label: "Site Settings"
+    files:
+      - label: "General Settings"
+        name: general
+        file: content/site/general.json
+        fields:
+          - { label: Site Name, name: siteName, widget: string }
+          - { label: Tagline, name: tagline, widget: text }
+          - { label: Phone Display, name: phoneDisplay, widget: string }
+          - { label: Phone Link, name: phoneHref, widget: string }
+          - { label: Email, name: email, widget: string }
+          - { label: WhatsApp URL, name: whatsappUrl, widget: string }
+          - { label: Facebook URL, name: facebookUrl, widget: string, required: false }
+          - { label: Instagram URL, name: instagramUrl, widget: string, required: false }
+          - { label: Opening Hours, name: hours, widget: text }
+          - { label: Copyright Text, name: copyright, widget: string }

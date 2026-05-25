@@ -1,0 +1,34 @@
+{
+  "eyebrow": "Who We Help",
+  "heading": "Flexible stays for every situation",
+  "items": [
+    {
+      "title": "Business Travellers",
+      "copy": "Professional accommodation with WiFi, workspace, and convenient locations.",
+      "icon": "briefcase",
+      "href": "/business-stays",
+      "image": "/business-traveller.jpg"
+    },
+    {
+      "title": "Relocations",
+      "copy": "Temporary homes while you transition. Flexible dates and fully furnished.",
+      "icon": "home",
+      "href": "/relocation-stays",
+      "image": "/relocation.jpg"
+    },
+    {
+      "title": "Extended Stays",
+      "copy": "Comfortable long-term accommodation with all the comforts of home.",
+      "icon": "calendar-check",
+      "href": "/properties",
+      "image": "/extended-stay.jpg"
+    },
+    {
+      "title": "Families & Groups",
+      "copy": "Spacious properties with multiple bedrooms and living spaces.",
+      "icon": "users",
+      "href": "/properties",
+      "image": "/family-stay.jpg"
+    }
+  ]
+}

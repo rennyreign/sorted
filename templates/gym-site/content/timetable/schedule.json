@@ -1,0 +1,95 @@
+{
+  "heading": "Timetable",
+  "subheading": "Brazilian Jiu-Jitsu and Functional Fitness classes throughout the week. Find the right session for your level and goals.",
+  "classTypes": [
+    { "name": "Gi", "color": "#3158A7" },
+    { "name": "No-Gi", "color": "#6B7280" },
+    { "name": "Fundamentals", "color": "#10B981" },
+    { "name": "Advanced", "color": "#C8102E" },
+    { "name": "Kids", "color": "#F59E0B" },
+    { "name": "Female", "color": "#EC4899" },
+    { "name": "Fitness", "color": "#8B5CF6" },
+    { "name": "Open Mat", "color": "#6B7280" }
+  ],
+  "days": [
+    {
+      "day": "Monday",
+      "classes": [
+        { "time": "10:00 - 11:00", "name": "Morning All Levels", "type": "Gi", "notes": "" },
+        { "time": "17:00 - 18:00", "name": "Kids GB1 (Ages 4-7)", "type": "Kids", "notes": "" },
+        { "time": "18:00 - 19:00", "name": "GB1 Fundamentals", "type": "Fundamentals", "notes": "" },
+        { "time": "19:00 - 20:00", "name": "Competition Class", "type": "Advanced", "notes": "Invitation only" }
+      ]
+    },
+    {
+      "day": "Tuesday",
+      "classes": [
+        { "time": "09:00 - 10:00", "name": "Morning All Levels", "type": "Gi", "notes": "" },
+        { "time": "17:00 - 18:00", "name": "Kids GB1 (Ages 8-14)", "type": "Kids", "notes": "" },
+        { "time": "18:00 - 19:00", "name": "GB2 Advanced", "type": "Advanced", "notes": "" },
+        { "time": "19:00 - 20:00", "name": "No-Gi All Levels", "type": "No-Gi", "notes": "" }
+      ]
+    },
+    {
+      "day": "Wednesday",
+      "classes": [
+        { "time": "10:00 - 11:00", "name": "Morning All Levels", "type": "Gi", "notes": "" },
+        { "time": "18:00 - 19:00", "name": "Ladies Only", "type": "Female", "notes": "" },
+        { "time": "19:00 - 20:00", "name": "Free Sparring", "type": "Open Mat", "notes": "" }
+      ]
+    },
+    {
+      "day": "Thursday",
+      "classes": [
+        { "time": "09:00 - 10:00", "name": "Morning All Levels", "type": "Gi", "notes": "" },
+        { "time": "17:00 - 18:00", "name": "Kids GB2 (Ages 8-14)", "type": "Kids", "notes": "" },
+        { "time": "18:00 - 19:00", "name": "GB1 Fundamentals", "type": "Fundamentals", "notes": "" },
+        { "time": "19:00 - 20:00", "name": "GB2 Advanced", "type": "Advanced", "notes": "" }
+      ]
+    },
+    {
+      "day": "Friday",
+      "classes": [
+        { "time": "10:00 - 11:00", "name": "Morning All Levels", "type": "Gi", "notes": "" },
+        { "time": "17:00 - 18:00", "name": "Kids GB2 (Ages 8-14)", "type": "Kids", "notes": "" },
+        { "time": "18:00 - 19:00", "name": "GB1 Fundamentals", "type": "Fundamentals", "notes": "" },
+        { "time": "19:00 - 20:00", "name": "No-Gi All Levels", "type": "No-Gi", "notes": "" }
+      ]
+    },
+    {
+      "day": "Saturday",
+      "classes": [
+        { "time": "09:00 - 10:00", "name": "Kids GB1 (Ages 4-7)", "type": "Kids", "notes": "" },
+        { "time": "10:00 - 11:00", "name": "Kids GB2 (Ages 8-14)", "type": "Kids", "notes": "" },
+        { "time": "11:00 - 12:00", "name": "All Levels", "type": "Gi", "notes": "" },
+        { "time": "12:00 - 13:00", "name": "Open Mat", "type": "Open Mat", "notes": "" }
+      ]
+    },
+    {
+      "day": "Sunday",
+      "classes": [
+        { "time": "Rest Day", "name": "No Classes", "type": "", "notes": "Academy closed" }
+      ]
+    }
+  ],
+  "fitnessClasses": {
+    "heading": "Functional Fitness",
+    "subheading": "Strength and conditioning to support your Jiu-Jitsu performance",
+    "schedule": [
+      { "day": "Monday", "time": "18:00 - 22:00" },
+      { "day": "Tuesday", "time": "18:00 - 22:00" },
+      { "day": "Wednesday", "time": "18:00 - 22:00" },
+      { "day": "Thursday", "time": "18:00 - 22:00" },
+      { "day": "Friday", "time": "09:00 - 12:00, 09:00 - 10:00" },
+      { "day": "Weekend", "time": "Saturday & Sunday - BJJ Open Mat only" }
+    ]
+  },
+  "cta": {
+    "heading": "Not sure which class is right for you?",
+    "text": "New members can start with a free introductory class. We will assess your fitness level, explain the basics, and recommend the best classes for your goals.",
+    "buttons": [
+      { "text": "Explore Programs", "url": "/programs" },
+      { "text": "Call 0121 285 4555", "url": "tel:01212854555" }
+    ]
+  }
+}

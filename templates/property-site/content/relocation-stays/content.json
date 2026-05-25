@@ -1,0 +1,15 @@
+{
+  "heroHeading": "Temporary homes while you relocate.",
+  "heroDescription": "Moving rarely runs to plan. Whether between properties, waiting on completion, or settling into a new area - we provide comfortable short-term stays.",
+  "heroCtaLabel": "Ask About Relocation Stays",
+  "featuresHeading": "What you can expect",
+  "features": [
+    { "title": "Short and extended stays", "copy": "Flexible booking periods to match your timeline." },
+    { "title": "Family-friendly options", "copy": "Multiple bedrooms and space for children." },
+    { "title": "Fully furnished", "copy": "No need to move furniture. Everything provided." },
+    { "title": "Flexible dates", "copy": "Adjust your stay as plans change." },
+    { "title": "Direct support", "copy": "One point of contact throughout your stay." }
+  ],
+  "ctaHeading": "Need somewhere to stay during your move?",
+  "ctaDescription": "Get in touch with your dates and situation. We'll recommend the best property."
+}

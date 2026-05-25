@@ -1,0 +1,10 @@
+{
+  "heading": "Find Your Perfect Stay",
+  "subheading": "Modern, comfortable short-term homes, conveniently located for business, leisure and relocation.",
+  "image": "/hero-image.jpg",
+  "imageAlt": "Comfortable short stay living room",
+  "primaryCtaLabel": "Browse Properties",
+  "primaryCtaHref": "/properties",
+  "secondaryCtaLabel": "Check Availability",
+  "secondaryCtaHref": "/contact"
+}

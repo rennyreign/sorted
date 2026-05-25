@@ -1,0 +1,8 @@
+{
+  "items": [
+    { "icon": "map-pin", "title": "Great Locations", "copy": "Prime locations across the region" },
+    { "icon": "shield-check", "title": "Fully Equipped", "copy": "Everything you need included" },
+    { "icon": "calendar-check", "title": "Flexible Stays", "copy": "Short and long-term options" },
+    { "icon": "check-circle", "title": "Direct Booking", "copy": "No middlemen or hidden fees" }
+  ]
+}

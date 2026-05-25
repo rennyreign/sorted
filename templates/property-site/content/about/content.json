@@ -1,0 +1,33 @@
+{
+  "heroEyebrow": "About Us",
+  "heroHeading": "Quality short-stay accommodation, professionally managed.",
+  "heroDescription": "We provide clean, comfortable homes for people who need flexible accommodation. Perfect for work, relocation, family visits, and temporary housing needs.",
+  "heroSecondaryText": "Every enquiry is handled directly by our team, and every property is maintained to a consistent standard.",
+  "heroMainImage": "/about-hero.jpg",
+  "heroMainImageAlt": "Comfortable living space",
+  "heroInsetImage": "/about-inset.jpg",
+  "heroInsetImageAlt": "Kitchen area",
+  "whoWeHelpHeading": "Who we help",
+  "whoWeHelpDescription": "We work with guests who need somewhere clean, practical and reliable.",
+  "includedHeading": "What's included",
+  "includedDescription": "All our properties are set up and ready on arrival.",
+  "includedItems": [
+    "Fully furnished homes",
+    "Fast WiFi throughout",
+    "Equipped kitchen",
+    "Washing machine",
+    "Fresh linen and towels",
+    "Parking at every property",
+    "Professionally cleaned",
+    "Direct support"
+  ],
+  "howItWorksHeading": "How it works",
+  "howItWorksDescription": "Simple process, no automated systems.",
+  "howItWorksSteps": [
+    { "step": "1", "title": "Send an enquiry", "copy": "Tell us your dates, guests, and preferences." },
+    { "step": "2", "title": "We respond directly", "copy": "Personal response with best available options." },
+    { "step": "3", "title": "Confirm and move in", "copy": "Property cleaned and ready for your arrival." }
+  ],
+  "ctaHeading": "Ready to find somewhere to stay?",
+  "ctaDescription": "Send us your dates and requirements. We'll come back to you directly."
+}

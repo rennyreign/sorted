@@ -1,0 +1,14 @@
+{
+  "eyebrow": "Why Stay With Us",
+  "heading": "Everything you need for a comfortable stay",
+  "items": [
+    { "title": "Fully furnished", "copy": "Move in with just your suitcase.", "icon": "home" },
+    { "title": "Fast WiFi", "copy": "Stay connected with reliable broadband.", "icon": "wifi" },
+    { "title": "Equipped kitchens", "copy": "Cook your own meals with full kitchen facilities.", "icon": "cooking-pot" },
+    { "title": "Flexible stays", "copy": "From nights to months, we accommodate.", "icon": "calendar-check" },
+    { "title": "Professionally cleaned", "copy": "High standards before every arrival.", "icon": "shield-check" },
+    { "title": "Local support", "copy": "Direct contact throughout your stay.", "icon": "users" },
+    { "title": "Direct booking", "copy": "No middlemen or hidden fees.", "icon": "bed-double" },
+    { "title": "Parking included", "copy": "Free parking at every property.", "icon": "car" }
+  ]
+}

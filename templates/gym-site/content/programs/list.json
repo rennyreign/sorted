@@ -1,0 +1,44 @@
+{
+  "programs": [
+    {
+      "title": "Fundamentals",
+      "slug": "fundamentals",
+      "text": "Beginner-friendly classes that build the core movements, positions and confidence to train safely.",
+      "image": "/gi-bjj.jpg",
+      "icon": "graduation-cap",
+      "accent": "#3158A7"
+    },
+    {
+      "title": "Advanced",
+      "slug": "advanced",
+      "text": "Sharper rounds, technical detail and live training for students ready to push their Jiu-Jitsu further.",
+      "image": "/daytime-warriors.jpg",
+      "icon": "medal",
+      "accent": "#7647B9"
+    },
+    {
+      "title": "Kids Classes",
+      "slug": "kids",
+      "text": "Structured sessions for ages 4+ focused on confidence, discipline, movement and respect.",
+      "image": "/kids-jits.jpg",
+      "icon": "users",
+      "accent": "#168CC9"
+    },
+    {
+      "title": "Female Training",
+      "slug": "female",
+      "text": "A supportive training environment for women learning Jiu-Jitsu, fitness and practical self-defence.",
+      "image": "/girls-bjj.jpg",
+      "icon": "venus",
+      "accent": "#D85B94"
+    },
+    {
+      "title": "Barbell / Fitness",
+      "slug": "fitness",
+      "text": "Strength and conditioning support to improve performance, resilience and all-round wellbeing.",
+      "image": "/functional-fitness_1.jpg",
+      "icon": "dumbbell",
+      "accent": "#D1414C"
+    }
+  ]
+}

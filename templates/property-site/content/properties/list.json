@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "slug": "example-property",
+      "name": "Example Property",
+      "location": "City Centre",
+      "postcode": "AA1 1AA",
+      "summary": "A modern, comfortable property perfect for short-term stays.",
+      "description": "This well-appointed property offers everything you need for a comfortable stay. Located in a convenient area with easy access to local amenities.",
+      "bedrooms": 2,
+      "sleeps": 4,
+      "bathrooms": 1,
+      "priceFrom": 85,
+      "heroImage": "/properties/example/hero.jpg",
+      "imageAlt": "Example property living room",
+      "gallery": ["/properties/example/1.jpg", "/properties/example/2.jpg"],
+      "highlights": ["Central location", "Fully equipped kitchen", "Free WiFi", "Parking available"],
+      "amenities": ["WiFi", "Kitchen", "Washing machine", "TV", "Parking"],
+      "bestFor": ["Business travellers", "Families", "Relocations"],
+      "mapLabel": "City Centre, AA1 1AA"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "features": [
+    {
+      "title": "Expert Instruction",
+      "description": "Learn from certified Gracie Barra professors with years of competitive and teaching experience.",
+      "icon": "shield"
+    },
+    {
+      "title": "All Skill Levels",
+      "description": "Whether you're a complete beginner or experienced practitioner, we have classes tailored for you.",
+      "icon": "users"
+    },
+    {
+      "title": "Competition Ready",
+      "description": "Train with competitors who regularly medal at national and international tournaments.",
+      "icon": "trophy"
+    },
+    {
+      "title": "Family Atmosphere",
+      "description": "Join a supportive community where everyone helps each other grow on and off the mats.",
+      "icon": "heart"
+    }
+  ]
+}

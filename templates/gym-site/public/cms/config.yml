@@ -1,0 +1,381 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend:
+  url: http://localhost:8081/api/v1
+  allowed_hosts: ['localhost', '127.0.0.1']
+
+# CMS Presentation Settings
+media_folder: public/uploads
+public_folder: /uploads
+
+# Preview configuration
+editor:
+  preview: true
+
+# Site URL for preview links
+site_url: https://gbhalesowen.com
+
+# Display settings
+slug:
+  encoding: "ascii"
+  clean_accents: true
+
+# Collections define the content types
+collections:
+  - name: "info"
+    label: "📋 Getting Started"
+    files:
+      - name: "notice"
+        label: "Important Notice"
+        file: "content/admin/notice.json"
+        description: "How to use this CMS"
+        fields:
+          - name: "notice"
+            label: "Publishing Information"
+            widget: "markdown"
+            default: "**Publishing takes about 60 seconds**\n\nAfter you click 'Publish', your changes are sent to GitHub and the site rebuilds automatically. Please wait 60 seconds, then refresh your live website to see updates.\n\n**How to edit:**\n1. Click a section in the sidebar (e.g., 🏠 Homepage)\n2. Edit the text fields\n3. Click 'Publish' (top right)\n4. Wait 60 seconds\n5. Refresh your live site"
+            required: false
+
+  - name: "homepage"
+    label: "🏠 Homepage"
+    files:
+      - name: "hero"
+        label: "🎯 Hero Section"
+        file: "content/homepage/hero.json"
+        description: "Main banner at the top of your homepage"
+        fields:
+          - name: "title"
+            label: "Title"
+            widget: "string"
+            hint: "Appears in browser tab and SEO results"
+          - name: "subtitle"
+            label: "Subtitle"
+            widget: "text"
+            hint: "Main headline below the title. Keep it punchy!"
+          - name: "ctaText"
+            label: "Button Text"
+            widget: "string"
+            hint: "Call-to-action button label"
+          - name: "ctaUrl"
+            label: "Button Link"
+            widget: "string"
+            hint: "Where the button takes visitors (e.g., /contact or https://...)"
+      
+      - name: "features"
+        label: "✨ Features Section"
+        file: "content/homepage/features.json"
+        description: "Grid of features/benefits below the hero"
+        fields:
+          - name: "features"
+            label: "Features List"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - name: "title"
+                label: "Feature Title"
+                widget: "string"
+              - name: "description"
+                label: "Description"
+                widget: "text"
+              - name: "icon"
+                label: "Icon"
+                widget: "select"
+                options: 
+                  - { label: "🛡️ Shield (protection/safety)", value: "shield" }
+                  - { label: "👥 Users (community/team)", value: "users" }
+                  - { label: "🏆 Trophy (achievement/winning)", value: "trophy" }
+                  - { label: "❤️ Heart (care/family)", value: "heart" }
+
+  - name: "programs"
+    label: "🥋 Programs"
+    files:
+      - name: "list"
+        label: "Program Cards"
+        file: "content/programs/list.json"
+        description: "Programs shown in the 'Our programs' section on the homepage"
+        fields:
+          - name: "programs"
+            label: "Programs List"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - name: "title"
+                label: "Program Name"
+                widget: "string"
+                hint: "e.g., 'Fundamentals' or 'Kids Classes'"
+              - name: "slug"
+                label: "URL Slug"
+                widget: "string"
+                hint: "Short URL-friendly name (e.g., 'fundamentals' becomes /programs/fundamentals)"
+              - name: "text"
+                label: "Description"
+                widget: "text"
+                hint: "1-2 sentence description of the program"
+              - name: "image"
+                label: "Card Image"
+                widget: "image"
+                hint: "Upload or select an image from /public"
+                choose_url: true
+              - name: "icon"
+                label: "Icon"
+                widget: "select"
+                options:
+                  - { label: "Graduation Cap (learning/beginners)", value: "graduation-cap" }
+                  - { label: "Medal (advanced/competition)", value: "medal" }
+                  - { label: "Users (kids/community)", value: "users" }
+                  - { label: "Venus (women/female)", value: "venus" }
+                  - { label: "Dumbbell (fitness/strength)", value: "dumbbell" }
+              - name: "accent"
+                label: "Accent Color"
+                widget: "color"
+                hint: "Card border color (hex like #3158A7)"
+
+  - name: "benefits"
+    label: "💪 Benefits"
+    files:
+      - name: "list"
+        label: "Benefits Section"
+        file: "content/benefits/list.json"
+        description: "Four key benefits shown in the 'Why train with us' section"
+        fields:
+          - name: "benefits"
+            label: "Benefits List"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - name: "title"
+                label: "Benefit Title"
+                widget: "string"
+                hint: "Short title like 'Confidence' or 'Fitness'"
+              - name: "text"
+                label: "Description"
+                widget: "text"
+                hint: "1-2 sentence description"
+              - name: "icon"
+                label: "Icon"
+                widget: "select"
+                options:
+                  - { label: "Shield Check (confidence/protection)", value: "shield-check" }
+                  - { label: "Heart Pulse (fitness/health)", value: "heart-pulse" }
+                  - { label: "Swords (self-defence/strength)", value: "swords" }
+                  - { label: "Target (discipline/focus)", value: "target" }
+                  - { label: "User Check (personal growth)", value: "user-check" }
+                  - { label: "Clock (consistency/dedication)", value: "clock" }
+
+  - name: "testimonials"
+    label: "💬 Testimonials"
+    files:
+      - name: "list"
+        label: "Member Testimonials"
+        file: "content/testimonials/list.json"
+        description: "Quotes from members displayed on the homepage"
+        fields:
+          - name: "testimonials"
+            label: "Testimonials"
+            widget: "list"
+            summary: "{{fields.name}} - {{fields.role}}"
+            fields:
+              - name: "name"
+                label: "Member Name"
+                widget: "string"
+                hint: "First name or full name (e.g., 'Sarah M.')"
+              - name: "role"
+                label: "Role/Context"
+                widget: "string"
+                hint: "e.g., 'Member since 2023' or 'Parent'"
+              - name: "quote"
+                label: "Quote"
+                widget: "text"
+                hint: "Their testimonial - keep it authentic and specific"
+
+  - name: "timetable"
+    label: "📅 Timetable"
+    files:
+      - name: "schedule"
+        label: "Full Timetable"
+        file: "content/timetable/schedule.json"
+        description: "Complete weekly BJJ and Fitness schedule"
+        fields:
+          - name: "heading"
+            label: "Page Heading"
+            widget: "string"
+            hint: "Main title like 'Timetable'"
+          - name: "subheading"
+            label: "Page Subheading"
+            widget: "text"
+            hint: "Description shown below heading"
+          - name: "classTypes"
+            label: "Class Type Labels"
+            widget: "list"
+            summary: "{{fields.name}}"
+            hint: "Define class types with colors for the filter buttons"
+            fields:
+              - name: "name"
+                label: "Type Name"
+                widget: "string"
+                hint: "e.g., Gi, No-Gi, Fundamentals"
+              - name: "color"
+                label: "Color"
+                widget: "color"
+                hint: "HEX color for this class type tag"
+          - name: "days"
+            label: "Weekly Schedule"
+            widget: "list"
+            summary: "{{fields.day}}"
+            hint: "Each day of the week with its classes"
+            fields:
+              - name: "day"
+                label: "Day Name"
+                widget: "select"
+                options: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+              - name: "classes"
+                label: "Classes"
+                widget: "list"
+                summary: "{{fields.time}} - {{fields.name}}"
+                fields:
+                  - name: "time"
+                    label: "Time"
+                    widget: "string"
+                    hint: "e.g., 10:00 - 11:00 or 'Rest Day'"
+                  - name: "name"
+                    label: "Class Name"
+                    widget: "string"
+                    hint: "e.g., Morning All Levels, Kids GB1"
+                  - name: "type"
+                    label: "Class Type"
+                    widget: "select"
+                    options: ["Gi", "No-Gi", "Fundamentals", "Advanced", "Kids", "Female", "Fitness", "Open Mat", ""]
+                    hint: "Select type for color coding (leave empty for none)"
+                  - name: "notes"
+                    label: "Notes"
+                    widget: "string"
+                    hint: "Optional notes like 'Invitation only' or 'Academy closed'"
+          - name: "fitnessClasses"
+            label: "Fitness Section"
+            widget: "object"
+            collapsed: true
+            fields:
+              - name: "heading"
+                label: "Heading"
+                widget: "string"
+              - name: "subheading"
+                label: "Subheading"
+                widget: "string"
+              - name: "schedule"
+                label: "Fitness Schedule"
+                widget: "list"
+                summary: "{{fields.day}}: {{fields.time}}"
+                fields:
+                  - name: "day"
+                    label: "Day"
+                    widget: "string"
+                  - name: "time"
+                    label: "Time"
+                    widget: "string"
+          - name: "cta"
+            label: "Bottom CTA Section"
+            widget: "object"
+            collapsed: true
+            fields:
+              - name: "heading"
+                label: "Heading"
+                widget: "string"
+              - name: "text"
+                label: "Text"
+                widget: "text"
+              - name: "buttons"
+                label: "Buttons"
+                widget: "list"
+                summary: "{{fields.text}}"
+                fields:
+                  - name: "text"
+                    label: "Button Text"
+                    widget: "string"
+                  - name: "url"
+                    label: "Button URL"
+                    widget: "string"
+
+  - name: "contact"
+    label: "📍 Contact & About"
+    files:
+      - name: "info"
+        label: "Contact Information"
+        file: "content/contact/info.json"
+        description: "All contact details and booking section"
+        fields:
+          - name: "heading"
+            label: "Page Heading"
+            widget: "string"
+            hint: "Main heading on contact page"
+          - name: "subheading"
+            label: "Subheading"
+            widget: "string"
+            hint: "Label above address (e.g., 'Visit us')"
+          - name: "addressLabel"
+            label: "Address Label"
+            widget: "string"
+          - name: "addressShort"
+            label: "Short Address"
+            widget: "string"
+            hint: "One-line address for header/footer"
+          - name: "addressFull"
+            label: "Full Address"
+            widget: "text"
+            hint: "Multi-line address for contact page"
+          - name: "phone"
+            label: "Phone Number"
+            widget: "string"
+          - name: "email"
+            label: "Email Address"
+            widget: "string"
+          - name: "bookingHeading"
+            label: "Booking Section Heading"
+            widget: "string"
+          - name: "bookingText"
+            label: "Booking Description"
+            widget: "text"
+          - name: "bookingButton"
+            label: "Booking Button Text"
+            widget: "string"
+          - name: "bookingUrl"
+            label: "Booking Link"
+            widget: "string"
+            hint: "URL to booking system (Cal.com, etc.)"
+          - name: "mapEmbedUrl"
+            label: "Google Maps Embed URL"
+            widget: "string"
+            hint: "Optional: embed URL for map on contact page"
+
+  - name: "site"
+    label: "⚙️ Site Settings"
+    files:
+      - name: "general"
+        label: "General"
+        file: "content/site/general.json"
+        description: "Site-wide settings used across all pages"
+        fields:
+          - name: "siteName"
+            label: "Site Name"
+            widget: "string"
+            hint: "Appears in navigation and footer"
+          - name: "tagline"
+            label: "Tagline"
+            widget: "string"
+            hint: "Short slogan or motto"
+          - name: "contactEmail"
+            label: "Contact Email"
+            widget: "string"
+            hint: "Primary contact email for inquiries"
+          - name: "phone"
+            label: "Phone Number"
+            widget: "string"
+            hint: "Primary phone number with area code"
+          - name: "address"
+            label: "Address"
+            widget: "text"
+            hint: "Full address for contact page and maps"
+
+# CMS UI Customization
+custom_css: "/admin/cms.css"

@@ -1,0 +1,29 @@
+{
+  "benefits": [
+    {
+      "title": "Confidence",
+      "text": "Build self-belief on and off the mats.",
+      "icon": "shield-check"
+    },
+    {
+      "title": "Fitness",
+      "text": "Train hard in a way that keeps you engaged.",
+      "icon": "heart-pulse"
+    },
+    {
+      "title": "Self-defence",
+      "text": "Learn practical skills for real situations.",
+      "icon": "swords"
+    },
+    {
+      "title": "Discipline",
+      "text": "Develop focus and commitment that carries over into daily life.",
+      "icon": "target"
+    },
+    {
+      "title": "Community",
+      "text": "Join a supportive team that looks after each other.",
+      "icon": "users"
+    }
+  ]
+}

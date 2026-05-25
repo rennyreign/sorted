@@ -1,0 +1,19 @@
+{
+  "testimonials": [
+    {
+      "name": "Sarah M.",
+      "role": "Member since 2023",
+      "quote": "The fundamentals class completely changed my confidence. I walked in nervous and walked out feeling capable. The coaches genuinely care about your progress."
+    },
+    {
+      "name": "James T.",
+      "role": "Parent",
+      "quote": "My kids have been coming here for 6 months. The discipline they've learned carries over into school and home. It's been transformational for our family."
+    },
+    {
+      "name": "Rachel K.",
+      "role": "Advanced Student",
+      "quote": "As a woman in martial arts, I was worried about feeling out of place. The female training sessions are supportive and challenging. Best decision I've made."
+    }
+  ]
+}

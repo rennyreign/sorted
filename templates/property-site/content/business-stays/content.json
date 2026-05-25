@@ -1,0 +1,21 @@
+{
+  "heroHeading": "Short-term stays for business travellers.",
+  "heroDescription": "Practical, clean accommodation while working away. More space than a hotel, with kitchens, WiFi, parking and direct support.",
+  "heroCtaLabel": "Enquire About a Stay",
+  "whyEyebrow": "Why it works",
+  "whyHeading": "Built around how business travellers actually stay.",
+  "whyDescription": "Clean, practical spaces with the things you actually need.",
+  "reasons": [
+    { "icon": "users", "title": "Solo or team stays", "copy": "Match you to the right option for your needs." },
+    { "icon": "calendar-check", "title": "Flexible lengths", "copy": "Short-notice or extended stays." },
+    { "icon": "cooking-pot", "title": "Kitchen facilities", "copy": "Fully equipped kitchen and laundry." },
+    { "icon": "wifi", "title": "Fast WiFi & parking", "copy": "Reliable broadband and free parking." },
+    { "icon": "coffee", "title": "More space", "copy": "Living room, separate bedrooms, dining area." },
+    { "icon": "message-circle", "title": "Direct contact", "copy": "Speak directly with us, not a call centre." }
+  ],
+  "propertiesEyebrow": "Suitable Properties",
+  "propertiesHeading": "Homes suited to business stays.",
+  "ctaEyebrow": "Direct Enquiry",
+  "ctaHeading": "Tell us about your requirements.",
+  "ctaDescription": "Send your dates, number of people, location and any specific needs."
+}

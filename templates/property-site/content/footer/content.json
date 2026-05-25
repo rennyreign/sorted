@@ -1,0 +1,12 @@
+{
+  "description": "Clean, comfortable short-term homes. For business travellers, relocators and families.",
+  "quickLinks": [
+    { "label": "Home", "href": "/" },
+    { "label": "Properties", "href": "/properties" },
+    { "label": "Business Stays", "href": "/business-stays" },
+    { "label": "Relocation Stays", "href": "/relocation-stays" },
+    { "label": "About Us", "href": "/about" },
+    { "label": "Contact", "href": "/contact" }
+  ],
+  "credits": "Website by Sorted."
+}
