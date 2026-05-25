@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { createPortal } from "react-dom"
 import type { Metadata } from "next"
 
 const AUTH_KEY = "partyworld_auth"
@@ -11,12 +12,15 @@ export default function PartyWorldProposal() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [error, setError] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  
+  const [mounted, setMounted] = useState(false)
+
   // Signature states
   const [signerName, setSignerName] = useState("")
   const [showAgreement, setShowAgreement] = useState(false)
   const [isSigned, setIsSigned] = useState(false)
   const [signedAt, setSignedAt] = useState<string | null>(null)
+
+  useEffect(() => { setMounted(true) }, [])
 
   // Check localStorage on mount
   useEffect(() => {
@@ -56,7 +60,7 @@ export default function PartyWorldProposal() {
       setError(true)
     }
   }
-  
+
   if (isLoading) {
     return (
       <main className="min-h-screen flex items-center justify-center">
@@ -314,7 +318,6 @@ export default function PartyWorldProposal() {
                 <button
                   type="button"
                   onClick={() => {
-                    console.log("Opening agreement modal")
                     setShowAgreement(true)
                   }}
                   disabled={!signerName.trim()}
@@ -336,15 +339,26 @@ export default function PartyWorldProposal() {
           )}
         </div>
 
-        {/* Agreement Modal */}
-        {showAgreement && (
+        {/* Agreement Modal - Portal to body to escape transform containing block */}
+        {showAgreement && mounted && createPortal(
           <div 
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
-            style={{ zIndex: 9999 }}
+            className="bg-black/60 flex items-center justify-center p-4"
+            style={{ 
+              position: "fixed",
+              top: 0, 
+              left: 0, 
+              width: "100vw",
+              height: "100vh",
+              zIndex: 9999 
+            }}
             onClick={() => setShowAgreement(false)}
           >
-            <div className="bg-white rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl relative" onClick={(e) => e.stopPropagation()}>
-              <div className="p-8">
+            <div 
+              className="bg-white rounded-2xl max-w-lg w-full shadow-2xl flex flex-col"
+              style={{ maxHeight: "calc(100vh - 2rem)" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-8 overflow-y-auto">
                 <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-6">Service Agreement</h3>
                 
                 <div className="space-y-4 text-sm text-[#525252] leading-relaxed mb-8">
@@ -391,7 +405,8 @@ export default function PartyWorldProposal() {
                 </div>
               </div>
             </div>
-          </div>
+          </div>,
+          document.body
         )}
 
         {/* My Signature */}
