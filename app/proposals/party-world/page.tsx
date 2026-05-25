@@ -56,18 +56,18 @@ export default function PartyWorldProposal() {
         {/* Date + Private Label */}
         <div className="mb-16">
           <p className="font-mono text-xs text-[#A3A3A3] uppercase tracking-[0.15em] mb-1">May 2026</p>
-          <p className="font-mono text-xs text-[#A3A3A3] uppercase tracking-[0.15em]">Private — for Tyler and Hemans, Party World</p>
+          <p className="font-mono text-xs text-[#A3A3A3] uppercase tracking-[0.15em]">Private - for Natasha and Hemans</p>
         </div>
 
         {/* Salutation */}
         <h1 className="font-sans font-extrabold text-[#0A0A0A] text-4xl sm:text-5xl leading-tight tracking-tight mb-10">
-          Party World
+          Your Online Store
         </h1>
 
         {/* Opening letter */}
         <div className="space-y-6 text-[#525252] text-lg leading-relaxed mb-16">
           <p>
-            Following our conversation about Party World's online store, I've put together a straightforward proposal to get you from where you are now to a fully functioning Shopify store — ready for customers to browse and buy.
+            Following our conversation about your new online store, I've put together a straightforward proposal to get you from where you are now to a fully functioning Shopify store, ready for customers to browse and buy.
           </p>
           <p className="text-[#0A0A0A] font-semibold">
             The goal is simple: a clean, modern ecommerce site that showcases your products properly, works smoothly on mobile and desktop, and doesn't require technical knowledge to manage day-to-day.
@@ -87,7 +87,7 @@ export default function PartyWorldProposal() {
               {
                 num: "01",
                 title: "Store Design",
-                body: "A modern ecommerce layout designed specifically for Party World's product range and brand. This includes homepage design, product collection and category layouts, individual product detail pages, mobile-responsive layouts, shopping flow and checkout experience, visual styling and image presentation.",
+                body: "A modern ecommerce layout designed specifically for your product range and brand. This includes homepage design, product collection and category layouts, individual product detail pages, mobile-responsive layouts, shopping flow and checkout experience, visual styling and image presentation.",
               },
               {
                 num: "02",
@@ -210,7 +210,7 @@ export default function PartyWorldProposal() {
                 "A structure that allows future expansion (new products, categories, promotions)",
               ].map((item) => (
                 <li key={item} className="flex gap-3">
-                  <span className="text-[#0A0A0A]">—</span>
+                  <span className="text-[#0A0A0A]">-</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -224,7 +224,6 @@ export default function PartyWorldProposal() {
           <ul className="space-y-1">
             {[
               "Professional product photography",
-              "Copywriting for product descriptions",
               "Paid advertising setup or management",
               "Advanced SEO or content marketing",
               "Ongoing maintenance or support retainer",
@@ -242,10 +241,10 @@ export default function PartyWorldProposal() {
         {/* Closing */}
         <div className="space-y-6 text-[#525252] text-lg leading-relaxed mb-16">
           <p>
-            The aim is a store that feels modern and visually clean, easy for customers to navigate, simple for you to manage, and ready to grow as Party World grows.
+            The aim is a store that feels modern and visually clean, easy for customers to navigate, simple for you to manage, and ready to grow as your business grows.
           </p>
           <p>
-            Shopify handles the technical side — hosting, security, payment processing — so you can focus on running the business.
+            Shopify handles the technical side (hosting, security, payment processing) so you can focus on running the business.
           </p>
           <p className="text-[#0A0A0A] font-semibold">
             If this looks right, reply to confirm and I'll send over the deposit invoice to get started. Any questions, just ask.
