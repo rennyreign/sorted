@@ -51,6 +51,100 @@ sorted/
 
 ---
 
+## Stage 1 Build — Skills Required
+
+Every client site build (Stage 1) uses a two-level skill cascade. This is what ensures sites vary in aesthetic while staying structurally sound and consistent in quality.
+
+**Level 1 — taste-skills (foundational principles)**
+These are always active. They govern spacing, type, colour, motion, and feedback mechanics.
+- `visual-hierarchy` — section spacing, max-width, grid gaps
+- `color-system` — palette structure, contrast, semantic mapping
+- `typography-scale` — fluid sizing, weight relationships
+- `feedback-patterns` — hover states, transitions (200ms standard)
+- `micro-interaction-spec` — page enter timing, animation curves
+
+**Level 2 — `sorted-local-site-refresh` (pattern library)**
+This is the centerpiece. Full skill: `https://github.com/rennyreign/taste-skill/tree/main/skills/sorted-local-site-refresh`
+
+Key rules extracted below — apply all of them to every Stage 1 build:
+
+### Business classification — do this first
+Classify before designing:
+- local service / trade / fitness / beauty / food / professional service / ecommerce / booking-led / trust-led
+
+Define the primary conversion action: call now / book intro / request quote / visit shop / join class / WhatsApp
+
+### Page pattern — use proven structure, don't invent
+Standard service-site order:
+1. header/navigation
+2. hero with primary CTA and clear value
+3. trust bar or quick proof
+4. services / programmes / products
+5. why choose us / benefits
+6. featured audience or service section
+7. about / location credibility block
+8. testimonials / reviews
+9. contact / location / booking CTA
+10. footer
+
+Booking-led variation: hero → service cards → how it works → proof → pricing/FAQ → contact → footer
+
+### Design standards — every site must feel
+Obvious. Useful. Trustworthy. Frictionless. Local. Human. Competent. Polished.
+
+**Avoid:**
+- startup / AI / agency / consultant language
+- abstract SaaS visuals or fake dashboards
+- excessive purple/blue AI gradients
+- unreadable text overlays
+- generic three-card rows when a better layout fits
+- visual cleverness that hides business information
+
+### Copy rules
+Plain English. No lorem ipsum — use real draft copy tailored to the business.
+
+**Prefer:** "Book a free intro" / "Call us now" / "Request a quote" / "Clear prices. Quick turnaround. No fuss."
+
+**Avoid:** elevate / unleash / transform / next-gen / seamless / revolutionary / empower / cutting-edge solutions
+
+### Motion — Standard vs Premium
+**Standard (default):** button hover states, card hover lift, smooth scroll, simple staggered reveals, subtle image zoom.
+
+**Premium (if brief calls for it):** refined hero entrance, staggered scroll-triggered reveals, subtle parallax, richer hover transitions.
+
+Never animate layout properties (`top`, `left`, `width`, `height`). Motion uses `transform` and `opacity` only. Never make the business feel gimmicky.
+
+### Implementation always includes
+- Responsive desktop / tablet / mobile
+- Semantic HTML landmarks
+- Accessible buttons, links, focus states
+- Useful alt text
+- Real draft copy
+- Correct contact / location placement
+- Footer with privacy and terms links
+- Metadata: title and description
+- No dead placeholder links
+- No commented-out dead code
+
+### Quality check before output
+- Is the primary CTA obvious within 5 seconds?
+- Does the hero explain what the business does and who it's for?
+- Are phone / booking / purchase paths easy to find?
+- Does the design match the mockup enough to feel familiar?
+- Is the page mobile-safe with no horizontal scroll?
+- Are all sections useful, not decorative filler?
+- Is the copy plain, local, and believable?
+- Does it feel like something a real business owner would proudly approve?
+
+**Level 3 — client customisation (your call)**
+Within the guardrails above, customise freely. Brand colours, typography choices, section order, imagery style, copy tone — these vary per client and are what makes each site feel distinct.
+
+**The rule:** taste-skills constrain the *how*. `sorted-local-site-refresh` provides the *what*. Client brief drives the *feel*. All three together is a Sorted site.
+
+Full scaffold detail: `templates/client-site/README.md`
+
+---
+
 ## Two-Stage Delivery Model
 
 Every Sorted site is built and delivered in two distinct stages:
