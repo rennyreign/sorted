@@ -45,13 +45,13 @@ Payment →  Nod 4 → Deliver
 The client sees a high-fidelity mockup of their site. Design, layout, imagery, copy. They approve the vision before a line of code is written.
 
 **Nod 2 — Build approval**  
-The full working site is presented. Same design they approved. Live, navigable, real. They approve the execution.
+The full working site is presented. Same design they approved. Live, navigable, real. They approve the execution. **SortedUpdates is applied after this nod — not before.** The client approves the static site first. CMS wiring begins once they have confirmed the build.
 
 **Nod 3 — Quote approval**  
 The price is presented now. Not before. The client is nodding to the actual product they have already seen and touched — not a proposal with mood boards and projections.
 
 **Nod 4 — Payment and delivery**  
-Payment unlocks delivery. The site goes live. The client has the keys.
+Payment unlocks delivery. The site goes live with SortedUpdates active. The client receives CMS access, the tutorial walkthrough, and the handoff message.
 
 ---
 
@@ -72,6 +72,17 @@ The pipeline conversion rate between stages is structurally high because no stag
 ## SortedUpdates — The CMS Layer
 
 Every site delivered by Sorted ships with SortedUpdates.
+
+SortedUpdates is applied **after Nod 2** — after the client has approved the build. It is a delivery-stage step, not a build-stage step.
+
+The sequence:
+1. Build the site (static, no CMS)
+2. Present to client → Nod 2
+3. Apply SortedUpdates (workflow: `.windsurf/workflows/add-decap-cms.md`)
+4. Present quote → Nod 3
+5. Payment → Nod 4 → hand off with CMS active
+
+This matters because the client approves a clean, fast, design-led site — not a site with a CMS toolbar confusing the preview. The CMS is a delivery mechanism. It is not part of the product they are evaluating.
 
 SortedUpdates is a Decap CMS installation configured to make every piece of visible content on the site editable by the client, without touching the design.
 

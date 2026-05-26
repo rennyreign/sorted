@@ -51,6 +51,20 @@ sorted/
 
 ---
 
+## Two-Stage Delivery Model
+
+Every Sorted site is built and delivered in two distinct stages:
+
+**Stage 1 — Build**
+Build the static site. No CMS. The client sees a clean, fast, design-led site with no admin toolbar or CMS artefacts. This is what they evaluate and approve (Nod 2).
+
+**Stage 2 — CMS (after Nod 2 only)**
+Once the client confirms they are happy with the build, apply SortedUpdates. Wire all content to JSON files, configure Decap CMS, add the tutorial panel, set up factory reset. This is what gets handed off after payment (Nod 4).
+
+> Do not apply the CMS before the client approves the build. The CMS is a delivery mechanism, not part of the product evaluation.
+
+---
+
 ## Applying SortedUpdates CMS to a Client Site
 
 **Primary workflow:** `.windsurf/workflows/add-decap-cms.md`

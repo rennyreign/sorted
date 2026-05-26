@@ -4,6 +4,12 @@ description: Add Decap CMS to a Sorted client site
 
 # SortedUpdates — CMS Installation Workflow
 
+> **Stage 2 of 2 — Apply after client approves the build (Nod 2).**
+>
+> Stage 1 is building the static site. The client sees and approves that first.
+> This workflow runs only after the client has confirmed they are happy with the build.
+> Do not apply the CMS before Nod 2. The client should evaluate a clean site, not one with a CMS toolbar.
+
 Use this workflow whenever a new Sorted client site needs SortedUpdates wired up.
 All Sorted client sites use Decap CMS with Netlify Identity + Git Gateway.
 
