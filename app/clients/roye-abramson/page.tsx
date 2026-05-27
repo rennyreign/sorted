@@ -224,7 +224,7 @@ export default function RoyeAbramsonAgreement() {
         <h2 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Main Deliverables</h2>
         <div className="space-y-3">
           {[
-            { stage: "Platform Setup", items: ["Facebook page", "Instagram account", "YouTube channel", "Spotify for Artists", "Apple Music for Artists", "TikTok account", "Content Drive setup"] },
+            { stage: "Platform Setup", items: ["Facebook page", "Instagram account", "YouTube channel", "Spotify for Artists", "Apple Music for Artists", "YouTube Music", "Amazon Music", "TikTok account", "Content Drive setup"] },
             { stage: "Digital Presence", items: ["Artist website with CMS", "Brand identity system", "Video overlay branding", "Song cover artwork templates"] },
             { stage: "Content & Distribution", items: ["Video editing & optimization", "Multi-channel distribution", "Weekly content calendar", "Analytics dashboard setup"] },
             { stage: "Growth & Tracking", items: ["Weekly progress reviews", "Performance dashboard", "Audience growth strategy", "Booking & licensing pipeline"] },
@@ -265,14 +265,26 @@ export default function RoyeAbramsonAgreement() {
       {/* Investment */}
       <section className="mb-12">
         <h2 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Investment</h2>
-        <div className="bg-black/[0.02] border border-black/[0.08] rounded-xl p-6">
-          <div className="flex items-baseline gap-2 mb-4">
+        <div className="bg-black/[0.02] border border-black/[0.08] rounded-xl p-6 space-y-4">
+          <div className="flex items-baseline gap-2">
             <span className="font-sans font-extrabold text-[#0A0A0A] text-3xl">$2,000</span>
-            <span className="text-[#737373]">initial project setup</span>
+            <span className="text-[#737373]">initial setup (due on start)</span>
           </div>
-          <div className="space-y-2 text-sm text-[#525252]">
-            <p>Monthly retainer available upon request for ongoing content management and growth support.</p>
+          <div className="flex items-baseline gap-2">
+            <span className="font-sans font-extrabold text-[#0A0A0A] text-2xl">$300</span>
+            <span className="text-[#737373]">/month ongoing (starting July 1, at Roye's discretion)</span>
           </div>
+        </div>
+      </section>
+
+      {/* Timeline */}
+      <section className="mb-12">
+        <h2 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Timeline</h2>
+        <div className="bg-black/[0.02] border border-black/[0.08] rounded-xl p-6">
+          <p className="text-[#525252]">
+            <strong className="text-[#0A0A0A]">Initial phase:</strong> June 1 – July 1, 2026<br/>
+            <strong className="text-[#0A0A0A]">Ongoing:</strong> Monthly support continues at Roye's discretion
+          </p>
         </div>
       </section>
 
@@ -329,20 +341,29 @@ export default function RoyeAbramsonAgreement() {
               </p>
               
               <div className="bg-black/[0.02] rounded-xl p-5 mb-6 space-y-4 text-sm text-[#525252] max-h-64 overflow-y-auto">
-                <p><strong className="text-[#0A0A0A]">1. Scope of Work</strong><br/>
-                Sorted agrees to provide the deliverables outlined in the Main Deliverables section above, including platform setup, digital presence creation, content distribution support, and growth tracking.</p>
+                <p><strong className="text-[#0A0A0A]">1. Scope</strong><br/>
+                Sorted provides platform setup, digital presence, content distribution, and growth tracking as outlined in the deliverables.</p>
                 
                 <p><strong className="text-[#0A0A0A]">2. Timeline</strong><br/>
-                Initial setup and build phase will be completed according to the project timeline. Weekly review meetings will be scheduled to track progress.</p>
+                Initial phase: June 1 – July 1, 2026. Ongoing monthly support continues at Roye's discretion.</p>
                 
                 <p><strong className="text-[#0A0A0A]">3. Content Workflow</strong><br/>
-                Roye provides raw content (videos, songs) via shared Google Drive. Sorted handles editing, optimization, and distribution across agreed channels.</p>
+                Roye provides raw content via Google Drive. Sorted handles editing, optimization, and distribution across all channels.</p>
                 
                 <p><strong className="text-[#0A0A0A]">4. Payment</strong><br/>
-                Initial payment of $2,000 is due upon agreement acceptance. Monthly retainer terms to be discussed separately for ongoing support.</p>
+                $2,000 initial fee due on start. $300/month ongoing from July 1, continuing at Roye's discretion.</p>
                 
-                <p><strong className="text-[#0A0A0A]">5. Ownership</strong><br/>
-                All content and accounts remain the property of Roye Abramson. Sorted provides management and optimization services only.</p>
+                <p><strong className="text-[#0A0A0A]">5. Access & Ownership</strong><br/>
+                All accounts and content remain Roye's property. Sorted provides all passwords and full access upon request or termination.</p>
+                
+                <p><strong className="text-[#0A0A0A]">6. Termination</strong><br/>
+                Roye may terminate with 10 days written notice. Upon termination, Sorted provides full access to all deliverables and transfers all licenses.</p>
+                
+                <p><strong className="text-[#0A0A0A]">7. Content Control</strong><br/>
+                Upon written request, Sorted will immediately remove any content from social media platforms.</p>
+                
+                <p><strong className="text-[#0A0A0A]">8. Governing Law</strong><br/>
+                Any disputes resolved in New Jersey courts.</p>
               </div>
 
               <form onSubmit={handleSignatureSubmit} className="space-y-4">
