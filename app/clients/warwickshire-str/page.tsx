@@ -249,18 +249,52 @@ export default function WarwickshireQuote() {
           <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6 block">
             Pay now
           </span>
-          <a
-            href="https://checkout.revolut.com/payment-link/0cfdb713-af20-4340-8d08-e6527150a6e4"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-6 py-4 hover:bg-[#2a2a2a] transition-colors"
-          >
-            Pay £150 via Revolut
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </a>
-          <p className="text-xs text-[#A3A3A3] mt-3">Secure payment via Revolut. No account required.</p>
+          <div className="grid sm:grid-cols-2 gap-4">
+
+            {/* Card / Revolut */}
+            <div className="flex flex-col justify-between rounded-2xl border border-black/[0.08] p-6 gap-6">
+              <div>
+                <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#A3A3A3] mb-2">Pay by card</p>
+                <p className="font-sans font-bold text-[#0A0A0A] text-2xl tracking-tight mb-1">£150</p>
+                <p className="text-sm text-[#737373]">Instant. No account needed.</p>
+              </div>
+              <a
+                href="https://checkout.revolut.com/payment-link/0cfdb713-af20-4340-8d08-e6527150a6e4"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-5 py-3 hover:bg-[#2a2a2a] transition-colors"
+              >
+                Pay £150
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
+            </div>
+
+            {/* Bank transfer */}
+            <div className="flex flex-col justify-between rounded-2xl border border-black/[0.08] p-6 gap-6">
+              <div>
+                <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#A3A3A3] mb-2">Pay by bank transfer</p>
+                <p className="font-sans font-bold text-[#0A0A0A] text-2xl tracking-tight mb-3">£150</p>
+                <div className="space-y-1.5 text-sm">
+                  <div className="flex justify-between gap-4">
+                    <span className="text-[#A3A3A3] shrink-0">Account name</span>
+                    <span className="text-[#0A0A0A] font-medium text-right">Renaldo Lee Edmondson</span>
+                  </div>
+                  <div className="flex justify-between gap-4">
+                    <span className="text-[#A3A3A3] shrink-0">Sort code</span>
+                    <span className="text-[#0A0A0A] font-medium font-mono">23-01-20</span>
+                  </div>
+                  <div className="flex justify-between gap-4">
+                    <span className="text-[#A3A3A3] shrink-0">Account number</span>
+                    <span className="text-[#0A0A0A] font-medium font-mono">83621039</span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-xs text-[#A3A3A3]">Revolut Ltd, 30 South Colonnade, London E14 5HX</p>
+            </div>
+
+          </div>
         </div>
 
         {/* Closing */}
