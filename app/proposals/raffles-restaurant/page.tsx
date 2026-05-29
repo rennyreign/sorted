@@ -136,7 +136,7 @@ export default function RafflesProposal() {
                   className="w-full h-auto"
                 />
               </div>
-              <p className="text-sm text-[#737373] text-center">Website concept showcasing Malaysian cuisine with warm, appetising photography</p>
+              <p className="text-sm text-[#737373] text-center">Ad concept showcasing Malaysian cuisine with warm, appetising photography</p>
             </div>
             <div>
               <div className="relative w-full rounded-xl overflow-hidden border border-black/[0.08] mb-3" style={{ aspectRatio: 'auto' }}>
