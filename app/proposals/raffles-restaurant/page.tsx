@@ -115,162 +115,449 @@ export default function RafflesProposal() {
           Raffles Team,
         </h1>
 
-        {/* Opening letter */}
-        <div className="space-y-6 text-[#525252] text-lg leading-relaxed mb-16">
-          <p>
-            Following our conversation about Raffles Restaurant's visibility challenge in Kenilworth, I've put together a straightforward proposal to get you from where you are now to a fully functioning website that works as your digital front door.
-          </p>
-          <p className="text-[#0A0A0A] font-semibold">
-            The goal is simple: a website that makes it immediately obvious what Raffles offers, where you are, and why someone should visit — all while giving you full control over menus, events, and content without needing technical knowledge.
-          </p>
-        </div>
+        {/* Full Strategy Document */}
+        <div className="space-y-12 text-[#525252] text-base leading-relaxed mb-16">
+          {/* Title */}
+          <div className="text-center mb-12">
+            <h2 className="font-sans font-extrabold text-[#0A0A0A] text-3xl mb-2">Raffles Restaurant</h2>
+            <p className="font-mono text-sm text-[#737373] uppercase tracking-[0.15em]">Customer Growth & Local Awareness Strategy</p>
+            <p className="text-[#737373] text-sm mt-2 italic">Turning Kenilworth's Hidden Gem into a Destination</p>
+          </div>
 
-        {/* The Opportunity */}
-        <div className="mb-16 p-6 bg-black/[0.02] rounded-xl border border-black/[0.06]">
-          <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] mb-4">The Opportunity</p>
-          <p className="text-[#525252] text-base leading-relaxed mb-4">
-            Raffles does not have a food problem. It has a <strong className="text-[#0A0A0A]">visibility problem</strong>.
-          </p>
-          <p className="text-[#525252] text-base leading-relaxed">
-            Thousands of people move through Kenilworth every week. Local residents pass The Peacock Hotel daily. Visitors explore the town, castle, and surrounding attractions. Contractors and business travellers stay locally throughout the year.
-          </p>
-          <p className="text-[#525252] text-base leading-relaxed mt-4">
-            Yet many never realise there is an established Malaysian restaurant inside. The objective is not simply to "advertise." It is to create <strong className="text-[#0A0A0A]">awareness, curiosity, and repeat visitation</strong> by positioning Raffles as a destination in its own right.
-          </p>
-        </div>
-
-        {/* Concept Examples */}
-        <div className="mb-16">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">
-            Concept Direction
-          </span>
-          <div className="space-y-6">
+          {/* Concept Images - Full Size */}
+          <div className="space-y-8">
             <div>
-              <div className="relative aspect-[16/9] rounded-xl overflow-hidden border border-black/[0.08] mb-3">
+              <div className="relative w-full rounded-xl overflow-hidden border border-black/[0.08] mb-3" style={{ aspectRatio: 'auto' }}>
                 <Image
                   src="/proposals/raffles-restaurant/concept-1.png"
                   alt="Raffles Restaurant website concept"
-                  fill
-                  className="object-cover"
+                  width={1200}
+                  height={675}
+                  className="w-full h-auto"
                 />
               </div>
-              <p className="text-sm text-[#737373]">Website concept showcasing Malaysian cuisine with warm, appetising photography</p>
+              <p className="text-sm text-[#737373] text-center">Website concept showcasing Malaysian cuisine with warm, appetising photography</p>
             </div>
             <div>
-              <div className="relative aspect-[16/9] rounded-xl overflow-hidden border border-black/[0.08] mb-3">
+              <div className="relative w-full rounded-xl overflow-hidden border border-black/[0.08] mb-3" style={{ aspectRatio: 'auto' }}>
                 <Image
                   src="/proposals/raffles-restaurant/concept-2.png"
                   alt="Raffles social presence concept"
-                  fill
-                  className="object-cover"
+                  width={1200}
+                  height={675}
+                  className="w-full h-auto"
                 />
               </div>
-              <p className="text-sm text-[#737373]">Social media presence reflecting authentic Malaysian culture and hospitality</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="border-t border-black/[0.08] mb-16" />
-
-        {/* Deliverables */}
-        <div className="mb-16">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">
-            What we'll deliver
-          </span>
-          <div className="space-y-10">
-            {[
-              {
-                num: "01",
-                title: "Website Design",
-                body: "A warm, inviting restaurant website designed specifically for Raffles' Malaysian cuisine and unique position within The Peacock Hotel. This includes homepage design with clear navigation, menu presentation layout, about section highlighting Malaysian heritage, events and themed evening pages, contact and reservation pathways, and visual styling that reflects Malaysian warmth and hospitality.",
-              },
-              {
-                num: "02",
-                title: "Website Development",
-                body: "The approved design converted into a working Next.js website, built for speed and search visibility. This includes responsive development (mobile, tablet, desktop), fast page loads, navigation and menu structure, contact forms and reservation enquiries, Google Maps integration with clear location marking, core pages, and performance optimisation.",
-              },
-              {
-                num: "03",
-                title: "Content Management System",
-                body: "Every piece of visible content editable by you — no developer needed. This includes menu management (update dishes, prices, descriptions), event pages (create and manage themed evenings), gallery (add and replace photos), contact details (update phone, hours, location), homepage content, about section updates, and a simple admin interface through SortedUpdates.",
-              },
-              {
-                num: "04",
-                title: "Launch Setup & Testing",
-                body: "Configuration and preparation for going live. This includes domain connection, Google Business Profile integration guidance, basic SEO setup, cross-device testing, reservation/contact form testing, usability review and adjustments, and SSL certificate for secure browsing.",
-              },
-            ].map((item) => (
-              <div key={item.num} className="flex gap-8">
-                <span className="font-mono text-[11px] text-[#C4C4C4] tabular-nums pt-1 shrink-0">{item.num}</span>
-                <div>
-                  <h3 className="font-sans font-bold text-[#0A0A0A] text-lg leading-snug tracking-tight mb-2">{item.title}</h3>
-                  <p className="text-[#737373] text-base leading-relaxed">{item.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="border-t border-black/[0.08] mb-16" />
-
-        {/* Timeline */}
-        <div className="mb-16">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">
-            Project timeline
-          </span>
-          <div className="space-y-6">
-            {[
-              { stage: "Week 1", desc: "Design direction and homepage mockup prepared" },
-              { stage: "Week 1–2", desc: "Website build and page development" },
-              { stage: "Week 2", desc: "Content Management System setup and configuration" },
-              { stage: "Week 3", desc: "Content entry, testing, and refinements" },
-              { stage: "Final Stage", desc: "Domain connection, final testing, and launch" },
-            ].map((item) => (
-              <div key={item.stage} className="flex gap-8">
-                <span className="font-mono text-xs text-[#525252] tabular-nums shrink-0 w-24">{item.stage}</span>
-                <p className="text-[#737373] text-base">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-          <p className="text-[#737373] text-sm mt-6 leading-relaxed">
-            Throughout the process, I'll share progress updates so you know what's been completed, what's currently being worked on, and what's next.
-          </p>
-        </div>
-
-        {/* Divider */}
-        <div className="border-t border-black/[0.08] mb-16" />
-
-        {/* Investment */}
-        <div className="mb-16">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">
-            Investment
-          </span>
-          <div className="bg-[#0A0A0A] rounded-2xl p-8 sm:p-10 mb-8">
-            <p className="font-mono text-xs uppercase tracking-[0.15em] text-white/60 mb-2">Total Project Cost</p>
-            <p className="font-sans font-extrabold text-white text-5xl tracking-tight mb-6">£1,200</p>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between py-4 border-t border-white/10">
-                <div>
-                  <p className="text-white font-semibold">Deposit to start (50%)</p>
-                  <p className="text-white/60 text-sm">Due on project commencement</p>
-                </div>
-                <p className="text-white font-bold text-xl">£600</p>
-              </div>
-              <div className="flex items-center justify-between py-4 border-t border-white/10">
-                <div>
-                  <p className="text-white font-semibold">Balance on completion (50%)</p>
-                  <p className="text-white/60 text-sm">Due before final handover</p>
-                </div>
-                <p className="text-white font-bold text-xl">£600</p>
-              </div>
+              <p className="text-sm text-[#737373] text-center">Social media presence reflecting authentic Malaysian culture and hospitality</p>
             </div>
           </div>
 
-          {/* Payment Details */}
+          {/* Introduction */}
+          <div>
+            <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Introduction</h3>
+            <p className="mb-4">
+              After reviewing Raffles Restaurant, its location, online presence, and the unique challenge of operating from within The Peacock Hotel, one thing became immediately clear:
+            </p>
+            <p className="text-[#0A0A0A] font-semibold mb-4">
+              The restaurant does not have a food problem. It has a visibility problem.
+            </p>
+            <p className="mb-4">
+              Raffles is currently hidden in plain sight.
+            </p>
+            <p className="mb-4">
+              Thousands of people move through Kenilworth every week. Local residents pass the building daily. Visitors come to explore the town, castle, and surrounding attractions. Contractors and business travellers stay locally throughout the year.
+            </p>
+            <p className="mb-4">
+              Yet many never realise there is an established Malaysian restaurant inside.
+            </p>
+            <p className="mb-4">
+              The objective therefore is not simply to "advertise."
+            </p>
+            <p>
+              The objective is to create awareness, curiosity, and repeat visitation by positioning Raffles as a destination in its own right.
+            </p>
+          </div>
+
+          {/* The Opportunity */}
           <div className="p-6 bg-black/[0.02] rounded-xl border border-black/[0.06]">
-            <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] mb-4">Payment details</p>
+            <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">The Opportunity</h3>
+            <p className="mb-4">
+              Kenilworth presents a highly favourable environment for growth:
+            </p>
+            <ul className="space-y-2 ml-6 mb-4">
+              <li>• Approximately 12,000 local residents</li>
+              <li>• Significant daily visitor traffic</li>
+              <li>• Tourism driven by Kenilworth Castle and surrounding attractions</li>
+              <li>• Business travellers and contractors staying locally</li>
+              <li>• Limited competition offering authentic Malaysian cuisine</li>
+            </ul>
+            <p className="mb-4">
+              The target is modest and highly achievable:
+            </p>
+            <p className="text-[#0A0A0A] font-semibold mb-2">Growth Objective</p>
+            <p className="text-[#0A0A0A] font-bold text-lg mb-4">
+              15–20 additional customers per day
+            </p>
+            <p className="mb-2">Equivalent to:</p>
+            <ul className="space-y-1 ml-6">
+              <li>• 450–600 additional covers per month</li>
+              <li>• Approximately 4–6 additional tables per evening</li>
+            </ul>
+            <p className="mt-4">
+              This can be achieved without requiring large-scale advertising budgets.
+            </p>
+          </div>
+
+          {/* Strategic Framework */}
+          <div>
+            <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Strategic Framework</h3>
+            <p className="mb-4">
+              The growth strategy is built around three core audiences:
+            </p>
+            <div className="space-y-4">
+              <div className="p-4 bg-white rounded-lg border border-black/[0.06]">
+                <p className="font-semibold text-[#0A0A0A] mb-2">Audience 1 — Visitors & Tourists</p>
+                <p>People visiting Kenilworth for leisure, history, tourism, and events.</p>
+              </div>
+              <div className="p-4 bg-white rounded-lg border border-black/[0.06]">
+                <p className="font-semibold text-[#0A0A0A] mb-2">Audience 2 — Local Residents</p>
+                <p>People who know the building exists but have never visited the restaurant.</p>
+              </div>
+              <div className="p-4 bg-white rounded-lg border border-black/[0.06]">
+                <p className="font-semibold text-[#0A0A0A] mb-2">Audience 3 — Business Travellers & Contractors</p>
+                <p>Professionals staying or working in the area who require reliable evening dining options.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Phase 1 */}
+          <div>
+            <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Phase 1 — Visibility & Discovery</h3>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Google Presence Optimisation</p>
+            <p className="mb-4">
+              Raffles should become highly visible when people search:
+            </p>
+            <ul className="space-y-1 ml-6 mb-4">
+              <li>• Restaurants in Kenilworth</li>
+              <li>• Places to eat near Kenilworth Castle</li>
+              <li>• Best restaurant in Kenilworth</li>
+              <li>• Dinner in Kenilworth</li>
+              <li>• Malaysian restaurant Warwickshire</li>
+            </ul>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Actions:</p>
+            <ul className="space-y-1 ml-6 mb-6">
+              <li>• Google Business Profile optimisation</li>
+              <li>• Updated photography</li>
+              <li>• Ongoing review generation</li>
+              <li>• Enhanced menu presentation</li>
+              <li>• Weekly updates and offers</li>
+            </ul>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Local Search Advertising</p>
+            <p className="mb-4">
+              A focused Google Ads campaign targeting:
+            </p>
+            <ul className="space-y-1 ml-6">
+              <li>• Visitors already searching for restaurants</li>
+              <li>• Tourists researching Kenilworth</li>
+              <li>• People seeking dining options nearby</li>
+            </ul>
+            <p className="mt-4">
+              Rather than broad advertising, this targets individuals already intending to dine.
+            </p>
+          </div>
+
+          {/* Phase 2 */}
+          <div>
+            <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Phase 2 — Give People A Reason To Visit</h3>
+            <p className="mb-4">
+              Most restaurants advertise food. Very few advertise experiences.
+            </p>
+            <p className="mb-6">
+              Raffles should become known for themed evenings and memorable events that create conversation throughout the town.
+            </p>
+            <p className="font-semibold text-[#0A0A0A] mb-2">History & Dining Evenings</p>
+            <p className="mb-4">
+              Partner with local historians and tour guides.
+            </p>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Examples:</p>
+            <div className="space-y-4 mb-6">
+              <div className="p-4 bg-white rounded-lg border border-black/[0.06]">
+                <p className="font-semibold text-[#0A0A0A] mb-2">The Secrets of Kenilworth Castle</p>
+                <p>A hosted evening featuring:</p>
+                <ul className="space-y-1 ml-6">
+                  <li>• Short presentation</li>
+                  <li>• Local stories</li>
+                  <li>• Malaysian dining experience</li>
+                </ul>
+              </div>
+              <div className="p-4 bg-white rounded-lg border border-black/[0.06]">
+                <p className="font-semibold text-[#0A0A0A] mb-2">Tudor Kenilworth</p>
+                <p>Historical dining evenings tied to local heritage.</p>
+              </div>
+            </div>
+            <p className="mb-6">
+              These create a unique experience unavailable elsewhere in the area.
+            </p>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Journey Through Malaysia</p>
+            <p className="mb-4">
+              Monthly themed dining events exploring different regions.
+            </p>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Examples:</p>
+            <ul className="space-y-1 ml-6 mb-4">
+              <li>• Penang Night</li>
+              <li>• Kuala Lumpur Night</li>
+              <li>• Borneo Night</li>
+              <li>• Malacca Night</li>
+            </ul>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Featuring:</p>
+            <ul className="space-y-1 ml-6 mb-6">
+              <li>• Special menus</li>
+              <li>• Cultural stories</li>
+              <li>• Regional dishes</li>
+              <li>• Authentic experiences</li>
+            </ul>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Live Acoustic Sessions</p>
+            <p className="mb-4">
+              Small-scale performances suited to the intimate restaurant atmosphere.
+            </p>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Focus on:</p>
+            <ul className="space-y-1 ml-6 mb-4">
+              <li>• Acoustic artists</li>
+              <li>• Jazz</li>
+              <li>• Folk</li>
+              <li>• Relaxed evening entertainment</li>
+            </ul>
+            <p className="mb-6">
+              Rather than becoming a music venue, the music enhances the dining experience.
+            </p>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Malaysian Street Food Nights</p>
+            <p className="mb-4">
+              More casual evenings introducing people to Malaysian cuisine.
+            </p>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Designed specifically for:</p>
+            <ul className="space-y-1 ml-6">
+              <li>• First-time visitors</li>
+              <li>• Younger audiences</li>
+              <li>• Local residents</li>
+            </ul>
+            <p className="mt-4">
+              Lower commitment and highly shareable on social media.
+            </p>
+          </div>
+
+          {/* Phase 3 */}
+          <div>
+            <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Phase 3 — Community Integration</h3>
+            <p className="mb-6">
+              The goal is to become part of the town's regular rhythm.
+            </p>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Raffles Passport</p>
+            <p className="mb-4">
+              A simple loyalty programme.
+            </p>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Examples:</p>
+            <ul className="space-y-1 ml-6 mb-4">
+              <li>• Visit 5 times</li>
+              <li>• Receive complimentary dishes</li>
+              <li>• Priority booking access</li>
+              <li>• Exclusive event invitations</li>
+            </ul>
+            <p className="mb-6">
+              The objective is repeat visits rather than constant new customer acquisition.
+            </p>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Resident Nights</p>
+            <p className="mb-4">
+              Special evenings designed exclusively for local residents.
+            </p>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Examples:</p>
+            <ul className="space-y-1 ml-6 mb-4">
+              <li>• Neighbour Night</li>
+              <li>• Midweek Dining Club</li>
+              <li>• Two-Course Thursday</li>
+            </ul>
+            <p className="mb-4">
+              The messaging becomes:
+            </p>
+            <p className="text-[#0A0A0A] font-semibold italic mb-2">"Your local restaurant."</p>
+            <p className="mb-6">
+              rather than:
+            </p>
+            <p className="text-[#737373] italic mb-6">"The restaurant inside the hotel."</p>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Business & Contractor Programme</p>
+            <p className="mb-4">
+              Many contractors and travelling professionals require evening dining.
+            </p>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Offer:</p>
+            <ul className="space-y-1 ml-6">
+              <li>• Contractor discount</li>
+              <li>• Business dining specials</li>
+              <li>• Hotel guest promotions</li>
+              <li>• Corporate group bookings</li>
+            </ul>
+            <p className="mt-4">
+              This audience often generates repeat visits throughout the year.
+            </p>
+          </div>
+
+          {/* Phase 4 */}
+          <div>
+            <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Phase 4 — Partnerships</h3>
+            <p className="mb-4">
+              A significant opportunity exists through local partnerships.
+            </p>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Potential partners include:</p>
+            <ul className="space-y-1 ml-6 mb-4">
+              <li>• Kenilworth Castle</li>
+              <li>• Local tour operators</li>
+              <li>• Walking tour groups</li>
+              <li>• Hotels</li>
+              <li>• Guest houses</li>
+              <li>• Golf clubs</li>
+              <li>• Networking organisations</li>
+              <li>• Business associations</li>
+            </ul>
+            <p>
+              The objective is to establish Raffles as a recommended dining destination for visitors entering the town.
+            </p>
+          </div>
+
+          {/* Content & Social Strategy */}
+          <div>
+            <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Content & Social Strategy</h3>
+            <p className="mb-6">
+              Rather than posting endless food photography, content should focus on stories.
+            </p>
+            <p className="font-semibold text-[#0A0A0A] mb-2">Themes</p>
+            <div className="space-y-4">
+              <div className="p-4 bg-white rounded-lg border border-black/[0.06]">
+                <p className="font-semibold text-[#0A0A0A] mb-2">Hidden Gem</p>
+                <p>Highlight the fact that many people walk past without realising what is inside.</p>
+              </div>
+              <div className="p-4 bg-white rounded-lg border border-black/[0.06]">
+                <p className="font-semibold text-[#0A0A0A] mb-2">Malaysian Culture</p>
+                <p>Tell the stories behind dishes and ingredients.</p>
+              </div>
+              <div className="p-4 bg-white rounded-lg border border-black/[0.06]">
+                <p className="font-semibold text-[#0A0A0A] mb-2">Kenilworth Connections</p>
+                <p>Celebrate local history and community.</p>
+              </div>
+              <div className="p-4 bg-white rounded-lg border border-black/[0.06]">
+                <p className="font-semibold text-[#0A0A0A] mb-2">Event Promotion</p>
+                <p>Build anticipation around upcoming themed evenings.</p>
+              </div>
+            </div>
+            <p className="mt-6">
+              The goal is to create familiarity before someone ever walks through the door.
+            </p>
+          </div>
+
+          {/* Recommended Rollout */}
+          <div>
+            <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Recommended Rollout</h3>
+            <div className="space-y-6">
+              <div className="p-4 bg-white rounded-lg border border-black/[0.06]">
+                <p className="font-semibold text-[#0A0A0A] mb-2">Phase 1 — Foundation (Month 1)</p>
+                <ul className="space-y-1 ml-6">
+                  <li>• Google optimisation</li>
+                  <li>• Website improvements</li>
+                  <li>• Photography refresh</li>
+                  <li>• Review generation programme</li>
+                  <li>• Local search campaign</li>
+                </ul>
+              </div>
+              <div className="p-4 bg-white rounded-lg border border-black/[0.06]">
+                <p className="font-semibold text-[#0A0A0A] mb-2">Phase 2 — Awareness (Months 2–3)</p>
+                <ul className="space-y-1 ml-6">
+                  <li>• Social media campaign</li>
+                  <li>• Resident offers</li>
+                  <li>• Loyalty programme</li>
+                  <li>• Contractor programme</li>
+                  <li>• Partnership outreach</li>
+                </ul>
+              </div>
+              <div className="p-4 bg-white rounded-lg border border-black/[0.06]">
+                <p className="font-semibold text-[#0A0A0A] mb-2">Phase 3 — Event Engine (Months 3–6)</p>
+                <ul className="space-y-1 ml-6">
+                  <li>• History nights</li>
+                  <li>• Malaysian cultural evenings</li>
+                  <li>• Acoustic sessions</li>
+                  <li>• Seasonal events</li>
+                  <li>• Community collaborations</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Investment */}
+          <div>
+            <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Investment</h3>
+            <div className="bg-[#0A0A0A] rounded-2xl p-8 sm:p-10 mb-8">
+              <p className="font-mono text-xs uppercase tracking-[0.15em] text-white/60 mb-2">Initial Marketing Foundation</p>
+              <p className="font-sans font-extrabold text-white text-5xl tracking-tight mb-6">£1,200</p>
+              <p className="text-white/90 mb-4">Includes:</p>
+              <ul className="space-y-2 text-white/80">
+                <li>• Strategy development</li>
+                <li>• Website improvements</li>
+                <li>• Google optimisation</li>
+                <li>• Campaign setup</li>
+                <li>• Creative assets</li>
+                <li>• Launch implementation</li>
+              </ul>
+            </div>
+            <div className="p-6 bg-black/[0.02] rounded-xl border border-black/[0.06]">
+              <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] mb-2">Ongoing Growth Management</p>
+              <p className="font-sans font-extrabold text-[#0A0A0A] text-3xl tracking-tight mb-4">£550/month</p>
+              <p className="mb-4">Includes:</p>
+              <ul className="space-y-2">
+                <li>• Campaign management</li>
+                <li>• Event promotion</li>
+                <li>• Partnership development</li>
+                <li>• Social media guidance</li>
+                <li>• Performance monitoring</li>
+                <li>• Monthly optimisation</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Closing Thoughts */}
+          <div className="p-6 bg-[#0A0A0A] rounded-xl">
+            <h3 className="font-sans font-bold text-white text-xl mb-4">Closing Thoughts</h3>
+            <p className="text-white/90 mb-4">
+              The strongest opportunity for Raffles is not competing against every restaurant in Warwickshire.
+            </p>
+            <p className="text-white text-lg font-semibold mb-4">
+              It is becoming impossible to overlook within Kenilworth itself.
+            </p>
+            <p className="text-white/90 mb-4">
+              The restaurant already sits beside existing demand:
+            </p>
+            <ul className="space-y-1 ml-6 mb-4 text-white/90">
+              <li>• Residents</li>
+              <li>• Visitors</li>
+              <li>• Contractors</li>
+              <li>• Hotel guests</li>
+            </ul>
+            <p className="text-white/90 mb-4">
+              The challenge is not creating demand.
+            </p>
+            <p className="text-white/90 mb-4">
+              The challenge is creating awareness, curiosity, and a compelling reason to visit.
+            </p>
+            <p className="text-white/90">
+              Once that happens consistently, the restaurant can become known not as the restaurant inside the hotel, but as one of Kenilworth's most distinctive dining destinations.
+            </p>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="border-t border-black/[0.08] mb-16" />
+
+        {/* Payment Details */}
+        <div className="mb-16">
+          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">
+            Payment details
+          </span>
+          <div className="p-6 bg-black/[0.02] rounded-xl border border-black/[0.06]">
             <div className="space-y-2 text-sm">
               <div className="flex gap-4">
                 <span className="text-[#A3A3A3] w-28 shrink-0">Bank Name</span>
@@ -292,74 +579,11 @@ export default function RafflesProposal() {
           </div>
         </div>
 
-        {/* Post-Launch */}
-        <div className="mb-16">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6 block">
-            After launch
-          </span>
-          <div className="space-y-3 text-[#737373] text-base leading-relaxed">
-            <p>Once live, you'll have:</p>
-            <ul className="space-y-2 ml-4">
-              {[
-                "A restaurant website you can update without technical knowledge",
-                "The ability to change menus, prices, and content instantly",
-                "A platform for promoting themed evenings and special events",
-                "Professional presence that ranks better in Google searches",
-                "Training on how to use the content management system",
-                "Documentation on managing the site day-to-day",
-              ].map((item) => (
-                <li key={item} className="flex gap-3">
-                  <span className="text-[#0A0A0A]">-</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Not Included */}
-        <div className="mb-16 p-6 bg-black/[0.02] rounded-xl border border-black/[0.06]">
-          <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">Not included in this proposal</p>
-          <ul className="space-y-1">
-            {[
-              "Professional food photography",
-              "Copywriting for menu descriptions (initial content included, refinements extra)",
-              "Paid advertising setup or management",
-              "Advanced SEO or ongoing content marketing",
-              "Third-party booking system integration (OpenTable, ResDiary, etc.)",
-              "Ongoing maintenance or support retainer",
-            ].map((item) => (
-              <li key={item} className="text-sm text-[#737373]">{item}</li>
-            ))}
-          </ul>
-          <p className="text-xs text-[#A3A3A3] mt-4">These can be discussed separately if required.</p>
-        </div>
-
-        {/* Why This Matters */}
-        <div className="mb-16 p-6 bg-[#0A0A0A] rounded-xl">
-          <p className="font-mono text-xs uppercase tracking-[0.15em] text-white/60 mb-4">Why This Matters</p>
-          <p className="text-white/90 text-base leading-relaxed mb-4">
-            The strongest opportunity for Raffles is not competing against every restaurant in Warwickshire.
-          </p>
-          <p className="text-white text-lg font-semibold leading-relaxed mb-4">
-            It is becoming impossible to overlook within Kenilworth itself.
-          </p>
-          <p className="text-white/90 text-base leading-relaxed">
-            The restaurant already sits beside existing demand: residents, visitors, contractors, hotel guests. The challenge is not creating demand. The challenge is creating <strong className="text-white">awareness, curiosity, and a compelling reason to visit</strong>. Once that happens consistently, the restaurant can become known not as "the restaurant inside the hotel," but as one of Kenilworth's most distinctive dining destinations.
-          </p>
-        </div>
-
         {/* Divider */}
         <div className="border-t border-black/[0.08] mb-16" />
 
         {/* Closing */}
         <div className="space-y-6 text-[#525252] text-lg leading-relaxed mb-16">
-          <p>
-            The aim is a website that feels warm and genuinely inviting, easy for hungry customers to navigate, simple for you to keep fresh and current, and clear about location, cuisine, and why Raffles is worth finding.
-          </p>
-          <p>
-            Once built, the website works for you 24/7 — helping locals discover you, tourists find you, and everyone understand exactly what makes Raffles special.
-          </p>
           <p className="text-[#0A0A0A] font-semibold">
             If this looks right, reply to confirm and I'll send over the deposit invoice to get started. Any questions, just ask.
           </p>
