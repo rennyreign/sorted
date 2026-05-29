@@ -179,7 +179,7 @@ export default function WarwickshireQuote() {
           </span>
           <div className="bg-[#0A0A0A] rounded-2xl p-8 sm:p-10 mb-8">
             <p className="font-mono text-xs uppercase tracking-[0.15em] text-white/60 mb-2">Project Cost</p>
-            <p className="font-sans font-extrabold text-white text-5xl tracking-tight mb-3">£[AMOUNT]</p>
+            <p className="font-sans font-extrabold text-white text-5xl tracking-tight mb-3">£150</p>
             <p className="text-white/40 text-sm">Due on acceptance of this delivery.</p>
           </div>
           <div className="p-6 bg-black/[0.02] rounded-xl border border-black/[0.06]">
@@ -243,6 +243,25 @@ export default function WarwickshireQuote() {
         </div>
 
         <div className="border-t border-black/[0.08] mb-16" />
+
+        {/* Payment */}
+        <div className="mb-16">
+          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6 block">
+            Pay now
+          </span>
+          <a
+            href="https://checkout.revolut.com/payment-link/0cfdb713-af20-4340-8d08-e6527150a6e4"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-6 py-4 hover:bg-[#2a2a2a] transition-colors"
+          >
+            Pay £150 via Revolut
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
+          <p className="text-xs text-[#A3A3A3] mt-3">Secure payment via Revolut. No account required.</p>
+        </div>
 
         {/* Closing */}
         <div className="space-y-6 text-[#525252] text-lg leading-relaxed mb-16">
