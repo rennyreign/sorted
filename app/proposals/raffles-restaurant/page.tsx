@@ -514,6 +514,43 @@ export default function RafflesProposal() {
             </div>
           </div>
 
+          {/* Reasonable Scenario */}
+          <div className="p-6 bg-[#0A0A0A] rounded-xl">
+            <h3 className="font-sans font-bold text-white text-xl mb-4">Reasonable Scenario</h3>
+            <p className="text-white/90 mb-6">
+              What does success look like in practical terms? Here's a realistic projection based on the growth objective of 15–20 additional customers per day.
+            </p>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between py-3 border-b border-white/10">
+                <span className="text-white/80">Additional customers per day</span>
+                <span className="text-white font-semibold">15–20</span>
+              </div>
+              <div className="flex items-center justify-between py-3 border-b border-white/10">
+                <span className="text-white/80">Additional covers per month</span>
+                <span className="text-white font-semibold">450–600</span>
+              </div>
+              <div className="flex items-center justify-between py-3 border-b border-white/10">
+                <span className="text-white/80">Average spend per person (conservative)</span>
+                <span className="text-white font-semibold">£25</span>
+              </div>
+              <div className="flex items-center justify-between py-3 border-b border-white/10">
+                <span className="text-white/80">Additional monthly revenue</span>
+                <span className="text-white font-bold text-xl">£11,250–£15,000</span>
+              </div>
+              <div className="flex items-center justify-between py-3 border-b border-white/10">
+                <span className="text-white/80">Ongoing investment</span>
+                <span className="text-white font-semibold">£550/month</span>
+              </div>
+              <div className="flex items-center justify-between py-3">
+                <span className="text-white/80">Investment as % of additional revenue</span>
+                <span className="text-green-400 font-bold text-xl">3.7–4.9%</span>
+              </div>
+            </div>
+            <p className="text-white/70 text-sm mt-6">
+              This assumes conservative average spend and modest conversion rates. The return on investment becomes increasingly favourable as repeat visitation builds through the loyalty programme and themed evenings.
+            </p>
+          </div>
+
           {/* Closing Thoughts */}
           <div className="p-6 bg-[#0A0A0A] rounded-xl">
             <h3 className="font-sans font-bold text-white text-xl mb-4">Closing Thoughts</h3>
