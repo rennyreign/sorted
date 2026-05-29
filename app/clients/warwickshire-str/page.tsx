@@ -172,6 +172,55 @@ export default function WarwickshireQuote() {
 
         <div className="border-t border-black/[0.08] mb-16" />
 
+        {/* Your Access */}
+        <div className="mb-16">
+          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">
+            Your access
+          </span>
+          <div className="space-y-6">
+
+            {/* What they control */}
+            <div className="p-6 rounded-2xl border border-black/[0.08]">
+              <p className="font-sans font-bold text-[#0A0A0A] text-base mb-1">Your domain</p>
+              <p className="text-sm text-[#737373] leading-relaxed">
+                Your domain is yours — registered in your name, managed through your registrar. Sorted has no ownership or control over it. If you ever want to point it somewhere else, that's entirely your call.
+              </p>
+              <a
+                href="https://supercut.ai/share/adx-engine/IL09idvMsgUqmwsV9WW24n"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-[#0A0A0A] hover:underline"
+              >
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="M6 5.5l5 2.5-5 2.5V5.5z" fill="currentColor"/>
+                </svg>
+                Watch: How to update your nameservers in GoDaddy
+              </a>
+            </div>
+
+            <div className="p-6 rounded-2xl border border-black/[0.08]">
+              <p className="font-sans font-bold text-[#0A0A0A] text-base mb-1">Your CMS</p>
+              <p className="text-sm text-[#737373] leading-relaxed">
+                You have a personal login to your CMS at <span className="font-mono text-[#0A0A0A]">[your-site]/cms</span>. This is your control panel — edit text, swap images, manage properties and publish changes whenever you like. No Sorted involvement needed for day-to-day content.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl border border-black/[0.08]">
+              <p className="font-sans font-bold text-[#0A0A0A] text-base mb-1">Your website files</p>
+              <p className="text-sm text-[#737373] leading-relaxed">
+                The site code lives in a private GitHub repository managed by Sorted. You don't receive direct file access — not as a restriction, but because it's how the system stays reliable. The CMS gives you full control over everything visible on the site. The code layer is what Sorted holds so we can guarantee resets, updates, and fixes without things breaking.
+              </p>
+              <p className="text-sm text-[#737373] leading-relaxed mt-3">
+                If you ever part ways with Sorted, the site stays live and the domain stays yours. We can discuss a full handoff at that point.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <div className="border-t border-black/[0.08] mb-16" />
+
         {/* Investment */}
         <div className="mb-16">
           <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">
