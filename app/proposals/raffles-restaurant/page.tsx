@@ -526,24 +526,20 @@ export default function RafflesProposal() {
                 <span className="text-white font-semibold">+3–5 new/day</span>
               </div>
               <div className="flex items-center justify-between py-3 border-b border-white/10">
-                <span className="text-white/80">Month 2 — Awareness building (social + partnerships)</span>
-                <span className="text-white font-semibold">+7–10 new/day</span>
-              </div>
-              <div className="flex items-center justify-between py-3 border-b border-white/10">
-                <span className="text-white/80">Month 3 — Events + loyalty kicking in</span>
-                <span className="text-white font-semibold">+12–15 new/day</span>
-              </div>
-              <div className="flex items-center justify-between py-3 border-b border-white/10">
-                <span className="text-white/80">Month 6 — Target achieved (new + repeat combined)</span>
+                <span className="text-white/80">Month 2 — Target achieved (new + repeat combined)</span>
                 <span className="text-white font-bold text-xl">15–20 total/day</span>
+              </div>
+              <div className="flex items-center justify-between py-3 border-b border-white/10">
+                <span className="text-white/80">Month 3 onwards — Outperforming (events + loyalty matured)</span>
+                <span className="text-white font-bold text-xl">Over 15–20 total/day</span>
               </div>
             </div>
             <p className="text-white/70 text-sm mb-6">
-              Growth compounds as initiatives take effect: Google visibility brings new customers, partnerships drive tourist traffic, themed evenings create conversation, and the loyalty programme converts one-time visitors into regulars. Contractor programme provides steady repeat business. The target is the total customers per day — growth is the natural outcome of these initiatives.
+              Growth compounds quickly as initiatives take effect: Google visibility brings new customers, partnerships drive tourist traffic, themed evenings create conversation, and the loyalty programme converts one-time visitors into regulars. Contractor programme provides steady repeat business. The target is the total customers per day — growth is the natural outcome of these initiatives.
             </p>
             <div className="space-y-4">
               <div className="flex items-center justify-between py-3 border-b border-white/10">
-                <span className="text-white/80">Target customers per day (Month 6)</span>
+                <span className="text-white/80">Target customers per day (Month 2 onwards)</span>
                 <span className="text-white font-bold text-xl">15–20</span>
               </div>
               <div className="flex items-center justify-between py-3 border-b border-white/10">
