@@ -456,18 +456,13 @@ export default function RafflesProposal() {
             <h3 className="font-sans font-bold text-[#0A0A0A] text-xl mb-4">Recommended Rollout</h3>
             <div className="space-y-6">
               <div className="p-4 bg-white rounded-lg border border-black/[0.06]">
-                <p className="font-semibold text-[#0A0A0A] mb-2">Phase 1 — Foundation (Month 1)</p>
+                <p className="font-semibold text-[#0A0A0A] mb-2">Phase 1 — Foundation & Awareness (Months 1–2)</p>
                 <ul className="space-y-1 ml-6">
                   <li>• Google optimisation</li>
                   <li>• Website improvements</li>
                   <li>• Photography refresh</li>
                   <li>• Review generation programme</li>
                   <li>• Local search campaign</li>
-                </ul>
-              </div>
-              <div className="p-4 bg-white rounded-lg border border-black/[0.06]">
-                <p className="font-semibold text-[#0A0A0A] mb-2">Phase 2 — Awareness (Months 2–3)</p>
-                <ul className="space-y-1 ml-6">
                   <li>• Social media campaign</li>
                   <li>• Resident offers</li>
                   <li>• Loyalty programme</li>
@@ -476,7 +471,7 @@ export default function RafflesProposal() {
                 </ul>
               </div>
               <div className="p-4 bg-white rounded-lg border border-black/[0.06]">
-                <p className="font-semibold text-[#0A0A0A] mb-2">Phase 3 — Event Engine (Months 3–6)</p>
+                <p className="font-semibold text-[#0A0A0A] mb-2">Phase 2 — Event Engine (Month 2 onwards)</p>
                 <ul className="space-y-1 ml-6">
                   <li>• History nights</li>
                   <li>• Malaysian cultural evenings</li>
@@ -561,19 +556,19 @@ export default function RafflesProposal() {
             <div className="space-y-2 text-sm">
               <div className="flex gap-4">
                 <span className="text-[#A3A3A3] w-28 shrink-0">Bank Name</span>
-                <span className="text-[#0A0A0A] font-medium">Monzo</span>
+                <span className="text-[#0A0A0A] font-medium">Revolut</span>
               </div>
               <div className="flex gap-4">
                 <span className="text-[#A3A3A3] w-28 shrink-0">Account Name</span>
-                <span className="text-[#0A0A0A] font-medium">Renaldo Edmondson</span>
+                <span className="text-[#0A0A0A] font-medium">Renaldo Lee Edmondson</span>
               </div>
               <div className="flex gap-4">
                 <span className="text-[#A3A3A3] w-28 shrink-0">Sort Code</span>
-                <span className="text-[#0A0A0A] font-medium font-mono">04-00-04</span>
+                <span className="text-[#0A0A0A] font-medium font-mono">23-01-20</span>
               </div>
               <div className="flex gap-4">
                 <span className="text-[#A3A3A3] w-28 shrink-0">Account Number</span>
-                <span className="text-[#0A0A0A] font-medium font-mono">6677 5330</span>
+                <span className="text-[#0A0A0A] font-medium font-mono">83621039</span>
               </div>
             </div>
           </div>
