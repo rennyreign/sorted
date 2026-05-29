@@ -501,7 +501,7 @@ export default function RafflesProposal() {
             </div>
             <div className="p-6 bg-black/[0.02] rounded-xl border border-black/[0.06]">
               <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] mb-2">Ongoing Growth Management</p>
-              <p className="font-sans font-extrabold text-[#0A0A0A] text-3xl tracking-tight mb-4">£550/month</p>
+              <p className="font-sans font-extrabold text-[#0A0A0A] text-3xl tracking-tight mb-4">£750/month</p>
               <p className="mb-4">Includes:</p>
               <ul className="space-y-2">
                 <li>• Campaign management</li>
@@ -556,15 +556,15 @@ export default function RafflesProposal() {
               </div>
               <div className="flex items-center justify-between py-3 border-b border-white/10">
                 <span className="text-white/80">Ongoing investment</span>
-                <span className="text-white font-semibold">£550/month</span>
+                <span className="text-white font-semibold">£750/month</span>
               </div>
               <div className="flex items-center justify-between py-3">
                 <span className="text-white/80">Investment as % of projected revenue</span>
-                <span className="text-green-400 font-bold text-xl">3.7–4.9%</span>
+                <span className="text-green-400 font-bold text-xl">5.0–6.7%</span>
               </div>
             </div>
             <p className="text-white/70 text-sm mt-6">
-              At the target of 15–20 customers per day, the investment represents less than 5% of projected revenue. The customer mix is roughly 50/50 between new customers (tourists, visitors, new locals) and repeat business (loyalty programme, contractors, themed evenings).
+              At the target of 15–20 customers per day, the investment represents 5.0–6.7% of projected revenue. The customer mix is roughly 50/50 between new customers (tourists, visitors, new locals) and repeat business (loyalty programme, contractors, themed evenings).
             </p>
           </div>
 
