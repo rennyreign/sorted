@@ -518,23 +518,36 @@ export default function RafflesProposal() {
           <div className="p-6 bg-[#0A0A0A] rounded-xl">
             <h3 className="font-sans font-bold text-white text-xl mb-4">Reasonable Scenario</h3>
             <p className="text-white/90 mb-6">
-              What does success look like in practical terms? Here's a realistic projection based on the growth objective of 15–20 additional customers per day (mix of new and repeat).
+              What does success look like in practical terms? Here's a conservative projection of expected customer growth over time, factoring in new customers from visibility initiatives and repeat business from loyalty programmes.
+            </p>
+            <div className="space-y-4 mb-8">
+              <div className="flex items-center justify-between py-3 border-b border-white/10">
+                <span className="text-white/80">Month 1 — Foundation (baseline + early gains)</span>
+                <span className="text-white font-semibold">+3–5/day</span>
+              </div>
+              <div className="flex items-center justify-between py-3 border-b border-white/10">
+                <span className="text-white/80">Month 2 — Awareness building</span>
+                <span className="text-white font-semibold">+7–10/day</span>
+              </div>
+              <div className="flex items-center justify-between py-3 border-b border-white/10">
+                <span className="text-white/80">Month 3 — Events + loyalty kicking in</span>
+                <span className="text-white font-semibold">+12–15/day</span>
+              </div>
+              <div className="flex items-center justify-between py-3 border-b border-white/10">
+                <span className="text-white/80">Month 6 — Target achieved</span>
+                <span className="text-white font-bold text-xl">+15–20/day</span>
+              </div>
+            </div>
+            <p className="text-white/70 text-sm mb-6">
+              Growth compounds as initiatives take effect: Google visibility brings new customers, partnerships drive tourist traffic, themed evenings create conversation, and the loyalty programme converts one-time visitors into regulars. Contractor programme provides steady repeat business.
             </p>
             <div className="space-y-4">
               <div className="flex items-center justify-between py-3 border-b border-white/10">
-                <span className="text-white/80">New customers per day (visitors, tourists, new locals)</span>
-                <span className="text-white font-semibold">8–10</span>
-              </div>
-              <div className="flex items-center justify-between py-3 border-b border-white/10">
-                <span className="text-white/80">Repeat customers per day (loyalty programme, contractors)</span>
-                <span className="text-white font-semibold">7–10</span>
-              </div>
-              <div className="flex items-center justify-between py-3 border-b border-white/10">
-                <span className="text-white/80">Total additional customers per day</span>
+                <span className="text-white/80">Target customers per day (Month 6)</span>
                 <span className="text-white font-bold text-xl">15–20</span>
               </div>
               <div className="flex items-center justify-between py-3 border-b border-white/10">
-                <span className="text-white/80">Additional covers per month</span>
+                <span className="text-white/80">Target covers per month</span>
                 <span className="text-white font-semibold">450–600</span>
               </div>
               <div className="flex items-center justify-between py-3 border-b border-white/10">
@@ -542,7 +555,7 @@ export default function RafflesProposal() {
                 <span className="text-white font-semibold">£25</span>
               </div>
               <div className="flex items-center justify-between py-3 border-b border-white/10">
-                <span className="text-white/80">Additional monthly revenue</span>
+                <span className="text-white/80">Projected monthly revenue</span>
                 <span className="text-white font-bold text-xl">£11,250–£15,000</span>
               </div>
               <div className="flex items-center justify-between py-3 border-b border-white/10">
@@ -550,12 +563,12 @@ export default function RafflesProposal() {
                 <span className="text-white font-semibold">£550/month</span>
               </div>
               <div className="flex items-center justify-between py-3">
-                <span className="text-white/80">Investment as % of additional revenue</span>
+                <span className="text-white/80">Investment as % of projected revenue</span>
                 <span className="text-green-400 font-bold text-xl">3.7–4.9%</span>
               </div>
             </div>
             <p className="text-white/70 text-sm mt-6">
-              This split reflects the strategy: new customers come from visibility (Google, partnerships, tourism), while repeat business builds through the loyalty programme, contractor discounts, and themed evenings. The investment represents less than 5% of additional revenue.
+              By Month 6, the investment represents less than 5% of projected additional revenue. The split is roughly 50/50 between new customers (tourists, visitors, new locals) and repeat business (loyalty programme, contractors, themed evenings).
             </p>
           </div>
 
