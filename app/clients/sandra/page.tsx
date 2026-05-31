@@ -310,7 +310,7 @@ export default function SandraQuote() {
           </p>
 
           <div className="mb-6 flex items-baseline gap-3">
-            <span className="font-mono text-4xl font-bold text-white">€250</span>
+            <span className="font-mono text-4xl font-bold text-white">€175 – €450</span>
             <span className="text-sm text-white/40">one-off</span>
           </div>
 
