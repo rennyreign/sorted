@@ -294,8 +294,8 @@ export default function SandraQuote() {
           </p>
           <p className="text-sm leading-7 text-white/55">
             Just email{" "}
-            <a href="mailto:support@sortmysite.digital" className="text-white underline decoration-white/20 underline-offset-4 hover:decoration-white/60">
-              support@sortmysite.digital
+            <a href="mailto:support@sortmydigital.site" className="text-white underline decoration-white/20 underline-offset-4 hover:decoration-white/60">
+              support@sortmydigital.site
             </a>{" "}
             with your domain name and we&apos;ll send everything over. No charge, no fuss.
           </p>
