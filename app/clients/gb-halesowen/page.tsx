@@ -224,7 +224,7 @@ export default function GBHalesowenQuote() {
           </p>
           <div className="mb-5 rounded-xl border border-white/8 bg-[#0f0f0f] p-5">
             <p className="mb-1 font-mono text-[0.6rem] uppercase tracking-[0.2em] text-white/35">Your CMS address</p>
-            <p className="font-mono text-sm text-white">graciebarrahalesowen.com/cms</p>
+            <p className="font-mono text-sm text-white">gbhalesowen.com/cms</p>
           </div>
           <p className="mb-4 text-sm text-white/55">To log in, accept the invitation email Sorted sends to your inbox. After that, your login works on any device.</p>
           <div className="space-y-2 text-sm">
@@ -323,7 +323,7 @@ export default function GBHalesowenQuote() {
                 ["Sort code", "23-01-20"],
                 ["Account number", "83621039"],
                 ["Bank", "Revolut Ltd, 30 South Colonnade, E14 5HX, London, United Kingdom"],
-                ["Reference", "GB Halesowen — graciebarrahalesowen.com"],
+                ["Reference", "GB Halesowen — gbhalesowen.com"],
               ].map(([label, value]) => (
                 <div key={label} className="grid grid-cols-[140px_1fr] gap-2">
                   <span className="text-white/35">{label}</span>
