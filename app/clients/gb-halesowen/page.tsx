@@ -13,10 +13,10 @@ export default function GBHalesowenQuote() {
   const [isLoading, setIsLoading] = useState(true)
   const [mounted, setMounted] = useState(false)
 
-  const [signerName, setSignerName] = useState("")
+  const [signerName, setSignerName] = useState("Stuart Gwilt")
   const [showAgreement, setShowAgreement] = useState(false)
-  const [isSigned, setIsSigned] = useState(false)
-  const [signedAt, setSignedAt] = useState<string | null>(null)
+  const [isSigned, setIsSigned] = useState(true)
+  const [signedAt, setSignedAt] = useState<string | null>("2026-06-01T00:00:00.000Z")
 
   useEffect(() => { setMounted(true) }, [])
 
@@ -309,8 +309,9 @@ export default function GBHalesowenQuote() {
           </p>
 
           <div className="mb-6 flex items-baseline gap-3">
-            <span className="font-mono text-4xl font-bold text-white">£175 – £450</span>
+            <span className="font-mono text-4xl font-bold text-white">£400</span>
             <span className="text-sm text-white/40">one-off</span>
+            <span className="ml-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 font-mono text-[0.6rem] uppercase tracking-[0.15em] text-emerald-400">Paid</span>
           </div>
 
           <div className="mb-6 rounded-xl border border-white/8 bg-[#0f0f0f] p-5">
