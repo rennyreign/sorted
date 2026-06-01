@@ -143,6 +143,18 @@ export default function BodysharpRetainer() {
           </h1>
         </div>
 
+        {/* Status Badge */}
+        <div className="mb-12">
+          <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${
+            isSigned 
+              ? "bg-green-500/10 text-green-700" 
+              : "bg-amber-500/10 text-amber-700"
+          }`}>
+            <div className={`w-2 h-2 rounded-full ${isSigned ? "bg-green-600" : "bg-amber-600"}`} />
+            {isSigned ? "Retainer Signed" : "Awaiting Signature"}
+          </div>
+        </div>
+
         {/* Mission Statement */}
         <div className="mb-16 p-6 bg-[#F5F5F5] rounded-xl border-l-4 border-[#0A0A0A]">
           <p className="text-[#525252] text-base leading-relaxed italic">
@@ -317,40 +329,34 @@ export default function BodysharpRetainer() {
           </p>
         </div>
 
-        {/* Accept Section */}
-        <div className="mb-16 pt-8 border-t border-black/[0.08]">
-          {!isSigned ? (
-            <>
-              <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] mb-4">Review & Accept</p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <input
-                  type="text"
-                  value={signerName}
-                  onChange={(e) => setSignerName(e.target.value)}
-                  placeholder="Enter your full name"
-                  className="flex-1 px-4 py-3 bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] placeholder:text-[#A3A3A3] focus:outline-none focus:border-black/[0.3] transition-colors"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowAgreement(true)}
-                  disabled={!signerName.trim()}
-                  className="bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-6 py-3 hover:bg-[#2a2a2a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
-                >
-                  Review & Accept
-                </button>
+        {/* Agreement Modal Trigger */}
+        {!isSigned ? (
+          <section className="mb-12">
+            <button
+              onClick={() => setShowAgreement(true)}
+              className="w-full bg-[#0A0A0A] text-[#FAFAFA] font-semibold rounded-xl px-6 py-4 hover:bg-[#1a1a1a] transition-colors"
+            >
+              Review & Accept Agreement
+            </button>
+            <p className="text-center text-[#A3A3A3] text-xs mt-4">
+              By accepting, you agree to the retainer terms outlined above.
+            </p>
+          </section>
+        ) : (
+          <section className="mb-12 bg-green-500/10 border border-green-500/20 rounded-xl p-6">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M4 10L8 14L16 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </div>
-              <p className="text-xs text-[#A3A3A3] mt-3">By accepting, you agree to the retainer terms outlined in this document.</p>
-            </>
-          ) : (
-            <div className="bg-green-50 border border-green-200 rounded-xl p-6">
-              <p className="font-mono text-xs uppercase tracking-[0.15em] text-green-700 mb-2">Retainer Accepted</p>
-              <p className="text-green-800 text-[2rem]" style={{ fontFamily: "Georgia, serif", fontStyle: "italic" }}>
-                {signerName}
-              </p>
-              <p className="text-xs text-green-600 mt-2">Signed on {signedAt ? formatDate(signedAt) : ""}</p>
+              <div>
+                <h3 className="font-semibold text-green-900">Agreement Accepted</h3>
+                <p className="text-green-700 text-sm">Signed by {signerName} on {signedAt && formatDate(signedAt)}</p>
+              </div>
             </div>
-          )}
-        </div>
+          </section>
+        )}
 
         {/* Agreement Modal */}
         {showAgreement && mounted && createPortal(
@@ -378,46 +384,59 @@ export default function BodysharpRetainer() {
               </div>
 
               <div className="px-6 py-5 overflow-y-auto flex-1">
-                <div className="space-y-4 text-sm text-[#525252] leading-relaxed">
-                  <p>
-                    <strong className="text-[#0A0A0A]">1. Retainer Agreement:</strong> Sorted will provide the monthly marketing services described in this document to Bodysharp Fitness, managed by Michael Edmeads.
-                  </p>
-                  <p>
-                    <strong className="text-[#0A0A0A]">2. Term:</strong> This is a rolling 30-day agreement. Either party may give 14 days' notice to pause or terminate. No long-term lock-in.
-                  </p>
-                  <p>
-                    <strong className="text-[#0A0A0A]">3. Payment:</strong> £400 per month, due at the start of each month. First payment confirms commencement of work.
-                  </p>
-                  <p>
-                    <strong className="text-[#0A0A0A]">4. Scope:</strong> Services include marketing strategy, campaign execution, landing page builds, lead capture systems, and reporting. Additional services can be scoped separately.
-                  </p>
-                  <p>
-                    <strong className="text-[#0A0A0A]">5. Creative Ownership:</strong> All creative assets produced remain the property of Bodysharp Fitness. Sorted may request permission to showcase work in portfolio.
-                  </p>
-                  <p>
-                    <strong className="text-[#0A0A0A]">6. Performance:</strong> While every effort is made to generate positive revenue, results depend on market conditions, offer strength, and external factors. Sorted commits to transparency and continuous optimisation.
-                  </p>
-                  <p>
-                    <strong className="text-[#0A0A0A]">7. Communication:</strong> Regular touchpoints via agreed channels (calls, Slack, WhatsApp) with response times within 24 hours on business days.
-                  </p>
+                <div className="bg-black/[0.02] rounded-xl p-5 mb-6 space-y-4 text-sm text-[#525252] max-h-64 overflow-y-auto">
+                  <p><strong className="text-[#0A0A0A]">1. Retainer Agreement</strong><br/>
+                  Sorted will provide the monthly marketing services described in this document to Bodysharp Fitness, managed by Michael Edmeads.</p>
+                  
+                  <p><strong className="text-[#0A0A0A]">2. Term</strong><br/>
+                  This is a rolling 30-day agreement. Either party may give 14 days' notice to pause or terminate. No long-term lock-in.</p>
+                  
+                  <p><strong className="text-[#0A0A0A]">3. Payment</strong><br/>
+                  £400 per month, due at the start of each month. First payment confirms commencement of work.</p>
+                  
+                  <p><strong className="text-[#0A0A0A]">4. Scope</strong><br/>
+                  Services include marketing strategy, campaign execution, landing page builds, lead capture systems, and reporting. Additional services can be scoped separately.</p>
+                  
+                  <p><strong className="text-[#0A0A0A]">5. Creative Ownership</strong><br/>
+                  All creative assets produced remain the property of Bodysharp Fitness. Sorted may request permission to showcase work in portfolio.</p>
+                  
+                  <p><strong className="text-[#0A0A0A]">6. Performance</strong><br/>
+                  While every effort is made to generate positive revenue, results depend on market conditions, offer strength, and external factors. Sorted commits to transparency and continuous optimisation.</p>
+                  
+                  <p><strong className="text-[#0A0A0A]">7. Communication</strong><br/>
+                  Regular touchpoints via agreed channels (calls, Slack, WhatsApp) with response times within 24 hours on business days.</p>
                 </div>
-              </div>
 
-              <div className="flex gap-3 px-6 py-4 border-t border-black/[0.08] shrink-0">
-                <button
-                  type="button"
-                  onClick={() => setShowAgreement(false)}
-                  className="flex-1 px-4 py-3 border border-black/[0.12] rounded-lg text-[#525252] font-medium text-sm hover:bg-black/[0.02] transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  onClick={handleSignatureSubmit}
-                  className="flex-1 bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-4 py-3 hover:bg-[#2a2a2a] transition-colors"
-                >
-                  I Accept — Sign as {signerName}
-                </button>
+                <form onSubmit={handleSignatureSubmit} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-[#0A0A0A] mb-2">
+                      Your Full Name
+                    </label>
+                    <input
+                      type="text"
+                      value={signerName}
+                      onChange={(e) => setSignerName(e.target.value)}
+                      placeholder="Enter your name to sign"
+                      className="w-full px-4 py-3 bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] placeholder:text-[#A3A3A3] focus:outline-none focus:border-black/[0.3] transition-colors"
+                      required
+                    />
+                  </div>
+                  <div className="flex gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setShowAgreement(false)}
+                      className="flex-1 px-4 py-3 border border-black/[0.12] rounded-lg text-[#525252] font-medium hover:bg-black/[0.02] transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex-1 bg-[#0A0A0A] text-[#FAFAFA] font-semibold rounded-lg px-4 py-3 hover:bg-[#2a2a2a] transition-colors"
+                    >
+                      Accept & Sign
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>,
