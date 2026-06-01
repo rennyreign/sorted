@@ -223,7 +223,7 @@ export default function BodysharpRetainer() {
             <p className="font-sans font-extrabold text-white text-5xl tracking-tight mb-3">£400</p>
             <p className="text-white/40 text-sm">per month, rolling 30-day agreement</p>
           </div>
-          <div className="p-6 bg-black/[0.02] rounded-xl border border-black/[0.06]">
+          <div className="p-6 bg-black/[0.02] rounded-xl border border-black/[0.06] mb-6">
             <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] mb-3">What's included</p>
             <div className="space-y-2 text-sm text-[#737373]">
               <div className="flex gap-4">
@@ -243,6 +243,26 @@ export default function BodysharpRetainer() {
                 <span>Performance tracking & optimisation</span>
               </div>
             </div>
+          </div>
+
+          <div className="p-6 bg-[#F5F5F5] rounded-xl border border-black/[0.06]">
+            <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] mb-4">Payment details</p>
+            <div className="space-y-3 text-sm">
+              {[
+                ["Currency", "British Pound (GBP)"],
+                ["Beneficiary", "Renaldo Lee Edmondson"],
+                ["Sort code", "23-01-20"],
+                ["Account number", "83621039"],
+                ["Bank", "Revolut Ltd, 30 South Colonnade, E14 5HX, London, United Kingdom"],
+                ["Reference", "Bodysharp Retainer"],
+              ].map(([label, value]) => (
+                <div key={label} className="grid grid-cols-[120px_1fr] gap-2">
+                  <span className="text-[#A3A3A3]">{label}</span>
+                  <span className="font-mono text-[#0A0A0A]">{value}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-[#A3A3A3] mt-4">Standard UK bank transfer. Please use the reference above so we can match your payment.</p>
           </div>
         </div>
 
