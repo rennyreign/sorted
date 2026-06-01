@@ -89,23 +89,23 @@ export default function SandraQuote() {
 
   if (!isAuthenticated) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0f0f0f] px-5">
+      <div className="flex min-h-screen items-center justify-center bg-white px-5">
         <div className="w-full max-w-sm">
-          <p className="mb-2 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-[#555]">Sorted · Private</p>
-          <h1 className="mb-8 text-2xl font-semibold text-white">Sandra&apos;s delivery page</h1>
+          <p className="mb-2 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-[#999]">Sorted · Private</p>
+          <h1 className="mb-8 text-2xl font-semibold text-black">Sandra&apos;s delivery page</h1>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
               type="password"
               placeholder="Enter your access password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-white/30 outline-none focus:border-white/25"
+              className="w-full rounded-lg border border-black/15 bg-black/3 px-4 py-3 text-sm text-black placeholder-black/30 outline-none focus:border-black/30"
               autoFocus
             />
-            {error && <p className="text-xs text-red-400">Incorrect password. Try again or contact Sorted.</p>}
+            {error && <p className="text-xs text-red-500">Incorrect password. Try again or contact Sorted.</p>}
             <button
               type="submit"
-              className="w-full rounded-lg bg-white px-4 py-3 text-sm font-semibold text-black transition hover:bg-white/90"
+              className="w-full rounded-lg bg-black px-4 py-3 text-sm font-semibold text-white transition hover:bg-black/85"
             >
               View delivery
             </button>
@@ -116,21 +116,21 @@ export default function SandraQuote() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0f0f0f] text-white">
+    <div className="min-h-screen bg-white text-black">
 
       {/* Agreement modal */}
       {showAgreement && mounted && createPortal(
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4 backdrop-blur-sm">
-          <div className="relative w-full max-w-lg rounded-2xl border border-white/10 bg-[#141414] p-8">
+          <div className="relative w-full max-w-lg rounded-2xl border border-black/10 bg-white p-8">
             <button
               onClick={() => setShowAgreement(false)}
               className="absolute right-4 top-4 text-white/40 hover:text-white/70"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
-            <p className="mb-1 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-white/40">Service Agreement</p>
-            <h2 className="mb-6 text-lg font-semibold">Review & Accept</h2>
-            <div className="mb-6 max-h-56 space-y-3 overflow-y-auto pr-2 text-sm leading-7 text-white/60">
+            <p className="mb-1 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-black/40">Service Agreement</p>
+            <h2 className="mb-6 text-lg font-semibold text-black">Review & Accept</h2>
+            <div className="mb-6 max-h-56 space-y-3 overflow-y-auto pr-2 text-sm leading-7 text-black/60">
               <p>Sorted has designed and built a website for Entre Copas y Cuerpos. The site is hosted on Netlify and includes SortedUpdates — a content management system giving Sandra full control over her site&apos;s text and images.</p>
               <p>The design, code, and technical infrastructure remain the intellectual property of Sorted (ADX Engine Ltd). The content — all text, images, and media — belongs to Sandra.</p>
               <p>Sorted retains the right to maintain, update, and reset the site to its factory state for servicing purposes. No changes will be made to live content without prior notice.</p>
@@ -143,13 +143,13 @@ export default function SandraQuote() {
                 placeholder="Type your full name to sign"
                 value={signerName}
                 onChange={(e) => setSignerName(e.target.value)}
-                className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-white/30 outline-none focus:border-white/25"
+                className="w-full rounded-lg border border-black/15 bg-black/3 px-4 py-3 text-sm text-black placeholder-black/30 outline-none focus:border-black/30"
                 autoFocus
               />
               <button
                 type="submit"
                 disabled={!signerName.trim()}
-                className="w-full rounded-lg bg-white px-4 py-3 text-sm font-semibold text-black transition hover:bg-white/90 disabled:opacity-40"
+                className="w-full rounded-lg bg-black px-4 py-3 text-sm font-semibold text-white transition hover:bg-black/85 disabled:opacity-40"
               >
                 I agree — sign & accept
               </button>
@@ -160,13 +160,13 @@ export default function SandraQuote() {
       )}
 
       {/* Header */}
-      <header className="border-b border-white/8 px-5 py-5 sm:px-8">
+      <header className="border-b border-black/8 px-5 py-5 sm:px-8">
         <div className="mx-auto flex max-w-3xl items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 text-xs font-bold text-white">S</div>
-            <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-white/40">Sorted · Delivery</span>
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black/8 text-xs font-bold text-black">S</div>
+            <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-black/40">Sorted · Delivery</span>
           </div>
-          <button onClick={handleSignOut} className="text-xs text-white/30 transition hover:text-white/60">Sign out</button>
+          <button onClick={handleSignOut} className="text-xs text-black/30 transition hover:text-black/60">Sign out</button>
         </div>
       </header>
 
@@ -174,9 +174,9 @@ export default function SandraQuote() {
 
         {/* Hero */}
         <div>
-          <p className="mb-3 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-white/40">Entre Copas y Cuerpos</p>
-          <h1 className="text-3xl font-semibold text-white sm:text-4xl">You&apos;ve been Sorted. 🎉</h1>
-          <p className="mt-3 text-base leading-7 text-white/60">
+          <p className="mb-3 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-black/40">Entre Copas y Cuerpos</p>
+          <h1 className="text-3xl font-semibold text-black sm:text-4xl">You&apos;ve been Sorted. 🎉</h1>
+          <p className="mt-3 text-base leading-7 text-black/60">
             Your site is live. Here&apos;s everything you need to know — what was delivered, how to manage it, and what comes next.
           </p>
         </div>
@@ -186,30 +186,30 @@ export default function SandraQuote() {
           <div className="flex items-center gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/8 px-5 py-4">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-emerald-400"><polyline points="20 6 9 17 4 12"/></svg>
             <div>
-              <p className="text-sm font-semibold text-emerald-400">Agreement signed</p>
-              <p className="text-xs text-white/40">Signed by {signerName} on {formatDate(signedAt)}</p>
+              <p className="text-sm font-semibold text-emerald-600">Agreement signed</p>
+              <p className="text-xs text-black/40">Signed by {signerName} on {formatDate(signedAt)}</p>
             </div>
           </div>
         )}
 
         {/* 1 — What was delivered */}
-        <section className="rounded-2xl border border-white/8 bg-white/3 p-6 sm:p-8">
-          <p className="mb-4 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-white/35">01 — What you received</p>
-          <h2 className="mb-5 text-lg font-semibold">Your complete website</h2>
+        <section className="rounded-2xl border border-black/8 bg-black/2 p-6 sm:p-8">
+          <p className="mb-4 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-black/35">01 — What you received</p>
+          <h2 className="mb-5 text-lg font-semibold text-black">Your complete website</h2>
           <ul className="space-y-3">
             {[
-              ["Live website", "entrecopasycuerpos.com — a fully custom-designed site built for Entre Copas y Cuerpos. Responsive on all devices."],
+              ["Live website", "entrecopasycuerpos.es — a fully custom-designed site built for Entre Copas y Cuerpos. Responsive on all devices."],
               ["5 pages", "Homepage, Talleres, About, Contact, plus Privacy and Terms pages."],
               ["Bilingual content", "Every section of the site is available in both Spanish and English, switchable by visitors."],
-              ["SortedUpdates CMS", "A content management system at entrecopasycuerpos.com/cms — you can update all text, headings, and images yourself, any time."],
+              ["SortedUpdates CMS", "A content management system at entrecopasycuerpos.es/cms — you can update all text, headings, and images yourself, any time."],
               ["Netlify hosting", "Your site is hosted on Netlify. Fast, global, and free on the standard tier."],
-              ["Domain connected", "Your domain entrecopasycuerpos.com is connected and live."],
+              ["Domain connected", "Your domain entrecopasycuerpos.es is connected and live."],
             ].map(([title, desc]) => (
               <li key={title} className="flex gap-4">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0 text-white/40"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0 text-black/40"><polyline points="20 6 9 17 4 12"/></svg>
                 <div>
-                  <span className="text-sm font-medium text-white">{title} — </span>
-                  <span className="text-sm text-white/55">{desc}</span>
+                  <span className="text-sm font-medium text-black">{title} — </span>
+                  <span className="text-sm text-black/55">{desc}</span>
                 </div>
               </li>
             ))}
@@ -217,17 +217,17 @@ export default function SandraQuote() {
         </section>
 
         {/* 2 — SortedUpdates / CMS access */}
-        <section className="rounded-2xl border border-white/8 bg-white/3 p-6 sm:p-8">
-          <p className="mb-4 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-white/35">02 — SortedUpdates</p>
-          <h2 className="mb-2 text-lg font-semibold">Your content dashboard</h2>
-          <p className="mb-5 text-sm leading-7 text-white/55">
+        <section className="rounded-2xl border border-black/8 bg-black/2 p-6 sm:p-8">
+          <p className="mb-4 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-black/35">02 — SortedUpdates</p>
+          <h2 className="mb-2 text-lg font-semibold text-black">Your content dashboard</h2>
+          <p className="mb-5 text-sm leading-7 text-black/55">
             SortedUpdates is your built-in content manager. You can update any text or image on your site without touching code. Changes go live automatically after you hit Save.
           </p>
-          <div className="mb-5 rounded-xl border border-white/8 bg-[#0f0f0f] p-5">
-            <p className="mb-1 font-mono text-[0.6rem] uppercase tracking-[0.2em] text-white/35">Your CMS address</p>
-            <p className="font-mono text-sm text-white">entrecopasycuerpos.com/cms</p>
+          <div className="mb-5 rounded-xl border border-black/8 bg-black/4 p-5">
+            <p className="mb-1 font-mono text-[0.6rem] uppercase tracking-[0.2em] text-black/35">Your CMS address</p>
+            <p className="font-mono text-sm text-black">entrecopasycuerpos.es/cms</p>
           </div>
-          <p className="mb-4 text-sm text-white/55">To log in, you&apos;ll need to accept the invitation email Sorted sends to your inbox. After that, your login works on any device.</p>
+          <p className="mb-4 text-sm text-black/55">To log in, you&apos;ll need to accept the invitation email Sorted sends to your inbox. After that, your login works on any device.</p>
           <div className="space-y-2 text-sm">
             {[
               "Update any heading, paragraph, or button label in Spanish and English",
@@ -235,8 +235,8 @@ export default function SandraQuote() {
               "Update your WhatsApp link, email address, and location",
               "Changes go live within a minute of saving",
             ].map((item) => (
-              <p key={item} className="flex gap-2.5 text-white/55">
-                <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/30" />
+              <p key={item} className="flex gap-2.5 text-black/55">
+                <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-black/30" />
                 {item}
               </p>
             ))}
@@ -244,13 +244,13 @@ export default function SandraQuote() {
         </section>
 
         {/* 3 — What you own vs don't */}
-        <section className="rounded-2xl border border-white/8 bg-white/3 p-6 sm:p-8">
-          <p className="mb-4 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-white/35">03 — Yours vs ours</p>
-          <h2 className="mb-5 text-lg font-semibold">What you control</h2>
+        <section className="rounded-2xl border border-black/8 bg-black/2 p-6 sm:p-8">
+          <p className="mb-4 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-black/35">03 — Yours vs ours</p>
+          <h2 className="mb-5 text-lg font-semibold text-black">What you control</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="rounded-xl border border-emerald-500/15 bg-emerald-500/5 p-5">
-              <p className="mb-3 font-mono text-[0.6rem] uppercase tracking-[0.2em] text-emerald-400">Yours completely</p>
-              <ul className="space-y-2 text-sm text-white/60">
+              <p className="mb-3 font-mono text-[0.6rem] uppercase tracking-[0.2em] text-emerald-600">Yours completely</p>
+              <ul className="space-y-2 text-sm text-black/60">
                 {[
                   "All your content — text, images, copy",
                   "Your domain name",
@@ -259,15 +259,15 @@ export default function SandraQuote() {
                   "The right to request your files at any time",
                 ].map((item) => (
                   <li key={item} className="flex gap-2">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0 text-emerald-400"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0 text-emerald-600"><polyline points="20 6 9 17 4 12"/></svg>
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="rounded-xl border border-white/8 bg-white/3 p-5">
-              <p className="mb-3 font-mono text-[0.6rem] uppercase tracking-[0.2em] text-white/35">Sorted&apos;s responsibility</p>
-              <ul className="space-y-2 text-sm text-white/40">
+            <div className="rounded-xl border border-black/8 bg-black/3 p-5">
+              <p className="mb-3 font-mono text-[0.6rem] uppercase tracking-[0.2em] text-black/35">Sorted&apos;s responsibility</p>
+              <ul className="space-y-2 text-sm text-black/40">
                 {[
                   "The design and visual layout",
                   "The code and technical infrastructure",
@@ -276,7 +276,7 @@ export default function SandraQuote() {
                   "Factory reset capability (for servicing)",
                 ].map((item) => (
                   <li key={item} className="flex gap-2">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-white/20" />
+                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-black/20" />
                     {item}
                   </li>
                 ))}
@@ -286,15 +286,15 @@ export default function SandraQuote() {
         </section>
 
         {/* 4 — Requesting site files */}
-        <section className="rounded-2xl border border-white/8 bg-white/3 p-6 sm:p-8">
-          <p className="mb-4 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-white/35">04 — Your site files</p>
-          <h2 className="mb-2 text-lg font-semibold">Taking your site elsewhere</h2>
-          <p className="mb-4 text-sm leading-7 text-white/55">
+        <section className="rounded-2xl border border-black/8 bg-black/2 p-6 sm:p-8">
+          <p className="mb-4 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-black/35">04 — Your site files</p>
+          <h2 className="mb-2 text-lg font-semibold text-black">Taking your site elsewhere</h2>
+          <p className="mb-4 text-sm leading-7 text-black/55">
             If you ever want to take your site files — to host elsewhere, hand to a developer, or simply keep a copy — that&apos;s completely fine. Your files are yours.
           </p>
-          <p className="text-sm leading-7 text-white/55">
+          <p className="text-sm leading-7 text-black/55">
             Just email{" "}
-            <a href="mailto:support@sortmydigital.site" className="text-white underline decoration-white/20 underline-offset-4 hover:decoration-white/60">
+            <a href="mailto:support@sortmydigital.site" className="text-black underline decoration-black/20 underline-offset-4 hover:decoration-black/60">
               support@sortmydigital.site
             </a>{" "}
             with your domain name and we&apos;ll send everything over. No charge, no fuss.
@@ -302,52 +302,52 @@ export default function SandraQuote() {
         </section>
 
         {/* 5 — Payment */}
-        <section className="rounded-2xl border border-white/8 bg-white/3 p-6 sm:p-8">
-          <p className="mb-4 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-white/35">05 — Payment</p>
-          <h2 className="mb-2 text-lg font-semibold">Investment summary</h2>
-          <p className="mb-6 text-sm leading-7 text-white/55">
+        <section className="rounded-2xl border border-black/8 bg-black/2 p-6 sm:p-8">
+          <p className="mb-4 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-black/35">05 — Payment</p>
+          <h2 className="mb-2 text-lg font-semibold text-black">Investment summary</h2>
+          <p className="mb-6 text-sm leading-7 text-black/55">
             One-off payment to cover design, build, and SortedUpdates setup. Hosting is free on Netlify&apos;s standard tier — no monthly fees from Sorted.
           </p>
 
           <div className="mb-6 flex items-baseline gap-3">
-            <span className="font-mono text-4xl font-bold text-white">€175 – €450</span>
-            <span className="text-sm text-white/40">one-off</span>
+            <span className="font-mono text-4xl font-bold text-black">€175 – €450</span>
+            <span className="text-sm text-black/40">one-off</span>
           </div>
 
-          <div className="mb-6 rounded-xl border border-white/8 bg-[#0f0f0f] p-5">
-            <p className="mb-4 font-mono text-[0.6rem] uppercase tracking-[0.2em] text-white/35">Bank transfer (Wise — SEPA)</p>
+          <div className="mb-6 rounded-xl border border-black/8 bg-black/4 p-5">
+            <p className="mb-4 font-mono text-[0.6rem] uppercase tracking-[0.2em] text-black/35">Bank transfer (Wise — SEPA)</p>
             <div className="space-y-3 text-sm">
               {[
                 ["Account name", "Renaldo Lee Edmondson"],
                 ["IBAN", "BE42 9671 7255 2454"],
                 ["Swift / BIC", "TRWIBEB1XXX"],
                 ["Bank", "Wise, Rue du Trône 100, 3rd floor, Brussels, 1050, Belgium"],
-                ["Reference", "Sandra — entrecopasycuerpos.com"],
+                ["Reference", "Sandra — entrecopasycuerpos.es"],
               ].map(([label, value]) => (
                 <div key={label} className="grid grid-cols-[120px_1fr] gap-2">
-                  <span className="text-white/35">{label}</span>
-                  <span className="font-mono text-white/80">{value}</span>
+                  <span className="text-black/35">{label}</span>
+                  <span className="font-mono text-black/80">{value}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <p className="text-xs leading-6 text-white/30">
+          <p className="text-xs leading-6 text-black/30">
             If you&apos;re sending from a Spanish bank account within SEPA, use the IBAN above for a standard domestic transfer. If sending internationally, include the Swift/BIC code.
           </p>
         </section>
 
         {/* Sign & Accept */}
         {!isSigned ? (
-          <section className="rounded-2xl border border-white/8 bg-white/3 p-6 sm:p-8">
-            <p className="mb-4 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-white/35">Sign off</p>
-            <h2 className="mb-2 text-lg font-semibold">Happy with everything?</h2>
-            <p className="mb-6 text-sm leading-7 text-white/55">
+          <section className="rounded-2xl border border-black/8 bg-black/2 p-6 sm:p-8">
+            <p className="mb-4 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-black/35">Sign off</p>
+            <h2 className="mb-2 text-lg font-semibold text-black">Happy with everything?</h2>
+            <p className="mb-6 text-sm leading-7 text-black/55">
               If you&apos;re happy with your site and ready to proceed, sign below to confirm you&apos;ve reviewed and accepted the delivery. This doesn&apos;t replace payment — it just confirms we&apos;re aligned.
             </p>
             <button
               onClick={() => setShowAgreement(true)}
-              className="rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-white/90"
+              className="rounded-xl bg-black px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-black/85"
             >
               Review & sign
             </button>
@@ -359,9 +359,9 @@ export default function SandraQuote() {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
               <div>
-                <h2 className="font-semibold text-emerald-400">All done.</h2>
-                <p className="mt-1 text-sm text-white/55">Signed by <strong className="text-white/80">{signerName}</strong> on {signedAt ? formatDate(signedAt) : ""}.</p>
-                <p className="mt-3 text-sm text-white/40">
+                <h2 className="font-semibold text-emerald-600">All done.</h2>
+                <p className="mt-1 text-sm text-black/55">Signed by <strong className="text-black/80">{signerName}</strong> on {signedAt ? formatDate(signedAt) : ""}.</p>
+                <p className="mt-3 text-sm text-black/40">
                   Send the payment when you&apos;re ready and Sorted will complete the handoff — your CMS invite will arrive shortly after.
                 </p>
               </div>
@@ -371,8 +371,8 @@ export default function SandraQuote() {
 
       </main>
 
-      <footer className="border-t border-white/8 px-5 py-8 text-center">
-        <p className="text-xs text-white/25">Sorted by ADX Engine · <a href="https://sortmydigital.com" className="hover:text-white/50">sortmydigital.com</a></p>
+      <footer className="border-t border-black/8 px-5 py-8 text-center">
+        <p className="text-xs text-black/25">Sorted by ADX Engine · <a href="https://sortmydigital.com" className="hover:text-black/50">sortmydigital.com</a></p>
       </footer>
 
     </div>
