@@ -100,7 +100,7 @@ export default function BodysharpRetainer() {
           <div className="mb-8">
             <span className="font-sans font-extrabold text-[#0A0A0A] text-2xl tracking-tight">Sorted.</span>
           </div>
-          <h1 className="font-sans font-bold text-[#0A0A0A] text-xl mb-2">Private — For Michael Edmeads</h1>
+          <h1 className="font-sans font-bold text-[#0A0A0A] text-xl mb-2">Private / For Mike</h1>
           <p className="text-[#737373] text-sm mb-6">Enter the password to view your marketing retainer agreement.</p>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
@@ -132,7 +132,7 @@ export default function BodysharpRetainer() {
         {/* Date + Private Label */}
         <div className="mb-16">
           <p className="font-mono text-xs text-[#A3A3A3] uppercase tracking-[0.15em] mb-1">June 2026</p>
-          <p className="font-mono text-xs text-[#A3A3A3] uppercase tracking-[0.15em]">Private — for Michael Edmeads</p>
+          <p className="font-mono text-xs text-[#A3A3A3] uppercase tracking-[0.15em]">Private / for Mike</p>
         </div>
 
         {/* Header */}
@@ -158,14 +158,14 @@ export default function BodysharpRetainer() {
         {/* Mission Statement */}
         <div className="mb-16 p-6 bg-[#F5F5F5] rounded-xl border-l-4 border-[#0A0A0A]">
           <p className="text-[#525252] text-base leading-relaxed italic">
-            "Michael's core mission is to help lift people's energy — transforming not just bodies, but mindsets, confidence, and daily vitality. This retainer exists to build the marketing infrastructure that gets that energy in front of the people who need it most."
+            "Your core mission as Mikey Spice is to lift people's energy, transforming bodies, mindsets, confidence, and daily vitality. This retainer exists to build the marketing infrastructure that gets your energy in front of the people who need it most."
           </p>
         </div>
 
         {/* Opening */}
         <div className="space-y-6 text-[#525252] text-lg leading-relaxed mb-16">
           <p>
-            This document outlines our month-to-month marketing partnership. We're building a complete revenue pipeline ecosystem — from lead capture to conversion, with landing pages, targeted campaigns, and operators speaking directly to your ideal customer profiles.
+            This document outlines our month-to-month marketing partnership. I'm building you a complete revenue pipeline ecosystem: lead capture, conversion, landing pages, targeted campaigns, and operators speaking directly to your ideal customer profiles.
           </p>
           <p className="text-[#0A0A0A] font-semibold">
             Review it, accept it, and we get to work.
@@ -194,17 +194,17 @@ export default function BodysharpRetainer() {
               {
                 num: "03",
                 title: "Landing Pages & Campaign Assets",
-                body: "Custom landing pages for specific events, offers, and challenges. Each page optimised for conversion and matched to the energy of your brand — no templates, no generic fitness noise.",
+                body: "Custom landing pages for specific events, offers, and challenges. Each page optimised for conversion and matched to the energy of your brand. No templates, no generic fitness noise.",
               },
               {
                 num: "04",
                 title: "ICP-Specific Operators",
-                body: "Dedicated marketing operators speaking directly to your Ideal Customer Profiles — whether that's busy professionals, transformation seekers, or retreat attendees. Messaging tailored to what lifts each group.",
+                body: "Dedicated marketing operators speaking directly to your Ideal Customer Profiles: busy professionals, transformation seekers, or retreat attendees. Messaging tailored to what lifts each group.",
               },
               {
                 num: "05",
                 title: "Brand & Creative Development",
-                body: "Building out the full Bodysharp brand system: visual identity refinement, content calendars, social assets, and creative that reflects Mikey's energy and the transformation you deliver.",
+                body: "Building out the full Bodysharp brand system: visual identity refinement, content calendars, social assets, and creative that reflects your energy as Mikey Spice and the transformation you deliver.",
               },
               {
                 num: "06",
@@ -291,10 +291,10 @@ export default function BodysharpRetainer() {
               "Weekly updates on campaign performance",
               "Direct Slack/WhatsApp access for quick decisions",
               "All creative approved by you before going live",
-              "30-day rolling terms — adjust or pause with notice",
-            ].map((item) => (
-              <li key={item} className="flex gap-3">
-                <span className="text-[#0A0A0A]">—</span>
+              "30-day rolling terms: adjust or pause with notice",
+            ].map((item, i) => (
+              <li key={i} className="flex gap-3">
+                <span className="text-[#0A0A0A]">-</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -322,7 +322,7 @@ export default function BodysharpRetainer() {
         {/* Closing */}
         <div className="space-y-6 text-[#525252] text-lg leading-relaxed mb-16">
           <p>
-            The goal is simple: build a marketing machine that lifts your energy into the world and turns that momentum into revenue. Every campaign, every landing page, every touchpoint designed to bring the right people into your transformation ecosystem.
+            The goal is simple: build you a marketing machine that lifts your energy into the world and turns that momentum into revenue. Every campaign, every landing page, every touchpoint designed to bring the right people into your transformation ecosystem.
           </p>
           <p className="text-[#0A0A0A] font-semibold">
             Ready to get started?
@@ -451,7 +451,7 @@ export default function BodysharpRetainer() {
 
         {/* Footer */}
         <div className="border-t border-black/[0.06] pt-8 flex items-center justify-between">
-          <p className="text-xs text-[#C4C4C4] font-mono">Sorted. — sortmydigital.netlify.app</p>
+          <p className="text-xs text-[#C4C4C4] font-mono">Sorted. / sortmydigital.netlify.app</p>
           <button
             onClick={handleSignOut}
             className="text-xs text-[#A3A3A3] hover:text-[#525252] transition-colors font-mono"
