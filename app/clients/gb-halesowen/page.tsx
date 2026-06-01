@@ -16,7 +16,7 @@ export default function GBHalesowenQuote() {
   const [signerName, setSignerName] = useState("Stuart Gwilt")
   const [showAgreement, setShowAgreement] = useState(false)
   const [isSigned, setIsSigned] = useState(true)
-  const [signedAt, setSignedAt] = useState<string | null>("2026-06-01T00:00:00.000Z")
+  const [signedAt, setSignedAt] = useState<string | null>("2026-05-11T00:00:00.000Z")
 
   useEffect(() => { setMounted(true) }, [])
 
