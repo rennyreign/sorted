@@ -32,10 +32,6 @@ export default function SebastianMDProposal() {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [currentImage, setCurrentImage] = useState(0)
   const [wideLayout, setWideLayout] = useState(false)
-  const [signerName, setSignerName] = useState("")
-  const [showAgreement, setShowAgreement] = useState(false)
-  const [isSigned, setIsSigned] = useState(false)
-  const [signedAt, setSignedAt] = useState<string | null>(null)
 
   useEffect(() => { setMounted(true) }, [])
 
@@ -442,48 +438,6 @@ export default function SebastianMDProposal() {
 
         <div className="border-t border-black/[0.08] mb-16" />
 
-        {/* Investment */}
-        <div className="mb-16">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">Investment</span>
-          <div className="bg-[#0A0A0A] rounded-2xl p-8 sm:p-10 mb-8">
-            <p className="font-mono text-xs uppercase tracking-[0.15em] text-white/60 mb-2">Total Project Cost</p>
-            <p className="font-sans font-extrabold text-white text-5xl tracking-tight mb-6">£3,500</p>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between py-4 border-t border-white/10">
-                <div><p className="text-white font-semibold">Deposit to start (50%)</p><p className="text-white/60 text-sm">Due on project commencement</p></div>
-                <p className="text-white font-bold text-xl">£1,750</p>
-              </div>
-              <div className="flex items-center justify-between py-4 border-t border-white/10">
-                <div><p className="text-white font-semibold">Balance on completion (50%)</p><p className="text-white/60 text-sm">Due before final handover</p></div>
-                <p className="text-white font-bold text-xl">£1,750</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-6 bg-black/[0.02] rounded-xl border border-black/[0.06]">
-            <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] mb-4">Payment details</p>
-            <div className="space-y-2 text-sm">
-              <div className="flex gap-4"><span className="text-[#A3A3A3] w-28 shrink-0">Bank</span><span className="text-[#0A0A0A] font-medium">Wise</span></div>
-              <div className="flex gap-4"><span className="text-[#A3A3A3] w-28 shrink-0">Name</span><span className="text-[#0A0A0A] font-medium">Renaldo Lee Edmondson</span></div>
-              <div className="flex gap-4"><span className="text-[#A3A3A3] w-28 shrink-0">Sort Code</span><span className="text-[#0A0A0A] font-medium font-mono">23-14-70</span></div>
-              <div className="flex gap-4"><span className="text-[#A3A3A3] w-28 shrink-0">Account</span><span className="text-[#0A0A0A] font-medium font-mono">18037629</span></div>
-            </div>
-          </div>
-        </div>
-
-        {/* Not Included */}
-        <div className="mb-16 p-6 bg-black/[0.02] rounded-xl border border-black/[0.06]">
-          <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">Not included</p>
-          <ul className="space-y-1">
-            {["Professional photography (team, clinic, patient before/after)", "Copywriting for treatment descriptions", "Paid advertising setup or management", "Advanced SEO or content marketing", "Ongoing maintenance or support retainer", "Custom integrations beyond standard forms"].map((item) => (
-              <li key={item} className="text-sm text-[#737373]">{item}</li>
-            ))}
-          </ul>
-          <p className="text-xs text-[#A3A3A3] mt-4">These can be discussed separately if required.</p>
-        </div>
-
-        <div className="border-t border-black/[0.08] mb-16" />
-
         {/* Final Recommendation */}
         <section className="mb-16">
           <h2 className="font-sans font-bold text-[#0A0A0A] text-2xl mb-6">Final Recommendation</h2>
@@ -500,27 +454,13 @@ export default function SebastianMDProposal() {
               <li>Authentic team presence</li>
             </ul>
             <p>I believe this creates a website that not only looks beautiful, but also communicates trust, expertise and credibility in a way that supports long-term growth for the business.</p>
-            <p className="text-[#0A0A0A] font-semibold">If this looks right, reply to confirm and I&apos;ll send over the deposit invoice to get started. Any questions, just ask.</p>
+            <p className="text-[#0A0A0A] font-semibold">I&apos;m excited to discuss this further with you on our discovery call. Any questions in the meantime, just ask.</p>
           </div>
         </section>
 
-        {/* Signature Block */}
+        {/* Closing */}
         <div className="mb-16 pt-8 border-t border-black/[0.08]">
-          {!isSigned ? (
-            <>
-              <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] mb-4">Accept This Proposal</p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <input type="text" value={signerName} onChange={(e) => setSignerName(e.target.value)} placeholder="Enter your full name" className="flex-1 px-4 py-3 bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] placeholder:text-[#A3A3A3] focus:outline-none focus:border-black/[0.3] transition-colors" />
-                <button type="button" onClick={() => setShowAgreement(true)} disabled={!signerName.trim()} className="bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-6 py-3 hover:bg-[#2a2a2a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0">Review & Accept</button>
-              </div>
-            </>
-          ) : (
-            <div className="bg-green-50 border border-green-200 rounded-xl p-6">
-              <p className="font-mono text-xs uppercase tracking-[0.15em] text-green-700 mb-2">Proposal Accepted</p>
-              <p className="text-green-800 text-[2rem]" style={{ fontFamily: "cursive" }}>{signerName}</p>
-              <p className="text-xs text-green-600 mt-2">Signed on {signedAt}</p>
-            </div>
-          )}
+          <p className="text-[#525252]">Looking forward to our conversation.</p>
         </div>
 
         {/* Footer */}
@@ -530,34 +470,6 @@ export default function SebastianMDProposal() {
         </div>
       </main>
 
-      {/* Agreement Modal */}
-      {showAgreement && mounted && createPortal(
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-[9999]" onClick={() => setShowAgreement(false)}>
-          <div className="bg-white rounded-2xl max-w-lg w-full shadow-2xl flex flex-col max-h-[calc(100vh-2rem)]" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center justify-between px-6 py-4 border-b border-black/[0.08] shrink-0">
-              <h3 className="font-sans font-bold text-[#0A0A0A] text-lg">Service Agreement</h3>
-              <button onClick={() => setShowAgreement(false)} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-black/[0.06] transition-colors text-[#525252]">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4l8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-              </button>
-            </div>
-            <div className="px-6 py-5 overflow-y-auto flex-1">
-              <div className="space-y-4 text-sm text-[#525252] leading-relaxed">
-                <p><strong className="text-[#0A0A0A]">1. Services:</strong> Sorted agrees to provide the services described: Website Design, Development, SortedUpdates CMS, and Launch.</p>
-                <p><strong className="text-[#0A0A0A]">2. Payment:</strong> Total project cost is £3,500. 50% deposit (£1,750) due on commencement. Balance (£1,750) due before handover.</p>
-                <p><strong className="text-[#0A0A0A]">3. Timeline:</strong> Estimated 2-3 weeks from deposit receipt, subject to timely feedback.</p>
-                <p><strong className="text-[#0A0A0A]">4. IP:</strong> Upon full payment, client owns all rights to final design and content. Sorted retains portfolio rights.</p>
-                <p><strong className="text-[#0A0A0A]">5. Revisions:</strong> Two rounds of revisions included per stage.</p>
-                <p><strong className="text-[#0A0A0A]">6. Cancellation:</strong> Deposit is non-refundable once work commences.</p>
-              </div>
-            </div>
-            <div className="flex gap-3 px-6 py-4 border-t border-black/[0.08] shrink-0">
-              <button onClick={() => setShowAgreement(false)} className="flex-1 px-4 py-3 border border-black/[0.12] rounded-lg text-[#525252] font-medium text-sm hover:bg-black/[0.02] transition-colors">Cancel</button>
-              <button onClick={() => { setIsSigned(true); setShowAgreement(false); setSignedAt(new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })); }} className="flex-1 bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-4 py-3 hover:bg-[#2a2a2a] transition-colors">I Accept — Sign as {signerName}</button>
-            </div>
-          </div>
-        </div>,
-        document.body
-      )}
 
       {/* Lightbox with full height aspect ratio preservation */}
       {lightboxOpen && mounted && createPortal(
