@@ -188,7 +188,7 @@ export default function SavannahQuote() {
             <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] mb-4">Pay via Wise</p>
             <div className="flex flex-col sm:flex-row gap-6 items-start">
               <img
-                src="/qrcode-savannah.png"
+                src="/qrcode-savannah.png?v=2"
                 alt="Wise QR code for payment"
                 className="w-40 h-auto rounded-lg bg-white p-2 shadow-sm"
               />
