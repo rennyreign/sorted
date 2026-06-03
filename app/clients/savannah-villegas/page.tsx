@@ -179,9 +179,40 @@ export default function SavannahQuote() {
           </span>
           <div className="bg-[#0A0A0A] rounded-2xl p-8 sm:p-10 mb-8">
             <p className="font-mono text-xs uppercase tracking-[0.15em] text-white/60 mb-2">Project Cost</p>
-            <p className="font-sans font-extrabold text-white text-5xl tracking-tight mb-3">Mate Rate</p>
-            <p className="text-white/40 text-sm">No charge agreed for this delivery.</p>
+            <p className="font-sans font-extrabold text-white text-5xl tracking-tight mb-3">$350</p>
+            <p className="text-white/40 text-sm">One-time project fee</p>
           </div>
+
+          {/* Wise Payment */}
+          <div className="p-6 bg-[#F5F5F5] rounded-xl border border-black/[0.06] mb-6">
+            <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] mb-4">Pay via Wise</p>
+            <div className="flex flex-col sm:flex-row gap-6 items-start">
+              <img
+                src="/wise-savannah-qr.png"
+                alt="Wise QR code for payment"
+                className="w-40 h-40 rounded-lg bg-white p-2"
+              />
+              <div className="flex-1">
+                <a
+                  href="https://wise.com/pay/me/kayleighd38?amount=350&currency=USD"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-[#0A0A0A] hover:text-[#525252] transition-colors"
+                >
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <rect width="20" height="20" rx="4" fill="#00B9FF"/>
+                    <path d="M5 10h10M10 5v10" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                  Pay $350 via Wise
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="opacity-60">
+                    <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
+                <p className="text-xs text-[#A3A3A3] mt-3">Scan the QR code or click the link. Amount pre-filled.</p>
+              </div>
+            </div>
+          </div>
+
           <div className="p-6 bg-black/[0.02] rounded-xl border border-black/[0.06]">
             <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] mb-3">Ongoing costs</p>
             <div className="space-y-2 text-sm text-[#737373]">
