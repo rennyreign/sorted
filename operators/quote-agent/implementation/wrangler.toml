@@ -1,0 +1,31 @@
+name = "sorted-quote-agent"
+main = "src/index.ts"
+compatibility_date = "2025-05-15"
+compatibility_flags = ["nodejs_compat"]
+
+# Durable Object namespace for quote agents
+[[durable_objects.bindings]]
+name = "QUOTE_AGENT"
+class_name = "QuoteAgent"
+
+# KV for caching GitHub context (optional optimization)
+[[kv_namespaces]]
+binding = "QUOTE_CACHE"
+id = "placeholder"
+
+# Secrets (set via wrangler secret put)
+# GITHUB_TOKEN - classic PAT with repo read access
+# OPENAI_API_KEY - optional, for OpenAI instead of Workers AI
+
+[ai]
+binding = "AI"
+
+# Optional: rate limiting
+[[unsafe.bindings]]
+name = "RATE_LIMITER"
+type = "ratelimit"
+namespace_id = "1001"
+
+[observability]
+enabled = true
+head_sampling_rate = 1.0

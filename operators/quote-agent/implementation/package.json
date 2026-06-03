@@ -1,0 +1,23 @@
+{
+  "name": "sorted-quote-agent",
+  "version": "0.1.0",
+  "description": "Semi-deterministic quoting agent for Sorted client proposals",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "cf-typegen": "wrangler types",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "agents-sdk": "^0.0.42"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250515.0",
+    "typescript": "^5.8.3",
+    "wrangler": "^4.14.4"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
