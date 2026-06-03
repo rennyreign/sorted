@@ -64,6 +64,7 @@ export default function SebastianMDProposal() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    // Password: sebastian2026
     if (password.toLowerCase() === "sebastian2026") {
       setIsAuthenticated(true)
       setError(false)
