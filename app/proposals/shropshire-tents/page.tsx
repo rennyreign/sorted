@@ -287,7 +287,7 @@ export default function ShropshireTentsProposal() {
 
         {/* Footer */}
         <div className="border-t border-black/[0.06] pt-8 flex items-center justify-between">
-          <p className="text-xs text-[#C4C4C4] font-mono">Sorted. — sortmydigital.netlify.app</p>
+          <p className="text-xs text-[#C4C4C4] font-mono">Sorted. — sortmydigital.site</p>
           <button onClick={handleSignOut} className="text-xs text-[#A3A3A3] hover:text-[#525252] transition-colors font-mono">Sign out</button>
         </div>
       </main>
