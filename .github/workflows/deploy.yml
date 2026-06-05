@@ -30,13 +30,17 @@ jobs:
       - name: Build static export
         run: npm run build
 
-      - name: Deploy via rsync
-        uses: burnett01/rsync-deployments@5.2.1
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.8.0
         with:
-          switches: -avzr --delete
-          path: ./out/
-          remote_path: /public_html/
-          remote_host: 82.29.157.61
-          remote_port: 22
-          remote_user: ${{ secrets.FTP_USERNAME }}
-          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          log-public-key: false
+
+      - name: Add host to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H 82.29.157.61 >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      - name: Deploy via rsync
+        run: |
+          rsync -avz --delete -e "ssh -p 22" ./out/ ${{ secrets.FTP_USERNAME }}@82.29.157.61:/public_html/
