@@ -150,16 +150,21 @@ export default function ShropshireTentsProposal() {
 
           <div className={`grid gap-4 ${wideLayout ? 'grid-cols-2' : 'grid-cols-1 sm:grid-cols-2'}`}>
             {mockups.map((mockup, index) => (
-              <div key={index} className="group cursor-pointer" onClick={() => openLightbox(index)}>
-                <div className="relative aspect-[4/3] bg-[#F5F5F5] rounded-xl overflow-hidden border border-black/[0.06] mb-3">
+              <div key={index} className="group">
+                <a href={mockup.src} target="_blank" rel="noopener noreferrer" download className="block relative aspect-[4/3] bg-[#F5F5F5] rounded-xl overflow-hidden border border-black/[0.06] mb-3 cursor-pointer" onClick={(e) => { e.preventDefault(); openLightbox(index); }}>
                   <Image src={mockup.src} alt={mockup.label} fill className="object-cover group-hover:scale-105 transition-transform duration-300" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw" />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.03] transition-colors" />
                   <div className="absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
                     <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="#0A0A0A" strokeWidth="1.5" strokeLinecap="round"/></svg>
                   </div>
+                </a>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-sans font-semibold text-[#0A0A0A] text-sm">{mockup.label}</p>
+                    <p className="text-[#737373] text-xs">{mockup.desc}</p>
+                  </div>
+                  <a href={mockup.src} download className="text-xs text-[#525252] hover:text-[#0A0A0A] font-medium underline">Download</a>
                 </div>
-                <p className="font-sans font-semibold text-[#0A0A0A] text-sm">{mockup.label}</p>
-                <p className="text-[#737373] text-xs">{mockup.desc}</p>
               </div>
             ))}
           </div>
@@ -285,6 +290,12 @@ export default function ShropshireTentsProposal() {
           <p className="text-[#525252]">Looking forward to hearing from you.</p>
         </div>
 
+        {/* Signature */}
+        <div className="mb-16">
+          <p className="font-sans font-bold text-[#0A0A0A] text-lg">Renaldo</p>
+          <p className="text-[#A3A3A3] text-sm">Sorted</p>
+        </div>
+
         {/* Footer */}
         <div className="border-t border-black/[0.06] pt-8 flex items-center justify-between">
           <p className="text-xs text-[#C4C4C4] font-mono">Sorted. — sortmydigital.site</p>
@@ -319,6 +330,7 @@ export default function ShropshireTentsProposal() {
             <div className="text-center mt-4 bg-black/50 px-6 py-3 rounded-lg">
               <p className="text-white font-semibold">{mockups[currentImage].label}</p>
               <p className="text-white/60 text-sm">{mockups[currentImage].desc}</p>
+              <a href={mockups[currentImage].src} download className="inline-block mt-2 text-xs text-white/80 hover:text-white underline">Download image</a>
             </div>
           </div>
         </div>,
