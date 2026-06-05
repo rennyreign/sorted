@@ -30,17 +30,13 @@ jobs:
       - name: Build static export
         run: npm run build
 
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.8.0
+      - name: Deploy to SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          log-public-key: false
-
-      - name: Add host to known hosts
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H 82.29.157.61 >> ~/.ssh/known_hosts 2>/dev/null || true
-
-      - name: Deploy via rsync
-        run: |
-          rsync -avz --delete -e "ssh -p 22" ./out/ ${{ secrets.FTP_USERNAME }}@82.29.157.61:/public_html/
+          username: ${{ secrets.FTP_USERNAME }}
+          server: 82.29.157.61
+          port: 22
+          local_path: ./out/*
+          remote_path: /public_html/
+          sftp_only: true
+          password: ${{ secrets.FTP_PASSWORD }}
