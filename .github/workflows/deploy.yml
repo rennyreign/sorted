@@ -30,15 +30,14 @@ jobs:
       - name: Build static export
         run: npm run build
 
-      - name: Deploy to SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      - name: Deploy via SCP
+        uses: appleboy/scp-action@v0.1.7
         with:
+          host: 82.29.157.61
           username: ${{ secrets.FTP_USERNAME }}
-          server: 82.29.157.61
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          local_path: ./out/*
-          remote_path: /public_html/
-          sftp_only: true
-          password: ${{ secrets.FTP_PASSWORD }}
-          # Speed optimizations - don't delete existing files, only sync changes
-          delete_remote_files: false
+          source: ./out/*
+          target: /public_html/
+          strip_components: 1
+          overwrite: true
