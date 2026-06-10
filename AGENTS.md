@@ -47,7 +47,46 @@ sorted/
 - Modifying `app/` routing structure or layout files
 - Installing new npm packages
 - Modifying deployment config or GitHub Actions workflows
-- Pushing to `main` directly — use feature branches
+- Pushing to `main` directly — use feature branches (see Deployment Discipline below)
+
+---
+
+## Deployment Discipline (Credit Protection)
+
+**Never push directly to `main` on Sorted client sites.**
+
+Every push to `main` triggers a Netlify build that consumes credits. During active development, this burns 20-50 credits per session.
+
+### The Rule
+
+1. **Work in feature branches**: `feat/description`
+2. **Netlify Deploy Previews build automatically** for all branches (free)
+3. **Review on preview URL**, not production
+4. **Merge to `main` only** when work is complete and tested
+5. **`main` deploys are production releases** — make them count
+
+### Workflow for Client Sites
+
+```bash
+# Start work
+git checkout -b feat/stage-1-build
+
+# Iterate freely — commit as often as needed
+git add .
+git commit -m "feat: add hero section"
+git push origin feat/stage-1-build
+```
+
+Netlify creates a Deploy Preview URL automatically. Share this for review.
+
+```bash
+# When ready for production
+git checkout main
+git merge --no-ff feat/stage-1-build
+git push origin main
+```
+
+Full doctrine: `doctrine/cascade-deployment-discipline.md`
 
 ---
 
@@ -215,6 +254,7 @@ Before closing any client delivery:
 - `doctrine/all-content-is-editable.md` — every visible element must be CMS-editable
 - `doctrine/factory-reset.md` — reset standard, script, tagging
 - `doctrine/client-onboarding.md` — Netlify Identity setup, handoff message template
+- `doctrine/cascade-deployment-discipline.md` — branch-based workflow, credit protection
 
 ---
 

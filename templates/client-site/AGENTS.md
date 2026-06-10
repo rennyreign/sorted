@@ -137,13 +137,52 @@ Every build must include:
 
 ---
 
+## Deployment Discipline (Credit Protection)
+
+**Never push directly to `main`.**
+
+Every push to `main` triggers a Netlify build that consumes credits. During active development, this burns 20-50 credits per session.
+
+### The Rule
+
+1. **Work in feature branches**: `feat/description`
+2. **Netlify Deploy Previews build automatically** for all branches (free)
+3. **Review on preview URL**, not production
+4. **Merge to `main` only** when work is complete and tested
+5. **`main` deploys are production releases** — make them count
+
+### Workflow
+
+```bash
+# Start work
+git checkout -b feat/stage-1-build
+
+# Iterate freely — commit as often as needed
+git add .
+git commit -m "feat: add hero section"
+git push origin feat/stage-1-build
+```
+
+Netlify creates a Deploy Preview URL automatically. Share this for review.
+
+```bash
+# When ready for production
+git checkout main
+git merge --no-ff feat/stage-1-build
+git push origin main
+```
+
+Full doctrine: `sorted/doctrine/cascade-deployment-discipline.md`
+
+---
+
 ## What you must not do
 
 - Do not apply the CMS (that is Stage 2 — a separate task)
 - Do not create `lib/content.ts` or `content/` JSON files
 - Do not configure Decap CMS or Netlify Identity
 - Do not install new npm packages without approval
-- Do not push to `main` directly — use a feature branch
+- **Do not push to `main` directly — use a feature branch**
 
 ---
 
