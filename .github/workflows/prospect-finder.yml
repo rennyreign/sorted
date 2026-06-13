@@ -3,7 +3,16 @@ name: Prospect Finder — Nightly Run
 on:
   schedule:
     - cron: '0 2 * * *'   # 2am UTC = 2am–3am UK (BST offset handled separately)
-  workflow_dispatch:       # Manual trigger from GitHub Actions UI
+  workflow_dispatch:       # Manual trigger — from GitHub UI or dashboard
+    inputs:
+      category:
+        description: 'Category to search (e.g. "barber shop"). Leave blank for full run.'
+        required: false
+        default: ''
+      location:
+        description: 'Location override (e.g. "Birmingham, UK"). Leave blank to use config.'
+        required: false
+        default: ''
 
 jobs:
   run:
@@ -35,4 +44,8 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           LOG_LEVEL: INFO
-        run: python operator.py
+        run: |
+          ARGS=""
+          if [ -n "${{ inputs.category }}" ]; then ARGS="$ARGS --query \"${{ inputs.category }}\""; fi
+          if [ -n "${{ inputs.location }}" ]; then ARGS="$ARGS --location \"${{ inputs.location }}\""; fi
+          eval python operator.py $ARGS

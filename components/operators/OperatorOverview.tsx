@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { supabase } from "@/lib/supabase"
 import type { Prospect } from "@/lib/supabase"
+import ProspectFinderRun from "./ProspectFinderRun"
 
 interface OverviewPageProps {
   onViewProspects: () => void
@@ -195,46 +196,80 @@ export default function OperatorOverview({ onViewProspects }: OverviewPageProps)
 
       <div className="border-t border-black/[0.08] mb-16" />
 
-      {/* Run instructions */}
+      {/* Run UI */}
       <div className="mb-16">
         <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">
-          Running the operator
+          Run operators
         </span>
-        <div className="space-y-6">
-          <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-3">Prospect Finder</p>
-          {[
-            { label: "Full run (all 16 queries)", cmd: "make run" },
-            { label: "Single category test", cmd: "make query CATEGORY=barber" },
-            { label: "Setup / first time", cmd: "make setup" },
-          ].map((item) => (
-            <div key={item.label} className="flex gap-8">
-              <span className="font-mono text-xs text-[#525252] tabular-nums shrink-0 w-48">{item.label}</span>
-              <code className="font-mono text-sm text-[#0A0A0A] bg-black/[0.04] px-3 py-1 rounded">{item.cmd}</code>
-            </div>
-          ))}
+        <div className="space-y-4">
+          <ProspectFinderRun />
+          <WebsiteAnalyserRun />
         </div>
-        <p className="text-[#737373] text-sm mt-6 mb-10 leading-relaxed">
-          Run from <code className="font-mono text-xs bg-black/[0.04] px-1.5 py-0.5 rounded">operators/prospect-finder/implementation/</code>. Requires <code className="font-mono text-xs bg-black/[0.04] px-1.5 py-0.5 rounded">.env</code> with APIFY_API_TOKEN and SUPABASE_SERVICE_KEY.
-        </p>
-
-        <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-3">Website Analyser</p>
-        <div className="space-y-6">
-          {[
-            { label: "Analyse all unscored", cmd: "make run" },
-            { label: "Analyse one URL", cmd: "make analyse URL=https://..." },
-            { label: "Setup / first time", cmd: "make setup" },
-          ].map((item) => (
-            <div key={item.label} className="flex gap-8">
-              <span className="font-mono text-xs text-[#525252] tabular-nums shrink-0 w-48">{item.label}</span>
-              <code className="font-mono text-sm text-[#0A0A0A] bg-black/[0.04] px-3 py-1 rounded">{item.cmd}</code>
-            </div>
-          ))}
-        </div>
-        <p className="text-[#737373] text-sm mt-6 leading-relaxed">
-          Run from <code className="font-mono text-xs bg-black/[0.04] px-1.5 py-0.5 rounded">operators/website-analyser/implementation/</code>. Requires OPENAI_API_KEY, SUPABASE credentials, and optionally SCREENSHOT_API_KEY.
-        </p>
       </div>
 
     </main>
+  )
+}
+
+function WebsiteAnalyserRun() {
+  const [state, setState] = useState<"idle" | "triggering" | "triggered" | "error">("idle")
+  const [error, setError] = useState("")
+
+  async function handleRun() {
+    setState("triggering")
+    setError("")
+    try {
+      const res = await fetch("/api/operators/trigger", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ workflow: "website-analyser.yml" }),
+      })
+      if (!res.ok) {
+        const d = await res.json()
+        throw new Error(d.error || "Failed")
+      }
+      setState("triggered")
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unknown error")
+      setState("error")
+    }
+  }
+
+  return (
+    <div className="bg-white border border-black/[0.08] rounded-2xl overflow-hidden">
+      <div className="px-6 py-5 border-b border-black/[0.06]">
+        <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-0.5">Operator</p>
+        <p className="font-sans font-bold text-[#0A0A0A] text-sm">Website Analyser</p>
+      </div>
+      <div className="px-6 py-5 space-y-4">
+        <div className="bg-black/[0.02] rounded-xl px-4 py-3.5">
+          <p className="text-sm text-[#525252] leading-relaxed">
+            Scores all <span className="font-semibold text-[#0A0A0A]">unanalysed prospects</span> in the database. Screenshots each site, sends to Claude Haiku, writes back scores and outreach angles. ~$0.004 per prospect.
+          </p>
+        </div>
+
+        {state === "triggered" && (
+          <div className="flex items-center gap-2 text-sm text-[#059669]">
+            <span>✓</span>
+            <span>Running — check the Prospects tab in a few minutes.</span>
+            <a href="https://github.com/rennyreign/sorted/actions/workflows/website-analyser.yml" target="_blank" rel="noopener noreferrer" className="text-xs underline underline-offset-2 ml-1">View run →</a>
+          </div>
+        )}
+        {state === "error" && (
+          <p className="text-sm text-red-600 bg-red-50 rounded-lg px-4 py-3">{error || "Failed to trigger."}</p>
+        )}
+
+        <button
+          onClick={handleRun}
+          disabled={state === "triggering" || state === "triggered"}
+          className="w-full bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm py-3 rounded-xl hover:bg-[#333] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        >
+          {state === "triggering" ? (
+            <><span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />Triggering…</>
+          ) : state === "triggered" ? "Running" : "Score unanalysed prospects"}
+        </button>
+        <p className="text-[10px] text-[#C4C4C4] font-mono text-center">Runs via GitHub Actions · ~30 min for 100 prospects</p>
+      </div>
+    </div>
   )
 }

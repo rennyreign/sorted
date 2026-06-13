@@ -5,8 +5,9 @@ import { isAuthenticated, logout } from "@/lib/operatorAuth"
 import OperatorLogin from "./OperatorLogin"
 import OperatorOverview from "./OperatorOverview"
 import ProspectFeed from "./ProspectFeed"
+import OutreachPanel from "./OutreachPanel"
 
-type View = "login" | "overview" | "feed"
+type View = "login" | "overview" | "feed" | "outreach"
 
 export default function OperatorShell() {
   const [view, setView] = useState<View>("login")
@@ -45,6 +46,9 @@ export default function OperatorShell() {
           <NavTab active={view === "feed"} onClick={() => setView("feed")}>
             Prospects
           </NavTab>
+          <NavTab active={view === "outreach"} onClick={() => setView("outreach")}>
+            Outreach
+          </NavTab>
           <div className="w-px h-4 bg-black/[0.08] mx-2" />
           <button
             onClick={() => { logout(); setView("login") }}
@@ -57,6 +61,7 @@ export default function OperatorShell() {
 
       {view === "overview" && <OperatorOverview onViewProspects={() => setView("feed")} />}
       {view === "feed" && <ProspectFeed />}
+      {view === "outreach" && <OutreachPanel />}
     </div>
   )
 }
