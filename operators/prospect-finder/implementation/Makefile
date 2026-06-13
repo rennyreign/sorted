@@ -29,27 +29,27 @@ exit(1) if missing else print('All credentials present.')"
 # Dry run — search and filter, no database writes
 # ---------------------------------------------------------------------------
 dry-run:
-	./venv/bin/python operator.py --dry-run
+	./venv/bin/python main.py --dry-run
 
 # ---------------------------------------------------------------------------
 # Run — full pipeline with database writes
 # ---------------------------------------------------------------------------
 run:
-	./venv/bin/python operator.py
+	./venv/bin/python main.py
 
 # ---------------------------------------------------------------------------
 # Single query — run one category (partial name match)
 # Usage: make query CATEGORY="barber"
 # ---------------------------------------------------------------------------
 query:
-	./venv/bin/python operator.py --query "$(CATEGORY)"
+	./venv/bin/python main.py --query "$(CATEGORY)"
 
 # ---------------------------------------------------------------------------
 # Search — run one category in a specific location (overrides config.py)
 # Usage: make search CATEGORY="restaurant" LOCATION="Warwickshire, UK"
 # ---------------------------------------------------------------------------
 search:
-	./venv/bin/python operator.py --query "$(CATEGORY)" --location "$(LOCATION)"
+	./venv/bin/python main.py --query "$(CATEGORY)" --location "$(LOCATION)"
 
 # ---------------------------------------------------------------------------
 # Clean

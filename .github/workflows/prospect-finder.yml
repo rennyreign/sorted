@@ -48,4 +48,4 @@ jobs:
           ARGS=""
           if [ -n "${{ inputs.category }}" ]; then ARGS="$ARGS --query \"${{ inputs.category }}\""; fi
           if [ -n "${{ inputs.location }}" ]; then ARGS="$ARGS --location \"${{ inputs.location }}\""; fi
-          eval python operator.py $ARGS
+          eval python main.py $ARGS

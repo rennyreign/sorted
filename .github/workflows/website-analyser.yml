@@ -38,4 +38,4 @@ jobs:
           SCREENSHOT_API_KEY: ${{ secrets.SCREENSHOT_API_KEY }}
           ANALYSER_MODEL: claude-haiku-4-5-20251001
           LOG_LEVEL: INFO
-        run: python operator.py --limit 100
+        run: python main.py --limit 100

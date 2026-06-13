@@ -30,13 +30,13 @@ exit(1) if missing else print('Required credentials present.')"
 # Dry run — screenshot and analyse, no database writes
 # ---------------------------------------------------------------------------
 dry-run:
-	./venv/bin/python operator.py --dry-run --limit 5
+	./venv/bin/python main.py --dry-run --limit 5
 
 # ---------------------------------------------------------------------------
 # Full run — analyse all unanalysed prospects
 # ---------------------------------------------------------------------------
 run:
-	./venv/bin/python operator.py
+	./venv/bin/python main.py
 
 # ---------------------------------------------------------------------------
 # Analyse a single URL (ad-hoc, prints JSON result, no DB write)
@@ -44,7 +44,7 @@ run:
 #        make analyse URL=https://example.com NAME="Joe's Barbers" CATEGORY="barber shop"
 # ---------------------------------------------------------------------------
 analyse:
-	./venv/bin/python operator.py \
+	./venv/bin/python main.py \
 		--url "$(URL)" \
 		$(if $(NAME),--name "$(NAME)",) \
 		$(if $(CATEGORY),--category "$(CATEGORY)",) \
