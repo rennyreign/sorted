@@ -4,6 +4,7 @@
     "lib": ["ES2022"],
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "jsx": "react-jsx",
     "types": ["@cloudflare/workers-types"],
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
@@ -12,5 +13,6 @@
     "skipLibCheck": true,
     "isolatedModules": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["src/frontend.tsx"]
 }

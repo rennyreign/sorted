@@ -90,7 +90,7 @@ Codex does not need further instruction — `AGENTS.md` contains the full skill 
 
 Once the client approves the build, apply SortedUpdates:
 
-**Workflow:** `.windsurf/workflows/add-decap-cms.md`
+**Workflow:** `.devin/workflows/add-decap-cms.md`
 
 ---
 

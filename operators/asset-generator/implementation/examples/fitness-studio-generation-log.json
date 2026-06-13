@@ -1,0 +1,54 @@
+[
+  {
+    "asset_id": "hero_founder_image",
+    "mode": "recreate",
+    "status": "ok",
+    "duration_ms": 18432,
+    "model": "gpt-image-1",
+    "prompt": "Professional male fitness coach, late 30s, confident pose seated on weight bench in premium dark gym; dramatic side lighting; wearing branded athletic wear in black and red; serious, accomplished expression; shallow depth of field background showing barbells and equipment. Photorealistic. No text overlays. No watermarks. Clean professional composition. Suitable for direct use in a website hero section. Visual style: premium fitness, dark, editorial.",
+    "timestamp": "2026-06-12T10:30:01.123Z"
+  },
+  {
+    "asset_id": "about_founder_headshot",
+    "mode": "recreate",
+    "status": "ok",
+    "duration_ms": 16201,
+    "model": "gpt-image-1",
+    "prompt": "Professional headshot of same male fitness coach; studio lighting; neutral dark background; slight smile; wearing branded polo shirt; square crop suitable for editorial use. Photorealistic headshot. Neutral or softly blurred background. Square crop. No text. Professional feel. Visual style: premium fitness, dark, editorial.",
+    "timestamp": "2026-06-12T10:30:18.001Z"
+  },
+  {
+    "asset_id": "testimonial_avatar_1",
+    "mode": "recreate",
+    "status": "ok",
+    "duration_ms": 14890,
+    "model": "gpt-image-1",
+    "prompt": "Female client headshot; mid 30s; natural background; warm lighting; confident smile; casual athletic wear. Photorealistic headshot. Neutral or softly blurred background. Square crop. No text. Professional feel. Visual style: premium fitness, dark, editorial.",
+    "timestamp": "2026-06-12T10:30:33.002Z"
+  },
+  {
+    "asset_id": "testimonial_avatar_2",
+    "mode": "recreate",
+    "status": "ok",
+    "duration_ms": 15211,
+    "model": "gpt-image-1",
+    "prompt": "Male client headshot; early 40s; neutral background; natural lighting; broad smile; casual wear. Photorealistic headshot. Neutral or softly blurred background. Square crop. No text. Professional feel.",
+    "timestamp": "2026-06-12T10:30:48.001Z"
+  },
+  {
+    "asset_id": "testimonial_avatar_3",
+    "mode": "recreate",
+    "status": "ok",
+    "duration_ms": 14988,
+    "model": "gpt-image-1",
+    "prompt": "Female client headshot; late 20s; warm neutral background; confident expression; athleisure wear. Photorealistic headshot. Neutral or softly blurred background. Square crop. No text. Professional feel.",
+    "timestamp": "2026-06-12T10:31:03.001Z"
+  },
+  {
+    "asset_id": "logo",
+    "mode": "reuse",
+    "status": "skipped",
+    "duration_ms": 1,
+    "timestamp": "2026-06-12T10:31:18.001Z"
+  }
+]

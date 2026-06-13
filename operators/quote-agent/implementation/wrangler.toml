@@ -8,10 +8,15 @@ compatibility_flags = ["nodejs_compat"]
 name = "QUOTE_AGENT"
 class_name = "QuoteAgent"
 
+# SQLite migration — required for AIChatAgent (message persistence + stream buffering)
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["QuoteAgent"]
+
 # KV for caching GitHub context (optional optimization)
 [[kv_namespaces]]
 binding = "QUOTE_CACHE"
-id = "placeholder"
+id = "f0fbba37afc64f60b590972e213cf64f"
 
 # Secrets (set via wrangler secret put)
 # GITHUB_TOKEN - classic PAT with repo read access
@@ -20,11 +25,6 @@ id = "placeholder"
 [ai]
 binding = "AI"
 
-# Optional: rate limiting
-[[unsafe.bindings]]
-name = "RATE_LIMITER"
-type = "ratelimit"
-namespace_id = "1001"
 
 [observability]
 enabled = true

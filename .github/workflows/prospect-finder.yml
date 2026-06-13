@@ -1,0 +1,38 @@
+name: Prospect Finder — Nightly Run
+
+on:
+  schedule:
+    - cron: '0 2 * * *'   # 2am UTC = 2am–3am UK (BST offset handled separately)
+  workflow_dispatch:       # Manual trigger from GitHub Actions UI
+
+jobs:
+  run:
+    name: Find new prospects
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    defaults:
+      run:
+        working-directory: operators/prospect-finder/implementation
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: operators/prospect-finder/implementation/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Prospect Finder
+        env:
+          APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          LOG_LEVEL: INFO
+        run: python operator.py

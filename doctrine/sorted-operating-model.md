@@ -78,7 +78,7 @@ SortedUpdates is applied **after Nod 2** — after the client has approved the b
 The sequence:
 1. Build the site (static, no CMS)
 2. Present to client → Nod 2
-3. Apply SortedUpdates (workflow: `.windsurf/workflows/add-decap-cms.md`)
+3. Apply SortedUpdates (workflow: `.devin/workflows/add-decap-cms.md`)
 4. Present quote → Nod 3
 5. Payment → Nod 4 → hand off with CMS active
 
@@ -148,6 +148,46 @@ Sorted applies micro-scoping to website manufacturing:
 Each operator produces one deterministic output. Chained together, they assemble a complete, tested, CMS-enabled website.
 
 As each operator matures, the model requirement shrinks. A well-scoped content population task does not need a frontier model. It needs a tight prompt and a cheap model. This is how the manufacturing cost falls while the output quality holds.
+
+---
+
+## Dual Execution Modes
+
+The manufacturing chain has two runtime modes. The doctrine, state shape, and output quality are identical in both. Only the runtime differs.
+
+### Mode 1 — Orchestration Agent (default)
+
+An orchestration agent runs the full chain in a single session. It loads the doctrine, executes each step using its native capabilities, and calls external APIs (vision models, image generation) only where needed. The state materialises as files on disk between steps.
+
+```
+mockup.jpg → [vision API] → deconstruction.json
+           → [image gen API] → assets/ + manifest.json
+           → [code, written directly] → site repo → npm run build
+```
+
+**When to use:** Any single-client build. Default mode. Fast, low overhead, human in the loop.
+
+### Mode 2 — Operator Pipeline (scale)
+
+Each chain step runs as a discrete stateless CLI process. Steps consume a defined input artifact and produce a defined output artifact. Orchestrated by a job queue.
+
+```
+job: mockup.jpg → mockup-deconstructor CLI → deconstruction.json
+job: deconstruction.json → asset-generator CLI → manifest.json + assets/
+job: deconstruction.json + manifest.json + assets/ → frontend-builder CLI → site repo
+```
+
+**When to use:** Multiple concurrent builds. Automated pipelines. No agent in the loop.
+
+### Skills and Operators — the same doctrine, two runtimes
+
+**Skills** (`operators/skills/`) are the canonical specification for each chain step, expressed as markdown doctrine loaded by the orchestration agent. The agent reads the skill and executes it directly.
+
+**Operators** (`operators/<name>/implementation/`) are the same specification compiled into a stateless CLI process. The operator reads from disk, executes the step, writes to disk.
+
+The skill is always written first. It is the specification. The operator implements the skill. The doctrine — `operator-chain.md`, the design standards, the quality gates — is the same in both.
+
+Full state contract and artifact schemas: `doctrine/operator-chain.md`
 
 ---
 

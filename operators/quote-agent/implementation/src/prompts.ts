@@ -205,7 +205,16 @@ If the user has follow-up questions, answer them helpfully. Otherwise, the conve
 `;
 }
 
-// Helper to build the full prompt for AI calls
+// Build just the system prompt string for use with AI SDK streamText
+export function buildSystemPrompt(
+  stage: QuoteStage,
+  repoContext: RepoContext,
+  intake: Partial<IntakeData>
+): string {
+  return getSystemPrompt(stage, { repoContext, intake });
+}
+
+// Legacy helper (kept for reference, not used by index.ts)
 export function buildChatPrompt(
   stage: QuoteStage,
   repoContext: RepoContext,

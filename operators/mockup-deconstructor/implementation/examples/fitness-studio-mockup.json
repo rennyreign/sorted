@@ -1,0 +1,474 @@
+{
+  "page_type": "homepage",
+  "sections": [
+    {
+      "id": "nav_1",
+      "type": "nav",
+      "position": 1,
+      "label": "Navigation",
+      "layout": "full-width horizontal",
+      "theme": "dark",
+      "background": "#0a0a0a",
+      "notes": "Sticky navigation with logo left, links right, CTA button far right"
+    },
+    {
+      "id": "hero_1",
+      "type": "hero",
+      "position": 2,
+      "label": "Hero",
+      "layout": "two-column split — text left, image right",
+      "theme": "dark",
+      "background": "#0a0a0a",
+      "notes": "Full viewport height; left column has large headline + subheading + dual CTAs; right column has founder image with premium gym background"
+    },
+    {
+      "id": "trust_bar_1",
+      "type": "trust_bar",
+      "position": 3,
+      "label": "Social Proof Bar",
+      "layout": "full-width horizontal with 4 stats",
+      "theme": "dark",
+      "background": "#111111",
+      "notes": "Four stat blocks with large numbers and short labels"
+    },
+    {
+      "id": "services_1",
+      "type": "services",
+      "position": 4,
+      "label": "Services",
+      "layout": "three-column card grid",
+      "theme": "dark",
+      "background": "#0a0a0a",
+      "notes": "Each card has an icon, service name, short description, and a link"
+    },
+    {
+      "id": "process_1",
+      "type": "process",
+      "position": 5,
+      "label": "How It Works",
+      "layout": "horizontal numbered steps — 3 steps",
+      "theme": "dark",
+      "background": "#111111",
+      "notes": "Step number in accent color; step title bold; short description beneath"
+    },
+    {
+      "id": "about_1",
+      "type": "about",
+      "position": 6,
+      "label": "About / Credentials",
+      "layout": "two-column — image left, text right",
+      "theme": "dark",
+      "background": "#0a0a0a",
+      "notes": "Founder headshot on left; credentials, certifications, experience summary on right with accent rule"
+    },
+    {
+      "id": "testimonials_1",
+      "type": "testimonials",
+      "position": 7,
+      "label": "Testimonials",
+      "layout": "three-column card grid",
+      "theme": "dark",
+      "background": "#111111",
+      "notes": "Each card: avatar top, quote, name, transformation stat"
+    },
+    {
+      "id": "cta_1",
+      "type": "cta",
+      "position": 8,
+      "label": "Final CTA",
+      "layout": "full-width centered — headline + subheading + primary button",
+      "theme": "accent",
+      "background": "#e63946",
+      "notes": "High-contrast accent block; primary button inverts to white"
+    },
+    {
+      "id": "footer_1",
+      "type": "footer",
+      "position": 9,
+      "label": "Footer",
+      "layout": "two-row — links row, legal row",
+      "theme": "dark",
+      "background": "#0a0a0a",
+      "notes": "Logo left, nav links center, social icons right. Second row: privacy + terms links"
+    }
+  ],
+  "assets": [
+    {
+      "id": "hero_founder_image",
+      "type": "person",
+      "description": "Professional male fitness coach, late 30s, confident pose seated on weight bench in premium dark gym; dramatic side lighting; wearing branded athletic wear in black and red; serious, accomplished expression; shallow depth of field background showing barbells and equipment",
+      "priority": "critical",
+      "source": "generate",
+      "section": "hero_1",
+      "slot": "hero.primary_image",
+      "aspect_ratio": "4:5",
+      "bbox": { "x": 780, "y": 80, "w": 580, "h": 720 },
+      "variants": ["desktop", "mobile"],
+      "mode_hint": "recreate",
+      "notes": "This is the primary brand image — must feel premium and trustworthy"
+    },
+    {
+      "id": "about_founder_headshot",
+      "type": "person",
+      "description": "Professional headshot of same male fitness coach; studio lighting; neutral dark background; slight smile; wearing branded polo shirt; square crop suitable for editorial use",
+      "priority": "high",
+      "source": "generate",
+      "section": "about_1",
+      "slot": "about.image",
+      "aspect_ratio": "1:1",
+      "bbox": { "x": 80, "y": 2200, "w": 480, "h": 480 },
+      "variants": ["desktop"],
+      "mode_hint": "recreate"
+    },
+    {
+      "id": "testimonial_avatar_1",
+      "type": "avatar",
+      "description": "Female client headshot; mid 30s; natural background; warm lighting; confident smile; casual athletic wear",
+      "priority": "medium",
+      "source": "generate",
+      "section": "testimonials_1",
+      "slot": "testimonial_cards.avatar_1",
+      "aspect_ratio": "1:1",
+      "bbox": { "x": 80, "y": 2950, "w": 72, "h": 72 },
+      "mode_hint": "recreate"
+    },
+    {
+      "id": "testimonial_avatar_2",
+      "type": "avatar",
+      "description": "Male client headshot; early 40s; neutral background; natural lighting; broad smile; casual wear",
+      "priority": "medium",
+      "source": "generate",
+      "section": "testimonials_1",
+      "slot": "testimonial_cards.avatar_2",
+      "aspect_ratio": "1:1",
+      "bbox": { "x": 480, "y": 2950, "w": 72, "h": 72 },
+      "mode_hint": "recreate"
+    },
+    {
+      "id": "testimonial_avatar_3",
+      "type": "avatar",
+      "description": "Female client headshot; late 20s; warm neutral background; confident expression; athleisure wear",
+      "priority": "medium",
+      "source": "generate",
+      "section": "testimonials_1",
+      "slot": "testimonial_cards.avatar_3",
+      "aspect_ratio": "1:1",
+      "bbox": { "x": 880, "y": 2950, "w": 72, "h": 72 },
+      "mode_hint": "recreate"
+    },
+    {
+      "id": "logo",
+      "type": "logo",
+      "description": "Business logo — wordmark style in white on transparent background",
+      "priority": "critical",
+      "source": "reuse",
+      "section": "nav_1",
+      "slot": "nav.logo",
+      "aspect_ratio": "3:1",
+      "notes": "Supply existing logo file — do not generate"
+    }
+  ],
+  "components": [
+    {
+      "component": "hero_split_v1",
+      "section": "hero_1",
+      "description": "Two-column dark hero with large editorial type left and full-bleed image right. Primary + secondary CTA buttons.",
+      "variant": "dark-premium"
+    },
+    {
+      "component": "stat_bar_v1",
+      "section": "trust_bar_1",
+      "description": "Horizontal row of 4 stat blocks with large number + short label. Thin dividers between.",
+      "variant": "minimal-dark"
+    },
+    {
+      "component": "service_cards_v2",
+      "section": "services_1",
+      "description": "Three-column card grid with icon, title, body, link. Cards have subtle border and hover lift.",
+      "variant": "dark-bordered"
+    },
+    {
+      "component": "process_steps_v1",
+      "section": "process_1",
+      "description": "Horizontal three-step row with numbered steps in accent color. Connected by thin line.",
+      "variant": "accent-numbered"
+    },
+    {
+      "component": "about_split_v1",
+      "section": "about_1",
+      "description": "Two-column with image left and credential list right. Accent vertical rule on left edge of text column.",
+      "variant": "credentials-focus"
+    },
+    {
+      "component": "testimonial_cards_v2",
+      "section": "testimonials_1",
+      "description": "Three card grid. Each card: circular avatar, blockquote text, name + transformation stat in accent.",
+      "variant": "dark-avatar-top"
+    },
+    {
+      "component": "cta_band_v1",
+      "section": "cta_1",
+      "description": "Full-width accent color band. Centred headline + body + single large CTA button (white on accent).",
+      "variant": "accent-fill"
+    }
+  ],
+  "copy": [
+    {
+      "section": "nav_1",
+      "type": "nav_item",
+      "text": "Services"
+    },
+    {
+      "section": "nav_1",
+      "type": "nav_item",
+      "text": "About"
+    },
+    {
+      "section": "nav_1",
+      "type": "nav_item",
+      "text": "Results"
+    },
+    {
+      "section": "nav_1",
+      "type": "nav_item",
+      "text": "Contact"
+    },
+    {
+      "section": "nav_1",
+      "type": "cta",
+      "text": "Book a free intro"
+    },
+    {
+      "section": "hero_1",
+      "type": "headline",
+      "text": "Fewer People. Faster Results."
+    },
+    {
+      "section": "hero_1",
+      "type": "subheadline",
+      "text": "Personalised coaching for those who want direct access and real accountability."
+    },
+    {
+      "section": "hero_1",
+      "type": "cta",
+      "text": "Book a free intro"
+    },
+    {
+      "section": "hero_1",
+      "type": "cta",
+      "text": "See how it works"
+    },
+    {
+      "section": "trust_bar_1",
+      "type": "stat",
+      "text": "180+"
+    },
+    {
+      "section": "trust_bar_1",
+      "type": "label",
+      "text": "Clients transformed"
+    },
+    {
+      "section": "trust_bar_1",
+      "type": "stat",
+      "text": "8 years"
+    },
+    {
+      "section": "trust_bar_1",
+      "type": "label",
+      "text": "Coaching experience"
+    },
+    {
+      "section": "trust_bar_1",
+      "type": "stat",
+      "text": "4.9★"
+    },
+    {
+      "section": "trust_bar_1",
+      "type": "label",
+      "text": "Average client rating"
+    },
+    {
+      "section": "trust_bar_1",
+      "type": "stat",
+      "text": "96%"
+    },
+    {
+      "section": "trust_bar_1",
+      "type": "label",
+      "text": "Goal achievement rate"
+    },
+    {
+      "section": "services_1",
+      "type": "headline",
+      "text": "Training built around you"
+    },
+    {
+      "section": "services_1",
+      "type": "label",
+      "text": "1-to-1 Personal Training"
+    },
+    {
+      "section": "services_1",
+      "type": "body",
+      "text": "Weekly sessions, a personalised plan, and a coach who's fully in your corner."
+    },
+    {
+      "section": "services_1",
+      "type": "label",
+      "text": "Online Coaching"
+    },
+    {
+      "section": "services_1",
+      "type": "body",
+      "text": "Full programming and check-ins wherever you train. No gym required."
+    },
+    {
+      "section": "services_1",
+      "type": "label",
+      "text": "Nutrition Support"
+    },
+    {
+      "section": "services_1",
+      "type": "body",
+      "text": "Practical eating plans that fit your life — not a crash diet."
+    },
+    {
+      "section": "process_1",
+      "type": "headline",
+      "text": "How it works"
+    },
+    {
+      "section": "process_1",
+      "type": "label",
+      "text": "1. Free intro call"
+    },
+    {
+      "section": "process_1",
+      "type": "body",
+      "text": "We talk about your goals, your history, and whether we're the right fit."
+    },
+    {
+      "section": "process_1",
+      "type": "label",
+      "text": "2. Your plan"
+    },
+    {
+      "section": "process_1",
+      "type": "body",
+      "text": "I build a training and nutrition plan around your schedule and goals."
+    },
+    {
+      "section": "process_1",
+      "type": "label",
+      "text": "3. Get results"
+    },
+    {
+      "section": "process_1",
+      "type": "body",
+      "text": "Weekly check-ins, regular plan updates, real progress — no guesswork."
+    },
+    {
+      "section": "about_1",
+      "type": "headline",
+      "text": "Coaching built on results, not promises"
+    },
+    {
+      "section": "about_1",
+      "type": "body",
+      "text": "I've been in the industry for 8 years. I've worked with everyone from beginners to competitive athletes. I take on a small number of clients so I can give each one my full attention."
+    },
+    {
+      "section": "testimonials_1",
+      "type": "headline",
+      "text": "Real people. Real results."
+    },
+    {
+      "section": "testimonials_1",
+      "type": "testimonial_quote",
+      "text": "Lost 14kg in 4 months and didn't have to give up a social life. Best investment I've made in myself."
+    },
+    {
+      "section": "testimonials_1",
+      "type": "testimonial_attribution",
+      "text": "Sarah M. — lost 14kg"
+    },
+    {
+      "section": "testimonials_1",
+      "type": "testimonial_quote",
+      "text": "Finally understood what I was doing wrong in the gym. Six months later I'm stronger than I've ever been."
+    },
+    {
+      "section": "testimonials_1",
+      "type": "testimonial_attribution",
+      "text": "James K. — 18kg muscle gain"
+    },
+    {
+      "section": "testimonials_1",
+      "type": "testimonial_quote",
+      "text": "Online coaching was the only thing that fit around my schedule. Genuinely life-changing."
+    },
+    {
+      "section": "testimonials_1",
+      "type": "testimonial_attribution",
+      "text": "Laura T. — online client"
+    },
+    {
+      "section": "cta_1",
+      "type": "headline",
+      "text": "Ready to stop guessing?"
+    },
+    {
+      "section": "cta_1",
+      "type": "subheadline",
+      "text": "Book your free 30-minute intro call. No pressure, no commitment."
+    },
+    {
+      "section": "cta_1",
+      "type": "cta",
+      "text": "Book your free intro"
+    },
+    {
+      "section": "footer_1",
+      "type": "footer_text",
+      "text": "Privacy Policy"
+    },
+    {
+      "section": "footer_1",
+      "type": "footer_text",
+      "text": "Terms & Conditions"
+    },
+    {
+      "section": "footer_1",
+      "type": "footer_text",
+      "text": "© 2026 Elite Personal Training. All rights reserved."
+    }
+  ],
+  "build_notes": {
+    "layout": "full-bleed sections with centered max-width content container (max-w-7xl)",
+    "style": "premium fitness — dark, editorial, high contrast",
+    "theme": "dark",
+    "accent_color": "#e63946",
+    "primary_font": "Inter",
+    "secondary_font": "Inter",
+    "responsive_priority": true,
+    "animation": "standard",
+    "grid": "CSS Grid with 12-column base; flex for nav and stat bar",
+    "notes": [
+      "Background alternates between #0a0a0a (main sections) and #111111 (inset sections)",
+      "Accent color #e63946 used for CTAs, step numbers, stat callouts, and the final CTA band",
+      "All section padding: py-24 on desktop, py-16 on mobile",
+      "Cards use 1px border at rgba(255,255,255,0.08) with subtle hover lift (translateY -2px)",
+      "Hero image has slight gradient overlay on left edge to blend into text column",
+      "Typography: hero headline ~80px desktop / 48px mobile, section headlines 40px / 28px mobile",
+      "CTA buttons: primary = accent fill, secondary = white bordered ghost",
+      "Mobile: sections stack to single column, nav collapses to hamburger"
+    ]
+  },
+  "meta": {
+    "generated_at": "2026-06-12T10:00:00.000Z",
+    "source_image": "fitness-studio-mockup.jpg",
+    "model_used": "openai/gpt-4.1",
+    "operator_version": "0.1.0"
+  }
+}

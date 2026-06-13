@@ -1,0 +1,115 @@
+{
+  "mockup": "fitness-studio-mockup.jpg",
+  "deconstruction": "fitness-studio-mockup.json",
+  "generated_at": "2026-06-12T10:30:00.000Z",
+  "operator_version": "0.1.0",
+  "assets": [
+    {
+      "id": "hero_founder_image",
+      "mode": "recreate",
+      "status": "ok",
+      "files": {
+        "original": "assets/hero_founder_image/original.webp",
+        "lg": "assets/hero_founder_image/lg.webp",
+        "md": "assets/hero_founder_image/md.webp",
+        "sm": "assets/hero_founder_image/sm.webp",
+        "xs": "assets/hero_founder_image/xs.webp"
+      },
+      "meta": {
+        "format": "webp",
+        "width": 1024,
+        "height": 1280,
+        "source_model": "gpt-image-1",
+        "prompt_used": "Professional male fitness coach, late 30s, confident pose seated on weight bench in premium dark gym; dramatic side lighting; wearing branded athletic wear in black and red; serious, accomplished expression; shallow depth of field background showing barbells and equipment. Photorealistic. No text overlays. No watermarks. Clean professional composition. Suitable for direct use in a website hero section. Visual style: premium fitness, dark, editorial.",
+        "aspect_ratio": "4:5"
+      }
+    },
+    {
+      "id": "about_founder_headshot",
+      "mode": "recreate",
+      "status": "ok",
+      "files": {
+        "original": "assets/about_founder_headshot/original.webp",
+        "lg": "assets/about_founder_headshot/lg.webp",
+        "md": "assets/about_founder_headshot/md.webp",
+        "sm": "assets/about_founder_headshot/sm.webp",
+        "xs": "assets/about_founder_headshot/xs.webp"
+      },
+      "meta": {
+        "format": "webp",
+        "width": 1024,
+        "height": 1024,
+        "source_model": "gpt-image-1",
+        "prompt_used": "Professional headshot of same male fitness coach; studio lighting; neutral dark background; slight smile; wearing branded polo shirt; square crop suitable for editorial use. Photorealistic headshot. Neutral or softly blurred background. Square crop. No text. Professional feel. Visual style: premium fitness, dark, editorial.",
+        "aspect_ratio": "1:1"
+      }
+    },
+    {
+      "id": "testimonial_avatar_1",
+      "mode": "recreate",
+      "status": "ok",
+      "files": {
+        "original": "assets/testimonial_avatar_1/original.webp",
+        "md": "assets/testimonial_avatar_1/md.webp",
+        "sm": "assets/testimonial_avatar_1/sm.webp",
+        "xs": "assets/testimonial_avatar_1/xs.webp"
+      },
+      "meta": {
+        "format": "webp",
+        "width": 1024,
+        "height": 1024,
+        "source_model": "gpt-image-1",
+        "prompt_used": "Female client headshot; mid 30s; natural background; warm lighting; confident smile; casual athletic wear. Photorealistic headshot. Neutral or softly blurred background. Square crop. No text. Professional feel. Visual style: premium fitness, dark, editorial.",
+        "aspect_ratio": "1:1"
+      }
+    },
+    {
+      "id": "testimonial_avatar_2",
+      "mode": "recreate",
+      "status": "ok",
+      "files": {
+        "original": "assets/testimonial_avatar_2/original.webp",
+        "md": "assets/testimonial_avatar_2/md.webp",
+        "sm": "assets/testimonial_avatar_2/sm.webp",
+        "xs": "assets/testimonial_avatar_2/xs.webp"
+      },
+      "meta": {
+        "format": "webp",
+        "width": 1024,
+        "height": 1024,
+        "source_model": "gpt-image-1",
+        "prompt_used": "Male client headshot; early 40s; neutral background; natural lighting; broad smile; casual wear. Photorealistic headshot. Neutral or softly blurred background. Square crop. No text. Professional feel.",
+        "aspect_ratio": "1:1"
+      }
+    },
+    {
+      "id": "testimonial_avatar_3",
+      "mode": "recreate",
+      "status": "ok",
+      "files": {
+        "original": "assets/testimonial_avatar_3/original.webp",
+        "md": "assets/testimonial_avatar_3/md.webp",
+        "sm": "assets/testimonial_avatar_3/sm.webp",
+        "xs": "assets/testimonial_avatar_3/xs.webp"
+      },
+      "meta": {
+        "format": "webp",
+        "width": 1024,
+        "height": 1024,
+        "source_model": "gpt-image-1",
+        "prompt_used": "Female client headshot; late 20s; warm neutral background; confident expression; athleisure wear. Photorealistic headshot. Neutral or softly blurred background. Square crop. No text. Professional feel.",
+        "aspect_ratio": "1:1"
+      }
+    },
+    {
+      "id": "logo",
+      "mode": "reuse",
+      "status": "skipped",
+      "files": {},
+      "meta": {
+        "format": "webp",
+        "error": "Reuse — supply brand asset manually"
+      }
+    }
+  ]
+}

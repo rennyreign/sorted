@@ -1,0 +1,4 @@
+requests>=2.31.0
+python-dotenv>=1.0.0
+# playwright is optional — only needed if SCREENSHOT_API_KEY is not set
+# Install with: pip install playwright && playwright install chromium
