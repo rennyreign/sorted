@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { supabase } from "@/lib/supabase"
 
 type Prospect = {
   place_id: string
@@ -91,11 +92,13 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: Prospec
     if (revealed || revealing) return
     setRevealing(true)
     try {
-      await fetch("/api/review/reveal", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug }),
-      })
+      // Fire-and-forget: update CRM status directly via anon key
+      // RLS policy allows update of crm_status from new/outreached/responded → mockup_revealed
+      await supabase
+        .from("prospects")
+        .update({ crm_status: "mockup_revealed" })
+        .eq("review_slug", slug)
+        .neq("crm_status", "mockup_revealed")
     } catch { /* fire and forget */ }
     setRevealed(true)
     setRevealing(false)
