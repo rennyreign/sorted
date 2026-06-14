@@ -6,8 +6,9 @@ import OperatorLogin from "./OperatorLogin"
 import OperatorOverview from "./OperatorOverview"
 import ProspectFeed from "./ProspectFeed"
 import OutreachPanel from "./OutreachPanel"
+import PipelineBoard from "./PipelineBoard"
 
-type View = "login" | "overview" | "feed" | "outreach"
+type View = "login" | "overview" | "feed" | "outreach" | "pipeline"
 
 export default function OperatorShell() {
   const [view, setView] = useState<View>("login")
@@ -46,6 +47,9 @@ export default function OperatorShell() {
           <NavTab active={view === "feed"} onClick={() => setView("feed")}>
             Prospects
           </NavTab>
+          <NavTab active={view === "pipeline"} onClick={() => setView("pipeline")}>
+            Pipeline
+          </NavTab>
           <NavTab active={view === "outreach"} onClick={() => setView("outreach")}>
             Outreach
           </NavTab>
@@ -61,6 +65,7 @@ export default function OperatorShell() {
 
       {view === "overview" && <OperatorOverview onViewProspects={() => setView("feed")} />}
       {view === "feed" && <ProspectFeed />}
+      {view === "pipeline" && <PipelineBoard />}
       {view === "outreach" && <OutreachPanel />}
     </div>
   )
