@@ -151,8 +151,8 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
             <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3]">Sorted</p>
             <p className="font-sans font-bold text-[#0A0A0A] text-sm leading-tight">Digital Excellence Review</p>
           </div>
-          <a href="https://sortmydigital.com" className="text-xs text-[#737373] hover:text-[#0A0A0A] transition-colors">
-            sortmydigital.com
+          <a href="https://sortmydigital.site" className="text-xs text-[#737373] hover:text-[#0A0A0A] transition-colors">
+            sortmydigital.site
           </a>
         </div>
       </header>
