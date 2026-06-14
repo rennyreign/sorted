@@ -110,8 +110,10 @@ Score 7–9: Strong opportunity — clear modernity gap, obvious improvement ava
 
 ## COMBINED PROSPECT SCORE
 
-prospect_score = round((business_quality_score * 0.6) + (opportunity_score * 0.4), 1)
-Example: business_quality_score=8, opportunity_score=5 → prospect_score = round((8*0.6)+(5*0.4), 1) = round(4.8+2.0, 1) = 6.8
+prospect_score = round((opportunity_score * 0.6) + (business_quality_score * 0.4), 1)
+Example: business_quality_score=8, opportunity_score=5 → prospect_score = round((5*0.6)+(8*0.4), 1) = round(3.0+3.2, 1) = 6.2
+
+The website gap is the primary signal. A terrible website on a viable business scores higher than a strong business with a decent site.
 
 Score 8.0+: Generate a mockup immediately. This is a textbook Sorted prospect.
 Score 6.0–7.9: Worth a closer look. May be worth pursuing depending on category.

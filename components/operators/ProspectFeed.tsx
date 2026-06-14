@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react"
 import { supabase } from "@/lib/supabase"
-import type { Prospect } from "@/lib/supabase"
+import type { Prospect, CrmStatus } from "@/lib/supabase"
 
 type FilterState = {
   search: string
@@ -187,6 +187,11 @@ export default function ProspectFeed() {
         <AnalysisPanel
           prospect={selected}
           onClose={() => setSelected(null)}
+          onCrmChange={(place_id, status) =>
+            setProspects(prev => prev.map(p =>
+              p.place_id === place_id ? { ...p, crm_status: status as CrmStatus } : p
+            ))
+          }
         />
       )}
     </div>
@@ -324,8 +329,24 @@ function ScoreBadge({ score }: { score: number | null }) {
   )
 }
 
-function AnalysisPanel({ prospect: p, onClose }: { prospect: Prospect; onClose: () => void }) {
+function AnalysisPanel({ prospect: p, onClose, onCrmChange }: {
+  prospect: Prospect
+  onClose: () => void
+  onCrmChange: (place_id: string, status: string) => void
+}) {
   const hasAnalysis = p.site_score != null
+  const [crmStatus, setCrmStatus] = useState<CrmStatus>(p.crm_status ?? "new")
+  const [crmSaving, setCrmSaving] = useState(false)
+
+  async function setCrm(status: CrmStatus) {
+    setCrmSaving(true)
+    setCrmStatus(status)
+    onCrmChange(p.place_id, status)
+    await supabase.from("prospects").update({ crm_status: status }).eq("place_id", p.place_id)
+    setCrmSaving(false)
+  }
+
+  const isOutreached = crmStatus !== "new"
 
   return (
     <aside className="w-full sm:w-[380px] lg:w-[420px] shrink-0 border-l border-black/[0.08] bg-[#FAFAFA] overflow-y-auto flex flex-col">
@@ -344,6 +365,36 @@ function AnalysisPanel({ prospect: p, onClose }: { prospect: Prospect; onClose: 
         >
           ×
         </button>
+      </div>
+
+      {/* Outreach action bar */}
+      <div className="px-6 py-3 border-b border-black/[0.06] flex items-center gap-3">
+        {!isOutreached ? (
+          <button
+            onClick={() => setCrm("outreached")}
+            disabled={crmSaving}
+            className="flex-1 bg-[#0A0A0A] text-white text-xs font-medium rounded-lg px-3 py-2 hover:bg-[#1A1A1A] transition-colors disabled:opacity-40"
+          >
+            + Add to outreach
+          </button>
+        ) : (
+          <>
+            <span className={`flex-1 font-mono text-[10px] uppercase tracking-[0.12em] ${
+              crmStatus === "lost" ? "text-red-500" :
+              crmStatus === "paid" ? "text-emerald-600" :
+              "text-blue-600"
+            }`}>
+              In pipeline: {crmStatus.replace("_", " ")}
+            </span>
+            <button
+              onClick={() => setCrm("new" as CrmStatus)}
+              disabled={crmSaving}
+              className="text-[11px] text-[#A3A3A3] hover:text-red-500 transition-colors disabled:opacity-40"
+            >
+              Remove
+            </button>
+          </>
+        )}
       </div>
 
       <div className="flex-1 px-6 py-6 space-y-6">
