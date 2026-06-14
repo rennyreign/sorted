@@ -36,13 +36,13 @@ const WEAKNESS_MAP: { keywords: string[]; title: string; impact: string }[] = [
   },
   {
     keywords: ["mobile", "responsive", "phone", "small screen", "not mobile"],
-    title: "Most people are finding you on their phone — and the experience is poor",
+    title: "Most people are finding you on their phone, and the experience is poor",
     impact: "More than half your visitors are on mobile. If your site is hard to read, slow to load, or difficult to navigate on a phone, most of them will give up and call someone else.",
   },
   {
     keywords: ["typography", "font", "spacing", "layout", "templated", "generic", "hierarchy", "visual interest", "personality"],
     title: "Your site looks like every other local business",
-    impact: "When people can't tell you apart from your competitors, they default to whoever is cheapest. A distinct, professional look signals that you take your business seriously — and so should they.",
+    impact: "When people can't tell you apart from your competitors, they default to whoever is cheapest. A distinct, professional look signals that you take your business seriously. And that you expect them to as well.",
   },
   {
     keywords: ["cta", "call to action", "call-to-action", "button", "booking", "enquiry", "contact", "next step", "what to do"],
@@ -57,7 +57,7 @@ const WEAKNESS_MAP: { keywords: string[]; title: string; impact: string }[] = [
   {
     keywords: ["speed", "slow", "load time", "performance", "page speed"],
     title: "Your site loads slowly, and people won't wait",
-    impact: "53% of mobile users leave a site that takes more than 3 seconds to load. A slow site doesn't just frustrate people — Google ranks it lower too, so fewer people find you in the first place.",
+    impact: "53% of mobile users leave a site that takes more than 3 seconds to load. A slow site doesn't just frustrate people. Google ranks it lower too, so fewer people find you in the first place.",
   },
   {
     keywords: ["colour", "color", "brand", "cyan", "template colour", "brand colour"],
@@ -82,7 +82,7 @@ const WEAKNESS_MAP: { keywords: string[]; title: string; impact: string }[] = [
   {
     keywords: ["about", "team", "who you are", "story", "background", "people"],
     title: "People don't know who they're dealing with",
-    impact: "Especially for trades, health, and service businesses — people want to know who is coming to their home or handling their business. A simple, human about section builds the trust that converts a visitor into a customer.",
+    impact: "For trades, health, and service businesses especially, people want to know who is coming to their home or handling their work. A simple, human about section builds the kind of trust that turns a visitor into a customer.",
   },
   {
     keywords: ["price", "pricing", "cost", "fees", "rates", "quote"],
@@ -193,7 +193,7 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
                   ? "Your digital presence has significant gaps that are costing you enquiries every day."
                   : score <= 6
                   ? "Your website has a foundation, but key friction points are reducing your conversion rate."
-                  : "Your site performs reasonably well — targeted improvements could push results significantly further."}
+                  : "Your site performs reasonably well. Targeted improvements could push results significantly further."}
               </p>
               <div className="mt-6 pt-6 border-t border-black/[0.08] grid grid-cols-3 gap-4 text-center">
                 <div>
