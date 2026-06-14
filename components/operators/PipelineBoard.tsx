@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { supabase } from "@/lib/supabase"
 import type { CrmStatus } from "@/lib/supabase"
 
@@ -19,15 +19,15 @@ type PipelineProspect = {
   status_updated_at: string | null
 }
 
-const STAGES: { key: CrmStatus; label: string; color: string; dot: string }[] = [
-  { key: "new",              label: "New",             color: "bg-[#F5F5F5] border-black/[0.06]",  dot: "bg-[#D4D4D4]" },
-  { key: "outreached",       label: "Outreached",      color: "bg-blue-50 border-blue-100",         dot: "bg-blue-400" },
-  { key: "responded",        label: "Responded",       color: "bg-violet-50 border-violet-100",     dot: "bg-violet-400" },
-  { key: "mockup_revealed",  label: "Mockup Revealed", color: "bg-amber-50 border-amber-100",       dot: "bg-amber-400" },
-  { key: "build",            label: "Build",           color: "bg-orange-50 border-orange-100",     dot: "bg-orange-400" },
-  { key: "quote",            label: "Quote",           color: "bg-emerald-50 border-emerald-100",   dot: "bg-emerald-400" },
-  { key: "paid",             label: "Paid",            color: "bg-emerald-100 border-emerald-200",  dot: "bg-emerald-600" },
-  { key: "lost",             label: "Lost",            color: "bg-red-50 border-red-100",           dot: "bg-red-300" },
+const STAGES: { key: CrmStatus; label: string; color: string; dropColor: string; dot: string }[] = [
+  { key: "new",             label: "New",             color: "bg-[#F5F5F5] border-black/[0.06]",  dropColor: "bg-black/[0.04] border-black/20",       dot: "bg-[#D4D4D4]" },
+  { key: "outreached",      label: "Outreached",      color: "bg-blue-50 border-blue-100",         dropColor: "bg-blue-100 border-blue-300",            dot: "bg-blue-400" },
+  { key: "responded",       label: "Responded",       color: "bg-violet-50 border-violet-100",     dropColor: "bg-violet-100 border-violet-300",        dot: "bg-violet-400" },
+  { key: "mockup_revealed", label: "Mockup Revealed", color: "bg-amber-50 border-amber-100",       dropColor: "bg-amber-100 border-amber-300",          dot: "bg-amber-400" },
+  { key: "build",           label: "Build",           color: "bg-orange-50 border-orange-100",     dropColor: "bg-orange-100 border-orange-300",        dot: "bg-orange-400" },
+  { key: "quote",           label: "Quote",           color: "bg-emerald-50 border-emerald-100",   dropColor: "bg-emerald-100 border-emerald-300",      dot: "bg-emerald-400" },
+  { key: "paid",            label: "Paid",            color: "bg-emerald-100 border-emerald-200",  dropColor: "bg-emerald-200 border-emerald-400",      dot: "bg-emerald-600" },
+  { key: "lost",            label: "Lost",            color: "bg-red-50 border-red-100",           dropColor: "bg-red-100 border-red-300",              dot: "bg-red-300" },
 ]
 
 const NEXT_STAGE: Partial<Record<CrmStatus, CrmStatus>> = {
@@ -62,9 +62,11 @@ export default function PipelineBoard() {
   const [mockupInput, setMockupInput] = useState("")
   const [saving, setSaving] = useState(false)
 
-  useEffect(() => {
-    load()
-  }, [])
+  // Drag state
+  const draggingId = useRef<string | null>(null)
+  const [dragOver, setDragOver] = useState<CrmStatus | null>(null)
+
+  useEffect(() => { load() }, [])
 
   async function load() {
     setLoading(true)
@@ -75,7 +77,6 @@ export default function PipelineBoard() {
       .order("status_updated_at", { ascending: false })
       .limit(500)
 
-    // Also fetch new prospects that have been scored (worth showing)
     const { data: newData } = await supabase
       .from("prospects")
       .select("id, place_id, name, city, category, site_score, review_slug, mockup_url, crm_status, contacted_at, mockup_revealed_at, status_updated_at")
@@ -84,42 +85,76 @@ export default function PipelineBoard() {
       .order("site_score", { ascending: false })
       .limit(100)
 
-    const all = [...(data || []), ...(newData || [])] as PipelineProspect[]
-    setProspects(all)
+    setProspects([...(data || []), ...(newData || [])] as PipelineProspect[])
     setLoading(false)
   }
 
   async function updateStatus(prospect: PipelineProspect, newStatus: CrmStatus) {
+    // Optimistic update
+    setProspects(prev => prev.map(p =>
+      p.place_id === prospect.place_id ? { ...p, crm_status: newStatus } : p
+    ))
+    if (selected?.place_id === prospect.place_id) setSelected(s => s ? { ...s, crm_status: newStatus } : s)
+
     setSaving(true)
     await supabase
       .from("prospects")
       .update({ crm_status: newStatus })
       .eq("place_id", prospect.place_id)
-    setProspects(prev =>
-      prev.map(p => p.place_id === prospect.place_id ? { ...p, crm_status: newStatus } : p)
-    )
-    if (selected?.place_id === prospect.place_id) setSelected({ ...prospect, crm_status: newStatus })
     setSaving(false)
   }
 
   async function saveMockup(prospect: PipelineProspect) {
     if (!mockupInput.trim()) return
     setSaving(true)
-    await supabase
-      .from("prospects")
-      .update({ mockup_url: mockupInput.trim() })
-      .eq("place_id", prospect.place_id)
-    setProspects(prev =>
-      prev.map(p => p.place_id === prospect.place_id ? { ...p, mockup_url: mockupInput.trim() } : p)
-    )
-    if (selected?.place_id === prospect.place_id) setSelected({ ...prospect, mockup_url: mockupInput.trim() })
+    const url = mockupInput.trim()
+    await supabase.from("prospects").update({ mockup_url: url }).eq("place_id", prospect.place_id)
+    setProspects(prev => prev.map(p => p.place_id === prospect.place_id ? { ...p, mockup_url: url } : p))
+    if (selected?.place_id === prospect.place_id) setSelected(s => s ? { ...s, mockup_url: url } : s)
     setMockupInput("")
     setSaving(false)
   }
 
-  const byStage = (stage: CrmStatus) => prospects.filter(p => p.crm_status === stage)
+  // ── Drag handlers ──────────────────────────────────────────────
+  function onDragStart(e: React.DragEvent, prospect: PipelineProspect) {
+    draggingId.current = prospect.place_id
+    e.dataTransfer.effectAllowed = "move"
+    // Slight delay so the ghost image captures the card before opacity changes
+    setTimeout(() => {
+      const el = document.getElementById(`card-${prospect.place_id}`)
+      if (el) el.style.opacity = "0.4"
+    }, 0)
+  }
 
-  // Funnel metrics
+  function onDragEnd(e: React.DragEvent) {
+    const el = document.getElementById(`card-${draggingId.current}`)
+    if (el) el.style.opacity = "1"
+    draggingId.current = null
+    setDragOver(null)
+  }
+
+  function onDragOver(e: React.DragEvent, stage: CrmStatus) {
+    e.preventDefault()
+    e.dataTransfer.dropEffect = "move"
+    setDragOver(stage)
+  }
+
+  function onDragLeave() {
+    setDragOver(null)
+  }
+
+  async function onDrop(e: React.DragEvent, stage: CrmStatus) {
+    e.preventDefault()
+    setDragOver(null)
+    const id = draggingId.current
+    if (!id) return
+    const prospect = prospects.find(p => p.place_id === id)
+    if (!prospect || prospect.crm_status === stage) return
+    await updateStatus(prospect, stage)
+  }
+  // ───────────────────────────────────────────────────────────────
+
+  const byStage = (stage: CrmStatus) => prospects.filter(p => p.crm_status === stage)
   const counts = Object.fromEntries(STAGES.map(s => [s.key, byStage(s.key).length])) as Record<CrmStatus, number>
   const totalActive = STAGES.filter(s => s.key !== "lost").reduce((sum, s) => sum + counts[s.key], 0)
   const responseRate = counts.outreached > 0 ? Math.round((counts.responded / counts.outreached) * 100) : null
@@ -135,10 +170,10 @@ export default function PipelineBoard() {
   }
 
   return (
-    <div className="flex-1 flex flex-col min-h-0">
+    <div className="flex flex-col" style={{ height: "calc(100dvh - 3.5rem)" }}>
 
       {/* Metrics bar */}
-      <div className="border-b border-black/[0.06] bg-white px-6 sm:px-10 py-4 flex items-center gap-8 overflow-x-auto">
+      <div className="border-b border-black/[0.06] bg-white px-6 sm:px-10 py-4 flex items-center gap-8 overflow-x-auto shrink-0">
         <Metric label="Active" value={totalActive} />
         <MetricDivider />
         <Metric label="Response rate" value={responseRate !== null ? `${responseRate}%` : "—"} />
@@ -150,64 +185,86 @@ export default function PipelineBoard() {
       </div>
 
       {/* Board */}
-      <div className="flex-1 overflow-x-auto">
-        <div className="flex gap-4 px-6 sm:px-10 py-6 min-w-max h-full">
-          {STAGES.map(stage => (
-            <div key={stage.key} className="w-64 flex flex-col gap-2 flex-shrink-0">
+      <div className="flex-1 overflow-x-auto overflow-y-auto min-h-0">
+        <div className="flex gap-4 px-6 sm:px-10 py-6 min-w-max min-h-full">
+          {STAGES.map(stage => {
+            const isOver = dragOver === stage.key
+            return (
+              <div
+                key={stage.key}
+                className="w-64 flex flex-col gap-2 flex-shrink-0"
+                onDragOver={e => onDragOver(e, stage.key)}
+                onDragLeave={onDragLeave}
+                onDrop={e => onDrop(e, stage.key)}
+              >
+                {/* Column header */}
+                <div className="flex items-center gap-2 mb-1">
+                  <span className={`w-2 h-2 rounded-full ${stage.dot}`} />
+                  <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#737373]">
+                    {stage.label}
+                  </span>
+                  <span className="ml-auto font-mono text-[10px] text-[#A3A3A3]">
+                    {byStage(stage.key).length}
+                  </span>
+                </div>
 
-              {/* Column header */}
-              <div className="flex items-center gap-2 mb-1">
-                <span className={`w-2 h-2 rounded-full ${stage.dot}`} />
-                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#737373]">
-                  {stage.label}
-                </span>
-                <span className="ml-auto font-mono text-[10px] text-[#A3A3A3]">
-                  {byStage(stage.key).length}
-                </span>
-              </div>
-
-              {/* Cards */}
-              <div className="flex flex-col gap-2">
-                {byStage(stage.key).map(p => (
-                  <button
-                    key={p.place_id}
-                    onClick={() => { setSelected(p); setMockupInput(p.mockup_url ?? "") }}
-                    className={`text-left rounded-xl border p-3 transition-all hover:shadow-sm ${stage.color} ${selected?.place_id === p.place_id ? "ring-2 ring-[#0A0A0A]/20" : ""}`}
-                  >
-                    <p className="font-sans font-semibold text-[#0A0A0A] text-sm leading-snug mb-1 truncate">
-                      {p.name}
-                    </p>
-                    <div className="flex items-center gap-2">
-                      {p.city && <span className="text-[11px] text-[#A3A3A3] truncate">{p.city}</span>}
-                      {p.site_score !== null && (
-                        <span className={`ml-auto font-mono text-[11px] font-bold tabular-nums ${scoreColour(p.site_score)}`}>
-                          {Math.round(p.site_score * 10)}
+                {/* Drop zone wrapper */}
+                <div className={`flex flex-col gap-2 flex-1 rounded-xl border-2 border-dashed p-1 transition-colors duration-150 ${
+                  isOver ? `${stage.dropColor}` : "border-transparent"
+                }`}>
+                  {byStage(stage.key).map(p => (
+                    <div
+                      id={`card-${p.place_id}`}
+                      key={p.place_id}
+                      draggable
+                      onDragStart={e => onDragStart(e, p)}
+                      onDragEnd={onDragEnd}
+                      onClick={() => { setSelected(p); setMockupInput(p.mockup_url ?? "") }}
+                      className={`cursor-grab active:cursor-grabbing text-left rounded-xl border p-3 transition-all hover:shadow-sm select-none ${stage.color} ${
+                        selected?.place_id === p.place_id ? "ring-2 ring-[#0A0A0A]/20" : ""
+                      }`}
+                    >
+                      <p className="font-sans font-semibold text-[#0A0A0A] text-sm leading-snug mb-1 truncate pointer-events-none">
+                        {p.name}
+                      </p>
+                      <div className="flex items-center gap-2 pointer-events-none">
+                        {p.city && <span className="text-[11px] text-[#A3A3A3] truncate">{p.city}</span>}
+                        {p.site_score !== null && (
+                          <span className={`ml-auto font-mono text-[11px] font-bold tabular-nums ${scoreColour(p.site_score)}`}>
+                            {Math.round(p.site_score * 10)}
+                          </span>
+                        )}
+                      </div>
+                      {p.mockup_url && (
+                        <span className="mt-1 inline-block font-mono text-[9px] text-emerald-600 uppercase tracking-wide pointer-events-none">
+                          mockup ready
                         </span>
                       )}
+                      {p.status_updated_at && (
+                        <p className="mt-1 font-mono text-[9px] text-[#C4C4C4] pointer-events-none">
+                          {timeAgo(p.status_updated_at)}
+                        </p>
+                      )}
                     </div>
-                    {p.mockup_url && (
-                      <span className="mt-1 inline-block font-mono text-[9px] text-emerald-600 uppercase tracking-wide">mockup ready</span>
-                    )}
-                    {p.status_updated_at && (
-                      <p className="mt-1 font-mono text-[9px] text-[#C4C4C4]">{timeAgo(p.status_updated_at)}</p>
-                    )}
-                  </button>
-                ))}
+                  ))}
 
-                {byStage(stage.key).length === 0 && (
-                  <div className="rounded-xl border border-dashed border-black/[0.08] p-4 text-center">
-                    <p className="text-[11px] text-[#C4C4C4]">Empty</p>
-                  </div>
-                )}
+                  {byStage(stage.key).length === 0 && (
+                    <div className={`rounded-xl border border-dashed p-4 text-center transition-colors ${
+                      isOver ? "border-current opacity-60" : "border-black/[0.08]"
+                    }`}>
+                      <p className="text-[11px] text-[#C4C4C4]">{isOver ? "Drop here" : "Empty"}</p>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
 
       {/* Detail drawer */}
       {selected && (
-        <div className="border-t border-black/[0.06] bg-white px-6 sm:px-10 py-5 flex flex-col sm:flex-row gap-6">
+        <div className="shrink-0 border-t border-black/[0.06] bg-white px-6 sm:px-10 py-5 flex flex-col sm:flex-row gap-6">
 
           {/* Identity */}
           <div className="flex-1 min-w-0">
