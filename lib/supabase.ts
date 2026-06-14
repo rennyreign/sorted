@@ -6,6 +6,15 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
+// Server-side client using the service key — for API routes only, never in client components
+export function createServiceClient() {
+  const serviceKey = process.env.SUPABASE_SERVICE_KEY
+  if (!serviceKey) throw new Error("SUPABASE_SERVICE_KEY not set")
+  return createClient(supabaseUrl, serviceKey)
+}
+
+export type CrmStatus = "new" | "outreached" | "responded" | "mockup_revealed" | "build" | "quote" | "paid" | "lost"
+
 export type Prospect = {
   id: number
   place_id: string
@@ -43,4 +52,11 @@ export type Prospect = {
   modernity_gap: string | null
   screenshot_url: string | null
   analysed_at: string | null
+  // CRM columns
+  crm_status: CrmStatus
+  review_slug: string | null
+  mockup_url: string | null
+  contacted_at: string | null
+  mockup_revealed_at: string | null
+  status_updated_at: string | null
 }
