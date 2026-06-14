@@ -1,40 +1,30 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { useParams } from "next/navigation"
+import { useState, useEffect } from "react"
 import { supabase } from "@/lib/supabase"
-import ReviewPageClient from "./ReviewPageClient"
+import ReviewPageClient, { type ReviewProspect } from "./ReviewPageClient"
 
-type Prospect = {
-  place_id: string
-  name: string
-  category: string | null
-  website: string | null
-  address: string | null
-  city: string | null
-  site_score: number | null
-  business_quality_score: number | null
-  opportunity_score: number | null
-  site_analysis: string | null
-  site_weaknesses: string[] | null
-  outreach_angle: string | null
-  recommendation: string | null
-  revshare_potential: string | null
-  modernity_gap: string | null
-  screenshot_url: string | null
-  analysed_at: string | null
-  crm_status: string
-  review_slug: string | null
-  mockup_url: string | null
-}
+// This is a single static page served at /review/
+// The web server (Hostinger .htaccess) rewrites /review/* → /review/index.html
+// The slug is read from window.location.pathname at runtime.
 
 export default function ReviewPage() {
-  const params = useParams()
-  const slug = params?.slug as string
-
-  const [prospect, setProspect] = useState<Prospect | null>(null)
+  const [slug, setSlug] = useState<string | null>(null)
+  const [prospect, setProspect] = useState<ReviewProspect | null>(null)
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
+
+  useEffect(() => {
+    // Extract slug: /review/abc-plumbing → "abc-plumbing"
+    const parts = window.location.pathname.replace(/\/$/, "").split("/")
+    const s = parts[parts.length - 1]
+    if (s && s !== "review") {
+      setSlug(s)
+    } else {
+      setLoading(false)
+      setNotFound(true)
+    }
+  }, [])
 
   useEffect(() => {
     if (!slug) return
@@ -45,14 +35,13 @@ export default function ReviewPage() {
         site_score, business_quality_score, opportunity_score,
         site_analysis, site_weaknesses, outreach_angle,
         recommendation, revshare_potential, modernity_gap,
-        screenshot_url, analysed_at,
-        crm_status, review_slug, mockup_url
+        screenshot_url, analysed_at, crm_status, review_slug, mockup_url
       `)
       .eq("review_slug", slug)
       .single()
       .then(({ data, error }) => {
         if (error || !data) setNotFound(true)
-        else setProspect(data)
+        else setProspect(data as ReviewProspect)
         setLoading(false)
       })
   }, [slug])
@@ -68,7 +57,7 @@ export default function ReviewPage() {
     )
   }
 
-  if (notFound || !prospect) {
+  if (notFound || !prospect || !slug) {
     return (
       <div className="min-h-screen bg-[#FAFAF9] flex items-center justify-center">
         <div className="text-center max-w-sm px-6">
