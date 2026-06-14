@@ -1,169 +1,85 @@
-# ADX Planned Phases
+# ADX Engine — Planned Phases
 
-## PHASE 1 — Stabilize the Factory Cell
-
-- boring excellence
-- repeatable output
-- reduce chaos
-- tighten workflows
-- identify friction
-- collect operational data
-
-Goal:
-
-> one reliable production cell
-> 
+**Status:** Active doctrine. Long-arc vision document.
+**Parent:** Sorted Overview
+**Purpose:** Define the seven-phase arc from first factory cell to infrastructure capital. Read alongside `doctrine/sorted-overview.md`.
 
 ---
 
-## PHASE 2 — Build the Operator Map
+## Phase 1 — Stabilise the Factory Cell
 
-- define every function
-- define every handoff
-- define SOPs
-- define QA standards
-- define escalation paths
+Boring excellence. Repeatable output. Reduce chaos. Tighten workflows. Identify friction. Collect operational data.
 
-Goal:
+Goal: one reliable production cell.
 
-> infrastructure clarity
-> 
+This is the current phase. The most important thing at Phase 1 is not dreaming bigger. It is making the first cell so operationally clean that replication becomes inevitable.
 
 ---
 
-## PHASE 3 — Remove Yourself
+## Phase 2 — Build the Operator Map
 
-- replace founder dependency
-- operators execute
-- workflows survive without you
-- document everything
+Define every function, every handoff, every SOP, every QA standard, every escalation path.
 
-Goal:
-
-> autonomous fulfillment
-> 
-
-This is the first true inflection point.
-
-Because now:
-
-you own a machine, not a job.
+Goal: infrastructure clarity.
 
 ---
 
-## PHASE 4 — Build ADX Engine
+## Phase 3 — Remove Founder Dependency
 
-- orchestration layer
-- operator routing
-- AI coordination
-- cost optimization
-- analytics
-- infrastructure tooling
+Operators execute. Workflows survive without the founder. Document everything.
 
-Goal:
+Goal: autonomous fulfilment.
 
-> operational intelligence system
-> 
-
-This becomes your true moat.
+This is the first true inflection point. The business becomes a machine, not a job.
 
 ---
 
-## PHASE 5 — Local Partner Expansion
+## Phase 4 — Build ADX Engine
 
-- local acquisition agents
-- infrastructure handles fulfillment
-- territory scaling
-- low operational overhead
+Orchestration layer, operator routing, AI coordination, cost optimisation, analytics, infrastructure tooling.
 
-Goal:
+Goal: operational intelligence system.
 
-> geographic density without operational chaos
-> 
-
-This is where scalability accelerates hard.
+This is the true moat. Intelligence lives in the infrastructure, not in any individual.
 
 ---
 
-## PHASE 6 — Industry Replication
+## Phase 5 — Local Partner Expansion
 
-- apply doctrine to fragmented sectors
-- build revenue infrastructure systems
-- own customer acquisition layer
-- coordinate fulfillment
-- optimize operations
+Local acquisition agents. Infrastructure handles fulfilment. Territory scaling with low operational overhead.
 
-Goal:
+Goal: geographic density without operational chaos.
 
-> industrialize broken industries
-> 
-
-This is where valuations become serious.
-
-Because now you are no longer “a website company.”
-
-You are:
-
-> an operational modernization company.
-> 
+This is where scalability accelerates.
 
 ---
 
-## PHASE 7 — Strategic Ownership & Exits
+## Phase 6 — Industry Replication
 
-- sell mature business units
-- license infrastructure
-- acquire operational businesses
-- vertically integrate selected industries
-- compound infrastructure ownership
+Apply doctrine to fragmented sectors. Build revenue infrastructure systems. Own the customer acquisition layer. Coordinate fulfilment. Optimise operations.
 
-Goal:
+Goal: industrialise broken industries.
 
-> infrastructure capital allocation
-> 
-
-Now you evolve from:
-
-- operator,to:
-- industrial architect,to:
-- infrastructure investor.
-
-That’s the full arc.
+At this point Sorted is no longer a website company. It is an operational modernisation company. That is where valuations become serious.
 
 ---
 
-# THE KEY INSIGHT YOU MUST NEVER LOSE
+## Phase 7 — Strategic Ownership
+
+Sell mature business units. License infrastructure. Acquire operational businesses. Vertically integrate selected industries. Compound infrastructure ownership.
+
+Goal: infrastructure capital allocation.
+
+The evolution: operator to industrial architect to infrastructure investor.
+
+---
+
+## The Key Insight
 
 The website is not the product.
 
-The website is:
+The website is the wedge, the proof, the trust-entry point, the operational beachhead.
 
-- the wedge,
-- the proof,
-- the trust-entry point,
-- the operational beachhead.
+Behind it sits lead systems, AI operators, reviews, automations, CRM, reporting, booking, workflow coordination, and modernisation infrastructure.
 
-Behind it sits:
-
-- lead systems,
-- AI operators,
-- reviews,
-- automations,
-- CRM,
-- reporting,
-- booking,
-- workflow coordination,
-- modernization infrastructure.
-
-That aligns perfectly with the original Sorted philosophy:
-
-> “The website is the front door; behind it sits a system of operators that drive business outcomes.”
-> 
-
-That’s why this idea has structural depth.
-
-And honestly?
-
-The most important thing now is not dreaming bigger.
-
-It’s making the first cell so operationally clean that replication becomes inevitable.
+That is why this idea has structural depth. And why Phase 1 discipline matters more than Phase 7 ambition.

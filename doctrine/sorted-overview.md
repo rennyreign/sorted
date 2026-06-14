@@ -1,236 +1,182 @@
 # Sorted. Overview
 
+**Status:** Active doctrine. Strategic context document.
+**Note:** The operational details (Four Nods, CMS, manufacturing chain, pipeline stages) live in `doctrine/sorted-operating-model.md` and `doctrine/operator-chain.md`. This document covers the strategic framing, the market position, and the long-arc vision. Read it once to understand why the system is built the way it is.
+
+---
+
 ## What Sorted Is
 
-Sorted is a small-business modernization infrastructure company disguised as a website business.
+Sorted is a small-business modernisation infrastructure company disguised as a website business.
 
-At the surface level, Sorted provides:
+At the surface level, Sorted provides fast website rebuilds for local businesses. Underneath, it is building a repeatable operational manufacturing system that can scale across fragmented local industries without scaling headcount.
 
-- fast website rebuilds
-- branding refreshes
-- ecommerce setups
-- landing pages
-- digital cleanup and modernization
-
-But underneath, Sorted is building a repeatable operational manufacturing system for fragmented local industries.
+The website is the entry point. Behind it sits a system of operators that drive business outcomes.
 
 ---
 
-# Core Philosophy
+## Core Philosophy
 
-> “We don’t sell. We show.”
-> 
+We do not sell. We show.
 
-Instead of traditional sales:
+Instead of traditional sales, businesses receive mockups first. Approvals happen through progressive nods. Each stage reduces friction and increases trust.
 
-- businesses receive mockups first
-- approvals happen through progressive “nods”
-- each stage reduces friction and increases trust
-
-### This creates the **Nod Pipeline**:
-
-Mockup → Nod
-
-Build → Nod
-
-Quote → Nod
-
-Launch → Expansion
-
-The website is not the final product.
-
-It is the trust-entry point into:
-
-- CRM systems
-- lead automation
-- booking systems
-- review generation
-- AI operators
-- reporting
-- operational infrastructure
+The website is not the final product. It is the trust-entry point into CRM systems, lead automation, booking, review generation, AI operators, reporting, and operational infrastructure.
 
 ---
 
-# The China Phenomenon Framework
+## The Two Journeys
 
-Sorted operates using a manufacturing-style operational doctrine inspired by:
+Sorted has two distinct acquisition paths. They require different approaches.
 
-- microscopic specialization - China have entire towns dedicated to manufacturing socks
-- constrained execution - each person in the production line has a tiny set of jobs.
-- scalable repeatability - everything is replaceable and replicable.
-- low-cost high-volume delivery - every unit is so well scoped that it becomes cheap
-- system intelligence over individual genius - the system sum of parts transcends all
+**Outbound.** The prospect does not know Sorted exists and has not asked for help. The score creates curiosity.
 
-The goal is not artisan creative work.
+```
+[Business name]
 
-The goal is:
+Website Score: 43/100
 
-> fast, reliable, scalable operational modernization.
-> 
+We reviewed your website and built a modernisation concept.
 
-Complexity is decomposed into operators:
+View your review ->
+```
 
-- Mockup Operator
-- Build Operator
+The score is the hook. The review page is where the conversation starts.
+
+**Inbound.** The prospect is already looking for a website. They have desire. They do not need a score. They need to see a result. The headline "Your new website. Sorted." does the work here.
+
+These are two different psychologies. The acquisition chain is built for outbound. The inbound path runs through the main Sorted website.
+
+---
+
+## The Website as the Trojan Horse
+
+The website is the easiest thing for a business owner to understand and want.
+
+Nobody wakes up wanting a website audit or a Digital Excellence Score. They wake up wanting more customers, more trust, and to stop looking amateur next to bigger competitors.
+
+The mockup creates the emotional pull. The score provides the rational justification. Together they create momentum.
+
+The score is not the product. The score is the diagnosis. The website is the desire. The modernisation platform is the business.
+
+These three layers do not need to be visible at the same time.
+
+---
+
+## The China-Phenomena Framework
+
+Sorted operates using a manufacturing discipline inspired by microscopic specialisation.
+
+The goal is not artisan creative work. The goal is fast, reliable, scalable operational modernisation.
+
+Core rules:
+
+- Task specialisation over monolithic prompts. Monolithic prompting causes stochastic degradation. Isolated operators do not.
+- Isolated operational units. Every complex workflow is broken down to its smallest deterministic boundary.
+- System intelligence over individual genius. The intelligence lives inside the infrastructure, protocols, and data schemas. Not inside any individual.
+- Automation criteria: if a human must be present during execution of a sub-task, it is not an operator.
+
+Operators:
+
+- Prospect Finder
+- Website Analyser
+- Mockup Deconstructor
+- Asset Generator
+- Frontend Builder
 - CMS Operator
 - QA Operator
-- Quote Operator
-- Updates Operator
-- Local Partner Agent
 
 Over time, the intelligence moves from the founder into the infrastructure itself.
 
----
-
-# ADX Engine: The Sorted Operating System Blueprint
-
-*Confidential Operational Doctrine — Bootstrapped Master Architecture (v2.0)*
-
-## 1. Executive Vision & Philosophy
-
-Sorted is not a digital creative agency, nor is it a traditional rigid SaaS platform. Sorted is an **AI-native digital manufacturing line** disguised as a small-business modernization company.
-
-### The Market Inflection
-
-The legacy internet era forced small businesses to choose between two highly flawed paths:
-
-1. **The Artisanal Agency:** Bespoke, slow, expensive, and heavily reliant on volatile human labor.
-2. **The DIY SaaS Canvas (GoDaddy / Squarespace):** Handed the business owner a blank hammer and template, forcing them to do the manual technical labor they have zero time, skill, or desire to execute.
-
-Sorted capitalizes on the current macro-thesis of the AI era: **AI-Native Factory Architecture**. Trust in AI capabilities is universally high, but implementation friction is paralyzing. Sorted solves the "activation energy" problem by completely eliminating creation labor for the buyer—shifting the entire B2B sales cycle from an abstract proposal to an immediate, personalized software delivery.
+As each operator matures, the model requirement shrinks. A well-scoped task does not need a frontier model. This is how manufacturing cost falls while output quality holds.
 
 ---
 
-## 2. The China-Phenomena Framework
+## The State-Driven Artifact Pipeline
 
-The system architecture runs on the **China-Phenomena Principle**: the operational discipline of micro-scoping every complex workflow down to its absolute smallest deterministic boundary, then chaining those micro-tasks together into an asynchronous assembly line.
+Operators never communicate directly with each other. They interact with a shared state record. Handoffs are asynchronous, decoupled, and deterministic, triggered by changes to the system state.
 
-### Core Architecture Rules:
+Every stage is governed by a schema validator. If an operator produces malformed output, the validation step blocks the write and prevents corrupted data from cascading downstream.
 
-- **Task Specialization over Monolithic Prompts:** We reject single-prompt "kitchen-sink" execution (e.g., asking ChatGPT to build a site). Monolithic prompting causes stochastic degradation (hallucinations, design drift, broken layouts).
-- **Isolated Operational Units:** We break workflows into stateless, micro-scoped "Operators."
-- **System Intelligence over Individual Genius:** The intelligence resides entirely inside the infrastructure, protocols, and data schemas—not within human operators or single tech platforms.
-- **Automation Criteria:** *If a human must be present during the execution of a sub-task, it is not an operator.*
+Full artifact schemas and chain map: `doctrine/operator-chain.md`
 
 ---
 
-## 3. The State-Driven Artifact Pipeline
+## The Modernisation Gap
 
-To maintain absolute technical resilience, operators never communicate directly with each other. They interact solely with a centralized database record—the **Single Source of Truth** (the System State).
+Every business operates in one of two states.
 
-Handoffs are asynchronous, decoupled, and completely deterministic, triggered exclusively by changes to the system state string.
+**Modernised.** Easy to find. Easy to trust. Easy to contact. Easy to buy from. Easy to recommend.
 
-[ Central System Database Record ]
+**Unmodernised.** Creates friction at every touchpoint. Most owners cannot see where those opportunities are being lost.
 
-│
+The purpose of the scoring and review system is to expose those invisible losses. A poor score is not a design criticism. It is a business diagnosis. Each weak category represents opportunity leakage.
 
-├── Status: "SCRAPED" ───> [ Layout Blueprint Operator Runs ] ──> Logs Component JSON Schema
+The review page makes the gap visible. The mockup makes the fix tangible. Together they create the conditions for a conversation.
 
-│
-
-└── Status: "BLUEPRINT" ─> [ Linguistic Assembly Operator ] ──> Injects Local Copy to State
-
-`Every stage of the production line is governed by a strict **JSON Schema Validator Guardrail**. If an AI model inside an individual operator hallucinates an asset ID or outputs malformed strings, the programmatic validation script blocks the database write, preventing corrupted data from cascading downstream.
+Full scoring doctrine: `doctrine/scoring-for-modernization.md`
 
 ---
 
-## 4. The Reconstructed Flipped Sales Cycle (The Multi-Nod Engine)
+## The Design System
 
-To resolve immediate cash-flow requirements while protecting engineering margins, the pipeline implements a **Hybrid Setup + Subscription Loop**. We embed a low-barrier **Commitment Hook** directly after the initial visual proof to filter out bad actors and secure immediate survival cash.`
+Design is treated as a series of geometric and algebraic constraints, not as artistic variance. This ensures premium visual consistency across the manufacturing line while enabling diversity across industries.
 
-[ Step 1: Automated Outbound/Inbound ] ──> Maps API Scraping / Screener Routine
+Key constraints:
 
-│
+- Typographic scale governed by a Major Third or Golden Ratio progression from a 16px base.
+- Spacing grid as multiples of 8px (8, 16, 24, 32, 48, 64, 96).
+- Colour contrast checked programmatically against WCAG 2.1 standards.
 
-▼
+Because layouts are compiled from a component library using design token JSON, Sorted retains surgical editing control. A localised change modifies a JSON variable, not a prompt.
 
-[ Step 2: The Mockup Asset (Nod 1) ]    ──> 1-3 Min Multi-Model Compile (Flat JPG image)
-
-│
-
-▼
-
-[ Step 3: The Commitment Hook ]         ──> Client pays £150 setup deposit to unlock full build
-
-│
-
-▼
-
-[ Step 4: The Build Engine (Nod 2 & 3) ] ──> Immediate Webhook activates the dormant Next.js repo
-
-│
-
-▼
-
-[ Step 5: Final Settlement (Nod 4) ]    ──> Balance collected (£1,500 - £2,500) + Mandatory SaaS Retainer
-
-`### The Power of Simultaneous Asset Generation:
-The pipeline produces **two distinct artifacts** simultaneously during the 60-second compilation loop:
-1. **Artifact 1 (The Visual Image):** A high-resolution programmatic snapshot taken by a headless browser (Playwright/Puppeteer). This is our risk-free sales weapon.
-2. **Artifact 2 (The Codebase Build):** A live, production-ready, git-backed Next.js repository wired to a Decap CMS schema configuration. It stands dormant on a local port, waiting to instantly deploy to edge hosting (Netlify) the millisecond the webhook detects the commitment fee payment.
+Full design standards: `AGENTS.md` (Stage 1 Build section)
 
 ---
 
-## 5. The Mathematical Design System
-Design is stripped of artistic variance and treated as a series of strict geometric and algebraic formulas. This ensures premium visual aesthetic uniformity across the assembly line while enabling absolute visual diversity across industries.
+## The Long Arc
 
-### The Geometric Ratios:
-* **The Typographic Scale:** Governed strictly by a Major Third ($1 : 1.25$) or Golden Ratio ($1 : 1.618$) progression scale calculated from a fixed base body size ($16\text{px}$).
-* **The Spacing Grid:** Every margin, padding, column gap, and layout width token must scale as an absolute multiple of an **8-pixel core baseline** ($8, 16, 24, 32, 48, 64, 96$).
-* **The Color Contrast Engine:** Programmatic script color-checks relative luminance using the WCAG 2.1 contrast mathematical formula:
+**Phase 1. Stabilise the factory cell.** Boring excellence. Repeatable output. One reliable production cell.
 
-$$Y = 0.2126R + 0.7152G + 0.0722B$$
+**Phase 2. Build the operator map.** Define every function, every handoff, every SOP. Infrastructure clarity.
 
-If text-to-background contrast falls below **$4.5:1$**, the script automatically steps the hex color along a luminosity curve until compliance is reached.
+**Phase 3. Remove founder dependency.** Operators execute. Workflows survive without the founder. Autonomous fulfilment.
 
-### Escaping the Prompt Trap:
-Because layouts are compiled out of a physical component library (The Skills Cube) using a global **Design Token Matrix JSON**, we maintain surgical editing control. If a client requests a localized change, we do not re-prompt an LLM; we modify a single JSON variable field and programmatically re-render the image file in $0.5$ seconds.
+**Phase 4. Build ADX Engine.** Orchestration layer, operator routing, AI coordination, cost optimisation, analytics. Operational intelligence system. This is the true moat.
 
----
+**Phase 5. Local partner expansion.** Local acquisition agents. Infrastructure handles fulfilment. Territory scaling without operational chaos.
 
-## 6. The Decap CMS Infrastructure & Unified App Suite
-We leverage **Decap CMS** as a git-native, headless layout controller to maintain a strict boundary against manual human client services.
+**Phase 6. Industry replication.** Apply doctrine to fragmented sectors. Own the customer acquisition layer. Industrialise broken industries.
 
-### Technical & Financial Optimization:
-* **Zero-Database Database:** Decap CMS sits directly over flat Markdown/JSON files inside the client's individual GitHub repository. Changes push straight to Git as commits, triggering static, serverless edge-network builds. **Our database scaling cost is completely fixed at £0.00**, protecting our gross bootstrapping profit margins.
-* **Variable Type Component Dropdowns:** We configure Decap list widgets to act as layout block orchestrators. Clients can drag, drop, re-order, or append approved Next.js UI elements, giving them total creative autonomy while keeping them completely locked within the pre-engineered design system.
-* **The Factory Reset Operator:** Because every user interaction is tracked chronologically via Git version control, user errors are nullified. If a client breaks their site layout or content, a single automated webhook resets the repository head back to Commit #1 (The Baseline Output), restoring clean system deployment instantly.
+**Phase 7. Strategic ownership.** Sell mature business units. License infrastructure. Acquire operational businesses. Evolve from operator to industrial architect to infrastructure investor.
 
-### The Sorted App Ecosystem Expansion:
-The Next.js website acts as our front-end Trojan Horse. By embedding blurred native preview tabs directly inside their daily Decap CMS editor dashboard, we drive low-friction, high-margin SaaS upgrades to our core operational apps:
-* **SortedCRM:** Automated web-lead flow capture.
-* **SortedAnalytics:** Zero-friction traffic tracking driven by an AI Reporting Agent delivering automated performance summaries via WhatsApp/Email.
-* **SortedAssistants:** Micro-scoped agentic assistants managing automated post-job review generation links and automated inbound form lead triage.
+The most important thing at Phase 1 and 2 is not dreaming bigger. It is making the first cell so operationally clean that replication becomes inevitable.
+
+Full phase detail: `doctrine/adx-engine-planned-phases.md`
 
 ---
 
-## 7. Bootstrapped Target Scale Economics
-To prioritize immediate, high-volume personal cash distribution over multi-year institutional equity dilution, Sorted operates under a strict lifestyle capital pipeline model.
+## The Key Insight
 
-* **Target Average Setup Fee Contract Value:** £2,500
-* **Target Baseline Infrastructure SaaS Retainer:** £49 – £149 / month
-* **The Target Pipeline Volume (To hit £1,000,000+ Revenue Run-Rate):**`
+The website is not the product.
 
-[ 3-4 Paid Deliveries / Week ] ──> Requires ~101 Mockups Accepted / Month (Nod 1)
+The website is the wedge, the proof, the trust-entry point, the operational beachhead.
 
-│
+Behind it sits lead systems, AI operators, reviews, automations, CRM, reporting, booking, workflow coordination, and modernisation infrastructure.
 
-▼
+That is why this idea has structural depth.
 
-Generated automatically via the Google Maps
+---
 
-Scraping and Visual Compiler Operator routines.
+## Canonical Doctrine Index
 
-`By keeping operational overhead restricted to compute tokens and serverless hosting, the factory line decouples revenue growth from engineering headcount—protecting your personal freedom, your calendar, and your family's financial sovereignty.`
-
-## How We Keep Building on This Structure (The "Gem")
-
-To treat this as a living, breathing blueprint that you can constantly build on, we need to treat every element we add next as a new module in this Markdown structure.
-
-Whenever you face a specific operational issue or want to build out a new feature, we will explicitly name it, micro-scope it into its inputs/outputs/rules, and slot it directly into the schema above.
-
-To start optimizing this system immediately, which of these tactical steps do you want to codify next?
-
-- **Module 4A (The Outreach Script Schema):** Designing the exact programmatic layout, copywriting rules, and visual placement for the automated "Artifact to Email" outreach message to ensure it bypasses spam and sparks high click rates.
-- **Module 5A (The Component ID Inventory Matrix):** Mapping out the exact structural names and layout logic for your first 10 core "Lego bricks" (Hero styles, features grids, etc.) so your model knows exactly how to choose them.
-- **Module 6A (The Decap Config File YAML Blueprint):** Writing the literal configuration rules for Decap CMS to lock down the client's editing boundary.
+| Document | Covers |
+|---|---|
+| `sorted-operating-model.md` | Four Nods, reversed product cycle, CMS, acquisition pipeline, CRM stages |
+| `operator-chain.md` | Full chain state contract, acquisition + build steps, artifact schemas |
+| `scoring-for-modernization.md` | Scoring formula, component scores, analyser outputs, copy register |
+| `adx-engine-planned-phases.md` | Seven-phase long-arc plan |
+| `cascade-deployment-discipline.md` | Branch-based deployment, credit protection |
+| `all-content-is-editable.md` | CMS editability standard |
+| `factory-reset.md` | Reset capability, tagging, delivery checklist |
+| `client-onboarding.md` | Netlify Identity setup, handoff message |

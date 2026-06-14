@@ -1,623 +1,186 @@
-Context from a conversation with chat gpt: 
+# Scoring for Modernization
 
-**My Question:**
-Chat, rewrite that doctrine in brief and basically include the pain points of not being modernized. So obviously inside of that report, we're gonna break down the modernization that we've done, why, the review, the score, but add marketing language to it from a copywriting position where we're basically breaking down why it is a pain to not be modernized and what you're now gonna have to do as a company that's not modernized.
-
-**Chat's response:**
-I actually think you've found the nuance.
-
-The score is not the desire.
-
-The score is the tension.
-
-The website is the desire.
-
-That's a very important distinction.
-
-When I look at the current homepage, I don't see a website company. I see a promise:
-
-> "Your business could look better than it does today."
-
-That's what they're buying.
-
-Nobody wakes up wanting:
-
-* a website audit
-* a score
-* a report
-* an analysis
-
-They wake up wanting:
-
-* more customers
-* more trust
-* to stop looking amateur
-* to compete with bigger businesses
-
-The website is simply the most tangible manifestation of that desire.
+**Status:** Active doctrine
+**Parent:** Operator Chain
+**Purpose:** Define how the Website Analyser scores prospects, explain the weighting rationale, and specify the two outputs the analyser produces.
 
 ---
 
-I think where the score becomes powerful is not on the homepage.
+## The Scoring Formula
 
-It's when there is already attention.
-
-Let's split the journeys.
-
-### Journey 1: Outbound
-
-You email them.
-
-They don't know who Sorted is.
-
-They don't know who Renaldo is.
-
-They don't care about Digital Excellence.
-
-The score is useful here because it creates curiosity.
-
-```text
-ABC Plumbing
-
-Website Score:
-43/100
-
-We reviewed your website and created a modernization concept.
-
-View Review →
+```
+prospect_score = (opportunity_score x 0.6) + (business_quality_score x 0.4)
 ```
 
-The score is the hook.
+Both component scores are on a 0-10 scale. The resulting `prospect_score` is also 0-10.
+
+On the review page, the score is displayed multiplied by 10, presented out of 100.
+
+Example: a `prospect_score` of 6.4 displays as 64/100.
 
 ---
 
-### Journey 2: Inbound
+## The Two Component Scores
 
-This person is already seeking help.
+### opportunity_score (weight: 0.6)
 
-Maybe:
+Measures how poor the current website is and how much room there is to improve it.
 
-* "website redesign"
-* "new website"
-* "improve my website"
-* "web design Warwickshire"
+High opportunity = bad website. The worse the site, the more compelling the pitch.
 
-This person already has desire.
+What drives a high opportunity score:
 
-You don't need a score.
+- No mobile optimisation
+- Slow load times
+- Outdated design (pre-2018 aesthetic, Flash-era layouts, no modern typography)
+- No clear call to action
+- Buried or missing contact information
+- No social proof (testimonials, reviews, trust signals)
+- Poor navigation
+- Low-quality or stock photography that does not represent the business
+- No SSL or broken security indicators
 
-You need a result.
+### business_quality_score (weight: 0.4)
 
-Your current headline is actually very strong because it speaks to the desired future state.
+Measures how viable and active the underlying business is. A strong business with a bad website is the ideal target. A weak business with a bad website is not worth approaching.
 
-```text
-Your new website.
-Sorted.
-```
+What drives a high business quality score:
 
-That's clean.
-
-Immediate.
-
-Easy to understand.
-
----
-
-What I think may be happening is that we're accidentally discovering two products.
-
-### Product A
-
-Inbound
-
-```text
-I want a better website.
-```
-
-Solution:
-
-```text
-Your new website.
-Sorted.
-```
-
-Perfect.
+- Active Google Maps presence with recent reviews
+- High review volume and rating
+- Clear evidence of trading (recent activity, photos, responses to reviews)
+- Established business (not just opened)
+- Real premises or clear service area
+- Evidence of demand in the category
 
 ---
 
-### Product B
+## Why Opportunity Is Weighted Higher
 
-Outbound
+The old formula was:
 
-```text
-I didn't know I had a problem.
+```
+prospect_score = (business_quality_score x 0.6) + (opportunity_score x 0.4)
 ```
 
-Solution:
+That formula prioritised strong businesses. The problem: a strong business with an already-decent website is a harder sell. They may not feel the pain.
 
-```text
-Here's your score.
+The new formula reverses the emphasis:
+
+```
+prospect_score = (opportunity_score x 0.6) + (business_quality_score x 0.4)
 ```
 
-Completely different psychology.
+The website gap is the primary signal. A poor website is the pain. The business quality check is there to filter out businesses that are not worth approaching even if they have a bad website. But website quality drives the sort order.
+
+In plain terms: we want businesses that are real and trading, but whose digital presence is letting them down. Those are the businesses most likely to feel the gap when they see their score and their review page.
 
 ---
 
-This is why I wouldn't necessarily change the homepage dramatically.
-
-What I would change is the supporting architecture.
-
-For example, your hero could remain:
-
-```text
-Your new website.
-Sorted.
-```
-
-But lower down:
-
-```text
-How it works
-
-1. We review your current website
-2. We create a modernization concept
-3. We score opportunities for improvement
-4. You decide if you'd like us to build it
-```
-
-Now the score exists.
-
-But it's not leading.
-
----
-
-The more I think about it, the more I think the website should remain the Trojan horse.
-
-Because it's the easiest thing to understand.
-
-What changes is what happens after they engage.
-
-Current:
-
-```text
-Mockup
-↓
-Build
-↓
-Quote
-```
-
-Future:
-
-```text
-Mockup
-↓
-Score
-↓
-Review Page
-↓
-Video Review
-↓
-Build
-↓
-Quote
-↓
-Digital Excellence Expansion
-```
-
-The score becomes part of the experience, not the promise.
-
----
-
-And there's another reason I think you're right.
-
-Imagine two headlines:
-
-### Headline A
-
-```text
-Get your Digital Excellence Score
-```
-
-### Headline B
-
-```text
-See your new website before you pay a penny
-```
-
-For a local business owner, B probably wins by a mile.
-
-Because it speaks directly to desire.
-
-The score is intellectually interesting.
-
-The mockup is emotionally interesting.
-
-People buy emotionally first.
-
-Then justify rationally.
-
-The score becomes the rational justification.
-
-The mockup creates the emotional pull.
-
-So if I were protecting the Sorted positioning, I'd keep:
-
-> **Your new website. Sorted.**
-
-But I'd increasingly build the score, review page, video review, and modernization framework behind it.
-
-In other words:
-
-**The website remains the bait.**
-
-**The score becomes the mechanism.**
-
-**The modernization platform becomes the business.**
-
-And those are three different layers that don't need to be visible at the same time.
-
---------------
-
-# Sorted Doctrine Module: Digital Excellence Review System (Version 2)
-
-## Core Principle
-
-Business owners do not buy websites.
-
-Business owners buy outcomes.
-
-More enquiries.
-More trust.
-More customers.
-Less friction.
-Greater competitiveness.
-
-The website is simply the most visible symptom of a larger modernization problem.
-
-Sorted exists to identify these problems, quantify them, visualize the future state, and create a path toward modernization.
-
----
-
-# The Modernization Gap
-
-Every business operates within one of two states:
-
-## Modernized
-
-The business is:
-
-* easy to find
-* easy to trust
-* easy to contact
-* easy to buy from
-* easy to recommend
-
-or
-
-## Unmodernized
-
-The business creates friction.
-
-Every friction point costs opportunities.
-
-Most owners simply cannot see where those opportunities are being lost.
-
-The purpose of the Digital Excellence Review is to expose these invisible losses.
-
----
-
-# The Review Structure
-
-Each prospect receives a personalized review page.
-
-Example:
-
-sortmysite.digital/review/business-name
-
-The review contains:
-
-1. Digital Excellence Score
-2. Website Review
-3. Modernized Website Concept
-4. Business Impact Analysis
-5. Future-State Projection
-6. Recommended Next Steps
-
----
-
-# The Digital Excellence Score
+## What the Score Is Not
 
 The score is not the product.
 
 The score is the diagnosis.
 
-The score creates awareness.
+Business owners do not wake up wanting a website audit. They wake up wanting more customers, more trust, and to stop looking amateur compared to bigger competitors.
 
-The website creates desire.
+The score creates awareness of a problem they may not have articulated. The review page and mockup create the desire to fix it. The score is the rational justification. The mockup is the emotional pull.
 
-The modernization roadmap creates action.
+This is why the score is introduced in the cold email as a curiosity hook, not a product offer.
 
----
+Example email register:
 
-# The Hidden Cost of Remaining Unmodernized
+```
+[Business name]
 
-A poor score is not a design issue.
+Website Score: 43/100
 
-It is a business issue.
+We reviewed your website and built a modernisation concept.
 
-Each weak category represents opportunity leakage.
+View your review ->
+```
 
----
-
-## Website Experience
-
-Low Score Consequences:
-
-* visitors leave early
-* mobile users abandon
-* lower trust
-* lower enquiry rates
-* reduced referrals
-
-Modernization Outcome:
-
-* higher engagement
-* stronger first impressions
-* increased enquiry volume
-* improved customer confidence
+The score creates the click. The review page creates the conversation.
 
 ---
 
-## Trust & Credibility
+## The Two Analyser Outputs
 
-Low Score Consequences:
+The Website Analyser produces two distinct outputs for every prospect.
 
-* prospects hesitate
-* customers compare competitors
-* lower conversion rates
-* premium pricing becomes difficult
+### Output A: `site_analysis` (internal)
 
-Modernization Outcome:
+A full structured breakdown of the website. Used by the operator to understand the prospect and inform the outreach approach. Not shown to the prospect.
 
-* stronger authority
-* increased confidence
-* higher conversion rates
-* greater willingness to purchase
+Contains:
 
----
+- `opportunity_score` (0-10)
+- `business_quality_score` (0-10)
+- `prospect_score` (0-10, computed)
+- `outreach_angle` — the single most compelling hook for the cold email
+- `weaknesses[]` — specific failure points in plain English
+- Full technical analysis (navigation, mobile, speed, trust signals, conversion infrastructure, local search presence)
 
-## Conversion Infrastructure
+### Output B: `review_summary` (prospect-facing)
 
-Low Score Consequences:
+Sales copy written for the business owner. This is what appears on their review page at `sortmydigital.site/review/[slug]`.
 
-* lost enquiries
-* abandoned visitors
-* poor lead generation
-* unclear next steps
+Rules for the `review_summary`:
 
-Modernization Outcome:
+- Second-person voice. Speak directly to the business owner.
+- Plain English throughout. No jargon.
+- No em-dashes.
+- Advisory tone. Not critical. Not patronising. The posture is: "Here is what we found, and here is what it is costing you."
+- Translate weaknesses into business impact, not technical descriptions.
+- End with a clear forward motion: what a modernised website would change for them.
 
-* increased enquiries
-* more calls
-* more bookings
-* greater conversion efficiency
+Example of correct register:
 
----
+> "Your website is hard to use on a phone, and most of your customers are looking you up on their phones before they call. The contact button is buried and the text is too small to read comfortably. People who find you on Google are likely leaving before they get in touch. A modern site that works well on mobile, shows your work clearly, and makes it obvious how to contact you would convert more of that traffic into actual enquiries."
 
-## Local Search Presence
+Example of incorrect register:
 
-Low Score Consequences:
+> "Mobile UX is suboptimal. CTA placement is below the fold. Trust signal density is low. Navigation architecture requires restructuring."
 
-* invisible to local buyers
-* reduced map visibility
-* lower review performance
-* lost traffic
-
-Modernization Outcome:
-
-* stronger local visibility
-* increased discovery
-* improved reputation
-* more inbound opportunities
+The `review_summary` should read like an advisor talking to a business owner, not like an audit report.
 
 ---
 
-## Brand Presentation
+## Score Display on the Review Page
 
-Low Score Consequences:
+The review page shows:
 
-* commoditization
-* price comparison
-* weak differentiation
-* reduced perceived value
+- Business name
+- Score as `[prospect_score x 10] / 100`
+- Weaknesses in plain business-owner language (not technical descriptions)
+- The `review_summary`
+- A blurred mockup that reveals on click
 
-Modernization Outcome:
+When the prospect clicks "Reveal your new website", the mockup un-blurs and `crm_status` updates to `mockup_revealed` automatically.
 
-* stronger positioning
-* premium perception
-* competitive differentiation
-* improved market presence
+Full review page spec: `doctrine/operator-chain.md` (Chain 1, Step 5)
 
 ---
 
-## Follow-Up Systems
+## The Modernisation Gap
 
-Low Score Consequences:
+Every business operates within one of two states.
 
-* leads forgotten
-* slow response times
-* inconsistent customer experience
-* poor review collection
+**Modernised:** easy to find, easy to trust, easy to contact, easy to buy from.
 
-Modernization Outcome:
+**Unmodernised:** creates friction at every touchpoint. Most owners cannot see where those opportunities are being lost.
 
-* faster responses
-* more recovered leads
-* improved customer journey
-* increased review generation
+The scoring system exists to surface that gap. A poor score is not a design criticism. It is a business diagnosis. Each weak category represents opportunity leakage: visitors who left, enquiries that never came, competitors who looked more credible and got the job.
+
+The review page makes that gap visible. The mockup makes the fix tangible. Together they create the conditions for a conversation.
 
 ---
 
-## Analytics & Visibility
+## After Delivery — Rescoring
 
-Low Score Consequences:
+After a client site is delivered, the business can be rescored using the same formula.
 
-* decisions based on assumptions
-* unknown conversion sources
-* wasted effort
-* poor optimization
+The before and after scores demonstrate measurable modernisation. The conversation shifts from "we built you a website" to "we improved your business by a quantifiable amount."
 
-Modernization Outcome:
-
-* measurable performance
-* informed decision making
-* marketing visibility
-* operational clarity
-
----
-
-## Operational Automation
-
-Low Score Consequences:
-
-* administrative burden
-* repetitive manual tasks
-* inconsistent execution
-* scalability limitations
-
-Modernization Outcome:
-
-* reduced workload
-* increased efficiency
-* greater consistency
-* scalable growth
-
----
-
-# The Modernized Future State
-
-The purpose of the review is not to criticize.
-
-The purpose is to visualize what is possible.
-
-Every review shows:
-
-Current Score
-
-↓
-
-Current Business State
-
-↓
-
-Modernized Website Concept
-
-↓
-
-Future State Projection
-
-↓
-
-Projected Score
-
-Example:
-
-Current Score:
-37/100
-
-Projected Score:
-84/100
-
-Improvement:
-+47 Points
-
----
-
-# The Website as the Trojan Horse
-
-The website remains the entry point.
-
-The prospect does not initially seek a score.
-
-They seek improvement.
-
-The website concept creates emotional engagement.
-
-The score provides objective justification.
-
-Together they create momentum.
-
----
-
-# The Review Sequence
-
-Outreach
-
-↓
-
-Review URL
-
-↓
-
-Digital Excellence Score
-
-↓
-
-Business Impact Analysis
-
-↓
-
-Modernized Website Reveal
-
-↓
-
-Future-State Projection
-
-↓
-
-Video Review
-
-↓
-
-Quote
-
-↓
-
-Build
-
-↓
-
-Implementation
-
-↓
-
-Rescore
-
----
-
-# The Final Proof
-
-After implementation, the business is rescored.
-
-Example:
-
-Before:
-37/100
-
-After:
-84/100
-
-Improvement:
-+47
-
-The client receives measurable evidence of modernization.
-
-The conversation shifts from:
-
-"We built you a website."
-
-to
-
-"We improved your business."
-
-This distinction is the foundation of the Sorted doctrine.
+This is the foundation of the Sorted proof of work.
