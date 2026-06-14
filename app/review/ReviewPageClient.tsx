@@ -215,26 +215,31 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-6">What this is costing you</p>
                 <div className="space-y-4">
-                  {prospect.site_weaknesses.slice(0, 4).map((weakness, i) => {
-                    const translated = translateWeakness(weakness)
-                    return (
+                  {(() => {
+                    const seen = new Set<string>()
+                    const items: { title: string; impact: string | null }[] = []
+                    for (const weakness of prospect.site_weaknesses) {
+                      const translated = translateWeakness(weakness)
+                      const key = translated?.title ?? weakness
+                      if (seen.has(key)) continue
+                      seen.add(key)
+                      items.push({ title: key, impact: translated?.impact ?? null })
+                      if (items.length === 4) break
+                    }
+                    return items.map(({ title, impact }, i) => (
                       <div key={i} className="bg-white border border-black/[0.08] rounded-xl p-6">
                         <div className="flex items-start gap-4">
                           <span className="w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
                             {i + 1}
                           </span>
                           <div>
-                            <h3 className="font-sans font-bold text-[#0A0A0A] text-base mb-2 leading-snug">
-                              {translated?.title ?? weakness}
-                            </h3>
-                            {translated && (
-                              <p className="text-sm text-[#737373] leading-relaxed">{translated.impact}</p>
-                            )}
+                            <h3 className="font-sans font-bold text-[#0A0A0A] text-base mb-2 leading-snug">{title}</h3>
+                            {impact && <p className="text-sm text-[#737373] leading-relaxed">{impact}</p>}
                           </div>
                         </div>
                       </div>
-                    )
-                  })}
+                    ))
+                  })()}
                 </div>
               </div>
             )}
