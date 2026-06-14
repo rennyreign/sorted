@@ -95,6 +95,7 @@ def write_analysis(place_id: str, analysis: dict[str, Any]) -> bool:
         "business_quality_score":   analysis.get("business_quality_score"),
         "opportunity_score":        analysis.get("opportunity_score"),
         "site_analysis":            analysis.get("site_analysis"),
+        "review_summary":           analysis.get("review_summary"),
         "site_weaknesses":          analysis.get("site_weaknesses", []),
         "outreach_angle":           analysis.get("outreach_angle"),
         "recommendation":           analysis.get("recommendation"),

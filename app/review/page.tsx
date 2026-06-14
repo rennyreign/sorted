@@ -15,10 +15,13 @@ export default function ReviewPage() {
   const [notFound, setNotFound] = useState(false)
 
   useEffect(() => {
-    // Extract slug: /review/abc-plumbing → "abc-plumbing"
+    // Production: /review/abc-plumbing → read from pathname (via .htaccess rewrite)
+    // Dev: /review?slug=abc-plumbing → read from query param
     const parts = window.location.pathname.replace(/\/$/, "").split("/")
-    const s = parts[parts.length - 1]
-    if (s && s !== "review") {
+    const fromPath = parts[parts.length - 1]
+    const fromQuery = new URLSearchParams(window.location.search).get("slug")
+    const s = (fromPath && fromPath !== "review") ? fromPath : fromQuery
+    if (s) {
       setSlug(s)
     } else {
       setLoading(false)
@@ -33,7 +36,7 @@ export default function ReviewPage() {
       .select(`
         place_id, name, category, website, address, city,
         site_score, business_quality_score, opportunity_score,
-        site_analysis, site_weaknesses, outreach_angle,
+        site_analysis, review_summary, site_weaknesses, outreach_angle,
         recommendation, revshare_potential, modernity_gap,
         screenshot_url, analysed_at, crm_status, review_slug, mockup_url
       `)

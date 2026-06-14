@@ -14,6 +14,7 @@ export type ReviewProspect = {
   business_quality_score: number | null
   opportunity_score: number | null
   site_analysis: string | null
+  review_summary: string | null
   site_weaknesses: string[] | null
   outreach_angle: string | null
   recommendation: string | null
@@ -206,10 +207,10 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
             )}
 
             {/* Assessment */}
-            {prospect.site_analysis && (
+            {prospect.review_summary && (
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">Our assessment</p>
-                <p className="text-[#525252] text-base leading-relaxed">{prospect.site_analysis}</p>
+                <p className="text-[#525252] text-base leading-relaxed">{prospect.review_summary}</p>
               </div>
             )}
 
@@ -217,7 +218,7 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-2">Your new website</p>
               <p className="text-[#737373] text-sm mb-6 leading-relaxed">
-                We have already built a modernised concept for {prospect.name}. See what your business could look like.
+                We have already built a modernised concept for {prospect.name}. See what your business should look like.
               </p>
 
               {hasMockup ? (
