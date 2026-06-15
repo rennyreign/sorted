@@ -90,6 +90,18 @@ export default function OutreachPanel() {
     setEditedBody("")
   }
 
+  async function handleDismiss(p: Prospect, e: React.MouseEvent) {
+    e.stopPropagation()
+    // Remove from local state immediately
+    setProspects(prev => prev.filter(x => x.place_id !== p.place_id))
+    if (selected?.place_id === p.place_id) setSelected(null)
+    // Mark as lost in DB so it stays out of the queue
+    await supabase
+      .from("prospects")
+      .update({ crm_status: "lost" })
+      .eq("place_id", p.place_id)
+  }
+
   function handleGenerate() {
     if (!selected) return
     setDraftState("generating")
@@ -195,6 +207,7 @@ export default function OutreachPanel() {
                 prospect={p}
                 isSelected={selected?.place_id === p.place_id}
                 onSelect={() => selectProspect(p)}
+                onDismiss={(e) => handleDismiss(p, e)}
               />
             ))}
           </div>
@@ -420,43 +433,64 @@ function ProspectListItem({
   prospect: p,
   isSelected,
   onSelect,
+  onDismiss,
 }: {
   prospect: Prospect
   isSelected: boolean
   onSelect: () => void
+  onDismiss: (e: React.MouseEvent) => void
 }) {
   return (
-    <button
-      onClick={onSelect}
-      className={`w-full text-left px-5 py-3.5 transition-colors border-b border-black/[0.04] last:border-0 ${
+    <div
+      className={`group relative border-b border-black/[0.04] last:border-0 ${
         isSelected ? "bg-[#0A0A0A]" : "hover:bg-black/[0.03]"
       }`}
     >
-      <div className="flex items-start justify-between gap-2">
-        <div className="min-w-0">
-          <p className={`text-sm font-semibold truncate ${isSelected ? "text-[#FAFAFA]" : "text-[#0A0A0A]"}`}>
-            {p.name}
-          </p>
-          <p className={`font-mono text-[10px] uppercase tracking-[0.1em] mt-0.5 truncate ${isSelected ? "text-[#A3A3A3]" : "text-[#A3A3A3]"}`}>
-            {p.category}
-          </p>
-        </div>
-        <div className="shrink-0 text-right">
-          <p className={`font-sans font-bold text-lg leading-none ${
-            isSelected ? "text-[#FAFAFA]" :
-            (p.site_score ?? 0) >= 8 ? "text-[#059669]" :
-            (p.site_score ?? 0) >= 6 ? "text-[#D97706]" : "text-[#737373]"
-          }`}>
-            {p.site_score}
-          </p>
-          {p.status === "contacted" && (
-            <p className={`font-mono text-[8px] uppercase tracking-[0.1em] mt-0.5 ${isSelected ? "text-[#A3A3A3]" : "text-[#A3A3A3]"}`}>
-              contacted
+      <button
+        onClick={onSelect}
+        className="w-full text-left px-5 py-3.5 pr-10"
+      >
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <p className={`text-sm font-semibold truncate ${isSelected ? "text-[#FAFAFA]" : "text-[#0A0A0A]"}`}>
+              {p.name}
             </p>
-          )}
+            <p className="font-mono text-[10px] uppercase tracking-[0.1em] mt-0.5 truncate text-[#A3A3A3]">
+              {p.category}
+            </p>
+          </div>
+          <div className="shrink-0 text-right">
+            <p className={`font-sans font-bold text-lg leading-none ${
+              isSelected ? "text-[#FAFAFA]" :
+              (p.site_score ?? 0) >= 8 ? "text-[#059669]" :
+              (p.site_score ?? 0) >= 6 ? "text-[#D97706]" : "text-[#737373]"
+            }`}>
+              {p.site_score}
+            </p>
+            {p.status === "contacted" && (
+              <p className="font-mono text-[8px] uppercase tracking-[0.1em] mt-0.5 text-[#A3A3A3]">
+                contacted
+              </p>
+            )}
+          </div>
         </div>
-      </div>
-    </button>
+      </button>
+
+      {/* Dismiss button — visible on hover */}
+      <button
+        onClick={onDismiss}
+        title="Remove from queue"
+        className={`absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity ${
+          isSelected
+            ? "text-[#737373] hover:text-[#FAFAFA] hover:bg-white/10"
+            : "text-[#A3A3A3] hover:text-[#0A0A0A] hover:bg-black/[0.08]"
+        }`}
+      >
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+          <path d="M1 1l8 8M9 1L1 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        </svg>
+      </button>
+    </div>
   )
 }
 
