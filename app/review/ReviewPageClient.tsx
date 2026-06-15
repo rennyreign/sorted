@@ -310,17 +310,22 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
         )}
 
         {/* CTA */}
-        <div className="bg-[#0A0A0A] rounded-2xl p-8 text-center">
-          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/40 mb-3">Next step</p>
+        <div className="bg-[#0A0A0A] rounded-2xl p-8 sm:p-12 text-center">
+          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/40 mb-4">Next step</p>
           <h2 className="font-sans font-extrabold text-white text-2xl sm:text-3xl tracking-tight mb-3">
-            Ready to sort your digital presence?
+            Like what you see?
           </h2>
-          <p className="text-white/60 text-sm leading-relaxed mb-8 max-w-sm mx-auto">
-            No upfront payment. No long contracts. You see your new site before you spend a penny.
+          <p className="text-white/60 text-sm leading-relaxed mb-2 max-w-sm mx-auto">
+            Want to see the full website in action?
           </p>
-          <a href="https://sortmydigital.com"
-            className="inline-block bg-white text-[#0A0A0A] font-bold text-sm px-8 py-4 rounded-xl hover:bg-[#F5F5F5] transition-colors">
-            Get started with Sorted →
+          <p className="text-white/40 text-xs leading-relaxed mb-8 max-w-xs mx-auto">
+            No upfront payment. No contracts. You see the finished site before you spend a penny.
+          </p>
+          <a
+            href={`/review/${slug}/next`}
+            className="inline-block bg-white text-[#0A0A0A] font-bold text-sm px-8 py-4 rounded-xl hover:bg-[#F5F5F5] transition-colors"
+          >
+            Show me the full website →
           </a>
         </div>
 

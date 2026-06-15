@@ -1,0 +1,69 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import { supabase } from "@/lib/supabase"
+import NextPageClient from "./NextPageClient"
+
+export default function ReviewNextPage() {
+  const [slug, setSlug] = useState<string | null>(null)
+  const [prospectName, setProspectName] = useState<string>("")
+  const [loading, setLoading] = useState(true)
+  const [notFound, setNotFound] = useState(false)
+
+  useEffect(() => {
+    // Production: /review/abc-plumbing/next → slug is second-to-last segment
+    // Dev: /review/next?slug=abc-plumbing
+    const parts = window.location.pathname.replace(/\/$/, "").split("/")
+    // path is /review/[slug]/next — slug is parts[parts.length - 2]
+    const fromPath = parts[parts.length - 2]
+    const fromQuery = new URLSearchParams(window.location.search).get("slug")
+    // In production: /review/[slug]/next — fromPath is the slug
+    // In dev: /review/next?slug=... — fromPath would be "review", use query param
+    const s = (fromPath && fromPath !== "review" && fromPath !== "next") ? fromPath : fromQuery
+    if (s) {
+      setSlug(s)
+    } else {
+      setLoading(false)
+      setNotFound(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!slug) return
+    supabase
+      .from("prospects")
+      .select("name")
+      .eq("review_slug", slug)
+      .single()
+      .then(({ data, error }) => {
+        if (error || !data) setNotFound(true)
+        else setProspectName(data.name)
+        setLoading(false)
+      })
+  }, [slug])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#FAFAF9] flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-6 h-6 border-2 border-black/20 border-t-black rounded-full animate-spin mx-auto mb-4" />
+          <p className="font-mono text-xs text-[#A3A3A3] uppercase tracking-[0.12em]">Loading…</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (notFound || !slug) {
+    return (
+      <div className="min-h-screen bg-[#FAFAF9] flex items-center justify-center">
+        <div className="text-center max-w-sm px-6">
+          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-3">Sorted</p>
+          <h1 className="font-sans font-bold text-[#0A0A0A] text-2xl mb-3">Review not found</h1>
+          <p className="text-[#737373] text-sm">This review link may have expired or the URL is incorrect.</p>
+        </div>
+      </div>
+    )
+  }
+
+  return <NextPageClient slug={slug} prospectName={prospectName} />
+}
