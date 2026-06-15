@@ -47,7 +47,7 @@ export default function OutreachPanel() {
   const [draft, setDraft] = useState<EmailDraft | null>(null)
   const [draftState, setDraftState] = useState<DraftState>("idle")
   const [gmailConnected, setGmailConnected] = useState<boolean | null>(null)
-  const [filter, setFilter] = useState<"pursue" | "consider" | "all">("pursue")
+  const [filter, setFilter] = useState<"ready" | "queued" | "all">("ready")
   const [editedSubject, setEditedSubject] = useState("")
   const [editedBody, setEditedBody] = useState("")
 
@@ -77,7 +77,9 @@ export default function OutreachPanel() {
 
   const filtered = useMemo(() => {
     if (filter === "all") return prospects
-    return prospects.filter((p) => p.recommendation === filter)
+    if (filter === "ready") return prospects.filter((p) => !!p.review_slug)
+    if (filter === "queued") return prospects.filter((p) => !p.review_slug)
+    return prospects
   }, [prospects, filter])
 
   function selectProspect(p: Prospect) {
@@ -139,8 +141,8 @@ export default function OutreachPanel() {
   }
 
   const counts = useMemo(() => ({
-    pursue: prospects.filter((p) => p.recommendation === "pursue").length,
-    consider: prospects.filter((p) => p.recommendation === "consider").length,
+    ready: prospects.filter((p) => !!p.review_slug).length,
+    queued: prospects.filter((p) => !p.review_slug).length,
     all: prospects.length,
   }), [prospects])
 
@@ -156,7 +158,7 @@ export default function OutreachPanel() {
 
           {/* Filter tabs */}
           <div className="flex gap-1">
-            {(["pursue", "consider", "all"] as const).map((f) => (
+            {(["ready", "queued", "all"] as const).map((f) => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}
@@ -166,7 +168,7 @@ export default function OutreachPanel() {
                     : "text-[#737373] hover:text-[#0A0A0A] hover:bg-black/[0.05]"
                 }`}
               >
-                {f === "pursue" ? `Pursue (${counts.pursue})` : f === "consider" ? `Consider (${counts.consider})` : `All (${counts.all})`}
+                {f === "ready" ? `Ready (${counts.ready})` : f === "queued" ? `Queued (${counts.queued})` : `All (${counts.all})`}
               </button>
             ))}
           </div>
@@ -211,15 +213,13 @@ export default function OutreachPanel() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-3 mb-2">
-                    <RecommendationBadge recommendation={selected.recommendation} />
-                    {selected.revshare_potential && (
-                      <span className={`font-mono text-[10px] uppercase tracking-[0.1em] ${
-                        selected.revshare_potential === "high" ? "text-[#059669]" :
-                        selected.revshare_potential === "medium" ? "text-[#D97706]" : "text-[#A3A3A3]"
-                      }`}>
-                        {selected.revshare_potential} rev-share
-                      </span>
-                    )}
+                    <span className={`inline-block border rounded-lg px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] font-semibold ${
+                      selected.review_slug
+                        ? "bg-[#D1FAE5] text-[#065F46] border-[#A7F3D0]"
+                        : "bg-[#FEF3C7] text-[#92400E] border-[#FDE68A]"
+                    }`}>
+                      {selected.review_slug ? "Ready to send" : "No mockup yet"}
+                    </span>
                   </div>
                   <h2 className="font-sans font-extrabold text-[#0A0A0A] text-2xl tracking-tight">{selected.name}</h2>
                   <p className="text-[#737373] text-sm mt-1">
@@ -237,11 +237,18 @@ export default function OutreachPanel() {
                 </div>
               </div>
 
-              {/* Outreach angle */}
-              {selected.outreach_angle && (
+              {/* Site weaknesses — pre-send brief */}
+              {selected.site_weaknesses && selected.site_weaknesses.length > 0 && (
                 <div className="mt-4 bg-[#0A0A0A] rounded-xl px-4 py-3">
-                  <p className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#525252] mb-1">Outreach angle</p>
-                  <p className="text-[#FAFAFA] text-sm leading-relaxed italic">"{selected.outreach_angle}"</p>
+                  <p className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#525252] mb-2">What their review covers</p>
+                  <ul className="space-y-1.5">
+                    {selected.site_weaknesses.slice(0, 3).map((w, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-[#525252] mt-0.5 shrink-0">·</span>
+                        <span className="text-[#A3A3A3] text-xs leading-relaxed">{w}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
 
@@ -453,24 +460,7 @@ function ProspectListItem({
   )
 }
 
-function RecommendationBadge({ recommendation }: { recommendation: string | null }) {
-  if (!recommendation) return null
-  const styles: Record<string, string> = {
-    pursue:       "bg-[#D1FAE5] text-[#065F46] border-[#A7F3D0]",
-    consider:     "bg-[#FEF3C7] text-[#92400E] border-[#FDE68A]",
-    deprioritise: "bg-black/[0.03] text-[#737373] border-black/[0.08]",
-  }
-  const labels: Record<string, string> = {
-    pursue: "Generate mockup",
-    consider: "Worth a look",
-    deprioritise: "Deprioritise",
-  }
-  return (
-    <span className={`inline-block border rounded-lg px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] font-semibold ${styles[recommendation] ?? styles.deprioritise}`}>
-      {labels[recommendation] ?? recommendation}
-    </span>
-  )
-}
+
 
 function EmptyState() {
   return (
