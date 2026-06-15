@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase"
 import type { Prospect } from "@/lib/supabase"
 
 type DraftState = "idle" | "generating" | "ready" | "sending" | "sent" | "error"
+type NoteState = "idle" | "saving" | "saved"
 
 type EmailDraft = {
   subject: string
@@ -50,6 +51,8 @@ export default function OutreachPanel() {
   const [filter, setFilter] = useState<"ready" | "queued" | "all">("ready")
   const [editedSubject, setEditedSubject] = useState("")
   const [editedBody, setEditedBody] = useState("")
+  const [noteText, setNoteText] = useState("")
+  const [noteState, setNoteState] = useState<NoteState>("idle")
 
   // Check Gmail connection status
   useEffect(() => {
@@ -88,6 +91,22 @@ export default function OutreachPanel() {
     setDraftState("idle")
     setEditedSubject("")
     setEditedBody("")
+    setNoteText(p.notes ?? "")
+    setNoteState("idle")
+  }
+
+  async function handleNoteSave() {
+    if (!selected) return
+    setNoteState("saving")
+    await supabase
+      .from("prospects")
+      .update({ notes: noteText || null })
+      .eq("place_id", selected.place_id)
+    setProspects(prev =>
+      prev.map(p => p.place_id === selected.place_id ? { ...p, notes: noteText || null } : p)
+    )
+    setNoteState("saved")
+    setTimeout(() => setNoteState("idle"), 2000)
   }
 
   async function handleDismiss(p: Prospect, e: React.MouseEvent) {
@@ -282,6 +301,27 @@ export default function OutreachPanel() {
               </div>
             </div>
 
+            {/* Notes */}
+            <div className="mb-8 pb-8 border-b border-black/[0.06]">
+              <div className="flex items-center justify-between mb-2">
+                <label className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#A3A3A3]">Notes</label>
+                {noteState === "saving" && (
+                  <span className="font-mono text-[9px] text-[#A3A3A3]">Saving…</span>
+                )}
+                {noteState === "saved" && (
+                  <span className="font-mono text-[9px] text-[#059669]">Saved</span>
+                )}
+              </div>
+              <textarea
+                value={noteText}
+                onChange={(e) => { setNoteText(e.target.value); setNoteState("idle") }}
+                onBlur={handleNoteSave}
+                placeholder="Add a note about this prospect…"
+                rows={3}
+                className="w-full bg-white border border-black/[0.08] rounded-xl text-[#0A0A0A] text-sm px-4 py-3 outline-none focus:border-black/[0.2] transition-colors resize-none leading-relaxed placeholder:text-[#C4C4C4]"
+              />
+            </div>
+
             {/* No email warning */}
             {!selected.email && (
               <div className="mb-6 border border-[#FDE68A] bg-[#FEF3C7] rounded-xl px-4 py-3">
@@ -471,6 +511,9 @@ function ProspectListItem({
               <p className="font-mono text-[8px] uppercase tracking-[0.1em] mt-0.5 text-[#A3A3A3]">
                 contacted
               </p>
+            )}
+            {p.notes && (
+              <p className="font-mono text-[8px] mt-0.5 text-[#A3A3A3]">·</p>
             )}
           </div>
         </div>
