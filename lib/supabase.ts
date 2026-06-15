@@ -2,7 +2,10 @@ import { createClient } from "@supabase/supabase-js"
 
 const supabaseUrl =
   process.env.NEXT_PUBLIC_SUPABASE_URL || "https://qweevancxedkkfxysnzq.supabase.co"
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
+// Anon key is public — safe to hardcode as fallback for static build in CI
+const supabaseAnonKey =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  "sb_publishable_WU1XpYbqZqud_nckYqTotg_JR14Nxzg"
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
