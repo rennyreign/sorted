@@ -312,23 +312,37 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
         )}
 
         {/* CTA */}
-        <div className="bg-[#0A0A0A] rounded-2xl p-8 sm:p-12 text-center">
-          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/40 mb-4">Next step</p>
-          <h2 className="font-sans font-extrabold text-white text-2xl sm:text-3xl tracking-tight mb-3">
-            Like what you see?
+        <div className="bg-[#0A0A0A] rounded-2xl p-8 sm:p-12">
+          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/40 mb-4 text-center">The full build</p>
+          <h2 className="font-sans font-extrabold text-white text-2xl sm:text-3xl tracking-tight mb-8 text-center">
+            There is a full website waiting for you.
           </h2>
-          <p className="text-white/60 text-sm leading-relaxed mb-2 max-w-sm mx-auto">
-            Want to see the full website in action?
-          </p>
-          <p className="text-white/40 text-xs leading-relaxed mb-8 max-w-xs mx-auto">
-            No upfront payment. No contracts. You see the finished site before you spend a penny.
-          </p>
-          <a
-            href={`/review-next?slug=${slug}`}
-            className="inline-block bg-white text-[#0A0A0A] font-bold text-sm px-8 py-4 rounded-xl hover:bg-[#F5F5F5] transition-colors"
-          >
-            Show me the full website →
-          </a>
+
+          {/* What's included */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/[0.06] rounded-xl overflow-hidden mb-8">
+            {[
+              { label: "Every page", detail: "Home, services, about, contact. Built and ready." },
+              { label: "Works on mobile", detail: "See exactly how it looks on every screen size." },
+              { label: "Copy written for you", detail: "Real words for your business. Not placeholder text." },
+            ].map(({ label, detail }) => (
+              <div key={label} className="bg-[#111] px-5 py-5">
+                <p className="font-sans font-bold text-white text-sm mb-1">{label}</p>
+                <p className="text-white/40 text-xs leading-relaxed">{detail}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <p className="text-white/30 text-xs mb-6">
+              No upfront payment. No contracts. You see the finished site before you spend anything.
+            </p>
+            <a
+              href={`/review-next?slug=${slug}`}
+              className="inline-block bg-white text-[#0A0A0A] font-bold text-sm px-8 py-4 rounded-xl hover:bg-[#F5F5F5] transition-colors"
+            >
+              Show me the full website →
+            </a>
+          </div>
         </div>
 
         <p className="text-center font-mono text-[10px] text-[#C4C4C4] uppercase tracking-[0.12em]">
