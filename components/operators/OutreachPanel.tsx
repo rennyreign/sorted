@@ -18,26 +18,23 @@ function generateDraft(p: Prospect): EmailDraft {
     ? `https://sortmydigital.site/review/${p.review_slug}`
     : null
 
-  const subject = `Your website scored ${score !== null ? score + "/10" : "below average"}`
-
-  const scoreLine = score !== null
-    ? `We ran a digital health check on ${p.name} and your website scored ${score}/10.`
-    : `We ran a digital health check on ${p.name} and your website scored below average.`
+  const subject = score !== null
+    ? `${p.name}: your website scored ${score}/10`
+    : `${p.name}: your website review`
 
   const body = [
     `Hi ${firstName},`,
     "",
-    scoreLine,
+    `We score small business websites to find ones worth improving. Yours scored ${score !== null ? score + "/10" : "below average"}.`,
     "",
-    "We put together a full breakdown of what is working, what is not, and what it would look like if it was modernised.",
+    "We have compiled a review and built you a new version of your site.",
     "",
     reviewUrl
-      ? `You can see your results here: ${reviewUrl}`
-      : "Reply and I can send your results over.",
+      ? `Both are here: ${reviewUrl}`
+      : "Reply and I will send your results over.",
     "",
     "Renaldo",
     "Sorted",
-    "sortmydigital.site",
   ].join("\n")
 
   return { subject, body }
