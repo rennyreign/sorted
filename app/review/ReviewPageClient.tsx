@@ -217,13 +217,15 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
                 <div className="space-y-4">
                   {(() => {
                     const seen = new Set<string>()
-                    const items: { title: string; impact: string | null }[] = []
+                    const items: { title: string; impact: string }[] = []
                     for (const weakness of prospect.site_weaknesses) {
                       const translated = translateWeakness(weakness)
-                      const key = translated?.title ?? weakness
-                      if (seen.has(key)) continue
-                      seen.add(key)
-                      items.push({ title: key, impact: translated?.impact ?? null })
+                      // Skip anything that didn't match the WEAKNESS_MAP —
+                      // raw analyser text is internal and not suitable for prospects
+                      if (!translated) continue
+                      if (seen.has(translated.title)) continue
+                      seen.add(translated.title)
+                      items.push({ title: translated.title, impact: translated.impact })
                       if (items.length === 4) break
                     }
                     return items.map(({ title, impact }, i) => (
@@ -234,7 +236,7 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
                           </span>
                           <div>
                             <h3 className="font-sans font-bold text-[#0A0A0A] text-base mb-2 leading-snug">{title}</h3>
-                            {impact && <p className="text-sm text-[#737373] leading-relaxed">{impact}</p>}
+                            <p className="text-sm text-[#737373] leading-relaxed">{impact}</p>
                           </div>
                         </div>
                       </div>
