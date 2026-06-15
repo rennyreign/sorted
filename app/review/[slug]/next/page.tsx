@@ -1,32 +1,14 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, use } from "react"
 import { supabase } from "@/lib/supabase"
 import NextPageClient from "./NextPageClient"
 
-export default function ReviewNextPage() {
-  const [slug, setSlug] = useState<string | null>(null)
+export default function ReviewNextPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params)
   const [prospectName, setProspectName] = useState<string>("")
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
-
-  useEffect(() => {
-    // Production: /review/abc-plumbing/next → slug is second-to-last segment
-    // Dev: /review/next?slug=abc-plumbing
-    const parts = window.location.pathname.replace(/\/$/, "").split("/")
-    // path is /review/[slug]/next — slug is parts[parts.length - 2]
-    const fromPath = parts[parts.length - 2]
-    const fromQuery = new URLSearchParams(window.location.search).get("slug")
-    // In production: /review/[slug]/next — fromPath is the slug
-    // In dev: /review/next?slug=... — fromPath would be "review", use query param
-    const s = (fromPath && fromPath !== "review" && fromPath !== "next") ? fromPath : fromQuery
-    if (s) {
-      setSlug(s)
-    } else {
-      setLoading(false)
-      setNotFound(true)
-    }
-  }, [])
 
   useEffect(() => {
     if (!slug) return
@@ -53,7 +35,7 @@ export default function ReviewNextPage() {
     )
   }
 
-  if (notFound || !slug) {
+  if (notFound) {
     return (
       <div className="min-h-screen bg-[#FAFAF9] flex items-center justify-center">
         <div className="text-center max-w-sm px-6">
