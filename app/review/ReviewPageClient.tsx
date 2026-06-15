@@ -322,7 +322,7 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
             No upfront payment. No contracts. You see the finished site before you spend a penny.
           </p>
           <a
-            href={`/review/${slug}/next`}
+            href={`/review-next?slug=${slug}`}
             className="inline-block bg-white text-[#0A0A0A] font-bold text-sm px-8 py-4 rounded-xl hover:bg-[#F5F5F5] transition-colors"
           >
             Show me the full website →

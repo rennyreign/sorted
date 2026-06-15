@@ -1,14 +1,36 @@
 "use client"
 
-import { useState, useEffect, use } from "react"
+import { useState, useEffect } from "react"
 import { supabase } from "@/lib/supabase"
 import NextPageClient from "./NextPageClient"
 
-export default function ReviewNextPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params)
+// Static SPA shell served at /review-next/
+// Production: /review/[slug]/next → .htaccess rewrites to /review-next/index.html
+// The slug is read from window.location.pathname at runtime.
+// Dev: /review-next?slug=lrt-plumbing-services
+
+export default function ReviewNextPage() {
+  const [slug, setSlug] = useState<string | null>(null)
   const [prospectName, setProspectName] = useState<string>("")
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
+
+  useEffect(() => {
+    // Production path: /review/lrt-plumbing-services/next
+    // Split on "/" → ["", "review", "lrt-plumbing-services", "next"]
+    // Slug is the segment before "next"
+    const parts = window.location.pathname.replace(/\/$/, "").split("/")
+    const nextIdx = parts.indexOf("next")
+    const fromPath = nextIdx > 0 ? parts[nextIdx - 1] : null
+    const fromQuery = new URLSearchParams(window.location.search).get("slug")
+    const s = (fromPath && fromPath !== "review" && fromPath !== "review-next") ? fromPath : fromQuery
+    if (s) {
+      setSlug(s)
+    } else {
+      setLoading(false)
+      setNotFound(true)
+    }
+  }, [])
 
   useEffect(() => {
     if (!slug) return
@@ -35,7 +57,7 @@ export default function ReviewNextPage({ params }: { params: Promise<{ slug: str
     )
   }
 
-  if (notFound) {
+  if (notFound || !slug) {
     return (
       <div className="min-h-screen bg-[#FAFAF9] flex items-center justify-center">
         <div className="text-center max-w-sm px-6">

@@ -1,5 +1,9 @@
 RewriteEngine On
 
-# Rewrite /review/* to /review/index.html (serves the static SPA shell)
+# Rewrite /review/[slug]/next to /review-next/index.html (next step SPA shell)
+# Must come before the general review rewrite
+RewriteRule ^review/([^/]+)/next/?$ /review-next/index.html [L,NC]
+
+# Rewrite /review/* to /review/index.html (review page SPA shell)
 # The client-side code reads the slug from window.location.pathname
 RewriteRule ^review/(.+)/?$ /review/index.html [L,NC]
