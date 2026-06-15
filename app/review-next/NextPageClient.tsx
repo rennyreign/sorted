@@ -16,31 +16,31 @@ function getBudgetResponse(value: number): {
   if (value < FLOOR) {
     return {
       tone: "below-floor",
-      heading: "We can still make this work.",
-      body: `Our minimum is £${FLOOR}, but we offer a split payment option: £${FLOOR} upfront and £${FLOOR} on delivery. If that works for you, book a quick call below and we can talk it through. No pressure.`,
+      heading: "We can work with that.",
+      body: `Every site we build is the same full build — the budget just determines how we structure the payment. Our minimum is £${FLOOR}, and we can split that across two payments if it helps. Book a call below and we will walk you through it. No pressure.`,
       showBooking: true,
     }
   }
   if (value < TARGET) {
     return {
       tone: "stretch",
-      heading: "That works for us.",
-      body: "We are flexible. Book a call below and we can talk through exactly what is included at your budget. Most clients in this range get a full site — we just want to make sure expectations are clear before we start.",
+      heading: "That works.",
+      body: "You will get the exact same site regardless of where your budget sits. The build is the build. Book a call below and we can confirm the details and talk through payment.",
       showBooking: true,
     }
   }
   if (value <= 1000) {
     return {
       tone: "good",
-      heading: "That works perfectly.",
-      body: "That covers everything — the full site build, SortedUpdates so you can edit your own content, and a handoff walkthrough. Book a quick call below and we can confirm the details.",
+      heading: "Perfect.",
+      body: "That covers the full build comfortably. Same site, same quality, same handoff as every client we work with. Book a quick call below to confirm the brief and we will get started.",
       showBooking: true,
     }
   }
   return {
     tone: "great",
-    heading: "Great. Let us get to work.",
-    body: "That gives us everything we need to deliver something exceptional. Book a quick call below — it will take 15 minutes to confirm the brief and we can start building immediately after.",
+    heading: "Great.",
+    body: "That gives us plenty of room to get started immediately. Book a call below — 15 minutes to confirm the brief and we are off.",
     showBooking: true,
   }
 }
@@ -194,7 +194,7 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
           <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">One quick question</p>
           <h2 className="font-sans font-bold text-[#0A0A0A] text-xl mb-2">What budget do you have in mind?</h2>
           <p className="text-sm text-[#737373] mb-6 leading-relaxed">
-            Be honest — there is no wrong answer. We will tell you exactly what that gets you and we will not waste your time if it is not a fit.
+            Be honest — there is no wrong answer. Everyone gets the same full build. This just helps us talk about payment in a way that works for you.
           </p>
 
           {!submitted ? (
