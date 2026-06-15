@@ -38,6 +38,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           source: "./out/*"
-          target: "/home/u212019412/domains/sortmydigital.com/public_html"
+          target: "/home/u212019412/domains/sortmydigital.site/public_html"
           strip_components: 1
           overwrite: true

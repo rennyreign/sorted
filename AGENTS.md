@@ -14,7 +14,7 @@ Sorted builds websites for small businesses using a reversed product cycle: buil
 2. SortedUpdates — a Decap CMS giving the client control over all content
 3. A walkthrough tutorial video embedded in the CMS
 4. A factory reset capability held by Sorted
-5. A client quote/delivery page at `sortmydigital.com/clients/[client-slug]`
+5. A client quote/delivery page at `sortmydigital.site/clients/[client-slug]`
 
 The client owns the content layer. Sorted owns the design, code, and reset key.
 
@@ -211,7 +211,7 @@ Before closing any client delivery:
 - [ ] Client invited via Netlify Identity
 - [ ] Factory reset script created (`scripts/reset.sh`)
 - [ ] Handoff SHA tagged (`git tag handoff/[client-slug]`)
-- [ ] Client quote page live at `sortmydigital.com/clients/[client-slug]`
+- [ ] Client quote page live at `sortmydigital.site/clients/[client-slug]`
 - [ ] Quote page password sent to client separately
 
 ---
@@ -232,7 +232,9 @@ Before closing any client delivery:
 - **Framework:** Next.js (static export — `output: 'export'`)
 - **Styling:** TailwindCSS v4
 - **CMS:** Decap CMS v3 + Netlify Identity + Git Gateway
-- **Hosting:** Netlify (client sites) / Hostinger via GitHub Actions (sortmydigital.com)
+- **Hosting:** Netlify (client sites) / Hostinger via GitHub Actions (sortmydigital.site)
+- **IMPORTANT:** The Sorted platform domain is `sortmydigital.site` — NOT `.com`. Never use `.com`.
+- **Hostinger SSH:** IP `82.29.157.61`, port `65002`, username `u212019412` — deploy via SCP using `SSH_PRIVATE_KEY` secret
 - **Images:** Netlify Image CDN via `lib/image.ts` `imgSrc()` helper
 - **Icons:** Lucide React — string keys in JSON, component map in page file
 
