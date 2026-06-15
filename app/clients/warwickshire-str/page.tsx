@@ -3,14 +3,7 @@
 import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 
-const AUTH_KEY = "warwickshire_auth"
-const AUTH_EXPIRY_DAYS = 30
-
 export default function WarwickshireQuote() {
-  const [password, setPassword] = useState("")
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [error, setError] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
   const [mounted, setMounted] = useState(false)
 
   const [signerName, setSignerName] = useState("")
@@ -20,50 +13,12 @@ export default function WarwickshireQuote() {
 
   useEffect(() => { setMounted(true) }, [])
 
-  useEffect(() => {
-    const stored = localStorage.getItem(AUTH_KEY)
-    if (stored) {
-      try {
-        const { expires, signature } = JSON.parse(stored)
-        if (new Date().getTime() < expires) {
-          setIsAuthenticated(true)
-          if (signature) {
-            setIsSigned(true)
-            setSignedAt(signature.signedAt)
-            setSignerName(signature.signerName)
-          }
-        } else {
-          localStorage.removeItem(AUTH_KEY)
-        }
-      } catch {
-        localStorage.removeItem(AUTH_KEY)
-      }
-    }
-    setIsLoading(false)
-  }, [])
-
-  const saveAuth = (signatureData?: { signerName: string; signedAt: string }) => {
-    const expires = new Date().getTime() + (AUTH_EXPIRY_DAYS * 24 * 60 * 60 * 1000)
-    const data: { expires: number; signature?: { signerName: string; signedAt: string } } = { expires }
-    if (signatureData) data.signature = signatureData
-    localStorage.setItem(AUTH_KEY, JSON.stringify(data))
-  }
-
-  const handleSignOut = () => {
-    localStorage.removeItem(AUTH_KEY)
-    setIsAuthenticated(false)
-    setIsSigned(false)
-    setSignerName("")
-    setSignedAt(null)
-  }
-
   const handleSignatureSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (signerName.trim()) {
       const now = new Date().toISOString()
       setIsSigned(true)
       setSignedAt(now)
-      saveAuth({ signerName: signerName.trim(), signedAt: now })
       setShowAgreement(false)
     }
   }
@@ -72,57 +27,6 @@ export default function WarwickshireQuote() {
     return new Date(isoString).toLocaleDateString('en-GB', {
       day: 'numeric', month: 'long', year: 'numeric'
     })
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (password.toLowerCase() === "warwickshire2026") {
-      setIsAuthenticated(true)
-      setError(false)
-      saveAuth()
-    } else {
-      setError(true)
-    }
-  }
-
-  if (isLoading) {
-    return (
-      <main className="min-h-screen flex items-center justify-center">
-        <div className="w-6 h-6 border-2 border-black/[0.1] border-t-[#0A0A0A] rounded-full animate-spin" />
-      </main>
-    )
-  }
-
-  if (!isAuthenticated) {
-    return (
-      <main className="min-h-screen flex items-center justify-center px-6">
-        <div className="max-w-sm w-full">
-          <div className="mb-8">
-            <span className="font-sans font-extrabold text-[#0A0A0A] text-2xl tracking-tight">Sorted.</span>
-          </div>
-          <h1 className="font-sans font-bold text-[#0A0A0A] text-xl mb-2">Private — For Warwickshire Short Stays</h1>
-          <p className="text-[#737373] text-sm mb-6">Enter the password to view your delivery summary.</p>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              className="w-full px-4 py-3 bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] placeholder:text-[#A3A3A3] focus:outline-none focus:border-black/[0.3] transition-colors"
-            />
-            {error && (
-              <p className="text-red-500 text-sm">Incorrect password. Please try again.</p>
-            )}
-            <button
-              type="submit"
-              className="w-full bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-4 py-3 hover:bg-[#2a2a2a] transition-colors"
-            >
-              View Summary
-            </button>
-          </form>
-        </div>
-      </main>
-    )
   }
 
   return (
@@ -339,47 +243,27 @@ export default function WarwickshireQuote() {
           </span>
           <div className="grid sm:grid-cols-2 gap-4">
 
-            {/* Card / Revolut */}
-            <div className="flex flex-col justify-between rounded-2xl border border-black/[0.08] p-6 gap-6">
+            {/* Bank transfer — spans both columns */}
+            <div className="sm:col-span-2 flex flex-col justify-between rounded-2xl border border-black/[0.08] p-6 gap-6">
               <div>
-                <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#A3A3A3] mb-2">Pay by card</p>
-                <p className="font-sans font-bold text-[#0A0A0A] text-2xl tracking-tight mb-1">£150</p>
-                <p className="text-sm text-[#737373]">Instant. No account needed.</p>
-              </div>
-              <a
-                href="https://checkout.revolut.com/payment-link/0cfdb713-af20-4340-8d08-e6527150a6e4"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-5 py-3 hover:bg-[#2a2a2a] transition-colors"
-              >
-                Pay £150
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
-            </div>
-
-            {/* Bank transfer */}
-            <div className="flex flex-col justify-between rounded-2xl border border-black/[0.08] p-6 gap-6">
-              <div>
-                <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#A3A3A3] mb-2">Pay by bank transfer</p>
+                <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#A3A3A3] mb-2">Bank transfer</p>
                 <p className="font-sans font-bold text-[#0A0A0A] text-2xl tracking-tight mb-3">£150</p>
                 <div className="space-y-1.5 text-sm">
                   <div className="flex justify-between gap-4">
-                    <span className="text-[#A3A3A3] shrink-0">Account name</span>
+                    <span className="text-[#A3A3A3] shrink-0">Name</span>
                     <span className="text-[#0A0A0A] font-medium text-right">Renaldo Lee Edmondson</span>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <span className="text-[#A3A3A3] shrink-0">Sort code</span>
-                    <span className="text-[#0A0A0A] font-medium font-mono">23-01-20</span>
+                    <span className="text-[#A3A3A3] shrink-0">Account number</span>
+                    <span className="text-[#0A0A0A] font-medium font-mono">17897633</span>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <span className="text-[#A3A3A3] shrink-0">Account number</span>
-                    <span className="text-[#0A0A0A] font-medium font-mono">83621039</span>
+                    <span className="text-[#A3A3A3] shrink-0">Sort code</span>
+                    <span className="text-[#0A0A0A] font-medium font-mono">23-14-70</span>
                   </div>
                 </div>
               </div>
-              <p className="text-xs text-[#A3A3A3]">Revolut Ltd, 30 South Colonnade, London E14 5HX</p>
+              <p className="text-xs text-[#A3A3A3]">Wise Payments Limited, 1st Floor, Worship Square, 65 Clifton Street, London, EC2A 4JE</p>
             </div>
 
           </div>
@@ -502,14 +386,8 @@ export default function WarwickshireQuote() {
         </div>
 
         {/* Footer */}
-        <div className="border-t border-black/[0.06] pt-8 flex items-center justify-between">
+        <div className="border-t border-black/[0.06] pt-8">
           <p className="text-xs text-[#C4C4C4] font-mono">Sorted. — sortmydigital.com</p>
-          <button
-            onClick={handleSignOut}
-            className="text-xs text-[#A3A3A3] hover:text-[#525252] transition-colors font-mono"
-          >
-            Sign out
-          </button>
         </div>
       </main>
     </>
