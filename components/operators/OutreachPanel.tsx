@@ -13,31 +13,31 @@ type EmailDraft = {
 
 function generateDraft(p: Prospect): EmailDraft {
   const firstName = p.name.split(" ")[0]
-  const angle = p.outreach_angle || ""
-  const weaknesses = p.site_weaknesses || []
+  const score = p.site_score ?? null
+  const reviewUrl = p.review_slug
+    ? `https://sortmydigital.site/review/${p.review_slug}`
+    : null
 
-  // Pick the sharpest weakness for the email body
-  const topWeakness = weaknesses[0] || ""
+  const subject = `Your website scored ${score !== null ? score + "/10" : "below average"}`
 
-  const subject = `${p.name} — we redesigned your website`
-
-  // Build body from the outreach angle + a concrete specific
-  const specific = topWeakness
-    ? `We noticed ${topWeakness.charAt(0).toLowerCase() + topWeakness.slice(1).replace(/\.$/, "")}.`
-    : ""
+  const scoreLine = score !== null
+    ? `We ran a digital health check on ${p.name} and your website scored ${score}/10.`
+    : `We ran a digital health check on ${p.name} and your website scored below average.`
 
   const body = [
-    `Hi${p.name ? " " + firstName : ""},`,
+    `Hi ${firstName},`,
     "",
-    angle || specific,
+    scoreLine,
     "",
-    "We put together a redesigned version of your homepage — one that makes it easy for new customers to find you and get in touch.",
+    "We put together a full breakdown of what is working, what is not, and what it would look like if it was modernised.",
     "",
-    "Happy to send it over if you'd like to see it.",
+    reviewUrl
+      ? `You can see your results here: ${reviewUrl}`
+      : "Reply and I can send your results over.",
     "",
     "Renaldo",
     "Sorted",
-    "sortmydigital.com",
+    "sortmydigital.site",
   ].join("\n")
 
   return { subject, body }
