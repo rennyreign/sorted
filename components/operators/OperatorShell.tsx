@@ -10,14 +10,25 @@ import PipelineBoard from "./PipelineBoard"
 
 type View = "login" | "overview" | "feed" | "outreach" | "pipeline"
 
+const VIEW_KEY = "sorted_operator_view"
+const VALID_VIEWS: View[] = ["overview", "feed", "outreach", "pipeline"]
+
 export default function OperatorShell() {
   const [view, setView] = useState<View>("login")
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-    if (isAuthenticated()) setView("overview")
+    if (isAuthenticated()) {
+      const saved = localStorage.getItem(VIEW_KEY) as View | null
+      setView(saved && VALID_VIEWS.includes(saved) ? saved : "overview")
+    }
   }, [])
+
+  function navigate(v: View) {
+    setView(v)
+    if (v !== "login") localStorage.setItem(VIEW_KEY, v)
+  }
 
   // Avoid hydration mismatch on static export
   if (!mounted) {
@@ -29,7 +40,7 @@ export default function OperatorShell() {
   }
 
   if (view === "login") {
-    return <OperatorLogin onSuccess={() => setView("overview")} />
+    return <OperatorLogin onSuccess={() => navigate("overview")} />
   }
 
   return (
@@ -41,21 +52,21 @@ export default function OperatorShell() {
         </span>
 
         <nav className="flex items-center gap-1">
-          <NavTab active={view === "overview"} onClick={() => setView("overview")}>
+          <NavTab active={view === "overview"} onClick={() => navigate("overview")}>
             Overview
           </NavTab>
-          <NavTab active={view === "feed"} onClick={() => setView("feed")}>
+          <NavTab active={view === "feed"} onClick={() => navigate("feed")}>
             Prospects
           </NavTab>
-          <NavTab active={view === "pipeline"} onClick={() => setView("pipeline")}>
+          <NavTab active={view === "pipeline"} onClick={() => navigate("pipeline")}>
             Pipeline
           </NavTab>
-          <NavTab active={view === "outreach"} onClick={() => setView("outreach")}>
+          <NavTab active={view === "outreach"} onClick={() => navigate("outreach")}>
             Outreach
           </NavTab>
           <div className="w-px h-4 bg-black/[0.08] mx-2" />
           <button
-            onClick={() => { logout(); setView("login") }}
+            onClick={() => { logout(); navigate("login") }}
             className="text-xs text-[#A3A3A3] hover:text-[#525252] transition-colors px-2 py-1.5"
           >
             Sign out
@@ -63,7 +74,7 @@ export default function OperatorShell() {
         </nav>
       </header>
 
-      {view === "overview" && <OperatorOverview onViewProspects={() => setView("feed")} />}
+      {view === "overview" && <OperatorOverview onViewProspects={() => navigate("feed")} />}
       {view === "feed" && <ProspectFeed />}
       {view === "pipeline" && <PipelineBoard />}
       {view === "outreach" && <OutreachPanel />}

@@ -70,6 +70,7 @@ export default function OutreachPanel() {
         .from("prospects")
         .select("*")
         .not("site_score", "is", null)
+        .neq("crm_status", "lost")
         .order("site_score", { ascending: false })
         .limit(200)
       if (data) setProspects(data as Prospect[])
