@@ -36,6 +36,8 @@ jobs:
           server: 82.29.157.61
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 990
           local-dir: ./out/
           server-dir: /public_html/
           dangerous-clean-slate: false
