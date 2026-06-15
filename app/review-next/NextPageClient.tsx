@@ -17,7 +17,7 @@ function getBudgetResponse(value: number): {
     return {
       tone: "below-floor",
       heading: "We can work with that.",
-      body: `Every site we build is the same full build — the budget just determines how we structure the payment. Our minimum is £${FLOOR}, and we can split that across two payments if it helps. Book a call below and we will walk you through it. No pressure.`,
+      body: `Every site we build is the same full build. The budget just determines how we structure the payment. Our minimum is £${FLOOR}, and we can split that across two payments if it helps. Book a call below and we will walk you through it. No pressure.`,
       showBooking: true,
     }
   }
@@ -40,7 +40,7 @@ function getBudgetResponse(value: number): {
   return {
     tone: "great",
     heading: "Great.",
-    body: "That gives us plenty of room to get started immediately. Book a call below — 15 minutes to confirm the brief and we are off.",
+    body: "That gives us plenty of room to get started immediately. Book a call below. 15 minutes to confirm the brief and we are off.",
     showBooking: true,
   }
 }
@@ -174,7 +174,7 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
         <div className="space-y-3">
           {[
             { n: "1", title: "You see the finished site first", body: "We build it, you review it. No commitment until you have seen it." },
-            { n: "2", title: "You edit your own content", body: "Every site ships with a simple editor. Change your text, photos, and details yourself — no web designer needed." },
+            { n: "2", title: "You edit your own content", body: "Every site ships with a simple editor. Change your text, photos, and details yourself. No web designer needed." },
             { n: "3", title: "No upfront payment", body: "You approve the site, then we agree a price. Simple." },
           ].map(({ n, title, body }) => (
             <div key={n} className="bg-white border border-black/[0.08] rounded-xl p-5 flex gap-4">
@@ -194,7 +194,7 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
           <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">One quick question</p>
           <h2 className="font-sans font-bold text-[#0A0A0A] text-xl mb-2">What budget do you have in mind?</h2>
           <p className="text-sm text-[#737373] mb-6 leading-relaxed">
-            Be honest — there is no wrong answer. Everyone gets the same full build. This just helps us talk about payment in a way that works for you.
+            Be honest. There is no wrong answer. Everyone gets the same full build. This just helps us talk about payment in a way that works for you.
           </p>
 
           {!submitted ? (
@@ -260,6 +260,21 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
               />
             </div>
           </div>
+        </div>
+
+        {/* Mission */}
+        <div className="border-t border-black/[0.06] pt-12 text-center max-w-md mx-auto">
+          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#C4C4C4] mb-5">Why we do this</p>
+          <p className="font-sans font-bold text-[#0A0A0A] text-lg leading-snug mb-4">
+            Small businesses deserve to look as good as the work they do.
+          </p>
+          <p className="text-sm text-[#737373] leading-relaxed mb-4">
+            Our mission is simple. We want every small business to be digitally excellent. Not because it looks nice, but because a strong digital presence means more customers, more trust, and a better business.
+          </p>
+          <p className="text-sm text-[#737373] leading-relaxed">
+            Small businesses are the backbone of every thriving economy. This is our contribution to that.
+          </p>
+          <p className="font-mono text-xs text-[#A3A3A3] mt-6 font-bold tracking-wide">Sorted.</p>
         </div>
 
         <p className="text-center font-mono text-[10px] text-[#C4C4C4] uppercase tracking-[0.12em]">
