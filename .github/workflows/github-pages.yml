@@ -31,8 +31,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Remove API routes for static build
+        run: rm -rf app/api
+
       - name: Build static export
         run: npm run build
+        env:
+          NEXT_BUILD_STATIC: "true"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

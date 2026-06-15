@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import type { JobType } from "@/app/api/price/route"
+export type JobType = "website" | "landing-page" | "logo" | "ads" | "google-profile" | "social" | "other"
 
 export type TechAnswers = Record<string, string>
 
