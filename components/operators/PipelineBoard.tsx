@@ -12,6 +12,7 @@ type PipelineProspect = {
   category: string | null
   site_score: number | null
   review_slug: string | null
+  website: string | null
   mockup_url: string | null
   mockup_urls: string[] | null
   crm_status: CrmStatus
@@ -112,14 +113,14 @@ export default function PipelineBoard() {
     setLoading(true)
     const { data } = await supabase
       .from("prospects")
-      .select("id, place_id, name, city, category, site_score, review_slug, mockup_url, mockup_urls, crm_status, contacted_at, mockup_revealed_at, status_updated_at")
+      .select("id, place_id, name, city, category, site_score, review_slug, website, mockup_url, mockup_urls, crm_status, contacted_at, mockup_revealed_at, status_updated_at")
       .neq("crm_status", "new")
       .order("status_updated_at", { ascending: false })
       .limit(500)
 
     const { data: newData } = await supabase
       .from("prospects")
-      .select("id, place_id, name, city, category, site_score, review_slug, mockup_url, mockup_urls, crm_status, contacted_at, mockup_revealed_at, status_updated_at")
+      .select("id, place_id, name, city, category, site_score, review_slug, website, mockup_url, mockup_urls, crm_status, contacted_at, mockup_revealed_at, status_updated_at")
       .eq("crm_status", "new")
       .not("site_score", "is", null)
       .order("site_score", { ascending: false })
@@ -299,6 +300,16 @@ export default function PipelineBoard() {
           <div className="flex-1 min-w-0">
             <p className="font-sans font-bold text-[#0A0A0A] text-base leading-tight truncate">{selected.name}</p>
             <p className="text-sm text-[#737373] mt-0.5">{selected.city}{selected.category ? ` · ${selected.category}` : ""}</p>
+            {selected.website && (
+              <a
+                href={selected.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1 inline-block font-mono text-[11px] text-[#737373] hover:text-[#0A0A0A] transition-colors"
+              >
+                {selected.website.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")} ↗
+              </a>
+            )}
             {selected.review_slug && (
               <a
                 href={`/review?slug=${selected.review_slug}`}
