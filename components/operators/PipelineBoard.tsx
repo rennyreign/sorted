@@ -40,6 +40,16 @@ const NEXT_STAGE: Partial<Record<CrmStatus, CrmStatus>> = {
   quote:           "paid",
 }
 
+const PREV_STAGE: Partial<Record<CrmStatus, CrmStatus>> = {
+  outreached:      "new",
+  responded:       "outreached",
+  mockup_revealed: "responded",
+  build:           "mockup_revealed",
+  quote:           "build",
+  paid:            "quote",
+  lost:            "new",
+}
+
 function scoreColour(score: number | null) {
   if (score === null) return "text-[#A3A3A3]"
   if (score >= 7) return "text-emerald-600"
@@ -358,6 +368,15 @@ export default function PipelineBoard() {
                   className="px-3 py-1.5 bg-[#0A0A0A] text-white text-xs font-medium rounded-lg disabled:opacity-40 hover:bg-[#1A1A1A] transition-colors"
                 >
                   → {STAGES.find(s => s.key === NEXT_STAGE[selected.crm_status])?.label}
+                </button>
+              )}
+              {PREV_STAGE[selected.crm_status] && (
+                <button
+                  onClick={() => updateStatus(selected, PREV_STAGE[selected.crm_status]!)}
+                  disabled={saving}
+                  className="px-3 py-1.5 bg-[#F5F5F5] text-[#525252] border border-black/[0.08] text-xs font-medium rounded-lg disabled:opacity-40 hover:bg-black/[0.06] transition-colors"
+                >
+                  ← {STAGES.find(s => s.key === PREV_STAGE[selected.crm_status])?.label}
                 </button>
               )}
               {selected.crm_status !== "lost" && selected.crm_status !== "paid" && (
