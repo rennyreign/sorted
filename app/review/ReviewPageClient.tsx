@@ -25,6 +25,7 @@ export type ReviewProspect = {
   crm_status: string
   review_slug: string | null
   mockup_url: string | null
+  mockup_urls: string[] | null
 }
 
 // Each entry: array of keyword triggers, then the plain-English impact copy
@@ -118,6 +119,15 @@ function ScoreBar({ score, max = 10 }: { score: number; max?: number }) {
 }
 
 export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewProspect; slug: string }) {
+  // Normalise: prefer mockup_urls array, fall back to single mockup_url
+  const mockupScreens: string[] = (
+    prospect.mockup_urls && prospect.mockup_urls.length > 0
+      ? prospect.mockup_urls
+      : prospect.mockup_url
+      ? [prospect.mockup_url]
+      : []
+  )
+
   const [revealed, setRevealed] = useState(false)
   const [revealing, setRevealing] = useState(false)
 
@@ -125,7 +135,7 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
   const scoreColour = getScoreColour(score)
   const projectedScore = Math.min(10, score + (10 - score) * 0.75)
   const hasScore = prospect.site_score !== null
-  const hasMockup = !!prospect.mockup_url
+  const hasMockup = mockupScreens.length > 0
 
   async function handleReveal() {
     if (revealed || revealing) return
@@ -254,7 +264,7 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
               </div>
             )}
 
-            {/* Mockup */}
+            {/* Mockup screens */}
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-2">Your new website</p>
               <p className="text-[#737373] text-sm mb-6 leading-relaxed">
@@ -262,28 +272,39 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
               </p>
 
               {hasMockup ? (
-                <div className="relative rounded-2xl overflow-hidden border border-black/[0.08] bg-black">
-                  <div className={`transition-all duration-700 ${revealed ? "" : "blur-xl scale-105"}`}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={prospect.mockup_url!} alt={`Modernised website concept for ${prospect.name}`} className="w-full" />
-                  </div>
-                  {!revealed && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm">
-                      <p className="font-sans font-bold text-white text-xl mb-2 text-center px-6">Your new website is ready</p>
-                      <p className="text-white/70 text-sm mb-8 text-center px-8">
-                        We built a modernised concept for {prospect.name}. Click to reveal it.
-                      </p>
-                      <button
-                        onClick={handleReveal}
-                        disabled={revealing}
-                        className="bg-white text-[#0A0A0A] font-bold text-sm px-8 py-4 rounded-xl hover:bg-[#F5F5F5] transition-colors disabled:opacity-70 flex items-center gap-2 shadow-xl"
-                      >
-                        {revealing ? (
-                          <><span className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin" />Revealing…</>
-                        ) : "Reveal your new website →"}
-                      </button>
+                <div className="space-y-4">
+                  {/* First screen — gated reveal */}
+                  <div className="relative rounded-2xl overflow-hidden border border-black/[0.08] bg-black">
+                    <div className={`transition-all duration-700 ${revealed ? "" : "blur-xl scale-105"}`}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={mockupScreens[0]} alt={`Modernised website concept for ${prospect.name}`} className="w-full" />
                     </div>
-                  )}
+                    {!revealed && (
+                      <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm">
+                        <p className="font-sans font-bold text-white text-xl mb-2 text-center px-6">Your new website is ready</p>
+                        <p className="text-white/70 text-sm mb-8 text-center px-8">
+                          We built a modernised concept for {prospect.name}. Click to reveal it.
+                        </p>
+                        <button
+                          onClick={handleReveal}
+                          disabled={revealing}
+                          className="bg-white text-[#0A0A0A] font-bold text-sm px-8 py-4 rounded-xl hover:bg-[#F5F5F5] transition-colors disabled:opacity-70 flex items-center gap-2 shadow-xl"
+                        >
+                          {revealing ? (
+                            <><span className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin" />Revealing…</>
+                          ) : "Reveal your new website →"}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Additional screens — shown once revealed */}
+                  {revealed && mockupScreens.slice(1).map((url, i) => (
+                    <div key={i} className="rounded-2xl overflow-hidden border border-black/[0.08] bg-black">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={url} alt={`${prospect.name} website screen ${i + 2}`} className="w-full" />
+                    </div>
+                  ))}
                 </div>
               ) : (
                 <div className="rounded-2xl border border-dashed border-black/[0.15] bg-black/[0.02] p-16 text-center">

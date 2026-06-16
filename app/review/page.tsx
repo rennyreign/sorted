@@ -38,7 +38,7 @@ export default function ReviewPage() {
         site_score, business_quality_score, opportunity_score,
         site_analysis, review_summary, site_weaknesses, outreach_angle,
         recommendation, revshare_potential, modernity_gap,
-        screenshot_url, analysed_at, crm_status, review_slug, mockup_url
+        screenshot_url, analysed_at, crm_status, review_slug, mockup_url, mockup_urls
       `)
       .eq("review_slug", slug)
       .single()

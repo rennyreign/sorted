@@ -13,6 +13,7 @@ type PipelineProspect = {
   site_score: number | null
   review_slug: string | null
   mockup_url: string | null
+  mockup_urls: string[] | null
   crm_status: CrmStatus
   contacted_at: string | null
   mockup_revealed_at: string | null
@@ -62,6 +63,35 @@ export default function PipelineBoard() {
   const [mockupInput, setMockupInput] = useState("")
   const [saving, setSaving] = useState(false)
 
+  function getMockupUrls(p: PipelineProspect): string[] {
+    if (p.mockup_urls && p.mockup_urls.length > 0) return p.mockup_urls
+    if (p.mockup_url) return [p.mockup_url]
+    return []
+  }
+
+  async function addMockupUrl(prospect: PipelineProspect) {
+    const url = mockupInput.trim()
+    if (!url) return
+    setSaving(true)
+    const current = getMockupUrls(prospect)
+    const updated = [...current, url]
+    await supabase.from("prospects").update({ mockup_urls: updated, mockup_url: updated[0] }).eq("place_id", prospect.place_id)
+    setProspects(prev => prev.map(p => p.place_id === prospect.place_id ? { ...p, mockup_urls: updated, mockup_url: updated[0] } : p))
+    if (selected?.place_id === prospect.place_id) setSelected(s => s ? { ...s, mockup_urls: updated, mockup_url: updated[0] } : s)
+    setMockupInput("")
+    setSaving(false)
+  }
+
+  async function removeMockupUrl(prospect: PipelineProspect, index: number) {
+    setSaving(true)
+    const current = getMockupUrls(prospect)
+    const updated = current.filter((_, i) => i !== index)
+    await supabase.from("prospects").update({ mockup_urls: updated, mockup_url: updated[0] ?? null }).eq("place_id", prospect.place_id)
+    setProspects(prev => prev.map(p => p.place_id === prospect.place_id ? { ...p, mockup_urls: updated, mockup_url: updated[0] ?? null } : p))
+    if (selected?.place_id === prospect.place_id) setSelected(s => s ? { ...s, mockup_urls: updated, mockup_url: updated[0] ?? null } : s)
+    setSaving(false)
+  }
+
   // Drag state
   const draggingId = useRef<string | null>(null)
   const [dragOver, setDragOver] = useState<CrmStatus | null>(null)
@@ -72,14 +102,14 @@ export default function PipelineBoard() {
     setLoading(true)
     const { data } = await supabase
       .from("prospects")
-      .select("id, place_id, name, city, category, site_score, review_slug, mockup_url, crm_status, contacted_at, mockup_revealed_at, status_updated_at")
+      .select("id, place_id, name, city, category, site_score, review_slug, mockup_url, mockup_urls, crm_status, contacted_at, mockup_revealed_at, status_updated_at")
       .neq("crm_status", "new")
       .order("status_updated_at", { ascending: false })
       .limit(500)
 
     const { data: newData } = await supabase
       .from("prospects")
-      .select("id, place_id, name, city, category, site_score, review_slug, mockup_url, crm_status, contacted_at, mockup_revealed_at, status_updated_at")
+      .select("id, place_id, name, city, category, site_score, review_slug, mockup_url, mockup_urls, crm_status, contacted_at, mockup_revealed_at, status_updated_at")
       .eq("crm_status", "new")
       .not("site_score", "is", null)
       .order("site_score", { ascending: false })
@@ -101,17 +131,6 @@ export default function PipelineBoard() {
       .from("prospects")
       .update({ crm_status: newStatus })
       .eq("place_id", prospect.place_id)
-    setSaving(false)
-  }
-
-  async function saveMockup(prospect: PipelineProspect) {
-    if (!mockupInput.trim()) return
-    setSaving(true)
-    const url = mockupInput.trim()
-    await supabase.from("prospects").update({ mockup_url: url }).eq("place_id", prospect.place_id)
-    setProspects(prev => prev.map(p => p.place_id === prospect.place_id ? { ...p, mockup_url: url } : p))
-    if (selected?.place_id === prospect.place_id) setSelected(s => s ? { ...s, mockup_url: url } : s)
-    setMockupInput("")
     setSaving(false)
   }
 
@@ -219,7 +238,7 @@ export default function PipelineBoard() {
                       draggable
                       onDragStart={e => onDragStart(e, p)}
                       onDragEnd={onDragEnd}
-                      onClick={() => { setSelected(p); setMockupInput(p.mockup_url ?? "") }}
+                      onClick={() => { setSelected(p); setMockupInput("") }}
                       className={`cursor-grab active:cursor-grabbing text-left rounded-xl border p-3 transition-all hover:shadow-sm select-none ${stage.color} ${
                         selected?.place_id === p.place_id ? "ring-2 ring-[#0A0A0A]/20" : ""
                       }`}
@@ -285,23 +304,45 @@ export default function PipelineBoard() {
             )}
           </div>
 
-          {/* Mockup URL */}
+          {/* Mockup URLs */}
           <div className="flex-1 min-w-0">
-            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-2">Mockup URL</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-2">
+              Mockup screens ({getMockupUrls(selected).length})
+            </p>
+            {/* Existing URLs */}
+            {getMockupUrls(selected).length > 0 && (
+              <ul className="space-y-1 mb-2">
+                {getMockupUrls(selected).map((url, i) => (
+                  <li key={i} className="flex items-center gap-2 bg-[#FAFAFA] border border-black/[0.06] rounded-lg px-3 py-1.5">
+                    <span className="font-mono text-[10px] text-[#A3A3A3] shrink-0">#{i + 1}</span>
+                    <span className="flex-1 text-xs font-mono text-[#525252] truncate">{url.replace(/^https?:\/\//, "").slice(0, 48)}…</span>
+                    <button
+                      onClick={() => removeMockupUrl(selected, i)}
+                      disabled={saving}
+                      className="shrink-0 text-[#C4C4C4] hover:text-red-500 transition-colors text-xs leading-none"
+                      title="Remove"
+                    >
+                      ×
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {/* Add URL */}
             <div className="flex gap-2">
               <input
                 value={mockupInput}
                 onChange={e => setMockupInput(e.target.value)}
-                onKeyDown={e => { if (e.key === "Enter") saveMockup(selected) }}
-                placeholder="https://..."
+                onKeyDown={e => { if (e.key === "Enter") addMockupUrl(selected) }}
+                placeholder="https://… paste and press Enter"
                 className="flex-1 bg-[#FAFAFA] border border-black/[0.08] rounded-lg px-3 py-2 text-sm font-mono text-[#0A0A0A] placeholder:text-[#C4C4C4] focus:outline-none focus:ring-1 focus:ring-black/20 min-w-0"
               />
               <button
-                onClick={() => saveMockup(selected)}
+                onClick={() => addMockupUrl(selected)}
                 disabled={saving || !mockupInput.trim()}
                 className="px-3 py-2 bg-[#0A0A0A] text-white text-xs font-medium rounded-lg disabled:opacity-40 transition-opacity hover:bg-[#1A1A1A]"
               >
-                Save
+                Add
               </button>
             </div>
           </div>

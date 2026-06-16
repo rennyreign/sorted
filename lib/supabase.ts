@@ -64,4 +64,5 @@ export type Prospect = {
   status_updated_at: string | null
   budget_indicated: number | null
   notes: string | null
+  mockup_urls: string[] | null
 }
