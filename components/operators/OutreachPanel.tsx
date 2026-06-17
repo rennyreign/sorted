@@ -13,7 +13,6 @@ type EmailDraft = {
 }
 
 function generateDraft(p: Prospect): EmailDraft {
-  const firstName = p.name.split(" ")[0]
   const score = p.site_score ?? null
   const reviewUrl = p.review_slug
     ? `https://sortmydigital.site/review/${p.review_slug}`
