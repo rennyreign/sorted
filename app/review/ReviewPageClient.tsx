@@ -28,76 +28,16 @@ export type ReviewProspect = {
   mockup_urls: string[] | null
 }
 
-// Each entry: array of keyword triggers, then the plain-English impact copy
-const WEAKNESS_MAP: { keywords: string[]; title: string; impact: string }[] = [
-  {
-    keywords: ["stock", "generic image", "stock photo", "stock bathroom", "stock kitchen", "not actual", "doesn't show actual"],
-    title: "Your photos don't show what you actually do",
-    impact: "People want to see the real work, the real team, the real place. Stock photos make you look like every other business. Customers choose who they trust, and trust comes from seeing the real thing.",
-  },
-  {
-    keywords: ["mobile", "responsive", "phone", "small screen", "not mobile"],
-    title: "Most people are finding you on their phone, and the experience is poor",
-    impact: "More than half your visitors are on mobile. If your site is hard to read, slow to load, or difficult to navigate on a phone, most of them will give up and call someone else.",
-  },
-  {
-    keywords: ["typography", "font", "spacing", "layout", "templated", "generic", "hierarchy", "visual interest", "personality"],
-    title: "Your site looks like every other local business",
-    impact: "When people can't tell you apart from your competitors, they default to whoever is cheapest. A distinct, professional look signals that you take your business seriously. And that you expect them to as well.",
-  },
-  {
-    keywords: ["cta", "call to action", "call-to-action", "button", "booking", "enquiry", "contact", "next step", "what to do"],
-    title: "Visitors don't know how to get in touch",
-    impact: "If your phone number, contact form, or booking link isn't front and centre, people who are ready to buy will leave without doing anything. Every unclear step costs you an enquiry.",
-  },
-  {
-    keywords: ["review", "testimonial", "trust", "social proof", "credibility", "accreditation"],
-    title: "There's nothing on your site to convince a stranger to trust you",
-    impact: "Most new customers have never heard of you. Without visible reviews, testimonials, or credentials, you're asking them to take a risk. Your competitors who show social proof will win that customer instead.",
-  },
-  {
-    keywords: ["speed", "slow", "load time", "performance", "page speed"],
-    title: "Your site loads slowly, and people won't wait",
-    impact: "53% of mobile users leave a site that takes more than 3 seconds to load. A slow site doesn't just frustrate people. Google ranks it lower too, so fewer people find you in the first place.",
-  },
-  {
-    keywords: ["colour", "color", "brand", "cyan", "template colour", "brand colour"],
-    title: "Your site doesn't look like it belongs to your business",
-    impact: "A site with off-brand colours or a template look feels borrowed, not owned. Customers notice, even if they can't explain why. A site that looks like yours builds confidence before a word is read.",
-  },
-  {
-    keywords: ["navigation", "menu", "structure", "find", "buried", "hard to find"],
-    title: "People can't find what they're looking for",
-    impact: "If your services, pricing, or contact details are hard to locate, visitors give up rather than hunt around. A clear, simple structure means the right information is always one click away.",
-  },
-  {
-    keywords: ["content", "information", "detail", "description", "thin", "vague", "explain"],
-    title: "Your site doesn't give people enough information to make a decision",
-    impact: "People research before they buy. If your site doesn't clearly explain what you offer, who it's for, and why you're the right choice, they'll find a competitor who does.",
-  },
-  {
-    keywords: ["seo", "search", "google", "visibility", "rank", "found online"],
-    title: "Your business is hard to find on Google",
-    impact: "If people searching for your service in your area can't find you, those customers are going straight to whoever does show up. A well-built site with the right structure is the foundation of being found.",
-  },
-  {
-    keywords: ["about", "team", "who you are", "story", "background", "people"],
-    title: "People don't know who they're dealing with",
-    impact: "For trades, health, and service businesses especially, people want to know who is coming to their home or handling their work. A simple, human about section builds the kind of trust that turns a visitor into a customer.",
-  },
-  {
-    keywords: ["price", "pricing", "cost", "fees", "rates", "quote"],
-    title: "Visitors leave because they can't figure out what you charge",
-    impact: "Not showing any pricing information means people assume the worst or don't bother asking. Even a rough guide or a 'get a quote' prompt reassures them you're accessible and worth enquiring about.",
-  },
+// Patterns that indicate internal operator notes — never shown to prospects
+const INTERNAL_PATTERNS = [
+  "sorted cannot",
+  "cannot generate revenue",
+  "third-party platform",
+  "revshare",
+  "rev-share",
+  "opportunity score",
+  "business quality",
 ]
-
-function translateWeakness(raw: string): { title: string; impact: string } | null {
-  const lower = raw.toLowerCase()
-  const match = WEAKNESS_MAP.find(entry => entry.keywords.some(k => lower.includes(k)))
-  if (match) return { title: match.title, impact: match.impact }
-  return null
-}
 
 function getScoreColour(score: number) {
   if (score >= 7) return { text: "text-emerald-600", bg: "bg-emerald-50", border: "border-emerald-200", bar: "bg-emerald-500" }
@@ -225,33 +165,34 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-6">What this is costing you</p>
                 <div className="space-y-4">
-                  {(() => {
-                    const seen = new Set<string>()
-                    const items: { title: string; impact: string }[] = []
-                    for (const weakness of prospect.site_weaknesses) {
-                      const translated = translateWeakness(weakness)
-                      // Skip anything that didn't match the WEAKNESS_MAP —
-                      // raw analyser text is internal and not suitable for prospects
-                      if (!translated) continue
-                      if (seen.has(translated.title)) continue
-                      seen.add(translated.title)
-                      items.push({ title: translated.title, impact: translated.impact })
-                      if (items.length === 4) break
-                    }
-                    return items.map(({ title, impact }, i) => (
-                      <div key={i} className="bg-white border border-black/[0.08] rounded-xl p-6">
-                        <div className="flex items-start gap-4">
-                          <span className="w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
-                            {i + 1}
-                          </span>
-                          <div>
-                            <h3 className="font-sans font-bold text-[#0A0A0A] text-base mb-2 leading-snug">{title}</h3>
-                            <p className="text-sm text-[#737373] leading-relaxed">{impact}</p>
+                  {prospect.site_weaknesses
+                    .filter(w => !INTERNAL_PATTERNS.some(p => w.toLowerCase().includes(p)))
+                    .slice(0, 4)
+                    .map((weakness, i) => {
+                      // Split on " — " or " - " to get a short title + detail
+                      const dashIdx = weakness.search(/ [—–-] /)
+                      const title = dashIdx > -1
+                        ? weakness.slice(0, dashIdx).replace(/\.$/, "")
+                        : weakness.length > 80
+                        ? weakness.slice(0, 80).replace(/\s\S+$/, "") + "…"
+                        : weakness.replace(/\.$/, "")
+                      const detail = dashIdx > -1
+                        ? weakness.slice(dashIdx).replace(/^ [—–-] /, "")
+                        : null
+                      return (
+                        <div key={i} className="bg-white border border-black/[0.08] rounded-xl p-6">
+                          <div className="flex items-start gap-4">
+                            <span className="w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
+                              {i + 1}
+                            </span>
+                            <div>
+                              <h3 className="font-sans font-bold text-[#0A0A0A] text-base mb-2 leading-snug">{title}</h3>
+                              {detail && <p className="text-sm text-[#737373] leading-relaxed">{detail}</p>}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))
-                  })()}
+                      )
+                    })}
                 </div>
               </div>
             )}
