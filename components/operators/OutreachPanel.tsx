@@ -53,12 +53,18 @@ export default function OutreachPanel() {
   const [noteText, setNoteText] = useState("")
   const [noteState, setNoteState] = useState<NoteState>("idle")
 
+  // API routes only exist on the local dev server
+  const apiBase = typeof window !== "undefined" && window.location.hostname !== "localhost"
+    ? "http://localhost:3000"
+    : ""
+
   // Check Gmail connection status
   useEffect(() => {
-    fetch("/api/gmail/status")
+    fetch(`${apiBase}/api/gmail/status`)
       .then((r) => r.json())
       .then((d) => setGmailConnected(d.connected))
       .catch(() => setGmailConnected(false))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Load analysed prospects
@@ -137,7 +143,7 @@ export default function OutreachPanel() {
     if (!draft || !selected) return
     setDraftState("sending")
     try {
-      const res = await fetch("/api/gmail/draft", {
+      const res = await fetch(`${apiBase}/api/gmail/draft`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -168,7 +174,7 @@ export default function OutreachPanel() {
   }
 
   function handleConnectGmail() {
-    window.location.href = "/api/gmail/auth"
+    window.location.href = `${apiBase}/api/gmail/auth`
   }
 
   const counts = useMemo(() => ({
