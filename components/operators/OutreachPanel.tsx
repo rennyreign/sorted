@@ -291,16 +291,22 @@ export default function OutreachPanel() {
               )}
 
               {/* Contact */}
-              <div className="mt-4 flex items-center gap-6 flex-wrap">
+              <div className="mt-4 flex items-center gap-4 flex-wrap">
                 {selected.email && (
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#A3A3A3]">Email</span>
-                    <span className="text-xs text-[#525252]">{selected.email}</span>
-                  </div>
+                  <a href={`mailto:${selected.email}`}
+                    className="flex items-center gap-1.5 font-mono text-[11px] text-[#0A0A0A] bg-black/[0.04] border border-black/[0.08] rounded-lg px-3 py-1.5 hover:bg-black/[0.08] transition-colors">
+                    <span className="text-[#A3A3A3]">✉</span> {selected.email}
+                  </a>
+                )}
+                {selected.phone && (
+                  <a href={`tel:${selected.phone}`}
+                    className="flex items-center gap-1.5 font-mono text-[11px] text-[#0A0A0A] bg-black/[0.04] border border-black/[0.08] rounded-lg px-3 py-1.5 hover:bg-black/[0.08] transition-colors">
+                    <span className="text-[#A3A3A3]">✆</span> {selected.phone}
+                  </a>
                 )}
                 {selected.website && (
                   <a href={selected.website} target="_blank" rel="noopener noreferrer"
-                    className="text-xs text-[#525252] underline underline-offset-2 decoration-black/[0.2] hover:text-[#0A0A0A] transition-colors">
+                    className="flex items-center gap-1.5 font-mono text-[11px] text-[#737373] hover:text-[#0A0A0A] transition-colors">
                     {selected.website.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")} ↗
                   </a>
                 )}
