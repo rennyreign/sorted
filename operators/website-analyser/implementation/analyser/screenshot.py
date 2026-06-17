@@ -49,14 +49,21 @@ def _capture_screenshotone(url: str, api_key: str) -> bytes:
         "url": url,
         "viewport_width": VIEWPORT_WIDTH,
         "viewport_height": VIEWPORT_HEIGHT,
-        "full_page": "false",      # above-the-fold view — what a visitor first sees
+        "full_page": "false",               # above-the-fold — what a visitor first sees
         "format": "png",
         "image_quality": 80,
+        # Blocking — cleaner screenshots with no overlays
         "block_ads": "true",
         "block_cookie_banners": "true",
+        "block_banners_by_heuristics": "true",  # catch banners block_cookie_banners misses
         "block_chats": "true",
+        "block_trackers": "true",           # don't pollute their analytics
+        # Request — appear as a UK visitor (relevant for local UK businesses)
+        "ip_country_code": "gb",
+        # Wait — networkidle0 ensures JS-rendered content is visible
+        "wait_until": "networkidle0",
         "timeout": CAPTURE_TIMEOUT,
-        "delay": 2,                # 2s delay — let JS render
+        "delay": 2,                         # 2s extra — let animations settle
     }
 
     logger.debug("Screenshotone: capturing %s", url)
