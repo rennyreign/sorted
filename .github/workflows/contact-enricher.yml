@@ -1,0 +1,41 @@
+name: Contact Enricher — Nightly Run
+
+on:
+  schedule:
+    - cron: '0 3 * * *'  # 3:00am UTC — runs after Website Analyser
+  workflow_dispatch:       # Manual trigger from GitHub Actions UI
+
+jobs:
+  run:
+    name: Enrich prospect contact emails
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    defaults:
+      run:
+        working-directory: operators/contact-enricher/implementation
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: operators/contact-enricher/implementation/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Contact Enricher
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          LOG_LEVEL: INFO
+        run: python main.py --limit 100
