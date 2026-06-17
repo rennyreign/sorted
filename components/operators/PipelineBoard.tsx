@@ -67,12 +67,18 @@ function timeAgo(iso: string | null) {
   return `${days}d ago`
 }
 
+const EMPTY_FORM = { name: "", website: "", email: "", category: "", city: "" }
+
 export default function PipelineBoard() {
   const [prospects, setProspects] = useState<PipelineProspect[]>([])
   const [loading, setLoading] = useState(true)
   const [selected, setSelected] = useState<PipelineProspect | null>(null)
   const [mockupInput, setMockupInput] = useState("")
   const [saving, setSaving] = useState(false)
+  const [showAddForm, setShowAddForm] = useState(false)
+  const [addForm, setAddForm] = useState(EMPTY_FORM)
+  const [addSaving, setAddSaving] = useState(false)
+  const [addError, setAddError] = useState<string | null>(null)
 
   function getMockupUrls(p: PipelineProspect): string[] {
     if (p.mockup_urls && p.mockup_urls.length > 0) return p.mockup_urls
@@ -145,6 +151,38 @@ export default function PipelineBoard() {
     setSaving(false)
   }
 
+  async function addProspect() {
+    if (!addForm.name.trim()) { setAddError("Name is required."); return }
+    setAddSaving(true)
+    setAddError(null)
+    // Use a timestamp-based place_id for manual entries
+    const place_id = `manual_${Date.now()}`
+    const { data, error } = await supabase
+      .from("prospects")
+      .insert({
+        place_id,
+        name: addForm.name.trim(),
+        website: addForm.website.trim() || null,
+        email: addForm.email.trim() || null,
+        category: addForm.category.trim() || null,
+        city: addForm.city.trim() || null,
+        website_exists: !!addForm.website.trim(),
+        email_exists: !!addForm.email.trim(),
+        crm_status: "new",
+      })
+      .select("id, place_id, name, city, category, site_score, review_slug, website, mockup_url, mockup_urls, crm_status, contacted_at, mockup_revealed_at, status_updated_at")
+      .single()
+    if (error) {
+      setAddError("Failed to add prospect. Try again.")
+      setAddSaving(false)
+      return
+    }
+    setProspects(prev => [data as PipelineProspect, ...prev])
+    setAddForm(EMPTY_FORM)
+    setShowAddForm(false)
+    setAddSaving(false)
+  }
+
   // ── Drag handlers ──────────────────────────────────────────────
   function onDragStart(e: React.DragEvent, prospect: PipelineProspect) {
     draggingId.current = prospect.place_id
@@ -212,7 +250,88 @@ export default function PipelineBoard() {
         <MetricDivider />
         <Metric label="Paid" value={counts.paid} highlight />
         <Metric label="Lost" value={counts.lost} muted />
+        <div className="ml-auto shrink-0">
+          <button
+            onClick={() => { setShowAddForm(v => !v); setAddForm(EMPTY_FORM); setAddError(null) }}
+            className="text-xs font-medium px-3 py-1.5 rounded-lg bg-[#0A0A0A] text-white hover:bg-[#1A1A1A] transition-colors"
+          >
+            + Add prospect
+          </button>
+        </div>
       </div>
+
+      {/* Add prospect form */}
+      {showAddForm && (
+        <div className="border-b border-black/[0.06] bg-[#FAFAFA] px-6 sm:px-10 py-5 shrink-0">
+          <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-3">New prospect</p>
+          <div className="flex flex-wrap gap-3 items-end">
+            <div className="flex flex-col gap-1">
+              <label className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#A3A3A3]">Name *</label>
+              <input
+                value={addForm.name}
+                onChange={e => setAddForm(f => ({ ...f, name: e.target.value }))}
+                onKeyDown={e => e.key === "Enter" && addProspect()}
+                placeholder="Business name"
+                className="bg-white border border-black/[0.1] rounded-lg px-3 py-2 text-sm text-[#0A0A0A] placeholder:text-[#C4C4C4] focus:outline-none focus:ring-1 focus:ring-black/20 w-48"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#A3A3A3]">Website</label>
+              <input
+                value={addForm.website}
+                onChange={e => setAddForm(f => ({ ...f, website: e.target.value }))}
+                onKeyDown={e => e.key === "Enter" && addProspect()}
+                placeholder="https://..."
+                className="bg-white border border-black/[0.1] rounded-lg px-3 py-2 text-sm text-[#0A0A0A] placeholder:text-[#C4C4C4] focus:outline-none focus:ring-1 focus:ring-black/20 w-48"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#A3A3A3]">Email</label>
+              <input
+                value={addForm.email}
+                onChange={e => setAddForm(f => ({ ...f, email: e.target.value }))}
+                onKeyDown={e => e.key === "Enter" && addProspect()}
+                placeholder="contact@..."
+                className="bg-white border border-black/[0.1] rounded-lg px-3 py-2 text-sm text-[#0A0A0A] placeholder:text-[#C4C4C4] focus:outline-none focus:ring-1 focus:ring-black/20 w-44"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#A3A3A3]">Category</label>
+              <input
+                value={addForm.category}
+                onChange={e => setAddForm(f => ({ ...f, category: e.target.value }))}
+                onKeyDown={e => e.key === "Enter" && addProspect()}
+                placeholder="e.g. Plumber"
+                className="bg-white border border-black/[0.1] rounded-lg px-3 py-2 text-sm text-[#0A0A0A] placeholder:text-[#C4C4C4] focus:outline-none focus:ring-1 focus:ring-black/20 w-36"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#A3A3A3]">City</label>
+              <input
+                value={addForm.city}
+                onChange={e => setAddForm(f => ({ ...f, city: e.target.value }))}
+                onKeyDown={e => e.key === "Enter" && addProspect()}
+                placeholder="e.g. Birmingham"
+                className="bg-white border border-black/[0.1] rounded-lg px-3 py-2 text-sm text-[#0A0A0A] placeholder:text-[#C4C4C4] focus:outline-none focus:ring-1 focus:ring-black/20 w-36"
+              />
+            </div>
+            <button
+              onClick={addProspect}
+              disabled={addSaving || !addForm.name.trim()}
+              className="px-4 py-2 bg-[#0A0A0A] text-white text-xs font-medium rounded-lg disabled:opacity-40 hover:bg-[#1A1A1A] transition-colors"
+            >
+              {addSaving ? "Adding…" : "Add"}
+            </button>
+            <button
+              onClick={() => setShowAddForm(false)}
+              className="px-3 py-2 text-[#A3A3A3] text-xs hover:text-[#525252] transition-colors"
+            >
+              Cancel
+            </button>
+          </div>
+          {addError && <p className="mt-2 text-xs text-red-600">{addError}</p>}
+        </div>
+      )}
 
       {/* Board */}
       <div className="flex-1 overflow-x-auto overflow-y-auto min-h-0">
