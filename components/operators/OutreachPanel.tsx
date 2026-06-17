@@ -24,11 +24,11 @@ function generateDraft(p: Prospect): EmailDraft {
     : `${p.name}: your website review`
 
   const body = [
-    `Hi ${firstName},`,
+    "Hello!",
     "",
-    `We score small business websites to find ones worth improving. Yours scored ${score !== null ? score + "/10" : "below average"}.`,
+    `We review and modernise small business websites. Your website scored ${score !== null ? score + "/10" : "below average"}.`,
     "",
-    "We have compiled a review and built you a new version of your site.",
+    "We've put together a review and redesigned it to show where we think it could go next.",
     "",
     reviewUrl
       ? `Both are here: ${reviewUrl}`
