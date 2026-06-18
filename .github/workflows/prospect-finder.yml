@@ -6,11 +6,11 @@ on:
   workflow_dispatch:       # Manual trigger — from GitHub UI or dashboard
     inputs:
       category:
-        description: 'Category to search (e.g. "barber shop"). Leave blank for full run.'
+        description: 'Category to search (e.g. "restaurant"). Leave blank for all categories.'
         required: false
         default: ''
       location:
-        description: 'Location override (e.g. "Birmingham, UK"). Leave blank to use config.'
+        description: 'City override. Leave blank for London (default). Options: "Dublin, Ireland" | "New York City, USA" | "Toronto, Canada" | "Singapore"'
         required: false
         default: ''
 

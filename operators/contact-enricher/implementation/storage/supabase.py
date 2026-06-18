@@ -49,10 +49,11 @@ def fetch_unenriched(limit: int = 200) -> list[dict]:
     url = f"{base_url}/rest/v1/{TABLE}"
 
     params = {
-        "select": "place_id,name,website",
+        "select": "place_id,name,website,search_location",
         "website_exists": "eq.true",
         "email": "is.null",
-        "order": "site_score.desc.nullslast",
+        # London first, then by score descending — ensures primary city is always enriched first
+        "order": "search_location.asc.nullslast,site_score.desc.nullslast",
         "limit": str(limit),
     }
 
