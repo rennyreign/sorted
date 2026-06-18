@@ -23,8 +23,10 @@ All other cities are defined in CITY_QUERIES and can be run manually:
 # ---------------------------------------------------------------------------
 
 CATEGORIES = [
-    # Personal care
-    "barber shop",
+    # Priority segments
+    "dentist",
+    "accountant",
+    "boutique hotel",
     "hair salon",
     "nail salon",
     "beauty salon",
@@ -37,15 +39,8 @@ CATEGORIES = [
     # Food & hospitality
     "restaurant",
     "cafe",
-    "takeaway",
-
-    # Trades & home services
-    "plumber",
-    "electrician",
-    "cleaning service",
 
     # Professional services
-    "accountant",
     "solicitor",
     "estate agent",
 ]
