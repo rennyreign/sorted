@@ -39,6 +39,13 @@ CATEGORIES = [
     # Food & hospitality
     "restaurant",
     "cafe",
+    "takeaway",
+
+    # Trades & home services (high volume of weak sites)
+    "plumber",
+    "electrician",
+    "cleaning service",
+    "barber shop",
 
     # Professional services
     "solicitor",
