@@ -13,10 +13,10 @@ export default function BodysharpRetainer() {
   const [isLoading, setIsLoading] = useState(true)
   const [mounted, setMounted] = useState(false)
 
-  const [signerName, setSignerName] = useState("")
+  const [signerName, setSignerName] = useState("Michael Edmeads")
   const [showAgreement, setShowAgreement] = useState(false)
-  const [isSigned, setIsSigned] = useState(false)
-  const [signedAt, setSignedAt] = useState<string | null>(null)
+  const [isSigned, setIsSigned] = useState(true)
+  const [signedAt, setSignedAt] = useState<string | null>("2026-05-11T00:00:00.000Z")
 
   useEffect(() => { setMounted(true) }, [])
 
