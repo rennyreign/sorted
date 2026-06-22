@@ -12,7 +12,7 @@ const steps = [
   {
     number: "03",
     title: "We agree on scope and price",
-    body: "Price comes after you see it. Based on what we built, not what we guessed. Then we can add the next modernization layer.",
+    body: "Price comes after you see it. Based on what we built, not what we guessed. Then we can modernize the next area.",
   },
 ]
 

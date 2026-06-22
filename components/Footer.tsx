@@ -37,7 +37,7 @@ export default function Footer() {
           </div>
         </div>
         <p className="text-xs text-[#3A3A3A] font-medium mt-4">
-          Sorted — Small business modernization
+          Sorted. Small business modernization.
         </p>
 
       </div>

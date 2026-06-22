@@ -59,7 +59,7 @@ export default function Services() {
               Everything starts with your website.
             </p>
             <p className="text-[#737373] text-base leading-relaxed">
-              The website is the first impression, the trust signal, and the lead capture mechanism. It is also the foundation for every other modernization layer that follows. We redesign it first — before you spend a penny — then build from there.
+              The website is the first impression, the trust signal, and the lead capture mechanism. It is also the foundation for everything else that follows. We redesign it first, before you spend a penny, then build from there.
             </p>
           </div>
         </div>

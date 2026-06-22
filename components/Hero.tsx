@@ -2,12 +2,6 @@ export default function Hero() {
   return (
     <section className="min-h-[100dvh] flex flex-col justify-end pb-16 px-6 sm:px-10 lg:px-16 pt-32 max-w-[1400px] mx-auto">
 
-      <div className="mb-8">
-        <span className="inline-flex items-center gap-2 rounded-full border border-black/20 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.15em] text-[#404040] font-medium">
-          Business modernization
-        </span>
-      </div>
-
       <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(4.5rem,10vw,9rem)] leading-[0.92] tracking-[-0.03em] mb-10 max-w-5xl">
         More trust.
         <br />

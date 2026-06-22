@@ -173,7 +173,7 @@ export default function IntakeAgent() {
           </button>
 
           <p className="text-xs text-[#A3A3A3] text-center">
-            No commitment. We&apos;ll send a mockup within 24 hours. Once your website is sorted, we can add the next layer: reviews, CRM, follow-up, booking, and more.
+            No commitment. We&apos;ll send a mockup within 24 hours. Once your website is sorted, we can modernize reviews, CRM, follow-up, booking, and more.
           </p>
         </form>
       </div>

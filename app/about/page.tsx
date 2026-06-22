@@ -36,7 +36,7 @@ export default function AboutPage() {
                   Most small businesses know this. But between running the day-to-day and trying to keep up with websites, reviews, booking systems, ads, and follow-ups, the digital side keeps falling behind.
                 </p>
                 <p>
-                  The result is a modernization gap. A business can be excellent at what it does — and still look amateur online, lose enquiries to faster competitors, and miss repeat revenue from customers it already has.
+                  The result is a modernization gap. A business can be excellent at what it does and still look amateur online, lose enquiries to faster competitors, and miss repeat revenue from customers it already has.
                 </p>
                 <p>
                   That gap is not a design problem. It is a business problem. And it is where Sorted starts.
@@ -46,7 +46,7 @@ export default function AboutPage() {
 
             <div className="space-y-5 text-[#525252] text-base leading-relaxed">
               <p className="font-sans font-bold text-[#0A0A0A] text-2xl leading-snug tracking-tight mb-6">
-                We modernize small businesses one layer at a time.
+                We modernize small businesses one step at a time.
               </p>
               <p>
                 We built <span className="font-extrabold tracking-tight text-[#0A0A0A]">Sorted.</span> for businesses that know they need to improve, but do not want a six-month agency engagement or the frustration of figuring it out themselves.
@@ -55,7 +55,7 @@ export default function AboutPage() {
                 Every business challenge we solve sits in one of three categories: <strong>Trust</strong> (does the business look credible?), <strong>Enquiries</strong> (can customers get in touch easily?), and <strong>Customers</strong> (can the business generate more revenue from the people it already serves?).
               </p>
               <p>
-                The website is the first and most visible gap. It is also the foundation for everything else. So we start there — with a working mockup, built before any money changes hands.
+                The website is the first and most visible gap. It is also the foundation for everything else. So we start there with a working mockup, built before any money changes hands.
               </p>
               <p className="font-semibold text-[#0A0A0A]">
                 That&apos;s <span className="font-extrabold tracking-tight text-[#0A0A0A]">Sorted.</span>
@@ -86,7 +86,7 @@ export default function AboutPage() {
                 {
                   num: "02",
                   title: "We build the foundation",
-                  body: "Once you approve, we build the site. Then we can layer on reviews, CRM, follow-up, booking, or whatever comes next.",
+                  body: "Once you approve, we build the site. Then we can add reviews, CRM, follow-up, booking, or whatever comes next.",
                 },
                 {
                   num: "03",
@@ -167,13 +167,10 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-5 text-[#525252] text-lg leading-relaxed">
               <p>
-                Modernization means being easy to find, easy to trust, easy to contact, and easy to buy from. It also means having the systems behind the scenes — follow-up, CRM, reviews, booking — that turn interest into revenue.
+                Modernization means being easy to find, easy to trust, easy to contact, and easy to buy from. It also means having the systems behind the scenes, like follow-up, CRM, reviews, and booking, that turn interest into revenue.
               </p>
               <p>
                 We believe every small business deserves to look professional online and operate efficiently in the background, whether they are a one-person operation or a growing team. The price should match where they are, not where an agency thinks they should be.
-              </p>
-              <p className="text-[#0A0A0A] font-semibold">
-                That is why our pricing is negotiable. A complex project might be £3,000. Or £400 to a business that needs the break. The same quality work, priced for the relationship and the situation.
               </p>
             </div>
           </div>

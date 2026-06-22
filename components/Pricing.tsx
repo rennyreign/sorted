@@ -49,12 +49,6 @@ export default function Pricing() {
                 price based on what you actually see and what makes sense for 
                 your situation.
               </p>
-              <p>
-                This means a complex website and modernization project might be {pricing.siteTo}. Or {pricing.siteFrom} to a small 
-                business that needs the break. The price matches the value 
-                and the relationship, decided after you know what you&apos;re 
-                getting, not before.
-              </p>
             </div>
 
             <div className="flex items-start gap-4 p-6 bg-white/[0.03] border border-white/[0.08] rounded-xl mb-12">
