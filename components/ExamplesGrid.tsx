@@ -13,7 +13,6 @@ interface Example {
   url?: string
 }
 
-// Websites with outbound links
 const websites: Example[] = [
   {
     id: 11,
@@ -69,25 +68,14 @@ const websites: Example[] = [
   },
 ]
 
-
-const typeColour: Record<string, string> = {
-  "Website": "bg-blue-50 text-blue-700",
-  "Landing page": "bg-violet-50 text-violet-700",
-  "Logo & brand": "bg-amber-50 text-amber-700",
-  "Social ads": "bg-green-50 text-green-700",
-  "Platform": "bg-teal-50 text-teal-700",
-  "Google profile": "bg-orange-50 text-orange-700",
-  "Print & flyer": "bg-rose-50 text-rose-700",
-}
-
 function ExampleCard({ ex, onClick }: { ex: Example; onClick: (ex: Example) => void }) {
-  const CardWrapper = ex.url 
+  const Wrapper = ex.url
     ? ({ children }: { children: React.ReactNode }) => (
         <a
           href={ex.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="group text-left rounded-2xl overflow-hidden border border-black/[0.06] bg-white hover:border-black/20 hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] block"
+          className="group relative block aspect-square overflow-hidden cursor-pointer"
         >
           {children}
         </a>
@@ -95,44 +83,30 @@ function ExampleCard({ ex, onClick }: { ex: Example; onClick: (ex: Example) => v
     : ({ children }: { children: React.ReactNode }) => (
         <button
           onClick={() => onClick(ex)}
-          className="group text-left rounded-2xl overflow-hidden border border-black/[0.06] bg-white hover:border-black/20 hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] block w-full"
+          className="group relative block aspect-square overflow-hidden w-full cursor-pointer"
         >
           {children}
         </button>
       )
 
   return (
-    <CardWrapper>
-      <div className="relative overflow-hidden aspect-[4/5]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={ex.img}
-          alt={ex.title}
-          className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
-        />
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+    <Wrapper>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={ex.img}
+        alt={ex.title}
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/40" />
+      <div className="absolute inset-0 flex flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <p className="font-sans font-bold text-white text-base md:text-lg text-center leading-tight tracking-tight">
+          {ex.title}
+        </p>
+        <p className="text-white/80 text-xs md:text-sm mt-1 text-center">
+          {ex.client}
+        </p>
       </div>
-      <div className="p-5">
-        <div className="flex items-center justify-between gap-3 mb-2">
-          <span className={`font-mono text-[10px] uppercase tracking-[0.15em] font-medium px-2 py-0.5 rounded-full ${typeColour[ex.type] ?? "bg-black/5 text-black/60"}`}>
-            {ex.type}
-          </span>
-          {ex.url ? (
-            <svg className="w-4 h-4 text-[#C4C4C4] group-hover:text-[#0A0A0A] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200 shrink-0" viewBox="0 0 16 16" fill="none">
-              <path d="M3 13L13 3M13 3H6M13 3V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          ) : (
-            <svg className="w-4 h-4 text-[#C4C4C4] group-hover:text-[#0A0A0A] transition-all duration-200 shrink-0" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
-              <circle cx="4" cy="8" r="1.5" fill="currentColor"/>
-              <circle cx="12" cy="8" r="1.5" fill="currentColor"/>
-            </svg>
-          )}
-        </div>
-        <p className="font-sans font-bold text-[#0A0A0A] text-base leading-snug tracking-tight">{ex.title}</p>
-        <p className="font-sans text-xs text-[#A3A3A3] mt-0.5">{ex.client}</p>
-      </div>
-    </CardWrapper>
+    </Wrapper>
   )
 }
 
@@ -157,14 +131,10 @@ export default function ExamplesGrid() {
 
   return (
     <>
-      {/* Websites Section */}
-      <div className="mb-16">
-        <h2 className="text-2xl font-bold text-[#0A0A0A] mb-6">Websites</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {websites.map((ex) => (
-            <ExampleCard key={ex.id} ex={ex} onClick={setSelected} />
-          ))}
-        </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-0">
+        {websites.map((ex) => (
+          <ExampleCard key={ex.id} ex={ex} onClick={setSelected} />
+        ))}
       </div>
 
       {selected && createPortal(
