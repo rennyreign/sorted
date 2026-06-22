@@ -1,11 +1,11 @@
 import Nav from "@/components/Nav"
 import Footer from "@/components/Footer"
-import UpdatesPricing from "@/components/UpdatesPricing"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Sorted Updates | Instant website changes",
-  description: "Update your website in seconds. No tickets, no waiting, just type and it's done.",
+  title: "Sorted Updates | CMS included with every site",
+  description:
+    "Every Sorted website ships with SortedUpdates, a Decap CMS that lets you edit text, images, and content directly. No tickets, no code.",
 }
 
 export default function SortedUpdatesPage() {
@@ -16,27 +16,25 @@ export default function SortedUpdatesPage() {
         {/* Hero */}
         <section className="pt-40 pb-20 px-6 sm:px-10 lg:px-16 max-w-[1400px] mx-auto">
           <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6">
-            Sorted Updates
+            SortedUpdates
           </span>
           <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(3rem,7vw,6.5rem)] leading-[0.92] tracking-tight max-w-5xl mb-8">
-            Update your site.
+            Your content.
             <br />
-            <span className="text-[#525252]">Sorted in seconds.</span>
+            <span className="text-[#525252]">Your control.</span>
           </h1>
           <p className="text-[#525252] text-lg font-medium leading-relaxed max-w-xl">
-            No tickets, no waiting. Type what you need changed, get a preview instantly, 
-            and go live when you&apos;re ready. Safe changes apply in 30 seconds. Complex ones 
-            get a preview first. You&apos;re always in control.
+            Every Sorted website ships with SortedUpdates, a Decap CMS that lets you edit text, images, and content directly. No tickets, no code, no waiting on anyone.
           </p>
         </section>
 
-        {/* How It Works */}
+        {/* What is SortedUpdates */}
         <section className="py-20 px-6 sm:px-10 lg:px-16 border-t border-black/[0.06] max-w-[1400px] mx-auto">
           <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6">
-            How it works
+            What it is
           </span>
           <h2 className="font-sans font-extrabold text-[#0A0A0A] text-3xl leading-tight tracking-tight mb-12">
-            Three steps. Seconds, not days.
+            A CMS built into every site.
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -44,11 +42,11 @@ export default function SortedUpdatesPage() {
               <div className="w-12 h-12 rounded-full bg-[#0A0A0A] flex items-center justify-center text-white font-bold text-lg">
                 1
               </div>
-              <h3 className="font-sans font-bold text-[#0A0A0A] text-lg">Ask</h3>
+              <h3 className="font-sans font-bold text-[#0A0A0A] text-lg">Decap CMS</h3>
               <p className="text-[#525252] text-sm leading-relaxed">
-                Open your site&apos;s update portal. Type what you need: 
-                &quot;Update prices,&quot; &quot;Add a team member,&quot; or &quot;Change the hero image.&quot; 
-                Attach files if needed.
+                A clean, git-backed content editor living at{" "}
+                <code className="text-xs bg-black/5 px-1.5 py-0.5 rounded">/cms/</code>{" "}
+                on your site. Edit in your browser, save, and publish.
               </p>
             </div>
 
@@ -56,10 +54,9 @@ export default function SortedUpdatesPage() {
               <div className="w-12 h-12 rounded-full bg-[#0A0A0A] flex items-center justify-center text-white font-bold text-lg">
                 2
               </div>
-              <h3 className="font-sans font-bold text-[#0A0A0A] text-lg">Choose</h3>
+              <h3 className="font-sans font-bold text-[#0A0A0A] text-lg">Included</h3>
               <p className="text-[#525252] text-sm leading-relaxed">
-                Safe changes: apply instantly. Complex changes: preview first. 
-                You decide. See status in real time. No guessing.
+                SortedUpdates comes with every website we build. It is part of the handoff, not an extra. You own the content layer from day one.
               </p>
             </div>
 
@@ -67,156 +64,151 @@ export default function SortedUpdatesPage() {
               <div className="w-12 h-12 rounded-full bg-[#25D366] flex items-center justify-center text-white font-bold text-lg">
                 3
               </div>
-              <h3 className="font-sans font-bold text-[#25D366] text-lg">Live</h3>
+              <h3 className="font-sans font-bold text-[#25D366] text-lg">Self-service</h3>
               <p className="text-[#525252] text-sm leading-relaxed">
-                Changes deploy in 30 seconds. Get a confirmation with the live link. 
-                Mistake? Send another request. We fix it just as fast.
+                Swap words, images, prices, and service details yourself. Changes publish automatically. No need to ask Sorted for every small edit.
               </p>
             </div>
           </div>
         </section>
 
-        {/* What's Included */}
+        {/* What you can edit */}
         <section className="py-20 px-6 sm:px-10 lg:px-16 border-t border-black/[0.06] max-w-[1400px] mx-auto">
           <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6">
-            What&apos;s included
+            What you can edit
           </span>
           <h2 className="font-sans font-extrabold text-[#0A0A0A] text-3xl leading-tight tracking-tight mb-12">
-            Most small business site needs.
+            If it appears on the page, you can change it.
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-8">
             <div className="space-y-2">
-              <h4 className="font-sans font-semibold text-[#0A0A0A]">Content edits</h4>
-              <p className="text-[#525252] text-sm">Text changes, price updates, contact details, opening hours.</p>
+              <h4 className="font-sans font-semibold text-[#0A0A0A]">Text and copy</h4>
+              <p className="text-[#525252] text-sm">Headings, paragraphs, button labels, CTAs, and every visible word.</p>
             </div>
 
             <div className="space-y-2">
-              <h4 className="font-sans font-semibold text-[#0A0A0A]">New pages & listings</h4>
-              <p className="text-[#525252] text-sm">Add services, team members, locations, property listings, or landing pages.</p>
+              <h4 className="font-sans font-semibold text-[#0A0A0A]">Images and media</h4>
+              <p className="text-[#525252] text-sm">Hero photos, team headshots, gallery images, thumbnails, and video URLs.</p>
             </div>
 
             <div className="space-y-2">
-              <h4 className="font-sans font-semibold text-[#0A0A0A]">Image swaps</h4>
-              <p className="text-[#525252] text-sm">Replace photos, add new galleries, update team headshots.</p>
+              <h4 className="font-sans font-semibold text-[#0A0A0A]">Services and offers</h4>
+              <p className="text-[#525252] text-sm">Service descriptions, prices, packages, and special offers.</p>
             </div>
 
             <div className="space-y-2">
-              <h4 className="font-sans font-semibold text-[#0A0A0A]">Links & buttons</h4>
-              <p className="text-[#525252] text-sm">Add booking links, change phone numbers, update CTAs.</p>
+              <h4 className="font-sans font-semibold text-[#0A0A0A]">Contact details</h4>
+              <p className="text-[#525252] text-sm">Phone numbers, email addresses, opening hours, and location information.</p>
             </div>
 
             <div className="space-y-2">
-              <h4 className="font-sans font-semibold text-[#0A0A0A]">Small fixes</h4>
-              <p className="text-[#525252] text-sm">Typos, broken links, mobile layout issues, speed tweaks.</p>
+              <h4 className="font-sans font-semibold text-[#0A0A0A]">FAQs and reviews</h4>
+              <p className="text-[#525252] text-sm">Add or edit FAQ entries, testimonials, and case studies.</p>
             </div>
 
             <div className="space-y-2">
-              <h4 className="font-sans font-semibold text-[#0A0A0A]">Advice</h4>
-              <p className="text-[#525252] text-sm">"Should I add this?" "What about that?" Quick guidance included.</p>
+              <h4 className="font-sans font-semibold text-[#0A0A0A]">Social links</h4>
+              <p className="text-[#525252] text-sm">Instagram, Facebook, WhatsApp, and any other links in the footer or contact areas.</p>
             </div>
-          </div>
-
-          <div className="mt-12 p-6 bg-[#FAFAFA] border border-black/[0.06] rounded-lg">
-            <p className="text-[#525252] text-sm leading-relaxed">
-              <span className="font-semibold text-[#0A0A0A]">Not included:</span> Complete redesigns, 
-              custom functionality, e-commerce builds, or anything that needs a proper project scope. 
-              Those still happen, just not via the update portal. We&apos;ll tell you if something needs 
-              a separate conversation.
-            </p>
           </div>
         </section>
 
-        {/* Pricing */}
+        {/* How it works */}
         <section className="py-20 px-6 sm:px-10 lg:px-16 border-t border-black/[0.06] max-w-[1400px] mx-auto">
           <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6">
-            Pricing
+            How it works
           </span>
           <h2 className="font-sans font-extrabold text-[#0A0A0A] text-3xl leading-tight tracking-tight mb-12">
-            SortedUpdates options.
+            Log in, edit, publish.
           </h2>
 
-          <UpdatesPricing />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                step: "01",
+                title: "Log in",
+                body: "Access your CMS at yoursite.com/cms/. We send you a secure invite via Netlify Identity. No public sign-ups.",
+              },
+              {
+                step: "02",
+                title: "Edit",
+                body: "Click any section, change the text or image, and preview the result live in the CMS panel.",
+              },
+              {
+                step: "03",
+                title: "Save",
+                body: "Hit save. Decap writes the change to your site repository as a commit. Your site rebuilds automatically.",
+              },
+              {
+                step: "04",
+                title: "Live",
+                body: "Your updated site is live in under a minute. No deploy steps, no developer needed.",
+              },
+            ].map((item) => (
+              <div key={item.step} className="space-y-4">
+                <span className="block font-mono text-[11px] text-[#A3A3A3] tabular-nums">
+                  {item.step}
+                </span>
+                <h3 className="font-sans font-bold text-[#0A0A0A] text-lg">{item.title}</h3>
+                <p className="text-[#525252] text-sm leading-relaxed">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
-          <div className="mt-12 text-center">
+        {/* Security & reset */}
+        <section className="py-20 px-6 sm:px-10 lg:px-16 border-t border-black/[0.06] max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+            <div>
+              <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6">
+                Security
+              </span>
+              <h2 className="font-sans font-extrabold text-[#0A0A0A] text-3xl leading-tight tracking-tight mb-6">
+                Invite only. You control the content. We hold the reset key.
+              </h2>
+              <p className="text-[#525252] text-base leading-relaxed">
+                Access is locked to invite-only Netlify Identity. You decide who can edit. Sorted retains the design layer, the code, and the factory reset capability, so the site structure is always protected even when content changes.
+              </p>
+            </div>
+
+            <div>
+              <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6">
+                Factory reset
+              </span>
+              <h2 className="font-sans font-extrabold text-[#0A0A0A] text-3xl leading-tight tracking-tight mb-6">
+                Made a mess? We can reset it.
+              </h2>
+              <p className="text-[#525252] text-base leading-relaxed">
+                Every site ships with a recorded handoff state. If content changes go too far off track, we can restore the site to the original approved content without touching the design or code.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="py-20 px-6 sm:px-10 lg:px-16 bg-[#0A0A0A]">
+          <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+            <div className="max-w-2xl">
+              <p className="font-sans font-extrabold text-white text-[clamp(2rem,5vw,4rem)] leading-tight tracking-tight mb-4">
+                Every Sorted site includes this.
+              </p>
+              <p className="text-[#525252] text-base leading-relaxed">
+                Start with your website. Get the CMS built in. Then grow from there.
+              </p>
+            </div>
+
             <a
               href="/#get-started"
-              className="group inline-flex items-center gap-3 bg-[#0A0A0A] text-white font-semibold text-sm rounded-full px-8 py-4 hover:bg-[#2a2a2a] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
+              className="group inline-flex items-center gap-3 bg-white text-[#0A0A0A] font-semibold text-sm rounded-full px-6 py-3.5 hover:bg-white/90 transition-all duration-300 shrink-0"
             >
-              Get Sorted
-              <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
+              Get your free mockup
+              <span className="w-6 h-6 rounded-full bg-black/5 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </span>
             </a>
-            <p className="text-[#525252] text-xs mt-4">
-              Questions? Message us. We&apos;ll reply within a few hours.
-            </p>
-          </div>
-        </section>
-
-        {/* Mini FAQ */}
-        <section className="py-16 px-6 sm:px-10 lg:px-16 border-t border-black/[0.06] max-w-[1400px] mx-auto">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6">
-            Quick answers
-          </span>
-          <h2 className="font-sans font-extrabold text-[#0A0A0A] text-2xl leading-tight tracking-tight mb-8">
-            How media works.
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <h4 className="font-sans font-semibold text-[#0A0A0A] text-sm">Can I upload images?</h4>
-              <p className="text-[#525252] text-sm leading-relaxed">
-                Yes. Drag and drop or select files directly in the update portal. 
-                We&apos;ll optimize them for web and place them where you need. 
-                Works for team photos, product shots, or gallery updates.
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <h4 className="font-sans font-semibold text-[#0A0A0A] text-sm">What about video?</h4>
-              <p className="text-[#525252] text-sm leading-relaxed">
-                Short clips work great. Upload them in the portal. 
-                We&apos;ll compress for web, handle hosting, and embed them properly. 
-                For long-form video, we may suggest YouTube/Vimeo embedding instead.
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <h4 className="font-sans font-semibold text-[#0A0A0A] text-sm">Do I need to describe exactly where things go?</h4>
-              <p className="text-[#525252] text-sm leading-relaxed">
-                No. Say "add this photo to the team page" or "replace the hero image." 
-                We understand context. If unclear, we&apos;ll ask before doing anything.
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <h4 className="font-sans font-semibold text-[#0A0A0A] text-sm">What if I upload the wrong file?</h4>
-              <p className="text-[#525252] text-sm leading-relaxed">
-                Just send a new request with the correct file. Safe changes apply instantly 
-                so you can fix mistakes just as fast. For previews, nothing goes live 
-                until you click apply.
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <h4 className="font-sans font-semibold text-[#0A0A0A] text-sm">Can I upload multiple images at once?</h4>
-              <p className="text-[#525252] text-sm leading-relaxed">
-                Absolutely. Select multiple files with a message like &quot;add these to the gallery&quot; 
-                or &quot;these are the new team photos.&quot; We&apos;ll handle them as one request.
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <h4 className="font-sans font-semibold text-[#0A0A0A] text-sm">What about documents or PDFs?</h4>
-              <p className="text-[#525252] text-sm leading-relaxed">
-                PDF menus, price lists, or schedules can be uploaded and linked. 
-                For complex document-heavy sites, we may suggest a different approach. 
-                We&apos;ll tell you if something is better handled outside the portal.
-              </p>
-            </div>
           </div>
         </section>
       </main>
