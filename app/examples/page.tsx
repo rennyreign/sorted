@@ -4,7 +4,7 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Examples. Sorted.",
-  description: "Recent work from Sorted. Websites, landing pages, ads, logos, and more.",
+  description: "Recent website builds from Sorted. Small business websites, redesigned and launched fast.",
 }
 
 export default function ExamplesPage() {
@@ -21,7 +21,7 @@ export default function ExamplesPage() {
             What we&apos;ve been building.
           </h1>
           <p className="text-[#737373] text-lg font-medium max-w-lg">
-            A selection of recent jobs: websites, ads, brand work, and quick fixes for businesses.
+            A selection of recent website builds for small businesses.
           </p>
         </div>
 
