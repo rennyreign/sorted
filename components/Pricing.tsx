@@ -39,7 +39,7 @@ export default function Pricing() {
             <h2 className="font-sans font-extrabold text-white text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] tracking-tight mb-10">
               No quotes upfront.
               <br />
-              <span className="text-[#525252]">Build first, price second.</span>
+              <span className="text-[#525252]">Modernize first, price second.</span>
             </h2>
 
             <div className="space-y-6 text-[#A3A3A3] text-lg leading-relaxed mb-12">
@@ -50,7 +50,7 @@ export default function Pricing() {
                 your situation.
               </p>
               <p>
-                This means a complex site might be {pricing.siteTo}. Or {pricing.siteFrom} to a small 
+                This means a complex website and modernization project might be {pricing.siteTo}. Or {pricing.siteFrom} to a small 
                 business that needs the break. The price matches the value 
                 and the relationship, decided after you know what you&apos;re 
                 getting, not before.
