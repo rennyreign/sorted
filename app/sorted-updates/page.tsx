@@ -56,7 +56,7 @@ export default function SortedUpdatesPage() {
               </div>
               <h3 className="font-sans font-bold text-[#0A0A0A] text-lg">Included</h3>
               <p className="text-[#525252] text-sm leading-relaxed">
-                SortedUpdates comes with every website we build. It is part of the handoff, not an extra. You own the content layer from day one.
+                SortedUpdates comes with every website we build. It is part of the handoff, not an extra. You own the content from day one.
               </p>
             </div>
 
@@ -168,7 +168,7 @@ export default function SortedUpdatesPage() {
                 Invite only. You control the content. We hold the reset key.
               </h2>
               <p className="text-[#525252] text-base leading-relaxed">
-                Access is locked to invite-only Netlify Identity. You decide who can edit. Sorted retains the design layer, the code, and the factory reset capability, so the site structure is always protected even when content changes.
+                Access is locked to invite-only Netlify Identity. You decide who can edit. Sorted retains the design, the code, and the factory reset capability, so the site structure is always protected even when content changes.
               </p>
             </div>
 
