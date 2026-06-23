@@ -105,7 +105,7 @@ function ExampleCard({
       <img
         src={ex.image_url}
         alt={ex.business_name}
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105"
+        className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/40" />
       <div className="absolute inset-0 flex flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
