@@ -4,6 +4,7 @@
 create table if not exists examples (
   id uuid primary key default gen_random_uuid(),
   prospect_id bigint references prospects(id) on delete set null,
+  storage_path text,
   business_name text not null,
   image_url text not null,
   type text not null check (type in ('mockup', 'live')),
@@ -13,8 +14,9 @@ create table if not exists examples (
   updated_at timestamptz default now()
 );
 
--- Prevent duplicate mockups per prospect
+-- Prevent duplicate mockups per prospect or storage path
 alter table examples add constraint examples_prospect_id_unique unique (prospect_id);
+alter table examples add constraint examples_storage_path_unique unique (storage_path);
 
 -- Useful for ordering and category filters
 create index if not exists examples_type_created_idx on examples(type, created_at desc);

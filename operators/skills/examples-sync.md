@@ -21,14 +21,25 @@ Run this operator whenever:
 
 ## How to run
 
+Sync from the CRM pipeline (prospects with mockups):
+
 ```bash
 curl -X POST https://sortmydigital.site/api/examples/sync \
+  -H "Authorization: Bearer $SORTED_API_TOKEN"
+```
+
+Sync from the Supabase Storage `mockups` bucket:
+
+```bash
+curl -X POST https://sortmydigital.site/api/examples/sync-storage \
   -H "Authorization: Bearer $SORTED_API_TOKEN"
 ```
 
 Or trigger from the operator dashboard.
 
 ## What it does
+
+### Pipeline sync (`/api/examples/sync`)
 
 1. Queries the `prospects` table for records where `mockup_url` is not null.
 2. Maps each prospect to an `examples` row:
@@ -38,6 +49,13 @@ Or trigger from the operator dashboard.
    - `type` → `live` if `crm_status = 'paid'`, otherwise `mockup`
    - `live_url` → null unless manually set
 3. Upserts into `examples` on `prospect_id`.
+
+### Storage sync (`/api/examples/sync-storage`)
+
+1. Lists all image files in the Supabase Storage `mockups` bucket.
+2. Generates a public URL for each file.
+3. Derives a business name from the filename.
+4. Inserts each image into `examples` as a `mockup`, keyed by `storage_path`.
 
 ## Manual live URL updates
 
