@@ -2,92 +2,90 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { createPortal } from "react-dom"
+import { supabase } from "@/lib/supabase"
 
-interface Example {
-  id: number
-  title: string
-  client: string
-  type: string
-  img: string
-  description: string
-  url?: string
+export type Example = {
+  id: string
+  business_name: string
+  image_url: string
+  type: "mockup" | "live"
+  live_url: string | null
+  category: string | null
+  created_at: string
 }
 
-// Websites with outbound links
-const websites: Example[] = [
+// Fallback examples shown until the Supabase examples table is populated.
+const fallbackExamples: Example[] = [
   {
-    id: 11,
-    title: "Property portfolio website",
-    client: "Palace & Barns",
-    type: "Website",
-    img: "/examples/palacebarns.jpg",
-    description: "Luxury property portfolio site with listings, gallery, and enquiry form. Elegant and fast.",
-    url: "https://palacebarns.com",
+    id: "palace-barns",
+    business_name: "Palace & Barns",
+    image_url: "/examples/palacebarns.jpg",
+    type: "live",
+    live_url: "https://palacebarns.com",
+    category: "Property",
+    created_at: "2026-01-01T00:00:00Z",
   },
   {
-    id: 13,
-    title: "BJJ gym website",
-    client: "Gracie Barra Halesowen",
-    type: "Website",
-    img: "/examples/graciebarra-halesowen.jpg",
-    description: "Full website for a Brazilian Jiu-Jitsu gym. Timetable, programmes, gallery, and sign-up flow.",
-    url: "https://gbhalesowen.com",
+    id: "gbhalesowen",
+    business_name: "Gracie Barra Halesowen",
+    image_url: "/examples/graciebarra-halesowen.jpg",
+    type: "live",
+    live_url: "https://gbhalesowen.com",
+    category: "Fitness",
+    created_at: "2026-01-02T00:00:00Z",
   },
   {
-    id: 1,
-    title: "AI services company website",
-    client: "ADX Engine",
-    type: "Website",
-    img: "/examples/adxengine.jpg",
-    description: "Full marketing site for an AI services company. Hero, features, pricing, and CTA sections. Delivered in 24 hours.",
-    url: "https://adxengine.net",
+    id: "adxengine",
+    business_name: "ADX Engine",
+    image_url: "/examples/adxengine.jpg",
+    type: "live",
+    live_url: "https://adxengine.net",
+    category: "AI Services",
+    created_at: "2026-01-03T00:00:00Z",
   },
   {
-    id: 5,
-    title: "Healthcare clinic flow",
-    client: "Clinic Flow",
-    type: "Website",
-    img: "/examples/clinic-flow.jpg",
-    description: "Patient booking system with service pages, doctor profiles, and integrated scheduling.",
-    url: "https://clinicflow.agency",
+    id: "clinic-flow",
+    business_name: "Clinic Flow",
+    image_url: "/examples/clinic-flow.jpg",
+    type: "live",
+    live_url: "https://clinicflow.agency",
+    category: "Healthcare",
+    created_at: "2026-01-04T00:00:00Z",
   },
   {
-    id: 7,
-    title: "Health & wellness platform",
-    client: "Clario",
-    type: "Website",
-    img: "/examples/clario.jpg",
-    description: "Multi-page site for a clinical research platform. Professional, trustworthy, conversion-focused.",
+    id: "clario",
+    business_name: "Clario",
+    image_url: "/examples/clario.jpg",
+    type: "mockup",
+    live_url: null,
+    category: "Health & Wellness",
+    created_at: "2026-01-05T00:00:00Z",
   },
   {
-    id: 9,
-    title: "Personality type platform",
-    client: "Kyntra",
-    type: "Website",
-    img: "/examples/kyntra.jpg",
-    description: "Interactive personality type platform with quiz flow, results pages, and sharing. Mobile-first.",
+    id: "kyntra",
+    business_name: "Kyntra",
+    image_url: "/examples/kyntra.jpg",
+    type: "mockup",
+    live_url: null,
+    category: "Platform",
+    created_at: "2026-01-06T00:00:00Z",
   },
 ]
 
-
-const typeColour: Record<string, string> = {
-  "Website": "bg-blue-50 text-blue-700",
-  "Landing page": "bg-violet-50 text-violet-700",
-  "Logo & brand": "bg-amber-50 text-amber-700",
-  "Social ads": "bg-green-50 text-green-700",
-  "Platform": "bg-teal-50 text-teal-700",
-  "Google profile": "bg-orange-50 text-orange-700",
-  "Print & flyer": "bg-rose-50 text-rose-700",
-}
-
-function ExampleCard({ ex, onClick }: { ex: Example; onClick: (ex: Example) => void }) {
-  const CardWrapper = ex.url 
+function ExampleCard({
+  ex,
+  onClick,
+}: {
+  ex: Example
+  onClick: (ex: Example) => void
+}) {
+  const Wrapper = ex.live_url
     ? ({ children }: { children: React.ReactNode }) => (
         <a
-          href={ex.url}
+          href={ex.live_url!}
           target="_blank"
           rel="noopener noreferrer"
-          className="group text-left rounded-2xl overflow-hidden border border-black/[0.06] bg-white hover:border-black/20 hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] block"
+          className="group relative block aspect-square overflow-hidden cursor-pointer"
         >
           {children}
         </a>
@@ -95,49 +93,86 @@ function ExampleCard({ ex, onClick }: { ex: Example; onClick: (ex: Example) => v
     : ({ children }: { children: React.ReactNode }) => (
         <button
           onClick={() => onClick(ex)}
-          className="group text-left rounded-2xl overflow-hidden border border-black/[0.06] bg-white hover:border-black/20 hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] block w-full"
+          className="group relative block aspect-square overflow-hidden w-full cursor-pointer"
         >
           {children}
         </button>
       )
 
   return (
-    <CardWrapper>
-      <div className="relative overflow-hidden aspect-[4/5]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={ex.img}
-          alt={ex.title}
-          className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
-        />
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
-      </div>
-      <div className="p-5">
-        <div className="flex items-center justify-between gap-3 mb-2">
-          <span className={`font-mono text-[10px] uppercase tracking-[0.15em] font-medium px-2 py-0.5 rounded-full ${typeColour[ex.type] ?? "bg-black/5 text-black/60"}`}>
-            {ex.type}
+    <Wrapper>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={ex.image_url}
+        alt={ex.business_name}
+        className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/40" />
+      <div className="absolute inset-0 flex flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        {ex.type === "live" && (
+          <span className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#25D366]" />
+            Live
           </span>
-          {ex.url ? (
-            <svg className="w-4 h-4 text-[#C4C4C4] group-hover:text-[#0A0A0A] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200 shrink-0" viewBox="0 0 16 16" fill="none">
-              <path d="M3 13L13 3M13 3H6M13 3V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          ) : (
-            <svg className="w-4 h-4 text-[#C4C4C4] group-hover:text-[#0A0A0A] transition-all duration-200 shrink-0" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
-              <circle cx="4" cy="8" r="1.5" fill="currentColor"/>
-              <circle cx="12" cy="8" r="1.5" fill="currentColor"/>
-            </svg>
-          )}
-        </div>
-        <p className="font-sans font-bold text-[#0A0A0A] text-base leading-snug tracking-tight">{ex.title}</p>
-        <p className="font-sans text-xs text-[#A3A3A3] mt-0.5">{ex.client}</p>
+        )}
+        <p className="font-sans font-bold text-white text-base md:text-lg text-center leading-tight tracking-tight">
+          {ex.business_name}
+        </p>
+        {ex.category && (
+          <p className="text-white/70 text-xs md:text-sm mt-1 text-center">
+            {ex.category}
+          </p>
+        )}
       </div>
-    </CardWrapper>
+    </Wrapper>
+  )
+}
+
+function ExampleSection({
+  title,
+  examples,
+  onClick,
+}: {
+  title: string
+  examples: Example[]
+  onClick: (ex: Example) => void
+}) {
+  if (examples.length === 0) return null
+
+  return (
+    <div className="mb-16">
+      <div className="px-6 sm:px-10 lg:px-16 max-w-[1400px] mx-auto mb-6">
+        <h2 className="text-2xl font-bold text-[#0A0A0A]">{title}</h2>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-0">
+        {examples.map((ex) => (
+          <ExampleCard key={ex.id} ex={ex} onClick={onClick} />
+        ))}
+      </div>
+    </div>
   )
 }
 
 export default function ExamplesGrid() {
+  const [examples, setExamples] = useState<Example[] | null>(null)
+  const [error, setError] = useState(false)
   const [selected, setSelected] = useState<Example | null>(null)
+
+  useEffect(() => {
+    async function load() {
+      const { data, error } = await supabase
+        .from("examples")
+        .select("id, business_name, image_url, type, live_url, category, created_at")
+        .order("created_at", { ascending: false })
+
+      if (error || !data || data.length === 0) {
+        setExamples(fallbackExamples)
+        return
+      }
+      setExamples(data as Example[])
+    }
+    load()
+  }, [])
 
   const close = useCallback(() => setSelected(null), [])
 
@@ -155,17 +190,29 @@ export default function ExamplesGrid() {
     }
   }, [selected, close])
 
+  if (error) {
+    return (
+      <div className="px-6 sm:px-10 lg:px-16 max-w-[1400px] mx-auto py-20 text-center">
+        <p className="text-[#737373]">Could not load examples. Please try again later.</p>
+      </div>
+    )
+  }
+
+  if (examples === null) {
+    return (
+      <div className="px-6 sm:px-10 lg:px-16 max-w-[1400px] mx-auto py-20 text-center">
+        <p className="text-[#A3A3A3]">Loading examples…</p>
+      </div>
+    )
+  }
+
+  const live = examples.filter((ex) => ex.type === "live")
+  const mockups = examples.filter((ex) => ex.type === "mockup")
+
   return (
     <>
-      {/* Websites Section */}
-      <div className="mb-16">
-        <h2 className="text-2xl font-bold text-[#0A0A0A] mb-6">Websites</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {websites.map((ex) => (
-            <ExampleCard key={ex.id} ex={ex} onClick={setSelected} />
-          ))}
-        </div>
-      </div>
+      <ExampleSection title="Live websites" examples={live} onClick={setSelected} />
+      <ExampleSection title="Recent mockups" examples={mockups} onClick={setSelected} />
 
       {selected && createPortal(
         <div
@@ -184,8 +231,8 @@ export default function ExamplesGrid() {
 
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={selected.img}
-            alt={selected.title}
+            src={selected.image_url}
+            alt={selected.business_name}
             className="max-w-full max-h-[90vh] rounded-xl shadow-[0_32px_80px_rgba(0,0,0,0.4)] object-contain"
             onClick={(e) => e.stopPropagation()}
           />

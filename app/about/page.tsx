@@ -4,7 +4,7 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "About. Sorted.",
-  description: "Why Sorted exists. Good online work, without agency prices.",
+  description: "We help small businesses modernize how they attract, capture, and convert customers. Starting with their website.",
 }
 
 export default function AboutPage() {
@@ -20,7 +20,7 @@ export default function AboutPage() {
           <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(3rem,7vw,6.5rem)] leading-[0.92] tracking-tight max-w-5xl">
             The internet changed.
             <br />
-            <span className="text-[#525252]">Agency prices didn&apos;t.</span>
+            <span className="text-[#525252]">Most small businesses haven&apos;t.</span>
           </h1>
         </section>
 
@@ -29,33 +29,33 @@ export default function AboutPage() {
 
             <div>
               <p className="font-sans font-bold text-[#0A0A0A] text-2xl leading-snug tracking-tight mb-6">
-                What&apos;s actually possible online has been completely transformed. What agencies charge hasn&apos;t.
+                Customers now expect every business to look professional, respond quickly, and be easy to find.
               </p>
               <div className="space-y-5 text-[#525252] text-base leading-relaxed">
                 <p>
-                  Tools that once cost thousands are free. Templates that agencies charged five figures for can be built in a day. AI has compressed timelines that used to take weeks into hours.
+                  Most small businesses know this. But between running the day-to-day and trying to keep up with websites, reviews, booking systems, ads, and follow-ups, the digital side keeps falling behind.
                 </p>
                 <p>
-                  And yet most agencies still charge like it's 2010. You're paying for account managers, pitch decks, project kick-off calls, and an office in a city centre. Not the actual work.
+                  The result is a modernization gap. A business can be excellent at what it does and still look amateur online, lose enquiries to faster competitors, and miss repeat revenue from customers it already has.
                 </p>
                 <p>
-                  Meanwhile, DIY website builders promise simplicity and deliver frustration. They're fine if you have time to learn them. Most people don't.
+                  That gap is not a design problem. It is a business problem. And it is where Sorted starts.
                 </p>
               </div>
             </div>
 
             <div className="space-y-5 text-[#525252] text-base leading-relaxed">
               <p className="font-sans font-bold text-[#0A0A0A] text-2xl leading-snug tracking-tight mb-6">
-                There&apos;s a gap. We exist to fill it.
+                We modernize small businesses one step at a time.
               </p>
               <p>
-                We built <span className="font-extrabold tracking-tight text-[#0A0A0A]">Sorted.</span> for the businesses that know they need a decent online presence, but don&apos;t want to spend thousands on an agency and don&apos;t have hours to waste on DIY tools.
+                We built <span className="font-extrabold tracking-tight text-[#0A0A0A]">Sorted.</span> for businesses that know they need to improve, but do not want a six-month agency engagement or the frustration of figuring it out themselves.
               </p>
               <p>
-                The plumber who needs a clean website. The café that wants proper social ads. The startup that needs a landing page, not a six-month engagement. The shop that just needs their Google profile sorted.
+                Every business challenge we solve sits in one of three categories: <strong>Trust</strong> (does the business look credible?), <strong>Enquiries</strong> (can customers get in touch easily?), and <strong>Customers</strong> (can the business generate more revenue from the people it already serves?).
               </p>
               <p>
-                These are real needs. They don&apos;t require a creative director and three discovery sessions. They require someone who knows what they&apos;re doing, does it quickly, and charges a fair price.
+                The website is the first and most visible gap. It is also the foundation for everything else. So we start there with a working mockup, built before any money changes hands.
               </p>
               <p className="font-semibold text-[#0A0A0A]">
                 That&apos;s <span className="font-extrabold tracking-tight text-[#0A0A0A]">Sorted.</span>
@@ -80,18 +80,18 @@ export default function AboutPage() {
               {[
                 {
                   num: "01",
-                  title: "We tell you the price upfront",
-                  body: "Before a single pixel is moved, you know exactly what it costs. No discovery phase, no estimate ranges, no surprise invoices.",
+                  title: "We demonstrate first",
+                  body: "You see a working mockup of your new website before committing. No proposals, no guesswork.",
                 },
                 {
                   num: "02",
-                  title: "We do the work quickly",
-                  body: "Most jobs are done in 24–48 hours. We don't drag things out. Speed is part of the product.",
+                  title: "We build the foundation",
+                  body: "Once you approve, we build the site. Then we can add reviews, CRM, follow-up, booking, or whatever comes next.",
                 },
                 {
                   num: "03",
-                  title: "We don't overcomplicate it",
-                  body: "No unnecessary meetings. No jargon. No upselling you into a retainer you don't need. Just the work, done properly.",
+                  title: "We price after you see it",
+                  body: "Price is agreed after the work is visible, based on what you actually need and what makes sense for your situation.",
                 },
               ].map((item) => (
                 <div key={item.num}>
@@ -163,25 +163,14 @@ export default function AboutPage() {
               Mission
             </span>
             <h2 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(2rem,5vw,3.5rem)] leading-tight tracking-tight mb-8">
-              Helping small businesses become digitally excellent.
+              More trust. More enquiries. More customers.
             </h2>
             <div className="space-y-5 text-[#525252] text-lg leading-relaxed">
               <p>
-                Digital excellence means two things: being visible where your customers 
-                are looking, and operating smoothly behind the scenes. Most small 
-                businesses struggle with one or both. And most agencies charge too 
-                much to fix it.
+                Modernization means being easy to find, easy to trust, easy to contact, and easy to buy from. It also means having the systems behind the scenes, like follow-up, CRM, reviews, and booking, that turn interest into revenue.
               </p>
               <p>
-                We believe every business deserves to look professional online and 
-                run efficiently in the background, whether they&apos;re a one-person 
-                operation or a growing team. The price should match where they are, 
-                not where an agency thinks they should be.
-              </p>
-              <p className="text-[#0A0A0A] font-semibold">
-                That&apos;s why our pricing is negotiable. A complex site might be £3,000. 
-                Or £400 to a business that needs the break. The same quality work, 
-                priced for the relationship and the situation.
+                We believe every small business deserves to look professional online and operate efficiently in the background, whether they are a one-person operation or a growing team. The price should match where they are, not where an agency thinks they should be.
               </p>
             </div>
           </div>
@@ -192,10 +181,10 @@ export default function AboutPage() {
 
             <div className="max-w-2xl">
               <p className="font-sans font-extrabold text-white text-[clamp(2rem,5vw,4rem)] leading-tight tracking-tight mb-4">
-                Excellent work is available for the price of a few dinners out.
+                Your modernization starts here.
               </p>
               <p className="text-[#525252] text-base leading-relaxed">
-                The internet made this possible. Someone just needs to build it. We&apos;re those people.
+                The website is the first doorway. We&apos;ll redesign it before you spend a penny. Then we can build the rest.
               </p>
             </div>
 

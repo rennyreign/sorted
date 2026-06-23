@@ -1,15 +1,18 @@
-const features = [
+const pillars = [
   {
-    title: "See it first",
-    description: "We build a working mockup of your site in 24 hours. You click through it before committing."
+    title: "Trust",
+    items: ["Website", "Reviews", "Brand"],
+    description: "Look credible, professional, and easy to find.",
   },
   {
-    title: "Pay second",
-    description: "No quotes upfront. The price is decided after you see what you're getting, based on your situation."
+    title: "Enquiries",
+    items: ["Forms", "CRM", "Follow-up"],
+    description: "Make it simple for interested customers to get in touch.",
   },
   {
-    title: "Sorted Updates",
-    description: "Every site includes one month of unlimited updates. Text changes, new pages, image swaps - handled fast."
+    title: "Customers",
+    items: ["Promotions", "Referrals", "Reactivation"],
+    description: "Turn existing relationships into repeat revenue.",
   },
 ]
 
@@ -20,32 +23,43 @@ export default function Services() {
 
         <div className="lg:w-64 shrink-0">
           <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-4 block">
-            How it works
+            What modern businesses need
           </span>
           <h2 className="font-sans font-extrabold text-[#0A0A0A] text-4xl leading-tight tracking-tight">
-            No risk.<br/>No upfront<br/>cost.
+            Three outcomes.<br/>One starting point.
           </h2>
         </div>
 
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-          <ul className="space-y-0 divide-y divide-black/[0.06]">
-            {features.map((feature) => (
-              <li key={feature.title} className="py-6">
-                <span className="font-sans font-semibold text-[#0A0A0A] text-base block mb-1">{feature.title}</span>
-                <span className="text-[#737373] text-sm">{feature.description}</span>
-              </li>
+        <div className="flex-1">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-10">
+            {pillars.map((pillar) => (
+              <div
+                key={pillar.title}
+                className="bg-white border border-black/[0.08] rounded-xl p-6"
+              >
+                <span className="block font-mono text-[11px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">
+                  {pillar.title}
+                </span>
+                <ul className="space-y-2 mb-4">
+                  {pillar.items.map((item) => (
+                    <li key={item} className="font-sans font-semibold text-[#0A0A0A] text-base">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-[#737373] text-sm leading-relaxed">
+                  {pillar.description}
+                </p>
+              </div>
             ))}
-          </ul>
+          </div>
 
-          <div className="flex flex-col justify-center">
-            <p className="font-sans font-extrabold text-[#0A0A0A] text-4xl leading-tight tracking-tight mb-6">
-              A faster way to get a website that works.
+          <div className="mt-16 max-w-2xl">
+            <p className="font-sans font-extrabold text-[#0A0A0A] text-2xl leading-tight tracking-tight mb-4">
+              Everything starts with your website.
             </p>
-            <p className="text-[#737373] text-base leading-relaxed mb-4">
-              We built infrastructure specifically for rapid website production. No meetings, no discovery phases, no bloated proposals.
-            </p>
-            <p className="text-[#525252] text-base leading-relaxed">
-              Just send your current site (or describe what you need). We demonstrate first. You decide second.
+            <p className="text-[#737373] text-base leading-relaxed">
+              The website is the first impression, the trust signal, and the lead capture mechanism. It is also the foundation for everything else that follows. We redesign it first, before you spend a penny, then build from there.
             </p>
           </div>
         </div>

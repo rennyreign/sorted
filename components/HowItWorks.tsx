@@ -1,18 +1,18 @@
 const steps = [
   {
     number: "01",
-    title: "We mock up",
+    title: "We start with your website",
     body: "Give us your URL. We'll design something better. 24 hours, free. No commitment.",
   },
   {
     number: "02",
-    title: "We build it",
+    title: "We build the foundation",
     body: "Like the mockup? We'll build the full site. Still no payment until you approve.",
   },
   {
     number: "03",
-    title: "We agree on price",
-    body: "Price comes after you see it. Based on what we built, not what we guessed.",
+    title: "We agree on scope and price",
+    body: "Price comes after you see it. Based on what we built, not what we guessed. Then we can modernize the next area.",
   },
 ]
 
@@ -26,7 +26,7 @@ export default function HowItWorks() {
             How it works
           </span>
           <h2 className="font-sans font-extrabold text-[#0A0A0A] text-4xl leading-tight tracking-tight">
-            Three steps.<br/>That&apos;s it.
+            Three steps.<br/>Modernize from there.
           </h2>
         </div>
 
