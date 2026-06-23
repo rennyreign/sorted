@@ -10,7 +10,7 @@ async function main() {
   const supabase = createServiceClient()
 
   const { data: files, error: listError } = await supabase.storage
-    .from("mockups")
+    .from("Mockups")
     .list("", { limit: 1000 })
 
   if (listError) {
@@ -28,7 +28,7 @@ async function main() {
   )
 
   const rows = imageFiles.map((f) => {
-    const { data } = supabase.storage.from("mockups").getPublicUrl(f.name)
+    const { data } = supabase.storage.from("Mockups").getPublicUrl(f.name)
     const publicUrl = data.publicUrl
 
     const nameFromFile = f.name

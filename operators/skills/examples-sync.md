@@ -28,7 +28,7 @@ curl -X POST https://sortmydigital.site/api/examples/sync \
   -H "Authorization: Bearer $SORTED_API_TOKEN"
 ```
 
-Sync from the Supabase Storage `mockups` bucket:
+Sync from the Supabase Storage `Mockups` bucket (case-sensitive):
 
 ```bash
 curl -X POST https://sortmydigital.site/api/examples/sync-storage \
@@ -52,7 +52,7 @@ Or trigger from the operator dashboard.
 
 ### Storage sync (`/api/examples/sync-storage`)
 
-1. Lists all image files in the Supabase Storage `mockups` bucket.
+1. Lists all image files in the Supabase Storage `Mockups` bucket (case-sensitive).
 2. Generates a public URL for each file.
 3. Derives a business name from the filename.
 4. Inserts each image into `examples` as a `mockup`, keyed by `storage_path`.

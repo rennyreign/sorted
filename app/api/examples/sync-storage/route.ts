@@ -9,7 +9,7 @@ export async function POST() {
     const supabase = createServiceClient()
 
     const { data: files, error: listError } = await supabase.storage
-      .from("mockups")
+      .from("Mockups")
       .list("", { limit: 1000 })
 
     if (listError) {
@@ -29,7 +29,7 @@ export async function POST() {
     )
 
     const rows = imageFiles.map((f) => {
-      const { data } = supabase.storage.from("mockups").getPublicUrl(f.name)
+      const { data } = supabase.storage.from("Mockups").getPublicUrl(f.name)
       const publicUrl = data.publicUrl
 
       // Derive a business name from the filename: replace hyphens/underscores with spaces,
