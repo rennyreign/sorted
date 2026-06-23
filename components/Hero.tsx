@@ -1,13 +1,11 @@
 export default function Hero() {
   return (
-    <section className="min-h-[100dvh] flex flex-col justify-end pb-16 px-6 sm:px-10 lg:px-16 pt-32 max-w-[1400px] mx-auto">
+    <section className="min-h-[100dvh] flex flex-col justify-end pb-16 px-6 sm:px-10 lg:px-16 pt-32 max-w-[1400px] mx-auto lg:max-w-none">
 
-      <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(4.5rem,10vw,9rem)] lg:text-[clamp(5rem,11vw,9.5rem)] leading-[0.92] tracking-[-0.03em] mb-10">
-        More trust.
-        <br />
-        More enquiries.
-        <br />
-        <span className="text-[#525252]">More customers.</span>
+      <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(4.5rem,10vw,9rem)] leading-[0.92] tracking-[-0.03em] mb-10">
+        <span className="block lg:text-[clamp(6rem,16vw,18rem)]">More trust.</span>
+        <span className="block lg:text-[clamp(5rem,12vw,15rem)]">More enquiries.</span>
+        <span className="block lg:text-[clamp(5rem,12vw,15rem)] text-[#525252]">More customers.</span>
       </h1>
 
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 border-t border-black/10 pt-8">
