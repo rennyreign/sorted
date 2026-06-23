@@ -2,7 +2,7 @@ export default function Hero() {
   return (
     <section className="min-h-[100dvh] flex flex-col justify-end pb-16 px-6 sm:px-10 lg:px-16 pt-32 max-w-[1400px] mx-auto">
 
-      <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(4.5rem,9vw,7rem)] leading-[0.92] tracking-[-0.03em] mb-10 max-w-5xl">
+      <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(4.5rem,10vw,9rem)] lg:text-[clamp(5rem,11vw,9.5rem)] leading-[0.92] tracking-[-0.03em] mb-10">
         More trust.
         <br />
         More enquiries.
