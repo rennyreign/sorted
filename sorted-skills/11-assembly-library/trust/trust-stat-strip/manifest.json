@@ -1,0 +1,25 @@
+{
+  "id": "trust-stat-strip",
+  "family": "trust",
+  "description": "Horizontal row of 3–4 stat blocks with icon, large stat, and short label. Compressed section immediately after hero.",
+  "visual_languages": ["utility"],
+  "intensity": "compressed",
+  "themes": ["light"],
+  "default_theme": "light",
+  "slots": {
+    "stats": [
+      {
+        "icon": "string",
+        "stat": "string",
+        "label": "string"
+      }
+    ]
+  },
+  "validation": [
+    "Exactly 3 or 4 stats",
+    "Each stat is short and specific",
+    "Stats directly address the trust gap",
+    "No generic phrases like 'quality service' or 'customer focused'",
+    "Section is visually compressed, not heavy"
+  ]
+}

@@ -1,0 +1,236 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sortmydigital.site/schemas/design-system-tokens.json",
+  "title": "Sorted Design System Tokens",
+  "description": "Standard palettes, typography, and spacing tokens for Sorted site compositions. The design-composer can reference these as defaults and override them per business.",
+  "archetypes": {
+    "clean_local": {
+      "name": "Clean Local",
+      "description": "Light, trustworthy, and practical. Default for most trades and local services.",
+      "palette": {
+        "background": "#FFFFFF",
+        "background_alt": "#F8FAFC",
+        "background_dark": "#0F172A",
+        "text": "#0F172A",
+        "text_secondary": "#475569",
+        "text_inverse": "#FFFFFF",
+        "accent": "#2563EB",
+        "accent_hover": "#1D4ED8",
+        "border": "#E2E8F0",
+        "success": "#16A34A",
+        "warning": "#EAB308"
+      },
+      "typography": {
+        "display": "Plus Jakarta Sans",
+        "body": "Plus Jakarta Sans",
+        "mono": "DM Mono"
+      },
+      "spacing": {
+        "section_padding": "py-16 md:py-24",
+        "content_max_width": "max-w-[1400px]",
+        "grid_gap": "gap-6 lg:gap-8",
+        "card_padding": "p-6 md:p-8"
+      },
+      "photography": {
+        "style": "realistic documentary",
+        "mood": "capable, calm, local",
+        "lighting": "natural daylight",
+        "colour_treatment": "true-to-life, slightly warm",
+        "avoid": "stock interiors, posed models, corporate offices"
+      }
+    },
+    "dark_professional": {
+      "name": "Dark Professional",
+      "description": "High-contrast, refined, premium. For fitness, premium trades, and consulting.",
+      "palette": {
+        "background": "#0F172A",
+        "background_alt": "#1E293B",
+        "background_dark": "#020617",
+        "text": "#F8FAFC",
+        "text_secondary": "#94A3B8",
+        "text_inverse": "#0F172A",
+        "accent": "#38BDF8",
+        "accent_hover": "#0EA5E9",
+        "border": "#334155",
+        "success": "#4ADE80",
+        "warning": "#FACC15"
+      },
+      "typography": {
+        "display": "Plus Jakarta Sans",
+        "body": "Plus Jakarta Sans",
+        "mono": "DM Mono"
+      },
+      "spacing": {
+        "section_padding": "py-20 md:py-28",
+        "content_max_width": "max-w-[1400px]",
+        "grid_gap": "gap-8",
+        "card_padding": "p-8"
+      },
+      "photography": {
+        "style": "editorial portrait",
+        "mood": "focused, confident, premium",
+        "lighting": "dramatic but clean",
+        "colour_treatment": "slightly desaturated, cool tones",
+        "avoid": "busy backgrounds, generic stock"
+      }
+    },
+    "warm_hospitality": {
+      "name": "Warm Hospitality",
+      "description": "Warm, inviting, and rich. For food, beauty, and venues.",
+      "palette": {
+        "background": "#FFFBF5",
+        "background_alt": "#FDF6E9",
+        "background_dark": "#3D2314",
+        "text": "#1F1A16",
+        "text_secondary": "#6B5B4E",
+        "text_inverse": "#FFFBF5",
+        "accent": "#D97706",
+        "accent_hover": "#B45309",
+        "border": "#E8DDD0",
+        "success": "#65A30D",
+        "warning": "#EAB308"
+      },
+      "typography": {
+        "display": "Plus Jakarta Sans",
+        "body": "Plus Jakarta Sans",
+        "mono": "DM Mono"
+      },
+      "spacing": {
+        "section_padding": "py-16 md:py-24",
+        "content_max_width": "max-w-[1400px]",
+        "grid_gap": "gap-6",
+        "card_padding": "p-6"
+      },
+      "photography": {
+        "style": "lifestyle photography",
+        "mood": "warm, welcoming, social",
+        "lighting": "golden hour or warm interior",
+        "colour_treatment": "warm, rich saturation",
+        "avoid": "cold clinical lighting, empty spaces"
+      }
+    },
+    "bold_trust": {
+      "name": "Bold Trust",
+      "description": "Direct, bold, and reassuring. For emergency trades and trust-led businesses.",
+      "palette": {
+        "background": "#FFFFFF",
+        "background_alt": "#F3F4F6",
+        "background_dark": "#111827",
+        "text": "#111827",
+        "text_secondary": "#4B5563",
+        "text_inverse": "#FFFFFF",
+        "accent": "#DC2626",
+        "accent_hover": "#B91C1C",
+        "border": "#D1D5DB",
+        "success": "#16A34A",
+        "warning": "#F59E0B"
+      },
+      "typography": {
+        "display": "Plus Jakarta Sans",
+        "body": "Plus Jakarta Sans",
+        "mono": "DM Mono"
+      },
+      "spacing": {
+        "section_padding": "py-16 md:py-20",
+        "content_max_width": "max-w-[1400px]",
+        "grid_gap": "gap-6",
+        "card_padding": "p-6"
+      },
+      "photography": {
+        "style": "action documentary",
+        "mood": "urgent, capable, reliable",
+        "lighting": "bright, high visibility",
+        "colour_treatment": "bold, high contrast",
+        "avoid": "soft blur, abstract backgrounds"
+      }
+    },
+    "premium": {
+      "name": "Premium",
+      "description": "Light, refined, and image-led. For food, beauty, and professional services. The most common Sorted archetype.",
+      "palette": {
+        "background": "#FFFFFF",
+        "background_alt": "#FAFAFA",
+        "background_dark": "#0F172A",
+        "text": "#111111",
+        "text_secondary": "#525252",
+        "text_inverse": "#FFFFFF",
+        "accent": "#C5A059",
+        "accent_hover": "#A9843E",
+        "border": "#E5E5E5",
+        "success": "#16A34A",
+        "warning": "#EAB308"
+      },
+      "typography": {
+        "display": "Plus Jakarta Sans",
+        "body": "Plus Jakarta Sans",
+        "mono": "DM Mono"
+      },
+      "spacing": {
+        "section_padding": "py-16 md:py-24",
+        "content_max_width": "max-w-[1400px]",
+        "grid_gap": "gap-6 lg:gap-8",
+        "card_padding": "p-6 md:p-8"
+      },
+      "photography": {
+        "style": "lifestyle editorial",
+        "mood": "warm, refined, appetising",
+        "lighting": "soft natural or warm interior",
+        "colour_treatment": "rich, slightly warm",
+        "avoid": "harsh flash, cold clinical lighting, empty backgrounds"
+      }
+    },
+    "minimal_editorial": {
+      "name": "Minimal Editorial",
+      "description": "Restrained, asymmetric, and refined. For professional services and portfolios.",
+      "palette": {
+        "background": "#FFFFFF",
+        "background_alt": "#FAFAFA",
+        "background_dark": "#171717",
+        "text": "#171717",
+        "text_secondary": "#737373",
+        "text_inverse": "#FFFFFF",
+        "accent": "#171717",
+        "accent_hover": "#404040",
+        "border": "#E5E5E5",
+        "success": "#16A34A",
+        "warning": "#EAB308"
+      },
+      "typography": {
+        "display": "Plus Jakarta Sans",
+        "body": "Plus Jakarta Sans",
+        "mono": "DM Mono"
+      },
+      "spacing": {
+        "section_padding": "py-24 md:py-32",
+        "content_max_width": "max-w-[1400px]",
+        "grid_gap": "gap-8 lg:gap-12",
+        "card_padding": "p-8"
+      },
+      "photography": {
+        "style": "editorial minimal",
+        "mood": "calm, precise, confident",
+        "lighting": "soft, even daylight",
+        "colour_treatment": "desaturated, clean",
+        "avoid": "busy patterns, bright gradients"
+      }
+    }
+  },
+  "typography_scale": {
+    "hero": "text-[clamp(3rem,8vw,7rem)] leading-[0.92] tracking-tight",
+    "section": "text-[clamp(2rem,4vw,3.5rem)] leading-tight tracking-tight",
+    "card": "text-xl font-bold",
+    "body": "text-base leading-relaxed max-w-[65ch]",
+    "label": "text-xs uppercase tracking-[0.15em] font-medium"
+  },
+  "motion": {
+    "standard": "transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)]",
+    "page_enter": "0.55s cubic-bezier(0.32, 0.72, 0, 1)",
+    "hover": "0.2s cubic-bezier(0.32, 0.72, 0, 1)",
+    "stagger": "0.1s"
+  },
+  "breakpoints": {
+    "mobile": "< 768px",
+    "tablet": "768px - 1024px",
+    "desktop": "> 1024px"
+  }
+}

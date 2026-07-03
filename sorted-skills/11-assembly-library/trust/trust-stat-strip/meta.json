@@ -1,0 +1,9 @@
+{
+  "id": "trust-stat-strip",
+  "family": "trust",
+  "version": "1.0.0",
+  "description": "4-column stat strip with icon, number, and label. Light alt background.",
+  "intensity": "compressed",
+  "visual_languages": ["utility", "editorial"],
+  "style_slots": ["theme", "density", "accentColor"]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "hero-utility-split",
+  "family": "hero",
+  "version": "1.1.0",
+  "description": "Split-layout hero for trade/service businesses. Dark navy background, large image right.",
+  "intensity": "massive",
+  "visual_languages": ["utility"],
+  "style_slots": ["theme", "density", "accentColor"]
+}

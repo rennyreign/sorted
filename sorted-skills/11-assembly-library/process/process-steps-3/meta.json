@@ -1,0 +1,9 @@
+{
+  "id": "process-steps-3",
+  "family": "process",
+  "version": "1.1.0",
+  "description": "3-step process with icon, number badge, title, and description.",
+  "intensity": "compressed",
+  "visual_languages": ["utility"],
+  "style_slots": ["theme", "density", "accentColor"]
+}

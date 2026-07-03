@@ -1,0 +1,9 @@
+{
+  "id": "testimonials-featured",
+  "family": "testimonials",
+  "version": "1.0.0",
+  "description": "2-column testimonial grid with avatar, name, location, and review quote.",
+  "intensity": "large",
+  "visual_languages": ["utility", "editorial"],
+  "style_slots": ["theme", "density", "accentColor"]
+}

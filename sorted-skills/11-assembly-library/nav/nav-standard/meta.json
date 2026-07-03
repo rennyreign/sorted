@@ -1,0 +1,9 @@
+{
+  "id": "nav-standard",
+  "family": "nav",
+  "version": "1.0.0",
+  "description": "Sticky header with logo, nav links, phone number, and primary CTA pill.",
+  "intensity": "navigation",
+  "visual_languages": ["utility", "editorial"],
+  "style_slots": ["theme", "accentColor"]
+}

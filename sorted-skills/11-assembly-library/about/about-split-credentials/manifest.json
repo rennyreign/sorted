@@ -1,0 +1,27 @@
+{
+  "id": "about-split-credentials",
+  "family": "about",
+  "description": "Split layout with image left and credentials list right. Medium intensity section proving local credibility.",
+  "visual_languages": ["utility"],
+  "intensity": "medium",
+  "themes": ["light"],
+  "default_theme": "light",
+  "slots": {
+    "title": "string",
+    "description": "string",
+    "image": "asset_id",
+    "image_alt": "string",
+    "credentials": [
+      {
+        "label": "string"
+      }
+    ]
+  },
+  "validation": [
+    "Image is 4:3 aspect ratio, not tall portrait",
+    "Text and image are balanced",
+    "Credentials list has 4–6 items",
+    "Title has a left border accent or consistent heading style",
+    "Description mentions coverage area and experience"
+  ]
+}

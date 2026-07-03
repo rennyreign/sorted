@@ -1,0 +1,34 @@
+{
+  "id": "testimonials-featured",
+  "family": "testimonials",
+  "description": "One large featured testimonial plus two smaller supporting cards. Left-aligned title.",
+  "visual_languages": ["utility"],
+  "intensity": "proof",
+  "themes": ["light"],
+  "default_theme": "light",
+  "slots": {
+    "eyebrow": "string",
+    "title": "string",
+    "featured": {
+      "quote": "string",
+      "name": "string",
+      "location": "string",
+      "avatar": "asset_id"
+    },
+    "supporting": [
+      {
+        "quote": "string",
+        "name": "string",
+        "location": "string",
+        "avatar": "asset_id"
+      }
+    ]
+  },
+  "validation": [
+    "One featured testimonial and two supporting",
+    "Featured testimonial is visually dominant but not heavy",
+    "All quotes include real names and locations",
+    "Title is left-aligned to match the rest of the page",
+    "Supporting cards do not compete with the featured card"
+  ]
+}

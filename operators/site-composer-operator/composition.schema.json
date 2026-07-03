@@ -1,0 +1,350 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sortmydigital.site/schemas/composition.json",
+  "title": "Sorted Site Composition",
+  "description": "Design doctrine produced by the Site Composer Operator. Backward-compatible with the existing deconstruction.json schema consumed by the Asset Generator and Frontend Builder.",
+  "type": "object",
+  "required": ["page_type", "metadata", "contact", "source", "design_doctrine", "visual_tokens", "section_archetypes", "cta_hierarchy", "sections", "assets", "components", "copy", "build_notes", "meta"],
+  "additionalProperties": false,
+  "properties": {
+    "page_type": {
+      "type": "string",
+      "enum": ["homepage", "service_page", "landing_page", "booking_page", "portfolio", "about", "contact", "ecommerce", "unknown"]
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Page metadata for the rendered site.",
+      "required": ["title", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "description": "Contact details so the renderer never has to guess.",
+      "required": ["phone", "phone_display", "email", "location"],
+      "additionalProperties": false,
+      "properties": {
+        "phone": { "type": "string" },
+        "phone_display": { "type": "string" },
+        "email": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "location": { "type": "string" },
+        "hours": { "type": "string" },
+        "address": { "type": "string" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "description": "Where this composition came from.",
+      "required": ["type", "business_name", "business_category", "website_url", "analysis_summary"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["analysis"]
+        },
+        "business_name": { "type": "string" },
+        "business_category": { "type": "string" },
+        "website_url": { "type": "string" },
+        "analysis_summary": { "type": "string" },
+        "prospect_id": { "type": "string" },
+        "review_slug": { "type": "string" }
+      }
+    },
+    "design_doctrine": {
+      "type": "object",
+      "description": "The Creative Director reasoning that downstream operators execute.",
+      "required": ["emotional_positioning", "trust_strategy", "hero_strategy", "conversion_strategy", "objection_reduction_strategy", "local_credibility_strategy", "proof_and_reassurance_strategy"],
+      "additionalProperties": false,
+      "properties": {
+        "archetype": { "type": "string" },
+        "brand_personality": { "type": "string" },
+        "visual_language": { "type": "string" },
+        "colour_language": { "type": "string" },
+        "typography_language": { "type": "string" },
+        "material_language": { "type": "string" },
+        "photography": { "type": "string" },
+        "emotional_positioning": { "type": "string" },
+        "trust_strategy": { "type": "string" },
+        "hero_strategy": { "type": "string" },
+        "conversion_strategy": { "type": "string" },
+        "objection_reduction_strategy": { "type": "string" },
+        "local_credibility_strategy": { "type": "string" },
+        "proof_and_reassurance_strategy": { "type": "string" }
+      }
+    },
+    "visual_tokens": {
+      "type": "object",
+      "description": "Concrete design tokens produced by the design-composer.",
+      "required": ["archetype", "palette", "typography", "spacing", "photography", "material"],
+      "additionalProperties": false,
+      "properties": {
+        "archetype": { "type": "string" },
+        "colour_language": { "type": "string" },
+        "typography_language": { "type": "string" },
+        "material_language": { "type": "string" },
+        "palette": {
+          "type": "object",
+          "required": ["background", "background_alt", "background_dark", "text", "text_secondary", "text_inverse", "accent", "accent_hover", "border"],
+          "additionalProperties": false,
+          "properties": {
+            "background": { "type": "string" },
+            "background_alt": { "type": "string" },
+            "background_dark": { "type": "string" },
+            "text": { "type": "string" },
+            "text_secondary": { "type": "string" },
+            "text_inverse": { "type": "string" },
+            "accent": { "type": "string" },
+            "accent_hover": { "type": "string" },
+            "border": { "type": "string" },
+            "success": { "type": "string" },
+            "warning": { "type": "string" }
+          }
+        },
+        "typography": {
+          "type": "object",
+          "required": ["display", "body", "mono"],
+          "additionalProperties": false,
+          "properties": {
+            "display": { "type": "string" },
+            "body": { "type": "string" },
+            "mono": { "type": "string" }
+          }
+        },
+        "spacing": {
+          "type": "object",
+          "required": ["section_padding", "content_max_width", "grid_gap"],
+          "additionalProperties": false,
+          "properties": {
+            "section_padding": { "type": "string" },
+            "content_max_width": { "type": "string" },
+            "grid_gap": { "type": "string" },
+            "card_padding": { "type": "string" }
+          }
+        },
+        "photography": {
+          "type": "object",
+          "required": ["style", "mood", "lighting"],
+          "additionalProperties": false,
+          "properties": {
+            "style": { "type": "string" },
+            "mood": { "type": "string" },
+            "lighting": { "type": "string" },
+            "colour_treatment": { "type": "string" },
+            "subjects": { "type": "string" },
+            "avoid": { "type": "string" }
+          }
+        },
+        "material": {
+          "type": "object",
+          "required": ["approach", "surface", "shadows", "gradients"],
+          "additionalProperties": false,
+          "properties": {
+            "approach": { "type": "string" },
+            "surface": { "type": "string" },
+            "shadows": { "type": "string" },
+            "gradients": { "type": "string" },
+            "overlay": { "type": "string" },
+            "section_contrast": { "type": "string" }
+          }
+        }
+      }
+    },
+    "section_archetypes": {
+      "type": "object",
+      "description": "Maps each section ID to a layout archetype chosen by the design-composer.",
+      "additionalProperties": { "type": "string" }
+    },
+    "assembly_selection": {
+      "type": "object",
+      "description": "Assembly IDs selected by the Decision Language for each page section.",
+      "required": ["reason", "assemblies"],
+      "additionalProperties": false,
+      "properties": {
+        "reason": { "type": "string" },
+        "style_slots": {
+          "type": "object",
+          "description": "Global style slots applied to all assemblies. density controls section vertical padding: 'default' is the standard (recommended for most sites), 'airy' for premium feel, 'compressed' for high-urgency conversion pages. IMPORTANT: 'compressed' still renders with professional breathing room — it is never cramped. Avoid using 'compressed' unless the brief explicitly calls for maximum urgency.",
+          "properties": {
+            "theme": { "type": "string", "enum": ["light", "dark"] },
+            "density": { "type": "string", "enum": ["default", "compressed", "airy"] },
+            "accentColor": { "type": "string" },
+            "typography": { "type": "string" },
+            "photography": { "type": "string" }
+          }
+        },
+        "assemblies": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "propertyNames": {
+            "enum": ["nav", "hero", "trust", "services", "proof", "process", "about", "testimonials", "cta", "footer"]
+          }
+        }
+      }
+    },
+    "cta_hierarchy": {
+      "type": "object",
+      "description": "Primary, secondary, and tertiary conversion actions.",
+      "required": ["primary"],
+      "additionalProperties": false,
+      "properties": {
+        "primary": {
+          "type": "object",
+          "required": ["action", "label", "href", "placement"],
+          "additionalProperties": false,
+          "properties": {
+            "action": { "type": "string" },
+            "label": { "type": "string" },
+            "href": { "type": "string" },
+            "placement": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "secondary": {
+          "type": "object",
+          "required": ["action", "label", "href", "placement"],
+          "additionalProperties": false,
+          "properties": {
+            "action": { "type": "string" },
+            "label": { "type": "string" },
+            "href": { "type": "string" },
+            "placement": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "tertiary": {
+          "type": "object",
+          "required": ["action", "label", "placement"],
+          "additionalProperties": false,
+          "properties": {
+            "action": { "type": "string" },
+            "label": { "type": "string" },
+            "href": { "type": "string" },
+            "placement": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "position"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "type": {
+            "type": "string",
+            "enum": ["hero", "features", "services", "process", "statistics", "testimonials", "pricing", "gallery", "cta", "footer", "nav", "about", "contact", "trust_bar", "custom"]
+          },
+          "position": { "type": "integer", "minimum": 1 },
+          "label": { "type": "string" },
+          "archetype": { "type": "string" },
+          "assembly_id": { "type": "string" },
+          "layout": { "type": "string" },
+          "theme": { "type": "string", "enum": ["light", "dark", "accent"] },
+          "background": { "type": "string" },
+          "notes": { "type": "string" },
+          "intensity": { "type": "string", "enum": ["massive", "large", "medium", "compressed", "proof", "decision"] },
+          "narrative_role": { "type": "string" }
+        }
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "description", "priority", "source"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "type": {
+            "type": "string",
+            "enum": ["person", "avatar", "logo", "hero_image", "background", "product", "icon", "illustration", "screenshot", "gallery_image", "generic"]
+          },
+          "description": { "type": "string", "minLength": 1 },
+          "priority": { "type": "string", "enum": ["critical", "high", "medium", "low"] },
+          "source": { "type": "string", "enum": ["reuse", "generate", "stock"] },
+          "section": { "type": "string" },
+          "slot": { "type": "string" },
+          "aspect_ratio": { "type": "string" },
+          "bbox": {
+            "type": "object",
+            "properties": {
+              "x": { "type": "number" },
+              "y": { "type": "number" },
+              "w": { "type": "number", "exclusiveMinimum": 0 },
+              "h": { "type": "number", "exclusiveMinimum": 0 }
+            },
+            "required": ["x", "y", "w", "h"]
+          },
+          "variants": { "type": "array", "items": { "type": "string" } },
+          "mode_hint": { "type": "string", "enum": ["extract", "recreate"] },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["component"],
+        "additionalProperties": false,
+        "properties": {
+          "component": { "type": "string", "minLength": 1 },
+          "section": { "type": "string" },
+          "archetype": { "type": "string" },
+          "description": { "type": "string" },
+          "variant": { "type": "string" }
+        }
+      }
+    },
+    "copy": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["section", "type", "text"],
+        "additionalProperties": false,
+        "properties": {
+          "section": { "type": "string", "minLength": 1 },
+          "type": {
+            "type": "string",
+            "enum": ["headline", "subheadline", "body", "cta", "label", "caption", "stat", "nav_item", "footer_text", "testimonial_quote", "testimonial_attribution", "badge", "price", "other"]
+          },
+          "text": { "type": "string", "minLength": 1 },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "build_notes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "layout": { "type": "string" },
+        "style": { "type": "string" },
+        "theme": { "type": "string", "enum": ["light", "dark", "mixed"] },
+        "accent_color": { "type": "string" },
+        "primary_font": { "type": "string" },
+        "secondary_font": { "type": "string" },
+        "responsive_priority": { "type": "boolean" },
+        "animation": { "type": "string", "enum": ["none", "standard", "premium"] },
+        "grid": { "type": "string" },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": ["generated_at", "model_used", "operator_version"],
+      "additionalProperties": false,
+      "properties": {
+        "generated_at": { "type": "string" },
+        "source_analysis": { "type": "string" },
+        "creative_direction": { "type": "string" },
+        "model_used": { "type": "string" },
+        "operator_version": { "type": "string" }
+      }
+    }
+  }
+}

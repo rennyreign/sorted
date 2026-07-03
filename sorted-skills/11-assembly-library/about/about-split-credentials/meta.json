@@ -1,0 +1,9 @@
+{
+  "id": "about-split-credentials",
+  "family": "about",
+  "version": "1.0.0",
+  "description": "Split about section: image left, credentials + bullet points right.",
+  "intensity": "medium",
+  "visual_languages": ["utility"],
+  "style_slots": ["theme", "density", "accentColor"]
+}

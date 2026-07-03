@@ -1,0 +1,29 @@
+{
+  "id": "services-3-cards",
+  "family": "services",
+  "description": "Three equal service cards with image, title, description, and contact link. Medium intensity section.",
+  "visual_languages": ["utility"],
+  "intensity": "medium",
+  "themes": ["light"],
+  "default_theme": "light",
+  "slots": {
+    "title": "string",
+    "subtitle": "string",
+    "services": [
+      {
+        "title": "string",
+        "description": "string",
+        "image": "asset_id",
+        "link": "string",
+        "link_label": "string"
+      }
+    ]
+  },
+  "validation": [
+    "Exactly 3 services",
+    "Each service has a real work image",
+    "Title is left-aligned and uses H2 size",
+    "Cards use standard card padding",
+    "Link text is short and action-oriented"
+  ]
+}
