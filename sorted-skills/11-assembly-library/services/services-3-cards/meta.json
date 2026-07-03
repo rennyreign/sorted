@@ -1,0 +1,9 @@
+{
+  "id": "services-3-cards",
+  "family": "services",
+  "version": "1.0.0",
+  "description": "3-column service cards with image, title, description, and CTA link.",
+  "intensity": "large",
+  "visual_languages": ["utility"],
+  "style_slots": ["theme", "density", "accentColor", "photography"]
+}

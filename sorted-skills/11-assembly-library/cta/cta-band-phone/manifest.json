@@ -1,0 +1,28 @@
+{
+  "id": "cta-band-phone",
+  "family": "cta",
+  "description": "Full-width dark band with headline, supporting text, and phone CTA. Decision moment of the page.",
+  "visual_languages": ["utility"],
+  "intensity": "decision",
+  "themes": ["dark"],
+  "default_theme": "dark",
+  "slots": {
+    "headline": "string",
+    "description": "string",
+    "primary_cta": {
+      "label": "string",
+      "href": "string"
+    },
+    "secondary_cta": {
+      "label": "string",
+      "href": "string"
+    }
+  },
+  "validation": [
+    "Headline is action-oriented",
+    "Primary CTA is the same conversion as the hero",
+    "Phone number is correct and clickable",
+    "Section is visually distinct from the rest of the page",
+    "Decision moment feels like a clear ending"
+  ]
+}

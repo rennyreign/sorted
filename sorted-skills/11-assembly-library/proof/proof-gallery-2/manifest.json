@@ -1,0 +1,28 @@
+{
+  "id": "proof-gallery-2",
+  "family": "proof",
+  "description": "Two large work images with captions. Left-aligned title. This is the proof moment of the page.",
+  "visual_languages": ["utility"],
+  "intensity": "large",
+  "themes": ["light", "warm"],
+  "default_theme": "warm",
+  "slots": {
+    "eyebrow": "string",
+    "title": "string",
+    "projects": [
+      {
+        "title": "string",
+        "description": "string",
+        "image": "asset_id",
+        "image_alt": "string"
+      }
+    ]
+  },
+  "validation": [
+    "Exactly 2 projects",
+    "Each project has a real work image",
+    "Title is left-aligned to match services and about",
+    "Images are 16:10 or 4:3 aspect ratio",
+    "Section is visually larger than services and process but not the hero"
+  ]
+}

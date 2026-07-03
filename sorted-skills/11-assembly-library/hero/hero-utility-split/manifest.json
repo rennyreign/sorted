@@ -1,0 +1,33 @@
+{
+  "id": "hero-utility-split",
+  "family": "hero",
+  "description": "Two-column hero with text left and large image right. Primary CTA is prominent. Best for trades and local services with phone-forward conversion.",
+  "visual_languages": ["utility"],
+  "intensity": "massive",
+  "themes": ["dark", "light"],
+  "default_theme": "dark",
+  "slots": {
+    "eyebrow": "string",
+    "headline": "string",
+    "description": "string",
+    "primary_cta": {
+      "label": "string",
+      "href": "string",
+      "icon": "string"
+    },
+    "secondary_cta": {
+      "label": "string",
+      "href": "string",
+      "icon": "string"
+    },
+    "hero_image": "asset_id",
+    "hero_image_alt": "string"
+  },
+  "validation": [
+    "Headline is sentence case, not all caps",
+    "Primary CTA is the main conversion action for the business",
+    "Hero image shows real work or the actual business owner",
+    "Text and image do not compete for equal visual weight",
+    "Image occupies 50–60% of the viewport width on desktop"
+  ]
+}

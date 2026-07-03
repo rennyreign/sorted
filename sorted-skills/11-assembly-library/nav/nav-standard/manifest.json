@@ -1,0 +1,30 @@
+{
+  "id": "nav-standard",
+  "family": "nav",
+  "description": "Standard sticky header with logo, nav links, phone number, and primary CTA button.",
+  "visual_languages": ["utility", "editorial", "lifestyle", "architectural"],
+  "intensity": "navigation",
+  "themes": ["light", "dark"],
+  "default_theme": "light",
+  "slots": {
+    "logo": "asset_id",
+    "brand_name": "string",
+    "nav_links": [
+      {
+        "label": "string",
+        "href": "string"
+      }
+    ],
+    "phone": "string",
+    "phone_href": "string",
+    "cta_label": "string",
+    "cta_href": "string"
+  },
+  "validation": [
+    "Logo is visible and links to home",
+    "Phone number is correct and clickable",
+    "CTA is the primary conversion action",
+    "Nav links anchor to existing section IDs",
+    "Mobile menu is accessible"
+  ]
+}

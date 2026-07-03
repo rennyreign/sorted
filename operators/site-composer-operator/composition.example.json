@@ -1,0 +1,597 @@
+{
+  "page_type": "homepage",
+  "metadata": {
+    "title": "Elite Personal Training | Personal Coaching in Birmingham",
+    "description": "Personalised coaching for those who want direct access and real accountability. Book your free intro."
+  },
+  "contact": {
+    "phone": "+441234567890",
+    "phone_display": "01234 567890",
+    "email": "hello@example-fitness-studio.co.uk",
+    "whatsapp": "+441234567890",
+    "location": "Birmingham",
+    "hours": "Mon\u2013Sun 6am\u20139pm"
+  },
+  "source": {
+    "type": "analysis",
+    "business_name": "Elite Personal Training",
+    "business_category": "fitness",
+    "website_url": "https://example-fitness-studio.co.uk",
+    "analysis_summary": "The existing site is a generic Wix template with no clear CTA, no social proof above the fold, and weak mobile layout. The business itself is a premium one-to-one coaching studio with strong client outcomes. The opportunity is to make the site feel as credible and direct as the coaching experience is.",
+    "prospect_id": "prospect_12345",
+    "review_slug": "elite-personal-training"
+  },
+  "design_doctrine": {
+    "archetype": "dark_professional",
+    "emotional_positioning": "Confident, calm, and premium \u2014 a coach who is fully in your corner, not a gym that shouts at you.",
+    "trust_strategy": "Lead with the coach's face and real client outcomes. Use specific numbers (years, clients, ratings) instead of vague claims. Show the actual training environment rather than generic stock gym shots.",
+    "hero_strategy": "The hero promises direct access and accountability. Primary CTA books a free intro. Secondary CTA explains the process. The headline is outcome-focused, not service-focused.",
+    "conversion_strategy": "Move the visitor from 'I want results' to 'I will book a free intro' in one scroll. Every section reduces the friction of that decision.",
+    "objection_reduction_strategy": "Free intro removes cost risk. Process section explains what happens. Testimonials prove results. About section establishes experience and credibility.",
+    "local_credibility_strategy": "Show the coach, the space, and the location. Use real training photography. Mention years in the area and the kind of clients served.",
+    "proof_and_reassurance_strategy": "Client count, years of experience, average rating, goal achievement rate, and three detailed testimonials with outcomes."
+  },
+  "sections": [
+    {
+      "id": "nav_1",
+      "type": "nav",
+      "position": 1,
+      "label": "Navigation",
+      "layout": "full-width horizontal sticky",
+      "theme": "dark",
+      "background": "#0A0A0A",
+      "notes": "Logo left, minimal links centre, phone + CTA right. Mobile hamburger overlay.",
+      "archetype": "nav_standard"
+    },
+    {
+      "id": "hero_1",
+      "type": "hero",
+      "position": 2,
+      "label": "Hero",
+      "layout": "two-column split \u2014 text left, image right",
+      "theme": "dark",
+      "background": "#0A0A0A",
+      "notes": "Full viewport height. Editorial headline. Dual CTAs. Founder image right with premium gym background.",
+      "archetype": "hero_split"
+    },
+    {
+      "id": "trust_bar_1",
+      "type": "trust_bar",
+      "position": 3,
+      "label": "Social Proof Bar",
+      "layout": "full-width horizontal with 4 stats",
+      "theme": "dark",
+      "background": "#111111",
+      "notes": "Four stat blocks with large numbers and short labels.",
+      "archetype": "trust_bar"
+    },
+    {
+      "id": "services_1",
+      "type": "services",
+      "position": 4,
+      "label": "Services",
+      "layout": "three-column card grid",
+      "theme": "dark",
+      "background": "#0A0A0A",
+      "notes": "Each card has an icon, service name, short description, and link.",
+      "archetype": "service_cards_icon"
+    },
+    {
+      "id": "process_1",
+      "type": "process",
+      "position": 5,
+      "label": "How It Works",
+      "layout": "horizontal numbered steps \u2014 3 steps",
+      "theme": "dark",
+      "background": "#111111",
+      "notes": "Step number in accent colour. Step title bold. Short description beneath.",
+      "archetype": "process_steps"
+    },
+    {
+      "id": "about_1",
+      "type": "about",
+      "position": 6,
+      "label": "About / Credentials",
+      "layout": "two-column \u2014 image left, text right",
+      "theme": "dark",
+      "background": "#0A0A0A",
+      "notes": "Founder headshot left. Credentials and experience right with accent rule.",
+      "archetype": "about_split"
+    },
+    {
+      "id": "testimonials_1",
+      "type": "testimonials",
+      "position": 7,
+      "label": "Testimonials",
+      "layout": "three-column card grid",
+      "theme": "dark",
+      "background": "#111111",
+      "notes": "Each card: avatar, quote, name, transformation stat.",
+      "archetype": "testimonial_cards"
+    },
+    {
+      "id": "cta_1",
+      "type": "cta",
+      "position": 8,
+      "label": "Final CTA",
+      "layout": "full-width centred \u2014 headline + subheading + primary button",
+      "theme": "accent",
+      "background": "#E63946",
+      "notes": "High-contrast accent block. Primary button inverts to white.",
+      "archetype": "cta_band"
+    },
+    {
+      "id": "footer_1",
+      "type": "footer",
+      "position": 9,
+      "label": "Footer",
+      "layout": "two-row \u2014 links row, legal row",
+      "theme": "dark",
+      "background": "#0A0A0A",
+      "notes": "Logo left, nav links centre, social icons right. Privacy and terms below.",
+      "archetype": "footer_standard"
+    }
+  ],
+  "assets": [
+    {
+      "id": "logo",
+      "type": "logo",
+      "description": "Elite Personal Training wordmark logo in white on transparent background",
+      "priority": "critical",
+      "source": "reuse",
+      "section": "nav_1",
+      "slot": "nav.logo",
+      "aspect_ratio": "3:1",
+      "notes": "Supply existing logo file. If unavailable, render a clean text wordmark fallback."
+    },
+    {
+      "id": "hero_founder_image",
+      "type": "person",
+      "description": "Professional male fitness coach, late 30s, confident pose seated on weight bench in a premium dark gym. Dramatic side lighting. Wearing branded black athletic wear with subtle red accents. Serious, accomplished expression. Shallow depth of field background showing barbells and equipment.",
+      "priority": "critical",
+      "source": "generate",
+      "section": "hero_1",
+      "slot": "hero.primary_image",
+      "aspect_ratio": "4:5",
+      "mode_hint": "recreate",
+      "notes": "Primary brand image. Must feel premium and trustworthy."
+    },
+    {
+      "id": "about_founder_headshot",
+      "type": "person",
+      "description": "Professional headshot of the same male fitness coach. Studio lighting. Neutral dark background. Slight smile. Wearing branded polo shirt. Square crop suitable for editorial use.",
+      "priority": "high",
+      "source": "generate",
+      "section": "about_1",
+      "slot": "about.image",
+      "aspect_ratio": "1:1",
+      "mode_hint": "recreate"
+    },
+    {
+      "id": "testimonial_avatar_1",
+      "type": "avatar",
+      "description": "Female client headshot, mid 30s, natural background, warm lighting, confident smile, casual athletic wear",
+      "priority": "medium",
+      "source": "generate",
+      "section": "testimonials_1",
+      "slot": "testimonial_cards.avatar_1",
+      "aspect_ratio": "1:1",
+      "mode_hint": "recreate"
+    },
+    {
+      "id": "testimonial_avatar_2",
+      "type": "avatar",
+      "description": "Male client headshot, early 40s, neutral background, natural lighting, broad smile, casual wear",
+      "priority": "medium",
+      "source": "generate",
+      "section": "testimonials_1",
+      "slot": "testimonial_cards.avatar_2",
+      "aspect_ratio": "1:1",
+      "mode_hint": "recreate"
+    },
+    {
+      "id": "testimonial_avatar_3",
+      "type": "avatar",
+      "description": "Female client headshot, late 20s, warm neutral background, confident expression, athleisure wear",
+      "priority": "medium",
+      "source": "generate",
+      "section": "testimonials_1",
+      "slot": "testimonial_cards.avatar_3",
+      "aspect_ratio": "1:1",
+      "mode_hint": "recreate"
+    }
+  ],
+  "components": [
+    {
+      "component": "nav_standard_v1",
+      "section": "nav_1",
+      "archetype": "nav_standard",
+      "description": "Sticky header with logo, nav links, phone, and primary CTA.",
+      "variant": "dark"
+    },
+    {
+      "component": "hero_split_v1",
+      "section": "hero_1",
+      "description": "Two-column dark hero with large editorial type left and full-bleed image right. Primary + secondary CTA buttons.",
+      "variant": "dark-premium",
+      "archetype": "hero_split"
+    },
+    {
+      "component": "trust_bar_v1",
+      "section": "trust_bar_1",
+      "description": "Horizontal row of 4 stat blocks with large number + short label. Thin dividers between.",
+      "variant": "minimal-dark",
+      "archetype": "trust_bar"
+    },
+    {
+      "component": "service_cards_icon_v1",
+      "section": "services_1",
+      "description": "Three-column card grid with icon, title, body, link. Cards have subtle border and hover lift.",
+      "variant": "dark-bordered",
+      "archetype": "service_cards_icon"
+    },
+    {
+      "component": "process_steps_v1",
+      "section": "process_1",
+      "description": "Horizontal three-step row with numbered steps in accent colour. Connected by thin line.",
+      "variant": "accent-numbered",
+      "archetype": "process_steps"
+    },
+    {
+      "component": "about_split_v1",
+      "section": "about_1",
+      "description": "Two-column with image left and credential list right. Accent vertical rule on left edge of text column.",
+      "variant": "credentials-focus",
+      "archetype": "about_split"
+    },
+    {
+      "component": "testimonial_cards_v1",
+      "section": "testimonials_1",
+      "description": "Three card grid. Each card: circular avatar, blockquote text, name + transformation stat in accent.",
+      "variant": "dark-avatar-top",
+      "archetype": "testimonial_cards"
+    },
+    {
+      "component": "cta_band_v1",
+      "section": "cta_1",
+      "description": "Full-width accent colour band. Centred headline + body + single large CTA button (white on accent).",
+      "variant": "accent-fill",
+      "archetype": "cta_band"
+    },
+    {
+      "component": "footer_standard_v1",
+      "section": "footer_1",
+      "archetype": "footer_standard",
+      "description": "Multi-column footer with logo, links, contact details, and legal links.",
+      "variant": "dark"
+    }
+  ],
+  "copy": [
+    {
+      "section": "nav_1",
+      "type": "nav_item",
+      "text": "Services"
+    },
+    {
+      "section": "nav_1",
+      "type": "nav_item",
+      "text": "About"
+    },
+    {
+      "section": "nav_1",
+      "type": "nav_item",
+      "text": "Results"
+    },
+    {
+      "section": "nav_1",
+      "type": "nav_item",
+      "text": "Contact"
+    },
+    {
+      "section": "nav_1",
+      "type": "cta",
+      "text": "Book a free intro"
+    },
+    {
+      "section": "hero_1",
+      "type": "headline",
+      "text": "Fewer People. Faster Results."
+    },
+    {
+      "section": "hero_1",
+      "type": "subheadline",
+      "text": "Personalised coaching for those who want direct access and real accountability."
+    },
+    {
+      "section": "hero_1",
+      "type": "cta",
+      "text": "Book a free intro"
+    },
+    {
+      "section": "hero_1",
+      "type": "cta",
+      "text": "See how it works"
+    },
+    {
+      "section": "trust_bar_1",
+      "type": "stat",
+      "text": "180+"
+    },
+    {
+      "section": "trust_bar_1",
+      "type": "label",
+      "text": "Clients transformed"
+    },
+    {
+      "section": "trust_bar_1",
+      "type": "stat",
+      "text": "8 years"
+    },
+    {
+      "section": "trust_bar_1",
+      "type": "label",
+      "text": "Coaching experience"
+    },
+    {
+      "section": "trust_bar_1",
+      "type": "stat",
+      "text": "4.9\u2605"
+    },
+    {
+      "section": "trust_bar_1",
+      "type": "label",
+      "text": "Average client rating"
+    },
+    {
+      "section": "trust_bar_1",
+      "type": "stat",
+      "text": "96%"
+    },
+    {
+      "section": "trust_bar_1",
+      "type": "label",
+      "text": "Goal achievement rate"
+    },
+    {
+      "section": "services_1",
+      "type": "headline",
+      "text": "Training built around you"
+    },
+    {
+      "section": "services_1",
+      "type": "label",
+      "text": "1-to-1 Personal Training"
+    },
+    {
+      "section": "services_1",
+      "type": "body",
+      "text": "Weekly sessions, a personalised plan, and a coach who's fully in your corner."
+    },
+    {
+      "section": "services_1",
+      "type": "label",
+      "text": "Online Coaching"
+    },
+    {
+      "section": "services_1",
+      "type": "body",
+      "text": "Full programming and check-ins wherever you train. No gym required."
+    },
+    {
+      "section": "services_1",
+      "type": "label",
+      "text": "Nutrition Support"
+    },
+    {
+      "section": "services_1",
+      "type": "body",
+      "text": "Practical eating plans that fit your life \u2014 not a crash diet."
+    },
+    {
+      "section": "process_1",
+      "type": "headline",
+      "text": "How it works"
+    },
+    {
+      "section": "process_1",
+      "type": "label",
+      "text": "1. Free intro call"
+    },
+    {
+      "section": "process_1",
+      "type": "body",
+      "text": "We talk about your goals, your history, and whether we're the right fit."
+    },
+    {
+      "section": "process_1",
+      "type": "label",
+      "text": "2. Your plan"
+    },
+    {
+      "section": "process_1",
+      "type": "body",
+      "text": "I build a training and nutrition plan around your schedule and goals."
+    },
+    {
+      "section": "process_1",
+      "type": "label",
+      "text": "3. Get results"
+    },
+    {
+      "section": "process_1",
+      "type": "body",
+      "text": "Weekly check-ins, regular plan updates, real progress \u2014 no guesswork."
+    },
+    {
+      "section": "about_1",
+      "type": "headline",
+      "text": "Coaching built on results, not promises"
+    },
+    {
+      "section": "about_1",
+      "type": "body",
+      "text": "I've been in the industry for 8 years. I've worked with everyone from beginners to competitive athletes. I take on a small number of clients so I can give each one my full attention."
+    },
+    {
+      "section": "testimonials_1",
+      "type": "headline",
+      "text": "Real people. Real results."
+    },
+    {
+      "section": "testimonials_1",
+      "type": "testimonial_quote",
+      "text": "Lost 14kg in 4 months and didn't have to give up a social life. Best investment I've made in myself."
+    },
+    {
+      "section": "testimonials_1",
+      "type": "testimonial_attribution",
+      "text": "Sarah M. \u2014 lost 14kg"
+    },
+    {
+      "section": "testimonials_1",
+      "type": "testimonial_quote",
+      "text": "Finally understood what I was doing wrong in the gym. Six months later I'm stronger than I've ever been."
+    },
+    {
+      "section": "testimonials_1",
+      "type": "testimonial_attribution",
+      "text": "James K. \u2014 18kg muscle gain"
+    },
+    {
+      "section": "testimonials_1",
+      "type": "testimonial_quote",
+      "text": "Online coaching was the only thing that fit around my schedule. Genuinely life-changing."
+    },
+    {
+      "section": "testimonials_1",
+      "type": "testimonial_attribution",
+      "text": "Laura T. \u2014 online client"
+    },
+    {
+      "section": "cta_1",
+      "type": "headline",
+      "text": "Ready to stop guessing?"
+    },
+    {
+      "section": "cta_1",
+      "type": "subheadline",
+      "text": "Book your free 30-minute intro call. No pressure, no commitment."
+    },
+    {
+      "section": "cta_1",
+      "type": "cta",
+      "text": "Book your free intro"
+    },
+    {
+      "section": "footer_1",
+      "type": "footer_text",
+      "text": "Privacy Policy"
+    },
+    {
+      "section": "footer_1",
+      "type": "footer_text",
+      "text": "Terms & Conditions"
+    },
+    {
+      "section": "footer_1",
+      "type": "footer_text",
+      "text": "\u00a9 2026 Elite Personal Training. All rights reserved."
+    }
+  ],
+  "build_notes": {
+    "layout": "Full-bleed sections with centred max-width content container (max-w-[1400px])",
+    "style": "premium dark fitness \u2014 dark backgrounds with red accent",
+    "theme": "dark",
+    "accent_color": "#E63946",
+    "primary_font": "Plus Jakarta Sans",
+    "secondary_font": "DM Mono",
+    "responsive_priority": true,
+    "animation": "standard",
+    "grid": "CSS Grid with 12-column base; flex for nav and stat bar",
+    "notes": [
+      "Use visual_tokens.palette for all colours",
+      "Apply section_archetypes mapping for layout selection",
+      "Book intro is primary CTA; phone is tertiary"
+    ]
+  },
+  "meta": {
+    "generated_at": "2026-06-27T12:00:00.000Z",
+    "source_analysis": "operators/website-analyser/implementation/output/elite-personal-training-analysis.json",
+    "model_used": "anthropic/claude-sonnet-4-5",
+    "operator_version": "0.1.0"
+  },
+  "visual_tokens": {
+    "archetype": "dark_professional",
+    "palette": {
+      "background": "#0A0A0A",
+      "background_alt": "#111111",
+      "background_dark": "#000000",
+      "text": "#FFFFFF",
+      "text_secondary": "#A1A1AA",
+      "text_inverse": "#0A0A0A",
+      "accent": "#E63946",
+      "accent_hover": "#C1121F",
+      "border": "#27272A",
+      "success": "#22C55E",
+      "warning": "#F59E0B"
+    },
+    "typography": {
+      "display": "Plus Jakarta Sans",
+      "body": "Plus Jakarta Sans",
+      "mono": "DM Mono"
+    },
+    "spacing": {
+      "section_padding": "py-20 md:py-28",
+      "content_max_width": "max-w-[1400px]",
+      "grid_gap": "gap-8",
+      "card_padding": "p-8"
+    },
+    "photography": {
+      "style": "editorial dark gym",
+      "mood": "confident, premium, focused",
+      "lighting": "dramatic but clean",
+      "colour_treatment": "slightly desaturated, cool tones",
+      "subjects": "coach portrait, gym environment, training action",
+      "avoid": "generic fitness stock, corporate backgrounds"
+    }
+  },
+  "section_archetypes": {
+    "nav_1": "nav_standard",
+    "hero_1": "hero_split",
+    "trust_bar_1": "trust_bar",
+    "services_1": "service_cards_icon",
+    "process_1": "process_steps",
+    "about_1": "about_split",
+    "testimonials_1": "testimonial_cards",
+    "cta_1": "cta_band",
+    "footer_1": "footer_standard"
+  },
+  "cta_hierarchy": {
+    "primary": {
+      "action": "book_intro",
+      "label": "Book a free intro",
+      "href": "#contact",
+      "placement": [
+        "nav",
+        "hero",
+        "cta_1"
+      ]
+    },
+    "secondary": {
+      "action": "scroll_to_process",
+      "label": "See how it works",
+      "href": "#process",
+      "placement": [
+        "hero"
+      ]
+    },
+    "tertiary": {
+      "action": "call_now",
+      "label": "Call 01234 567890",
+      "href": "tel:+441234567890",
+      "placement": [
+        "footer"
+      ]
+    }
+  }
+}

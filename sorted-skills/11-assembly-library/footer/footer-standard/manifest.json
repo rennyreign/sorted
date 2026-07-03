@@ -1,0 +1,42 @@
+{
+  "id": "footer-standard",
+  "family": "footer",
+  "description": "Multi-column footer with logo, quick links, contact details, and service areas.",
+  "visual_languages": ["utility", "editorial", "lifestyle", "architectural"],
+  "intensity": "footer",
+  "themes": ["dark"],
+  "default_theme": "dark",
+  "slots": {
+    "logo": "asset_id",
+    "brand_name": "string",
+    "tagline": "string",
+    "quick_links": [
+      {
+        "label": "string",
+        "href": "string"
+      }
+    ],
+    "contact": {
+      "phone": "string",
+      "phone_href": "string",
+      "availability": "string"
+    },
+    "service_areas": [
+      "string"
+    ],
+    "legal_links": [
+      {
+        "label": "string",
+        "href": "string"
+      }
+    ],
+    "copyright": "string"
+  },
+  "validation": [
+    "Phone number is correct and clickable",
+    "Quick links anchor to existing section IDs",
+    "Service areas are specific to the business",
+    "Copyright year is current",
+    "Footer does not compete visually with the CTA section"
+  ]
+}

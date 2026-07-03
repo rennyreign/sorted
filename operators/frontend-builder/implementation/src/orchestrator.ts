@@ -17,10 +17,13 @@ import type { BuildConfig, BuildResult, FileResult, SectionPlan } from './types.
 import { validateDeconstruction, validateManifest } from './schema.js';
 import { scaffoldRepo, copyAssets, writeBrief, installDependencies, runBuild } from './scaffold.js';
 import { resolveAssets, buildGenerationPlan, writeFile, writeBuildLog } from './writer.js';
+import { isAssemblySection, copyAssemblyToOutput } from './assembly-library.js';
+import { generateWrapper } from './assembly-wrappers.js';
 import { callClaude, TokenTracker } from './claude.js';
 import {
   SYSTEM_PROMPT,
   buildContext,
+  buildSectionComponentName,
   promptForGlobalsUpdate,
   promptForLayout,
   promptForNav,
@@ -105,9 +108,9 @@ export async function build(config: BuildConfig): Promise<BuildResult> {
     };
   }
 
-  // ── 5. Generate files via Claude ──────────────────────────
+  // ── 5. Generate files ───────────────────────────────────
 
-  log(`\n  Generating files with Claude...`);
+  log(`\n  Generating files...`);
 
   for (const filePlan of plan.files) {
     const rel = path.relative(path.resolve(config.outputDir), filePlan.outputPath);
@@ -116,6 +119,44 @@ export async function build(config: BuildConfig): Promise<BuildResult> {
     try {
       console.log(`  [${filePlan.target}] ${rel}`);
 
+      // ── Assembly-based sections: deterministic render ────
+      const section = filePlan.sections[0];
+      const assemblyTargets = ['section', 'nav', 'footer'];
+      if (assemblyTargets.includes(filePlan.target) && section && isAssemblySection(section, deconstruction.assembly_selection)) {
+        const assemblyId = section.assembly_id ?? deconstruction.assembly_selection?.assemblies?.[section.type];
+        if (!assemblyId) throw new Error('Assembly section resolved to no assembly_id');
+
+        const componentName = filePlan.componentName ?? (section.type === 'nav' ? 'Nav' : section.type === 'footer' ? 'Footer' : buildSectionComponentName(section.id));
+        const wrapper = generateWrapper({
+          section,
+          componentName,
+          copy: deconstruction.copy,
+          assets: resolvedAssets,
+          deconstruction,
+          styleSlots: deconstruction.assembly_selection?.style_slots,
+        });
+
+        if (!wrapper) throw new Error(`No wrapper generator for assembly: ${assemblyId}`);
+
+        const copiedPath = copyAssemblyToOutput(assemblyId, config.outputDir);
+        if (!copiedPath) throw new Error(`Failed to copy assembly: ${assemblyId}`);
+
+        writeFile(filePlan.outputPath, wrapper.wrapper);
+
+        const duration_ms = Date.now() - fileStart;
+        console.log(`    ✓ assembly rendered (${duration_ms}ms)`);
+
+        fileResults.push({
+          outputPath: filePlan.outputPath,
+          target: filePlan.target,
+          status: 'copied',
+          duration_ms,
+        });
+
+        continue;
+      }
+
+      // ── Non-assembly files: fall back to Claude ─────────────
       const userPrompt = buildUserPrompt(filePlan, deconstruction, plan.sectionComponents, context);
 
       const result = await callClaude({

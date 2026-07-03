@@ -32,6 +32,7 @@ export function resolveAssets(
       type: asset.type,
       description: asset.description,
       priority: asset.priority,
+      section: asset.section,
       slot: asset.slot,
       aspect_ratio: asset.aspect_ratio,
       files: manifestEntry?.files ?? {},

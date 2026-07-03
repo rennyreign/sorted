@@ -247,3 +247,41 @@ npm run dev       # Next.js dev server
 npm run build     # Production build
 npm run cms       # Decap local proxy (run alongside dev for CMS editing)
 ```
+
+---
+
+## Assembly Library + QA Operator (Active)
+
+The Frontend Builder now supports a deterministic Assembly Library mode. For sites with `assembly_selection` in `composition.json`, the builder copies approved assemblies from `sorted-skills/11-assembly-library/` and renders them with composition data instead of generating each section via Claude.
+
+**Result:** fewer hallucinations, lower token cost, consistent spacing, and faster builds.
+
+### When to use assemblies
+
+- The composition includes `assembly_selection` with a reason and a complete assembly map.
+- Every section type has a matching approved assembly in the library INDEX.
+- The design doctrine has already been encoded into the assembly components.
+
+### Key files
+
+- `operators/skills/frontend-builder.md` — Frontend Builder skill and CLI usage
+- `operators/skills/qa-operator.md` — QA operator doctrine and checklist
+- `sorted-skills/10-decision-language/01-decision-language.md` — how to map business analysis to assembly choices
+- `sorted-skills/11-assembly-library/INDEX.md` — catalogue of approved assemblies
+- `operators/qa-operator/qa.js` — technical QA CLI script
+
+### QA workflow
+
+After any Frontend Builder run, run the QA operator against the output:
+
+```bash
+node operators/qa-operator/qa.js \
+  operators/site-composer-operator/output/<client>/composition.json \
+  operators/site-composer-operator/output/<client-site-vX>
+```
+
+A build must score 10/10 with `recommendation: PASS` before it becomes the new baseline. Any failure must be fixed in the skill, template, or assembly library, not patched in the rendered site.
+
+### v7 benchmark (LRT Plumbing)
+
+The first assembly-based build, `lrt-plumbing-site-v7`, passed the QA operator with 10/10 and reduced the Frontend Builder token cost from ~$0.10 to ~$0.04.

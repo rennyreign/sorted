@@ -9,9 +9,13 @@ export interface DeconstructionSection {
   type: string;
   position: number;
   label?: string;
+  archetype?: string;
+  assembly_id?: string;
   layout?: string;
   theme?: string;
   background?: string;
+  intensity?: 'massive' | 'large' | 'medium' | 'compressed' | 'proof' | 'decision' | 'navigation' | 'footer';
+  narrative_role?: string;
   notes?: string;
 }
 
@@ -56,6 +60,57 @@ export interface DeconstructionBuildNotes {
   notes?: string[];
 }
 
+export interface Contact {
+  phone?: string;
+  phone_display?: string;
+  email?: string;
+  whatsapp?: string;
+  location?: string;
+  hours?: string;
+  address?: string;
+}
+
+export interface Source {
+  type?: string;
+  business_name?: string;
+  business_category?: string;
+  website_url?: string;
+  analysis_summary?: string;
+}
+
+export interface CTAAction {
+  action?: string;
+  label?: string;
+  href?: string;
+  placement?: string[];
+}
+
+export interface CTAHierarchy {
+  primary?: CTAAction;
+  secondary?: CTAAction;
+  tertiary?: CTAAction;
+}
+
+export interface Metadata {
+  title?: string;
+  description?: string;
+}
+
+export interface StyleSlots {
+  theme?: 'light' | 'dark';
+  density?: 'default' | 'compressed' | 'airy';
+  typography?: 'utility' | 'editorial';
+  photography?: 'documentary' | 'editorial' | 'none';
+  accentColor?: string;
+  backgroundColor?: string;
+}
+
+export interface AssemblySelection {
+  reason: string;
+  assemblies: Record<string, string>;
+  style_slots?: StyleSlots;
+}
+
 export interface DeconstructionJSON {
   page_type: string;
   sections: DeconstructionSection[];
@@ -63,6 +118,11 @@ export interface DeconstructionJSON {
   components: DeconstructionComponent[];
   copy: DeconstructionCopyBlock[];
   build_notes: DeconstructionBuildNotes;
+  assembly_selection?: AssemblySelection;
+  contact?: Contact;
+  source?: Source;
+  cta_hierarchy?: CTAHierarchy;
+  metadata?: Metadata;
   meta?: {
     source_image?: string;
     model_used?: string;
@@ -148,6 +208,7 @@ export interface ResolvedAsset {
   type: string;
   description: string;
   priority: string;
+  section?: string;
   slot?: string;
   aspect_ratio?: string;
   files: ManifestAssetFiles;

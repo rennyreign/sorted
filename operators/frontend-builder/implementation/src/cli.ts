@@ -19,8 +19,14 @@
 import 'dotenv/config';
 import path from 'path';
 import fs from 'fs';
+import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { build } from './orchestrator.js';
+import { resolveAssemblyLibrary, resolveAssembly } from './assembly-library.js';
+import { validateDeconstruction, validateManifest } from './schema.js';
+import { resolveAssets } from './writer.js';
+import { generateWrapper } from './assembly-wrappers.js';
+import { buildSectionComponentName } from './prompts.js';
 import type { BuildConfig } from './types.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -146,9 +152,215 @@ function findTemplateDir(cliDir: string): string {
   );
 }
 
+// ── Sync assemblies subcommand ────────────────────────────────
+// Re-copies all assembly component.tsx files from sorted-skills/
+// into an existing built site, then runs next build.
+// Usage: node dist/cli.js --sync-assemblies <output-dir>
+
+function syncAssemblies(outputDir: string): void {
+  const resolvedOutput = path.resolve(outputDir);
+  const assembliesDir = path.join(resolvedOutput, 'assemblies');
+  if (!fs.existsSync(assembliesDir)) {
+    console.error(`No assemblies/ directory found in ${outputDir}`);
+    console.error(`This site was not built with assembly mode.`);
+    process.exit(1);
+  }
+
+  const library = resolveAssemblyLibrary();
+  let synced = 0;
+  let failed = 0;
+
+  // Walk the output assemblies directory and re-copy each one from source
+  const families = fs.readdirSync(assembliesDir).filter(f =>
+    fs.statSync(path.join(assembliesDir, f)).isDirectory()
+  );
+
+  for (const family of families) {
+    const familyDir = path.join(assembliesDir, family);
+    const assemblyIds = fs.readdirSync(familyDir).filter(f =>
+      fs.statSync(path.join(familyDir, f)).isDirectory()
+    );
+    for (const assemblyId of assemblyIds) {
+      const sourcePaths = resolveAssembly(assemblyId);
+      if (!sourcePaths) {
+        console.log(`  ✗ ${assemblyId} — not found in library`);
+        failed++;
+        continue;
+      }
+      const destPath = path.join(familyDir, assemblyId, 'component.tsx');
+      fs.copyFileSync(sourcePaths.component, destPath);
+      console.log(`  ✓ synced ${assemblyId}`);
+      synced++;
+    }
+  }
+
+  console.log(`\nAssembly sync: ${synced} synced, ${failed} failed`);
+
+  const wrapperResult = syncAssemblyWrappers(resolvedOutput);
+  if (wrapperResult.synced > 0 || wrapperResult.skippedReason) {
+    if (wrapperResult.skippedReason) {
+      console.log(`Wrapper sync skipped: ${wrapperResult.skippedReason}`);
+    } else {
+      console.log(`Wrapper sync: ${wrapperResult.synced} regenerated`);
+    }
+  }
+
+  if (synced > 0) {
+    const metadataResult = syncPageMetadata(resolvedOutput);
+    if (metadataResult.skippedReason) {
+      console.log(`Metadata sync skipped: ${metadataResult.skippedReason}`);
+    } else {
+      console.log(`Metadata sync: ${metadataResult.synced} file updated`);
+    }
+
+    console.log(`\nRunning next build...`);
+    try {
+      execSync('npm run build', { cwd: path.resolve(outputDir), stdio: 'inherit' });
+      console.log('✓ Build passed');
+    } catch {
+      console.log('✗ Build failed — check output above');
+      process.exit(1);
+    }
+  }
+}
+
+function syncAssemblyWrappers(outputDir: string): { synced: number; skippedReason?: string } {
+  const compositionPath = findSiblingArtifact(outputDir, 'composition.json');
+  const manifestPath = findSiblingArtifact(outputDir, 'manifest.json');
+
+  if (!compositionPath || !manifestPath) {
+    return {
+      synced: 0,
+      skippedReason: 'could not find sibling composition.json and manifest.json',
+    };
+  }
+
+  const deconstructionRaw = JSON.parse(fs.readFileSync(compositionPath, 'utf-8'));
+  const manifestRaw = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
+  const deconstructionResult = validateDeconstruction(deconstructionRaw);
+  const manifestResult = validateManifest(manifestRaw);
+
+  if (!deconstructionResult.success) {
+    return { synced: 0, skippedReason: `invalid composition: ${compositionPath}` };
+  }
+  if (!manifestResult.success) {
+    return { synced: 0, skippedReason: `invalid manifest: ${manifestPath}` };
+  }
+
+  const deconstruction = deconstructionResult.data;
+  const resolvedAssets = resolveAssets(deconstruction, manifestResult.data);
+  let synced = 0;
+
+  for (const section of deconstruction.sections) {
+    if (!section.assembly_id) continue;
+    if (!resolveAssembly(section.assembly_id)) continue;
+
+    const target =
+      section.type === 'nav'
+        ? path.join(outputDir, 'components', 'Nav.tsx')
+        : section.type === 'footer'
+          ? path.join(outputDir, 'components', 'Footer.tsx')
+          : path.join(outputDir, 'components', 'sections', `${buildSectionComponentName(section.id)}.tsx`);
+
+    const componentName =
+      section.type === 'nav'
+        ? 'Nav'
+        : section.type === 'footer'
+          ? 'Footer'
+          : buildSectionComponentName(section.id);
+
+    const wrapper = generateWrapper({
+      section,
+      componentName,
+      copy: deconstruction.copy,
+      assets: resolvedAssets,
+      deconstruction,
+      styleSlots: deconstruction.assembly_selection?.style_slots,
+    });
+
+    if (!wrapper) continue;
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.writeFileSync(target, wrapper.wrapper, 'utf-8');
+    synced++;
+  }
+
+  return { synced };
+}
+
+function syncPageMetadata(outputDir: string): { synced: number; skippedReason?: string } {
+  const compositionPath = findSiblingArtifact(outputDir, 'composition.json');
+  const pagePath = path.join(outputDir, 'app', 'page.tsx');
+
+  if (!compositionPath) {
+    return { synced: 0, skippedReason: 'could not find sibling composition.json' };
+  }
+  if (!fs.existsSync(pagePath)) {
+    return { synced: 0, skippedReason: 'no app/page.tsx found' };
+  }
+
+  const deconstructionRaw = JSON.parse(fs.readFileSync(compositionPath, 'utf-8'));
+  const deconstructionResult = validateDeconstruction(deconstructionRaw);
+  if (!deconstructionResult.success) {
+    return { synced: 0, skippedReason: `invalid composition: ${compositionPath}` };
+  }
+
+  const metadata = deconstructionResult.data.metadata;
+  if (!metadata?.title || !metadata?.description) {
+    return { synced: 0, skippedReason: 'composition missing metadata.title or metadata.description' };
+  }
+
+  let pageContent = fs.readFileSync(pagePath, 'utf-8');
+  const metadataBlock = `export const metadata: Metadata = {\n  title: ${JSON.stringify(metadata.title)},\n  description: ${JSON.stringify(metadata.description)},\n};`;
+
+  const updated = pageContent.replace(
+    /export const metadata: Metadata = \{[\s\S]*?\n\};/,
+    metadataBlock,
+  );
+
+  if (updated === pageContent) {
+    return { synced: 0, skippedReason: 'metadata block not found in app/page.tsx' };
+  }
+
+  fs.writeFileSync(pagePath, updated, 'utf-8');
+  return { synced: 1 };
+}
+
+function findSiblingArtifact(outputDir: string, fileName: string): string | undefined {
+  const parent = path.dirname(outputDir);
+  const siteName = path.basename(outputDir);
+  const candidateNames = [
+    siteName.replace('-site-', '-'),
+    siteName.replace(/-site$/, ''),
+    siteName,
+  ];
+
+  for (const candidateName of candidateNames) {
+    const candidate = path.join(parent, candidateName, fileName);
+    if (fs.existsSync(candidate)) return candidate;
+  }
+
+  const localCandidate = path.join(outputDir, fileName);
+  if (fs.existsSync(localCandidate)) return localCandidate;
+
+  return undefined;
+}
+
 // ── Main ──────────────────────────────────────────────────────
 
 async function main() {
+  // Handle --sync-assemblies subcommand
+  if (process.argv.includes('--sync-assemblies')) {
+    const idx = process.argv.indexOf('--sync-assemblies');
+    const target = process.argv[idx + 1];
+    if (!target) {
+      console.error('Usage: node dist/cli.js --sync-assemblies <output-dir>');
+      process.exit(1);
+    }
+    console.log(`Syncing assemblies in ${target}...`);
+    syncAssemblies(target);
+    process.exit(0);
+  }
+
   const parsed = parseArgs(process.argv);
 
   if (parsed.help) {

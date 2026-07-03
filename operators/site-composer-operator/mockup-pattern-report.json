@@ -1,0 +1,1894 @@
+{
+  "Hayashi.png": {
+    "business_name": "Hayashi",
+    "business_class": "food",
+    "primary_conversion": "order_online",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "about",
+      "services",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_full_bleed",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "#F5F5F5",
+      "background_dark": "#C50000",
+      "text": "#333333",
+      "accent": "#FFB71B",
+      "style": "warm"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "local_coverage",
+      "fair_pricing"
+    ],
+    "cta_hierarchy": {
+      "primary": "BOOK A TABLE",
+      "secondary": "ORDER TAKEAWAY"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Japanese cuisine theme",
+      "full bleed hero image"
+    ]
+  },
+  "beautylounge.png": {
+    "business_name": "The Beauty Lounge Rugby",
+    "business_class": "beauty",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "services",
+      "about",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "none",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "lightgray",
+      "text": "darkgray",
+      "accent": "purple",
+      "style": "warm"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [],
+    "cta_hierarchy": {
+      "primary": "Book Your Appointment Today",
+      "secondary": null
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "focus on beauty treatments"
+    ]
+  },
+  "beautylounge2.png": {
+    "business_name": "The Beauty Lounge",
+    "business_class": "beauty",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "about",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "why_us",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_split",
+    "palette": {
+      "background": "white",
+      "background_dark": "purple",
+      "text": "black",
+      "accent": "pink",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "local_coverage"
+    ],
+    "cta_hierarchy": {
+      "primary": "BOOK NOW",
+      "secondary": "VIEW FULL GALLERY"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Focus on nails treatments"
+    ]
+  },
+  "cadman.png": {
+    "business_name": "Cadman Homes",
+    "business_class": "professional_service",
+    "primary_conversion": "request_quote",
+    "section_order": [
+      "nav",
+      "hero",
+      "services",
+      "about",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "logo_strip",
+    "testimonials_archetype": "testimonial_cards",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "lightgray",
+      "text": "black",
+      "accent": "red",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "5-star ratings",
+      "certifications",
+      "local_coverage"
+    ],
+    "cta_hierarchy": {
+      "primary": "Get a Quote",
+      "secondary": "Learn More"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Local expertise",
+      "20+ years of experience"
+    ]
+  },
+  "coffeeoncorner.png": {
+    "business_name": "Coffee on the Corner",
+    "business_class": "food",
+    "primary_conversion": "order_online",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "about",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_full_bleed",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_cards",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "none",
+      "text": "black",
+      "accent": "brown",
+      "style": "warm"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "5-star rating",
+      "reviews"
+    ],
+    "cta_hierarchy": {
+      "primary": "ORDER ONLINE",
+      "secondary": "VIEW MENU"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "handmade cakes",
+      "place worth slowing down for"
+    ]
+  },
+  "coffeeoncornermenu.png": {
+    "business_name": "COTC",
+    "business_class": "food",
+    "primary_conversion": "order_online",
+    "section_order": [
+      "nav",
+      "hero",
+      "services",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "none",
+    "testimonials_archetype": "none",
+    "contact_archetype": "none",
+    "palette": {
+      "background": "white",
+      "background_dark": "none",
+      "text": "black",
+      "accent": "orange",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [],
+    "cta_hierarchy": {
+      "primary": "ORDER ONLINE",
+      "secondary": null
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "menu showcasing various baked goods"
+    ]
+  },
+  "crabbcurtis.png": {
+    "business_name": "Grabb Curtis",
+    "business_class": "professional_service",
+    "primary_conversion": "visit_shop",
+    "section_order": [
+      "nav",
+      "hero",
+      "services",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "logo_strip",
+    "testimonials_archetype": "testimonial_cards",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "#002d5e",
+      "text": "#333333",
+      "accent": "#ffcc00",
+      "style": "mixed"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "local_coverage",
+      "reviews"
+    ],
+    "cta_hierarchy": {
+      "primary": "Book a Valuation",
+      "secondary": "Visit Our Office"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Independently owned estate agency"
+    ]
+  },
+  "edbastonT.png": {
+    "business_name": "Edgbaston Centre",
+    "business_class": "education",
+    "primary_conversion": "join_class",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "about",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_quote",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "blue",
+      "text": "black",
+      "accent": "orange",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "reviews",
+      "qualified_teachers",
+      "local_coverage"
+    ],
+    "cta_hierarchy": {
+      "primary": "Book your FREE lesson",
+      "secondary": "Get a FREE consultation"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Focus on Islamic Studies",
+      "Free lesson offer"
+    ]
+  },
+  "edgmockup1.png": {
+    "business_name": "Edgbaston Education Centre",
+    "business_class": "professional_service",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "about",
+      "services",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_quote",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "green",
+      "text": "black",
+      "accent": "green",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "certifications",
+      "local_coverage"
+    ],
+    "cta_hierarchy": {
+      "primary": "book a FREE lesson now!",
+      "secondary": "Get in touch"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "focus on Islamic education",
+      "lifelong learning impact"
+    ]
+  },
+  "edgmockup2.png": {
+    "business_name": "Education Nation",
+    "business_class": "other",
+    "primary_conversion": "join_class",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "about",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_quote",
+    "contact_archetype": "cta_split",
+    "palette": {
+      "background": "white",
+      "background_dark": "blue",
+      "text": "dark",
+      "accent": "orange",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "reviews",
+      "local_coverage"
+    ],
+    "cta_hierarchy": {
+      "primary": "Book your FREE lesson now!",
+      "secondary": "Contact Us"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Focus on Islamic education"
+    ]
+  },
+  "ellisbrook-listings.png": {
+    "business_name": "Ellis Brooke",
+    "business_class": "other",
+    "primary_conversion": "visit_shop",
+    "section_order": [
+      "nav",
+      "hero",
+      "services",
+      "listings",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_full_bleed",
+    "services_archetype": "none",
+    "trust_archetype": "none",
+    "testimonials_archetype": "none",
+    "contact_archetype": "none",
+    "palette": {
+      "background": "white",
+      "background_dark": "none",
+      "text": "black",
+      "accent": "#FF6A00",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "none"
+    ],
+    "cta_hierarchy": {
+      "primary": "Search Properties",
+      "secondary": null
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Property listings grid layout"
+    ]
+  },
+  "ellisbrook-reviews.png": {
+    "business_name": "Ella Brooke",
+    "business_class": "professional_service",
+    "primary_conversion": "request_quote",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "testimonials",
+      "about",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "none",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_cards",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "null",
+      "text": "black",
+      "accent": "#007bff",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "reviews"
+    ],
+    "cta_hierarchy": {
+      "primary": "Request a quote",
+      "secondary": "Read more Google reviews"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Client reviews prominently displayed",
+      "Strong trust signals"
+    ]
+  },
+  "ellisbrook.png": {
+    "business_name": "Ellis Brooke",
+    "business_class": "professional_service",
+    "primary_conversion": "request_quote",
+    "section_order": [
+      "nav",
+      "hero",
+      "services",
+      "about",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_cards",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "navy",
+      "text": "black",
+      "accent": "blue",
+      "style": "mixed"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "local_coverage",
+      "reviews"
+    ],
+    "cta_hierarchy": {
+      "primary": "Get in Touch",
+      "secondary": "View Properties"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "property listings",
+      "news & insights section"
+    ]
+  },
+  "elma.png": {
+    "business_name": "Elma",
+    "business_class": "hospitality",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "about",
+      "services",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "feature_list",
+    "trust_archetype": "none",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "none",
+      "text": "black",
+      "accent": "#d19a60",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "none"
+    ],
+    "cta_hierarchy": {
+      "primary": "BOOK A TABLE",
+      "secondary": null
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Mediterranean theme",
+      "elegant dining experience"
+    ]
+  },
+  "forrest-coffee-house.png": {
+    "business_name": "Forrest Coffee House",
+    "business_class": "food",
+    "primary_conversion": "order_online",
+    "section_order": [
+      "nav",
+      "hero",
+      "services",
+      "about",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "none",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "none",
+      "text": "black",
+      "accent": "brown",
+      "style": "warm"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "local_coverage"
+    ],
+    "cta_hierarchy": {
+      "primary": "Book Forrest Nights",
+      "secondary": null
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "community focus",
+      "highlight on homemade cakes"
+    ]
+  },
+  "godfrey.png": {
+    "business_name": "Godfrey-Payton",
+    "business_class": "professional_service",
+    "primary_conversion": "request_quote",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "about",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_full_bleed",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_quote",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "dark green",
+      "text": "dark green",
+      "accent": "gold",
+      "style": "premium"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "reviews",
+      "certifications"
+    ],
+    "cta_hierarchy": {
+      "primary": "Get in touch",
+      "secondary": "Learn more"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Expert property advice",
+      "Chartered Surveyors, Letting & Estate Agents"
+    ]
+  },
+  "gymshed.png": {
+    "business_name": "GYMSHED",
+    "business_class": "fitness",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "about",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_full_bleed",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "black",
+      "background_dark": "dark grey",
+      "text": "white",
+      "accent": "green",
+      "style": "dark"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "experience_you_can_trust"
+    ],
+    "cta_hierarchy": {
+      "primary": "BOOK ONLINE",
+      "secondary": "LEARN MORE"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "purpose-built gym space"
+    ]
+  },
+  "hairboutique.png": {
+    "business_name": "Hair Boutique",
+    "business_class": "beauty",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "about",
+      "services",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "none",
+    "testimonials_archetype": "testimonial_quote",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "navy",
+      "text": "black",
+      "accent": "teal",
+      "style": "premium"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "local_coverage"
+    ],
+    "cta_hierarchy": {
+      "primary": "BOOK AN APPOINTMENT",
+      "secondary": null
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Unisex hairdressing",
+      "Focus on family"
+    ]
+  },
+  "hawkesford.png": {
+    "business_name": "Hawkesford",
+    "business_class": "professional_service",
+    "primary_conversion": "request_quote",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_quote",
+    "contact_archetype": "cta_split",
+    "palette": {
+      "background": "white",
+      "background_dark": "dark red",
+      "text": "black",
+      "accent": "dark red",
+      "style": "premium"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "reviews",
+      "years_experience",
+      "local_coverage"
+    ],
+    "cta_hierarchy": {
+      "primary": "Get a quote",
+      "secondary": "Contact us"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "focus on property and land expertise",
+      "local knowledge emphasis"
+    ]
+  },
+  "hayashi2.png": {
+    "business_name": "Hayashi",
+    "business_class": "food",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "about",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_split",
+    "palette": {
+      "background": "white",
+      "background_dark": "dark red",
+      "text": "black",
+      "accent": "gold",
+      "style": "warm"
+    },
+    "typography": {
+      "mood": "premium",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "local_coverage",
+      "respect_for_tradition"
+    ],
+    "cta_hierarchy": {
+      "primary": "BOOK A TABLE",
+      "secondary": "ORDER TAKEAWAY"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Authentic Japanese cuisine",
+      "Focus on traditional flavors"
+    ]
+  },
+  "la-ari.png": {
+    "business_name": "La Ari",
+    "business_class": "food",
+    "primary_conversion": "order_online",
+    "section_order": [
+      "nav",
+      "hero",
+      "services",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "none",
+    "testimonials_archetype": "testimonial_cards",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "none",
+      "text": "dark",
+      "accent": "green",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "reviews"
+    ],
+    "cta_hierarchy": {
+      "primary": "Order Now",
+      "secondary": "Shop by Collection"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Freshly baked delivery service"
+    ]
+  },
+  "la-coppola.png": {
+    "business_name": "La Coppola",
+    "business_class": "food",
+    "primary_conversion": "order_online",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_full_bleed",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "none",
+      "text": "black",
+      "accent": "gold",
+      "style": "premium"
+    },
+    "typography": {
+      "mood": "premium",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "local_coverage",
+      "fair_pricing"
+    ],
+    "cta_hierarchy": {
+      "primary": "DISCOVER OUR MENU",
+      "secondary": "MAKE A RESERVATION"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Italian cuisine focus",
+      "Oyster bar"
+    ]
+  },
+  "lacoppola-menu.png": {
+    "business_name": "LA COPPOLA",
+    "business_class": "food",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "services",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "none",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "none",
+      "text": "black",
+      "accent": "gold",
+      "style": "premium"
+    },
+    "typography": {
+      "mood": "premium",
+      "headline_style": "centred"
+    },
+    "trust_signals": [],
+    "cta_hierarchy": {
+      "primary": "BOOK A TABLE",
+      "secondary": null
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Italian cuisine focus",
+      "emphasis on fresh ingredients"
+    ]
+  },
+  "lamesa.png": {
+    "business_name": "LA MESA",
+    "business_class": "food",
+    "primary_conversion": "order_online",
+    "section_order": [
+      "nav",
+      "hero",
+      "about",
+      "services",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_full_bleed",
+    "services_archetype": "feature_list",
+    "trust_archetype": "none",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "black",
+      "background_dark": "dark green",
+      "text": "white",
+      "accent": "gold",
+      "style": "premium"
+    },
+    "typography": {
+      "mood": "premium",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "local_coverage"
+    ],
+    "cta_hierarchy": {
+      "primary": "VIEW MENU",
+      "secondary": "BOOK A TABLE"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "full-bleed hero image",
+      "premium dining experience emphasis"
+    ]
+  },
+  "larumba-events.png": {
+    "business_name": "Rumba",
+    "business_class": "food",
+    "primary_conversion": "order_online",
+    "section_order": [
+      "nav",
+      "hero",
+      "upcoming_events",
+      "about",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_full_bleed",
+    "services_archetype": "none",
+    "trust_archetype": "none",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "black",
+      "text": "black",
+      "accent": "#D4A10B",
+      "style": "warm"
+    },
+    "typography": {
+      "mood": "premium",
+      "headline_style": "large display"
+    },
+    "trust_signals": [],
+    "cta_hierarchy": {
+      "primary": "HAVE YOUR EVENT AT RUMBA",
+      "secondary": null
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "live music events",
+      "Latin American cuisine"
+    ]
+  },
+  "larumbahome.png": {
+    "business_name": "RUMBA",
+    "business_class": "food",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "about",
+      "services",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_full_bleed",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_cards",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "black",
+      "background_dark": "dark red",
+      "text": "white",
+      "accent": "gold",
+      "style": "warm"
+    },
+    "typography": {
+      "mood": "premium",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "5.0 rating",
+      "local_coverage"
+    ],
+    "cta_hierarchy": {
+      "primary": "Book a Table Now",
+      "secondary": "View Menu"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Latin American cuisine",
+      "family-oriented dining"
+    ]
+  },
+  "lifeinvestments.png": {
+    "business_name": "Life Investments",
+    "business_class": "professional_service",
+    "primary_conversion": "request_quote",
+    "section_order": [
+      "nav",
+      "hero",
+      "services",
+      "trust_bar",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_cards",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "navy",
+      "text": "black",
+      "accent": "orange",
+      "style": "mixed"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "reviews",
+      "local_coverage"
+    ],
+    "cta_hierarchy": {
+      "primary": "Find Out What Your Property Is Worth Today",
+      "secondary": null
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "handpicked homes across Warwickshire"
+    ]
+  },
+  "lrt-plumbing-services.png": {
+    "business_name": "LRT Plumbing & Heating",
+    "business_class": "local_service",
+    "primary_conversion": "call_now",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_quote",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "lightgrey",
+      "text": "black",
+      "accent": "blue",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "local_coverage",
+      "certifications"
+    ],
+    "cta_hierarchy": {
+      "primary": "Call Now",
+      "secondary": "Request a Quote"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "trusted local plumbers",
+      "comprehensive plumbing solutions"
+    ]
+  },
+  "marias-hair-beauty.png": {
+    "business_name": "Maria's Hair & Beauty",
+    "business_class": "beauty",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "about",
+      "services",
+      "recent_work",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_icon",
+    "trust_archetype": "none",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "lightgrey",
+      "text": "black",
+      "accent": "pink",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "centred"
+    },
+    "trust_signals": [
+      "certifications"
+    ],
+    "cta_hierarchy": {
+      "primary": "Book Now",
+      "secondary": null
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "personalized treatments",
+      "stylish interior design"
+    ]
+  },
+  "moderngreek.png": {
+    "business_name": "Bebas",
+    "business_class": "food",
+    "primary_conversion": "order_online",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "about",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": null,
+      "text": "black",
+      "accent": "#FFCC00",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "4.9 RATING",
+      "local_favourite"
+    ],
+    "cta_hierarchy": {
+      "primary": "ORDER ONLINE",
+      "secondary": "CALL NOW"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Family Owned",
+      "Serving breakfast, brunch and lunch"
+    ]
+  },
+  "oldpostoffice.png": {
+    "business_name": "The Old Post Office Cafe & Bar",
+    "business_class": "hospitality",
+    "primary_conversion": "order_online",
+    "section_order": [
+      "nav",
+      "hero",
+      "services",
+      "about",
+      "gallery",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "feature_list",
+    "trust_archetype": "none",
+    "testimonials_archetype": "none",
+    "contact_archetype": "none",
+    "palette": {
+      "background": "light",
+      "background_dark": "forestgreen",
+      "text": "darkolivegreen",
+      "accent": "gold",
+      "style": "warm"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [],
+    "cta_hierarchy": {
+      "primary": "Order Now",
+      "secondary": "Book a Table"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "menu highlights",
+      "local focus"
+    ]
+  },
+  "oldpostoffice2.png": {
+    "business_name": "The Old Post Office Cafe & Bar",
+    "business_class": "food",
+    "primary_conversion": "order_online",
+    "section_order": [
+      "nav",
+      "hero",
+      "about",
+      "menu",
+      "gallery",
+      "locations",
+      "footer"
+    ],
+    "hero_archetype": "hero_full_bleed",
+    "services_archetype": "feature_list",
+    "trust_archetype": "none",
+    "testimonials_archetype": "none",
+    "contact_archetype": "none",
+    "palette": {
+      "background": "white",
+      "background_dark": "dark green",
+      "text": "black",
+      "accent": "dark green",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "local_coverage"
+    ],
+    "cta_hierarchy": {
+      "primary": "Order Now",
+      "secondary": null
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "eco-friendly design elements",
+      "emphasis on local ingredients"
+    ]
+  },
+  "positive-beauty-aesthetics.png": {
+    "business_name": "Positive Beauty & Aesthetic Treatments",
+    "business_class": "beauty",
+    "primary_conversion": "request_quote",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "about",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_quote",
+    "contact_archetype": "cta_split",
+    "palette": {
+      "background": "white",
+      "background_dark": "lightgray",
+      "text": "black",
+      "accent": "green",
+      "style": "mixed"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "reviews",
+      "certifications"
+    ],
+    "cta_hierarchy": {
+      "primary": "Ready To Feel Your Best?",
+      "secondary": null
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "personalized treatments"
+    ]
+  },
+  "posture&poise.png": {
+    "business_name": "Posture, Poise & Wellbeing",
+    "business_class": "beauty",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "services",
+      "about",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "testimonial_quote",
+    "testimonials_archetype": "testimonial_cards",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "none",
+      "text": "black",
+      "accent": "#d1b38c",
+      "style": "warm"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "local_coverage",
+      "reviews"
+    ],
+    "cta_hierarchy": {
+      "primary": "Book Now",
+      "secondary": "View Treatments"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Upcoming Availability section"
+    ]
+  },
+  "sandhu-estates.png": {
+    "business_name": "Sandhu",
+    "business_class": "professional_service",
+    "primary_conversion": "request_quote",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "about",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_cards",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "none",
+      "text": "black",
+      "accent": "#FF5733",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "local_coverage",
+      "reviews",
+      "certifications",
+      "years_experience"
+    ],
+    "cta_hierarchy": {
+      "primary": "Book a Valuation",
+      "secondary": "Request a Quote"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Established 1976",
+      "Local Independent"
+    ]
+  },
+  "standrd-dark.png": {
+    "business_name": "STANDRD",
+    "business_class": "beauty",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "about",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_full_bleed",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_quote",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "black",
+      "background_dark": "darkgrey",
+      "text": "white",
+      "accent": "gold",
+      "style": "premium"
+    },
+    "typography": {
+      "mood": "premium",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "5.0",
+      "reviews"
+    ],
+    "cta_hierarchy": {
+      "primary": "BOOK APPOINTMENT",
+      "secondary": null
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "premium barbering environment"
+    ]
+  },
+  "standrdlight.png": {
+    "business_name": "STANDARD",
+    "business_class": "beauty",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "services",
+      "about",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_full_bleed",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_cards",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "black",
+      "text": "black",
+      "accent": "gold",
+      "style": "premium"
+    },
+    "typography": {
+      "mood": "premium",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "5.0",
+      "97+ Five Star Reviews"
+    ],
+    "cta_hierarchy": {
+      "primary": "BOOK APPOINTMENT",
+      "secondary": "VIEW GALLERY"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Precision cuts, Clean fades, Beard sculpting"
+    ]
+  },
+  "tavola.png": {
+    "business_name": "Tavola",
+    "business_class": "food",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "about",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_cards",
+    "contact_archetype": "cta_split",
+    "palette": {
+      "background": "white",
+      "background_dark": "dark blue",
+      "text": "black",
+      "accent": "orange",
+      "style": "premium"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "authentic recipes",
+      "local_coverage"
+    ],
+    "cta_hierarchy": {
+      "primary": "Book a Table",
+      "secondary": "Join our Newsletter"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "authentic Italian dining experience"
+    ]
+  },
+  "terrace-menu.png": {
+    "business_name": "THE TERRACE RESTAURANT",
+    "business_class": "food",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "about",
+      "menu",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_full_bleed",
+    "services_archetype": "feature_list",
+    "trust_archetype": "none",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "dark green",
+      "background_dark": "black",
+      "text": "white",
+      "accent": "gold",
+      "style": "premium"
+    },
+    "typography": {
+      "mood": "premium",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "none"
+    ],
+    "cta_hierarchy": {
+      "primary": "BOOK A TABLE",
+      "secondary": null
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Seasonal menu, detailed dish descriptions"
+    ]
+  },
+  "terrace.png": {
+    "business_name": "THE TRAVELLER",
+    "business_class": "food",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "services",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "none",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "none",
+      "text": "black",
+      "accent": "gold",
+      "style": "premium"
+    },
+    "typography": {
+      "mood": "premium",
+      "headline_style": "centred"
+    },
+    "trust_signals": [
+      "reviews",
+      "local_coverage"
+    ],
+    "cta_hierarchy": {
+      "primary": "BOOK A TABLE",
+      "secondary": "FIND A TABLE"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "dining experience for every occasion"
+    ]
+  },
+  "thecross-dark.png": {
+    "business_name": "THE CROSS",
+    "business_class": "food",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "about",
+      "services",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "feature_list",
+    "trust_archetype": "none",
+    "testimonials_archetype": "testimonial_quote",
+    "contact_archetype": "cta_split",
+    "palette": {
+      "background": "white",
+      "background_dark": "dark brown",
+      "text": "black",
+      "accent": "gold",
+      "style": "premium"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "award_winning",
+      "locally_loved"
+    ],
+    "cta_hierarchy": {
+      "primary": "BOOK A TABLE",
+      "secondary": "VIEW MENU"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "garden terrace",
+      "seasonal menus"
+    ]
+  },
+  "thecross-team.png": {
+    "business_name": "The Cross",
+    "business_class": "hospitality",
+    "primary_conversion": "join_class",
+    "section_order": [
+      "nav",
+      "hero",
+      "about",
+      "services",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "none",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_split",
+    "palette": {
+      "background": "white",
+      "background_dark": "none",
+      "text": "black",
+      "accent": "gold",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "premium",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "none"
+    ],
+    "cta_hierarchy": {
+      "primary": "Join Us",
+      "secondary": null
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "Dedicated team with a focus on craft"
+    ]
+  },
+  "thecross.png": {
+    "business_name": "THE CROSS",
+    "business_class": "hospitality",
+    "primary_conversion": "book_intro",
+    "section_order": [
+      "nav",
+      "hero",
+      "about",
+      "services",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "feature_list",
+    "trust_archetype": "none",
+    "testimonials_archetype": "testimonial_quote",
+    "contact_archetype": "cta_split",
+    "palette": {
+      "background": "white",
+      "background_dark": "none",
+      "text": "black",
+      "accent": "#DDAA5E",
+      "style": "warm"
+    },
+    "typography": {
+      "mood": "premium",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "award-winning",
+      "seasonal menus",
+      "loyalty lovers"
+    ],
+    "cta_hierarchy": {
+      "primary": "BOOK A TABLE",
+      "secondary": "DISCOVER MORE"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "garden terrace"
+    ]
+  },
+  "twobros.png": {
+    "business_name": "Two Bro",
+    "business_class": "food",
+    "primary_conversion": "order_online",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "about",
+      "testimonials",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_centered",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "testimonial_cards",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "white",
+      "background_dark": "lightgrey",
+      "text": "black",
+      "accent": "darkorange",
+      "style": "light"
+    },
+    "typography": {
+      "mood": "clean",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "4.8",
+      "Thousands",
+      "Fresh Daily",
+      "Local"
+    ],
+    "cta_hierarchy": {
+      "primary": "ORDER AHEAD",
+      "secondary": "VIEW MENU"
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "artisan pastries",
+      "freshly baked goods"
+    ]
+  },
+  "villa-capri.png": {
+    "business_name": "An Evening on Capri",
+    "business_class": "food",
+    "primary_conversion": "order_online",
+    "section_order": [
+      "nav",
+      "hero",
+      "trust_bar",
+      "services",
+      "cta",
+      "footer"
+    ],
+    "hero_archetype": "hero_full_bleed",
+    "services_archetype": "service_cards_image",
+    "trust_archetype": "trust_bar",
+    "testimonials_archetype": "none",
+    "contact_archetype": "cta_band",
+    "palette": {
+      "background": "black",
+      "background_dark": "dark grey",
+      "text": "white",
+      "accent": "gold",
+      "style": "premium"
+    },
+    "typography": {
+      "mood": "premium",
+      "headline_style": "large display"
+    },
+    "trust_signals": [
+      "4.8",
+      "Google",
+      "Tripadvisor",
+      "Top 100"
+    ],
+    "cta_hierarchy": {
+      "primary": "Reserve your table",
+      "secondary": null
+    },
+    "image_style": "photography",
+    "unique_features": [
+      "emphasis on cocktails and private events"
+    ]
+  }
+}

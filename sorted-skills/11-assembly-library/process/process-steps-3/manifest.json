@@ -1,0 +1,28 @@
+{
+  "id": "process-steps-3",
+  "family": "process",
+  "description": "Three numbered steps in a horizontal row with icon, label, and short description. Compressed section.",
+  "visual_languages": ["utility"],
+  "intensity": "compressed",
+  "themes": ["light"],
+  "default_theme": "light",
+  "slots": {
+    "eyebrow": "string",
+    "title": "string",
+    "steps": [
+      {
+        "number": "string",
+        "icon": "string",
+        "label": "string",
+        "description": "string"
+      }
+    ]
+  },
+  "validation": [
+    "Exactly 3 steps",
+    "Title is small and H2 scale is reduced",
+    "Icons are small and contained in circles",
+    "Section is compressed, not a visual climax",
+    "Steps tell a clear customer journey"
+  ]
+}

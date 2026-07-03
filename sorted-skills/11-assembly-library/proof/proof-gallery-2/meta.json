@@ -1,0 +1,9 @@
+{
+  "id": "proof-gallery-2",
+  "family": "proof",
+  "version": "1.0.0",
+  "description": "2-up work gallery with project image and caption. Left-aligned section header.",
+  "intensity": "large",
+  "visual_languages": ["utility"],
+  "style_slots": ["theme", "density", "photography"]
+}

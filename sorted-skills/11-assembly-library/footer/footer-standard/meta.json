@@ -1,0 +1,9 @@
+{
+  "id": "footer-standard",
+  "family": "footer",
+  "version": "1.0.0",
+  "description": "4-column footer: brand + tagline, quick links, contact, service areas. Dark background.",
+  "intensity": "footer",
+  "visual_languages": ["utility", "editorial"],
+  "style_slots": ["theme", "accentColor"]
+}

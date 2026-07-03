@@ -35,10 +35,14 @@ SORTED DESIGN SYSTEM — ALWAYS ACTIVE
 - No new npm packages. Work with what is in package.json
 - TailwindCSS v4 ONLY — never use @apply border-border, @apply bg-background, or any v3 CSS variable utility. Use raw CSS values or Tailwind classes directly
 
+## Critical TailwindCSS v4 source scanning
+- globals.css MUST have @source "../assemblies/**/*.tsx"; on line 2 (after @import "tailwindcss";)
+- Without this, TailwindCSS does NOT scan the assemblies/ directory — all responsive padding classes in assembly components are stripped from the compiled CSS bundle, causing broken layouts
+
 ## Layout conventions
 - Page max-width: max-w-[1400px] mx-auto
-- Section padding: px-6 sm:px-10 lg:px-16 with py-20 to py-32
-- Never use h-screen for hero. Always use min-h-[100dvh]
+- Section padding: px-6 sm:px-10 lg:px-16 with py-24 to py-36 (never below py-20 at any breakpoint)
+- Hero sections: use min-h-[90vh] (not dvh — dvh is unreliable in static export). Never h-screen. Hero must have pt-20 to clear the fixed nav.
 - CSS Grid for multi-column layouts. Never use flexbox percentage math
 - Mobile: single column always. Asymmetric layouts only above md:
 
@@ -163,6 +167,12 @@ Accent colour: ${accentColor}
 Theme: ${theme}
 
 Output the COMPLETE globals.css file. Keep all existing @keyframes and utility classes exactly as-is.
+The file MUST start with these two lines in this exact order:
+@import "tailwindcss";
+@source "../assemblies/**/*.tsx";
+
+The @source directive is critical — it tells TailwindCSS v4 to scan the assemblies/ directory for utility classes. Without it, responsive padding classes from assembly components are stripped from the compiled CSS bundle.
+
 Only update the @theme block to add:
 --color-accent: ${accentColor};
 --color-accent-hover: (slightly lighter or darker version of accent for hover);
@@ -176,13 +186,12 @@ export function promptForLayout(
   deconstruction: DeconstructionJSON,
   clientSlug: string,
 ): string {
-  // Derive business name from copy
-  const nameCopy = deconstruction.copy.find(c => c.type === 'footer_text' && c.text.includes('©'));
-  const businessName = nameCopy
-    ? nameCopy.text.replace(/©.*?\d{4}\s*/,'').replace(/\. All rights reserved\./,'').trim()
-    : clientSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  const businessName = deconstruction.source?.business_name
+    ?? deconstruction.metadata?.title
+    ?? clientSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 
-  const description = deconstruction.copy.find(c => c.type === 'subheadline')?.text
+  const description = deconstruction.metadata?.description
+    ?? deconstruction.copy.find(c => c.type === 'subheadline')?.text
     ?? deconstruction.copy.find(c => c.type === 'body')?.text
     ?? `${businessName} — ${deconstruction.build_notes.style ?? 'local business'}`;
 
@@ -194,10 +203,12 @@ Meta description: ${description.slice(0, 155)}
 Locale: en_GB
 Theme colour: ${deconstruction.build_notes.accent_color ?? '#0A0A0A'}
 
-Keep the exact same structure as the template — Plus Jakarta Sans + DM Mono fonts, scroll-progress div, PageTransition wrapper.
-Update only: title, description, openGraph title/description.
-For themeColor use a separate viewport export: export const viewport: Viewport = { themeColor: '...' }
-Import Viewport from 'next' alongside Metadata.
+CRITICAL REQUIREMENTS:
+- Use next/font/google to load Plus_Jakarta_Sans and DM_Mono. DO NOT use next/font/local or local font files.
+- Keep the exact same structure as the template: Plus Jakarta Sans + DM Mono fonts, scroll-progress div, PageTransition wrapper.
+- Update only: title, description, openGraph title/description.
+- For themeColor use a separate viewport export: export const viewport: Viewport = { themeColor: '...' }
+- Import Viewport from 'next' alongside Metadata.
 
 Output only the file content. No markdown. No explanation.`;
 }
@@ -292,6 +303,14 @@ export function promptForPageAssembler(
     .map(s => `        <${s.componentName} />`)
     .join('\n');
 
+  const title = deconstruction.metadata?.title
+    ?? deconstruction.source?.business_name
+    ?? 'Local Business';
+  const description = deconstruction.metadata?.description
+    ?? deconstruction.copy.find(c => c.type === 'subheadline')?.text
+    ?? deconstruction.copy.find(c => c.type === 'body')?.text
+    ?? `${title} — local services.`;
+
   return `${context}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -307,10 +326,17 @@ Assembly order:
 ${usage}
 
 Also import Nav and Footer from @/components/Nav and @/components/Footer.
-Wrap in PageTransition from @/components/PageTransition.
+Do NOT import or use PageTransition — layout.tsx already wraps the page in it.
 Wrap sections in <main>.
 
-The page should export a Metadata object with the correct title and description for this client (infer from copy).
+The page must export this exact Metadata object:
+
+export const metadata: Metadata = {
+  title: ${JSON.stringify(title)},
+  description: ${JSON.stringify(description)},
+};
+
+Do not invent a different title or description. Use the exact strings above.
 
 Output only the file content. No markdown. No explanation.`;
 }

@@ -1,0 +1,9 @@
+{
+  "id": "cta-band-phone",
+  "family": "cta",
+  "version": "1.1.0",
+  "description": "Dark navy CTA band. Left-aligned headline, primary phone CTA + WhatsApp secondary.",
+  "intensity": "massive",
+  "visual_languages": ["utility"],
+  "style_slots": ["theme", "density", "accentColor"]
+}

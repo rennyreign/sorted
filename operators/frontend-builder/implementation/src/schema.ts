@@ -9,9 +9,13 @@ export const DeconstructionSectionSchema = z.object({
   type: z.string().min(1),
   position: z.number().int().min(1),
   label: z.string().optional(),
+  archetype: z.string().optional(),
+  assembly_id: z.string().optional(),
   layout: z.string().optional(),
   theme: z.string().optional(),
   background: z.string().optional(),
+  intensity: z.enum(['massive', 'large', 'medium', 'compressed', 'proof', 'decision', 'navigation', 'footer']).optional(),
+  narrative_role: z.string().optional(),
   notes: z.string().optional(),
 });
 
@@ -56,6 +60,65 @@ export const BuildNotesSchema = z.object({
   notes: z.array(z.string()).optional(),
 });
 
+export const ContactSchema = z.object({
+  phone: z.string().optional(),
+  phone_display: z.string().optional(),
+  email: z.string().optional(),
+  whatsapp: z.string().optional(),
+  location: z.string().optional(),
+  hours: z.string().optional(),
+  address: z.string().optional(),
+});
+
+export const SourceSchema = z.object({
+  type: z.string().optional(),
+  business_name: z.string().optional(),
+  business_category: z.string().optional(),
+  website_url: z.string().optional(),
+  analysis_summary: z.string().optional(),
+});
+
+export const CTAHierarchySchema = z.object({
+  primary: z.object({
+    action: z.string().optional(),
+    label: z.string().optional(),
+    href: z.string().optional(),
+    placement: z.array(z.string()).optional(),
+  }).optional(),
+  secondary: z.object({
+    action: z.string().optional(),
+    label: z.string().optional(),
+    href: z.string().optional(),
+    placement: z.array(z.string()).optional(),
+  }).optional(),
+  tertiary: z.object({
+    action: z.string().optional(),
+    label: z.string().optional(),
+    href: z.string().optional(),
+    placement: z.array(z.string()).optional(),
+  }).optional(),
+});
+
+export const StyleSlotsSchema = z.object({
+  theme: z.enum(['light', 'dark']).optional(),
+  density: z.enum(['default', 'compressed', 'airy']).optional(),
+  typography: z.enum(['utility', 'editorial']).optional(),
+  photography: z.enum(['documentary', 'editorial', 'none']).optional(),
+  accentColor: z.string().regex(/^#[0-9A-Fa-f]{6}$/).optional(),
+  backgroundColor: z.string().regex(/^#[0-9A-Fa-f]{6}$/).optional(),
+});
+
+export const AssemblySelectionSchema = z.object({
+  reason: z.string().min(1),
+  assemblies: z.record(z.string(), z.string().min(1)),
+  style_slots: StyleSlotsSchema.optional(),
+});
+
+export const MetadataSchema = z.object({
+  title: z.string().optional(),
+  description: z.string().optional(),
+});
+
 export const DeconstructionJSONSchema = z.object({
   page_type: z.string().min(1),
   sections: z.array(DeconstructionSectionSchema).min(1),
@@ -63,6 +126,11 @@ export const DeconstructionJSONSchema = z.object({
   components: z.array(ComponentSchema),
   copy: z.array(CopyBlockSchema),
   build_notes: BuildNotesSchema,
+  assembly_selection: AssemblySelectionSchema.optional(),
+  contact: ContactSchema.optional(),
+  source: SourceSchema.optional(),
+  cta_hierarchy: CTAHierarchySchema.optional(),
+  metadata: MetadataSchema.optional(),
   meta: z.object({
     source_image: z.string().optional(),
     model_used: z.string().optional(),
