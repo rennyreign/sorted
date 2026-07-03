@@ -206,6 +206,13 @@ function syncAssemblies(outputDir: string): void {
   }
 
   if (synced > 0) {
+    const metadataResult = syncPageMetadata(resolvedOutput);
+    if (metadataResult.skippedReason) {
+      console.log(`Metadata sync skipped: ${metadataResult.skippedReason}`);
+    } else {
+      console.log(`Metadata sync: ${metadataResult.synced} file updated`);
+    }
+
     console.log(`\nRunning next build...`);
     try {
       execSync('npm run build', { cwd: path.resolve(outputDir), stdio: 'inherit' });
@@ -278,6 +285,44 @@ function syncAssemblyWrappers(outputDir: string): { synced: number; skippedReaso
   }
 
   return { synced };
+}
+
+function syncPageMetadata(outputDir: string): { synced: number; skippedReason?: string } {
+  const compositionPath = findSiblingArtifact(outputDir, 'composition.json');
+  const pagePath = path.join(outputDir, 'app', 'page.tsx');
+
+  if (!compositionPath) {
+    return { synced: 0, skippedReason: 'could not find sibling composition.json' };
+  }
+  if (!fs.existsSync(pagePath)) {
+    return { synced: 0, skippedReason: 'no app/page.tsx found' };
+  }
+
+  const deconstructionRaw = JSON.parse(fs.readFileSync(compositionPath, 'utf-8'));
+  const deconstructionResult = validateDeconstruction(deconstructionRaw);
+  if (!deconstructionResult.success) {
+    return { synced: 0, skippedReason: `invalid composition: ${compositionPath}` };
+  }
+
+  const metadata = deconstructionResult.data.metadata;
+  if (!metadata?.title || !metadata?.description) {
+    return { synced: 0, skippedReason: 'composition missing metadata.title or metadata.description' };
+  }
+
+  let pageContent = fs.readFileSync(pagePath, 'utf-8');
+  const metadataBlock = `export const metadata: Metadata = {\n  title: ${JSON.stringify(metadata.title)},\n  description: ${JSON.stringify(metadata.description)},\n};`;
+
+  const updated = pageContent.replace(
+    /export const metadata: Metadata = \{[\s\S]*?\n\};/,
+    metadataBlock,
+  );
+
+  if (updated === pageContent) {
+    return { synced: 0, skippedReason: 'metadata block not found in app/page.tsx' };
+  }
+
+  fs.writeFileSync(pagePath, updated, 'utf-8');
+  return { synced: 1 };
 }
 
 function findSiblingArtifact(outputDir: string, fileName: string): string | undefined {

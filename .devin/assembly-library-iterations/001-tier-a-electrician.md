@@ -57,18 +57,20 @@ The following plumbing patterns should transfer directly to electrical:
 - ✓ Wrapper sync: 10 regenerated
 - ✓ Build passed
 
-**QA score:** 9.2/10 (23/25 passed, HUMAN REVIEW REQUIRED)
+**QA score:** 9.6/10 (24/25 passed, HUMAN REVIEW REQUIRED)
 
 ## Professional Score
 
-**Score:** 7 / 10
+**Initial score:** 7 / 10
+**Post-patch score:** 8 / 10
 
 **Reasons:**
 - Layout, spacing, and conversion structure transfer cleanly from plumbing.
 - Phone-forward CTA, trust strip, process, services, and CTA are all present and coherent.
 - Copy is category-appropriate (emergency repairs, fuse boards, EICR, EV chargers).
-- **Major issue:** page title and meta description still say "LRT Plumbing Services" — the `sync-assemblies` command does not regenerate `app/page.tsx` metadata from the new composition.
-- **Visual issue:** images are still plumbing photographs (copied from baseline), which undermines the electrical credibility of the site.
+- **Fixed:** page title and meta description now correctly read "Bright Spark Electrical" after the metadata-sync patch.
+- **Remaining issue:** images are still plumbing photographs (copied from baseline), which undermines the electrical credibility of the site.
+- QA score improved from 9.2/10 to 9.6/10 after the metadata fix.
 - QA warning: compressed density is appropriate for emergency trades but must be verified visually.
 
 ## Taste Score
@@ -103,6 +105,21 @@ The following plumbing patterns should transfer directly to electrical:
 - **Composition template:** add a `business_category` field and a `tier` field to make category-specific assembly selection more explicit.
 - **QA operator:** add a check for metadata mismatch between composition and rendered HTML `<title>`.
 - **Taste skills:** strengthen the rule that photography must match the business category; a reused layout with wrong-category images fails the taste test.
+
+## Patch Verification
+
+**Applied patch:** `operators/frontend-builder/implementation/src/cli.ts`
+
+- Added `syncPageMetadata()` to read `composition.metadata` and rewrite the `export const metadata` block in `app/page.tsx`.
+- Called from `syncAssemblies()` after assembly and wrapper sync.
+- Rebuilt the CLI, re-synced `tier-a-electrician-site-v1`, and verified the output:
+
+```
+<title>Bright Spark Electrical | Local Electrician in Warwickshire &amp; Coventry</title>
+<meta name="description" content="Local electrical services for Warwickshire, Coventry, Rugby and Leamington Spa. Emergency repairs, fuse boards, lighting, EV chargers and EICR certificates. Call 07379 176466.">
+```
+
+**Result:** metadata issue resolved. QA score improved from 9.2/10 to 9.6/10.
 
 ## Next Recommendation
 
