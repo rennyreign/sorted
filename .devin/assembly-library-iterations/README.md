@@ -39,9 +39,51 @@ The current best output is the Tier A plumbing website preview. It proves the fi
 
 ---
 
+## Internal vs External Scoring
+
+The scores in this folder are **internal factory scores**.
+
+They are not customer-facing features.
+
+They exist to help Sorted improve the quality of its own generated assets and manufacturing system.
+
+### Internal scores
+
+Used by Renaldo, ChatGPT, Devin, Codex, and future build agents:
+
+- `Professional Score`
+- `Taste Score`
+- `Manufacturability Score`
+
+These scores judge the generated Sorted asset and the factory process behind it.
+
+### External scores
+
+Used on prospect-facing review pages:
+
+- `Website Score`
+- `Trust Score`
+- `Modernisation Score`
+
+These scores judge the prospect's current website and create the commercial reason to engage.
+
+Do not expose `Professional Score`, `Taste Score`, or `Manufacturability Score` to prospects.
+
+Prospects should only feel:
+
+> This looks better.  
+> This understands my business.  
+> This feels like someone has already done the work.
+
+The customer-facing score diagnoses their current digital presence.
+
+The internal scores diagnose our generated asset and the strength of the factory.
+
+---
+
 ## The Main Objective
 
-Raise the quality of generated websites across two dimensions:
+Raise the quality of generated websites across three internal dimensions:
 
 ### 1. Professional Score
 
@@ -84,11 +126,30 @@ This score answers:
 
 > Does this feel like a person with good design judgement made the decisions?
 
+### 3. Manufacturability Score
+
+Measures whether the iteration made the Sorted factory stronger.
+
+A high manufacturability score means the iteration:
+
+- increased reusable pattern clarity
+- improved assembly reuse
+- reduced bespoke judgement
+- reduced custom logic
+- improved determinism
+- exposed reusable category rules
+- improved patch notes for future runs
+- made the next category easier to manufacture
+
+This score answers:
+
+> Did this make the factory better, not just the screenshot better?
+
 ---
 
 ## Score Scale
 
-Use a 10-point scale for both scores.
+Use a 10-point scale for all three internal scores.
 
 ### Professional Score
 
@@ -114,14 +175,29 @@ Use a 10-point scale for both scores.
 | 9 | Strong design taste with category-specific nuance. |
 | 10 | Exceptional, distinctive, and deeply appropriate. |
 
+### Manufacturability Score
+
+| Score | Meaning |
+|---|---|
+| 1-3 | One-off output. Little or no reusable learning. |
+| 4-5 | Some reusable insight, but still too bespoke. |
+| 6 | Useful pattern identified but not fully codified. |
+| 7 | Reusable pattern documented and partly implemented. |
+| 8 | Strong factory improvement with clear reuse path. |
+| 9 | Major reduction in future labour or decision entropy. |
+| 10 | Step-change improvement to the production line. |
+
 The near-term target is:
 
 ```txt
 Professional Score: 8+
 Taste Score: 7+
+Manufacturability Score: 7+
 ```
 
 Do not chase Taste 10 before the system can reliably reach Professional 8.
+
+Do not chase Manufacturability 10 before the system has repeatable evidence across several categories.
 
 ---
 
@@ -137,14 +213,16 @@ Each iteration should include:
 6. **Generated output** — screenshots, composition, build artifacts.
 7. **Professional score** — with reasons.
 8. **Taste score** — with reasons.
-9. **Patch notes** — what should change in skills, assemblies, tokens, prompts, or QA.
-10. **Next recommendation** — what category or weakness to test next.
+9. **Manufacturability score** — with reasons.
+10. **Patch notes** — what should change in skills, assemblies, tokens, prompts, or QA.
+11. **Next recommendation** — what category or weakness to test next.
 
 ---
 
 ## Iteration Rules
 
 - Improve the system, not just the screenshot.
+- Treat the scores as internal calibration, never as prospect-facing language.
 - Prefer reusable pattern extraction over one-off fixes.
 - Do not invent new assemblies when an existing assembly can be improved or configured.
 - Do not add assemblies to the library until they are validated at desktop and mobile widths.
@@ -190,6 +268,7 @@ Tier A Emergency / Local Trades
   -> QA
   -> professional score
   -> taste score
+  -> manufacturability score
   -> patch notes
 ```
 
