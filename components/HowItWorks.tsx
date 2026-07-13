@@ -26,7 +26,7 @@ export default function HowItWorks() {
             How it works
           </span>
           <h2 className="font-sans font-extrabold text-[#0A0A0A] text-4xl leading-tight tracking-tight">
-            Three steps.<br/>Modernize from there.
+            Three steps.<br/>Starting with your website.
           </h2>
         </div>
 

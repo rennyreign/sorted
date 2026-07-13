@@ -23,7 +23,7 @@ export default function Services() {
 
         <div className="lg:w-64 shrink-0">
           <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-4 block">
-            What modern businesses need
+            What every business needs now
           </span>
           <h2 className="font-sans font-extrabold text-[#0A0A0A] text-4xl leading-tight tracking-tight">
             Three outcomes.<br/>One starting point.
@@ -56,7 +56,7 @@ export default function Services() {
 
           <div className="mt-16 max-w-2xl">
             <p className="font-sans font-extrabold text-[#0A0A0A] text-2xl leading-tight tracking-tight mb-4">
-              Everything starts with your website.
+              Your website is the first doorway.
             </p>
             <p className="text-[#737373] text-base leading-relaxed">
               The website is the first impression, the trust signal, and the lead capture mechanism. It is also the foundation for everything else that follows. We redesign it first, before you spend a penny, then build from there.

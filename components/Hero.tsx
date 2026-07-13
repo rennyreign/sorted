@@ -2,7 +2,7 @@ export default function Hero() {
   return (
     <section className="min-h-[100dvh] flex flex-col justify-end pb-16 px-6 sm:px-10 lg:px-16 pt-32 max-w-[1400px] mx-auto">
 
-      <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(4.5rem,10vw,9rem)] leading-[0.92] tracking-[-0.03em] mb-10 max-w-5xl">
+      <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(3.5rem,7.5vw,7rem)] leading-[0.92] tracking-[-0.03em] mb-10 max-w-5xl">
         More trust.
         <br />
         More enquiries.
@@ -12,7 +12,7 @@ export default function Hero() {
 
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 border-t border-black/10 pt-8">
         <p className="text-[#525252] text-lg font-medium leading-relaxed max-w-md">
-          We help small businesses modernize their digital presence and customer journey. Starting with their website.
+          We rebuild your website before you spend a penny. Then we modernize the rest.
         </p>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
