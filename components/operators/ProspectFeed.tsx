@@ -10,6 +10,9 @@ type FilterState = {
   city: string
   qualification: "all" | "website" | "email" | "both"
   analysed: "all" | "scored" | "unscored"
+  mockup: "all" | "ready" | "none"
+  reviewPage: "all" | "ready" | "none"
+  crmStatus: "all" | CrmStatus
 }
 
 export default function ProspectFeed() {
@@ -22,6 +25,9 @@ export default function ProspectFeed() {
     city: "All",
     qualification: "all",
     analysed: "all",
+    mockup: "all",
+    reviewPage: "all",
+    crmStatus: "all",
   })
 
   useEffect(() => {
@@ -67,6 +73,13 @@ export default function ProspectFeed() {
       if (filters.qualification === "both" && !p.qualified) return false
       if (filters.analysed === "scored" && p.site_score == null) return false
       if (filters.analysed === "unscored" && p.site_score != null) return false
+      const hasMockupImage = !!p.mockup_url
+      const hasReviewPage = !!p.review_slug
+      if (filters.mockup === "ready" && !hasMockupImage) return false
+      if (filters.mockup === "none" && hasMockupImage) return false
+      if (filters.reviewPage === "ready" && !hasReviewPage) return false
+      if (filters.reviewPage === "none" && hasReviewPage) return false
+      if (filters.crmStatus !== "all" && p.crm_status !== filters.crmStatus) return false
       return true
     })
   }, [prospects, filters])
@@ -126,9 +139,30 @@ export default function ProspectFeed() {
             <select value={filters.city} onChange={(e) => update("city", e.target.value)} className={selectClass}>
               {cities.map((c) => <option key={c} value={c}>{c === "All" ? "All cities" : c}</option>)}
             </select>
-            {(filters.category !== "All" || filters.city !== "All" || filters.qualification !== "all" || filters.analysed !== "all") && (
+            <select value={filters.mockup} onChange={(e) => update("mockup", e.target.value as FilterState["mockup"])} className={selectClass}>
+              <option value="all">Any mockup image</option>
+              <option value="ready">Has mockup image</option>
+              <option value="none">No mockup image</option>
+            </select>
+            <select value={filters.reviewPage} onChange={(e) => update("reviewPage", e.target.value as FilterState["reviewPage"])} className={selectClass}>
+              <option value="all">Any review page</option>
+              <option value="ready">Has review page</option>
+              <option value="none">No review page</option>
+            </select>
+            <select value={filters.crmStatus} onChange={(e) => update("crmStatus", e.target.value as FilterState["crmStatus"])} className={selectClass}>
+              <option value="all">Any CRM stage</option>
+              <option value="new">New</option>
+              <option value="outreached">Outreached</option>
+              <option value="responded">Responded</option>
+              <option value="mockup_revealed">Mockup Revealed</option>
+              <option value="build">Build</option>
+              <option value="quote">Quote</option>
+              <option value="paid">Paid</option>
+              <option value="lost">Lost</option>
+            </select>
+            {(filters.category !== "All" || filters.city !== "All" || filters.qualification !== "all" || filters.analysed !== "all" || filters.mockup !== "all" || filters.reviewPage !== "all" || filters.crmStatus !== "all") && (
               <button
-                onClick={() => setFilters({ search: filters.search, category: "All", city: "All", qualification: "all", analysed: "all" })}
+                onClick={() => setFilters({ search: filters.search, category: "All", city: "All", qualification: "all", analysed: "all", mockup: "all", reviewPage: "all", crmStatus: "all" })}
                 className="text-xs text-[#A3A3A3] hover:text-[#525252] transition-colors"
               >
                 Clear filters
@@ -153,7 +187,7 @@ export default function ProspectFeed() {
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="border-b border-black/[0.06]">
-                    {["Business", "Category", "Location", "Score", "Website", "Email", "Phone", "Status", "Maps"].map((h) => (
+                    {["Business", "Category", "Location", "Score", "Website", "Email", "Phone", "Mockup", "Review", "CRM", "Status", "Maps"].map((h) => (
                       <th key={h} className="text-left font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] px-3 py-2.5 whitespace-nowrap font-normal">
                         {h}
                       </th>
@@ -278,6 +312,29 @@ function ProspectRow({
         )}
       </td>
 
+      {/* Mockup */}
+      <td className="px-3 py-3">
+        {p.mockup_url ? (
+          <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-emerald-600 font-semibold">Ready</span>
+        ) : (
+          <span className="text-xs text-[#C4C4C4]">—</span>
+        )}
+      </td>
+
+      {/* Review page */}
+      <td className="px-3 py-3">
+        {p.review_slug ? (
+          <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-blue-600 font-semibold">Ready</span>
+        ) : (
+          <span className="text-xs text-[#C4C4C4]">—</span>
+        )}
+      </td>
+
+      {/* CRM status */}
+      <td className="px-3 py-3">
+        <CrmStatusBadge status={p.crm_status} />
+      </td>
+
       {/* Status */}
       <td className="px-3 py-3">
         <StatusBadge status={p.status} />
@@ -346,8 +403,6 @@ function AnalysisPanel({ prospect: p, onClose, onCrmChange }: {
     setCrmSaving(false)
   }
 
-  const isOutreached = crmStatus !== "new"
-
   return (
     <aside className="w-full sm:w-[380px] lg:w-[420px] shrink-0 border-l border-black/[0.08] bg-[#FAFAFA] overflow-y-auto flex flex-col">
       {/* Panel header */}
@@ -367,34 +422,76 @@ function AnalysisPanel({ prospect: p, onClose, onCrmChange }: {
         </button>
       </div>
 
-      {/* Outreach action bar */}
-      <div className="px-6 py-3 border-b border-black/[0.06] flex items-center gap-3">
-        {!isOutreached ? (
-          <button
-            onClick={() => setCrm("outreached")}
+      {/* Pipeline action bar */}
+      <div className="px-6 py-3 border-b border-black/[0.06]">
+        <div className="flex items-center justify-between gap-3 mb-2">
+          <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3]">
+            Pipeline stage
+          </span>
+          <select
+            value={crmStatus}
+            onChange={(e) => setCrm(e.target.value as CrmStatus)}
             disabled={crmSaving}
-            className="flex-1 bg-[#0A0A0A] text-white text-xs font-medium rounded-lg px-3 py-2 hover:bg-[#1A1A1A] transition-colors disabled:opacity-40"
+            className="bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] text-xs px-2 py-1.5 outline-none focus:border-black/[0.3] transition-colors cursor-pointer disabled:opacity-40"
           >
-            + Add to outreach
-          </button>
-        ) : (
-          <>
-            <span className={`flex-1 font-mono text-[10px] uppercase tracking-[0.12em] ${
-              crmStatus === "lost" ? "text-red-500" :
-              crmStatus === "paid" ? "text-emerald-600" :
-              "text-blue-600"
-            }`}>
-              In pipeline: {crmStatus.replace("_", " ")}
-            </span>
+            <option value="new">New</option>
+            <option value="outreached">Outreached</option>
+            <option value="responded">Responded</option>
+            <option value="mockup_revealed">Mockup Revealed</option>
+            <option value="build">Build</option>
+            <option value="quote">Quote</option>
+            <option value="paid">Paid</option>
+            <option value="lost">Lost</option>
+          </select>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          {crmStatus === "new" && (
             <button
-              onClick={() => setCrm("new" as CrmStatus)}
+              onClick={() => setCrm("outreached")}
               disabled={crmSaving}
-              className="text-[11px] text-[#A3A3A3] hover:text-red-500 transition-colors disabled:opacity-40"
+              className="bg-[#0A0A0A] text-white text-xs font-medium rounded-lg px-3 py-2 hover:bg-[#1A1A1A] transition-colors disabled:opacity-40"
             >
-              Remove
+              + Add to outreach
             </button>
-          </>
-        )}
+          )}
+          {crmStatus === "new" && p.mockup_url && (
+            <button
+              onClick={() => setCrm("mockup_revealed")}
+              disabled={crmSaving}
+              className="bg-amber-50 text-amber-700 border border-amber-200 text-xs font-medium rounded-lg px-3 py-2 hover:bg-amber-100 transition-colors disabled:opacity-40"
+            >
+              Reveal mockup
+            </button>
+          )}
+          {crmStatus === "outreached" && p.mockup_url && (
+            <button
+              onClick={() => setCrm("mockup_revealed")}
+              disabled={crmSaving}
+              className="bg-amber-50 text-amber-700 border border-amber-200 text-xs font-medium rounded-lg px-3 py-2 hover:bg-amber-100 transition-colors disabled:opacity-40"
+            >
+              Skip to mockup reveal
+            </button>
+          )}
+          {crmStatus === "outreached" && (
+            <button
+              onClick={() => setCrm("responded")}
+              disabled={crmSaving}
+              className="bg-violet-50 text-violet-700 border border-violet-200 text-xs font-medium rounded-lg px-3 py-2 hover:bg-violet-100 transition-colors disabled:opacity-40"
+            >
+              Mark responded
+            </button>
+          )}
+          {crmStatus !== "new" && crmStatus !== "lost" && crmStatus !== "paid" && (
+            <button
+              onClick={() => setCrm("lost")}
+              disabled={crmSaving}
+              className="text-[11px] text-[#A3A3A3] hover:text-red-500 transition-colors disabled:opacity-40 px-2 py-2"
+            >
+              Mark lost
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="flex-1 px-6 py-6 space-y-6">
@@ -630,6 +727,27 @@ function StatusBadge({ status }: { status: string }) {
   return (
     <span className={`inline-block border rounded px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.12em] ${s}`}>
       {status}
+    </span>
+  )
+}
+
+function CrmStatusBadge({ status }: { status: CrmStatus | null }) {
+  const styles: Record<string, string> = {
+    new:             "bg-black/[0.04] text-[#525252] border-black/[0.08]",
+    outreached:      "bg-blue-50 text-blue-600 border-blue-100",
+    responded:       "bg-violet-50 text-violet-600 border-violet-100",
+    mockup_revealed: "bg-amber-50 text-amber-600 border-amber-100",
+    build:           "bg-orange-50 text-orange-600 border-orange-100",
+    quote:           "bg-emerald-50 text-emerald-600 border-emerald-100",
+    paid:            "bg-emerald-100 text-emerald-700 border-emerald-200",
+    lost:            "bg-red-50 text-red-500 border-red-100",
+  }
+  const key = status ?? "new"
+  const s = styles[key] ?? styles.new
+  const label = key.replace(/_/g, " ")
+  return (
+    <span className={`inline-block border rounded px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.12em] ${s}`}>
+      {label}
     </span>
   )
 }

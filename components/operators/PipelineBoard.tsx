@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useMemo } from "react"
 import { supabase } from "@/lib/supabase"
 import type { CrmStatus } from "@/lib/supabase"
 
@@ -79,6 +79,11 @@ export default function PipelineBoard() {
   const [addForm, setAddForm] = useState(EMPTY_FORM)
   const [addSaving, setAddSaving] = useState(false)
   const [addError, setAddError] = useState<string | null>(null)
+  const [search, setSearch] = useState("")
+  const [cityFilter, setCityFilter] = useState<string>("All")
+  const [mockupFilter, setMockupFilter] = useState<"all" | "ready" | "none">("all")
+  const [reviewPageFilter, setReviewPageFilter] = useState<"all" | "ready" | "none">("all")
+  const [stageFilter, setStageFilter] = useState<CrmStatus | "all">("all")
 
   function getMockupUrls(p: PipelineProspect): string[] {
     if (p.mockup_urls && p.mockup_urls.length > 0) return p.mockup_urls
@@ -117,22 +122,35 @@ export default function PipelineBoard() {
 
   async function load() {
     setLoading(true)
+    // Active pipeline: any stage except new/lost. NULL crm_status is treated as "new" and fetched separately.
     const { data } = await supabase
       .from("prospects")
       .select("id, place_id, name, city, category, site_score, review_slug, website, mockup_url, mockup_urls, crm_status, contacted_at, mockup_revealed_at, status_updated_at")
       .neq("crm_status", "new")
+      .neq("crm_status", "lost")
       .order("status_updated_at", { ascending: false })
       .limit(500)
 
+    // New/incoming: include NULL crm_status and unscored prospects so mockups never disappear.
     const { data: newData } = await supabase
       .from("prospects")
       .select("id, place_id, name, city, category, site_score, review_slug, website, mockup_url, mockup_urls, crm_status, contacted_at, mockup_revealed_at, status_updated_at")
-      .eq("crm_status", "new")
-      .not("site_score", "is", null)
-      .order("site_score", { ascending: false })
-      .limit(100)
+      .or("crm_status.eq.new,crm_status.is.null")
+      .order("site_score", { ascending: false, nullsFirst: false })
+      .limit(1000)
 
-    setProspects([...(data || []), ...(newData || [])] as PipelineProspect[])
+    const normalized = [...(data || []), ...(newData || [])].map((p) => ({
+      ...p,
+      crm_status: (p.crm_status ?? "new") as CrmStatus,
+    })) as PipelineProspect[]
+
+    // Deduplicate in case a record matches both queries
+    const seen = new Set<string>()
+    setProspects(normalized.filter((p) => {
+      if (seen.has(p.place_id)) return false
+      seen.add(p.place_id)
+      return true
+    }))
     setLoading(false)
   }
 
@@ -222,12 +240,41 @@ export default function PipelineBoard() {
   }
   // ───────────────────────────────────────────────────────────────
 
-  const byStage = (stage: CrmStatus) => prospects.filter(p => p.crm_status === stage)
-  const counts = Object.fromEntries(STAGES.map(s => [s.key, byStage(s.key).length])) as Record<CrmStatus, number>
-  const totalActive = STAGES.filter(s => s.key !== "lost").reduce((sum, s) => sum + counts[s.key], 0)
-  const responseRate = counts.outreached > 0 ? Math.round((counts.responded / counts.outreached) * 100) : null
-  const revealRate = counts.responded > 0 ? Math.round((counts.mockup_revealed / counts.responded) * 100) : null
-  const convertRate = counts.mockup_revealed > 0 ? Math.round((counts.build / counts.mockup_revealed) * 100) : null
+  const cities = useMemo(() => {
+    const cs = Array.from(new Set(prospects.map((p) => p.city).filter(Boolean))) as string[]
+    return ["All", ...cs.sort()]
+  }, [prospects])
+
+  const filteredProspects = useMemo(() => {
+    return prospects.filter((p) => {
+      if (stageFilter !== "all" && p.crm_status !== stageFilter) return false
+      if (cityFilter !== "All" && p.city !== cityFilter) return false
+      const hasMockupImage = !!p.mockup_url
+      const hasReviewPage = !!p.review_slug
+      if (mockupFilter === "ready" && !hasMockupImage) return false
+      if (mockupFilter === "none" && hasMockupImage) return false
+      if (reviewPageFilter === "ready" && !hasReviewPage) return false
+      if (reviewPageFilter === "none" && hasReviewPage) return false
+      if (search.trim()) {
+        const q = search.toLowerCase()
+        const match =
+          p.name?.toLowerCase().includes(q) ||
+          p.category?.toLowerCase().includes(q) ||
+          p.city?.toLowerCase().includes(q)
+        if (!match) return false
+      }
+      return true
+    })
+  }, [prospects, search, cityFilter, mockupFilter, reviewPageFilter, stageFilter])
+
+  const allByStage = (stage: CrmStatus) => prospects.filter(p => p.crm_status === stage)
+  const allCounts = Object.fromEntries(STAGES.map(s => [s.key, allByStage(s.key).length])) as Record<CrmStatus, number>
+  const totalActive = STAGES.filter(s => s.key !== "lost").reduce((sum, s) => sum + allCounts[s.key], 0)
+  const responseRate = allCounts.outreached > 0 ? Math.round((allCounts.responded / allCounts.outreached) * 100) : null
+  const revealRate = allCounts.responded > 0 ? Math.round((allCounts.mockup_revealed / allCounts.responded) * 100) : null
+  const convertRate = allCounts.mockup_revealed > 0 ? Math.round((allCounts.build / allCounts.mockup_revealed) * 100) : null
+
+  const byStage = (stage: CrmStatus) => filteredProspects.filter(p => p.crm_status === stage)
 
   if (loading) {
     return (
@@ -248,8 +295,8 @@ export default function PipelineBoard() {
         <Metric label="Reveal rate" value={revealRate !== null ? `${revealRate}%` : "—"} />
         <Metric label="Convert rate" value={convertRate !== null ? `${convertRate}%` : "—"} />
         <MetricDivider />
-        <Metric label="Paid" value={counts.paid} highlight />
-        <Metric label="Lost" value={counts.lost} muted />
+        <Metric label="Paid" value={allCounts.paid} highlight />
+        <Metric label="Lost" value={allCounts.lost} muted />
         <div className="ml-auto shrink-0">
           <button
             onClick={() => { setShowAddForm(v => !v); setAddForm(EMPTY_FORM); setAddError(null) }}
@@ -258,6 +305,68 @@ export default function PipelineBoard() {
             + Add prospect
           </button>
         </div>
+      </div>
+
+      {/* Filters bar */}
+      <div className="border-b border-black/[0.06] bg-[#FAFAFA] px-6 sm:px-10 py-3 flex flex-wrap items-center gap-3 shrink-0">
+        <input
+          type="text"
+          placeholder="Search pipeline…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="flex-1 min-w-[180px] max-w-xs bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] text-xs px-3 py-2 outline-none focus:border-black/[0.3] transition-colors placeholder:text-[#A3A3A3]"
+        />
+        <select
+          value={cityFilter}
+          onChange={(e) => setCityFilter(e.target.value)}
+          className="bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] text-xs px-3 py-2 outline-none focus:border-black/[0.3] transition-colors appearance-none cursor-pointer"
+        >
+          {cities.map((c) => <option key={c} value={c}>{c === "All" ? "All cities" : c}</option>)}
+        </select>
+        <select
+          value={mockupFilter}
+          onChange={(e) => setMockupFilter(e.target.value as "all" | "ready" | "none")}
+          className="bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] text-xs px-3 py-2 outline-none focus:border-black/[0.3] transition-colors appearance-none cursor-pointer"
+        >
+          <option value="all">Any mockup image</option>
+          <option value="ready">Has mockup image</option>
+          <option value="none">No mockup image</option>
+        </select>
+        <select
+          value={reviewPageFilter}
+          onChange={(e) => setReviewPageFilter(e.target.value as "all" | "ready" | "none")}
+          className="bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] text-xs px-3 py-2 outline-none focus:border-black/[0.3] transition-colors appearance-none cursor-pointer"
+        >
+          <option value="all">Any review page</option>
+          <option value="ready">Has review page</option>
+          <option value="none">No review page</option>
+        </select>
+        <select
+          value={stageFilter}
+          onChange={(e) => setStageFilter(e.target.value as CrmStatus | "all")}
+          className="bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] text-xs px-3 py-2 outline-none focus:border-black/[0.3] transition-colors appearance-none cursor-pointer"
+        >
+          <option value="all">All stages</option>
+          <option value="new">New</option>
+          <option value="outreached">Outreached</option>
+          <option value="responded">Responded</option>
+          <option value="mockup_revealed">Mockup Revealed</option>
+          <option value="build">Build</option>
+          <option value="quote">Quote</option>
+          <option value="paid">Paid</option>
+          <option value="lost">Lost</option>
+        </select>
+        {(search || cityFilter !== "All" || mockupFilter !== "all" || reviewPageFilter !== "all" || stageFilter !== "all") && (
+          <button
+            onClick={() => { setSearch(""); setCityFilter("All"); setMockupFilter("all"); setReviewPageFilter("all"); setStageFilter("all") }}
+            className="text-xs text-[#A3A3A3] hover:text-[#525252] transition-colors"
+          >
+            Clear filters
+          </button>
+        )}
+        <span className="ml-auto font-mono text-[10px] text-[#A3A3A3]">
+          {filteredProspects.length} shown
+        </span>
       </div>
 
       {/* Add prospect form */}
@@ -389,6 +498,11 @@ export default function PipelineBoard() {
                           mockup ready
                         </span>
                       )}
+                      {p.review_slug && !p.mockup_url && (
+                        <span className="mt-1 inline-block font-mono text-[9px] text-blue-600 uppercase tracking-wide pointer-events-none">
+                          review page
+                        </span>
+                      )}
                       {p.status_updated_at && (
                         <p className="mt-1 font-mono text-[9px] text-[#C4C4C4] pointer-events-none">
                           {timeAgo(p.status_updated_at)}
@@ -412,123 +526,126 @@ export default function PipelineBoard() {
       </div>
 
       {/* Detail drawer */}
-      {selected && (
-        <div className="shrink-0 border-t border-black/[0.06] bg-white px-6 sm:px-10 py-5 flex flex-col sm:flex-row gap-6">
+      {selected && (() => {
+        const s = selected!
+        return (
+          <div className="shrink-0 border-t border-black/[0.06] bg-white px-6 sm:px-10 py-5 flex flex-col sm:flex-row gap-6">
 
-          {/* Identity */}
-          <div className="flex-1 min-w-0">
-            <p className="font-sans font-bold text-[#0A0A0A] text-base leading-tight truncate">{selected.name}</p>
-            <p className="text-sm text-[#737373] mt-0.5">{selected.city}{selected.category ? ` · ${selected.category}` : ""}</p>
-            {selected.website && (
-              <a
-                href={selected.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-1 inline-block font-mono text-[11px] text-[#737373] hover:text-[#0A0A0A] transition-colors"
-              >
-                {selected.website.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")} ↗
-              </a>
-            )}
-            {selected.review_slug && (
-              <a
-                href={`/review?slug=${selected.review_slug}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-1 inline-block font-mono text-[11px] text-blue-600 hover:underline"
-              >
-                /review/{selected.review_slug} ↗
-              </a>
-            )}
-            {selected.mockup_revealed_at && (
-              <p className="mt-1 text-[11px] text-amber-600 font-mono">Mockup revealed {timeAgo(selected.mockup_revealed_at)}</p>
-            )}
-          </div>
-
-          {/* Mockup URLs */}
-          <div className="flex-1 min-w-0">
-            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-2">
-              Mockup screens ({getMockupUrls(selected).length})
-            </p>
-            {/* Existing URLs */}
-            {getMockupUrls(selected).length > 0 && (
-              <ul className="space-y-1 mb-2">
-                {getMockupUrls(selected).map((url, i) => (
-                  <li key={i} className="flex items-center gap-2 bg-[#FAFAFA] border border-black/[0.06] rounded-lg px-3 py-1.5">
-                    <span className="font-mono text-[10px] text-[#A3A3A3] shrink-0">#{i + 1}</span>
-                    <span className="flex-1 text-xs font-mono text-[#525252] truncate">{url.replace(/^https?:\/\//, "").slice(0, 48)}…</span>
-                    <button
-                      onClick={() => removeMockupUrl(selected, i)}
-                      disabled={saving}
-                      className="shrink-0 text-[#C4C4C4] hover:text-red-500 transition-colors text-xs leading-none"
-                      title="Remove"
-                    >
-                      ×
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-            {/* Add URL */}
-            <div className="flex gap-2">
-              <input
-                value={mockupInput}
-                onChange={e => setMockupInput(e.target.value)}
-                onKeyDown={e => { if (e.key === "Enter") addMockupUrl(selected) }}
-                placeholder="https://… paste and press Enter"
-                className="flex-1 bg-[#FAFAFA] border border-black/[0.08] rounded-lg px-3 py-2 text-sm font-mono text-[#0A0A0A] placeholder:text-[#C4C4C4] focus:outline-none focus:ring-1 focus:ring-black/20 min-w-0"
-              />
-              <button
-                onClick={() => addMockupUrl(selected)}
-                disabled={saving || !mockupInput.trim()}
-                className="px-3 py-2 bg-[#0A0A0A] text-white text-xs font-medium rounded-lg disabled:opacity-40 transition-opacity hover:bg-[#1A1A1A]"
-              >
-                Add
-              </button>
+            {/* Identity */}
+            <div className="flex-1 min-w-0">
+              <p className="font-sans font-bold text-[#0A0A0A] text-base leading-tight truncate">{s.name}</p>
+              <p className="text-sm text-[#737373] mt-0.5">{s.city}{s.category ? ` · ${s.category}` : ""}</p>
+              {s.website && (
+                <a
+                  href={s.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 inline-block font-mono text-[11px] text-[#737373] hover:text-[#0A0A0A] transition-colors"
+                >
+                  {s.website.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")} ↗
+                </a>
+              )}
+              {s.review_slug && (
+                <a
+                  href={`/review?slug=${s.review_slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 inline-block font-mono text-[11px] text-blue-600 hover:underline"
+                >
+                  /review/{s.review_slug} ↗
+                </a>
+              )}
+              {s.mockup_revealed_at && (
+                <p className="mt-1 text-[11px] text-amber-600 font-mono">Mockup revealed {timeAgo(s.mockup_revealed_at)}</p>
+              )}
             </div>
-          </div>
 
-          {/* Stage controls */}
-          <div className="flex-1 min-w-0">
-            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-2">Move stage</p>
-            <div className="flex flex-wrap gap-2">
-              {NEXT_STAGE[selected.crm_status] && (
-                <button
-                  onClick={() => updateStatus(selected, NEXT_STAGE[selected.crm_status]!)}
-                  disabled={saving}
-                  className="px-3 py-1.5 bg-[#0A0A0A] text-white text-xs font-medium rounded-lg disabled:opacity-40 hover:bg-[#1A1A1A] transition-colors"
-                >
-                  → {STAGES.find(s => s.key === NEXT_STAGE[selected.crm_status])?.label}
-                </button>
+            {/* Mockup URLs */}
+            <div className="flex-1 min-w-0">
+              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-2">
+                Mockup screens ({getMockupUrls(s).length})
+              </p>
+              {/* Existing URLs */}
+              {getMockupUrls(s).length > 0 && (
+                <ul className="space-y-1 mb-2">
+                  {getMockupUrls(s).map((url, i) => (
+                    <li key={i} className="flex items-center gap-2 bg-[#FAFAFA] border border-black/[0.06] rounded-lg px-3 py-1.5">
+                      <span className="font-mono text-[10px] text-[#A3A3A3] shrink-0">#{i + 1}</span>
+                      <span className="flex-1 text-xs font-mono text-[#525252] truncate">{url.replace(/^https?:\/\//, "").slice(0, 48)}…</span>
+                      <button
+                        onClick={() => removeMockupUrl(s, i)}
+                        disabled={saving}
+                        className="shrink-0 text-[#C4C4C4] hover:text-red-500 transition-colors text-xs leading-none"
+                        title="Remove"
+                      >
+                        ×
+                      </button>
+                    </li>
+                  ))}
+                </ul>
               )}
-              {PREV_STAGE[selected.crm_status] && (
+              {/* Add URL */}
+              <div className="flex gap-2">
+                <input
+                  value={mockupInput}
+                  onChange={e => setMockupInput(e.target.value)}
+                  onKeyDown={e => { if (e.key === "Enter") addMockupUrl(s) }}
+                  placeholder="https://… paste and press Enter"
+                  className="flex-1 bg-[#FAFAFA] border border-black/[0.08] rounded-lg px-3 py-2 text-sm font-mono text-[#0A0A0A] placeholder:text-[#C4C4C4] focus:outline-none focus:ring-1 focus:ring-black/20 min-w-0"
+                />
                 <button
-                  onClick={() => updateStatus(selected, PREV_STAGE[selected.crm_status]!)}
-                  disabled={saving}
-                  className="px-3 py-1.5 bg-[#F5F5F5] text-[#525252] border border-black/[0.08] text-xs font-medium rounded-lg disabled:opacity-40 hover:bg-black/[0.06] transition-colors"
+                  onClick={() => addMockupUrl(s)}
+                  disabled={saving || !mockupInput.trim()}
+                  className="px-3 py-2 bg-[#0A0A0A] text-white text-xs font-medium rounded-lg disabled:opacity-40 transition-opacity hover:bg-[#1A1A1A]"
                 >
-                  ← {STAGES.find(s => s.key === PREV_STAGE[selected.crm_status])?.label}
+                  Add
                 </button>
-              )}
-              {selected.crm_status !== "lost" && selected.crm_status !== "paid" && (
-                <button
-                  onClick={() => updateStatus(selected, "lost")}
-                  disabled={saving}
-                  className="px-3 py-1.5 bg-red-50 text-red-600 border border-red-100 text-xs font-medium rounded-lg disabled:opacity-40 hover:bg-red-100 transition-colors"
-                >
-                  Mark lost
-                </button>
-              )}
-              <button
-                onClick={() => setSelected(null)}
-                className="px-3 py-1.5 text-[#A3A3A3] text-xs hover:text-[#525252] transition-colors"
-              >
-                Dismiss
-              </button>
+              </div>
             </div>
-          </div>
 
-        </div>
-      )}
+            {/* Stage controls */}
+            <div className="flex-1 min-w-0">
+              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-2">Move stage</p>
+              <div className="flex flex-wrap gap-2">
+                {NEXT_STAGE[s.crm_status] && (
+                  <button
+                    onClick={() => updateStatus(s, NEXT_STAGE[s.crm_status]!)}
+                    disabled={saving}
+                    className="px-3 py-1.5 bg-[#0A0A0A] text-white text-xs font-medium rounded-lg disabled:opacity-40 hover:bg-[#1A1A1A] transition-colors"
+                  >
+                    → {STAGES.find(st => st.key === NEXT_STAGE[s.crm_status])?.label}
+                  </button>
+                )}
+                {PREV_STAGE[s.crm_status] && (
+                  <button
+                    onClick={() => updateStatus(s, PREV_STAGE[s.crm_status]!)}
+                    disabled={saving}
+                    className="px-3 py-1.5 bg-[#F5F5F5] text-[#525252] border border-black/[0.08] text-xs font-medium rounded-lg disabled:opacity-40 hover:bg-black/[0.06] transition-colors"
+                  >
+                    ← {STAGES.find(st => st.key === PREV_STAGE[s.crm_status])?.label}
+                  </button>
+                )}
+                {s.crm_status !== "lost" && s.crm_status !== "paid" && (
+                  <button
+                    onClick={() => updateStatus(s, "lost")}
+                    disabled={saving}
+                    className="px-3 py-1.5 bg-red-50 text-red-600 border border-red-100 text-xs font-medium rounded-lg disabled:opacity-40 hover:bg-red-100 transition-colors"
+                  >
+                    Mark lost
+                  </button>
+                )}
+                <button
+                  onClick={() => setSelected(null)}
+                  className="px-3 py-1.5 text-[#A3A3A3] text-xs hover:text-[#525252] transition-colors"
+                >
+                  Dismiss
+                </button>
+              </div>
+            </div>
+
+          </div>
+        )
+      })()}
     </div>
   )
 }
