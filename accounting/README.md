@@ -21,12 +21,12 @@ The dashboard tries to fetch live balances from supplier APIs when keys are conf
 
 | Supplier | Env var needed | Notes |
 |---|---|---|
-| Apify | `APIFY_API_TOKEN` | Fetched from Apify `/v2/users/me` |
+| Apify | `APIFY_API_TOKEN` | Fetched from Apify `/v2/users/me` and `/v2/users/me/usage/monthly`. Remaining credit = monthly plan credit minus current usage. |
 | OpenAI API | `OPENAI_API_KEY` | OpenAI does not expose a secret-key billing endpoint; status will show as unavailable unless a usage-scoped key is provided |
 | Claude / Anthropic | `ANTHROPIC_API_KEY` | No public balance endpoint; configure manually |
 | ChatGPT Plus | — | No API available; add as fixed monthly cost |
 | Screenshot API | — | Fixed monthly cost |
-| Devin Pro | — | Add fixed monthly cost when known |
+| Devin Pro | — | Fixed monthly cost; no balance API available |
 
 When a supplier key is missing or the API cannot return a balance, the dashboard falls back to configured data from `cost-config.json`. You can also click any balance in the Supplier balances card to set a manual value. Manual values are saved in browser localStorage under `sorted_supplier_balances`.
 

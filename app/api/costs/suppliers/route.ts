@@ -28,17 +28,29 @@ const { suppliers: baseSuppliers } = costConfig as unknown as CostConfig
 
 async function fetchApifyBalance(token: string): Promise<{ balance: number | null; status: Supplier["balanceStatus"] }> {
   try {
-    const res = await fetch("https://api.apify.com/v2/users/me", {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    if (!res.ok) {
-      if (res.status === 401) return { balance: null, status: "no-key" }
+    // Apify splits account info and usage into two endpoints.
+    const [meRes, usageRes] = await Promise.all([
+      fetch("https://api.apify.com/v2/users/me", { headers: { Authorization: `Bearer ${token}` } }),
+      fetch("https://api.apify.com/v2/users/me/usage/monthly", { headers: { Authorization: `Bearer ${token}` } }),
+    ])
+
+    if (!meRes.ok || !usageRes.ok) {
+      if (meRes.status === 401 || usageRes.status === 401) return { balance: null, status: "no-key" }
       return { balance: null, status: "unknown" }
     }
-    const data = await res.json()
-    const current = data?.data?.currentBillingPeriod?.usage?.totalPriceUsd ?? data?.data?.usageTotalUsd ?? null
-    const balance = typeof current === "number" ? current : null
-    return { balance, status: "live" }
+
+    const me = await meRes.json()
+    const usage = await usageRes.json()
+
+    const monthlyCredits = me?.data?.plan?.monthlyUsageCreditsUsd ?? null
+    const used = usage?.data?.totalUsageCreditsUsdAfterVolumeDiscount ?? null
+
+    if (typeof monthlyCredits !== "number" || typeof used !== "number") {
+      return { balance: null, status: "unknown" }
+    }
+
+    const remaining = Math.max(0, monthlyCredits - used)
+    return { balance: remaining, status: "live" }
   } catch {
     return { balance: null, status: "unknown" }
   }

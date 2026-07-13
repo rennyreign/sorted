@@ -72,13 +72,13 @@
       "id": "devin-pro",
       "name": "Devin Pro",
       "category": "subscription",
-      "monthlyCost": null,
+      "monthlyCost": 18,
       "currency": "USD",
       "balance": null,
       "topUpThreshold": null,
       "unitLabel": null,
       "apiKeyEnv": null,
-      "notes": "Monthly Devin subscription — add fixed cost when known. No balance API available."
+      "notes": "Monthly Devin subscription. No balance API available."
     }
   ],
   "nodStages": [
