@@ -173,8 +173,6 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
                       const dashIdx = weakness.search(/ [—–-] /)
                       const title = dashIdx > -1
                         ? weakness.slice(0, dashIdx).replace(/\.$/, "")
-                        : weakness.length > 80
-                        ? weakness.slice(0, 80).replace(/\s\S+$/, "") + "…"
                         : weakness.replace(/\.$/, "")
                       const detail = dashIdx > -1
                         ? weakness.slice(dashIdx).replace(/^ [—–-] /, "")
