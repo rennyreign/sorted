@@ -80,7 +80,7 @@ export default function IntakeAgent() {
             Get sorted
           </span>
           <h2 className="font-sans font-extrabold text-[#0A0A0A] text-4xl lg:text-5xl leading-tight tracking-tight">
-            Everything starts with your website.
+            Let's start with your website.
           </h2>
         </div>
 

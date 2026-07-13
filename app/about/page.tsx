@@ -46,7 +46,7 @@ export default function AboutPage() {
 
             <div className="space-y-5 text-[#525252] text-base leading-relaxed">
               <p className="font-sans font-bold text-[#0A0A0A] text-2xl leading-snug tracking-tight mb-6">
-                We modernize small businesses one step at a time.
+                We make small businesses easy to find, easy to trust, easy to contact, and easy to buy from — one step at a time.
               </p>
               <p>
                 We built <span className="font-extrabold tracking-tight text-[#0A0A0A]">Sorted.</span> for businesses that know they need to improve, but do not want a six-month agency engagement or the frustration of figuring it out themselves.

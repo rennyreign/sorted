@@ -12,7 +12,7 @@ export default function Hero() {
 
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 border-t border-black/10 pt-8">
         <p className="text-[#525252] text-lg font-medium leading-relaxed max-w-md">
-          We help small businesses modernize their digital presence and customer journey. Starting with their website.
+          We rebuild your website before you spend a penny. Then we modernize the rest.
         </p>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
