@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "updated_at": "2026-07-13",
+    "currency": "USD",
+    "note": "Fixed and variable costs for the Sorted manufacturing line. Supplier balances are optional — live values will be fetched when API keys are configured; otherwise the dashboard falls back to these configured estimates."
+  },
+  "suppliers": [
+    {
+      "id": "chatgpt-plus",
+      "name": "ChatGPT Plus",
+      "category": "subscription",
+      "monthlyCost": 20,
+      "currency": "USD",
+      "balance": null,
+      "topUpThreshold": null,
+      "unitLabel": null,
+      "apiKeyEnv": null,
+      "notes": "Monthly subscription — approx $20/£16. No balance API available."
+    },
+    {
+      "id": "apify",
+      "name": "Apify",
+      "category": "usage",
+      "monthlyCost": null,
+      "unitCost": 0.16,
+      "unitLabel": "map run",
+      "resultsPerUnit": 40,
+      "costPerResult": 0.004,
+      "currency": "USD",
+      "balance": null,
+      "topUpThreshold": 5,
+      "apiKeyEnv": "APIFY_API_TOKEN",
+      "notes": "Google Maps Scraper. $0.16 per run / $0.004 per result (40 results/run)."
+    },
+    {
+      "id": "screenshot-api",
+      "name": "Screenshot API",
+      "category": "subscription",
+      "monthlyCost": 20.26,
+      "currency": "USD",
+      "balance": null,
+      "topUpThreshold": null,
+      "unitLabel": null,
+      "apiKeyEnv": null,
+      "notes": "Fixed monthly screenshot service."
+    },
+    {
+      "id": "openai",
+      "name": "OpenAI API",
+      "category": "usage",
+      "monthlyCost": null,
+      "currency": "USD",
+      "balance": null,
+      "topUpThreshold": 10,
+      "unitLabel": "token spend",
+      "apiKeyEnv": "OPENAI_API_KEY",
+      "notes": "Vision, GPT-4o mini, image generation. Live balance fetched when API key has usage scope."
+    },
+    {
+      "id": "anthropic",
+      "name": "Claude / Anthropic",
+      "category": "usage",
+      "monthlyCost": null,
+      "currency": "USD",
+      "balance": null,
+      "topUpThreshold": 10,
+      "unitLabel": "token spend",
+      "apiKeyEnv": "ANTHROPIC_API_KEY",
+      "notes": "Claude Vision scoring, frontend code generation."
+    },
+    {
+      "id": "devin-pro",
+      "name": "Devin Pro",
+      "category": "subscription",
+      "monthlyCost": 18,
+      "currency": "USD",
+      "balance": null,
+      "topUpThreshold": null,
+      "unitLabel": null,
+      "apiKeyEnv": null,
+      "notes": "Monthly Devin subscription. No balance API available."
+    }
+  ],
+  "nodStages": [
+    { "key": "mockup_revealed", "label": "Mockup reveal", "description": "Prospect clicked Reveal on the review page" },
+    { "key": "build", "label": "Build request", "description": "Prospect asked to proceed with the full site build" },
+    { "key": "quote", "label": "Quote request", "description": "Prospect requested a formal quote" },
+    { "key": "paid", "label": "Sale", "description": "Payment received / deal closed" }
+  ],
+  "costAllocation": {
+    "fixedOverheadRatio": 1,
+    "notes": "All monthly costs are allocated evenly across the pipeline. Variable costs (Apify, OpenAI, Claude) are added as they occur."
+  }
+}
