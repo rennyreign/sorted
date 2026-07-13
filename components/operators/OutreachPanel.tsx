@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react"
 import { supabase } from "@/lib/supabase"
-import type { Prospect } from "@/lib/supabase"
+import type { Prospect, CrmStatus } from "@/lib/supabase"
 
 type DraftState = "idle" | "generating" | "ready" | "sending" | "sent" | "error"
 type NoteState = "idle" | "saving" | "saved"
@@ -47,7 +47,9 @@ export default function OutreachPanel() {
   const [draft, setDraft] = useState<EmailDraft | null>(null)
   const [draftState, setDraftState] = useState<DraftState>("idle")
   const [gmailConnected, setGmailConnected] = useState<boolean | null>(null)
-  const [filter, setFilter] = useState<"ready" | "queued" | "all">("ready")
+  const [filter, setFilter] = useState<"ready" | "queued" | "unscored" | "all">("ready")
+  const [crmFilter, setCrmFilter] = useState<"all" | CrmStatus>("all")
+  const [search, setSearch] = useState("")
   const [editedSubject, setEditedSubject] = useState("")
   const [editedBody, setEditedBody] = useState("")
   const [noteText, setNoteText] = useState("")
@@ -67,29 +69,45 @@ export default function OutreachPanel() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Load analysed prospects
+  // Load prospects for outreach — include unscored and mockup-ready records so nothing disappears.
   useEffect(() => {
     async function load() {
       setLoading(true)
       const { data } = await supabase
         .from("prospects")
         .select("*")
-        .not("site_score", "is", null)
-        .neq("crm_status", "lost")
-        .order("site_score", { ascending: false })
-        .limit(200)
+        .or("crm_status.neq.lost,crm_status.is.null")
+        .order("site_score", { ascending: false, nullsFirst: false })
+        .limit(300)
       if (data) setProspects(data as Prospect[])
       setLoading(false)
     }
     load()
   }, [])
 
+  const normalizedProspects = useMemo(() => {
+    return prospects.map((p) => ({ ...p, crm_status: p.crm_status ?? "new" as CrmStatus }))
+  }, [prospects])
+
   const filtered = useMemo(() => {
-    if (filter === "all") return prospects
-    if (filter === "ready") return prospects.filter((p) => !!p.review_slug)
-    if (filter === "queued") return prospects.filter((p) => !p.review_slug)
-    return prospects
-  }, [prospects, filter])
+    const hasMockup = (p: Prospect) => !!p.mockup_url || !!p.review_slug
+    return normalizedProspects.filter((p) => {
+      if (filter === "ready" && !hasMockup(p)) return false
+      if (filter === "queued" && hasMockup(p)) return false
+      if (filter === "unscored" && p.site_score != null) return false
+      if (crmFilter !== "all" && p.crm_status !== crmFilter) return false
+      if (search.trim()) {
+        const q = search.toLowerCase()
+        const match =
+          p.name?.toLowerCase().includes(q) ||
+          p.category?.toLowerCase().includes(q) ||
+          p.city?.toLowerCase().includes(q) ||
+          p.website?.toLowerCase().includes(q)
+        if (!match) return false
+      }
+      return true
+    })
+  }, [normalizedProspects, filter, crmFilter, search])
 
   function selectProspect(p: Prospect) {
     setSelected(p)
@@ -155,16 +173,22 @@ export default function OutreachPanel() {
       if (!res.ok) throw new Error(await res.text())
       setDraftState("sent")
 
-      // Mark as contacted in Supabase
+      // Mark as contacted/outreached in Supabase
       await supabase
         .from("prospects")
-        .update({ status: "contacted" })
+        .update({
+          status: "contacted",
+          crm_status: "outreached",
+          contacted_at: new Date().toISOString(),
+        })
         .eq("place_id", selected.place_id)
 
       // Update local state
       setProspects((prev) =>
         prev.map((p) =>
-          p.place_id === selected.place_id ? { ...p, status: "contacted" } : p
+          p.place_id === selected.place_id
+            ? { ...p, status: "contacted", crm_status: "outreached", contacted_at: new Date().toISOString() }
+            : p
         )
       )
     } catch (err) {
@@ -177,11 +201,15 @@ export default function OutreachPanel() {
     window.location.href = `${apiBase}/api/gmail/auth`
   }
 
-  const counts = useMemo(() => ({
-    ready: prospects.filter((p) => !!p.review_slug).length,
-    queued: prospects.filter((p) => !p.review_slug).length,
-    all: prospects.length,
-  }), [prospects])
+  const counts = useMemo(() => {
+    const hasMockup = (p: Prospect) => !!p.mockup_url || !!p.review_slug
+    return {
+      ready: prospects.filter((p) => hasMockup(p)).length,
+      queued: prospects.filter((p) => !hasMockup(p)).length,
+      unscored: prospects.filter((p) => p.site_score == null).length,
+      all: prospects.length,
+    }
+  }, [prospects])
 
   return (
     <div className="flex h-[calc(100dvh-3.5rem)]">
@@ -193,9 +221,18 @@ export default function OutreachPanel() {
             Outreach Queue
           </p>
 
+          {/* Search */}
+          <input
+            type="text"
+            placeholder="Search outreach…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] text-xs px-3 py-2 mb-3 outline-none focus:border-black/[0.3] transition-colors placeholder:text-[#A3A3A3]"
+          />
+
           {/* Filter tabs */}
-          <div className="flex gap-1">
-            {(["ready", "queued", "all"] as const).map((f) => (
+          <div className="flex gap-1 mb-3">
+            {(["ready", "queued", "unscored", "all"] as const).map((f) => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}
@@ -205,10 +242,29 @@ export default function OutreachPanel() {
                     : "text-[#737373] hover:text-[#0A0A0A] hover:bg-black/[0.05]"
                 }`}
               >
-                {f === "ready" ? `Ready (${counts.ready})` : f === "queued" ? `Queued (${counts.queued})` : `All (${counts.all})`}
+                {f === "ready" ? `Ready (${counts.ready})` :
+                 f === "queued" ? `Queued (${counts.queued})` :
+                 f === "unscored" ? `Unscored (${counts.unscored})` :
+                 `All (${counts.all})`}
               </button>
             ))}
           </div>
+
+          {/* CRM stage filter */}
+          <select
+            value={crmFilter}
+            onChange={(e) => setCrmFilter(e.target.value as "all" | CrmStatus)}
+            className="w-full bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] text-xs px-3 py-2 outline-none focus:border-black/[0.3] transition-colors appearance-none cursor-pointer"
+          >
+            <option value="all">Any CRM stage</option>
+            <option value="new">New</option>
+            <option value="outreached">Outreached</option>
+            <option value="responded">Responded</option>
+            <option value="mockup_revealed">Mockup Revealed</option>
+            <option value="build">Build</option>
+            <option value="quote">Quote</option>
+            <option value="paid">Paid</option>
+          </select>
         </div>
 
         {loading ? (
@@ -252,11 +308,11 @@ export default function OutreachPanel() {
                 <div>
                   <div className="flex items-center gap-3 mb-2">
                     <span className={`inline-block border rounded-lg px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] font-semibold ${
-                      selected.review_slug
+                      selected.mockup_url || selected.review_slug
                         ? "bg-[#D1FAE5] text-[#065F46] border-[#A7F3D0]"
                         : "bg-[#FEF3C7] text-[#92400E] border-[#FDE68A]"
                     }`}>
-                      {selected.review_slug ? "Ready to send" : "No mockup yet"}
+                      {selected.mockup_url || selected.review_slug ? "Ready to send" : "No mockup yet"}
                     </span>
                   </div>
                   <h2 className="font-sans font-extrabold text-[#0A0A0A] text-2xl tracking-tight">{selected.name}</h2>
