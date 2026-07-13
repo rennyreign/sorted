@@ -26,11 +26,12 @@
       "unitCost": 0.16,
       "unitLabel": "map run",
       "resultsPerUnit": 40,
+      "costPerResult": 0.004,
       "currency": "USD",
       "balance": null,
       "topUpThreshold": 5,
       "apiKeyEnv": "APIFY_API_TOKEN",
-      "notes": "Google Maps Scraper. $0.16 per run, ~40 results per run."
+      "notes": "Google Maps Scraper. $0.16 per run / $0.004 per result (40 results/run)."
     },
     {
       "id": "screenshot-api",

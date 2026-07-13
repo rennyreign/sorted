@@ -14,6 +14,7 @@ interface CostConfigShape {
     monthlyCost: number | null
     unitCost: number | null
     resultsPerUnit: number | null
+    costPerResult: number | null
     balance: number | null
     balanceStatus?: string
   }[]
@@ -36,12 +37,19 @@ function getEstimatedVariableCost(
   const breakdown: Record<string, number> = {}
   let total = 0
   for (const s of suppliers) {
-    if (s.category !== "usage" || typeof s.unitCost !== "number") continue
-    let units = 0
-    if (s.id === "apify" && typeof s.resultsPerUnit === "number" && s.resultsPerUnit > 0) {
-      units = Math.ceil(totalProspects / s.resultsPerUnit)
+    if (s.category !== "usage") continue
+
+    // Prefer per-result pricing when available (e.g. Apify map results).
+    if (typeof s.costPerResult === "number") {
+      const cost = totalProspects * s.costPerResult
+      breakdown[s.id] = cost
+      total += cost
+      continue
     }
-    if (units > 0) {
+
+    // Fall back to per-unit pricing with results-per-unit.
+    if (typeof s.unitCost === "number" && typeof s.resultsPerUnit === "number" && s.resultsPerUnit > 0) {
+      const units = Math.ceil(totalProspects / s.resultsPerUnit)
       const cost = units * s.unitCost
       breakdown[s.id] = cost
       total += cost

@@ -24,6 +24,7 @@ interface Supplier {
   unitCost: number | null
   unitLabel: string | null
   resultsPerUnit: number | null
+  costPerResult: number | null
   currency: string
   balance: number | null
   balanceStatus: BalanceStatus
@@ -148,8 +149,16 @@ export default function CostDashboard() {
       const variableBreakdown: Record<string, number> = {}
       let estimatedVariableCost = 0
       for (const s of baseSuppliers) {
-        if (s.category !== "usage" || typeof s.unitCost !== "number") continue
-        if (s.id === "apify" && typeof s.resultsPerUnit === "number" && s.resultsPerUnit > 0) {
+        if (s.category !== "usage") continue
+
+        if (typeof s.costPerResult === "number") {
+          const cost = totalProspects * s.costPerResult
+          variableBreakdown[s.id] = cost
+          estimatedVariableCost += cost
+          continue
+        }
+
+        if (typeof s.unitCost === "number" && typeof s.resultsPerUnit === "number" && s.resultsPerUnit > 0) {
           const runs = Math.ceil(totalProspects / s.resultsPerUnit)
           const cost = runs * s.unitCost
           variableBreakdown[s.id] = cost
@@ -465,7 +474,8 @@ export default function CostDashboard() {
                     <td className="py-3 pr-4 text-right font-mono text-[#525252]">
                       {supplier.monthlyCost ? formatCurrency(supplier.monthlyCost) + "/mo" : null}
                       {supplier.unitCost ? `$${supplier.unitCost}/${supplier.unitLabel}` : null}
-                      {!supplier.monthlyCost && !supplier.unitCost ? "—" : null}
+                      {supplier.costPerResult ? ` · $${supplier.costPerResult.toFixed(3)}/result` : null}
+                      {!supplier.monthlyCost && !supplier.unitCost && !supplier.costPerResult ? "—" : null}
                     </td>
                     <td className="py-3 pr-4 text-right font-mono tabular-nums">
                       <span className={supplier.balance === null ? "text-[#A3A3A3]" : "text-[#0A0A0A] font-semibold"}>
@@ -576,6 +586,7 @@ function SupplierRow({
           {supplier.monthlyCost ? `${formatCurrency(supplier.monthlyCost)}/mo` : null}
           {supplier.unitCost ? ` $${supplier.unitCost}/${supplier.unitLabel}` : null}
           {supplier.resultsPerUnit ? ` · ${supplier.resultsPerUnit} results` : null}
+          {supplier.costPerResult ? ` · $${supplier.costPerResult.toFixed(3)} per result` : null}
           {supplier.notes ? ` · ${supplier.notes}` : ""}
         </p>
       </div>
