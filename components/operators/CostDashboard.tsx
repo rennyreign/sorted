@@ -241,6 +241,15 @@ export default function CostDashboard() {
   const averageCostPerProspect = activePipelineCount > 0 ? totalMonthlyCost / activePipelineCount : 0
   const variableBreakdown = pipelineData?.summary.variableBreakdown ?? {}
 
+  const counts = pipelineData?.counts ?? {}
+  const visitCount = (counts.responded || 0) > 0 ? counts.responded : counts.outreached || 0
+  const performanceRates = {
+    visitToReveal: visitCount > 0 ? ((counts.mockup_revealed || 0) / visitCount) * 100 : null,
+    revealToBuild: (counts.mockup_revealed || 0) > 0 ? ((counts.build || 0) / counts.mockup_revealed) * 100 : null,
+    buildToQuote: (counts.build || 0) > 0 ? ((counts.quote || 0) / counts.build) * 100 : null,
+    quoteToSale: (counts.quote || 0) > 0 ? ((counts.paid || 0) / counts.quote) * 100 : null,
+  }
+
   const maxCostPerNod = useMemo(() => {
     if (!pipelineData?.pipelineStages.length) return 0
     return Math.max(...pipelineData.pipelineStages.map((s) => s.costPerNod ?? 0), 1)
@@ -398,6 +407,35 @@ export default function CostDashboard() {
               Counts + conversion
             </span>
           </div>
+
+          {/* Performance rates */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <RateCard
+              label="Visit → reveal"
+              value={performanceRates.visitToReveal}
+              numerator={counts.mockup_revealed || 0}
+              denominator={visitCount}
+            />
+            <RateCard
+              label="Reveal → build"
+              value={performanceRates.revealToBuild}
+              numerator={counts.build || 0}
+              denominator={counts.mockup_revealed || 0}
+            />
+            <RateCard
+              label="Build → quote"
+              value={performanceRates.buildToQuote}
+              numerator={counts.quote || 0}
+              denominator={counts.build || 0}
+            />
+            <RateCard
+              label="Quote → sale"
+              value={performanceRates.quoteToSale}
+              numerator={counts.paid || 0}
+              denominator={counts.quote || 0}
+            />
+          </div>
+
           <FunnelChart stages={pipelineData?.pipelineStages ?? []} />
         </section>
 
@@ -457,7 +495,7 @@ function SummaryCard({
   icon: React.ReactNode
   label: string
   value: string
-  sub: string
+  sub: string | React.ReactNode
 }) {
   return (
     <div className="bg-white border border-black/[0.08] rounded-2xl p-5">
@@ -466,6 +504,35 @@ function SummaryCard({
         <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3]">{label}</span>
       </div>
       <p className="font-sans font-extrabold text-[#0A0A0A] text-2xl tracking-tight mb-1">{value}</p>
+      <p className="text-[11px] text-[#A3A3A3]">{sub}</p>
+    </div>
+  )
+}
+
+function RateCard({
+  label,
+  value,
+  numerator,
+  denominator,
+}: {
+  label: string
+  value: number | null
+  numerator: number
+  denominator: number
+}) {
+  const display = value !== null ? `${value.toFixed(1)}%` : "—"
+  const sub = denominator > 0 ? `${numerator} / ${denominator}` : "No data"
+  const color =
+    value === null ? "text-[#A3A3A3]" :
+    value >= 50 ? "text-emerald-600" :
+    value >= 20 ? "text-blue-600" :
+    value > 0 ? "text-amber-600" :
+    "text-[#A3A3A3]"
+
+  return (
+    <div className="bg-black/[0.02] border border-black/[0.06] rounded-xl p-4">
+      <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-2">{label}</p>
+      <p className={`font-sans font-bold text-xl tracking-tight mb-1 ${color}`}>{display}</p>
       <p className="text-[11px] text-[#A3A3A3]">{sub}</p>
     </div>
   )
