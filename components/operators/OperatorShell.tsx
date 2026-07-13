@@ -7,13 +7,18 @@ import OperatorOverview from "./OperatorOverview"
 import ProspectFeed from "./ProspectFeed"
 import OutreachPanel from "./OutreachPanel"
 import PipelineBoard from "./PipelineBoard"
+import CostDashboard from "./CostDashboard"
 
-type View = "login" | "overview" | "feed" | "outreach" | "pipeline"
+type View = "login" | "overview" | "feed" | "outreach" | "pipeline" | "costs"
 
 const VIEW_KEY = "sorted_operator_view"
-const VALID_VIEWS: View[] = ["overview", "feed", "outreach", "pipeline"]
+const VALID_VIEWS: View[] = ["overview", "feed", "outreach", "pipeline", "costs"]
 
-export default function OperatorShell() {
+export default function OperatorShell({
+  initialView = "overview",
+}: {
+  initialView?: View
+}) {
   const [view, setView] = useState<View>("login")
   const [mounted, setMounted] = useState(false)
 
@@ -21,9 +26,9 @@ export default function OperatorShell() {
     setMounted(true)
     if (isAuthenticated()) {
       const saved = localStorage.getItem(VIEW_KEY) as View | null
-      setView(saved && VALID_VIEWS.includes(saved) ? saved : "overview")
+      setView(saved && VALID_VIEWS.includes(saved) ? saved : initialView)
     }
-  }, [])
+  }, [initialView])
 
   function navigate(v: View) {
     setView(v)
@@ -40,7 +45,7 @@ export default function OperatorShell() {
   }
 
   if (view === "login") {
-    return <OperatorLogin onSuccess={() => navigate("overview")} />
+    return <OperatorLogin onSuccess={() => navigate(initialView)} />
   }
 
   return (
@@ -64,6 +69,9 @@ export default function OperatorShell() {
           <NavTab active={view === "outreach"} onClick={() => navigate("outreach")}>
             Outreach
           </NavTab>
+          <NavTab active={view === "costs"} onClick={() => navigate("costs")}>
+            Costs
+          </NavTab>
           <div className="w-px h-4 bg-black/[0.08] mx-2" />
           <button
             onClick={() => { logout(); navigate("login") }}
@@ -78,6 +86,7 @@ export default function OperatorShell() {
       {view === "feed" && <ProspectFeed />}
       {view === "pipeline" && <PipelineBoard />}
       {view === "outreach" && <OutreachPanel />}
+      {view === "costs" && <CostDashboard />}
     </div>
   )
 }
