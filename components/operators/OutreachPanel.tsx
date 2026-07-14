@@ -13,25 +13,22 @@ type EmailDraft = {
 }
 
 function generateDraft(p: Prospect): EmailDraft {
-  const score = p.site_score ?? null
   const reviewUrl = p.review_slug
     ? `https://sortmydigital.site/review/${p.review_slug}`
     : null
 
-  const subject = score !== null
-    ? `${p.name}: your website scored ${score}/10`
-    : `${p.name}: your website review`
+  const subject = `${p.name}: your new website`
 
   const body = [
-    "Hello!",
+    "Hi,",
     "",
-    `We review and modernise small business websites. Your website scored ${score !== null ? score + "/10" : "below average"}.`,
+    "We reviewed your website and built a completely new version of it.",
     "",
-    "We've put together a review and redesigned it to show where we think it could go next.",
+    "See your review and compare both versions here:",
     "",
-    reviewUrl
-      ? `Both are here: ${reviewUrl}`
-      : "Reply and I will send your results over.",
+    reviewUrl ?? "Reply and I will send your results over.",
+    "",
+    "Interested to hear what you think.",
     "",
     "Renaldo",
     "Sorted",
