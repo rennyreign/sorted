@@ -107,7 +107,9 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
       .update({ crm_status: "build" })
       .eq("review_slug", slug)
       .in("crm_status", ["new", "outreached", "responded", "mockup_revealed"])
-      .then(() => {/* fire and forget */})
+      .then(({ error }) => {
+        if (error) console.error("[review-next] Failed to update crm_status to build:", error.message)
+      })
   }, [slug])
 
   function handleBudgetChange(e: React.ChangeEvent<HTMLInputElement>) {
