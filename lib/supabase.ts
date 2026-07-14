@@ -18,6 +18,25 @@ export function createServiceClient() {
 
 export type CrmStatus = "new" | "outreached" | "responded" | "mockup_revealed" | "build" | "quote" | "paid" | "lost" | "na"
 
+export type OutreachStatus = "NOT_READY" | "READY" | "QUEUED" | "SENDING" | "SENT" | "FAILED_TEMPORARY" | "FAILED_PERMANENT" | "BOUNCED" | "REPLIED" | "OPTED_OUT"
+
+export type OutreachMode = "AUTO_SEND" | "QUEUE_ONLY" | "PAUSED"
+
+export type OutreachConfig = {
+  id: number
+  mode: OutreachMode
+  daily_send_limit: number
+  sending_window_start: string
+  sending_window_end: string
+  sending_window_days: string
+  sending_window_tz: string
+  send_spacing_minutes: number
+  max_retry_attempts: number
+  from_email: string
+  from_name: string
+  updated_at: string
+}
+
 export type Prospect = {
   id: number
   place_id: string
@@ -65,4 +84,15 @@ export type Prospect = {
   budget_indicated: number | null
   notes: string | null
   mockup_urls: string[] | null
+  // Outreach operator fields
+  outreach_status: OutreachStatus | null
+  outreach_campaign_id: string | null
+  outreach_queued_at: string | null
+  outreach_sent_at: string | null
+  outreach_provider_message_id: string | null
+  outreach_attempt_count: number | null
+  outreach_last_error: string | null
+  email_bounced_at: string | null
+  email_replied_at: string | null
+  email_opted_out_at: string | null
 }

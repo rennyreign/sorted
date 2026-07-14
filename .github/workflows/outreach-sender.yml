@@ -1,0 +1,62 @@
+name: Outreach Sender — Business Hours
+
+on:
+  schedule:
+    # Every 5 minutes during UK business hours (08:00-16:30 UTC covers BST)
+    # GitHub Actions cron is in UTC
+    - cron: '*/5 8-16 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (log without sending)'
+        required: false
+        type: boolean
+        default: false
+      batch:
+        description: 'Max emails to send this run'
+        required: false
+        type: string
+        default: '1'
+
+jobs:
+  send:
+    name: Send outreach emails
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    defaults:
+      run:
+        working-directory: operators/outreach-sender/implementation
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: operators/outreach-sender/implementation/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Outreach Sender
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          FROM_EMAIL: renaldo@sortmydigital.site
+          FROM_NAME: Renaldo
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+        run: |
+          ARGS=""
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            ARGS="--dry-run"
+          fi
+          BATCH="${{ inputs.batch }}"
+          if [ -n "$BATCH" ] && [ "$BATCH" != "1" ]; then
+            ARGS="$ARGS --batch $BATCH"
+          fi
+          python send.py $ARGS
