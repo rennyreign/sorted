@@ -159,6 +159,7 @@ export default function ProspectFeed() {
               <option value="quote">Quote</option>
               <option value="paid">Paid</option>
               <option value="lost">Lost</option>
+              <option value="na">N/A</option>
             </select>
             {(filters.category !== "All" || filters.city !== "All" || filters.qualification !== "all" || filters.analysed !== "all" || filters.mockup !== "all" || filters.reviewPage !== "all" || filters.crmStatus !== "all") && (
               <button
@@ -442,6 +443,7 @@ function AnalysisPanel({ prospect: p, onClose, onCrmChange }: {
             <option value="quote">Quote</option>
             <option value="paid">Paid</option>
             <option value="lost">Lost</option>
+            <option value="na">N/A</option>
           </select>
         </div>
 
@@ -482,13 +484,22 @@ function AnalysisPanel({ prospect: p, onClose, onCrmChange }: {
               Mark responded
             </button>
           )}
-          {crmStatus !== "new" && crmStatus !== "lost" && crmStatus !== "paid" && (
+          {crmStatus !== "new" && crmStatus !== "lost" && crmStatus !== "paid" && crmStatus !== "na" && (
             <button
               onClick={() => setCrm("lost")}
               disabled={crmSaving}
               className="text-[11px] text-[#A3A3A3] hover:text-red-500 transition-colors disabled:opacity-40 px-2 py-2"
             >
               Mark lost
+            </button>
+          )}
+          {crmStatus !== "na" && crmStatus !== "paid" && crmStatus !== "lost" && (
+            <button
+              onClick={() => setCrm("na")}
+              disabled={crmSaving}
+              className="text-[11px] text-[#A3A3A3] hover:text-[#525252] transition-colors disabled:opacity-40 px-2 py-2"
+            >
+              Mark N/A
             </button>
           )}
         </div>
@@ -741,10 +752,12 @@ function CrmStatusBadge({ status }: { status: CrmStatus | null }) {
     quote:           "bg-emerald-50 text-emerald-600 border-emerald-100",
     paid:            "bg-emerald-100 text-emerald-700 border-emerald-200",
     lost:            "bg-red-50 text-red-500 border-red-100",
+    na:              "bg-[#F5F5F5] text-[#A3A3A3] border-black/[0.08]",
   }
   const key = status ?? "new"
   const s = styles[key] ?? styles.new
-  const label = key.replace(/_/g, " ")
+  const labels: Record<string, string> = { na: "N/A" }
+  const label = labels[key] ?? key.replace(/_/g, " ")
   return (
     <span className={`inline-block border rounded px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.12em] ${s}`}>
       {label}

@@ -5,14 +5,13 @@ import { isAuthenticated, logout } from "@/lib/operatorAuth"
 import OperatorLogin from "./OperatorLogin"
 import OperatorOverview from "./OperatorOverview"
 import ProspectFeed from "./ProspectFeed"
-import OutreachPanel from "./OutreachPanel"
 import PipelineBoard from "./PipelineBoard"
 import CostDashboard from "./CostDashboard"
 
-type View = "login" | "overview" | "feed" | "outreach" | "pipeline" | "costs"
+type View = "login" | "overview" | "feed" | "pipeline" | "costs"
 
 const VIEW_KEY = "sorted_operator_view"
-const VALID_VIEWS: View[] = ["overview", "feed", "outreach", "pipeline", "costs"]
+const VALID_VIEWS: View[] = ["overview", "feed", "pipeline", "costs"]
 
 export default function OperatorShell({
   initialView = "overview",
@@ -66,9 +65,6 @@ export default function OperatorShell({
           <NavTab active={view === "pipeline"} onClick={() => navigate("pipeline")}>
             Pipeline
           </NavTab>
-          <NavTab active={view === "outreach"} onClick={() => navigate("outreach")}>
-            Outreach
-          </NavTab>
           <NavTab active={view === "costs"} onClick={() => navigate("costs")}>
             Costs
           </NavTab>
@@ -85,7 +81,6 @@ export default function OperatorShell({
       {view === "overview" && <OperatorOverview onViewProspects={() => navigate("feed")} />}
       {view === "feed" && <ProspectFeed />}
       {view === "pipeline" && <PipelineBoard />}
-      {view === "outreach" && <OutreachPanel />}
       {view === "costs" && <CostDashboard />}
     </div>
   )

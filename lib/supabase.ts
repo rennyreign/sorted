@@ -16,7 +16,7 @@ export function createServiceClient() {
   return createClient(supabaseUrl, serviceKey)
 }
 
-export type CrmStatus = "new" | "outreached" | "responded" | "mockup_revealed" | "build" | "quote" | "paid" | "lost"
+export type CrmStatus = "new" | "outreached" | "responded" | "mockup_revealed" | "build" | "quote" | "paid" | "lost" | "na"
 
 export type Prospect = {
   id: number
