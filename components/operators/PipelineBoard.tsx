@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useMemo } from "react"
 import { supabase } from "@/lib/supabase"
-import type { CrmStatus } from "@/lib/supabase"
+import type { CrmStatus, OutreachStatus, OutreachMode } from "@/lib/supabase"
 
 type PipelineProspect = {
   id: number
@@ -24,6 +24,10 @@ type PipelineProspect = {
   status_updated_at: string | null
   notes: string | null
   site_weaknesses: string[] | null
+  outreach_status: OutreachStatus | null
+  outreach_sent_at: string | null
+  outreach_attempt_count: number | null
+  outreach_last_error: string | null
 }
 
 const STAGES: { key: CrmStatus; label: string; color: string; dropColor: string; dot: string }[] = [
@@ -85,7 +89,7 @@ function generateDraft(p: PipelineProspect): EmailDraft {
     ? `https://sortmydigital.site/review/${p.review_slug}`
     : null
 
-  const subject = `We redesigned your website`
+  const subject = `We built something for you`
 
   const body = [
     "Hi,",
@@ -96,16 +100,18 @@ function generateDraft(p: PipelineProspect): EmailDraft {
     "",
     reviewUrl ?? "Reply and I will send your results over.",
     "",
-    "Interested to hear what you think.",
+    "Interested to hear what you think,",
     "",
-    "Renaldo",
-    "Sorted",
+    "Renaldo Edmondson",
+    "Founder, Sorted",
+    "+44 7386 468085",
+    "sortmydigital.site",
   ].join("\n")
 
   return { subject, body }
 }
 
-const PROSPECT_FIELDS = "id, place_id, name, city, category, site_score, review_slug, website, email, phone, mockup_url, mockup_urls, crm_status, status, contacted_at, mockup_revealed_at, status_updated_at, notes, site_weaknesses"
+const PROSPECT_FIELDS = "id, place_id, name, city, category, site_score, review_slug, website, email, phone, mockup_url, mockup_urls, crm_status, status, contacted_at, mockup_revealed_at, status_updated_at, notes, site_weaknesses, outreach_status, outreach_sent_at, outreach_attempt_count, outreach_last_error"
 
 export default function PipelineBoard() {
   const [prospects, setProspects] = useState<PipelineProspect[]>([])
@@ -132,6 +138,10 @@ export default function PipelineBoard() {
   const [editedBody, setEditedBody] = useState("")
   const [noteText, setNoteText] = useState("")
   const [noteState, setNoteState] = useState<NoteState>("idle")
+
+  // Outreach operator state
+  const [outreachMode, setOutreachMode] = useState<OutreachMode>("AUTO_SEND")
+  const [outreachCounts, setOutreachCounts] = useState<{ ready: number; sentToday: number; failed: number; replied: number } | null>(null)
 
   // API routes only exist on the local dev server
   const apiBase = typeof window !== "undefined" && window.location.hostname !== "localhost"
@@ -178,8 +188,37 @@ export default function PipelineBoard() {
       .then((r) => r.json())
       .then((d) => setGmailConnected(d.connected))
       .catch(() => setGmailConnected(false))
+    // Load outreach operator status
+    loadOutreachStatus()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  async function loadOutreachStatus() {
+    try {
+      const res = await fetch("/api/outreach/status")
+      if (!res.ok) return
+      const data = await res.json()
+      setOutreachMode(data.config.mode)
+      setOutreachCounts(data.counts)
+    } catch { /* ignore — API routes not available on static export */ }
+  }
+
+  async function toggleOutreachPause() {
+    const endpoint = outreachMode === "PAUSED" ? "/api/outreach/resume" : "/api/outreach/pause"
+    try {
+      const res = await fetch(endpoint, { method: "POST" })
+      if (!res.ok) return
+      const data = await res.json()
+      setOutreachMode(data.mode)
+    } catch { /* ignore */ }
+  }
+
+  async function retryFailedOutreach() {
+    try {
+      await fetch("/api/outreach/retry", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" })
+      loadOutreachStatus()
+    } catch { /* ignore */ }
+  }
 
   async function load() {
     setLoading(true)
@@ -455,7 +494,36 @@ export default function PipelineBoard() {
         <Metric label="Paid" value={allCounts.paid} highlight />
         <Metric label="Lost" value={allCounts.lost} muted />
         <Metric label="N/A" value={allCounts.na} muted />
-        <div className="ml-auto shrink-0">
+        {outreachCounts && (
+          <>
+            <MetricDivider />
+            <Metric label="Outreach ready" value={outreachCounts.ready} />
+            <Metric label="Sent today" value={outreachCounts.sentToday} />
+            <Metric label="Replies" value={outreachCounts.replied} highlight={outreachCounts.replied > 0} />
+            {(outreachCounts.failed > 0 || outreachMode === "PAUSED") && (
+              <Metric label="Failed" value={outreachCounts.failed} muted />
+            )}
+          </>
+        )}
+        <div className="ml-auto shrink-0 flex items-center gap-2">
+          {outreachCounts && outreachCounts.failed > 0 && (
+            <button
+              onClick={retryFailedOutreach}
+              className="text-xs font-medium px-3 py-1.5 rounded-lg text-[#525252] border border-black/[0.08] hover:bg-black/[0.04] transition-colors"
+            >
+              ↻ Retry failed
+            </button>
+          )}
+          <button
+            onClick={toggleOutreachPause}
+            className={`text-xs font-medium px-3 py-1.5 rounded-lg transition-colors ${
+              outreachMode === "PAUSED"
+                ? "bg-emerald-600 text-white hover:bg-emerald-700"
+                : "text-[#525252] border border-black/[0.08] hover:bg-black/[0.04]"
+            }`}
+          >
+            {outreachMode === "PAUSED" ? "▶ Resume outreach" : "⏸ Pause outreach"}
+          </button>
           <button
             onClick={() => { setShowAddForm(v => !v); setAddForm(EMPTY_FORM); setAddError(null) }}
             className="text-xs font-medium px-3 py-1.5 rounded-lg bg-[#0A0A0A] text-white hover:bg-[#1A1A1A] transition-colors"
@@ -666,6 +734,18 @@ export default function PipelineBoard() {
                         {p.contacted_at && (
                           <span className="font-mono text-[9px] text-blue-500 uppercase tracking-wide">
                             contacted
+                          </span>
+                        )}
+                        {p.outreach_status && p.outreach_status !== "NOT_READY" && p.outreach_status !== "READY" && (
+                          <span className={`font-mono text-[9px] uppercase tracking-wide ${
+                            p.outreach_status === "SENT" ? "text-emerald-600" :
+                            p.outreach_status === "FAILED_TEMPORARY" || p.outreach_status === "FAILED_PERMANENT" ? "text-red-500" :
+                            p.outreach_status === "BOUNCED" ? "text-red-500" :
+                            p.outreach_status === "REPLIED" ? "text-violet-600" :
+                            p.outreach_status === "OPTED_OUT" ? "text-[#A3A3A3]" :
+                            "text-[#737373]"
+                          }`}>
+                            {p.outreach_status.replace(/_/g, " ").toLowerCase()}
                           </span>
                         )}
                       </div>
@@ -891,6 +971,45 @@ export default function PipelineBoard() {
                     )}
                   </div>
                 </div>
+
+                {/* Outreach operator status */}
+                {s.outreach_status && s.outreach_status !== "NOT_READY" && (
+                  <div className="mt-4 border border-black/[0.08] rounded-lg overflow-hidden">
+                    <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#A3A3A3] bg-[#FAFAFA] px-3 py-2 border-b border-black/[0.06]">Outreach operator</p>
+                    <div className="px-3 py-2 space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-[10px] text-[#A3A3A3] uppercase tracking-[0.1em]">Status</span>
+                        <span className={`font-mono text-[10px] uppercase tracking-[0.1em] font-semibold ${
+                          s.outreach_status === "SENT" ? "text-emerald-600" :
+                          s.outreach_status === "FAILED_TEMPORARY" || s.outreach_status === "FAILED_PERMANENT" || s.outreach_status === "BOUNCED" ? "text-red-500" :
+                          s.outreach_status === "REPLIED" ? "text-violet-600" :
+                          s.outreach_status === "OPTED_OUT" ? "text-[#A3A3A3]" :
+                          "text-[#525252]"
+                        }`}>
+                          {s.outreach_status.replace(/_/g, " ")}
+                        </span>
+                      </div>
+                      {s.outreach_sent_at && (
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-[10px] text-[#A3A3A3] uppercase tracking-[0.1em]">Sent</span>
+                          <span className="text-xs text-[#525252]">{timeAgo(s.outreach_sent_at)}</span>
+                        </div>
+                      )}
+                      {s.outreach_attempt_count && s.outreach_attempt_count > 0 && (
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-[10px] text-[#A3A3A3] uppercase tracking-[0.1em]">Attempts</span>
+                          <span className="font-mono text-xs text-[#525252]">{s.outreach_attempt_count}</span>
+                        </div>
+                      )}
+                      {s.outreach_last_error && (
+                        <div className="flex items-start justify-between gap-3">
+                          <span className="font-mono text-[10px] text-[#A3A3A3] uppercase tracking-[0.1em] shrink-0">Last error</span>
+                          <span className="text-xs text-red-500 text-right">{s.outreach_last_error}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
