@@ -17,7 +17,7 @@ function generateDraft(p: Prospect): EmailDraft {
     ? `https://sortmydigital.site/review/${p.review_slug}`
     : null
 
-  const subject = `${p.name}: your new website`
+  const subject = `We redesigned your website`
 
   const body = [
     "Hi,",
