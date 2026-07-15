@@ -25,7 +25,7 @@ const dancingScript = Dancing_Script({
 })
 
 export const metadata: Metadata = {
-  title: "Sorted. More trust. More contacts. More customers.",
+  title: "Sorted. More trust. More enquiries. More customers.",
   description:
     "We help small businesses modernize how they attract, capture, and convert customers. Starting with their website.",
   icons: {
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Sorted. More trust. More contacts. More customers.",
+    title: "Sorted. More trust. More enquiries. More customers.",
     description:
       "We help small businesses modernize how they attract, capture, and convert customers. Starting with their website.",
     locale: "en_GB",

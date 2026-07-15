@@ -36,7 +36,7 @@ export default function AboutPage() {
                   Most small businesses know this. But between running the day-to-day and trying to keep up with websites, reviews, booking systems, ads, and follow-ups, the digital side keeps falling behind.
                 </p>
                 <p>
-                  The result is a modernization gap. A business can be excellent at what it does and still look amateur online, lose contacts to faster competitors, and miss repeat revenue from customers it already has.
+                  The result is a modernization gap. A business can be excellent at what it does and still look amateur online, lose enquiries to faster competitors, and miss repeat revenue from customers it already has.
                 </p>
                 <p>
                   That gap is not a design problem. It is a business problem. And it is where Sorted starts.
@@ -52,7 +52,7 @@ export default function AboutPage() {
                 We built <span className="font-extrabold tracking-tight text-[#0A0A0A]">Sorted.</span> for businesses that know they need to improve, but do not want a six-month agency engagement or the frustration of figuring it out themselves.
               </p>
               <p>
-                Every business challenge we solve sits in one of three categories: <strong>Trust</strong> (does the business look credible?), <strong>Contacts</strong> (can customers get in touch easily?), and <strong>Customers</strong> (can the business generate more revenue from the people it already serves?).
+                Every business challenge we solve sits in one of three categories: <strong>Trust</strong> (does the business look credible?), <strong>Enquiries</strong> (can customers get in touch easily?), and <strong>Customers</strong> (can the business generate more revenue from the people it already serves?).
               </p>
               <p>
                 The website is the first and most visible gap. It is also the foundation for everything else. So we start there with a working mockup, built before any money changes hands.
@@ -137,7 +137,7 @@ export default function AboutPage() {
               Mission
             </span>
             <h2 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(2rem,5vw,3.5rem)] leading-tight tracking-tight mb-8">
-              More trust. More contacts. More customers.
+              More trust. More enquiries. More customers.
             </h2>
             <div className="space-y-5 text-[#525252] text-lg leading-relaxed">
               <p>
