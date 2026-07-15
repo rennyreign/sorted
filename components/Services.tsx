@@ -5,12 +5,12 @@ const pillars = [
     description: "Look credible, professional, and easy to find.",
   },
   {
-    title: "Get enquired",
+    title: "Get enquiries",
     items: ["Forms", "CRM", "Follow-up"],
     description: "Make it simple for interested customers to get in touch.",
   },
   {
-    title: "Get bought from. Again.",
+    title: "Get bought from repeatedly",
     items: ["Promotions", "Referrals", "Reactivation"],
     description: "Turn existing relationships into repeat revenue.",
   },
