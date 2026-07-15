@@ -31,14 +31,16 @@ export default function Footer() {
               </svg>
               07386 468085
             </a>
-            <p className="text-xs text-[#525252] font-medium">
-              © {new Date().getFullYear()} <span className="font-extrabold tracking-tight">Sorted.</span>
-            </p>
           </div>
         </div>
-        <p className="text-xs text-[#3A3A3A] font-medium mt-4">
-          Sorted. Small business modernization.
-        </p>
+        <div className="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+          <p className="text-xs text-[#525252] font-medium">
+            Sorted Ltd · Registered in England & Wales · Company number [please provide]
+          </p>
+          <p className="text-xs text-[#3A3A3A] font-medium">
+            © {new Date().getFullYear()} Sorted.
+          </p>
+        </div>
 
       </div>
     </footer>
