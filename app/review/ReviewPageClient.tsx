@@ -140,7 +140,7 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
               <ScoreBar score={score} />
               <p className="text-sm text-[#737373] mt-4 leading-relaxed">
                 {score <= 4
-                  ? "Your digital presence has significant gaps that are costing you enquiries every day."
+                  ? "Your digital presence has significant gaps that are costing you contacts every day."
                   : score <= 6
                   ? "Your website has a foundation, but key friction points are reducing your conversion rate."
                   : "Your site performs reasonably well. Targeted improvements could push results significantly further."}
