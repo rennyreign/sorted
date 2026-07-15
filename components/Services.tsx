@@ -1,16 +1,16 @@
 const pillars = [
   {
-    title: "Trust",
+    title: "Get picked",
     items: ["Website", "Reviews", "Brand"],
     description: "Look credible, professional, and easy to find.",
   },
   {
-    title: "Enquiries",
+    title: "Get enquired",
     items: ["Forms", "CRM", "Follow-up"],
     description: "Make it simple for interested customers to get in touch.",
   },
   {
-    title: "Customers",
+    title: "Get bought from. Again.",
     items: ["Promotions", "Referrals", "Reactivation"],
     description: "Turn existing relationships into repeat revenue.",
   },
@@ -25,9 +25,12 @@ export default function Services() {
           <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-4 block">
             What every business needs now
           </span>
-          <h2 className="font-sans font-extrabold text-[#0A0A0A] text-4xl leading-tight tracking-tight">
+          <h2 className="font-sans font-extrabold text-[#0A0A0A] text-4xl leading-tight tracking-tight mb-6">
             Three outcomes.<br/>One starting point.
           </h2>
+          <p className="text-[#737373] text-base leading-relaxed">
+            Whether you fix boilers, cut hair, serve food, or run a clinic — the decision starts the same way: do they trust you?
+          </p>
         </div>
 
         <div className="flex-1">
@@ -59,7 +62,7 @@ export default function Services() {
               Your website is the first doorway.
             </p>
             <p className="text-[#737373] text-base leading-relaxed">
-              The website is the first impression, the trust signal, and the lead capture mechanism. It is also the foundation for everything else that follows. We redesign it first, before you spend a penny, then build from there.
+              It is the first impression, the trust signal, and the lead capture mechanism. We redesign it first, free, so you can see what trust looks like for your business — then build the rest.
             </p>
           </div>
         </div>

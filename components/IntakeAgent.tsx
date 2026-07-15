@@ -80,7 +80,7 @@ export default function IntakeAgent() {
             Get sorted
           </span>
           <h2 className="font-sans font-extrabold text-[#0A0A0A] text-4xl lg:text-5xl leading-tight tracking-tight">
-            Let's start with your website.
+            Start with your free mockup.
           </h2>
         </div>
 
@@ -173,7 +173,7 @@ export default function IntakeAgent() {
           </button>
 
           <p className="text-xs text-[#A3A3A3] text-center">
-            No commitment. We&apos;ll send a mockup within 24 hours. Once your website is sorted, we can modernize reviews, CRM, follow-up, booking, and more.
+            No commitment. We&apos;ll send a mockup within 24 hours. Once your website is sorted, we can add reviews, CRM, follow-up, booking, and more.
           </p>
         </form>
       </div>

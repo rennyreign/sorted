@@ -37,9 +37,9 @@ export default function Pricing() {
               Pricing
             </span>
             <h2 className="font-sans font-extrabold text-white text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] tracking-tight mb-10">
-              No quotes upfront.
+              Built first.
               <br />
-              <span className="text-[#525252]">Modernize first, price second.</span>
+              <span className="text-[#525252]">Priced second. No surprises.</span>
             </h2>
 
             <div className="space-y-6 text-[#A3A3A3] text-lg leading-relaxed mb-12">
