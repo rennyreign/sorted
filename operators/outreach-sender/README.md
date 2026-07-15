@@ -11,7 +11,11 @@ Mockup added to CRM
     ↓
 DB trigger marks prospect as READY
     ↓
-GitHub Actions cron runs every 5 min during UK business hours
+Supabase pg_cron fires every 5 min (08:00-16:55 UTC, Mon-Fri)
+    ↓
+pg_cron calls GitHub workflow_dispatch API via pg_net
+    ↓
+GitHub Actions runs send.py
     ↓
 send.py finds oldest READY prospect
     ↓
@@ -23,6 +27,8 @@ Updates CRM with SENT/FAILED status
     ↓
 Writes audit log entry
 ```
+
+> **Why pg_cron, not GitHub Actions cron?** GitHub Actions scheduled workflows are best-effort and silently drop runs — an entire day of missed triggers was observed on 2026-07-15. pg_cron is a deterministic Postgres job scheduler that runs inside Supabase. It calls the GitHub `workflow_dispatch` API via `pg_net` to trigger the workflow. The GitHub Actions cron remains as a fallback, but pg_cron is the primary scheduler. See migration `20260718000000_enable_outreach_cron_scheduler.sql`.
 
 ## Configuration
 
@@ -53,9 +59,15 @@ Future revisions should be `sorted_initial_outreach_v2`, etc. Previous sends rem
 
 ## Running
 
-### Automatic (GitHub Actions)
+### Automatic (Supabase pg_cron → GitHub Actions)
 
-The workflow `.github/workflows/outreach-sender.yml` runs every 5 minutes during UK business hours (08:00-16:30 UTC, Mon-Fri). Each run sends one email.
+The primary scheduler is a **Supabase pg_cron job** (`trigger-outreach-sender`) that fires every 5 minutes during 08:00-16:55 UTC, Mon-Fri. It calls the GitHub `workflow_dispatch` API via `pg_net` to trigger the `.github/workflows/outreach-sender.yml` workflow. Each run sends one email.
+
+The GitHub Actions cron schedule in the workflow file remains as a fallback, but pg_cron is the primary trigger. Both can fire — `send.py` is idempotent and will skip prospects already in `SENT` state.
+
+**Audit trail:** Every pg_cron dispatch is logged in the `outreach_cron_log` table.
+
+**Required Vault secret:** `github_outreach_token` — a GitHub fine-grained PAT with Actions: Write permission on `rennyreign/sorted`.
 
 ### Manual
 
@@ -105,4 +117,6 @@ NOT_READY → READY → SENDING → SENT → REPLIED
 - `outreach_log` — audit trail for every state change
 - `outreach_suppression` — emails that should never receive outreach
 - `outreach_config` — sending controls (single row)
+- `outreach_cron_log` — audit trail for pg_cron dispatch attempts
 - `prospects` (extended) — outreach status, timestamps, error tracking
+- Vault secret `github_outreach_token` — GitHub PAT for workflow_dispatch
