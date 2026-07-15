@@ -5,14 +5,14 @@ export default function Hero() {
       <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(3.5rem,7.5vw,7rem)] leading-[0.92] tracking-[-0.03em] mb-10 max-w-5xl">
         Get picked.
         <br />
-        Get enquired.
+        Get enquiries.
         <br />
-        <span className="text-[#525252]">Get bought from. Again.</span>
+        <span className="text-[#525252]">Get bought from repeatedly.</span>
       </h1>
 
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 border-t border-black/10 pt-8">
         <p className="text-[#525252] text-lg font-medium leading-relaxed max-w-md">
-          We build the trust that turns visitors into customers — starting with your website. Free mockup before you spend a penny.
+          We build the trust that turns visitors into customers, starting with your website. Free mockup before you spend a penny.
         </p>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
