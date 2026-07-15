@@ -5,7 +5,7 @@ export default function Hero() {
       <h1 className="font-sans font-extrabold text-[#0A0A0A] text-[clamp(3.5rem,7.5vw,7rem)] leading-[0.92] tracking-[-0.03em] mb-10 max-w-5xl">
         Get picked.
         <br />
-        Get enquiries.
+        Get contacted.
         <br />
         <span className="text-[#525252]">Get bought from repeatedly.</span>
       </h1>

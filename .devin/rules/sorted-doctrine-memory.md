@@ -12,11 +12,11 @@ This file captures the core strategic and operational doctrine of Sorted so it r
 
 Sorted is a **small-business modernization company**, not a website company.
 
-- **Mission:** Help small businesses build more trust, generate more enquiries, and win more customers through digital modernization.
+- **Mission:** Help small businesses build more trust, generate more contacts, and win more customers through digital modernization.
 - **The website is the doorway, not the destination.** It is the first and most visible capability gap that Sorted solves, but future solutions include reviews, follow-up systems, CRM, AI receptionists, booking systems, reporting, and automation.
 - **Homepage positioning has shifted from:**
   - "Your new website. Sorted." (old, website-first)
-  - **to:** "More trust. More enquiries. More customers." (modernization-first)
+  - **to:** "More trust. More contacts. More customers." (modernization-first)
 
 The website should make visitors feel they are improving their business, not simply buying a website.
 
@@ -42,7 +42,7 @@ These are **acquisition artifacts**, not products. Their purpose is to earn trus
 
 Every Sorted solution maps to one of three business outcomes:
 
-| Trust | Enquiries | Customers |
+| Trust | Contacts | Customers |
 |---|---|---|
 | Websites | Forms | Offers |
 | Branding | CRM | Referrals |
