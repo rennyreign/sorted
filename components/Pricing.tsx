@@ -1,7 +1,5 @@
 "use client"
 
-import { useGeoPricing } from "@/hooks/useGeoPricing"
-
 const testimonials = [
   {
     quote: "They built our site in 36 hours. I paid after I saw it. Simple.",
@@ -24,8 +22,6 @@ const testimonials = [
 ]
 
 export default function Pricing() {
-  const pricing = useGeoPricing()
-
   return (
     <section id="pricing" className="py-32 px-6 sm:px-10 lg:px-16 bg-[#0A0A0A]">
       <div className="max-w-[1400px] mx-auto">
@@ -49,23 +45,6 @@ export default function Pricing() {
                 price based on what you actually see and what makes sense for 
                 your situation.
               </p>
-            </div>
-
-            <div className="flex items-start gap-4 p-6 bg-white/[0.03] border border-white/[0.08] rounded-xl mb-12">
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-                  <path d="M12 20h9"/>
-                  <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
-                </svg>
-              </div>
-              <div>
-                <h4 className="font-sans font-semibold text-white mb-1">One month of Sorted Updates included</h4>
-                <p className="text-[#737373] text-sm leading-relaxed">
-                  Every new site comes with one month of SortedUpdates free. 
-                  Unlimited updates via your site&apos;s portal. Change text, swap images, 
-                  add pages. Type it and it&apos;s done. Then {pricing.monthlyUpdates}/mo or {pricing.perUpdate} per update.
-                </p>
-              </div>
             </div>
 
             <a
