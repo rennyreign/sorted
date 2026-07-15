@@ -130,7 +130,7 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
           <>
             {/* Score card */}
             <div className={`rounded-2xl border p-8 ${scoreColour.bg} ${scoreColour.border}`}>
-              <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">Digital Excellence Score</p>
+              <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">Trust Score</p>
               <div className="flex items-end gap-4 mb-6">
                 <span className={`font-sans font-extrabold text-7xl tabular-nums leading-none ${scoreColour.text}`}>
                   {Math.round(score * 10)}

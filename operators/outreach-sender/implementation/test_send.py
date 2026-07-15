@@ -40,10 +40,10 @@ VALID_PROSPECT = {
 
 VALID_CAMPAIGN = {
     "id": "sorted_initial_outreach_v1",
-    "subject": "We built something for you",
-    "body_template": "Hi,\n\nSee your review here:\n\n{{review_url}}\n\nRenaldo\nSorted",
+    "subject": "Your website score + rebuilt mockup",
+    "body_template": "Hi,\n\nWe scored your website and rebuilt a new version.\n\nWe think the new version will increase trust, leading to more enquiries and customers.\n\nView the score and new version here:\n\n{{review_url}}\n\nNo cost, no commitment.\n\nRenaldo\nSorted",
     "is_active": True,
-    "version": 1,
+    "version": 2,
 }
 
 VALID_CONFIG = {

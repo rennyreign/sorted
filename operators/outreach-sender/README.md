@@ -46,7 +46,7 @@ All sending controls are stored in the `outreach_config` Supabase table:
 Campaigns are stored in the `outreach_campaigns` table. The current campaign is:
 
 - **ID**: `sorted_initial_outreach_v1`
-- **Subject**: `We built something for you`
+- **Subject**: `Your website score + rebuilt mockup`
 - **Body**: Fixed template with `{{review_url}}` variable
 
 Future revisions should be `sorted_initial_outreach_v2`, etc. Previous sends remain auditable.
