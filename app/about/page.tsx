@@ -154,11 +154,8 @@ export default function AboutPage() {
           <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row lg:items-end justify-between gap-10">
 
             <div className="max-w-2xl">
-              <p className="font-sans font-extrabold text-white text-[clamp(2rem,5vw,4rem)] leading-tight tracking-tight mb-4">
-                Your modernization starts here.
-              </p>
-              <p className="text-[#525252] text-base leading-relaxed">
-                The website is the first doorway. We&apos;ll redesign it before you spend a penny. Then we can build the rest.
+              <p className="font-sans font-extrabold text-white text-[clamp(2rem,5vw,4rem)] leading-tight tracking-tight">
+                More trust. More enquiries. More customers.
               </p>
             </div>
 
