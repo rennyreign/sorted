@@ -190,11 +190,8 @@ export default function SortedUpdatesPage() {
         <section className="py-20 px-6 sm:px-10 lg:px-16 bg-[#0A0A0A]">
           <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row lg:items-end justify-between gap-10">
             <div className="max-w-2xl">
-              <p className="font-sans font-extrabold text-white text-[clamp(2rem,5vw,4rem)] leading-tight tracking-tight mb-4">
-                Every Sorted site includes this.
-              </p>
-              <p className="text-[#525252] text-base leading-relaxed">
-                Start with your website. Get the CMS built in. Then grow from there.
+              <p className="font-sans font-extrabold text-white text-[clamp(2rem,5vw,4rem)] leading-tight tracking-tight">
+                Your modernization starts here.
               </p>
             </div>
 
