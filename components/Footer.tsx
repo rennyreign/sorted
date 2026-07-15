@@ -5,7 +5,7 @@ export default function Footer() {
 
         <div className="mb-16">
           <p className="font-sans font-extrabold text-white text-[clamp(2.5rem,7vw,6rem)] leading-[0.9] tracking-tight mb-10">
-            Your modernization<br/>starts here.
+            More trust. More enquiries. More customers.
           </p>
           <a
             href="#get-started"
