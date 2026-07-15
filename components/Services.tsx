@@ -29,7 +29,7 @@ export default function Services() {
             Three outcomes.<br/>One starting point.
           </h2>
           <p className="text-[#737373] text-base leading-relaxed">
-            Whether you fix boilers, cut hair, serve food, or run a clinic — the decision starts the same way: do they trust you?
+            Whether you fix boilers, cut hair, serve food, or run a clinic, the decision starts the same way: do they trust you?
           </p>
         </div>
 
@@ -56,17 +56,16 @@ export default function Services() {
               </div>
             ))}
           </div>
-
-          <div className="mt-16 max-w-2xl">
-            <p className="font-sans font-extrabold text-[#0A0A0A] text-2xl leading-tight tracking-tight mb-4">
-              Your website is the first doorway.
-            </p>
-            <p className="text-[#737373] text-base leading-relaxed">
-              It is the first impression, the trust signal, and the lead capture mechanism. We redesign it first, free, so you can see what trust looks like for your business — then build the rest.
-            </p>
-          </div>
         </div>
+      </div>
 
+      <div className="mt-20 pt-12 border-t border-black/[0.06] max-w-2xl">
+        <p className="font-sans font-extrabold text-[#0A0A0A] text-2xl leading-tight tracking-tight mb-4">
+          Your website is the first doorway.
+        </p>
+        <p className="text-[#737373] text-base leading-relaxed">
+          It is the first impression, the trust signal, and the lead capture mechanism. We redesign it first, free, so you can see what trust looks like for your business. Then we build the rest.
+        </p>
       </div>
     </section>
   )
