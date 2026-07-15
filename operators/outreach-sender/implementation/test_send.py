@@ -40,10 +40,10 @@ VALID_PROSPECT = {
 
 VALID_CAMPAIGN = {
     "id": "sorted_initial_outreach_v1",
-    "subject": "Your website score + rebuilt mockup",
-    "body_template": "Hi,\n\nWe scored your website and rebuilt a new version.\n\nWe think the new version will increase trust, leading to more enquiries and more customers.\n\nView the score and new version here:\n\n{{review_url}}\n\nNo cost, no commitment.\n\nRenaldo\nSorted",
+    "subject": "We redesigned your website",
+    "body_template": "Hi,\n\nWe redesigned your website.\n\nHere's the review and the new design:\n\n{{review_url}}\n\nCurious to hear what you think.\n\nRenaldo Edmondson\nFounder, Sorted\n+44 7386 468085\nsortmydigital.site",
     "is_active": True,
-    "version": 4,
+    "version": 5,
 }
 
 VALID_CONFIG = {
