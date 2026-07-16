@@ -57,6 +57,20 @@ Campaigns are stored in the `outreach_campaigns` table. The current campaign is:
 
 Future revisions should be `sorted_initial_outreach_v2`, etc. Previous sends remain auditable.
 
+### Template variables
+
+| Variable | Replaced with | Example |
+|----------|---------------|---------|
+| `{{review_url}}` | Prospect's review page URL | `https://sortmydigital.site/review/forrest-coffee-house` |
+| `{{owner_first_name}}` | Business owner's first name (if identified) | `Sarah` |
+| `{{owner_name}}` | Business owner's full name (if identified) | `Sarah Smith` |
+| `{{business_name}}` | Prospect's business name | `Forrest Coffee House` |
+| `{{greeting}}` | Personalized greeting | `Hi Sarah` or `Hi there` (fallback) |
+
+### Email selection priority
+
+The sender prefers `owner_email` (direct owner contact from Hunter.io enrichment) over the generic `email` field (scraped from website). This improves open rates by reaching the decision-maker directly rather than a shared `info@` inbox.
+
 ## Running
 
 ### Automatic (Supabase pg_cron → GitHub Actions)

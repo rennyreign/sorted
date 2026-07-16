@@ -344,6 +344,32 @@ class OutreachTests(unittest.TestCase):
         self.assertIn("https://sortmydigital.site/review/test-business", body)
         self.assertNotIn("{{review_url}}", body)
 
+    def test_template_owner_personalization(self):
+        """Template compiler replaces {{owner_first_name}} and {{greeting}}."""
+        prospect = {"review_slug": "test-business", "owner_name": "Sarah Smith", "name": "Forrest Coffee"}
+        subject, body = send.compile_template(
+            "{{greeting}} — we redesigned your site",
+            "{{greeting}},\n\nWe found {{owner_name}} at {{business_name}}.\n\n{{review_url}}",
+            prospect,
+        )
+        self.assertIn("Hi Sarah", subject)
+        self.assertIn("Hi Sarah", body)
+        self.assertIn("Sarah Smith", body)
+        self.assertIn("Forrest Coffee", body)
+        self.assertNotIn("{{owner_first_name}}", body)
+        self.assertNotIn("{{greeting}}", body)
+
+    def test_template_fallback_no_owner(self):
+        """Template falls back to 'Hi there' when no owner name is available."""
+        prospect = {"review_slug": "test-business", "name": "Test Business"}
+        subject, body = send.compile_template(
+            "{{greeting}}",
+            "{{greeting}}",
+            prospect,
+        )
+        self.assertEqual(subject, "Hi there")
+        self.assertEqual(body, "Hi there")
+
     # ── Bonus: error classification ───────────────────────────────────────────
 
     def test_permanent_error_classification(self):
