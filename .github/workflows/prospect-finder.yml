@@ -1,8 +1,8 @@
 name: Prospect Finder — Nightly Run
 
 on:
-  schedule:
-    - cron: '0 2 * * *'   # 2am UTC = 2am–3am UK (BST offset handled separately)
+  # schedule:
+  #   - cron: '0 2 * * *'   # SUSPENDED — nightly run paused per operator request
   workflow_dispatch:       # Manual trigger — from GitHub UI or dashboard
     inputs:
       category:
