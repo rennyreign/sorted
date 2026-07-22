@@ -135,11 +135,11 @@ export default function Home() {
         </OfferCard>
       </section>
 
-      <section className="mx-auto max-w-[980px] px-5 py-12 text-center sm:px-8 lg:py-16">
-        <p className="text-[12px] font-black uppercase tracking-[0.08em] text-black/48">Trusted by businesses to get results</p>
-        <div className="mt-8 grid grid-cols-2 items-center gap-x-8 gap-y-7 sm:grid-cols-5">
+      <section className="mx-auto max-w-[1120px] px-5 py-12 text-center sm:px-8 lg:py-16">
+        <p className="text-[11px] font-black uppercase tracking-[0.08em] text-black/42">Trusted by businesses to get results</p>
+        <div className="mx-auto mt-7 grid max-w-[820px] grid-cols-2 items-center justify-items-center gap-x-10 gap-y-6 sm:grid-cols-4 lg:gap-x-16">
           {trustLogos.map((logo) => (
-            <div key={logo.src} className="relative mx-auto h-12 w-full max-w-[145px] opacity-[0.38] grayscale sm:h-14">
+            <div key={logo.src} className="relative h-9 w-[132px] opacity-[0.32] grayscale sm:h-10 sm:w-[150px]">
               <Image src={logo.src} alt={logo.alt} fill sizes="150px" className="object-contain" />
             </div>
           ))}
@@ -188,7 +188,7 @@ function OfferCard({
   return (
     <Link href={href} className="group block rounded-[20px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#dfff00]/70">
       <article
-        className={`relative isolate min-h-[660px] overflow-hidden rounded-[20px] p-8 shadow-[0_20px_60px_rgba(18,14,10,0.08)] transition-[background-color,color,box-shadow,transform] duration-500 ease-out group-hover:-translate-y-1 group-hover:bg-[#dfff00] group-hover:text-black group-hover:shadow-[0_28px_80px_rgba(19,24,0,0.22)] sm:min-h-[735px] sm:p-11 ${
+        className={`relative isolate min-h-[660px] overflow-hidden rounded-[20px] p-8 shadow-[0_20px_60px_rgba(18,14,10,0.08)] transition-[background-color,color,box-shadow] duration-500 ease-out group-hover:bg-[#dfff00] group-hover:text-black group-hover:shadow-[0_28px_80px_rgba(19,24,0,0.22)] sm:min-h-[735px] sm:p-11 ${
         dark ? "bg-[#070707] text-white" : "bg-[#f7f1e8] text-black"
       }`}
       >
@@ -202,11 +202,11 @@ function OfferCard({
             ))}
           </div>
         </div>
-        <div className="transition-transform duration-500 ease-out group-hover:translate-y-1">
+        <div>
           {children}
         </div>
         <span
-          className={`absolute inset-x-7 bottom-7 z-20 inline-flex h-16 items-center justify-center gap-5 rounded-full px-6 text-[15px] font-black shadow-[0_16px_38px_rgba(0,0,0,0.16)] transition-[background-color,color,transform] duration-500 ease-out group-hover:bg-[#070707] group-hover:text-[#dfff00] group-hover:translate-y-[-2px] sm:inset-x-9 sm:bottom-9 sm:h-[72px] sm:text-[18px] ${
+          className={`absolute inset-x-7 bottom-7 z-20 inline-flex h-16 items-center justify-center gap-5 rounded-full px-6 text-[15px] font-black shadow-[0_16px_38px_rgba(0,0,0,0.16)] transition-[background-color,color] duration-500 ease-out group-hover:bg-[#070707] group-hover:text-[#dfff00] sm:inset-x-9 sm:bottom-9 sm:h-[72px] sm:text-[18px] ${
             dark ? "bg-white text-black" : "bg-[#070707] text-white"
           }`}
         >
