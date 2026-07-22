@@ -68,9 +68,9 @@ export default function Home() {
           icon={<TrendingUp className="size-9" strokeWidth={2.8} />}
           title={
             <>
-              Get more
+              Get a website
               <br />
-              customers.
+              that gets picked.
             </>
           }
           lines={["Beautiful websites.", "Better trust.", "More enquiries."]}
