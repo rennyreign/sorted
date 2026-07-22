@@ -68,9 +68,9 @@ export default function Home() {
           icon={<TrendingUp className="size-9" strokeWidth={2.8} />}
           title={
             <>
-              Build your
+              Get a better
               <br />
-              website better.
+              website.
             </>
           }
           lines={["Show what you do clearly.", "Build trust faster.", "Turn visitors into enquiries."]}
