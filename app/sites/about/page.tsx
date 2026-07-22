@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import type { ReactNode } from "react"
 import Image from "next/image"
 import { Check, Eye, PoundSterling, Rocket, ShieldCheck, ThumbsUp, Zap } from "lucide-react"
 import { DarkCta, SitesFooter, SitesHeader, SitesPage, SitesTitle, Underline } from "../_components/SitesPrimitives"
@@ -40,7 +41,7 @@ export default function AboutPage() {
 
       <section className="mx-auto grid max-w-[1220px] gap-10 border-t border-black/10 px-5 py-12 sm:px-8 lg:grid-cols-2">
         <StoryBlock kicker="OUR MISSION" title="Make better business infrastructure accessible." copy={["A better website is often the most visible place to start. It gives a business credibility, clarity and a cleaner path for customers to enquire.", "We build your website first, so you can see exactly what you are getting before you spend a penny. If you like it, we build it. If you do not, you walk away.", "That build-first model keeps the risk low and the work practical. It is how Sorted helps businesses modernise without drowning them in meetings, jargon or agency theatre."]} />
-        <StoryBlock kicker="BEYOND WEBSITES" title="The website is the front door. Operations are what happen next." copy={["We come from digital and operations, so every website is designed with the business behind it in mind: enquiries, follow-up, updates, ownership and handoff.", "For some businesses, the website is enough. For others, the bigger opportunity is removing repetitive work and improving the systems behind the customer journey.", "That operational side is where Sorted Ops fits: the same Sorted approach, applied to process, capacity and business performance."]} />
+        <StoryBlock kicker="BEYOND WEBSITES" title="The website is the front door. Operations are what happen next." copy={["We come from digital and operations, so every website is designed with the business behind it in mind: enquiries, follow-up, updates, ownership and handoff.", "For some businesses, the website is enough. For others, the bigger opportunity is removing repetitive work and improving the systems behind the customer journey.", <>That operational side is where <a href="/ops" className="font-black underline decoration-[#dfff00] decoration-[3px] underline-offset-4 transition-colors hover:text-black">Sorted Ops</a> fits: the same Sorted approach, applied to process, capacity and business performance.</>]} />
       </section>
 
       <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
@@ -117,14 +118,14 @@ export default function AboutPage() {
   )
 }
 
-function StoryBlock({ kicker, title, copy }: { kicker: string; title: string; copy: string[] }) {
+function StoryBlock({ kicker, title, copy }: { kicker: string; title: string; copy: ReactNode[] }) {
   return (
     <article>
       <p className="mb-5 text-[12px] font-black uppercase text-[#c6de00]">{kicker}</p>
       <h2 className="max-w-[520px] text-[34px] font-black leading-[1] tracking-[-0.035em]">{title}</h2>
       <Underline className="mt-5 w-40" />
       <div className="mt-7 space-y-4 text-[15px] font-semibold leading-[1.55] text-black/72">
-        {copy.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+        {copy.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
       </div>
     </article>
   )
