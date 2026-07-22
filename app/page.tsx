@@ -68,12 +68,10 @@ export default function Home() {
           icon={<TrendingUp className="size-9" strokeWidth={2.8} />}
           title={
             <>
-              Get a website
-              <br />
-              that gets picked.
+              Get a website.
             </>
           }
-          lines={["Beautiful websites.", "Better trust.", "More enquiries."]}
+          lines={["Beautiful websites.", "Better trust.", "Get more customers."]}
           cta="Explore Sorted Sites"
         >
           <div className="absolute -bottom-5 left-[18%] z-0 w-[96%] rotate-[-8deg] overflow-hidden rounded-[10px] border border-black/10 bg-white shadow-[0_28px_70px_rgba(24,18,10,0.15)] sm:bottom-4 sm:left-[22%] sm:w-[86%]">
