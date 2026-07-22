@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { ArrowLeft, ArrowRight, Check, Loader2, X } from "lucide-react"
 
 type StepKey = "business" | "currentSite" | "goal" | "style" | "timeline"
@@ -83,6 +83,7 @@ function MockupModal({ onClose }: { onClose: () => void }) {
   const [answers, setAnswers] = useState<Partial<Record<StepKey, string>>>({})
   const [stepIndex, setStepIndex] = useState(0)
   const [phase, setPhase] = useState<"questions" | "loading" | "result">("questions")
+  const dialogRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     document.body.style.overflow = "hidden"
@@ -90,6 +91,12 @@ function MockupModal({ onClose }: { onClose: () => void }) {
       document.body.style.overflow = ""
     }
   }, [])
+
+  useEffect(() => {
+    if (dialogRef.current) {
+      dialogRef.current.scrollTop = 0
+    }
+  }, [phase, stepIndex])
 
   const activeStep = steps[stepIndex]
   const progress = phase === "result" ? 100 : ((stepIndex + 1) / steps.length) * 100
@@ -119,7 +126,7 @@ function MockupModal({ onClose }: { onClose: () => void }) {
   }
 
   return (
-    <div className="fixed inset-0 z-[90] bg-[#fbfbfa] text-[#070707]" role="dialog" aria-modal="true" aria-label="Free website mockup">
+    <div ref={dialogRef} className="fixed inset-0 z-[90] h-[100dvh] overflow-y-auto overscroll-contain bg-[#fbfbfa] text-[#070707] [-webkit-overflow-scrolling:touch]" role="dialog" aria-modal="true" aria-label="Free website mockup">
       <button
         type="button"
         onClick={onClose}
@@ -128,8 +135,8 @@ function MockupModal({ onClose }: { onClose: () => void }) {
       >
         <X className="size-5" strokeWidth={2.7} />
       </button>
-      <div className="flex min-h-screen flex-col">
-        <header className="mx-auto flex w-full max-w-[1220px] items-center justify-between gap-5 px-5 py-5 pr-20 sm:px-8 sm:pr-24">
+      <div className="flex min-h-[100dvh] flex-col">
+        <header className="sticky top-0 z-[95] mx-auto flex w-full max-w-[1220px] items-center justify-between gap-5 bg-[#fbfbfa]/92 px-5 py-5 pr-20 backdrop-blur-xl sm:px-8 sm:pr-24">
           <button type="button" onClick={back} className="inline-flex h-11 items-center gap-2 rounded-full border border-black/15 px-4 text-[12px] font-black disabled:opacity-30" disabled={phase === "questions" && stepIndex === 0}>
             <ArrowLeft className="size-4" strokeWidth={2.5} />
             Back
@@ -141,7 +148,7 @@ function MockupModal({ onClose }: { onClose: () => void }) {
           </div>
         </header>
 
-        <div className="mx-auto grid w-full max-w-[1220px] flex-1 items-center px-5 py-6 sm:px-8">
+        <div className="mx-auto grid w-full max-w-[1220px] flex-1 items-start px-5 pb-12 pt-5 sm:px-8 sm:pb-16 lg:items-center">
           {phase === "questions" ? <QuestionStep step={activeStep} value={answers[activeStep.key]} onChoose={choose} /> : null}
           {phase === "loading" ? <LoadingStep answers={answers} /> : null}
           {phase === "result" ? <ResultStep answers={answers} summary={summary} /> : null}
@@ -153,16 +160,16 @@ function MockupModal({ onClose }: { onClose: () => void }) {
 
 function QuestionStep({ step, value, onChoose }: { step: Step; value?: string; onChoose: (option: string) => void }) {
   return (
-    <section className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+    <section className="grid gap-8 xl:grid-cols-[0.9fr_1.1fr] xl:items-center">
       <div>
         <p className="text-[12px] font-black text-black/45">{step.kicker}</p>
-        <h2 className="mt-5 max-w-[650px] [font-family:var(--font-sites-marker)] text-[clamp(3.4rem,7vw,7.4rem)] font-normal uppercase leading-[0.92]">
+        <h2 className="mt-5 max-w-[650px] [font-family:var(--font-sites-marker)] text-[clamp(3.15rem,13vw,7.1rem)] font-normal uppercase leading-[0.92] sm:text-[clamp(4.6rem,8.2vw,7.1rem)] xl:text-[clamp(4.9rem,6.5vw,7.1rem)]">
           {step.question}
         </h2>
         <div className="mt-6 h-[4px] w-80 max-w-full rounded-full bg-[#ff73d2]" />
       </div>
 
-      <div className="grid gap-3">
+      <div className="relative z-10 grid gap-3 rounded-[20px] bg-[#fbfbfa] pb-[max(1rem,env(safe-area-inset-bottom))] sm:rounded-none sm:bg-transparent sm:pb-0">
         {step.options.map((option) => (
           <button
             type="button"
