@@ -7,11 +7,12 @@ import OperatorOverview from "./OperatorOverview"
 import ProspectFeed from "./ProspectFeed"
 import PipelineBoard from "./PipelineBoard"
 import CostDashboard from "./CostDashboard"
+import AffiliateAdmin from "./AffiliateAdmin"
 
-type View = "login" | "overview" | "feed" | "pipeline" | "costs"
+type View = "login" | "overview" | "feed" | "pipeline" | "costs" | "affiliates"
 
 const VIEW_KEY = "sorted_operator_view"
-const VALID_VIEWS: View[] = ["overview", "feed", "pipeline", "costs"]
+const VALID_VIEWS: View[] = ["overview", "feed", "pipeline", "costs", "affiliates"]
 
 export default function OperatorShell({
   initialView = "overview",
@@ -68,6 +69,9 @@ export default function OperatorShell({
           <NavTab active={view === "costs"} onClick={() => navigate("costs")}>
             Costs
           </NavTab>
+          <NavTab active={view === "affiliates"} onClick={() => navigate("affiliates")}>
+            Partners
+          </NavTab>
           <div className="w-px h-4 bg-black/[0.08] mx-2" />
           <button
             onClick={() => { logout(); navigate("login") }}
@@ -82,6 +86,7 @@ export default function OperatorShell({
       {view === "feed" && <ProspectFeed />}
       {view === "pipeline" && <PipelineBoard />}
       {view === "costs" && <CostDashboard />}
+      {view === "affiliates" && <AffiliateAdmin />}
     </div>
   )
 }
