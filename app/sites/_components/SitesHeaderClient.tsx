@@ -1,0 +1,107 @@
+"use client"
+
+import { useEffect, useState } from "react"
+import Image from "next/image"
+import { Menu, Phone, X } from "lucide-react"
+import { MockupButton } from "./SitesMockupModal"
+
+type ActivePage = "how" | "examples" | "pricing" | "about" | "updates"
+
+const links = [
+  ["how", "How it works", "/sites"],
+  ["examples", "Examples", "/sites/examples"],
+  ["pricing", "Pricing", "/sites/pricing"],
+  ["about", "About", "/sites/about"],
+  ["updates", "Updates", "/sites/updates"],
+] as const
+
+export function SitesHeaderClient({ active }: { active?: ActivePage }) {
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    function updateScrolled() {
+      setScrolled(window.scrollY > 12)
+    }
+
+    updateScrolled()
+    window.addEventListener("scroll", updateScrolled, { passive: true })
+    return () => window.removeEventListener("scroll", updateScrolled)
+  }, [])
+
+  return (
+    <header
+      className={`fixed left-0 right-0 top-0 z-50 px-5 py-4 transition-colors duration-200 sm:px-8 ${
+        scrolled ? "border-b border-black/5 bg-white/82 shadow-[0_10px_30px_rgba(0,0,0,0.035)] backdrop-blur-xl" : "border-b border-transparent bg-transparent"
+      }`}
+    >
+      <div className="mx-auto flex w-full max-w-[1220px] items-center justify-between">
+        <a href="/sites" className="flex min-h-11 shrink-0 items-center" aria-label="Sorted Sites home">
+          <span className="inline-flex w-[118px] items-center sm:w-[150px]">
+            <Image
+              src="/sorted-sites/sorted-sites-logo.png"
+              alt="Sorted Sites"
+              width={848}
+              height={207}
+              sizes="150px"
+              className="h-auto w-full"
+              priority
+            />
+          </span>
+        </a>
+        <nav className="hidden items-center gap-8 text-[12px] font-extrabold tracking-[-0.02em] md:flex">
+          {links.map(([key, label, href]) => (
+            <a key={key} href={href} className="relative py-2">
+              {label}
+              {active === key ? <span className="absolute inset-x-0 -bottom-0.5 h-[3px] rounded-full bg-[#dfff00]" /> : null}
+            </a>
+          ))}
+        </nav>
+        <div className="flex items-center gap-5">
+          <a href="https://wa.me/447386468085" aria-label="WhatsApp Sorted Sites" className="hidden text-[#04b800] md:block">
+            <Phone className="size-6" strokeWidth={2.4} />
+          </a>
+          <div className="hidden sm:block">
+            <MockupButton variant="nav" />
+          </div>
+          <button
+            type="button"
+            aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+            className="grid size-11 place-items-center rounded-full bg-[#070707] text-white shadow-[0_10px_28px_rgba(0,0,0,0.16)] md:hidden"
+          >
+            {menuOpen ? <X className="size-5" strokeWidth={2.8} /> : <Menu className="size-5" strokeWidth={2.8} />}
+          </button>
+        </div>
+      </div>
+      {menuOpen ? (
+        <div className="mx-auto mt-3 max-w-[1220px] rounded-[16px] border border-black/10 bg-white/96 p-3 shadow-[0_18px_44px_rgba(0,0,0,0.12)] backdrop-blur-xl md:hidden">
+          <nav className="grid gap-1 text-[15px] font-black tracking-[-0.03em]">
+            {links.map(([key, label, href]) => (
+              <a
+                key={key}
+                href={href}
+                onClick={() => setMenuOpen(false)}
+                className={`flex min-h-12 items-center justify-between rounded-xl px-4 ${
+                  active === key ? "bg-[#dfff00] text-black" : "text-black/72"
+                }`}
+              >
+                {label}
+                {active === key ? <span className="size-2 rounded-full bg-black" /> : null}
+              </a>
+            ))}
+          </nav>
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            <a href="https://wa.me/447386468085" className="inline-flex min-h-12 items-center justify-center rounded-full border border-black/12 text-[12px] font-black">
+              WhatsApp
+            </a>
+            <div onClick={() => setMenuOpen(false)}>
+              <MockupButton variant="nav" className="w-full" />
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </header>
+  )
+}

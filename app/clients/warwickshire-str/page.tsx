@@ -387,7 +387,7 @@ export default function WarwickshireQuote() {
 
         {/* Footer */}
         <div className="border-t border-black/[0.06] pt-8">
-          <p className="text-xs text-[#C4C4C4] font-mono">Sorted. — sortmydigital.com</p>
+          <p className="text-xs text-[#C4C4C4] font-mono">Sorted. — sortmydigital.site</p>
         </div>
       </main>
     </>

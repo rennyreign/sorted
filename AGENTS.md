@@ -1,22 +1,36 @@
 # AGENTS.md — Sorted
 
-Sorted is a website manufacturing line operated by ADX Engine. Every site Sorted ships follows the same stack, the same CMS pattern, and the same delivery standard.
+Sorted is a business modernisation company operated by ADX Engine. Its public brand now routes users into two focused offers: Sorted Sites for websites and Sorted Ops for operational improvement.
 
 This file is the operating brief for any agent working in this repo or on a Sorted client site.
 
 ---
 
-## What Sorted Does
+## Current Brand Architecture
 
-Sorted builds websites for small businesses using a reversed product cycle: build first, show the client the finished site, then quote. Every site ships with:
+The active Sorted brand is:
 
-1. A Next.js static site hosted on Netlify
+1. **Sorted** — the flagship switchboard and parent brand. Root URL: `sortmydigital.site`.
+2. **Sorted Sites** — the website offer. Local route: `/sites`. Legacy alias: `/sorted-sites`.
+3. **Sorted Ops** — the operational improvement offer. Local route: `/ops`. Implementation currently aliases the V2 build in `/v2`. Intended public host: `ops.sortmydigital.site`.
+
+The previous standalone Sorted website positioning around "get picked, get enquiries, get bought" is deprecated and archived locally in `archive/deprecated-sorted-online/`.
+
+## What Sorted Sites Does
+
+Sorted Sites builds websites for small businesses using a reversed product cycle: build first, show the client the finished site, then quote. Client site deliveries usually ship with:
+
+1. A Next.js static site
 2. SortedUpdates — a Decap CMS giving the client control over all content
 3. A walkthrough tutorial video embedded in the CMS
 4. A factory reset capability held by Sorted
 5. A client quote/delivery page at `sortmydigital.site/clients/[client-slug]`
 
 The client owns the content layer. Sorted owns the design, code, and reset key.
+
+## What Sorted Ops Does
+
+Sorted Ops removes repetitive work, recovers time, and improves operational performance for businesses with accumulated process drag. It is the route for established businesses and teams that need capacity returned through systems, automation, measurement, and operational redesign.
 
 Full model: `doctrine/sorted-operating-model.md`
 
@@ -29,7 +43,11 @@ sorted/
   app/
     clients/          ← Password-protected delivery/quote pages per client
     proposals/        ← Pre-delivery proposal pages (party-world pattern)
-    sorted/           ← SortedUpdates portal (chat, history, preview, reset)
+    sites/            ← Sorted Sites public offer
+    sorted-sites/     ← Sorted Sites compatibility alias
+    ops/              ← Sorted Ops public offer alias
+    v2/               ← Sorted Ops implementation route during migration
+    sorted-updates/   ← SortedUpdates portal (chat, history, preview, reset)
     operators/        ← Internal operator dashboards (prospect-finder)
   client/
     _template/        ← Brief, QA, handoff, and notes templates for new client work
@@ -38,6 +56,7 @@ sorted/
     skills/           ← Skill files for orchestration agent execution
   templates/          ← Scaffolds for new client site repos
   mockups/            ← Working client mockup files (not web-served)
+  archive/            ← Local archive of deprecated public site versions
   public/             ← Static assets served by the website
   .devin/
     rules/            ← Always-on context for Devin sessions
@@ -96,7 +115,9 @@ The Sorted site-build chain runs in two modes. See `doctrine/operator-chain.md` 
 
 **Never push directly to `main` on Sorted client sites.**
 
-Every push to `main` triggers a Netlify build that consumes credits. During active development, this burns 20–50 credits per session.
+Every push to `main` on client-site repos can trigger a Netlify build that consumes credits. During active development, this burns 20–50 credits per session.
+
+The Sorted platform site itself deploys to Hostinger from GitHub Actions. Keep the same branch discipline: develop on a feature branch, validate, then merge intentionally.
 
 1. **Work in feature branches**: `feat/description`
 2. **Netlify Deploy Previews build automatically** for all branches (free)
@@ -232,7 +253,7 @@ Before closing any client delivery:
 - **Framework:** Next.js (static export — `output: 'export'`)
 - **Styling:** TailwindCSS v4
 - **CMS:** Decap CMS v3 + Netlify Identity + Git Gateway
-- **Hosting:** Netlify (client sites) / Hostinger via GitHub Actions (sortmydigital.site)
+- **Hosting:** Hostinger via GitHub Actions for `sortmydigital.site`; Netlify remains available for client-site CMS deliveries where required
 - **IMPORTANT:** The Sorted platform domain is `sortmydigital.site` — NOT `.com`. Never use `.com`.
 - **Hostinger SSH:** IP `82.29.157.61`, port `65002`, username `u212019412` — deploy via SCP using `SSH_PRIVATE_KEY` secret
 - **Images:** Netlify Image CDN via `lib/image.ts` `imgSrc()` helper

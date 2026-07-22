@@ -372,7 +372,7 @@ export default function SandraQuote() {
       </main>
 
       <footer className="border-t border-black/8 px-5 py-8 text-center">
-        <p className="text-xs text-black/25">Sorted by ADX Engine · <a href="https://sortmydigital.com" className="hover:text-black/50">sortmydigital.com</a></p>
+        <p className="text-xs text-black/25">Sorted by ADX Engine · <a href="https://sortmydigital.site" className="hover:text-black/50">sortmydigital.site</a></p>
       </footer>
 
     </div>

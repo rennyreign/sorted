@@ -1,0 +1,62 @@
+export const templatedResults = {
+  "gracie-barra-halesowen": {
+    name: "Gracie Barra Halesowen",
+    category: "Fitness academy",
+    location: "Halesowen, UK",
+    routine: "Website enquiry and intro booking flow",
+    summary: "The website was rebuilt so prospective members could understand classes, find answers and book a free intro online.",
+    before: ["People had to ask basic questions manually", "Free intro booking was not clear enough", "Staff fielded repeated website enquiries"],
+    after: ["Class information became easier to find", "Free intro booking moved online", "The team had fewer repeated explanation tasks"],
+    stats: ["Online intro booking", "Better member comments", "Cleaner class discovery"],
+    quote:
+      "We're really pleased with what Sorted's done for us. The website looks miles better, it's easier for people to find what they're looking for, and booking a free intro is all done online now.",
+    person: "Stuart Gwilt",
+    role: "Gracie Barra Halesowen, UK",
+    image: "/v2/testimonials/stuart-gwilt.png",
+  },
+  "action-hero-marketing": {
+    name: "Action Hero Marketing",
+    category: "Real estate marketing",
+    location: "United States",
+    routine: "Manual property research and outreach prep",
+    summary: "A time-consuming property research process became a working research tool, giving the team better outreach inputs without combing through listings by hand.",
+    before: ["Specific properties were researched manually", "Outreach prep took too long", "Useful criteria had to be checked repeatedly"],
+    after: ["Research criteria became a tool workflow", "Output was ready to use for outreach", "Additional features improved the original process"],
+    stats: ["Research tool built", "Manual combing reduced", "Outreach focus restored"],
+    quote:
+      "I was amazed by the output. I had a fully functional research tool with some additional features that I didn't even think about.",
+    person: "Kyle Lambert",
+    role: "Real Estate Professional · Action Hero Marketing",
+    image: "/v2/testimonials/kyle-lambert.jpeg",
+  },
+  "bisk-education": {
+    name: "Bisk Education",
+    category: "Education technology",
+    location: "United States",
+    routine: "Product development pipeline",
+    summary: "AI was introduced into the product development pipeline, shifting output from stalled delivery to multiple deployed software products.",
+    before: ["Product work had stalled for years", "Delivery depended on old operating habits", "Revenue pipeline creation was blocked by output"],
+    after: ["Four software products were deployed", "Each product had its own revenue pipeline", "The B2B position evolved with the new system"],
+    stats: ["4 deployed products", "12 month shift", "New B2B position"],
+    quote:
+      "In six years we had shipped nothing. Within twelve months of working with him, we had four fully deployed software products, each with its own revenue pipeline.",
+    person: "Keith Woods",
+    role: "Senior Director of Product Experience · Bisk Education",
+    image: "/v2/testimonials/keith-woods.jpeg",
+  },
+  bodysharp: {
+    name: "Bodysharp",
+    category: "Fitness business",
+    location: "UK",
+    routine: "Admin, follow-up and customer update routines",
+    summary: "A templated Sorted result placeholder for the Bodysharp operational review, ready to be replaced with supplied metrics and final client content.",
+    before: ["Admin routines need mapping", "Follow-up rhythm needs definition", "Customer update work needs measuring"],
+    after: ["First routine identified", "Replacement system scoped", "Capacity forecast ready"],
+    stats: ["Admin mapped", "Follow-up planned", "Capacity forecast"],
+    quote: "Templated result page. Final client quote and figures can be dropped in when supplied.",
+    person: "Sorted",
+    role: "Templated result",
+  },
+} as const
+
+export type TemplatedResultSlug = keyof typeof templatedResults

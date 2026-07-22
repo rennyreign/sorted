@@ -17,6 +17,8 @@ Load when the user says any of:
 
 This skill orchestrates the full manufacturing chain. Load the individual sub-skills only if running a single step in isolation.
 
+This skill belongs to **Sorted Sites** and client website production. Do not use it to restructure the flagship Sorted brand site or the Sorted Ops product site unless the user is explicitly asking to build a website mockup through the manufacturing chain.
+
 ---
 
 ## Before starting

@@ -7,11 +7,11 @@
 
 ## What Sorted Is
 
-Sorted is a small-business modernisation infrastructure company disguised as a website business.
+Sorted is a business modernisation company with two focused entry points: Sorted Sites and Sorted Ops.
 
-At the surface level, Sorted provides fast website rebuilds for local businesses. Underneath, it is building a repeatable operational manufacturing system that can scale across fragmented local industries without scaling headcount.
+At the surface level, Sorted Sites provides fast website builds for local businesses. Sorted Ops handles the deeper operational work: removing repetitive routines, recovering capacity, and improving performance with systems, automation, measurement, and process redesign.
 
-The website is the entry point. Behind it sits a system of operators that drive business outcomes.
+The website is still a powerful entry point. It is no longer the only brand story. The parent brand is now clear: Sorted modernises businesses.
 
 ---
 
@@ -21,13 +21,18 @@ We do not sell. We show.
 
 Instead of traditional sales, businesses receive mockups first. Approvals happen through progressive nods. Each stage reduces friction and increases trust.
 
-The website is not the final product. It is the trust-entry point into CRM systems, lead automation, booking, review generation, AI operators, reporting, and operational infrastructure.
+The website is not always the final product. It is the trust-entry point into CRM systems, lead automation, booking, review generation, AI operators, reporting, and operational infrastructure.
 
 ---
 
 ## The Two Journeys
 
-Sorted has two distinct acquisition paths. They require different approaches.
+Sorted has three distinct public paths. They require different approaches.
+
+**Flagship.** The user arrives at `sortmydigital.site` and chooses a starting point:
+
+- Sorted Sites: "Get more customers."
+- Sorted Ops: "Run your business better."
 
 **Outbound.** The prospect does not know Sorted exists and has not asked for help. The score creates curiosity.
 
@@ -43,15 +48,17 @@ View your review ->
 
 The score is the hook. The review page is where the conversation starts.
 
-**Inbound.** The prospect is already looking for a website. They have desire. They do not need a score. They need to see a result. The headline "Your new website. Sorted." does the work here.
+**Inbound Sites.** The prospect is already looking for a website. They have desire. They do not need a score. They need to see a result. The headline "Your new website. Sorted." does the work here.
 
-These are two different psychologies. The acquisition chain is built for outbound. The inbound path runs through the main Sorted website.
+**Inbound Ops.** The prospect recognises operational drag. They do not need a website pitch. They need to see that repetitive work is stealing time and that capacity can be returned.
+
+These are different psychologies. The acquisition chain is built for outbound. The inbound paths run through the flagship site, then into Sorted Sites or Sorted Ops.
 
 ---
 
 ## The Website as the Trojan Horse
 
-The website is the easiest thing for a business owner to understand and want.
+The website is the easiest thing for many business owners to understand and want.
 
 Nobody wakes up wanting a website audit or a Digital Excellence Score. They wake up wanting more customers, more trust, and to stop looking amateur next to bigger competitors.
 
@@ -158,11 +165,11 @@ Full phase detail: `doctrine/adx-engine-planned-phases.md`
 
 ## The Key Insight
 
-The website is not the product.
+The website is not the whole product.
 
-The website is the wedge, the proof, the trust-entry point, the operational beachhead.
+The website is one wedge, one proof point, and one trust-entry point.
 
-Behind it sits lead systems, AI operators, reviews, automations, CRM, reporting, booking, workflow coordination, and modernisation infrastructure.
+Beside it sits Sorted Ops: lead systems, AI operators, reviews, automations, CRM, reporting, booking, workflow coordination, and modernisation infrastructure.
 
 That is why this idea has structural depth.
 

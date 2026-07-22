@@ -569,7 +569,7 @@ function AnalysisPanel({ prospect: p, onClose, onCrmChange }: {
           <div className="flex items-center justify-between bg-white border border-black/[0.08] rounded-xl px-4 py-3">
             <div className="min-w-0">
               <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-0.5">Review page</p>
-              <p className="font-mono text-[11px] text-[#525252] truncate">sortmydigital.com/review/{p.review_slug}</p>
+              <p className="font-mono text-[11px] text-[#525252] truncate">sortmydigital.site/review/{p.review_slug}</p>
             </div>
             <a
               href={`/review?slug=${p.review_slug}`}

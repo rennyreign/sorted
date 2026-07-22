@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none">
+  <title>Sorted compact mark</title>
+  <rect width="256" height="256" rx="56" fill="#070707"/>
+  <text x="128" y="162" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="92" font-weight="900" letter-spacing="-6" fill="#FFFFFF" text-anchor="middle">s</text>
+  <circle cx="164" cy="151" r="9" fill="#DFFF00"/>
+</svg>

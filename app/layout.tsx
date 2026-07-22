@@ -1,42 +1,26 @@
 import type { Metadata } from "next"
-import { Plus_Jakarta_Sans, DM_Mono, Dancing_Script } from "next/font/google"
+import localFont from "next/font/local"
 import "./globals.css"
-import PageTransition from "@/components/PageTransition"
 
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  weight: ["400", "500", "600", "700", "800"],
-  display: "swap",
-})
-
-const dmMono = DM_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  weight: ["400", "500"],
-  display: "swap",
-})
-
-const dancingScript = Dancing_Script({
-  subsets: ["latin"],
+const signature = localFont({
+  src: "../public/fonts/Fave-ScriptPro.ttf",
   variable: "--font-signature",
-  weight: ["400", "500", "600", "700"],
   display: "swap",
 })
 
 export const metadata: Metadata = {
-  title: "Sorted. More trust. More enquiries. More customers.",
+  title: "Sorted. We modernise businesses.",
   description:
-    "We help small businesses modernize how they attract, capture, and convert customers. Starting with their website.",
+    "Sorted helps businesses modernise through websites that win more customers and operational systems that remove repetitive work.",
   icons: {
     icon: [
       { url: "/favicon.png", type: "image/png" },
     ],
   },
   openGraph: {
-    title: "Sorted. More trust. More enquiries. More customers.",
+    title: "Sorted. We modernise businesses.",
     description:
-      "We help small businesses modernize how they attract, capture, and convert customers. Starting with their website.",
+      "Choose Sorted Sites for better websites or Sorted Ops for better operations.",
     locale: "en_GB",
   },
 }
@@ -47,10 +31,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html
-      lang="en-GB"
-      className={`${plusJakarta.variable} ${dmMono.variable} ${dancingScript.variable}`}
-    >
+    <html lang="en-GB" className={signature.variable}>
       <body>
         <div className="scroll-progress" />
         {children}

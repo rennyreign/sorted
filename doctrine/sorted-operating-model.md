@@ -2,17 +2,22 @@
 
 **Status:** Active doctrine
 **Parent:** ADX Engine. Digital Manufacturing.
-**Dispatch unit:** Website manufacturing line
+**Dispatch units:** Sorted Sites + Sorted Ops
 
 ---
 
 ## What Sorted Is
 
-Sorted is a website manufacturing line operating inside the ADX Engine digital manufacturing system.
+Sorted is a business modernisation company operating inside the ADX Engine digital manufacturing system.
 
-It produces world-class websites. Repeatably. At speed. Without negotiation.
+It has two public offers:
 
-Not a web agency. Not a freelance service. A manufacturing line with a defined process, consistent output quality, and a client experience that converts at a rate traditional agencies cannot match.
+- **Sorted Sites** creates websites that build trust and generate enquiries.
+- **Sorted Ops** removes repetitive work, recovers time, and improves operational performance.
+
+The website manufacturing line remains active as the Sorted Sites fulfilment engine. Sorted Ops expands the same manufacturing discipline into operating systems, automations, measurement, and process improvement.
+
+Not a web agency. Not a freelance service. A modernisation company with defined processes, consistent output quality, and a client experience that converts because prospects see real work before they buy.
 
 ---
 
@@ -24,7 +29,7 @@ Sorted inverts this:
 
 **Build → Show → Quote → Charge → Deliver**
 
-The client sees the finished product before they are asked to spend a penny. They nod at every stage. They never buy a promise.
+For Sorted Sites, the client sees the finished product before they are asked to spend a penny. They nod at every stage. They never buy a promise.
 
 This is why conversion is high. Nobody is being asked to imagine. They are being asked to approve what they can already see.
 
@@ -137,12 +142,13 @@ This is quality control by system, not by individual. The standard is enforced b
 
 ## The China-Phenomena Applied to Sorted
 
-Sorted applies micro-scoping to website manufacturing:
+Sorted applies micro-scoping to website and operations manufacturing:
 
 **Design operator.** Scoped to producing a single-page mockup given brand inputs.
 **Build operator.** Scoped to converting a mockup section to a Next.js component.
 **Content operator.** Scoped to populating JSON content files from a brief.
 **CMS operator.** Scoped to generating config.yml from a component field list.
+**Ops diagnostic operator.** Scoped to identifying repetitive work, missed handoffs, and measurable capacity loss.
 **Test operator.** Scoped to generating Playwright smoke tests from a page route list.
 
 Each operator produces one deterministic output. Chained together, they assemble a complete, tested, CMS-enabled website.

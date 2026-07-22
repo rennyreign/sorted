@@ -35,7 +35,7 @@ jobs:
         run: rm -rf app/api
 
       - name: Build static export
-        run: npm run build
+        run: npx next build --webpack
         env:
           NEXT_BUILD_STATIC: "true"
 

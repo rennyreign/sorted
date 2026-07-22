@@ -373,7 +373,7 @@ export default function GBHalesowenQuote() {
       </main>
 
       <footer className="border-t border-white/8 px-5 py-8 text-center">
-        <p className="text-xs text-white/25">Sorted by ADX Engine · <a href="https://sortmydigital.com" className="hover:text-white/50">sortmydigital.com</a></p>
+        <p className="text-xs text-white/25">Sorted by ADX Engine · <a href="https://sortmydigital.site" className="hover:text-white/50">sortmydigital.site</a></p>
       </footer>
 
     </div>

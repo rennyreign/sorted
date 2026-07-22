@@ -1,0 +1,251 @@
+"use client"
+
+import { useEffect, useMemo, useState } from "react"
+import { ArrowLeft, ArrowRight, Check, Loader2, X } from "lucide-react"
+
+type StepKey = "business" | "currentSite" | "goal" | "style" | "timeline"
+
+type Step = {
+  key: StepKey
+  kicker: string
+  question: string
+  options: string[]
+}
+
+const steps: Step[] = [
+  {
+    key: "business",
+    kicker: "Question 1 of 5",
+    question: "What kind of business needs the website?",
+    options: ["Local service business", "Health or fitness", "Hospitality", "Professional service", "Retail or ecommerce", "Something else"],
+  },
+  {
+    key: "currentSite",
+    kicker: "Question 2 of 5",
+    question: "What are you working with right now?",
+    options: ["No website yet", "An old website", "A site I do not like", "A DIY website", "A website that does not bring enquiries"],
+  },
+  {
+    key: "goal",
+    kicker: "Question 3 of 5",
+    question: "What should the new site help you do?",
+    options: ["Get more enquiries", "Look more professional", "Take bookings", "Explain services clearly", "Show proof and reviews"],
+  },
+  {
+    key: "style",
+    kicker: "Question 4 of 5",
+    question: "What should it feel like?",
+    options: ["Premium and trusted", "Clean and simple", "Bold and direct", "Warm and local", "Modern but not flashy"],
+  },
+  {
+    key: "timeline",
+    kicker: "Question 5 of 5",
+    question: "How soon would you like to see a mockup?",
+    options: ["Today if possible", "Within 24 hours", "This week", "No rush, I am exploring"],
+  },
+]
+
+export function MockupButton({
+  label = "Get your free mockup",
+  variant = "primary",
+  className = "",
+}: {
+  label?: string
+  variant?: "nav" | "primary" | "yellow" | "white"
+  className?: string
+}) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <button type="button" onClick={() => setOpen(true)} className={`${buttonClass(variant)} ${className}`}>
+        {label}
+        <ArrowRight className="size-4" strokeWidth={3} />
+      </button>
+      {open ? <MockupModal onClose={() => setOpen(false)} /> : null}
+    </>
+  )
+}
+
+function buttonClass(variant: "nav" | "primary" | "yellow" | "white") {
+  const base = "inline-flex items-center justify-center gap-4 rounded-full font-black transition-transform duration-200 hover:-translate-y-0.5"
+  const styles = {
+    nav: "h-11 bg-[#070707] px-5 text-[11px] text-white shadow-[0_14px_30px_rgba(0,0,0,0.16)]",
+    primary: "h-[52px] bg-[#070707] px-7 text-[12px] text-white shadow-[0_18px_36px_rgba(0,0,0,0.16)]",
+    yellow: "h-[52px] bg-[#dfff00] px-8 text-[12px] text-black shadow-[0_16px_32px_rgba(190,210,0,0.22)]",
+    white: "h-12 bg-white px-6 text-[12px] text-black",
+  }
+
+  return `${base} ${styles[variant]}`
+}
+
+function MockupModal({ onClose }: { onClose: () => void }) {
+  const [answers, setAnswers] = useState<Partial<Record<StepKey, string>>>({})
+  const [stepIndex, setStepIndex] = useState(0)
+  const [phase, setPhase] = useState<"questions" | "loading" | "result">("questions")
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [])
+
+  const activeStep = steps[stepIndex]
+  const progress = phase === "result" ? 100 : ((stepIndex + 1) / steps.length) * 100
+  const summary = useMemo(() => getSummary(answers), [answers])
+
+  function choose(option: string) {
+    const nextAnswers = { ...answers, [activeStep.key]: option }
+    setAnswers(nextAnswers)
+
+    if (stepIndex === steps.length - 1) {
+      setPhase("loading")
+      window.setTimeout(() => setPhase("result"), 760)
+      return
+    }
+
+    setStepIndex((current) => current + 1)
+  }
+
+  function back() {
+    if (phase === "result") {
+      setPhase("questions")
+      setStepIndex(steps.length - 1)
+      return
+    }
+
+    setStepIndex((current) => Math.max(0, current - 1))
+  }
+
+  return (
+    <div className="fixed inset-0 z-[90] bg-[#fbfbfa] text-[#070707]" role="dialog" aria-modal="true" aria-label="Free website mockup">
+      <button
+        type="button"
+        onClick={onClose}
+        className="fixed right-4 top-4 z-[100] grid size-12 place-items-center rounded-full bg-[#070707] text-white shadow-[0_14px_34px_rgba(0,0,0,0.22)] sm:right-6 sm:top-6"
+        aria-label="Close mockup request"
+      >
+        <X className="size-5" strokeWidth={2.7} />
+      </button>
+      <div className="flex min-h-screen flex-col">
+        <header className="mx-auto flex w-full max-w-[1220px] items-center justify-between gap-5 px-5 py-5 pr-20 sm:px-8 sm:pr-24">
+          <button type="button" onClick={back} className="inline-flex h-11 items-center gap-2 rounded-full border border-black/15 px-4 text-[12px] font-black disabled:opacity-30" disabled={phase === "questions" && stepIndex === 0}>
+            <ArrowLeft className="size-4" strokeWidth={2.5} />
+            Back
+          </button>
+          <div className="w-[44%] max-w-[360px]">
+            <div className="h-2 overflow-hidden rounded-full bg-black/10">
+              <div className="h-full rounded-full bg-[#dfff00] transition-all duration-300" style={{ width: `${progress}%` }} />
+            </div>
+          </div>
+        </header>
+
+        <div className="mx-auto grid w-full max-w-[1220px] flex-1 items-center px-5 py-6 sm:px-8">
+          {phase === "questions" ? <QuestionStep step={activeStep} value={answers[activeStep.key]} onChoose={choose} /> : null}
+          {phase === "loading" ? <LoadingStep answers={answers} /> : null}
+          {phase === "result" ? <ResultStep answers={answers} summary={summary} /> : null}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function QuestionStep({ step, value, onChoose }: { step: Step; value?: string; onChoose: (option: string) => void }) {
+  return (
+    <section className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      <div>
+        <p className="text-[12px] font-black text-black/45">{step.kicker}</p>
+        <h2 className="mt-5 max-w-[650px] [font-family:var(--font-sites-marker)] text-[clamp(3.4rem,7vw,7.4rem)] font-normal uppercase leading-[0.92]">
+          {step.question}
+        </h2>
+        <div className="mt-6 h-[4px] w-80 max-w-full rounded-full bg-[#ff73d2]" />
+      </div>
+
+      <div className="grid gap-3">
+        {step.options.map((option) => (
+          <button
+            type="button"
+            key={option}
+            onClick={() => onChoose(option)}
+            className={`group grid min-h-[72px] grid-cols-[1fr_auto] items-center rounded-[16px] border bg-white px-5 text-left text-[17px] font-black tracking-[-0.04em] shadow-[0_14px_40px_rgba(0,0,0,0.035)] transition-all hover:-translate-y-0.5 hover:border-black ${
+              value === option ? "border-black ring-4 ring-[#dfff00]" : "border-black/10"
+            }`}
+          >
+            <span>{option}</span>
+            <span className="grid size-9 place-items-center rounded-full bg-[#070707] text-white">
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" strokeWidth={3} />
+            </span>
+          </button>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function LoadingStep({ answers }: { answers: Partial<Record<StepKey, string>> }) {
+  return (
+    <section className="mx-auto max-w-[760px] text-center">
+      <Loader2 className="mx-auto size-12 animate-spin text-[#bdd900]" strokeWidth={3} />
+      <h2 className="mt-8 [font-family:var(--font-sites-marker)] text-[clamp(3.4rem,6vw,6.2rem)] uppercase leading-[0.9]">
+        Building your mockup brief.
+      </h2>
+      <p className="mx-auto mt-5 max-w-[520px] text-[16px] font-bold leading-[1.5]">
+        We are turning {answers.business?.toLowerCase() ?? "your business"} into a practical website direction.
+      </p>
+    </section>
+  )
+}
+
+function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, string>>; summary: string }) {
+  return (
+    <section className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+      <div>
+        <p className="text-[12px] font-black text-black/45">Your free mockup direction</p>
+        <h2 className="mt-5 [font-family:var(--font-sites-marker)] text-[clamp(3.5rem,7vw,7.2rem)] uppercase leading-[0.92]">
+          We can build this first.
+        </h2>
+        <div className="mt-6 h-[4px] w-80 max-w-full rounded-full bg-[#ff73d2]" />
+        <p className="mt-7 max-w-[520px] text-[17px] font-bold leading-[1.5]">{summary}</p>
+      </div>
+
+      <div className="rounded-[22px] bg-[#f7efe3] p-5 shadow-[0_22px_55px_rgba(20,14,8,0.13)] sm:p-7">
+        <div className="rounded-[16px] bg-white p-5">
+          <p className="text-[12px] font-black text-black/45">What we will focus on</p>
+          <h3 className="mt-3 text-[28px] font-black tracking-[-0.045em]">{answers.goal ?? "A website that gets enquiries"}</h3>
+          <ul className="mt-5 grid gap-3 text-[13px] font-black">
+            {["A homepage that says what you do clearly", "Proof that makes people trust you", "A direct path to enquire or book", "Simple content you can update yourself"].map((item) => (
+              <li key={item} className="flex items-center gap-3">
+                <Check className="size-5 rounded-full bg-[#dfff00] p-1" strokeWidth={3.5} />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <form className="mt-4 grid gap-3 rounded-[16px] bg-[#070707] p-5 text-white">
+          <p className="text-[13px] font-black">Where should we send it?</p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <input className="h-12 rounded-xl border-0 bg-white px-4 text-[12px] font-bold text-black outline-none placeholder:text-black/35" placeholder="Business name" />
+            <input className="h-12 rounded-xl border-0 bg-white px-4 text-[12px] font-bold text-black outline-none placeholder:text-black/35" placeholder="Your website, if you have one" />
+          </div>
+          <input className="h-12 rounded-xl border-0 bg-white px-4 text-[12px] font-bold text-black outline-none placeholder:text-black/35" placeholder="Email address" />
+          <button type="button" className="mt-1 inline-flex h-11 items-center justify-center gap-3 rounded-full bg-[#dfff00] px-5 text-[11px] font-black text-black">
+            Send my mockup brief <ArrowRight className="size-4" strokeWidth={3} />
+          </button>
+        </form>
+      </div>
+    </section>
+  )
+}
+
+function getSummary(answers: Partial<Record<StepKey, string>>) {
+  const business = answers.business?.toLowerCase() ?? "business"
+  const site = answers.currentSite?.toLowerCase() ?? "current website"
+  const goal = answers.goal?.toLowerCase() ?? "get more enquiries"
+
+  if (site === "no website yet") {
+    return `For a ${business}, we'd create a website that builds trust, clearly explains your services, and helps turn more visitors into enquiries.`
+  }
+
+  return `For a ${business}, we would turn ${site} into a sharper website with a clearer first impression, stronger proof, and a simple route to ${goal}.`
+}
