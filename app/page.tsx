@@ -3,7 +3,7 @@ import type { ReactNode } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import localFont from "next/font/local"
-import { ArrowRight, Check, Clock3, TrendingUp } from "lucide-react"
+import { ArrowRight, Check, Clock3, Phone, TrendingUp } from "lucide-react"
 
 const marker = localFont({
   src: "../public/fonts/cc-ask-for-mercy.ttf",
@@ -41,13 +41,11 @@ export default function Home() {
           Sorted<span className="text-[#cfe900]">.</span>
         </Link>
         <nav className="flex items-center gap-5 text-[12px] font-black sm:gap-8 sm:text-[14px]">
-          <Link href="/ops/results" className="hidden min-h-11 items-center transition-opacity hover:opacity-60 sm:inline-flex">
-            Results
-          </Link>
           <a
             href="https://wa.me/447386468085"
             className="inline-flex h-11 items-center gap-3 rounded-full bg-[#070707] px-5 text-[12px] font-black text-white shadow-[0_14px_34px_rgba(0,0,0,0.16)] sm:h-14 sm:px-7 sm:text-[15px]"
           >
+            <Phone className="size-4 sm:size-5" strokeWidth={2.8} />
             Talk to us <ArrowRight className="size-4 sm:size-5" strokeWidth={3} />
           </a>
         </nav>
@@ -188,31 +186,34 @@ function OfferCard({
   const dark = theme === "dark"
 
   return (
-    <article
-      className={`relative isolate min-h-[660px] overflow-hidden rounded-[20px] p-8 shadow-[0_20px_60px_rgba(18,14,10,0.08)] sm:min-h-[735px] sm:p-11 ${
+    <Link href={href} className="group block rounded-[20px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#dfff00]/70">
+      <article
+        className={`relative isolate min-h-[660px] overflow-hidden rounded-[20px] p-8 shadow-[0_20px_60px_rgba(18,14,10,0.08)] transition-[background-color,color,box-shadow,transform] duration-500 ease-out group-hover:-translate-y-1 group-hover:bg-[#dfff00] group-hover:text-black group-hover:shadow-[0_28px_80px_rgba(19,24,0,0.22)] sm:min-h-[735px] sm:p-11 ${
         dark ? "bg-[#070707] text-white" : "bg-[#f7f1e8] text-black"
       }`}
-    >
-      <div className="relative z-10">
-        <span className="grid size-20 place-items-center rounded-full bg-[#dfff00] text-black">{icon}</span>
-        <h2 className="mt-9 text-[42px] font-black leading-[0.98] tracking-[-0.035em] sm:text-[54px]">{title}</h2>
-        <span className="mt-6 block h-[5px] w-32 rounded-full bg-[#dfff00]" />
-        <div className={`mt-8 space-y-2 text-[21px] font-semibold leading-[1.24] tracking-[-0.02em] ${dark ? "text-white/86" : "text-black/78"}`}>
-          {lines.map((line) => (
-            <p key={line}>{line}</p>
-          ))}
-        </div>
-      </div>
-      {children}
-      <Link
-        href={href}
-        className={`absolute inset-x-7 bottom-7 z-20 inline-flex h-16 items-center justify-center gap-5 rounded-full px-6 text-[15px] font-black shadow-[0_16px_38px_rgba(0,0,0,0.16)] transition-transform hover:-translate-y-0.5 sm:inset-x-9 sm:bottom-9 sm:h-[72px] sm:text-[18px] ${
-          dark ? "bg-white text-black" : "bg-[#070707] text-white"
-        }`}
       >
-        {cta} <ArrowRight className="size-5" strokeWidth={3} />
-      </Link>
-    </article>
+        <div className="relative z-10">
+          <span className="grid size-20 place-items-center rounded-full bg-[#dfff00] text-black transition-colors duration-500 group-hover:bg-[#070707] group-hover:text-[#dfff00]">{icon}</span>
+          <h2 className="mt-9 text-[42px] font-black leading-[0.98] tracking-[-0.035em] sm:text-[54px]">{title}</h2>
+          <span className="mt-6 block h-[5px] w-32 rounded-full bg-[#dfff00] transition-colors duration-500 group-hover:bg-[#070707]" />
+          <div className={`mt-8 space-y-2 text-[21px] font-semibold leading-[1.24] tracking-[-0.02em] transition-colors duration-500 group-hover:text-black/78 ${dark ? "text-white/86" : "text-black/78"}`}>
+            {lines.map((line) => (
+              <p key={line}>{line}</p>
+            ))}
+          </div>
+        </div>
+        <div className="transition-transform duration-500 ease-out group-hover:translate-y-1">
+          {children}
+        </div>
+        <span
+          className={`absolute inset-x-7 bottom-7 z-20 inline-flex h-16 items-center justify-center gap-5 rounded-full px-6 text-[15px] font-black shadow-[0_16px_38px_rgba(0,0,0,0.16)] transition-[background-color,color,transform] duration-500 ease-out group-hover:bg-[#070707] group-hover:text-[#dfff00] group-hover:translate-y-[-2px] sm:inset-x-9 sm:bottom-9 sm:h-[72px] sm:text-[18px] ${
+            dark ? "bg-white text-black" : "bg-[#070707] text-white"
+          }`}
+        >
+          {cta} <ArrowRight className="size-5" strokeWidth={3} />
+        </span>
+      </article>
+    </Link>
   )
 }
 

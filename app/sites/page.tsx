@@ -190,7 +190,7 @@ function HomeBottom() {
             <p className="mt-7 text-[11px] font-medium text-white/50">© 2025 Sorted Sites.</p>
           </div>
           <HomeFooterLinks title="Product" links={[["How it works", "/sites"], ["Examples", "/sites/examples"], ["Pricing", "/sites/pricing"], ["Updates", "/sites/updates"]]} />
-          <HomeFooterLinks title="Company" links={[["About us", "/sites/about"], ["Our process", "/sites"], ["Reviews", "/sites/examples"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
+          <HomeFooterLinks title="Company" links={[["About us", "/sites/about"], ["Our process", "/sites"], ["Reviews", "/sites/examples"], ["Partner program", "/affiliates"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
           <div>
             <p className="mb-4 text-[12px] font-black">Let's talk</p>
             <a href="https://wa.me/447386468085" className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#dfff00] px-5 text-[12px] font-black text-black">
