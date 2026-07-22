@@ -1,18 +1,17 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Image from "next/image"
 import { Menu, Phone, X } from "lucide-react"
 import { MockupButton } from "./SitesMockupModal"
 
 type ActivePage = "how" | "examples" | "pricing" | "about" | "updates"
 
 const links = [
-  ["how", "How it works", "/sites"],
-  ["examples", "Examples", "/sites/examples"],
-  ["pricing", "Pricing", "/sites/pricing"],
-  ["about", "About", "/sites/about"],
-  ["updates", "Updates", "/sites/updates"],
+  ["how", "How it works", "/"],
+  ["examples", "Examples", "/examples"],
+  ["pricing", "Pricing", "/pricing"],
+  ["about", "About", "/about"],
+  ["updates", "Updates", "/website-updates"],
 ] as const
 
 export function SitesHeaderClient({ active }: { active?: ActivePage }) {
@@ -36,18 +35,8 @@ export function SitesHeaderClient({ active }: { active?: ActivePage }) {
       }`}
     >
       <div className="mx-auto flex w-full max-w-[1220px] items-center justify-between">
-        <a href="/sites" className="flex min-h-11 shrink-0 items-center" aria-label="Sorted Sites home">
-          <span className="inline-flex w-[118px] items-center sm:w-[150px]">
-            <Image
-              src="/sorted-sites/sorted-sites-logo.png"
-              alt="Sorted Sites"
-              width={848}
-              height={207}
-              sizes="150px"
-              className="h-auto w-full"
-              priority
-            />
-          </span>
+        <a href="/" className="flex min-h-11 shrink-0 items-center text-[32px] font-black leading-none tracking-[-0.045em] sm:text-[38px]" aria-label="Sorted home">
+          Sorted<span className="text-[#cfe900]">.</span>
         </a>
         <nav className="hidden items-center gap-8 text-[12px] font-extrabold tracking-[-0.02em] md:flex">
           {links.map(([key, label, href]) => (
@@ -58,7 +47,7 @@ export function SitesHeaderClient({ active }: { active?: ActivePage }) {
           ))}
         </nav>
         <div className="flex items-center gap-5">
-          <a href="https://wa.me/447386468085" aria-label="WhatsApp Sorted Sites" className="hidden text-[#04b800] md:block">
+          <a href="https://wa.me/447386468085" aria-label="WhatsApp Sorted" className="hidden text-[#04b800] md:block">
             <Phone className="size-6" strokeWidth={2.4} />
           </a>
           <div className="hidden sm:block">

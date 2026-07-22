@@ -6,8 +6,11 @@ import { MockupButton } from "../_components/SitesMockupModal"
 import { ExamplesGallery } from "./ExamplesGallery"
 
 export const metadata: Metadata = {
-  title: "Examples | Sorted Sites",
-  description: "Real Sorted Sites mockups for small businesses across health, home services, hospitality, retail and professional services.",
+  title: "Examples | Sorted",
+  description: "Real Sorted mockups for small businesses across health, home services, hospitality, retail and professional services.",
+  alternates: {
+    canonical: "/examples",
+  },
 }
 
 export default function ExamplesPage() {
@@ -29,7 +32,7 @@ export default function ExamplesPage() {
         <div className="relative min-h-[320px] overflow-hidden rounded-[20px] bg-[#f7f1e8] shadow-[0_24px_70px_rgba(0,0,0,0.1)] sm:min-h-[420px] sm:rounded-[24px]">
           <Image
             src="/sorted-sites/examples-hero.png"
-            alt="Sorted Sites example mockups arranged across desktop and mobile screens"
+            alt="Sorted example mockups arranged across desktop and mobile screens"
             fill
             priority
             sizes="(min-width: 1024px) 650px, 100vw"

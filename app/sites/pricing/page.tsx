@@ -5,8 +5,11 @@ import { DarkCta, SitesFooter, SitesHeader, SitesPage, SitesTitle, Underline } f
 import { MockupButton } from "../_components/SitesMockupModal"
 
 export const metadata: Metadata = {
-  title: "Pricing | Sorted Sites",
-  description: "Sorted Sites builds your website mockup first, then agrees a fixed price before any work begins.",
+  title: "Pricing | Sorted",
+  description: "Sorted builds your website mockup first, then agrees a fixed price before any work begins.",
+  alternates: {
+    canonical: "/pricing",
+  },
 }
 
 export default function PricingPage() {
@@ -33,7 +36,7 @@ export default function PricingPage() {
         <div className="relative min-h-[330px] overflow-hidden rounded-[20px] bg-[#f7f1e8] shadow-[0_24px_70px_rgba(0,0,0,0.1)] sm:min-h-[430px] sm:rounded-[24px]">
           <Image
             src="/sorted-sites/pricing-hero.png"
-            alt="Sorted Sites pricing and website value shown as a visual mockup"
+            alt="Sorted pricing and website value shown as a visual mockup"
             fill
             priority
             sizes="(min-width: 1024px) 650px, 100vw"
@@ -88,7 +91,7 @@ export default function PricingPage() {
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_90px_1fr] lg:items-center">
           <ProcessBox title="The traditional agency process" items={[["Discovery meeting", "Time consuming"], ["Proposal & strategy", "Lots of back and forth"], ["Quote", "Often unclear"], ["Deposit", "Before you have seen anything"], ["Design & revisions", "Weeks of waiting"], ["Development", "More waiting"], ["Launch", "Hope it works"]]} />
           <div className="mx-auto grid size-16 place-items-center rounded-full bg-[#dfff00] text-[28px] font-black">VS</div>
-          <ProcessBox sorted title="The Sorted Sites process" items={[["Free mockup", "We build it first"], ["You approve", "You know exactly what you are getting"], ["Fixed price", "Clear price before any work begins"], ["Launch", "Fast, smooth, done"]]} />
+          <ProcessBox sorted title="The Sorted process" items={[["Free mockup", "We build it first"], ["You approve", "You know exactly what you are getting"], ["Fixed price", "Clear price before any work begins"], ["Launch", "Fast, smooth, done"]]} />
         </div>
       </section>
 
@@ -104,7 +107,7 @@ export default function PricingPage() {
             </div>
           </div>
           <div>
-            <p className="text-[14px] font-black">Sorted Sites charges for:</p>
+            <p className="text-[14px] font-black">Sorted charges for:</p>
             <p className="mt-5 flex items-center gap-4 text-[24px] font-black tracking-[-0.035em]"><Check className="size-9 rounded-full bg-white p-2" />Building your website.</p>
             <p className="mt-4 text-[15px] font-semibold">That is it.</p>
           </div>

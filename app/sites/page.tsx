@@ -5,8 +5,11 @@ import { examples, FeatureBar, Logo, SitePreviewCard, SitesHeader, SitesPage, Si
 import { MockupButton } from "./_components/SitesMockupModal"
 
 export const metadata: Metadata = {
-  title: "Sorted Sites | Your new website, Sorted",
-  description: "Sorted Sites builds free website mockups first, then prices the build once you have seen what you are getting.",
+  title: "Sorted | Your new website, Sorted",
+  description: "Sorted builds free website mockups first, then prices the build once you have seen what you are getting.",
+  alternates: {
+    canonical: "/",
+  },
 }
 
 export default function SortedSitesHome() {
@@ -41,7 +44,7 @@ export default function SortedSitesHome() {
         <div className="relative min-h-[300px] sm:min-h-[390px] lg:min-h-[500px]">
           <Image
             src="/sorted-sites/home-herobg.png"
-            alt="Sorted Sites mockups displayed around a laptop website preview."
+            alt="Sorted website mockups displayed around a laptop website preview."
             fill
             priority
             sizes="(min-width: 1024px) 690px, 100vw"
@@ -106,7 +109,7 @@ export default function SortedSitesHome() {
       <section className="mx-auto grid max-w-[1220px] gap-7 px-5 py-12 sm:px-8 lg:grid-cols-[0.32fr_repeat(3,1fr)]">
         <div>
           <h2 className="text-[34px] font-black leading-[1] tracking-[-0.035em]">Real businesses.<br />Real mockups.<br />Real results.</h2>
-          <a href="/sites/examples" className="mt-7 inline-flex h-12 items-center gap-3 whitespace-nowrap rounded-full border border-black/20 px-5 text-[12px] font-black">
+          <a href="/examples" className="mt-7 inline-flex h-12 items-center gap-3 whitespace-nowrap rounded-full border border-black/20 px-5 text-[12px] font-black">
             View more examples <ArrowRight className="size-4" strokeWidth={2.5} />
           </a>
         </div>
@@ -187,10 +190,10 @@ function HomeBottom() {
             <p className="mt-4 max-w-[220px] text-[13px] font-semibold leading-[1.4] text-white/80">
               Websites that build trust, explain your services and turn visitors into enquiries.
             </p>
-            <p className="mt-7 text-[11px] font-medium text-white/50">© 2025 Sorted Sites.</p>
+            <p className="mt-7 text-[11px] font-medium text-white/50">© 2025 Sorted.</p>
           </div>
-          <HomeFooterLinks title="Product" links={[["How it works", "/sites"], ["Examples", "/sites/examples"], ["Pricing", "/sites/pricing"], ["Updates", "/sites/updates"]]} />
-          <HomeFooterLinks title="Company" links={[["About us", "/sites/about"], ["Our process", "/sites"], ["Reviews", "/sites/examples"], ["Partner program", "/affiliates"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
+          <HomeFooterLinks title="Product" links={[["How it works", "/"], ["Examples", "/examples"], ["Pricing", "/pricing"], ["Updates", "/website-updates"]]} />
+          <HomeFooterLinks title="Company" links={[["About us", "/about"], ["Our process", "/"], ["Reviews", "/examples"], ["Partner program", "/affiliates"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
           <div>
             <p className="mb-4 text-[12px] font-black">Let's talk</p>
             <a href="https://wa.me/447386468085" className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#dfff00] px-5 text-[12px] font-black text-black">

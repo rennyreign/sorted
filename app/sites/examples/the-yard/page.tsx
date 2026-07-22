@@ -4,8 +4,11 @@ import { DarkCta, SitesFooter, SitesHeader, SitesPage, Underline } from "../../_
 import { ExampleHeroPreview } from "./ExampleHeroPreview"
 
 export const metadata: Metadata = {
-  title: "The Yard Training Club | Sorted Sites Example",
-  description: "A Sorted Sites example for a personal training studio, including testimonial, reviews and measured results.",
+  title: "The Yard Training Club | Sorted Example",
+  description: "A Sorted example for a personal training studio, including testimonial, reviews and measured results.",
+  alternates: {
+    canonical: "/examples/the-yard",
+  },
 }
 
 export default function TheYardExamplePage() {
@@ -14,7 +17,7 @@ export default function TheYardExamplePage() {
       <SitesHeader active="examples" />
       <section className="mx-auto grid max-w-[1220px] gap-8 px-5 pb-10 pt-10 sm:px-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-center lg:pb-12 lg:pt-12">
         <div>
-          <a href="/sites/examples" className="mb-9 inline-flex min-h-11 items-center gap-3 rounded-full bg-black/5 px-4 text-[13px] font-bold text-black/60 sm:mb-14 sm:bg-transparent sm:px-0">
+          <a href="/examples" className="mb-9 inline-flex min-h-11 items-center gap-3 rounded-full bg-black/5 px-4 text-[13px] font-bold text-black/60 sm:mb-14 sm:bg-transparent sm:px-0">
             <ArrowLeft className="size-4" /> Back to all examples
           </a>
           <p className="mb-5 text-[12px] font-black uppercase text-black/45">Health & Fitness</p>

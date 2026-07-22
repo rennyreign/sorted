@@ -9,19 +9,22 @@ const signature = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "Sorted. We modernise businesses.",
+  metadataBase: new URL("https://sortmydigital.site"),
+  title: "Sorted | Your new website, Sorted",
   description:
-    "Sorted helps businesses modernise through websites that win more customers and operational systems that remove repetitive work.",
+    "Sorted designs websites before you spend a penny, then builds them if you love what you see.",
   icons: {
     icon: [
       { url: "/favicon.png", type: "image/png" },
     ],
   },
   openGraph: {
-    title: "Sorted. We modernise businesses.",
+    title: "Sorted | Your new website, Sorted",
     description:
-      "Choose Sorted Sites for better websites or Sorted Ops for better operations.",
+      "See your new website first. Then decide.",
     locale: "en_GB",
+    url: "https://sortmydigital.site",
+    siteName: "Sorted",
   },
 }
 

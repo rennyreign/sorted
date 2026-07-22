@@ -4,8 +4,11 @@ import { DarkCta, SitesFooter, SitesHeader, SitesPage, SitesTitle, Underline } f
 import { MockupButton } from "../_components/SitesMockupModal"
 
 export const metadata: Metadata = {
-  title: "Updates | Sorted Sites",
-  description: "Every Sorted Site includes a clean content editor so business owners can update pages, images, services and contact details.",
+  title: "Website Updates | Sorted",
+  description: "Every Sorted website includes a clean content editor so business owners can update pages, images, services and contact details.",
+  alternates: {
+    canonical: "/website-updates",
+  },
 }
 
 export default function UpdatesPage() {

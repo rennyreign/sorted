@@ -42,10 +42,10 @@ export function SitesFooter() {
           <p className="mt-4 max-w-[220px] text-[13px] font-semibold leading-[1.4] text-white/80">
             Websites that build trust, explain your services and turn visitors into enquiries.
           </p>
-          <p className="mt-7 text-[11px] font-medium text-white/50">© 2025 Sorted Sites.</p>
+          <p className="mt-7 text-[11px] font-medium text-white/50">© 2025 Sorted.</p>
         </div>
-        <FooterLinks title="Product" links={[["How it works", "/sites"], ["Examples", "/sites/examples"], ["Pricing", "/sites/pricing"], ["Updates", "/sites/updates"]]} />
-        <FooterLinks title="Company" links={[["About us", "/sites/about"], ["Our process", "/sites"], ["Reviews", "/sites/examples"], ["Partner program", "/affiliates"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
+        <FooterLinks title="Product" links={[["How it works", "/"], ["Examples", "/examples"], ["Pricing", "/pricing"], ["Updates", "/website-updates"]]} />
+        <FooterLinks title="Company" links={[["About us", "/about"], ["Our process", "/"], ["Reviews", "/examples"], ["Partner program", "/affiliates"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
         <div>
           <p className="mb-4 text-[12px] font-black">Let's talk</p>
           <a href="https://wa.me/447386468085" className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#dfff00] px-5 text-[12px] font-black text-black">
@@ -80,16 +80,8 @@ function FooterLinks({ title, links }: { title: string; links: [string, string][
 
 export function Logo({ dark = false }: { dark?: boolean }) {
   return (
-    <span className="inline-flex w-[150px] items-center">
-      <Image
-        src={dark ? "/sorted-sites/sorted-sites-logo-white.png" : "/sorted-sites/sorted-sites-logo.png"}
-        alt="Sorted Sites"
-        width={848}
-        height={207}
-        sizes="150px"
-        className="h-auto w-full"
-        priority={!dark}
-      />
+    <span className={`inline-flex items-center text-[32px] font-black leading-none tracking-[-0.045em] ${dark ? "text-white" : "text-[#070707]"}`}>
+      Sorted<span className="text-[#cfe900]">.</span>
     </span>
   )
 }
@@ -211,7 +203,7 @@ export const examples: SiteExample[] = [
 ]
 
 export function SitePreviewCard({ example = examples[0], large = false }: { example?: SiteExample; large?: boolean }) {
-  const href = example.slug === "the-yard" ? "/sites/examples/the-yard" : "/sites/examples/the-yard"
+  const href = example.slug === "the-yard" ? "/examples/the-yard" : "/examples/the-yard"
 
   return (
     <article className={`overflow-hidden rounded-[14px] border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.045)] ${large ? "max-w-[720px]" : ""}`}>
