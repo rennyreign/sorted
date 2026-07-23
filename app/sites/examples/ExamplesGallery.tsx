@@ -42,9 +42,9 @@ const mockups: MockupExample[] = [
 ]
 
 const statusStyles: Record<Status, string> = {
-  Mockup: "bg-[#2a2a2a] text-white before:bg-[#dfff00]",
-  Approved: "bg-[#172817] text-white before:bg-[#78d900]",
-  Building: "bg-[#fff] text-black before:bg-[#dfff00]",
+  Mockup: "bg-[#252525] text-white before:bg-[#dfff00]",
+  Approved: "bg-[#252525] text-white before:bg-[#6ee700]",
+  Building: "bg-[#252525] text-white before:bg-[#ffb000]",
 }
 
 const initialVisibleCount = 10
