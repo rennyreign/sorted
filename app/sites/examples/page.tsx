@@ -21,28 +21,24 @@ const metrics = [
 
 const launchedSites = [
   {
-    category: "Health & fitness",
     title: "The Yard Training Club",
     description: "Private personal training studio in Manchester.",
     image: "/examples/graciebarra-halesowen.jpg",
     href: "/examples/the-yard",
   },
   {
-    category: "Home services",
     title: "ClearFlow Bathrooms",
     description: "Bathroom specialists creating beautiful spaces.",
     image: "/examples/clario.jpg",
     href: "/examples/the-yard",
   },
   {
-    category: "Retail",
     title: "La Pâte Patisserie",
     description: "Artisan bakery delivering across London.",
     image: "/examples/adxengine-ad.jpg",
     href: "/examples/the-yard",
   },
   {
-    category: "Hospitality",
     title: "Palace Barn Cottages",
     description: "Luxury holiday cottages in the Cotswolds.",
     image: "/examples/palacebarns.jpg",
@@ -64,7 +60,6 @@ export default function ExamplesPage() {
 
       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-8 pt-11 sm:px-8 sm:pb-12 sm:pt-14 lg:grid-cols-[0.96fr_1.04fr] lg:items-center">
         <div>
-          <p className="mb-4 text-[12px] font-black uppercase text-[#b7d900]">Examples</p>
           <h1 className="max-w-[610px] text-[clamp(3.55rem,7vw,7.3rem)] font-black leading-[0.86] tracking-[-0.06em]">
             Real work.
             <br />
@@ -117,7 +112,6 @@ export default function ExamplesPage() {
       <section className="mx-auto max-w-[1220px] border-t border-black/10 px-5 py-7 sm:px-8">
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="mb-3 text-[11px] font-black uppercase text-black/46">Live websites</p>
             <h2 className="max-w-[520px] text-[31px] font-black leading-[0.95] tracking-[-0.05em] sm:text-[38px]">
               Websites we’ve built and launched.
             </h2>
@@ -132,9 +126,6 @@ export default function ExamplesPage() {
             <article key={site.title} className="overflow-hidden rounded-[10px] border border-black/12 bg-white shadow-[0_16px_40px_rgba(0,0,0,0.045)]">
               <a href={site.href} className="group relative block aspect-[16/10] overflow-hidden bg-[#080808]">
                 <Image src={site.image} alt={`${site.title} website`} fill sizes="(min-width: 1024px) 290px, (min-width: 640px) 50vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.055]" />
-                <span className="absolute left-4 top-4 rounded-full bg-black/80 px-3 py-1 text-[9px] font-black uppercase text-white shadow-[0_8px_20px_rgba(0,0,0,0.22)]">
-                  {site.category}
-                </span>
               </a>
               <div className="p-5">
                 <h3 className="text-[16px] font-black leading-tight tracking-[-0.035em]">{site.title}</h3>
@@ -153,7 +144,6 @@ export default function ExamplesPage() {
       <section className="bg-white px-5 py-8 sm:px-8">
         <div className="mx-auto grid max-w-[1220px] gap-8 lg:grid-cols-[0.28fr_0.72fr] lg:items-center">
           <div>
-            <p className="mb-3 text-[11px] font-black uppercase text-[#badb00]">Our process</p>
             <h2 className="text-[34px] font-black leading-[0.95] tracking-[-0.05em]">How every website starts.</h2>
             <p className="mt-4 max-w-[260px] text-[15px] font-semibold leading-[1.45] text-black/65">
               Simple, fast and built around your business.
