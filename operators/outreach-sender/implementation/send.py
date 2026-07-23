@@ -15,6 +15,7 @@ Usage:
 
 import argparse
 import os
+import re
 import sys
 import time
 import logging
@@ -150,11 +151,70 @@ def compile_template(subject_template, body_template, prospect):
     body = body_template.replace("{{review_url}}", review_url)
     return subject, body
 
+# ─── HTML conversion (for open tracking) ──────────────────────────────────────
+
+_URL_PATTERN = re.compile(r'(https?://[^\s<]+)')
+
+def text_to_html(text):
+    """
+    Convert plain text email body to simple HTML with clickable links.
+
+    Resend injects an open-tracking pixel into HTML emails automatically.
+    Plain text emails cannot be tracked, so we generate a clean HTML version
+    from the plain text template.
+    """
+    # Escape HTML special characters
+    escaped = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+    # Convert URLs to clickable links
+    escaped = _URL_PATTERN.sub(
+        r'<a href="\1" style="color:#2563eb;text-decoration:underline;">\1</a>',
+        escaped,
+    )
+
+    # Split into paragraphs on double newlines, convert single newlines to <br>
+    paragraphs = escaped.split("\n\n")
+    html_parts = []
+    for p in paragraphs:
+        p = p.strip().replace("\n", "<br>\n")
+        if p:
+            html_parts.append(
+                f'<p style="margin:0 0 16px 0;line-height:1.6;color:#1e293b;">{p}</p>'
+            )
+
+    body_html = "\n          ".join(html_parts)
+
+    return (
+        '<!DOCTYPE html>\n'
+        '<html>\n'
+        '<head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width,initial-scale=1">'
+        '</head>\n'
+        '<body style="margin:0;padding:0;background:#f8fafc;'
+        "font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;\">\n"
+        '  <table width="100%" cellpadding="0" cellspacing="0" style="padding:24px 0;">\n'
+        '    <tr><td align="center">\n'
+        '      <table width="560" cellpadding="0" cellspacing="0" '
+        'style="background:#ffffff;border-radius:8px;padding:32px 24px;'
+        'border:1px solid #e2e8f0;">\n'
+        "        <tr><td>\n"
+        f"          {body_html}\n"
+        "        </td></tr>\n"
+        "      </table>\n"
+        "    </td></tr>\n"
+        "  </table>\n"
+        "</body>\n"
+        "</html>"
+    )
+
 # ─── Email sender (Resend adapter) ────────────────────────────────────────────
 
 def send_email(to, subject, body, idempotency_key):
     """
     Send email via Resend API.
+
+    Sends both plain text and HTML versions. The HTML version enables
+    Resend's automatic open-tracking pixel injection.
 
     Returns dict:
         { success, provider_message_id, error_type, error_message }
@@ -168,6 +228,8 @@ def send_email(to, subject, body, idempotency_key):
             "error_message": None,
         }
 
+    html_body = text_to_html(body)
+
     try:
         r = requests.post(
             RESEND_API_ENDPOINT,
@@ -180,6 +242,7 @@ def send_email(to, subject, body, idempotency_key):
                 "to": [to],
                 "subject": subject,
                 "text": body,
+                "html": html_body,
             },
             timeout=30,
         )
