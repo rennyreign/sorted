@@ -10,7 +10,7 @@ type MockupExample = {
   location: string
   category: string
   status: Status
-  time: string
+  createdAt: string
   image: string
 }
 
@@ -19,26 +19,26 @@ const filters = ["All", "Home services", "Health & fitness", "Hospitality", "Ret
 const mockupBaseUrl = "https://qweevancxedkkfxysnzq.supabase.co/storage/v1/object/public/Mockups/"
 
 const mockups: MockupExample[] = [
-  { title: "Pilates Studio", location: "London", category: "Health & fitness", status: "Mockup", time: "12m ago", image: `${mockupBaseUrl}labpilates.png` },
-  { title: "Farm Shop", location: "Farleigh", category: "Retail", status: "Approved", time: "28m ago", image: `${mockupBaseUrl}farleigh2.png` },
-  { title: "Rural Venue", location: "Kent", category: "Hospitality", status: "Mockup", time: "45m ago", image: `${mockupBaseUrl}farleigh.png` },
-  { title: "Local Service Business", location: "Woolwich", category: "Home services", status: "Building", time: "1h ago", image: `${mockupBaseUrl}woolwich.png` },
-  { title: "Hair Salon", location: "London", category: "Retail", status: "Approved", time: "1h ago", image: `${mockupBaseUrl}no77.png` },
-  { title: "Fitness Club", location: "Birmingham", category: "Health & fitness", status: "Building", time: "2h ago", image: `${mockupBaseUrl}sinfit.png` },
-  { title: "Wellness Studio", location: "Bristol", category: "Professional", status: "Mockup", time: "2h ago", image: `${mockupBaseUrl}origin.png` },
-  { title: "Dental Practice", location: "Mayfield", category: "Professional", status: "Approved", time: "3h ago", image: `${mockupBaseUrl}mayfield-dental.png` },
-  { title: "Community Hub", location: "Thamesmead", category: "Other", status: "Mockup", time: "3h ago", image: `${mockupBaseUrl}thamesmeadB.png` },
-  { title: "Community Project", location: "Thamesmead", category: "Other", status: "Mockup", time: "4h ago", image: `${mockupBaseUrl}thamesmeadA.png` },
-  { title: "Personal Trainer", location: "Manchester", category: "Health & fitness", status: "Building", time: "4h ago", image: `${mockupBaseUrl}lanept.png` },
-  { title: "Beauty Salon", location: "London", category: "Retail", status: "Mockup", time: "5h ago", image: `${mockupBaseUrl}salon108.png` },
-  { title: "Interior Design", location: "London", category: "Professional", status: "Approved", time: "5h ago", image: `${mockupBaseUrl}edgmockup1.png` },
-  { title: "Flooring", location: "Leeds", category: "Home services", status: "Mockup", time: "6h ago", image: `${mockupBaseUrl}edgmockup2.png` },
-  { title: "Hair Boutique", location: "Birmingham", category: "Retail", status: "Building", time: "6h ago", image: `${mockupBaseUrl}hairboutique.png` },
-  { title: "Greek Restaurant", location: "Manchester", category: "Hospitality", status: "Approved", time: "7h ago", image: `${mockupBaseUrl}moderngreek.png` },
-  { title: "Aesthetics Clinic", location: "London", category: "Professional", status: "Mockup", time: "7h ago", image: `${mockupBaseUrl}positive-beauty-aesthetics.png` },
-  { title: "Coffee Shop", location: "Nottingham", category: "Hospitality", status: "Mockup", time: "8h ago", image: `${mockupBaseUrl}coffeeoncorner.png` },
-  { title: "Italian Restaurant", location: "London", category: "Hospitality", status: "Mockup", time: "8h ago", image: `${mockupBaseUrl}la-coppola.png` },
-  { title: "Private Gym", location: "Cardiff", category: "Health & fitness", status: "Building", time: "9h ago", image: `${mockupBaseUrl}gymshed.png` },
+  { title: "Pilates Studio", location: "London", category: "Health & fitness", status: "Mockup", createdAt: "2026-07-23T10:42:00+01:00", image: `${mockupBaseUrl}labpilates.png` },
+  { title: "Farm Shop", location: "Farleigh", category: "Retail", status: "Approved", createdAt: "2026-07-23T09:58:00+01:00", image: `${mockupBaseUrl}farleigh2.png` },
+  { title: "Rural Venue", location: "Kent", category: "Hospitality", status: "Mockup", createdAt: "2026-07-23T08:31:00+01:00", image: `${mockupBaseUrl}farleigh.png` },
+  { title: "Local Service Business", location: "Woolwich", category: "Home services", status: "Building", createdAt: "2026-07-23T07:46:00+01:00", image: `${mockupBaseUrl}woolwich.png` },
+  { title: "Hair Salon", location: "London", category: "Retail", status: "Approved", createdAt: "2026-07-22T21:24:00+01:00", image: `${mockupBaseUrl}no77.png` },
+  { title: "Fitness Club", location: "Birmingham", category: "Health & fitness", status: "Building", createdAt: "2026-07-22T20:07:00+01:00", image: `${mockupBaseUrl}sinfit.png` },
+  { title: "Wellness Studio", location: "Bristol", category: "Professional", status: "Mockup", createdAt: "2026-07-22T18:52:00+01:00", image: `${mockupBaseUrl}origin.png` },
+  { title: "Dental Practice", location: "Mayfield", category: "Professional", status: "Approved", createdAt: "2026-07-22T17:19:00+01:00", image: `${mockupBaseUrl}mayfield-dental.png` },
+  { title: "Community Hub", location: "Thamesmead", category: "Other", status: "Mockup", createdAt: "2026-07-22T16:38:00+01:00", image: `${mockupBaseUrl}thamesmeadB.png` },
+  { title: "Community Project", location: "Thamesmead", category: "Other", status: "Mockup", createdAt: "2026-07-22T15:06:00+01:00", image: `${mockupBaseUrl}thamesmeadA.png` },
+  { title: "Personal Trainer", location: "Manchester", category: "Health & fitness", status: "Building", createdAt: "2026-07-22T14:22:00+01:00", image: `${mockupBaseUrl}lanept.png` },
+  { title: "Beauty Salon", location: "London", category: "Retail", status: "Mockup", createdAt: "2026-07-22T13:47:00+01:00", image: `${mockupBaseUrl}salon108.png` },
+  { title: "Interior Design", location: "London", category: "Professional", status: "Approved", createdAt: "2026-07-22T12:11:00+01:00", image: `${mockupBaseUrl}edgmockup1.png` },
+  { title: "Flooring", location: "Leeds", category: "Home services", status: "Mockup", createdAt: "2026-07-22T11:36:00+01:00", image: `${mockupBaseUrl}edgmockup2.png` },
+  { title: "Hair Boutique", location: "Birmingham", category: "Retail", status: "Building", createdAt: "2026-07-22T10:18:00+01:00", image: `${mockupBaseUrl}hairboutique.png` },
+  { title: "Greek Restaurant", location: "Manchester", category: "Hospitality", status: "Approved", createdAt: "2026-07-22T09:41:00+01:00", image: `${mockupBaseUrl}moderngreek.png` },
+  { title: "Aesthetics Clinic", location: "London", category: "Professional", status: "Mockup", createdAt: "2026-07-22T08:56:00+01:00", image: `${mockupBaseUrl}positive-beauty-aesthetics.png` },
+  { title: "Coffee Shop", location: "Nottingham", category: "Hospitality", status: "Mockup", createdAt: "2026-07-22T08:03:00+01:00", image: `${mockupBaseUrl}coffeeoncorner.png` },
+  { title: "Italian Restaurant", location: "London", category: "Hospitality", status: "Mockup", createdAt: "2026-07-22T07:28:00+01:00", image: `${mockupBaseUrl}la-coppola.png` },
+  { title: "Private Gym", location: "Cardiff", category: "Health & fitness", status: "Building", createdAt: "2026-07-22T06:52:00+01:00", image: `${mockupBaseUrl}gymshed.png` },
 ]
 
 const statusStyles: Record<Status, string> = {
@@ -53,12 +53,19 @@ const visibleIncrement = 10
 export function ExamplesGallery() {
   const [activeFilter, setActiveFilter] = useState("All")
   const [visibleCount, setVisibleCount] = useState(initialVisibleCount)
+  const [shuffleSeed, setShuffleSeed] = useState(0)
   const [selectedMockup, setSelectedMockup] = useState<MockupExample | null>(null)
 
+  useEffect(() => {
+    setShuffleSeed(Date.now() + Math.floor(Math.random() * 10000))
+  }, [])
+
+  const shuffledMockups = useMemo(() => seededShuffle(mockups, shuffleSeed), [shuffleSeed])
+
   const filteredMockups = useMemo(() => {
-    if (activeFilter === "All") return mockups
-    return mockups.filter((mockup) => mockup.category === activeFilter)
-  }, [activeFilter])
+    if (activeFilter === "All") return shuffledMockups
+    return shuffledMockups.filter((mockup) => mockup.category === activeFilter)
+  }, [activeFilter, shuffledMockups])
 
   const visibleMockups = useMemo(() => filteredMockups.slice(0, visibleCount), [filteredMockups, visibleCount])
   const hasMoreMockups = visibleCount < filteredMockups.length
@@ -156,7 +163,7 @@ export function ExamplesGallery() {
                         <h3 className="text-[12px] font-black leading-tight tracking-[-0.025em]">{mockup.title}</h3>
                         <p className="mt-1 text-[11px] font-semibold leading-none text-black/52">{mockup.location}</p>
                       </div>
-                      <span className="self-end whitespace-nowrap text-[10px] font-bold text-black/50">{mockup.time}</span>
+                      <span className="self-end whitespace-nowrap text-[10px] font-bold text-black/50">{formatFactoryTime(mockup.createdAt)}</span>
                     </div>
                   </article>
                 ))}
@@ -215,4 +222,37 @@ export function ExamplesGallery() {
       ) : null}
     </>
   )
+}
+
+function seededShuffle<T>(items: T[], seed: number) {
+  const result = [...items]
+  let currentSeed = seed || 1
+
+  function random() {
+    currentSeed = (currentSeed * 9301 + 49297) % 233280
+    return currentSeed / 233280
+  }
+
+  for (let index = result.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(random() * (index + 1))
+    const current = result[index]
+    result[index] = result[swapIndex]
+    result[swapIndex] = current
+  }
+
+  return result
+}
+
+function formatFactoryTime(value: string) {
+  const createdAt = new Date(value)
+  const now = new Date()
+  const createdDay = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", day: "2-digit", month: "2-digit", year: "numeric" }).format(createdAt)
+  const today = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", day: "2-digit", month: "2-digit", year: "numeric" }).format(now)
+  const yesterday = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(now.getTime() - 86400000))
+  const time = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", minute: "2-digit", hour12: false }).format(createdAt)
+
+  if (createdDay === today) return `Today ${time}`
+  if (createdDay === yesterday) return `Yesterday ${time}`
+
+  return new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", day: "numeric", month: "short" }).format(createdAt)
 }
