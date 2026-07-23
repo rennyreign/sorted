@@ -92,6 +92,38 @@ Skill: `operators/skills/website-analyser.md`
 
 ---
 
+### Step 2b: Contact Enricher
+
+The Contact Enricher visits each prospect's website and extracts contact information — email addresses from mailto links and contact pages, plus owner names and roles from About/Team pages.
+
+**Output:** `email` (generic contact email), plus owner name candidates written for the Owner Identifier.
+
+Operator: `operators/contact-enricher/`
+
+---
+
+### Step 2c: Owner Identifier
+
+The Owner Identifier determines who owns or runs each prospect business. Uses Companies House (UK public registry, free) to find registered directors, and website scraping (About/Team pages) as a fallback for sole traders.
+
+**Output:** `owner_name`, `owner_role`, `owner_source` written to the prospect record.
+
+Operator: `operators/owner-identifier/`
+
+---
+
+### Step 2d: Email Enricher
+
+The Email Enricher finds the business owner's direct email address using Hunter.io. Prefers Email Finder (name + domain → email) when an owner name is available, falls back to Domain Search (all emails at domain). Also verifies email deliverability.
+
+This replaces generic `info@` addresses with the owner's actual email, dramatically improving open rates.
+
+**Output:** `owner_email`, `owner_email_confidence`, `owner_email_status` written to the prospect record.
+
+Operator: `operators/email-enricher/`
+
+---
+
 ### Step 3: Operator Review (always manual)
 
 The operator reviews the scored prospect list in the dashboard Prospects tab. Prospects are sorted by `prospect_score` descending. The operator reads the analysis panel for each candidate, decides who to approach, and clicks "Add to outreach" to move them into the CRM pipeline at `outreached` stage.
@@ -401,8 +433,11 @@ When adding a new step to the chain:
 |---|---|---|
 | Prospect Finder | `operators/prospect-finder/` | Active |
 | Website Analyser | `operators/skills/website-analyser.md` | Active |
+| Contact Enricher | `operators/contact-enricher/` | Active |
+| Owner Identifier | `operators/owner-identifier/` | Active |
+| Email Enricher | `operators/email-enricher/` | Active |
 | Operator Review | Manual | Always manual |
-| Cold Email Outreach | Manual | Always manual |
+| Cold Email Outreach | `operators/outreach-sender/` | Active |
 | Review Page | `sortmydigital.site/review/[slug]` | Active |
 
 ### Build Chain

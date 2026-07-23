@@ -57,6 +57,20 @@ Campaigns are stored in the `outreach_campaigns` table. The current campaign is:
 
 Future revisions should be `sorted_initial_outreach_v2`, etc. Previous sends remain auditable.
 
+### Template variables
+
+| Variable | Replaced with | Example |
+|----------|---------------|---------|
+| `{{review_url}}` | Prospect's review page URL | `https://sortmydigital.site/review/forrest-coffee-house` |
+| `{{owner_first_name}}` | Business owner's first name (if identified) | `Sarah` |
+| `{{owner_name}}` | Business owner's full name (if identified) | `Sarah Smith` |
+| `{{business_name}}` | Prospect's business name | `Forrest Coffee House` |
+| `{{greeting}}` | Personalized greeting | `Hi Sarah` or `Hi there` (fallback) |
+
+### Email selection priority
+
+The sender prefers `owner_email` (direct owner contact from Hunter.io enrichment) over the generic `email` field (scraped from website). This improves open rates by reaching the decision-maker directly rather than a shared `info@` inbox.
+
 ## Running
 
 ### Automatic (Supabase pg_cron → GitHub Actions)
@@ -103,7 +117,7 @@ Tests cover all 15 scenarios from the brief: eligibility, sending, duplicate pro
 ## State machine
 
 ```
-NOT_READY → READY → SENDING → SENT → REPLIED
+NOT_READY → READY → SENDING → SENT → DELIVERED → OPENED → CLICKED → REPLIED
                 ↘          ↘
               FAILED_TEMPORARY (retries)
               FAILED_PERMANENT (no retry)
@@ -111,12 +125,90 @@ NOT_READY → READY → SENDING → SENT → REPLIED
               OPTED_OUT (from any state)
 ```
 
+Engagement states (`DELIVERED`, `OPENED`, `CLICKED`) are updated automatically by a database trigger when Resend webhook events arrive. See [Engagement Tracking](#engagement-tracking) below.
+
 ## Database tables
 
 - `outreach_campaigns` — versioned email templates
 - `outreach_log` — audit trail for every state change
+- `outreach_events` — raw engagement events from Resend webhooks (delivered, opened, clicked, bounced, complained)
 - `outreach_suppression` — emails that should never receive outreach
 - `outreach_config` — sending controls (single row)
 - `outreach_cron_log` — audit trail for pg_cron dispatch attempts
-- `prospects` (extended) — outreach status, timestamps, error tracking
+- `prospects` (extended) — outreach status, timestamps, error tracking, engagement counts
 - Vault secret `github_outreach_token` — GitHub PAT for workflow_dispatch
+
+## Engagement Tracking
+
+Open and click tracking is built in. Emails are sent as HTML (with a plain text fallback), which allows Resend to inject an open-tracking pixel automatically.
+
+### How it works
+
+```
+send.py sends HTML email via Resend
+    ↓
+Resend injects tracking pixel + wraps links
+    ↓
+Recipient opens email → pixel fires
+    ↓
+Resend sends webhook to Supabase Edge Function
+    ↓
+Edge function verifies Svix signature
+    ↓
+Event inserted into outreach_events table
+    ↓
+DB trigger updates prospect status (SENT → DELIVERED → OPENED → CLICKED)
+```
+
+### Setup (one-time)
+
+1. **Deploy the edge function:**
+   ```bash
+   supabase functions deploy resend-webhook
+   ```
+
+2. **Set the webhook secret:**
+   ```bash
+   supabase functions secrets set RESEND_WEBHOOK_SECRET=whsec_your_secret_here
+   ```
+
+3. **Create the webhook in Resend:**
+   - Go to [resend.com/webhooks](https://resend.com/webhooks)
+   - Add webhook endpoint: `https://qweevancxedkkfxysnzq.supabase.co/functions/v1/resend-webhook`
+   - Select events: `email.delivered`, `email.opened`, `email.clicked`, `email.bounced`, `email.complained`
+   - Copy the signing secret (`whsec_...`) and set it as the edge function secret (step 2)
+
+4. **Enable open tracking in Resend** (if not already on):
+   - Go to resend.com → Settings → Tracking
+   - Enable "Open Tracking" and "Click Tracking"
+
+### What you get
+
+| Event | Prospect status | Timestamp column |
+|-------|----------------|-----------------|
+| `email.delivered` | `DELIVERED` | `email_delivered_at` |
+| `email.opened` | `OPENED` | `email_opened_at` + `email_open_count` |
+| `email.clicked` | `CLICKED` | `email_clicked_at` + `email_click_count` |
+| `email.bounced` | `BOUNCED` | `email_bounced_at` + auto-suppressed |
+| `email.complained` | `OPTED_OUT` | `email_opted_out_at` + auto-suppressed |
+
+### Querying engagement
+
+```sql
+-- Open rate for current campaign
+SELECT
+  count(*) FILTER (WHERE outreach_status IN ('OPENED','CLICKED','REPLIED')) AS opened,
+  count(*) FILTER (WHERE outreach_status = 'SENT') AS sent_only,
+  count(*) FILTER (WHERE outreach_status IN ('DELIVERED')) AS delivered_unopened,
+  count(*) AS total
+FROM prospects
+WHERE outreach_campaign_id = 'sorted_initial_outreach_v1'
+  AND outreach_status IN ('SENT','DELIVERED','OPENED','CLICKED','REPLIED');
+
+-- Recent engagement events
+SELECT e.event_type, p.name, e.occurred_at
+FROM outreach_events e
+JOIN prospects p ON p.id = e.prospect_id
+ORDER BY e.occurred_at DESC
+LIMIT 20;
+```

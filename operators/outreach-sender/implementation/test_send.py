@@ -344,6 +344,32 @@ class OutreachTests(unittest.TestCase):
         self.assertIn("https://sortmydigital.site/review/test-business", body)
         self.assertNotIn("{{review_url}}", body)
 
+    def test_template_owner_personalization(self):
+        """Template compiler replaces {{owner_first_name}} and {{greeting}}."""
+        prospect = {"review_slug": "test-business", "owner_name": "Sarah Smith", "name": "Forrest Coffee"}
+        subject, body = send.compile_template(
+            "{{greeting}} — we redesigned your site",
+            "{{greeting}},\n\nWe found {{owner_name}} at {{business_name}}.\n\n{{review_url}}",
+            prospect,
+        )
+        self.assertIn("Hi Sarah", subject)
+        self.assertIn("Hi Sarah", body)
+        self.assertIn("Sarah Smith", body)
+        self.assertIn("Forrest Coffee", body)
+        self.assertNotIn("{{owner_first_name}}", body)
+        self.assertNotIn("{{greeting}}", body)
+
+    def test_template_fallback_no_owner(self):
+        """Template falls back to 'Hi there' when no owner name is available."""
+        prospect = {"review_slug": "test-business", "name": "Test Business"}
+        subject, body = send.compile_template(
+            "{{greeting}}",
+            "{{greeting}}",
+            prospect,
+        )
+        self.assertEqual(subject, "Hi there")
+        self.assertEqual(body, "Hi there")
+
     # ── Bonus: error classification ───────────────────────────────────────────
 
     def test_permanent_error_classification(self):
@@ -352,6 +378,73 @@ class OutreachTests(unittest.TestCase):
         self.assertIn("DUPLICATE_CAMPAIGN", send.PERMANENT_ERRORS)
         self.assertNotIn("PROVIDER_TIMEOUT", send.PERMANENT_ERRORS)
         self.assertNotIn("PROVIDER_RATE_LIMIT", send.PERMANENT_ERRORS)
+
+    # ── 16. HTML email generation for open tracking ────────────────────────────
+
+    def test_16_text_to_html_converts_urls_to_links(self):
+        """text_to_html converts plain text URLs to clickable anchor tags."""
+        text = "See your review here:\n\nhttps://sortmydigital.site/review/test-business"
+        html = send.text_to_html(text)
+
+        self.assertIn("<a ", html)
+        self.assertIn('href="https://sortmydigital.site/review/test-business"', html)
+        self.assertIn("https://sortmydigital.site/review/test-business</a>", html)
+
+    def test_17_text_to_html_escapes_special_chars(self):
+        """text_to_html escapes HTML special characters to prevent injection."""
+        text = "We reviewed your site & found issues <script>alert(1)</script>"
+        html = send.text_to_html(text)
+
+        self.assertIn("&amp;", html)
+        self.assertIn("&lt;script&gt;", html)
+        self.assertNotIn("<script>", html)
+
+    def test_18_text_to_html_wraps_in_html_template(self):
+        """text_to_html produces a valid HTML document with body."""
+        html = send.text_to_html("Hello world")
+
+        self.assertIn("<!DOCTYPE html>", html)
+        self.assertIn("<html>", html)
+        self.assertIn("</html>", html)
+        self.assertIn("<body", html)
+        self.assertIn("</body>", html)
+
+    @patch("send.requests.post")
+    def test_19_send_email_includes_html_field(self, mock_post):
+        """send_email includes both text and html fields in the Resend payload."""
+        mock_post.return_value = MagicMock(
+            status_code=200,
+            json=MagicMock(return_value={"id": "msg_123"}),
+        )
+
+        send.DRY_RUN = False
+        send.RESEND_API_KEY = "re_test"
+        send.FROM_EMAIL = "renaldo@sortmydigital.site"
+        send.FROM_NAME = "Renaldo"
+
+        send.send_email("owner@test.com", "Subject", "Body text with https://example.com", "key_123")
+
+        # Verify the request was made with both text and html
+        call_args = mock_post.call_args
+        payload = call_args[1]["json"]
+        self.assertIn("text", payload)
+        self.assertIn("html", payload)
+        self.assertEqual(payload["text"], "Body text with https://example.com")
+        self.assertIn("<a ", payload["html"])
+        self.assertIn('href="https://example.com"', payload["html"])
+
+    @patch("send.requests.post")
+    def test_20_dry_run_does_not_send(self, mock_post):
+        """In dry run mode, no HTTP request is made to Resend."""
+        send.DRY_RUN = True
+
+        result = send.send_email("owner@test.com", "Subject", "Body", "key_123")
+
+        self.assertTrue(result["success"])
+        self.assertEqual(result["provider_message_id"], "dry-run-mock")
+        mock_post.assert_not_called()
+
+        send.DRY_RUN = False
 
 
 if __name__ == "__main__":

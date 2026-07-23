@@ -15,6 +15,7 @@ Usage:
 
 import argparse
 import os
+import re
 import sys
 import time
 import logging
@@ -144,17 +145,97 @@ def load_active_campaign():
 # ─── Template compiler ────────────────────────────────────────────────────────
 
 def compile_template(subject_template, body_template, prospect):
-    """Replace {{review_url}} with the actual review URL."""
+    """Replace template variables with prospect-specific values."""
     review_url = f"{REVIEW_BASE_URL}/{prospect['review_slug']}"
-    subject = subject_template.replace("{{review_url}}", review_url)
-    body = body_template.replace("{{review_url}}", review_url)
+
+    # Owner first name for personalization (falls back to business name)
+    owner_name = prospect.get("owner_name") or ""
+    owner_first_name = owner_name.split()[0] if owner_name else ""
+    business_name = prospect.get("name") or ""
+
+    # Greeting: use owner first name if available, otherwise "Hi there"
+    greeting = f"Hi {owner_first_name}" if owner_first_name else "Hi there"
+
+    replacements = {
+        "{{review_url}}": review_url,
+        "{{owner_first_name}}": owner_first_name,
+        "{{owner_name}}": owner_name,
+        "{{business_name}}": business_name,
+        "{{greeting}}": greeting,
+    }
+
+    subject = subject_template
+    body = body_template
+    for placeholder, value in replacements.items():
+        subject = subject.replace(placeholder, value)
+        body = body.replace(placeholder, value)
+
     return subject, body
+
+# ─── HTML conversion (for open tracking) ──────────────────────────────────────
+
+_URL_PATTERN = re.compile(r'(https?://[^\s<]+)')
+
+def text_to_html(text):
+    """
+    Convert plain text email body to simple HTML with clickable links.
+
+    Resend injects an open-tracking pixel into HTML emails automatically.
+    Plain text emails cannot be tracked, so we generate a clean HTML version
+    from the plain text template.
+    """
+    # Escape HTML special characters
+    escaped = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+    # Convert URLs to clickable links
+    escaped = _URL_PATTERN.sub(
+        r'<a href="\1" style="color:#2563eb;text-decoration:underline;">\1</a>',
+        escaped,
+    )
+
+    # Split into paragraphs on double newlines, convert single newlines to <br>
+    paragraphs = escaped.split("\n\n")
+    html_parts = []
+    for p in paragraphs:
+        p = p.strip().replace("\n", "<br>\n")
+        if p:
+            html_parts.append(
+                f'<p style="margin:0 0 16px 0;line-height:1.6;color:#1e293b;">{p}</p>'
+            )
+
+    body_html = "\n          ".join(html_parts)
+
+    return (
+        '<!DOCTYPE html>\n'
+        '<html>\n'
+        '<head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width,initial-scale=1">'
+        '</head>\n'
+        '<body style="margin:0;padding:0;background:#f8fafc;'
+        "font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;\">\n"
+        '  <table width="100%" cellpadding="0" cellspacing="0" style="padding:24px 0;">\n'
+        '    <tr><td align="center">\n'
+        '      <table width="560" cellpadding="0" cellspacing="0" '
+        'style="background:#ffffff;border-radius:8px;padding:32px 24px;'
+        'border:1px solid #e2e8f0;">\n'
+        "        <tr><td>\n"
+        f"          {body_html}\n"
+        "        </td></tr>\n"
+        "      </table>\n"
+        "    </td></tr>\n"
+        "  </table>\n"
+        "</body>\n"
+        "</html>"
+    )
 
 # ─── Email sender (Resend adapter) ────────────────────────────────────────────
 
 def send_email(to, subject, body, idempotency_key):
     """
     Send email via Resend API.
+
+    Sends both plain text and HTML versions. The HTML version enables
+    Resend's automatic open-tracking pixel injection.
 
     Returns dict:
         { success, provider_message_id, error_type, error_message }
@@ -168,6 +249,8 @@ def send_email(to, subject, body, idempotency_key):
             "error_message": None,
         }
 
+    html_body = text_to_html(body)
+
     try:
         r = requests.post(
             RESEND_API_ENDPOINT,
@@ -180,6 +263,7 @@ def send_email(to, subject, body, idempotency_key):
                 "to": [to],
                 "subject": subject,
                 "text": body,
+                "html": html_body,
             },
             timeout=30,
         )
@@ -259,14 +343,29 @@ def find_ready_prospect(campaign_id):
     """
     Find the oldest READY prospect that hasn't been sent this campaign.
     Excludes suppressed emails and already-sent records.
+    Prefers prospects with owner_email, falls back to generic email.
     """
+    # First try: prospects with owner_email (preferred — direct owner contact)
     data = supabase_get("prospects", params={
         "outreach_status": "eq.READY",
-        "email": "not.is.null",
+        "owner_email": "not.is.null",
         "review_slug": "not.is.null",
         "order": "outreach_queued_at.asc",
         "limit": "1",
-        "select": "id,place_id,name,email,review_slug,mockup_url,outreach_status,outreach_campaign_id,outreach_attempt_count",
+        "select": "id,place_id,name,email,owner_email,owner_name,owner_email_status,review_slug,mockup_url,outreach_status,outreach_campaign_id,outreach_attempt_count",
+    })
+    if data:
+        return data[0]
+
+    # Fallback: prospects with generic email (no owner_email)
+    data = supabase_get("prospects", params={
+        "outreach_status": "eq.READY",
+        "email": "not.is.null",
+        "owner_email": "is.null",
+        "review_slug": "not.is.null",
+        "order": "outreach_queued_at.asc",
+        "limit": "1",
+        "select": "id,place_id,name,email,owner_email,owner_name,owner_email_status,review_slug,mockup_url,outreach_status,outreach_campaign_id,outreach_attempt_count",
     })
     return data[0] if data else None
 
@@ -281,7 +380,8 @@ def process_one(campaign, cfg):
         return False
 
     pid = prospect["id"]
-    email = prospect["email"]
+    # Prefer owner_email (direct owner contact) over generic email
+    send_to_email = prospect.get("owner_email") or prospect["email"]
     prev_state = prospect["outreach_status"]
     attempt_count = prospect.get("outreach_attempt_count", 0)
 
@@ -291,9 +391,9 @@ def process_one(campaign, cfg):
         return False
 
     # ── Suppression check ──
-    suppressed, reason = is_suppressed(email)
+    suppressed, reason = is_suppressed(send_to_email)
     if suppressed:
-        log.info(f"Prospect {pid} email {email} is suppressed ({reason}) — marking OPTED_OUT")
+        log.info(f"Prospect {pid} email {send_to_email} is suppressed ({reason}) — marking OPTED_OUT")
         supabase_patch("prospects", {
             "outreach_status": "OPTED_OUT",
             "email_opted_out_at": datetime.now(timezone.utc).isoformat(),
@@ -311,7 +411,7 @@ def process_one(campaign, cfg):
         log_state_change(pid, campaign["id"], prev_state, "FAILED_PERMANENT", "validation", error="MISSING_REVIEW_URL")
         return False
 
-    if not email:
+    if not send_to_email:
         log.warning(f"Prospect {pid} missing email — marking FAILED_PERMANENT")
         supabase_patch("prospects", {
             "outreach_status": "FAILED_PERMANENT",
@@ -332,7 +432,7 @@ def process_one(campaign, cfg):
     subject, body = compile_template(campaign["subject"], campaign["body_template"], prospect)
     idempotency_key = f"{prospect['place_id']}_{campaign['id']}"
 
-    result = send_email(email, subject, body, idempotency_key)
+    result = send_email(send_to_email, subject, body, idempotency_key)
 
     if result["success"]:
         # ── SENT ──
@@ -349,7 +449,7 @@ def process_one(campaign, cfg):
             pid, campaign["id"], "SENDING", "SENT", "send_success",
             provider_response=result["provider_message_id"],
         )
-        log.info(f"✓ Sent to {email} (prospect {pid}, message {result['provider_message_id']})")
+        log.info(f"✓ Sent to {send_to_email} (prospect {pid}, message {result['provider_message_id']})")
         return True
 
     # ── Failed ──
@@ -384,7 +484,7 @@ def process_one(campaign, cfg):
         pid, campaign["id"], "SENDING", new_state, "send_failure",
         provider_response=error_type, error=error_msg,
     )
-    log.error(f"✗ Failed to send to {email} (prospect {pid}): {error_type} — {error_msg}")
+    log.error(f"✗ Failed to send to {send_to_email} (prospect {pid}): {error_type} — {error_msg}")
     return True
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
