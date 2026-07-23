@@ -44,29 +44,36 @@ export function ExamplesCaseStudyRail() {
 
   return (
     <div>
-      <div className="mb-4 flex items-center justify-between gap-4">
-        <a href="#mockup-factory" className="inline-flex min-h-11 items-center gap-2 text-[12px] font-black transition-colors hover:text-black/58">
-          See the factory <ArrowRight className="size-4" strokeWidth={2.5} />
-        </a>
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => scrollRail("left")}
-            disabled={!canScrollLeft}
-            className="grid size-11 place-items-center rounded-full border border-black/10 bg-white text-black shadow-[0_10px_24px_rgba(0,0,0,0.06)] transition-all hover:-translate-x-0.5 hover:bg-[#dfff00] disabled:pointer-events-none disabled:opacity-35"
-            aria-label="Scroll examples left"
-          >
-            <ChevronLeft className="size-5" strokeWidth={2.6} />
-          </button>
-          <button
-            type="button"
-            onClick={() => scrollRail("right")}
-            disabled={!canScrollRight}
-            className="grid size-11 place-items-center rounded-full border border-black/10 bg-white text-black shadow-[0_10px_24px_rgba(0,0,0,0.06)] transition-all hover:translate-x-0.5 hover:bg-[#dfff00] disabled:pointer-events-none disabled:opacity-35"
-            aria-label="Scroll examples right"
-          >
-            <ChevronRight className="size-5" strokeWidth={2.6} />
-          </button>
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 className="max-w-[520px] text-[31px] font-black leading-[0.95] tracking-[-0.05em] sm:text-[38px]">
+            Websites we’ve built and launched.
+          </h2>
+        </div>
+        <div className="flex items-center justify-between gap-4 sm:justify-end">
+          <a href="#mockup-factory" className="inline-flex min-h-11 items-center gap-2 text-[12px] font-black transition-colors hover:text-black/58">
+            See the factory <ArrowRight className="size-4" strokeWidth={2.5} />
+          </a>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => scrollRail("left")}
+              disabled={!canScrollLeft}
+              className="grid size-11 place-items-center rounded-full border border-black/10 bg-white text-black shadow-[0_10px_24px_rgba(0,0,0,0.06)] transition-all hover:-translate-x-0.5 hover:bg-[#dfff00] disabled:pointer-events-none disabled:opacity-35"
+              aria-label="Scroll examples left"
+            >
+              <ChevronLeft className="size-5" strokeWidth={2.6} />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollRail("right")}
+              disabled={!canScrollRight}
+              className="grid size-11 place-items-center rounded-full border border-black/10 bg-white text-black shadow-[0_10px_24px_rgba(0,0,0,0.06)] transition-all hover:translate-x-0.5 hover:bg-[#dfff00] disabled:pointer-events-none disabled:opacity-35"
+              aria-label="Scroll examples right"
+            >
+              <ChevronRight className="size-5" strokeWidth={2.6} />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -81,7 +88,10 @@ export function ExamplesCaseStudyRail() {
             </a>
             <div className="p-5">
               <h3 className="text-[16px] font-black leading-tight tracking-[-0.035em]">{site.business}</h3>
-              <p className="mt-2 min-h-[42px] text-[13px] font-semibold leading-[1.45] text-black/64">{site.description}</p>
+              <div className="mt-3 flex min-h-[42px] flex-wrap items-start gap-2">
+                <span className="inline-flex h-7 items-center rounded-full bg-[#dfff00] px-3 text-[10px] font-black text-black">{site.category}</span>
+                <span className="inline-flex h-7 items-center rounded-full bg-black/5 px-3 text-[10px] font-black text-black/58">{site.location}</span>
+              </div>
               <a href={`/examples/${site.slug}`} className="mt-4 inline-flex min-h-10 items-center gap-2 text-[12px] font-black">
                 View case study <ArrowRight className="size-4" strokeWidth={2.5} />
               </a>

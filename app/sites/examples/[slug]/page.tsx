@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
-import Image from "next/image"
 import { notFound } from "next/navigation"
-import { ArrowLeft, ArrowRight, ExternalLink, Star } from "lucide-react"
+import { ArrowLeft, ArrowRight, Star } from "lucide-react"
 import { DarkCta, SitesFooter, SitesHeader, SitesPage, Underline } from "../../_components/SitesPrimitives"
 import { exampleCaseStudies, getExampleCaseStudy } from "../_caseStudies"
+import { CaseStudyHeroPreview } from "./CaseStudyHeroPreview"
 
 type PageProps = {
   params: Promise<{ slug: string }>
@@ -52,18 +52,9 @@ export default async function ExampleCaseStudyPage({ params }: PageProps) {
           <p className="mt-4 [font-family:var(--font-sites-highlight)] text-[clamp(2.7rem,4.8vw,5rem)] leading-[0.88] tracking-[-0.02em] text-[#d4ea00]">{caseStudy.title}</p>
           <Underline className="mt-3 w-[240px]" />
           <p className="mt-7 max-w-[440px] text-[17px] font-semibold leading-[1.5] tracking-[-0.03em]">{caseStudy.description}</p>
-          {caseStudy.liveUrl ? (
-            <a href={caseStudy.liveUrl} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex min-h-12 items-center gap-3 rounded-full bg-black px-6 text-[13px] font-black text-white shadow-[0_16px_34px_rgba(0,0,0,0.16)]">
-              Visit live website <ExternalLink className="size-4" strokeWidth={2.6} />
-            </a>
-          ) : null}
         </div>
 
-        <div className="relative overflow-hidden rounded-[18px] border border-black/10 bg-[#080808] shadow-[0_24px_70px_rgba(0,0,0,0.12)]">
-          <div className="relative aspect-[16/10]">
-            <Image src={caseStudy.image} alt={`${caseStudy.business} website`} fill sizes="(min-width: 1024px) 700px, 100vw" className="object-cover object-top" priority />
-          </div>
-        </div>
+        <CaseStudyHeroPreview business={caseStudy.business} image={caseStudy.image} liveUrl={caseStudy.liveUrl} />
       </section>
 
       <section className="mx-auto grid max-w-[1220px] gap-10 border-t border-black/10 px-5 py-12 sm:px-8 lg:grid-cols-[0.35fr_0.65fr]">

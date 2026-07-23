@@ -83,14 +83,6 @@ export default function ExamplesPage() {
       </section>
 
       <section id="live-websites" className="mx-auto max-w-[1220px] scroll-mt-28 border-t border-black/10 px-5 py-7 sm:px-8">
-        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 className="max-w-[520px] text-[31px] font-black leading-[0.95] tracking-[-0.05em] sm:text-[38px]">
-              Websites we’ve built and launched.
-            </h2>
-          </div>
-        </div>
-
         <ExamplesCaseStudyRail />
       </section>
 
