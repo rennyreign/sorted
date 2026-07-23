@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
-import Image from "next/image"
 import { Activity, ArrowRight, Calendar, Check, Edit3, Eye, Rocket, Sparkles } from "lucide-react"
 import { MockupButton } from "../_components/SitesMockupModal"
 import { SitesFooter, SitesHeader, SitesPage, Underline } from "../_components/SitesPrimitives"
 import { ExamplesGallery } from "./ExamplesGallery"
+import { LiveSitesShowcase } from "./LiveSitesShowcase"
 
 export const metadata: Metadata = {
   title: "Examples | Sorted",
@@ -15,35 +15,8 @@ export const metadata: Metadata = {
 
 const metrics = [
   [Activity, "482", "Mockups created this month"],
-  [Sparkles, "+7", "New mockups today"],
-  [Calendar, "12m ago", "Last mockup generated"],
-] as const
-
-const launchedSites = [
-  {
-    title: "The Yard Training Club",
-    description: "Private personal training studio in Manchester.",
-    image: "/examples/graciebarra-halesowen.jpg",
-    href: "/examples/the-yard",
-  },
-  {
-    title: "ClearFlow Bathrooms",
-    description: "Bathroom specialists creating beautiful spaces.",
-    image: "/examples/clario.jpg",
-    href: "/examples/the-yard",
-  },
-  {
-    title: "La Pâte Patisserie",
-    description: "Artisan bakery delivering across London.",
-    image: "/examples/adxengine-ad.jpg",
-    href: "/examples/the-yard",
-  },
-  {
-    title: "Palace Barn Cottages",
-    description: "Luxury holiday cottages in the Cotswolds.",
-    image: "/examples/palacebarns.jpg",
-    href: "/examples/the-yard",
-  },
+  [Sparkles, "5", "Live builds featured"],
+  [Calendar, "Today", "Factory updated"],
 ] as const
 
 const processSteps = [
@@ -121,22 +94,7 @@ export default function ExamplesPage() {
           </a>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {launchedSites.map((site) => (
-            <article key={site.title} className="overflow-hidden rounded-[10px] border border-black/12 bg-white shadow-[0_16px_40px_rgba(0,0,0,0.045)]">
-              <a href={site.href} className="group relative block aspect-[16/10] overflow-hidden bg-[#080808]">
-                <Image src={site.image} alt={`${site.title} website`} fill sizes="(min-width: 1024px) 290px, (min-width: 640px) 50vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.055]" />
-              </a>
-              <div className="p-5">
-                <h3 className="text-[16px] font-black leading-tight tracking-[-0.035em]">{site.title}</h3>
-                <p className="mt-2 min-h-[42px] text-[13px] font-semibold leading-[1.45] text-black/64">{site.description}</p>
-                <a href={site.href} className="mt-4 inline-flex min-h-10 items-center gap-2 text-[12px] font-black">
-                  View case study <ArrowRight className="size-4" strokeWidth={2.5} />
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
+        <LiveSitesShowcase />
       </section>
 
       <ExamplesGallery />
