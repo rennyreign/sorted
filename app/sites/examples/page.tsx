@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import { Check, Edit3, Eye, Rocket } from "lucide-react"
-import { DarkCta, SitesFooter, SitesHeader, SitesPage, SitesTitle, Underline } from "../_components/SitesPrimitives"
+import { Activity, ArrowRight, Calendar, Check, Edit3, Eye, Rocket, Sparkles } from "lucide-react"
 import { MockupButton } from "../_components/SitesMockupModal"
+import { SitesFooter, SitesHeader, SitesPage, Underline } from "../_components/SitesPrimitives"
 import { ExamplesGallery } from "./ExamplesGallery"
 
 export const metadata: Metadata = {
@@ -13,75 +13,183 @@ export const metadata: Metadata = {
   },
 }
 
+const metrics = [
+  [Activity, "482", "Mockups created this month"],
+  [Sparkles, "+7", "New mockups today"],
+  [Calendar, "12m ago", "Last mockup generated"],
+] as const
+
+const launchedSites = [
+  {
+    category: "Health & fitness",
+    title: "The Yard Training Club",
+    description: "Private personal training studio in Manchester.",
+    image: "/examples/graciebarra-halesowen.jpg",
+    href: "/examples/the-yard",
+  },
+  {
+    category: "Home services",
+    title: "ClearFlow Bathrooms",
+    description: "Bathroom specialists creating beautiful spaces.",
+    image: "/examples/clario.jpg",
+    href: "/examples/the-yard",
+  },
+  {
+    category: "Retail",
+    title: "La Pâte Patisserie",
+    description: "Artisan bakery delivering across London.",
+    image: "/examples/adxengine-ad.jpg",
+    href: "/examples/the-yard",
+  },
+  {
+    category: "Hospitality",
+    title: "Palace Barn Cottages",
+    description: "Luxury holiday cottages in the Cotswolds.",
+    image: "/examples/palacebarns.jpg",
+    href: "/examples/the-yard",
+  },
+] as const
+
+const processSteps = [
+  [Edit3, "We build a mockup", "A free, custom design made for your business."],
+  [Eye, "You review it", "See exactly what you are getting."],
+  [Check, "You approve", "Love it? You agree a fixed price."],
+  [Rocket, "We build & launch", "We build your website and get you live."],
+] as const
+
 export default function ExamplesPage() {
   return (
     <SitesPage>
       <SitesHeader active="examples" />
-      <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-10 pt-12 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+
+      <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-8 pt-11 sm:px-8 sm:pb-12 sm:pt-14 lg:grid-cols-[0.96fr_1.04fr] lg:items-center">
         <div>
-          <SitesTitle title={<>Real websites.<br />Real businesses.</>} marker={<>Built first. Priced second.</>} />
-          <Underline className="mt-2 w-[300px]" />
-          <p className="mt-7 max-w-[450px] text-[17px] font-semibold leading-[1.5] tracking-[-0.03em]">
-            Every website below started as a free mockup. The business owner saw it, loved it, and we built it.
+          <p className="mb-4 text-[12px] font-black uppercase text-[#b7d900]">Examples</p>
+          <h1 className="max-w-[610px] text-[clamp(3.55rem,7vw,7.3rem)] font-black leading-[0.86] tracking-[-0.06em]">
+            Real work.
+            <br />
+            Real results.
+          </h1>
+          <div className="mt-2 max-w-[430px] [font-family:var(--font-sites-highlight)] text-[clamp(3.35rem,6.2vw,6.6rem)] font-normal leading-[0.74] tracking-[-0.02em] text-[#cfea00]">
+            Built first.
+            <br />
+            Priced second.
+          </div>
+          <Underline className="mt-3 w-[330px] max-w-full" />
+          <p className="mt-7 max-w-[520px] text-[17px] font-semibold leading-[1.5] tracking-[-0.025em] text-black/75">
+            Every website you see here started as a free mockup. The business owner saw it, loved it, and we built it.
           </p>
-          <div className="mt-8 flex items-center gap-5">
+          <div className="mt-8 flex flex-wrap items-center gap-5">
             <MockupButton />
-            <span className="[font-family:var(--font-sites-highlight)] text-[24px] leading-none text-[#d0e600]">See your business<br />here next.</span>
+            <span className="relative [font-family:var(--font-sites-highlight)] text-[28px] leading-[0.9] text-[#c7e800] sm:text-[32px]">
+              See your business
+              <br />
+              here next.
+              <ArrowRight className="absolute -right-14 bottom-0 hidden size-10 rotate-45 sm:block" strokeWidth={2.2} />
+            </span>
           </div>
         </div>
-        <div className="relative min-h-[320px] overflow-hidden rounded-[20px] bg-[#f7f1e8] shadow-[0_24px_70px_rgba(0,0,0,0.1)] sm:min-h-[420px] sm:rounded-[24px]">
-          <Image
-            src="/sorted-sites/examples-hero.png"
-            alt="Sorted example mockups arranged across desktop and mobile screens"
-            fill
-            priority
-            sizes="(min-width: 1024px) 650px, 100vw"
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-black/5" />
-        </div>
+
+        <aside className="rounded-[16px] border border-black/10 bg-white p-6 shadow-[0_24px_70px_rgba(0,0,0,0.08)] sm:p-8 lg:translate-y-4">
+          <div className="grid gap-5 sm:grid-cols-3 sm:gap-0">
+            {metrics.map(([Icon, value, label], index) => (
+              <div key={label} className={`grid grid-cols-[24px_1fr] gap-3 sm:block ${index > 0 ? "sm:border-l sm:border-black/10 sm:pl-8" : ""}`}>
+                <Icon className="mt-1 size-5 sm:mb-3 sm:mt-0" strokeWidth={2.4} />
+                <div>
+                  <p className="text-[27px] font-black leading-none tracking-[-0.04em]">{value}</p>
+                  <p className="mt-2 max-w-[120px] text-[13px] font-semibold leading-[1.35] text-black/62">{label}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 border-t border-black/10 pt-6">
+            <p className="grid grid-cols-[10px_1fr] gap-3 text-[14px] font-black tracking-[-0.02em]">
+              <span className="mt-1.5 size-2 rounded-full bg-[#dfff00]" />
+              <span>
+                Our factory never stops.
+                <span className="mt-1 block font-semibold text-black/64">New designs added every day.</span>
+              </span>
+            </p>
+          </div>
+        </aside>
       </section>
 
-      <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
-        <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+      <section className="mx-auto max-w-[1220px] border-t border-black/10 px-5 py-7 sm:px-8">
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h2 className="text-[34px] font-black leading-[1] tracking-[-0.035em]">Different businesses.<br />Same process.</h2>
-            <Underline className="mt-4 w-52" />
+            <p className="mb-3 text-[11px] font-black uppercase text-black/46">Live websites</p>
+            <h2 className="max-w-[520px] text-[31px] font-black leading-[0.95] tracking-[-0.05em] sm:text-[38px]">
+              Websites we’ve built and launched.
+            </h2>
           </div>
+          <a href="/examples/the-yard" className="inline-flex min-h-11 items-center gap-2 text-[12px] font-black transition-colors hover:text-black/58">
+            View all live websites <ArrowRight className="size-4" strokeWidth={2.5} />
+          </a>
         </div>
-        <ExamplesGallery />
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {launchedSites.map((site) => (
+            <article key={site.title} className="overflow-hidden rounded-[10px] border border-black/12 bg-white shadow-[0_16px_40px_rgba(0,0,0,0.045)]">
+              <a href={site.href} className="group relative block aspect-[16/10] overflow-hidden bg-[#080808]">
+                <Image src={site.image} alt={`${site.title} website`} fill sizes="(min-width: 1024px) 290px, (min-width: 640px) 50vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.055]" />
+                <span className="absolute left-4 top-4 rounded-full bg-black/80 px-3 py-1 text-[9px] font-black uppercase text-white shadow-[0_8px_20px_rgba(0,0,0,0.22)]">
+                  {site.category}
+                </span>
+              </a>
+              <div className="p-5">
+                <h3 className="text-[16px] font-black leading-tight tracking-[-0.035em]">{site.title}</h3>
+                <p className="mt-2 min-h-[42px] text-[13px] font-semibold leading-[1.45] text-black/64">{site.description}</p>
+                <a href={site.href} className="mt-4 inline-flex min-h-10 items-center gap-2 text-[12px] font-black">
+                  View case study <ArrowRight className="size-4" strokeWidth={2.5} />
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
 
-      <section className="mx-auto max-w-[1220px] px-5 py-12 sm:px-8">
-        <div className="grid gap-8 rounded-[18px] bg-[#dfff00] p-7 lg:grid-cols-[0.34fr_0.66fr] lg:items-center">
+      <ExamplesGallery />
+
+      <section className="bg-white px-5 py-8 sm:px-8">
+        <div className="mx-auto grid max-w-[1220px] gap-8 lg:grid-cols-[0.28fr_0.72fr] lg:items-center">
           <div>
-            <h2 className="text-[32px] font-black leading-[1] tracking-[-0.035em]">Every example you see started the same way.</h2>
-            <Underline className="mt-4 w-56" />
+            <p className="mb-3 text-[11px] font-black uppercase text-[#badb00]">Our process</p>
+            <h2 className="text-[34px] font-black leading-[0.95] tracking-[-0.05em]">How every website starts.</h2>
+            <p className="mt-4 max-w-[260px] text-[15px] font-semibold leading-[1.45] text-black/65">
+              Simple, fast and built around your business.
+            </p>
           </div>
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-            {[
-              [Edit3, "We build a mockup", "We create a custom mockup for your business."],
-              [Eye, "You review it", "See exactly what you are getting."],
-              [Check, "You approve", "You love it, so we agree a fixed price."],
-              [Rocket, "We build & launch", "We build your website and get you live."],
-            ].map(([Icon, title, copy], index) => {
-              const RealIcon = Icon as typeof Edit3
-              return (
-                <article key={title as string} className="text-center">
-                  <span className="mx-auto grid size-10 place-items-center rounded-full bg-[#070707] text-[13px] font-black text-white">{index + 1}</span>
-                  <span className="mx-auto mt-4 grid size-12 place-items-center rounded-full bg-white">
-                    <RealIcon className="size-6" />
-                  </span>
-                  <h3 className="mt-4 text-[14px] font-black">{title as string}</h3>
-                  <p className="mt-2 text-[12px] font-semibold leading-[1.45] text-black/65">{copy as string}</p>
-                </article>
-              )
-            })}
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {processSteps.map(([Icon, title, copy], index) => (
+              <article key={title} className="relative min-h-[172px] rounded-[10px] border border-black/10 bg-white p-5 shadow-[0_14px_38px_rgba(0,0,0,0.04)]">
+                <span className="grid size-8 place-items-center rounded-full bg-black text-[12px] font-black text-white">{index + 1}</span>
+                <Icon className="mt-5 size-6" strokeWidth={2.1} />
+                <h3 className="mt-5 text-[14px] font-black tracking-[-0.02em]">{title}</h3>
+                <p className="mt-2 text-[12px] font-semibold leading-[1.45] text-black/60">{copy}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      <DarkCta />
+      <section className="bg-white px-5 pt-4 text-black sm:px-8">
+        <div className="mx-auto grid max-w-[1060px] gap-5 rounded-[12px] bg-[#dfff00] px-5 py-5 shadow-[0_18px_44px_rgba(0,0,0,0.16)] sm:px-7 lg:grid-cols-[0.32fr_0.34fr_0.12fr_0.22fr] lg:items-center">
+          <div className="grid grid-cols-[48px_1fr] items-center gap-4">
+            <span className="grid size-12 place-items-center rounded-full bg-black/10">
+              <Edit3 className="size-7" strokeWidth={2.2} />
+            </span>
+            <h2 className="text-[22px] font-black leading-[1.02] tracking-[-0.04em]">See what we can build for your business.</h2>
+          </div>
+          <p className="text-[13px] font-black leading-[1.35]">
+            Get your free mockup in 24 hours.
+            <span className="block font-semibold">No obligation. No credit card.</span>
+          </p>
+          <ArrowRight className="hidden size-14 lg:block" strokeWidth={2} />
+          <MockupButton variant="primary" className="justify-self-start whitespace-nowrap bg-black text-white lg:justify-self-end" />
+        </div>
+      </section>
+
       <SitesFooter />
     </SitesPage>
   )
