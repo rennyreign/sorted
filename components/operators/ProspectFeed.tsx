@@ -730,6 +730,8 @@ function CopyCell({ value }: { value: string }) {
 function StatusBadge({ status }: { status: string }) {
   const styles: Record<string, string> = {
     prospect:     "bg-black/[0.04] text-[#525252] border-black/[0.08]",
+    website_lead: "bg-[#dfff00]/35 text-[#4b5f00] border-[#dfff00]",
+    partner_lead: "bg-[#070707] text-[#dfff00] border-[#070707]",
     contacted:    "bg-[#FEF3C7] text-[#92400E] border-[#FDE68A]",
     converted:    "bg-[#D1FAE5] text-[#065F46] border-[#A7F3D0]",
     disqualified: "bg-black/[0.02] text-[#C4C4C4] border-black/[0.04]",

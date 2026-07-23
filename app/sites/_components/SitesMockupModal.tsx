@@ -1,7 +1,9 @@
 "use client"
 
+import type { FormEvent } from "react"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { ArrowLeft, ArrowRight, Check, Loader2, X } from "lucide-react"
+import { supabase } from "@/lib/supabase"
 
 type StepKey = "business" | "currentSite" | "goal" | "style" | "timeline"
 
@@ -205,6 +207,47 @@ function LoadingStep({ answers }: { answers: Partial<Record<StepKey, string>> })
 }
 
 function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, string>>; summary: string }) {
+  const [businessName, setBusinessName] = useState("")
+  const [websiteUrl, setWebsiteUrl] = useState("")
+  const [email, setEmail] = useState("")
+  const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle")
+  const [submitError, setSubmitError] = useState("")
+
+  async function submitLead(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setSubmitState("submitting")
+    setSubmitError("")
+
+    try {
+      const cleanBusinessName = businessName.trim()
+      const cleanEmail = email.trim().toLowerCase()
+
+      if (!cleanBusinessName) {
+        throw new Error("Please add your business name.")
+      }
+      if (!isValidEmail(cleanEmail)) {
+        throw new Error("Please add a valid email address.")
+      }
+
+      const { error } = await supabase.rpc("submit_website_lead", {
+        p_business_name: cleanBusinessName,
+        p_website_url: websiteUrl.trim() || null,
+        p_email: cleanEmail,
+        p_answers: answers,
+        p_summary: summary,
+      })
+
+      if (error) {
+        throw new Error("Could not submit your mockup brief")
+      }
+
+      setSubmitState("success")
+    } catch (error) {
+      setSubmitState("error")
+      setSubmitError(error instanceof Error ? error.message : "Could not submit your mockup brief")
+    }
+  }
+
   return (
     <section className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
       <div>
@@ -229,16 +272,41 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
             ))}
           </ul>
         </div>
-        <form className="mt-4 grid gap-3 rounded-[16px] bg-[#070707] p-5 text-white">
+        <form onSubmit={submitLead} className="mt-4 grid gap-3 rounded-[16px] bg-[#070707] p-5 text-white">
           <p className="text-[13px] font-black">Where should we send it?</p>
           <div className="grid gap-3 sm:grid-cols-2">
-            <input className="h-12 rounded-xl border-0 bg-white px-4 text-[12px] font-bold text-black outline-none placeholder:text-black/35" placeholder="Business name" />
-            <input className="h-12 rounded-xl border-0 bg-white px-4 text-[12px] font-bold text-black outline-none placeholder:text-black/35" placeholder="Your website, if you have one" />
+            <input
+              className="h-12 rounded-xl border-0 bg-white px-4 text-[12px] font-bold text-black outline-none placeholder:text-black/35"
+              placeholder="Business name"
+              value={businessName}
+              onChange={(event) => setBusinessName(event.target.value)}
+              required
+            />
+            <input
+              className="h-12 rounded-xl border-0 bg-white px-4 text-[12px] font-bold text-black outline-none placeholder:text-black/35"
+              placeholder="Your website, if you have one"
+              value={websiteUrl}
+              onChange={(event) => setWebsiteUrl(event.target.value)}
+            />
           </div>
-          <input className="h-12 rounded-xl border-0 bg-white px-4 text-[12px] font-bold text-black outline-none placeholder:text-black/35" placeholder="Email address" />
-          <button type="button" className="mt-1 inline-flex h-11 items-center justify-center gap-3 rounded-full bg-[#dfff00] px-5 text-[11px] font-black text-black">
-            Send my mockup brief <ArrowRight className="size-4" strokeWidth={3} />
+          <input
+            className="h-12 rounded-xl border-0 bg-white px-4 text-[12px] font-bold text-black outline-none placeholder:text-black/35"
+            placeholder="Email address"
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            required
+          />
+          <button type="submit" disabled={submitState === "submitting" || submitState === "success"} className="mt-1 inline-flex h-11 items-center justify-center gap-3 rounded-full bg-[#dfff00] px-5 text-[11px] font-black text-black transition-opacity disabled:opacity-70">
+            {submitState === "submitting" ? "Sending..." : submitState === "success" ? "Mockup brief sent" : "Send my mockup brief"}
+            {submitState === "success" ? <Check className="size-4" strokeWidth={3} /> : <ArrowRight className="size-4" strokeWidth={3} />}
           </button>
+          {submitState === "success" ? (
+            <p className="text-[12px] font-bold text-white/75">Done. You are in the Sorted pipeline as a website lead.</p>
+          ) : null}
+          {submitState === "error" ? (
+            <p className="text-[12px] font-bold text-[#ff9acb]">{submitError}</p>
+          ) : null}
         </form>
       </div>
     </section>
@@ -255,4 +323,8 @@ function getSummary(answers: Partial<Record<StepKey, string>>) {
   }
 
   return `For a ${business}, we would turn ${site} into a sharper website with a clearer first impression, stronger proof, and a simple route to ${goal}.`
+}
+
+function isValidEmail(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
 }

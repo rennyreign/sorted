@@ -115,21 +115,21 @@ export function ReferralForm({
       description: businessDescription.trim() || undefined,
     }
 
+    const cleanBusinessName = businessName.trim()
+    const cleanEmail = businessEmail.trim().toLowerCase()
+    const cleanPhone = businessPhone.trim()
+
     const { data, error: dbError } = await affiliateDb
-      .from("affiliate_referrals")
-      .insert({
-        affiliate_id: affiliateId,
-        business_name: businessName.trim(),
-        business_contact_name: contactName.trim() || null,
-        business_email: businessEmail.trim() || null,
-        business_phone: businessPhone.trim() || null,
-        current_website: currentWebsite.trim() || null,
-        business_stage: stage,
-        mockup_brief: brief,
-        status: "mockup_requested",
+      .rpc("submit_partner_referral", {
+        p_affiliate_id: affiliateId,
+        p_business_name: cleanBusinessName,
+        p_contact_name: contactName.trim() || null,
+        p_business_email: cleanEmail || null,
+        p_business_phone: cleanPhone || null,
+        p_current_website: currentWebsite.trim() || null,
+        p_business_stage: stage,
+        p_mockup_brief: brief,
       })
-      .select("id")
-      .single()
 
     if (dbError || !data) {
       setError(dbError?.message ?? "Could not submit your request. Please try again.")
@@ -137,7 +137,7 @@ export function ReferralForm({
       return
     }
 
-    onDone(data.id as number)
+    onDone(data as number)
   }
 
   return (
