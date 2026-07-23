@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import { Activity, ArrowRight, Calendar, Check, Edit3, Eye, Rocket, Sparkles } from "lucide-react"
 import { MockupButton } from "../_components/SitesMockupModal"
 import { SitesFooter, SitesHeader, SitesPage, Underline } from "../_components/SitesPrimitives"
 import { ExamplesGallery } from "./ExamplesGallery"
-import { LiveSitesShowcase } from "./LiveSitesShowcase"
 
 export const metadata: Metadata = {
   title: "Examples | Sorted",
@@ -15,8 +15,51 @@ export const metadata: Metadata = {
 
 const metrics = [
   [Activity, "482", "Mockups created this month"],
-  [Sparkles, "5", "Live builds featured"],
-  [Calendar, "Today", "Factory updated"],
+  [Sparkles, "+7", "New mockups today"],
+  [Calendar, "12m ago", "Last mockup generated"],
+] as const
+
+const launchedSites = [
+  {
+    title: "Warwickshire Short Stays",
+    description: "Serviced accommodation website built to earn direct bookings and showcase a growing property portfolio.",
+    image: "/examples/live/warwickshire-short-stays-desktop.png",
+    href: "https://warwickshire-short-stays.netlify.app/",
+    cta: "Visit website",
+    external: true,
+  },
+  {
+    title: "Palace Barn & Cottage",
+    description: "Luxury countryside retreat website designed to feel premium before guests arrive.",
+    image: "/examples/palacebarns.jpg",
+    href: "https://palacebarns.com/",
+    cta: "Visit website",
+    external: true,
+  },
+  {
+    title: "BodySharp Fitness",
+    description: "Premium coaching website built around energy, trust and Discovery Session enquiries.",
+    image: "/examples/live/bodysharp-fitness-desktop.png",
+    href: "https://bodysharp-fitness.netlify.app/",
+    cta: "Visit website",
+    external: true,
+  },
+  {
+    title: "Savannah Villegas",
+    description: "Editorial portfolio website for social-first video production and brand storytelling.",
+    image: "/examples/live/savannah-villegas-desktop.png",
+    href: "https://savannahvillegas.com/",
+    cta: "Visit website",
+    external: true,
+  },
+  {
+    title: "Gracie Barra Halesowen",
+    description: "Brazilian Jiu-Jitsu academy website with clearer programmes and a stronger route to book.",
+    image: "/examples/graciebarra-halesowen.jpg",
+    href: "https://gbhalesowen.com/",
+    cta: "Visit website",
+    external: true,
+  },
 ] as const
 
 const processSteps = [
@@ -94,7 +137,22 @@ export default function ExamplesPage() {
           </a>
         </div>
 
-        <LiveSitesShowcase />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {launchedSites.map((site) => (
+            <article key={site.title} className="overflow-hidden rounded-[10px] border border-black/12 bg-white shadow-[0_16px_40px_rgba(0,0,0,0.045)]">
+              <a href={site.href} target={site.external ? "_blank" : undefined} rel={site.external ? "noopener noreferrer" : undefined} className="group relative block aspect-[16/10] overflow-hidden bg-[#080808]">
+                <Image src={site.image} alt={`${site.title} website`} fill sizes="(min-width: 1024px) 290px, (min-width: 640px) 50vw, 100vw" className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.055]" />
+              </a>
+              <div className="p-5">
+                <h3 className="text-[16px] font-black leading-tight tracking-[-0.035em]">{site.title}</h3>
+                <p className="mt-2 min-h-[42px] text-[13px] font-semibold leading-[1.45] text-black/64">{site.description}</p>
+                <a href={site.href} target={site.external ? "_blank" : undefined} rel={site.external ? "noopener noreferrer" : undefined} className="mt-4 inline-flex min-h-10 items-center gap-2 text-[12px] font-black">
+                  {site.cta} <ArrowRight className="size-4" strokeWidth={2.5} />
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
 
       <ExamplesGallery />
