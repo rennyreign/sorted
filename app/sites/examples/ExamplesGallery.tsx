@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { ArrowDownUp, ArrowRight, Maximize2, RefreshCw, X } from "lucide-react"
 
-type Status = "Mockup" | "Live" | "Building" | "Approved" | "Rejected"
+type Status = "Mockup" | "Approved" | "Building"
 
 type MockupExample = {
   title: string
@@ -20,33 +20,31 @@ const mockupBaseUrl = "https://qweevancxedkkfxysnzq.supabase.co/storage/v1/objec
 
 const mockups: MockupExample[] = [
   { title: "Pilates Studio", location: "London", category: "Health & fitness", status: "Mockup", time: "12m ago", image: `${mockupBaseUrl}labpilates.png` },
-  { title: "Farm Shop", location: "Farleigh", category: "Retail", status: "Live", time: "28m ago", image: `${mockupBaseUrl}farleigh2.png` },
+  { title: "Farm Shop", location: "Farleigh", category: "Retail", status: "Approved", time: "28m ago", image: `${mockupBaseUrl}farleigh2.png` },
   { title: "Rural Venue", location: "Kent", category: "Hospitality", status: "Mockup", time: "45m ago", image: `${mockupBaseUrl}farleigh.png` },
   { title: "Local Service Business", location: "Woolwich", category: "Home services", status: "Building", time: "1h ago", image: `${mockupBaseUrl}woolwich.png` },
   { title: "Hair Salon", location: "London", category: "Retail", status: "Approved", time: "1h ago", image: `${mockupBaseUrl}no77.png` },
-  { title: "Fitness Club", location: "Birmingham", category: "Health & fitness", status: "Live", time: "2h ago", image: `${mockupBaseUrl}sinfit.png` },
+  { title: "Fitness Club", location: "Birmingham", category: "Health & fitness", status: "Building", time: "2h ago", image: `${mockupBaseUrl}sinfit.png` },
   { title: "Wellness Studio", location: "Bristol", category: "Professional", status: "Mockup", time: "2h ago", image: `${mockupBaseUrl}origin.png` },
-  { title: "Dental Practice", location: "Mayfield", category: "Professional", status: "Live", time: "3h ago", image: `${mockupBaseUrl}mayfield-dental.png` },
+  { title: "Dental Practice", location: "Mayfield", category: "Professional", status: "Approved", time: "3h ago", image: `${mockupBaseUrl}mayfield-dental.png` },
   { title: "Community Hub", location: "Thamesmead", category: "Other", status: "Mockup", time: "3h ago", image: `${mockupBaseUrl}thamesmeadB.png` },
-  { title: "Community Project", location: "Thamesmead", category: "Other", status: "Rejected", time: "4h ago", image: `${mockupBaseUrl}thamesmeadA.png` },
+  { title: "Community Project", location: "Thamesmead", category: "Other", status: "Mockup", time: "4h ago", image: `${mockupBaseUrl}thamesmeadA.png` },
   { title: "Personal Trainer", location: "Manchester", category: "Health & fitness", status: "Building", time: "4h ago", image: `${mockupBaseUrl}lanept.png` },
   { title: "Beauty Salon", location: "London", category: "Retail", status: "Mockup", time: "5h ago", image: `${mockupBaseUrl}salon108.png` },
-  { title: "Interior Design", location: "London", category: "Professional", status: "Live", time: "5h ago", image: `${mockupBaseUrl}edgmockup1.png` },
+  { title: "Interior Design", location: "London", category: "Professional", status: "Approved", time: "5h ago", image: `${mockupBaseUrl}edgmockup1.png` },
   { title: "Flooring", location: "Leeds", category: "Home services", status: "Mockup", time: "6h ago", image: `${mockupBaseUrl}edgmockup2.png` },
   { title: "Hair Boutique", location: "Birmingham", category: "Retail", status: "Building", time: "6h ago", image: `${mockupBaseUrl}hairboutique.png` },
   { title: "Greek Restaurant", location: "Manchester", category: "Hospitality", status: "Approved", time: "7h ago", image: `${mockupBaseUrl}moderngreek.png` },
   { title: "Aesthetics Clinic", location: "London", category: "Professional", status: "Mockup", time: "7h ago", image: `${mockupBaseUrl}positive-beauty-aesthetics.png` },
-  { title: "Coffee Shop", location: "Nottingham", category: "Hospitality", status: "Live", time: "8h ago", image: `${mockupBaseUrl}coffeeoncorner.png` },
+  { title: "Coffee Shop", location: "Nottingham", category: "Hospitality", status: "Mockup", time: "8h ago", image: `${mockupBaseUrl}coffeeoncorner.png` },
   { title: "Italian Restaurant", location: "London", category: "Hospitality", status: "Mockup", time: "8h ago", image: `${mockupBaseUrl}la-coppola.png` },
   { title: "Private Gym", location: "Cardiff", category: "Health & fitness", status: "Building", time: "9h ago", image: `${mockupBaseUrl}gymshed.png` },
 ]
 
 const statusStyles: Record<Status, string> = {
   Mockup: "bg-[#2a2a2a] text-white before:bg-[#dfff00]",
-  Live: "bg-[#152916] text-white before:bg-[#00df55]",
-  Building: "bg-[#102237] text-white before:bg-[#00a3ff]",
-  Approved: "bg-[#2a123e] text-white before:bg-[#ad35ff]",
-  Rejected: "bg-[#3a1111] text-white before:bg-[#ff2d20]",
+  Approved: "bg-[#172817] text-white before:bg-[#78d900]",
+  Building: "bg-[#fff] text-black before:bg-[#dfff00]",
 }
 
 export function ExamplesGallery() {
