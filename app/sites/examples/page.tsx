@@ -109,15 +109,15 @@ export default function ExamplesPage() {
         </aside>
       </section>
 
-      <section className="mx-auto max-w-[1220px] border-t border-black/10 px-5 py-7 sm:px-8">
+      <section id="live-websites" className="mx-auto max-w-[1220px] scroll-mt-28 border-t border-black/10 px-5 py-7 sm:px-8">
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 className="max-w-[520px] text-[31px] font-black leading-[0.95] tracking-[-0.05em] sm:text-[38px]">
               Websites we’ve built and launched.
             </h2>
           </div>
-          <a href="/examples/the-yard" className="inline-flex min-h-11 items-center gap-2 text-[12px] font-black transition-colors hover:text-black/58">
-            View all live websites <ArrowRight className="size-4" strokeWidth={2.5} />
+          <a href="#mockup-factory" className="inline-flex min-h-11 items-center gap-2 text-[12px] font-black transition-colors hover:text-black/58">
+            See the factory <ArrowRight className="size-4" strokeWidth={2.5} />
           </a>
         </div>
 

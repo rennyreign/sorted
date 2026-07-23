@@ -47,13 +47,24 @@ const statusStyles: Record<Status, string> = {
   Building: "bg-[#fff] text-black before:bg-[#dfff00]",
 }
 
+const initialVisibleCount = 10
+const visibleIncrement = 10
+
 export function ExamplesGallery() {
   const [activeFilter, setActiveFilter] = useState("All")
+  const [visibleCount, setVisibleCount] = useState(initialVisibleCount)
   const [selectedMockup, setSelectedMockup] = useState<MockupExample | null>(null)
 
   const filteredMockups = useMemo(() => {
     if (activeFilter === "All") return mockups
     return mockups.filter((mockup) => mockup.category === activeFilter)
+  }, [activeFilter])
+
+  const visibleMockups = useMemo(() => filteredMockups.slice(0, visibleCount), [filteredMockups, visibleCount])
+  const hasMoreMockups = visibleCount < filteredMockups.length
+
+  useEffect(() => {
+    setVisibleCount(initialVisibleCount)
   }, [activeFilter])
 
   useEffect(() => {
@@ -74,7 +85,7 @@ export function ExamplesGallery() {
 
   return (
     <>
-      <section className="bg-[#080909] px-5 py-8 text-white sm:px-8 sm:py-10">
+      <section id="mockup-factory" className="scroll-mt-28 bg-[#080909] px-5 py-8 text-white sm:px-8 sm:py-10">
         <div className="mx-auto max-w-[1220px]">
           <div className="grid gap-8 lg:grid-cols-[0.28fr_0.72fr]">
             <div>
@@ -109,8 +120,8 @@ export function ExamplesGallery() {
 
                 <div className="flex flex-wrap items-center justify-between gap-4 text-[12px] font-black">
                   <div className="flex items-center gap-5">
-                    <span className="text-white/72">{filteredMockups.length === mockups.length ? "482" : filteredMockups.length} mockups</span>
-                    <span className="text-[#dfff00]">+7 today</span>
+                    <span className="text-white/72">{filteredMockups.length} mockups shown</span>
+                    <span className="text-[#dfff00]">482 in the factory</span>
                   </div>
                   <button type="button" className="inline-flex h-10 items-center gap-2 rounded-full border border-white/22 px-4 text-[11px] transition-colors hover:border-white/70">
                     Newest first <ArrowDownUp className="size-3.5" strokeWidth={2.4} />
@@ -119,7 +130,7 @@ export function ExamplesGallery() {
               </div>
 
               <div className="mt-7 grid grid-cols-1 gap-4 min-[360px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
-                {filteredMockups.map((mockup) => (
+                {visibleMockups.map((mockup) => (
                   <article key={`${mockup.title}-${mockup.location}`} className="overflow-hidden rounded-[8px] bg-white text-black shadow-[0_16px_34px_rgba(0,0,0,0.28)]">
                     <button
                       type="button"
@@ -151,11 +162,17 @@ export function ExamplesGallery() {
                 ))}
               </div>
 
-              <div className="mt-6 flex justify-center">
-                <button type="button" className="inline-flex h-12 items-center gap-3 rounded-full border border-white/35 px-8 text-[12px] font-black transition-colors hover:border-[#dfff00] hover:text-[#dfff00] focus:outline-none focus:ring-2 focus:ring-[#dfff00]">
-                  Load more mockups <RefreshCw className="size-4" strokeWidth={2.4} />
-                </button>
-              </div>
+              {hasMoreMockups ? (
+                <div className="mt-6 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setVisibleCount((count) => Math.min(count + visibleIncrement, filteredMockups.length))}
+                    className="inline-flex h-12 items-center gap-3 rounded-full border border-white/35 px-8 text-[12px] font-black transition-colors hover:border-[#dfff00] hover:text-[#dfff00] focus:outline-none focus:ring-2 focus:ring-[#dfff00]"
+                  >
+                    Load more mockups <RefreshCw className="size-4" strokeWidth={2.4} />
+                  </button>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
