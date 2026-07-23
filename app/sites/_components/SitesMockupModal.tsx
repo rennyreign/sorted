@@ -2,7 +2,7 @@
 
 import type { FormEvent } from "react"
 import { useEffect, useMemo, useRef, useState } from "react"
-import { ArrowLeft, ArrowRight, Check, Loader2, X } from "lucide-react"
+import { ArrowLeft, ArrowRight, Check, ExternalLink, Loader2, Mail, Sparkles, X } from "lucide-react"
 import { supabase } from "@/lib/supabase"
 
 type StepKey = "business" | "currentSite" | "goal" | "style" | "timeline"
@@ -212,6 +212,7 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
   const [email, setEmail] = useState("")
   const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle")
   const [submitError, setSubmitError] = useState("")
+  const [successDetails, setSuccessDetails] = useState<{ email: string; reviewUrl: string | null } | null>(null)
 
   async function submitLead(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -229,7 +230,7 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
         throw new Error("Please add a valid email address.")
       }
 
-      const { error } = await supabase.rpc("submit_website_lead", {
+      const { data: leadId, error } = await supabase.rpc("submit_website_lead", {
         p_business_name: cleanBusinessName,
         p_website_url: websiteUrl.trim() || null,
         p_email: cleanEmail,
@@ -241,6 +242,20 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
         throw new Error("Could not submit your mockup brief")
       }
 
+      let reviewUrl: string | null = null
+      if (leadId) {
+        const { data: lead } = await supabase
+          .from("prospects")
+          .select("review_slug")
+          .eq("id", leadId)
+          .single()
+
+        if (lead?.review_slug && typeof window !== "undefined") {
+          reviewUrl = `${window.location.origin}/review/?slug=${lead.review_slug}`
+        }
+      }
+
+      setSuccessDetails({ email: cleanEmail, reviewUrl })
       setSubmitState("success")
     } catch (error) {
       setSubmitState("error")
@@ -260,54 +275,90 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
       </div>
 
       <div className="rounded-[22px] bg-[#f7efe3] p-5 shadow-[0_22px_55px_rgba(20,14,8,0.13)] sm:p-7">
-        <div className="rounded-[16px] bg-white p-5">
-          <p className="text-[12px] font-black text-black/45">What we will focus on</p>
-          <h3 className="mt-3 text-[28px] font-black tracking-[-0.045em]">{answers.goal ?? "A website that gets enquiries"}</h3>
-          <ul className="mt-5 grid gap-3 text-[13px] font-black">
-            {["A homepage that says what you do clearly", "Proof that makes people trust you", "A direct path to enquire or book", "Simple content you can update yourself"].map((item) => (
-              <li key={item} className="flex items-center gap-3">
-                <Check className="size-5 rounded-full bg-[#dfff00] p-1" strokeWidth={3.5} />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <form onSubmit={submitLead} className="mt-4 grid gap-3 rounded-[16px] bg-[#070707] p-5 text-white">
-          <p className="text-[13px] font-black">Where should we send it?</p>
-          <div className="grid gap-3 sm:grid-cols-2">
-            <input
-              className="h-12 rounded-xl border-0 bg-white px-4 text-[12px] font-bold text-black outline-none placeholder:text-black/35"
-              placeholder="Business name"
-              value={businessName}
-              onChange={(event) => setBusinessName(event.target.value)}
-              required
-            />
-            <input
-              className="h-12 rounded-xl border-0 bg-white px-4 text-[12px] font-bold text-black outline-none placeholder:text-black/35"
-              placeholder="Your website, if you have one"
-              value={websiteUrl}
-              onChange={(event) => setWebsiteUrl(event.target.value)}
-            />
+        {submitState === "success" && successDetails ? (
+          <div className="grid min-h-[430px] content-center rounded-[18px] bg-[#070707] p-6 text-white sm:p-8">
+            <span className="grid size-14 place-items-center rounded-full bg-[#dfff00] text-black">
+              <Check className="size-7" strokeWidth={3.4} />
+            </span>
+            <p className="mt-7 text-[13px] font-black text-[#dfff00]">Mockup brief received</p>
+            <h3 className="mt-3 max-w-[560px] text-[clamp(2.1rem,4vw,4.1rem)] font-black leading-[0.95] tracking-[-0.055em]">
+              Your private mockup page is being prepared.
+            </h3>
+            <p className="mt-5 max-w-[520px] text-[15px] font-bold leading-[1.5] text-white/72">
+              We’ll use your answers to prepare the first direction, then send the review link to{" "}
+              <span className="text-white">{successDetails.email}</span>. When the mockup is revealed, your stage updates in the Sorted pipeline automatically.
+            </p>
+            <div className="mt-7 grid gap-3 sm:grid-cols-2">
+              {successDetails.reviewUrl ? (
+                <a
+                  href={successDetails.reviewUrl}
+                  className="inline-flex h-12 items-center justify-center gap-3 rounded-full bg-white px-5 text-[12px] font-black text-black transition-transform hover:-translate-y-0.5"
+                >
+                  Open review page <ExternalLink className="size-4" strokeWidth={2.8} />
+                </a>
+              ) : null}
+              <button
+                type="button"
+                onClick={() => window.location.reload()}
+                className="inline-flex h-12 items-center justify-center gap-3 rounded-full border border-white/20 px-5 text-[12px] font-black text-white transition-colors hover:border-[#dfff00] hover:text-[#dfff00]"
+              >
+                Request another mockup <Sparkles className="size-4" strokeWidth={2.8} />
+              </button>
+            </div>
+            <div className="mt-7 grid gap-3 rounded-[14px] border border-white/10 bg-white/[0.04] p-4 text-[12px] font-bold text-white/62 sm:grid-cols-[24px_1fr]">
+              <Mail className="size-5 text-[#dfff00]" strokeWidth={2.5} />
+              <p>Email delivery is handled by Sorted. If nothing arrives, WhatsApp us and we’ll send the review link manually.</p>
+            </div>
           </div>
-          <input
-            className="h-12 rounded-xl border-0 bg-white px-4 text-[12px] font-bold text-black outline-none placeholder:text-black/35"
-            placeholder="Email address"
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            required
-          />
-          <button type="submit" disabled={submitState === "submitting" || submitState === "success"} className="mt-1 inline-flex h-11 items-center justify-center gap-3 rounded-full bg-[#dfff00] px-5 text-[11px] font-black text-black transition-opacity disabled:opacity-70">
-            {submitState === "submitting" ? "Sending..." : submitState === "success" ? "Mockup brief sent" : "Send my mockup brief"}
-            {submitState === "success" ? <Check className="size-4" strokeWidth={3} /> : <ArrowRight className="size-4" strokeWidth={3} />}
-          </button>
-          {submitState === "success" ? (
-            <p className="text-[12px] font-bold text-white/75">Done. You are in the Sorted pipeline as a website lead.</p>
-          ) : null}
-          {submitState === "error" ? (
-            <p className="text-[12px] font-bold text-[#ff9acb]">{submitError}</p>
-          ) : null}
-        </form>
+        ) : (
+          <>
+            <div className="rounded-[16px] bg-white p-5">
+              <p className="text-[12px] font-black text-black/45">What we will focus on</p>
+              <h3 className="mt-3 text-[28px] font-black tracking-[-0.045em]">{answers.goal ?? "A website that gets enquiries"}</h3>
+              <ul className="mt-5 grid gap-3 text-[13px] font-black">
+                {["A homepage that says what you do clearly", "Proof that makes people trust you", "A direct path to enquire or book", "Simple content you can update yourself"].map((item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <Check className="size-5 rounded-full bg-[#dfff00] p-1" strokeWidth={3.5} />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <form onSubmit={submitLead} className="mt-4 grid gap-3 rounded-[16px] bg-[#070707] p-5 text-white">
+              <p className="text-[13px] font-black">Where should we send it?</p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <input
+                  className="h-12 rounded-xl border-0 bg-white px-4 text-[12px] font-bold text-black outline-none placeholder:text-black/35"
+                  placeholder="Business name"
+                  value={businessName}
+                  onChange={(event) => setBusinessName(event.target.value)}
+                  required
+                />
+                <input
+                  className="h-12 rounded-xl border-0 bg-white px-4 text-[12px] font-bold text-black outline-none placeholder:text-black/35"
+                  placeholder="Your website, if you have one"
+                  value={websiteUrl}
+                  onChange={(event) => setWebsiteUrl(event.target.value)}
+                />
+              </div>
+              <input
+                className="h-12 rounded-xl border-0 bg-white px-4 text-[12px] font-bold text-black outline-none placeholder:text-black/35"
+                placeholder="Email address"
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
+              />
+              <button type="submit" disabled={submitState === "submitting"} className="mt-1 inline-flex h-11 items-center justify-center gap-3 rounded-full bg-[#dfff00] px-5 text-[11px] font-black text-black transition-opacity disabled:opacity-70">
+                {submitState === "submitting" ? "Sending..." : "Send my mockup brief"}
+                {submitState === "submitting" ? <Loader2 className="size-4 animate-spin" strokeWidth={3} /> : <ArrowRight className="size-4" strokeWidth={3} />}
+              </button>
+              {submitState === "error" ? (
+                <p className="text-[12px] font-bold text-[#ff9acb]">{submitError}</p>
+              ) : null}
+            </form>
+          </>
+        )}
       </div>
     </section>
   )
