@@ -18,7 +18,6 @@ import {
   User as UserIcon,
   Wallet,
 } from "lucide-react"
-import Image from "next/image"
 import { affMarker, affHighlight } from "../../_components/AffiliatesPrimitives"
 import { affiliateDb, EMPTY_STATS, type DashboardStats, type Affiliate, type AffiliateReferral } from "@/lib/affiliateClient"
 import {
@@ -126,7 +125,9 @@ export default function AffiliatePortal() {
       <header className="sticky top-0 z-40 border-b border-black/8 bg-white/90 backdrop-blur-xl">
         <div className="mx-auto flex h-16 w-full max-w-[1220px] items-center justify-between px-5 sm:px-8">
           <a href="/affiliates/dashboard" className="flex items-center gap-3" onClick={(e) => { e.preventDefault(); navigate("overview") }}>
-            <Image src="/sorted-sites/sorted-sites-logo.png" alt="Sorted.sites" width={140} height={36} className="h-[24px] w-auto" priority />
+            <span className="text-[28px] font-black leading-none tracking-[-0.045em] text-[#070707]">
+              Sorted<span className="text-[#cfe900]">.</span>
+            </span>
             <span className="text-[11px] font-black uppercase tracking-[0.12em] text-black/45">Partner</span>
           </a>
 

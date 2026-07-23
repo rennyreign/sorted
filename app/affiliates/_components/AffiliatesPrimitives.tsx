@@ -1,5 +1,4 @@
 import type { ReactNode } from "react"
-import Image from "next/image"
 import localFont from "next/font/local"
 
 // ─── Design tokens (Sorted Sites brand) ───────────────────────────────────────
@@ -53,7 +52,9 @@ export function AffiliatesHeader({
     <header className="fixed left-0 right-0 top-0 z-50 border-b border-transparent bg-transparent px-5 py-4 transition-colors duration-200 sm:px-8">
       <div className="mx-auto flex w-full max-w-[1220px] items-center justify-between">
         <a href="/affiliates" className="flex items-center gap-3 shrink-0" aria-label="Sorted Partners Portal home">
-          <Image src="/sorted-sites/sorted-sites-logo.png" alt="Sorted.sites" width={140} height={36} className="h-[28px] w-auto" priority />
+          <span className="text-[32px] font-black leading-none tracking-[-0.045em] text-[#070707]">
+            Sorted<span className="text-[#cfe900]">.</span>
+          </span>
           <span className="text-[11px] font-black uppercase tracking-[0.12em] text-black/55">Partners</span>
         </a>
         <nav className="hidden items-center gap-8 text-[12px] font-extrabold tracking-[-0.02em] md:flex">
@@ -90,7 +91,9 @@ export function AffiliatesFooter() {
     <footer className="bg-[#070707] px-5 py-10 text-white sm:px-8">
       <div className="mx-auto grid max-w-[1220px] gap-8 md:grid-cols-[1.4fr_0.8fr_0.8fr_1fr]">
         <div>
-          <Image src="/sorted-sites/sorted-sites-logo-white.png" alt="Sorted.sites" width={140} height={36} className="h-[28px] w-auto" />
+          <span className="text-[32px] font-black leading-none tracking-[-0.045em] text-white">
+            Sorted<span className="text-[#cfe900]">.</span>
+          </span>
           <p className="mt-4 max-w-[240px] text-[13px] font-semibold leading-[1.4] text-white/80">
             Earn £75–£300 for every business you refer that gets a Sorted website.
           </p>

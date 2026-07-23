@@ -26,7 +26,7 @@ export default async function InvoiceViewPage({
         ["Account number", bankAccount.account_number],
         ["IBAN", bankAccount.iban],
         ["SWIFT / BIC", bankAccount.swift],
-        ["Routing", bankAccount.routing],
+        ["Sort code", bankAccount.routing],
         ["Bank address", bankAccount.bank_address],
       ].filter(([, v]) => v && v.trim() !== "") as [string, string][])
     : [];
