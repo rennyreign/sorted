@@ -19,7 +19,15 @@ const devices = [
   ["mobile", Smartphone, "Mobile"],
 ] as const
 
-export function CaseStudyHeroPreview({ business, image, liveUrl }: { business: string; image: string; liveUrl?: string }) {
+export function CaseStudyHeroPreview({
+  business,
+  screenshots,
+  liveUrl,
+}: {
+  business: string
+  screenshots: Record<Device, string>
+  liveUrl?: string
+}) {
   const [device, setDevice] = useState<Device>("desktop")
 
   return (
@@ -39,7 +47,7 @@ export function CaseStudyHeroPreview({ business, image, liveUrl }: { business: s
 
       <div className={`${deviceClasses[device]} group relative overflow-hidden rounded-[16px] border border-black/10 bg-[#080808] shadow-[0_18px_48px_rgba(0,0,0,0.12)] transition-all duration-300`}>
         <Image
-          src={image}
+          src={screenshots[device]}
           alt={`${business} website preview`}
           fill
           sizes="(min-width: 1024px) 720px, 100vw"

@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import { ArrowRight, Check, Clock3, Edit3, Eye, Phone, ShieldCheck, Star, Zap } from "lucide-react"
-import { examples, FeatureBar, Logo, SitePreviewCard, SitesHeader, SitesPage, SitesTitle, Underline } from "./_components/SitesPrimitives"
+import { FeatureBar, Logo, SitesHeader, SitesPage, SitesTitle, Underline } from "./_components/SitesPrimitives"
 import { MockupButton } from "./_components/SitesMockupModal"
+import { exampleCaseStudies } from "./examples/_caseStudies"
 
 export const metadata: Metadata = {
   title: "Sorted | Your new website, Sorted",
@@ -113,7 +114,23 @@ export default function SortedSitesHome() {
             View more examples <ArrowRight className="size-4" strokeWidth={2.5} />
           </a>
         </div>
-        {examples.slice(0, 3).map((example) => <SitePreviewCard key={example.slug} example={example} />)}
+        {exampleCaseStudies.slice(0, 3).map((example) => (
+          <article key={example.slug} className="overflow-hidden rounded-[14px] border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.045)]">
+            <a href={`/examples/${example.slug}`} className="group relative block aspect-[5/4] overflow-hidden bg-[#080808]">
+              <Image src={example.image} alt={`${example.business} website`} fill sizes="360px" className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.055]" />
+            </a>
+            <div className="p-5">
+              <div className="flex flex-wrap gap-2">
+                <span className="inline-flex h-7 items-center rounded-full bg-[#dfff00] px-3 text-[10px] font-black text-black">{example.category}</span>
+                <span className="inline-flex h-7 items-center rounded-full bg-black/5 px-3 text-[10px] font-black text-black/58">{example.location}</span>
+              </div>
+              <h3 className="mt-4 text-[18px] font-black tracking-[-0.045em]">{example.business}</h3>
+              <a href={`/examples/${example.slug}`} className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-black/5 px-4 text-[12px] font-black sm:min-h-0 sm:bg-transparent sm:px-0">
+                View case study <ArrowRight className="size-4" strokeWidth={2.6} />
+              </a>
+            </div>
+          </article>
+        ))}
       </section>
 
       <HomeBottom />

@@ -54,7 +54,7 @@ export default async function ExampleCaseStudyPage({ params }: PageProps) {
           <p className="mt-7 max-w-[440px] text-[17px] font-semibold leading-[1.5] tracking-[-0.03em]">{caseStudy.description}</p>
         </div>
 
-        <CaseStudyHeroPreview business={caseStudy.business} image={caseStudy.image} liveUrl={caseStudy.liveUrl} />
+        <CaseStudyHeroPreview business={caseStudy.business} screenshots={caseStudy.screenshots} liveUrl={caseStudy.liveUrl} />
       </section>
 
       <section className="mx-auto grid max-w-[1220px] gap-10 border-t border-black/10 px-5 py-12 sm:px-8 lg:grid-cols-[0.35fr_0.65fr]">

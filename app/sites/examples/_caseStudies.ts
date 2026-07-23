@@ -6,6 +6,11 @@ export type ExampleCaseStudy = {
   location: string
   description: string
   image: string
+  screenshots: {
+    desktop: string
+    tablet: string
+    mobile: string
+  }
   liveUrl?: string
   goal: string
   solution: string
@@ -24,6 +29,11 @@ export const exampleCaseStudies: ExampleCaseStudy[] = [
     location: "Warwickshire",
     description: "Serviced accommodation website built to earn direct bookings and showcase a growing property portfolio.",
     image: "/examples/live/warwickshire-short-stays-desktop.png",
+    screenshots: {
+      desktop: "/examples/live/warwickshire-short-stays-desktop.png",
+      tablet: "/examples/live/warwickshire-short-stays-tablet.png",
+      mobile: "/examples/live/warwickshire-short-stays-mobile.png",
+    },
     liveUrl: "https://warwickshire-short-stays.netlify.app/",
     goal: "Create a professional booking website that showcased a growing property portfolio, built trust with prospective guests and made it easy to enquire without relying only on third-party booking platforms.",
     solution: "We designed a modern hospitality website with a clear property catalogue, dedicated accommodation pages and a streamlined enquiry experience. The new design highlights each property's features, location and guest suitability while making the business feel credible from the first visit.",
@@ -45,7 +55,12 @@ export const exampleCaseStudies: ExampleCaseStudy[] = [
     business: "Palace Barn & Cottage",
     location: "Shropshire",
     description: "Luxury countryside retreat website designed to feel premium before guests arrive.",
-    image: "/examples/palacebarns.jpg",
+    image: "/examples/live/palace-barn-cottage-desktop.png",
+    screenshots: {
+      desktop: "/examples/live/palace-barn-cottage-desktop.png",
+      tablet: "/examples/live/palace-barn-cottage-tablet.png",
+      mobile: "/examples/live/palace-barn-cottage-mobile.png",
+    },
     liveUrl: "https://palacebarns.com/",
     goal: "Create a premium website that reflected the quality of the property, showcased the accommodation and surrounding countryside, and made it easy for guests to explore and book their stay.",
     solution: "We designed an elegant, editorial-inspired website built around immersive photography, refined typography and a calm booking experience. The site helps guests imagine the stay before guiding them naturally towards making a reservation.",
@@ -68,6 +83,11 @@ export const exampleCaseStudies: ExampleCaseStudy[] = [
     location: "Birmingham",
     description: "Premium coaching website built around energy, trust and Discovery Session enquiries.",
     image: "/examples/live/bodysharp-fitness-desktop.png",
+    screenshots: {
+      desktop: "/examples/live/bodysharp-fitness-desktop.png",
+      tablet: "/examples/live/bodysharp-fitness-tablet.png",
+      mobile: "/examples/live/bodysharp-fitness-mobile.png",
+    },
     liveUrl: "https://bodysharp-fitness.netlify.app/",
     goal: "Move away from the look of a typical personal trainer website and establish a premium coaching brand that immediately built credibility, communicated the philosophy and converted visitors into Discovery Sessions.",
     solution: "We designed a bold, conversion-focused website centred around BodySharp's core message: getting your energy back. Strong typography, clear programme pathways and compelling proof create a site that positions Mikey as a trusted coach.",
@@ -90,6 +110,11 @@ export const exampleCaseStudies: ExampleCaseStudy[] = [
     location: "Tennessee",
     description: "Editorial portfolio website for social-first video production and brand storytelling.",
     image: "/examples/live/savannah-villegas-desktop.png",
+    screenshots: {
+      desktop: "/examples/live/savannah-villegas-desktop.png",
+      tablet: "/examples/live/savannah-villegas-tablet.png",
+      mobile: "/examples/live/savannah-villegas-mobile.png",
+    },
     liveUrl: "https://savannahvillegas.com/",
     goal: "Create a premium online presence that reflected the quality of the work, positioned the business as a high-end creative partner and gave potential clients a simple way to enquire.",
     solution: "We designed an editorial-inspired website that lets the work speak for itself. Clean typography, cinematic imagery and a calm user experience position Savannah as a premium creative while guiding visitors towards booking a project.",
@@ -111,7 +136,12 @@ export const exampleCaseStudies: ExampleCaseStudy[] = [
     business: "Gracie Barra Halesowen",
     location: "Halesowen",
     description: "Brazilian Jiu-Jitsu academy website with clearer programmes and a stronger route to book.",
-    image: "/examples/graciebarra-halesowen.jpg",
+    image: "/examples/live/gracie-barra-halesowen-desktop.png",
+    screenshots: {
+      desktop: "/examples/live/gracie-barra-halesowen-desktop.png",
+      tablet: "/examples/live/gracie-barra-halesowen-tablet.png",
+      mobile: "/examples/live/gracie-barra-halesowen-mobile.png",
+    },
     liveUrl: "https://gbhalesowen.com/",
     goal: "Create a modern website that reflected the professionalism of the academy, clearly explained every programme and made it easier for new members to book an introduction.",
     solution: "We redesigned the website with a clearer structure, stronger calls to action and dedicated landing pages for every programme. The result builds trust quickly and gives prospective members a straightforward route to enquire or book.",
