@@ -166,6 +166,19 @@ def run(dry_run: bool = False, single_query: str | None = None, location_overrid
 
     logger.info("=" * 60)
 
+    # Systemic failure: scraper returned 0 raw results across all queries.
+    # This almost always indicates a scraper-level issue (rate limit, auth,
+    # network, platform-feature-disabled). Without this check the run exits
+    # 0 and GitHub Actions reports green — masking the problem for days.
+    if total_raw == 0 and len(queries) > 0:
+        logger.critical(
+            "SYSTEMIC FAILURE: 0 raw results across all %d queries. "
+            "Scraper is likely down (rate limit, auth, or platform issue). "
+            "Check Apify account status and API token.",
+            len(queries),
+        )
+        sys.exit(1)
+
     if total_errors > 0:
         sys.exit(1)
 
