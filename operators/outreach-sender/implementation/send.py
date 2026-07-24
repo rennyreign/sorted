@@ -150,9 +150,62 @@ def compile_template(subject_template, body_template, prospect):
     body = body_template.replace("{{review_url}}", review_url)
     return subject, body
 
+def body_to_html(text_body, review_url):
+    """
+    Convert the plain-text email body to a simple HTML version.
+    This enables Resend's open tracking pixel (injected into HTML emails).
+    """
+    # Escape HTML special chars
+    escaped = text_body.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+    # Convert the review URL line to a clickable button
+    lines = escaped.split("\n")
+    html_lines = []
+    for line in lines:
+        stripped = line.strip()
+        if stripped == review_url:
+            html_lines.append(
+                f'<div style="margin:24px 0;">'
+                f'<a href="{review_url}" '
+                f'style="display:inline-block;background:#0A0A0A;color:#ffffff;'
+                f'font-size:14px;font-weight:600;text-decoration:none;'
+                f'padding:14px 28px;border-radius:8px;">'
+                f'See your review &rarr;</a></div>'
+            )
+        elif stripped == "":
+            html_lines.append("<br>")
+        else:
+            html_lines.append(f"<p style='margin:0 0 8px 0;'>{stripped}</p>")
+
+    body_html = "\n".join(html_lines)
+
+    return f"""<!doctype html>
+<html>
+  <body style="margin:0;padding:0;background:#ffffff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#0A0A0A;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff;padding:32px 16px;">
+      <tr><td align="center">
+        <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;">
+          <tr><td style="padding:8px 0 24px 0;">
+            <span style="font-size:18px;font-weight:800;color:#0A0A0A;letter-spacing:-0.02em;">Sorted</span>
+          </td></tr>
+          <tr><td style="font-size:15px;line-height:1.6;color:#0A0A0A;">
+{body_html}
+          </td></tr>
+          <tr><td style="padding:32px 0 16px 0;border-top:1px solid #f0f0f0;margin-top:24px;">
+            <p style="font-size:12px;color:#A3A3A3;line-height:1.5;">
+              Sorted — sortmydigital.site<br>
+              You're receiving this because we built a new website for your business.
+            </p>
+          </td></tr>
+        </table>
+      </td></tr>
+    </table>
+  </body>
+</html>"""
+
 # ─── Email sender (Resend adapter) ────────────────────────────────────────────
 
-def send_email(to, subject, body, idempotency_key):
+def send_email(to, subject, body, idempotency_key, html_body=None):
     """
     Send email via Resend API.
 
@@ -169,18 +222,24 @@ def send_email(to, subject, body, idempotency_key):
         }
 
     try:
+        email_payload = {
+            "from": f"{FROM_NAME} <{FROM_EMAIL}>",
+            "to": [to],
+            "subject": subject,
+            "text": body,
+        }
+        # Include HTML body when available — this enables Resend's
+        # open tracking pixel (injected into HTML emails automatically)
+        if html_body:
+            email_payload["html"] = html_body
+
         r = requests.post(
             RESEND_API_ENDPOINT,
             headers={
                 "Authorization": f"Bearer {RESEND_API_KEY}",
                 "Content-Type": "application/json",
             },
-            json={
-                "from": f"{FROM_NAME} <{FROM_EMAIL}>",
-                "to": [to],
-                "subject": subject,
-                "text": body,
-            },
+            json=email_payload,
             timeout=30,
         )
 
@@ -330,9 +389,11 @@ def process_one(campaign, cfg):
 
     # ── Compile and send ──
     subject, body = compile_template(campaign["subject"], campaign["body_template"], prospect)
+    review_url = f"{REVIEW_BASE_URL}/{prospect['review_slug']}"
+    html_body = body_to_html(body, review_url)
     idempotency_key = f"{prospect['place_id']}_{campaign['id']}"
 
-    result = send_email(email, subject, body, idempotency_key)
+    result = send_email(email, subject, body, idempotency_key, html_body=html_body)
 
     if result["success"]:
         # ── SENT ──
