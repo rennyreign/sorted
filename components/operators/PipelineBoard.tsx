@@ -28,6 +28,14 @@ type PipelineProspect = {
   outreach_sent_at: string | null
   outreach_attempt_count: number | null
   outreach_last_error: string | null
+  // Owner / Companies House enrichment
+  owner_name: string | null
+  owner_email: string | null
+  owner_email_source: string | null
+  owner_email_confidence: number | null
+  owner_source: string | null
+  owner_identified_at: string | null
+  owner_enriched_at: string | null
 }
 
 const STAGES: { key: CrmStatus; label: string; color: string; dropColor: string; dot: string }[] = [
@@ -111,7 +119,7 @@ function generateDraft(p: PipelineProspect): EmailDraft {
   return { subject, body }
 }
 
-const PROSPECT_FIELDS = "id, place_id, name, city, category, site_score, review_slug, website, email, phone, mockup_url, mockup_urls, crm_status, status, contacted_at, mockup_revealed_at, status_updated_at, notes, site_weaknesses, outreach_status, outreach_sent_at, outreach_attempt_count, outreach_last_error"
+const PROSPECT_FIELDS = "id, place_id, name, city, category, site_score, review_slug, website, email, phone, mockup_url, mockup_urls, crm_status, status, contacted_at, mockup_revealed_at, status_updated_at, notes, site_weaknesses, outreach_status, outreach_sent_at, outreach_attempt_count, outreach_last_error, owner_name, owner_email, owner_email_source, owner_email_confidence, owner_source, owner_identified_at, owner_enriched_at"
 
 export default function PipelineBoard() {
   const [prospects, setProspects] = useState<PipelineProspect[]>([])
@@ -128,6 +136,7 @@ export default function PipelineBoard() {
   const [mockupFilter, setMockupFilter] = useState<"all" | "ready" | "none">("all")
   const [reviewPageFilter, setReviewPageFilter] = useState<"all" | "ready" | "none">("all")
   const [stageFilter, setStageFilter] = useState<CrmStatus | "all">("all")
+  const [enrichedFilter, setEnrichedFilter] = useState<"all" | "owner" | "owner_email" | "not_enriched">("all")
 
   // Outreach state (merged from OutreachPanel)
   const [drawerTab, setDrawerTab] = useState<"details" | "outreach">("details")
@@ -143,6 +152,10 @@ export default function PipelineBoard() {
   const [outreachMode, setOutreachMode] = useState<OutreachMode>("AUTO_SEND")
   const [outreachCounts, setOutreachCounts] = useState<{ ready: number; sentToday: number; failed: number; replied: number } | null>(null)
 
+  // Mockup preview state — view-only lightbox, does NOT touch crm_status
+  const [previewProspect, setPreviewProspect] = useState<PipelineProspect | null>(null)
+  const [previewIndex, setPreviewIndex] = useState(0)
+
   // API routes only exist on the local dev server
   const apiBase = typeof window !== "undefined" && window.location.hostname !== "localhost"
     ? "http://localhost:3000"
@@ -152,6 +165,16 @@ export default function PipelineBoard() {
     if (p.mockup_urls && p.mockup_urls.length > 0) return p.mockup_urls
     if (p.mockup_url) return [p.mockup_url]
     return []
+  }
+
+  function openPreview(p: PipelineProspect, index = 0) {
+    setPreviewProspect(p)
+    setPreviewIndex(index)
+  }
+
+  function closePreview() {
+    setPreviewProspect(null)
+    setPreviewIndex(0)
   }
 
   async function addMockupUrl(prospect: PipelineProspect) {
@@ -451,17 +474,21 @@ export default function PipelineBoard() {
       if (mockupFilter === "none" && hasMockupImage) return false
       if (reviewPageFilter === "ready" && !hasReviewPage) return false
       if (reviewPageFilter === "none" && hasReviewPage) return false
+      if (enrichedFilter === "owner" && !p.owner_name) return false
+      if (enrichedFilter === "owner_email" && !p.owner_email) return false
+      if (enrichedFilter === "not_enriched" && p.owner_name) return false
       if (search.trim()) {
         const q = search.toLowerCase()
         const match =
           p.name?.toLowerCase().includes(q) ||
           p.category?.toLowerCase().includes(q) ||
-          p.city?.toLowerCase().includes(q)
+          p.city?.toLowerCase().includes(q) ||
+          p.owner_name?.toLowerCase().includes(q)
         if (!match) return false
       }
       return true
     })
-  }, [prospects, search, cityFilter, mockupFilter, reviewPageFilter, stageFilter])
+  }, [prospects, search, cityFilter, mockupFilter, reviewPageFilter, stageFilter, enrichedFilter])
 
   const allByStage = (stage: CrmStatus) => prospects.filter(p => p.crm_status === stage)
   const allCounts = Object.fromEntries(STAGES.map(s => [s.key, allByStage(s.key).length])) as Record<CrmStatus, number>
@@ -583,9 +610,19 @@ export default function PipelineBoard() {
           <option value="lost">Lost</option>
           <option value="na">N/A</option>
         </select>
-        {(search || cityFilter !== "All" || mockupFilter !== "all" || reviewPageFilter !== "all" || stageFilter !== "all") && (
+        <select
+          value={enrichedFilter}
+          onChange={(e) => setEnrichedFilter(e.target.value as "all" | "owner" | "owner_email" | "not_enriched")}
+          className="bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] text-xs px-3 py-2 outline-none focus:border-black/[0.3] transition-colors appearance-none cursor-pointer"
+        >
+          <option value="all">Any enrichment</option>
+          <option value="owner">CH owner identified</option>
+          <option value="owner_email">Has owner email</option>
+          <option value="not_enriched">Not enriched</option>
+        </select>
+        {(search || cityFilter !== "All" || mockupFilter !== "all" || reviewPageFilter !== "all" || stageFilter !== "all" || enrichedFilter !== "all") && (
           <button
-            onClick={() => { setSearch(""); setCityFilter("All"); setMockupFilter("all"); setReviewPageFilter("all"); setStageFilter("all") }}
+            onClick={() => { setSearch(""); setCityFilter("All"); setMockupFilter("all"); setReviewPageFilter("all"); setStageFilter("all"); setEnrichedFilter("all") }}
             className="text-xs text-[#A3A3A3] hover:text-[#525252] transition-colors"
           >
             Clear filters
@@ -707,20 +744,33 @@ export default function PipelineBoard() {
                       onClick={() => selectProspect(p)}
                       className={`cursor-grab active:cursor-grabbing text-left rounded-xl border p-3 transition-all hover:shadow-sm select-none ${stage.color} ${
                         selected?.place_id === p.place_id ? "ring-2 ring-[#0A0A0A]/20" : ""
-                      }`}
+                      } ${p.owner_name ? "ring-1 ring-emerald-200/60" : ""}`}
                     >
-                      <p className="font-sans font-semibold text-[#0A0A0A] text-sm leading-snug mb-1 truncate pointer-events-none">
-                        {p.name}
-                      </p>
-                      <div className="flex items-center gap-2 pointer-events-none">
-                        {p.city && <span className="text-[11px] text-[#A3A3A3] truncate">{p.city}</span>}
+                      <div className="flex items-center gap-1.5 mb-1 pointer-events-none">
+                        {p.owner_name && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" title="Companies House enriched" />
+                        )}
+                        <p className="font-sans font-semibold text-[#0A0A0A] text-sm leading-snug truncate flex-1">
+                          {p.name}
+                        </p>
                         {p.site_score !== null && (
-                          <span className={`ml-auto font-mono text-[11px] font-bold tabular-nums ${scoreColour(p.site_score)}`}>
+                          <span className={`font-mono text-[11px] font-bold tabular-nums shrink-0 ${scoreColour(p.site_score)}`}>
                             {Math.round(p.site_score * 10)}
                           </span>
                         )}
                       </div>
-                      <div className="mt-1 flex flex-wrap items-center gap-x-2 pointer-events-none">
+                      {p.city && <p className="text-[11px] text-[#A3A3A3] truncate pointer-events-none mb-1">{p.city}</p>}
+                      <div className="flex flex-wrap items-center gap-x-2 pointer-events-none">
+                        {p.owner_name && (
+                          <span className="font-mono text-[9px] text-emerald-600 uppercase tracking-wide" title={p.owner_name}>
+                            CH owner
+                          </span>
+                        )}
+                        {p.owner_email && (
+                          <span className="font-mono text-[9px] text-emerald-700 uppercase tracking-wide" title={p.owner_email}>
+                            owner email
+                          </span>
+                        )}
                         {p.mockup_url && (
                           <span className="font-mono text-[9px] text-emerald-600 uppercase tracking-wide">
                             mockup ready
@@ -749,6 +799,15 @@ export default function PipelineBoard() {
                           </span>
                         )}
                       </div>
+                      {p.mockup_url && (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); openPreview(p) }}
+                          className="mt-1.5 flex items-center gap-1 font-mono text-[9px] uppercase tracking-wide text-[#525252] hover:text-[#0A0A0A] bg-white/60 border border-black/[0.08] rounded-md px-2 py-1 transition-colors hover:bg-white pointer-events-auto"
+                          title="Preview mockup (does not advance pipeline)"
+                        >
+                          <span>👁</span> Preview mockup
+                        </button>
+                      )}
                       {p.status_updated_at && (
                         <p className="mt-1 font-mono text-[9px] text-[#C4C4C4] pointer-events-none">
                           {timeAgo(p.status_updated_at)}
@@ -853,6 +912,46 @@ export default function PipelineBoard() {
                     </div>
                   )}
 
+                  {/* Owner (Companies House enrichment) */}
+                  {s.owner_name && (
+                    <div className="mt-3 bg-[#F0FDF4] border border-emerald-100 rounded-lg px-3 py-2.5 space-y-1.5">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-emerald-700">
+                          Companies House — {s.owner_source || "enriched"}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#A3A3A3]">Owner</span>
+                        <span className="text-xs text-[#0A0A0A] font-medium">{s.owner_name}</span>
+                      </div>
+                      {s.owner_email && (
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#A3A3A3]">Owner email</span>
+                          <div className="flex items-center gap-2">
+                            {s.owner_email_confidence != null && (
+                              <span className="font-mono text-[10px] text-[#A3A3A3]">{s.owner_email_confidence}%</span>
+                            )}
+                            <a href={`mailto:${s.owner_email}`}
+                              className="font-mono text-[11px] text-emerald-700 hover:underline">
+                              {s.owner_email}
+                            </a>
+                          </div>
+                        </div>
+                      )}
+                      {s.owner_enriched_at && !s.owner_email && (
+                        <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#C4C4C4] pt-0.5">
+                          Email enrichment attempted — no email found
+                        </p>
+                      )}
+                      {!s.owner_enriched_at && !s.owner_email && (
+                        <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#A3A3A3] pt-0.5">
+                          Owner email pending enrichment
+                        </p>
+                      )}
+                    </div>
+                  )}
+
                   {/* Site weaknesses */}
                   {s.site_weaknesses && s.site_weaknesses.length > 0 && (
                     <div className="mt-3 border border-black/[0.08] rounded-lg overflow-hidden">
@@ -871,16 +970,33 @@ export default function PipelineBoard() {
 
                 {/* Mockup URLs */}
                 <div className="flex-1 min-w-0">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-2">
-                    Mockup screens ({getMockupUrls(s).length})
-                  </p>
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3]">
+                      Mockup screens ({getMockupUrls(s).length})
+                    </p>
+                    {getMockupUrls(s).length > 0 && (
+                      <button
+                        onClick={() => openPreview(s)}
+                        className="flex items-center gap-1 font-mono text-[9px] uppercase tracking-wide text-[#525252] hover:text-[#0A0A0A] bg-[#FAFAFA] border border-black/[0.08] rounded-md px-2 py-1 transition-colors hover:bg-white"
+                        title="Preview all mockup screens (does not advance pipeline)"
+                      >
+                        <span>👁</span> Preview
+                      </button>
+                    )}
+                  </div>
                   {/* Existing URLs */}
                   {getMockupUrls(s).length > 0 && (
                     <ul className="space-y-1 mb-2">
                       {getMockupUrls(s).map((url, i) => (
                         <li key={i} className="flex items-center gap-2 bg-[#FAFAFA] border border-black/[0.06] rounded-lg px-3 py-1.5">
                           <span className="font-mono text-[10px] text-[#A3A3A3] shrink-0">#{i + 1}</span>
-                          <span className="flex-1 text-xs font-mono text-[#525252] truncate">{url.replace(/^https?:\/\//, "").slice(0, 48)}…</span>
+                          <button
+                            onClick={() => openPreview(s, i)}
+                            className="flex-1 text-left text-xs font-mono text-[#525252] truncate hover:text-[#0A0A0A] transition-colors"
+                            title="Click to preview this screen"
+                          >
+                            {url.replace(/^https?:\/\//, "").slice(0, 48)}…
+                          </button>
                           <button
                             onClick={() => removeMockupUrl(s, i)}
                             disabled={saving}
@@ -1034,9 +1150,25 @@ export default function PipelineBoard() {
                   </div>
 
                   {/* No email warning */}
-                  {!s.email && (
+                  {!s.email && !s.owner_email && (
                     <div className="mb-4 border border-[#FDE68A] bg-[#FEF3C7] rounded-xl px-4 py-3">
                       <p className="text-sm text-[#92400E]">No email address on record for this prospect. You can still draft the email and send manually.</p>
+                    </div>
+                  )}
+                  {!s.email && s.owner_email && (
+                    <div className="mb-4 border border-emerald-200 bg-[#F0FDF4] rounded-xl px-4 py-3 flex items-center justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-medium text-emerald-800">Owner email available</p>
+                        <p className="text-xs text-emerald-700 mt-0.5 font-mono">{s.owner_email}</p>
+                      </div>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(s.owner_email!)
+                        }}
+                        className="text-xs font-medium text-emerald-700 border border-emerald-200 rounded-lg px-3 py-1.5 hover:bg-emerald-50 transition-colors shrink-0"
+                      >
+                        Copy
+                      </button>
                     </div>
                   )}
 
@@ -1182,6 +1314,17 @@ export default function PipelineBoard() {
           </div>
         )
       })()}
+
+      {/* Mockup preview lightbox — view-only, does NOT advance pipeline */}
+      {previewProspect && (
+        <MockupPreviewModal
+          prospect={previewProspect}
+          urls={getMockupUrls(previewProspect)}
+          index={previewIndex}
+          onIndexChange={setPreviewIndex}
+          onClose={closePreview}
+        />
+      )}
     </div>
   )
 }
@@ -1199,4 +1342,139 @@ function Metric({ label, value, highlight, muted }: { label: string; value: stri
 
 function MetricDivider() {
   return <div className="w-px h-8 bg-black/[0.06] shrink-0" />
+}
+
+function MockupPreviewModal({
+  prospect,
+  urls,
+  index,
+  onIndexChange,
+  onClose,
+}: {
+  prospect: PipelineProspect
+  urls: string[]
+  index: number
+  onIndexChange: (i: number) => void
+  onClose: () => void
+}) {
+  const hasMultiple = urls.length > 1
+
+  // Keyboard navigation
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose()
+      if (e.key === "ArrowRight" && hasMultiple) onIndexChange(Math.min(index + 1, urls.length - 1))
+      if (e.key === "ArrowLeft" && hasMultiple) onIndexChange(Math.max(index - 1, 0))
+    }
+    window.addEventListener("keydown", onKey)
+    // Lock body scroll while modal is open
+    document.body.style.overflow = "hidden"
+    return () => {
+      window.removeEventListener("keydown", onKey)
+      document.body.style.overflow = ""
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index, urls.length, hasMultiple])
+
+  if (urls.length === 0) return null
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex flex-col bg-black/95 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      {/* Header bar */}
+      <div
+        className="flex items-center gap-4 px-6 py-4 shrink-0"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <p className="font-sans font-semibold text-white text-sm truncate flex-1">
+          {prospect.name}
+        </p>
+        <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/40">
+          Internal preview — does not advance pipeline
+        </span>
+        <button
+          onClick={onClose}
+          className="shrink-0 text-white/60 hover:text-white transition-colors text-lg leading-none px-2"
+          title="Close (Esc)"
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Image area */}
+      <div
+        className="flex-1 flex items-center justify-center px-6 pb-6 min-h-0 relative"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {hasMultiple && index > 0 && (
+          <button
+            onClick={() => onIndexChange(index - 1)}
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors text-xl"
+            title="Previous (←)"
+          >
+            ‹
+          </button>
+        )}
+
+        <img
+          src={urls[index]}
+          alt={`${prospect.name} mockup screen ${index + 1}`}
+          className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+        />
+
+        {hasMultiple && index < urls.length - 1 && (
+          <button
+            onClick={() => onIndexChange(index + 1)}
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors text-xl"
+            title="Next (→)"
+          >
+            ›
+          </button>
+        )}
+      </div>
+
+      {/* Footer — thumbnail strip + counter */}
+      {hasMultiple && (
+        <div
+          className="shrink-0 px-6 pb-4"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex items-center justify-center gap-2">
+            {urls.map((url, i) => (
+              <button
+                key={i}
+                onClick={() => onIndexChange(i)}
+                className={`shrink-0 rounded-md overflow-hidden border-2 transition-all ${
+                  i === index
+                    ? "border-white opacity-100"
+                    : "border-transparent opacity-40 hover:opacity-70"
+                }`}
+                title={`Screen ${i + 1}`}
+              >
+                <img
+                  src={url}
+                  alt={`Thumbnail ${i + 1}`}
+                  className="w-16 h-12 object-cover"
+                />
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Counter */}
+      {hasMultiple && (
+        <div
+          className="shrink-0 pb-4 flex justify-center"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <span className="font-mono text-[10px] text-white/40 tabular-nums">
+            {index + 1} / {urls.length}
+          </span>
+        </div>
+      )}
+    </div>
+  )
 }
