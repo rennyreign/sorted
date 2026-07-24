@@ -35,7 +35,7 @@ export default function Footer() {
         </div>
         <div className="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
           <p className="text-xs text-[#525252] font-medium">
-            ADX Engine Ltd · trading as Sorted · Registered in England & Wales · Company number 17327041
+            Sorted is a trading name of ADX Engine Ltd · Registered in England & Wales · Company number 17327041
           </p>
           <p className="text-xs text-[#3A3A3A] font-medium">
             © {new Date().getFullYear()} Sorted.

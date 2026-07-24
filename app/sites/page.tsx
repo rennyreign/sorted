@@ -207,7 +207,10 @@ function HomeBottom() {
             <p className="mt-4 max-w-[220px] text-[13px] font-semibold leading-[1.4] text-white/80">
               Websites that build trust, explain your services and turn visitors into enquiries.
             </p>
-            <p className="mt-7 text-[11px] font-medium text-white/50">© 2025 Sorted.</p>
+            <p className="mt-7 text-[11px] font-medium text-white/50">© 2026 Sorted.</p>
+            <p className="mt-2 text-[10px] font-medium leading-[1.5] text-white/40">
+              Sorted is a trading name of ADX Engine Ltd · Registered in England &amp; Wales · Company number 17327041
+            </p>
           </div>
           <HomeFooterLinks title="Product" links={[["How it works", "/"], ["Examples", "/examples"], ["Pricing", "/pricing"], ["Updates", "/website-updates"]]} />
           <HomeFooterLinks title="Company" links={[["About us", "/about"], ["Our process", "/"], ["Reviews", "/examples"], ["Partner program", "/affiliates"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
