@@ -1,4 +1,5 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync, copyFileSync } from "node:fs"
+import { execFileSync } from "node:child_process"
 import { dirname, join, resolve } from "node:path"
 
 const root = process.cwd()
@@ -31,6 +32,14 @@ Options:
 `)
 }
 
+function currentBranch(repoPath) {
+  try {
+    return execFileSync("git", ["-C", repoPath, "branch", "--show-current"], { encoding: "utf8" }).trim()
+  } catch {
+    return ""
+  }
+}
+
 if (hasFlag("help") || hasFlag("h")) {
   usage()
   process.exit(0)
@@ -57,6 +66,19 @@ const clientInitial = arg("initial", site?.initial || clientName.charAt(0).toUpp
 const dryRun = hasFlag("dry-run")
 const overwriteManifest = hasFlag("overwrite-manifest")
 const version = readFileSync(join(templateRoot, "VERSION"), "utf8").trim()
+const branch = currentBranch(target)
+
+if (!branch) {
+  throw new Error(`Target is not a Git checkout: ${target}`)
+}
+
+if (branch === "main" || branch === "master") {
+  throw new Error(
+    `Refusing to upgrade ${target} on ${branch}. Create a feature branch first, for example: git -C ${target} switch -c chore/studio-v${version}`,
+  )
+}
+
+console.log(`target branch: ${branch}`)
 
 function replaceTokens(source) {
   return source
