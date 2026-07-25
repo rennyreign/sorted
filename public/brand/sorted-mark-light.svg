@@ -3,5 +3,5 @@
   <rect width="256" height="256" rx="56" fill="#FFFFFF"/>
   <rect x="1" y="1" width="254" height="254" rx="55" stroke="#E8E5DD" stroke-width="2"/>
   <text x="128" y="162" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="92" font-weight="900" letter-spacing="-6" fill="#070707" text-anchor="middle">s</text>
-  <circle cx="164" cy="151" r="9" fill="#DFFF00"/>
+  <circle cx="160.5" cy="151" r="9" fill="#DFFF00"/>
 </svg>

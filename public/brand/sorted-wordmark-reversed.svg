@@ -2,5 +2,5 @@
   <title>Sorted wordmark reversed</title>
   <rect width="600" height="180" rx="22" fill="#070707"/>
   <text x="40" y="116" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="86" font-weight="900" letter-spacing="-5" fill="#FFFFFF">Sorted</text>
-  <circle cx="330" cy="103" r="8" fill="#DFFF00"/>
+  <circle cx="291" cy="103" r="8" fill="#DFFF00"/>
 </svg>

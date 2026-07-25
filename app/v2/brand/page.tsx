@@ -21,6 +21,7 @@ import {
   Type,
   Workflow,
 } from "lucide-react"
+import { RoutineFinderButton } from "../_components/RoutineFinder"
 
 const marker = localFont({
   src: "../../../public/fonts/cc-ask-for-mercy.ttf",
@@ -357,9 +358,7 @@ function ComponentSystem() {
         <div className="rounded-[18px] border border-black/10 bg-white p-6">
           <p className="[font-family:var(--font-v2-marker)] text-[2rem] leading-none">BUTTONS, MARKS, PROOF.</p>
           <div className="mt-7 flex flex-wrap gap-4">
-            <Link className="inline-flex h-12 items-center gap-4 rounded-full bg-[#070707] px-6 text-[12px] font-black text-white" href="/v2/diagnostic">
-              Start the diagnostic <ArrowRight className="size-4" strokeWidth={3} />
-            </Link>
+            <RoutineFinderButton label="Start the diagnostic" variant="primary" className="text-[12px]" />
             <Link className="inline-flex h-12 items-center gap-3 rounded-full border border-black/20 px-5 text-[12px] font-black" href="/v2/results-dashboard">
               View example dashboard <MonitorSmartphone className="size-4" strokeWidth={2.5} />
             </Link>
