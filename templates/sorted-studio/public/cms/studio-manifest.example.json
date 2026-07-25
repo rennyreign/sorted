@@ -1,0 +1,18 @@
+{
+  "site": {
+    "id": "client-site",
+    "name": "__CLIENT_NAME__",
+    "domain": "__CLIENT_DOMAIN__",
+    "productionUrl": "",
+    "accent": "#cfe900",
+    "initial": "__CLIENT_INITIAL__"
+  },
+  "pages": [
+    {
+      "id": "home",
+      "title": "Home",
+      "path": "/",
+      "sections": []
+    }
+  ]
+}

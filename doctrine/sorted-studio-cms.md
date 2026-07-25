@@ -96,6 +96,34 @@ Before review or handoff:
 
 ---
 
+## Fleet Rollouts
+
+Sorted Studio is versioned product code. Client repos receive upgrades through the Sorted template and upgrade script, not by ad hoc copying.
+
+Canonical files live in:
+
+- `templates/sorted-studio/`
+- `scripts/upgrade-sorted-studio.mjs`
+- `clients/sites.json`
+
+Rollout rules:
+
+- Create a feature branch in each client repo, e.g. `chore/studio-v0.3.0`.
+- Run the upgrade script from the Sorted repo:
+
+```bash
+npm run studio:upgrade -- --target ../client-repo --slug client-slug
+```
+
+- Preserve `content/` and `public/cms/studio-manifest.json` unless intentionally migrating the client content model.
+- Run `npm run build`, focused Studio smoke tests, and a browser QA pass.
+- Review the deploy preview before merging or pushing production.
+- Never bulk-push Studio upgrades directly to every client `main` branch.
+
+The client registry should record the current Studio version, local path, repo, and CMS URL for every active client.
+
+---
+
 ## Non-Negotiables
 
 - Studio is the default client CMS surface.

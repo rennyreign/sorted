@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sorted Studio - __CLIENT_NAME__</title>
+  <link rel="stylesheet" href="/cms/studio.css" />
+</head>
+<body>
+  <div id="studio-app" class="studio-app" data-loading="true">
+    <main class="studio-main">
+      <header class="studio-topbar">
+        <div class="topbar-site">
+          <span class="studio-wordmark" aria-label="Sorted">Sorted<span>.</span></span>
+          <span class="site-mark">__CLIENT_INITIAL__</span>
+          <strong id="top-site-name">__CLIENT_NAME__</strong>
+          <span class="status-dot"></span>
+          <span>Published</span>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-button is-active" id="desktop-preview" type="button" aria-label="Desktop preview">▣</button>
+          <button class="icon-button" id="mobile-preview" type="button" aria-label="Mobile preview">▯</button>
+          <a class="ghost-button" id="open-preview" href="/" target="_blank" rel="noreferrer">∞ Preview</a>
+          <button class="primary-button" id="save-section" type="button">Save draft</button>
+        </div>
+      </header>
+
+      <section class="workspace">
+        <div class="page-column">
+          <div class="crumb">
+            <button class="back-button" type="button" id="back-to-pages">←</button>
+            <span id="crumb-page">Home</span>
+            <span>/</span>
+            <strong id="crumb-section">Hero</strong>
+          </div>
+
+          <div class="panel section-panel">
+            <div class="panel-heading">
+              <p>Sections</p>
+            </div>
+            <nav class="studio-nav" aria-label="Studio navigation">
+              <button class="nav-item is-active" type="button" data-view="pages" aria-pressed="true">□ <span>Pages</span></button>
+              <button class="nav-item" type="button" data-view="settings" aria-pressed="false">⚙ <span>Site settings</span></button>
+            </nav>
+            <div id="page-tabs" class="page-tabs"></div>
+            <div id="section-list" class="section-list"></div>
+          </div>
+        </div>
+
+        <section class="panel editor-panel">
+          <div class="editor-title">
+            <div>
+              <h1 id="editor-title">Hero</h1>
+              <span id="editor-id" class="pill">homepage-hero</span>
+              <span class="pill is-live">Active</span>
+            </div>
+          </div>
+          <p class="editor-note" id="editor-note">This Studio view edits the local content files through the Decap local backend. Publishing stays separate so Netlify only builds when you choose to push.</p>
+          <form id="editor-form" class="editor-form"></form>
+        </section>
+
+        <section class="preview-column">
+          <div class="preview-toolbar">
+            <strong>ϟ Live preview <span class="status-dot"></span></strong>
+            <input id="preview-url" type="text" readonly value="/" />
+            <a id="open-preview-toolbar" href="/" target="_blank" rel="noreferrer">↗</a>
+            <button type="button" id="refresh-preview">↻ Refresh</button>
+          </div>
+          <div class="preview-frame-shell">
+            <iframe id="site-preview" title="Website preview" src="/"></iframe>
+          </div>
+        </section>
+      </section>
+
+      <footer class="status-bar">
+        <span id="save-status">✓ All changes saved</span>
+        <span id="publish-note">Draft saves locally. Publishing is handled by Sorted.</span>
+      </footer>
+    </main>
+  </div>
+
+  <script src="/cms/studio.js"></script>
+</body>
+</html>

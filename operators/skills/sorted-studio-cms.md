@@ -50,3 +50,20 @@ Run a complete QA loop before closing:
 - Confirm desktop/mobile layout has no horizontal overflow.
 
 If any control has no purpose, need, and use case, remove it.
+
+## Fleet Upgrade Command
+
+Use the Sorted repo upgrade script for repeatable rollouts:
+
+```bash
+npm run studio:upgrade -- --target ../client-repo --slug client-slug
+```
+
+Default behavior:
+- Copies shared Studio shell files.
+- Preserves `public/cms/studio-manifest.json`.
+- Preserves all client content.
+- Patches `package.json` build and cms scripts.
+- Records the applied Studio version in `package.json`.
+
+Always branch before running it in a client repo.
