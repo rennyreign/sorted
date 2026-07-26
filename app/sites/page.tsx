@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function SortedSitesHome() {
   return (
     <SitesPage>
-      <SitesHeader active="how" />
+      <SitesHeader />
       <section className="mx-auto grid max-w-[1220px] gap-8 px-5 pb-8 pt-10 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:pt-12">
         <div>
           <SitesTitle
