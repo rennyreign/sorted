@@ -159,7 +159,10 @@ export default function Home() {
               <br />
               Better results.
             </p>
-            <p className="mt-10 text-[12px] font-semibold text-white/45">© 2025 Sorted. All rights reserved.</p>
+            <p className="mt-10 text-[12px] font-semibold text-white/45">© 2026 Sorted. All rights reserved.</p>
+            <p className="mt-2 text-[10px] font-medium leading-[1.5] text-white/35">
+              Sorted is a trading name of ADX Engine Ltd · Registered in England &amp; Wales · Company number 17327041
+            </p>
           </div>
           <FooterPoint title="No jargon." copy="Clear and focused on what matters." />
           <FooterPoint title="No lock-in." copy="You own your website and your systems." />

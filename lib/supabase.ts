@@ -95,4 +95,21 @@ export type Prospect = {
   email_bounced_at: string | null
   email_replied_at: string | null
   email_opted_out_at: string | null
+  email_delivered_at: string | null
+  email_opened_at: string | null
+  email_clicked_at: string | null
+  email_open_count: number
+  email_click_count: number
+  // Owner / Companies House enrichment
+  owner_name: string | null
+  owner_role: string | null
+  owner_linkedin_url: string | null
+  owner_source: string | null          // companies_house | website | etc
+  owner_identified_at: string | null
+  owner_email: string | null
+  owner_email_source: string | null    // hunter_email_finder | hunter_domain_search
+  owner_email_confidence: number | null
+  owner_enriched_at: string | null
+  owner_email_status: string | null    // valid | risky | invalid | unverified | not_found
+  owner_email_verified_at: string | null
 }

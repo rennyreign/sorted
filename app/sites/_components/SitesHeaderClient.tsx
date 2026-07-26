@@ -7,7 +7,7 @@ import { MockupButton } from "./SitesMockupModal"
 type ActivePage = "how" | "examples" | "pricing" | "about" | "updates"
 
 const links = [
-  ["how", "How it works", "/"],
+  ["how", "How it works", "/howitworks"],
   ["examples", "Examples", "/examples"],
   ["pricing", "Pricing", "/pricing"],
   ["about", "About", "/about"],

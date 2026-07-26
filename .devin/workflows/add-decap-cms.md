@@ -2,7 +2,7 @@
 description: Add Decap CMS to a Sorted client site
 ---
 
-# SortedUpdates — CMS Installation Workflow
+# SortedUpdates — Studio CMS Installation Workflow
 
 > **Stage 2 of 2 — Apply after client approves the build (Nod 2).**
 >
@@ -11,7 +11,12 @@ description: Add Decap CMS to a Sorted client site
 > Do not apply the CMS before Nod 2. The client should evaluate a clean site, not one with a CMS toolbar.
 
 Use this workflow whenever a new Sorted client site needs SortedUpdates wired up.
-All Sorted client sites use Decap CMS with Netlify Identity + Git Gateway.
+All Sorted client sites use **Sorted Studio** as the client-facing CMS, backed by Decap CMS with Netlify Identity + Git Gateway.
+
+Mandatory doctrine: `doctrine/sorted-studio-cms.md`
+Operator skill: `operators/skills/sorted-studio-cms.md`
+
+Decap is infrastructure. `/cms/` must be Sorted Studio. Stock Decap may remain at `/cms/decap.html` as a Sorted fallback, but it must not be linked from the Studio client UI.
 
 **Reference implementation:** `rennyreign/savannah-villegas` — the most complete and up-to-date example of this full stack. Study `public/cms/`, `lib/content.ts`, and `content/` in that repo before starting.
 
@@ -48,10 +53,33 @@ Run `npm install` after editing.
 
 ## Step 2 — Create `public/cms/` folder
 
-Four files required: `index.html`, `config.yml`, `cms.css`, `tutorial.json`.
+Required files: `index.html`, `decap.html`, `studio.css`, `studio.js`, `studio-manifest.json`, `studio-content.json`, `config.yml`.
 Copy Sorted favicon assets from `rennyreign/sorted/public/favicon.png` and `favicon.svg` into `public/cms/sorted-favicon.png` and `public/cms/sorted-favicon.svg`.
 
-### `public/cms/index.html`
+`index.html` is the Sorted Studio shell. `decap.html` is the stock Decap fallback. Do not send clients to `decap.html`.
+
+Studio must:
+- Show only real client workflows
+- Expose existing pages, sections, content fields, save state, and live preview
+- Remove add-section, reorder, stock media, forms, SEO, design, switch, gear, and publish controls unless fully implemented
+- Support inline editing of existing list items such as trust strips, benefits, footer links, audience cards, and reasons
+- Save local JSON through `npm run cms` / Decap local backend during development
+- Avoid runtime behavior that triggers Netlify deploys on every edit
+
+Add a snapshot generator:
+
+```json
+"scripts": {
+  "build": "node scripts/build-studio-content.mjs && next build",
+  "cms": "npx decap-server"
+}
+```
+
+Create `scripts/build-studio-content.mjs` to read `studio-manifest.json`, load every mapped JSON file, and write `public/cms/studio-content.json`.
+
+Run the QA checklist from `doctrine/sorted-studio-cms.md` before handoff.
+
+### Legacy Decap fallback: `public/cms/decap.html`
 
 ```html
 <!DOCTYPE html>

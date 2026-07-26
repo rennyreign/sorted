@@ -186,6 +186,8 @@ Apply SortedUpdates. Wire content to JSON, configure Decap CMS, add tutorial pan
 ## Applying SortedUpdates CMS
 
 **Primary workflow:** `.devin/workflows/add-decap-cms.md`
+**Mandatory doctrine:** `doctrine/sorted-studio-cms.md`
+**Operator skill:** `operators/skills/sorted-studio-cms.md`
 
 Key points:
 1. Follow the workflow step by step — it is self-contained
@@ -193,9 +195,12 @@ Key points:
 3. Every image field must use the `imgSrc()` helper from `lib/image.ts`
 4. One JSON file per page section — not one per page
 5. Loader fallback defaults must match the original approved content exactly — these are the factory reset state
-6. Sorted favicon (`s.` on black) goes in `public/cms/`, referenced in `config.yml` as `logo_url`
-7. Tutorial panel injected via JavaScript in `index.html`, reads from `public/cms/tutorial.json`
-8. Factory reset: record handoff SHA in `content/site/general.json`, create `scripts/reset.sh`, tag `handoff/[client-slug]`
+6. `/cms/` must be the Sorted Studio client-facing UI; stock Decap lives at `/cms/decap.html` as a Sorted fallback only
+7. Studio UI must expose only real client workflows: existing pages, existing sections, editable content fields, save state, and live preview
+8. Do not link clients from Studio to stock Decap, and do not expose add/reorder/publish/design controls unless fully implemented and tested
+9. Runtime Studio saves must not trigger Netlify deploys automatically; publish remains a deliberate Sorted-managed Git/Netlify step unless a real publish workflow exists
+10. Sorted favicon (`s.` on black) goes in `public/cms/`, referenced in `config.yml` as `logo_url`
+11. Factory reset: record handoff SHA in `content/site/general.json`, create `scripts/reset.sh`, tag `handoff/[client-slug]`
 
 ---
 
@@ -242,6 +247,7 @@ Before closing any client delivery:
 - `doctrine/sorted-operating-model.md` — Four Nods, manufacturing model, dual execution modes
 - `doctrine/operator-chain.md` — chain state contract, artifact schemas, skill vs operator
 - `doctrine/all-content-is-editable.md` — every visible element must be CMS-editable
+- `doctrine/sorted-studio-cms.md` — Sorted Studio client CMS standard
 - `doctrine/factory-reset.md` — reset standard, script, tagging
 - `doctrine/client-onboarding.md` — Netlify Identity setup, handoff message template
 - `doctrine/cascade-deployment-discipline.md` — branch-based workflow, credit protection

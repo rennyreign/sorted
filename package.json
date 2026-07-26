@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "studio:upgrade": "node scripts/upgrade-sorted-studio.mjs",
     "lint": "next lint"
   },
   "dependencies": {

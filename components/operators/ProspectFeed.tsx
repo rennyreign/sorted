@@ -13,6 +13,7 @@ type FilterState = {
   mockup: "all" | "ready" | "none"
   reviewPage: "all" | "ready" | "none"
   crmStatus: "all" | CrmStatus
+  enriched: "all" | "owner" | "owner_email" | "not_enriched"
 }
 
 export default function ProspectFeed() {
@@ -28,6 +29,7 @@ export default function ProspectFeed() {
     mockup: "all",
     reviewPage: "all",
     crmStatus: "all",
+    enriched: "all",
   })
 
   useEffect(() => {
@@ -80,6 +82,9 @@ export default function ProspectFeed() {
       if (filters.reviewPage === "ready" && !hasReviewPage) return false
       if (filters.reviewPage === "none" && hasReviewPage) return false
       if (filters.crmStatus !== "all" && p.crm_status !== filters.crmStatus) return false
+      if (filters.enriched === "owner" && !p.owner_name) return false
+      if (filters.enriched === "owner_email" && !p.owner_email) return false
+      if (filters.enriched === "not_enriched" && p.owner_name) return false
       return true
     })
   }, [prospects, filters])
@@ -161,9 +166,15 @@ export default function ProspectFeed() {
               <option value="lost">Lost</option>
               <option value="na">N/A</option>
             </select>
-            {(filters.category !== "All" || filters.city !== "All" || filters.qualification !== "all" || filters.analysed !== "all" || filters.mockup !== "all" || filters.reviewPage !== "all" || filters.crmStatus !== "all") && (
+            <select value={filters.enriched} onChange={(e) => update("enriched", e.target.value as FilterState["enriched"])} className={selectClass}>
+              <option value="all">Any enrichment</option>
+              <option value="owner">CH owner identified</option>
+              <option value="owner_email">Has owner email</option>
+              <option value="not_enriched">Not enriched</option>
+            </select>
+            {(filters.category !== "All" || filters.city !== "All" || filters.qualification !== "all" || filters.analysed !== "all" || filters.mockup !== "all" || filters.reviewPage !== "all" || filters.crmStatus !== "all" || filters.enriched !== "all") && (
               <button
-                onClick={() => setFilters({ search: filters.search, category: "All", city: "All", qualification: "all", analysed: "all", mockup: "all", reviewPage: "all", crmStatus: "all" })}
+                onClick={() => setFilters({ search: filters.search, category: "All", city: "All", qualification: "all", analysed: "all", mockup: "all", reviewPage: "all", crmStatus: "all", enriched: "all" })}
                 className="text-xs text-[#A3A3A3] hover:text-[#525252] transition-colors"
               >
                 Clear filters
@@ -188,7 +199,7 @@ export default function ProspectFeed() {
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="border-b border-black/[0.06]">
-                    {["Business", "Category", "Location", "Score", "Website", "Email", "Phone", "Mockup", "Review", "CRM", "Status", "Maps"].map((h) => (
+                    {["Business", "Category", "Location", "Score", "Website", "Email", "Phone", "Owner", "Mockup", "Review", "CRM", "Status", "Maps"].map((h) => (
                       <th key={h} className="text-left font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] px-3 py-2.5 whitespace-nowrap font-normal">
                         {h}
                       </th>
@@ -246,7 +257,7 @@ function ProspectRow({
     <tr
       onClick={onSelect}
       className={`border-b border-black/[0.04] transition-colors cursor-pointer ${
-        isSelected ? "bg-black/[0.04]" : "hover:bg-black/[0.02]"
+        isSelected ? "bg-black/[0.04]" : p.owner_name ? "hover:bg-black/[0.02] bg-[#F0FDF4]/40" : "hover:bg-black/[0.02]"
       }`}
     >
       {/* Name */}
@@ -254,6 +265,9 @@ function ProspectRow({
         <div className="flex items-center gap-2">
           {p.qualified && (
             <div className="w-1.5 h-1.5 rounded-full bg-[#0A0A0A] shrink-0" />
+          )}
+          {p.owner_name && (
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" title="Companies House enriched" />
           )}
           <span className="text-sm font-semibold text-[#0A0A0A] truncate">{p.name}</span>
         </div>
@@ -308,6 +322,24 @@ function ProspectRow({
       <td className="px-3 py-3 whitespace-nowrap">
         {p.phone ? (
           <CopyCell value={p.phone} />
+        ) : (
+          <span className="text-xs text-[#C4C4C4]">—</span>
+        )}
+      </td>
+
+      {/* Owner (Companies House enrichment) */}
+      <td className="px-3 py-3 max-w-[140px]">
+        {p.owner_name ? (
+          <div className="flex flex-col gap-0.5">
+            <span className="text-xs text-[#0A0A0A] truncate font-medium" title={p.owner_name}>{p.owner_name}</span>
+            {p.owner_email ? (
+              <span className="text-[10px] text-emerald-600 font-mono truncate" title={p.owner_email}>{p.owner_email}</span>
+            ) : p.owner_enriched_at ? (
+              <span className="text-[10px] text-[#C4C4C4] font-mono">no email</span>
+            ) : (
+              <span className="text-[10px] text-[#A3A3A3] font-mono">pending</span>
+            )}
+          </div>
         ) : (
           <span className="text-xs text-[#C4C4C4]">—</span>
         )}
@@ -629,6 +661,53 @@ function AnalysisPanel({ prospect: p, onClose, onCrmChange }: {
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-3">Contact</p>
           <div className="space-y-2">
+            {/* Owner (Companies House enrichment) */}
+            {p.owner_name && (
+              <div className="bg-[#F0FDF4] border border-emerald-100 rounded-lg px-3 py-2.5 space-y-1.5">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-emerald-700">
+                    Companies House — {p.owner_source || "enriched"}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#A3A3A3]">Owner</span>
+                  <span className="text-xs text-[#0A0A0A] font-medium">{p.owner_name}</span>
+                </div>
+                {p.owner_email && (
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#A3A3A3]">Owner email</span>
+                    <div className="flex items-center gap-2">
+                      {p.owner_email_confidence != null && (
+                        <span className="font-mono text-[10px] text-[#A3A3A3]">{p.owner_email_confidence}%</span>
+                      )}
+                      <CopyCell value={p.owner_email} />
+                    </div>
+                  </div>
+                )}
+                {p.owner_email_status && p.owner_email_status !== "not_found" && (
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#A3A3A3]">Email status</span>
+                    <span className={`font-mono text-[10px] uppercase tracking-[0.1em] font-semibold ${
+                      p.owner_email_status === "valid" ? "text-emerald-600" :
+                      p.owner_email_status === "risky" ? "text-amber-600" :
+                      p.owner_email_status === "invalid" ? "text-red-500" :
+                      "text-[#A3A3A3]"
+                    }`}>{p.owner_email_status}</span>
+                  </div>
+                )}
+                {p.owner_enriched_at && !p.owner_email && (
+                  <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#C4C4C4] pt-1">
+                    Enrichment attempted {new Date(p.owner_enriched_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
+                  </p>
+                )}
+                {p.owner_identified_at && (
+                  <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#C4C4C4] pt-1">
+                    Identified {new Date(p.owner_identified_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
+                  </p>
+                )}
+              </div>
+            )}
             {p.website && (
               <div className="flex items-center justify-between gap-2">
                 <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#A3A3A3]">Web</span>

@@ -1,0 +1,12 @@
+[
+  {
+    "slug": "warwickshire-str",
+    "name": "Warwickshire Short Stays",
+    "domain": "warwickshireshortstays.co.uk",
+    "initial": "W",
+    "repo": "rennyreign/warwickshire-str",
+    "localPath": "../warwickshire-str",
+    "cmsUrl": "https://warwickshire-short-stays.netlify.app/cms/",
+    "studioVersion": "0.3.0"
+  }
+]

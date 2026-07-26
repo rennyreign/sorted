@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function SortedSitesHome() {
   return (
     <SitesPage>
-      <SitesHeader active="how" />
+      <SitesHeader />
       <section className="mx-auto grid max-w-[1220px] gap-8 px-5 pb-8 pt-10 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:pt-12">
         <div>
           <SitesTitle
@@ -207,7 +207,10 @@ function HomeBottom() {
             <p className="mt-4 max-w-[220px] text-[13px] font-semibold leading-[1.4] text-white/80">
               Websites that build trust, explain your services and turn visitors into enquiries.
             </p>
-            <p className="mt-7 text-[11px] font-medium text-white/50">© 2025 Sorted.</p>
+            <p className="mt-7 text-[11px] font-medium text-white/50">© 2026 Sorted.</p>
+            <p className="mt-2 text-[10px] font-medium leading-[1.5] text-white/40">
+              Sorted is a trading name of ADX Engine Ltd · Registered in England &amp; Wales · Company number 17327041
+            </p>
           </div>
           <HomeFooterLinks title="Product" links={[["How it works", "/"], ["Examples", "/examples"], ["Pricing", "/pricing"], ["Updates", "/website-updates"]]} />
           <HomeFooterLinks title="Company" links={[["About us", "/about"], ["Our process", "/"], ["Reviews", "/examples"], ["Partner program", "/affiliates"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
