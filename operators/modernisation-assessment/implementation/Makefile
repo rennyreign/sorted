@@ -1,4 +1,4 @@
-.PHONY: setup test dry-run analyse run clean
+.PHONY: setup test dry-run analyse preview preview-html run clean
 
 # ---------------------------------------------------------------------------
 # Setup — create venv and install dependencies
@@ -35,6 +35,32 @@ analyse:
 		$(if $(CATEGORY),--category "$(CATEGORY)",) \
 		$(if $(LOCATION),--location "$(LOCATION)",) \
 		--pretty
+
+# ---------------------------------------------------------------------------
+# Preview — generate HTML report and serve at localhost:8080
+# Usage: make preview URL=https://example.com
+#        make preview URL=https://example.com PREVIEW_PORT=3000
+# ---------------------------------------------------------------------------
+preview:
+	./venv/bin/python main.py \
+		--url "$(URL)" \
+		$(if $(NAME),--name "$(NAME)",) \
+		$(if $(CATEGORY),--category "$(CATEGORY)",) \
+		$(if $(LOCATION),--location "$(LOCATION)",) \
+		--preview \
+		$(if $(PREVIEW_PORT),--preview-port $(PREVIEW_PORT),)
+
+# ---------------------------------------------------------------------------
+# Generate HTML report file (no server)
+# Usage: make preview-html URL=https://example.com HTML=report.html
+# ---------------------------------------------------------------------------
+preview-html:
+	./venv/bin/python main.py \
+		--url "$(URL)" \
+		$(if $(NAME),--name "$(NAME)",) \
+		$(if $(CATEGORY),--category "$(CATEGORY)",) \
+		$(if $(LOCATION),--location "$(LOCATION)",) \
+		--html "$(HTML)"
 
 # ---------------------------------------------------------------------------
 # Full batch run — write results to Supabase (requires migration.sql applied)

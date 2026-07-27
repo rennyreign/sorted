@@ -50,6 +50,13 @@ make analyse URL=https://yourwebsite.com NAME="Your Business" CATEGORY="hair sal
 
 # Capture screenshots (requires Playwright or ScreenshotOne)
 ./venv/bin/python main.py --url https://yourwebsite.com --screenshots --pretty
+
+# Generate an HTML report
+./venv/bin/python main.py --url https://yourwebsite.com --html report.html
+
+# Start a local preview server at http://localhost:8080/report.html
+make preview URL=https://yourwebsite.com
+make preview URL=https://yourwebsite.com PREVIEW_PORT=3000
 ```
 
 ---
