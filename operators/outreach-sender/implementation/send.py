@@ -262,11 +262,11 @@ def find_ready_prospect(campaign_id):
     """
     data = supabase_get("prospects", params={
         "outreach_status": "eq.READY",
-        "email": "not.is.null",
+        "or": "(email.not.is.null,owner_email.not.is.null)",
         "review_slug": "not.is.null",
         "order": "outreach_queued_at.asc",
         "limit": "1",
-        "select": "id,place_id,name,email,review_slug,mockup_url,outreach_status,outreach_campaign_id,outreach_attempt_count",
+        "select": "id,place_id,name,email,owner_email,review_slug,mockup_url,outreach_status,outreach_campaign_id,outreach_attempt_count",
     })
     return data[0] if data else None
 
@@ -281,7 +281,7 @@ def process_one(campaign, cfg):
         return False
 
     pid = prospect["id"]
-    email = prospect["email"]
+    email = prospect.get("email") or prospect.get("owner_email")
     prev_state = prospect["outreach_status"]
     attempt_count = prospect.get("outreach_attempt_count", 0)
 

@@ -31,6 +31,7 @@ VALID_PROSPECT = {
     "place_id": "test_123",
     "name": "Test Business",
     "email": "owner@test.com",
+    "owner_email": None,
     "review_slug": "test-business",
     "mockup_url": "https://example.com/mockup.png",
     "outreach_status": "READY",
@@ -103,6 +104,10 @@ class OutreachTests(unittest.TestCase):
         prospect = send.find_ready_prospect("sorted_initial_outreach_v1")
         self.assertIsNotNone(prospect)
         self.assertEqual(prospect["outreach_status"], "READY")
+        self.assertEqual(
+            mock_get.call_args.kwargs["params"]["or"],
+            "(email.not.is.null,owner_email.not.is.null)",
+        )
 
     # ── 2. Valid queued record is sent ────────────────────────────────────────
 
@@ -124,6 +129,21 @@ class OutreachTests(unittest.TestCase):
         # Verify status was updated to SENT
         sent_call = [c for c in mock_patch.call_args_list if "SENT" in str(c)][0]
         self.assertIn("SENT", str(sent_call))
+
+    @patch("send.send_email")
+    @patch("send.supabase_post")
+    @patch("send.supabase_patch")
+    @patch("send.supabase_get")
+    def test_03_owner_email_is_sent_when_primary_email_missing(self, mock_get, mock_patch, mock_post, mock_send):
+        """A READY record uses its enriched owner email as the recipient."""
+        owner_email_prospect = {**VALID_PROSPECT, "email": None, "owner_email": "owner@example.com"}
+        mock_get.side_effect = [[owner_email_prospect], []]
+        mock_send.return_value = SUCCESS_RESPONSE
+
+        result = send.process_one(VALID_CAMPAIGN, VALID_CONFIG)
+
+        self.assertTrue(result)
+        self.assertEqual(mock_send.call_args.args[0], "owner@example.com")
 
     # ── 3. CRM is updated after successful sending ────────────────────────────
 
