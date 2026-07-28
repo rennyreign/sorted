@@ -4,7 +4,7 @@
 -- CRM pipeline status
 ALTER TABLE prospects
   ADD COLUMN IF NOT EXISTS crm_status TEXT NOT NULL DEFAULT 'new'
-    CHECK (crm_status IN ('new','outreached','responded','mockup_revealed','build','quote','paid','lost'));
+    CHECK (crm_status IN ('new','outreached','responded','mockup_revealed','build','quote','paid','lost','na'));
 
 -- Unique slug for the public review URL: sortmydigital.com/review/[slug]
 ALTER TABLE prospects
