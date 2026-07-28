@@ -46,7 +46,6 @@ const STAGES: { key: CrmStatus; label: string; color: string; dropColor: string;
   { key: "quote",           label: "Quote",           color: "bg-emerald-50 border-emerald-100",   dropColor: "bg-emerald-100 border-emerald-300",      dot: "bg-emerald-400" },
   { key: "paid",            label: "Paid",            color: "bg-emerald-100 border-emerald-200",  dropColor: "bg-emerald-200 border-emerald-400",      dot: "bg-emerald-600" },
   { key: "lost",            label: "Lost",            color: "bg-red-50 border-red-100",           dropColor: "bg-red-100 border-red-300",              dot: "bg-red-300" },
-  { key: "na",              label: "N/A",             color: "bg-[#F5F5F5] border-black/[0.06]",   dropColor: "bg-black/[0.04] border-black/20",        dot: "bg-[#A3A3A3]" },
 ]
 
 const NEXT_STAGE: Partial<Record<CrmStatus, CrmStatus>> = {
@@ -64,7 +63,6 @@ const PREV_STAGE: Partial<Record<CrmStatus, CrmStatus>> = {
   quote:           "build",
   paid:            "quote",
   lost:            "new",
-  na:              "new",
 }
 
 function scoreColour(score: number | null) {
@@ -120,6 +118,7 @@ const PROSPECT_FIELDS = "id, place_id, name, city, category, site_score, review_
 
 export default function PipelineBoard() {
   const [prospects, setProspects] = useState<PipelineProspect[]>([])
+  const [naProspects, setNaProspects] = useState<PipelineProspect[]>([])
   const [loading, setLoading] = useState(true)
   const [selected, setSelected] = useState<PipelineProspect | null>(null)
   const [mockupInput, setMockupInput] = useState("")
@@ -260,42 +259,73 @@ export default function PipelineBoard() {
       .order("site_score", { ascending: false, nullsFirst: false })
       .limit(1000)
 
-    // Eliminated: lost + N/A — fetched so counters persist on refresh.
-    const { data: eliminatedData } = await supabase
+    // Lost: still shown on the board for reference.
+    const { data: lostData } = await supabase
       .from("prospects")
       .select(PROSPECT_FIELDS)
-      .in("crm_status", ["lost", "na"])
+      .eq("crm_status", "lost")
       .order("status_updated_at", { ascending: false })
       .limit(500)
 
-    const normalized = [...(data || []), ...(newData || []), ...(eliminatedData || [])].map((p) => ({
+    // N/A: not a pipeline stage — kept separately for a future Sorted Ops list.
+    const { data: naData } = await supabase
+      .from("prospects")
+      .select(PROSPECT_FIELDS)
+      .eq("crm_status", "na")
+      .order("status_updated_at", { ascending: false })
+      .limit(500)
+
+    const normalize = (p: any) => ({
       ...p,
       crm_status: (p.crm_status ?? "new") as CrmStatus,
-    })) as PipelineProspect[]
+    }) as PipelineProspect
+
+    const active = (data || []).map(normalize)
+    const incoming = (newData || []).map(normalize)
+    const lost = (lostData || []).map(normalize)
+    const na = (naData || []).map(normalize)
 
     // Deduplicate in case a record matches both queries
     const seen = new Set<string>()
-    setProspects(normalized.filter((p) => {
+    setProspects([...active, ...incoming, ...lost].filter((p) => {
       if (seen.has(p.place_id)) return false
       seen.add(p.place_id)
       return true
     }))
+    setNaProspects(na)
     setLoading(false)
   }
 
   async function updateStatus(prospect: PipelineProspect, newStatus: CrmStatus) {
-    // Optimistic update
-    setProspects(prev => prev.map(p =>
-      p.place_id === prospect.place_id ? { ...p, crm_status: newStatus } : p
-    ))
-    if (selected?.place_id === prospect.place_id) setSelected(s => s ? { ...s, crm_status: newStatus } : s)
+    const updated = { ...prospect, crm_status: newStatus }
+
+    if (newStatus === "na") {
+      // Move out of the active pipeline board into the N/A list
+      setProspects(prev => prev.filter(p => p.place_id !== prospect.place_id))
+      setNaProspects(prev => [updated, ...prev.filter(p => p.place_id !== prospect.place_id)])
+      if (selected?.place_id === prospect.place_id) setSelected(null)
+    } else if (prospect.crm_status === "na") {
+      // Moving back from N/A to the board
+      setNaProspects(prev => prev.filter(p => p.place_id !== prospect.place_id))
+      setProspects(prev => [updated, ...prev])
+      if (selected?.place_id === prospect.place_id) setSelected(s => s ? { ...s, crm_status: newStatus } : s)
+    } else {
+      // Standard stage change inside the board
+      setProspects(prev => prev.map(p => p.place_id === prospect.place_id ? updated : p))
+      if (selected?.place_id === prospect.place_id) setSelected(s => s ? { ...s, crm_status: newStatus } : s)
+    }
 
     setSaving(true)
-    await supabase
+    const { error } = await supabase
       .from("prospects")
       .update({ crm_status: newStatus })
       .eq("place_id", prospect.place_id)
     setSaving(false)
+
+    if (error) {
+      console.error("[PipelineBoard] Failed to update crm_status:", error.message)
+      load()
+    }
   }
 
   async function addProspect() {
@@ -515,7 +545,7 @@ export default function PipelineBoard() {
         <MetricDivider />
         <Metric label="Paid" value={allCounts.paid} highlight />
         <Metric label="Lost" value={allCounts.lost} muted />
-        <Metric label="N/A" value={allCounts.na} muted />
+        <Metric label="N/A" value={naProspects.length} muted />
         {outreachCounts && (
           <>
             <MetricDivider />
@@ -602,7 +632,6 @@ export default function PipelineBoard() {
           <option value="quote">Quote</option>
           <option value="paid">Paid</option>
           <option value="lost">Lost</option>
-          <option value="na">N/A</option>
         </select>
         <select
           value={enrichedFilter}
