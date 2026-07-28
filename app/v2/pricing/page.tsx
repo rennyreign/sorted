@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
+import type { ReactNode } from "react"
 import { ArrowRight, BarChart3, Check, Search, ShieldCheck, Target, TrendingUp, UsersRound, Wrench } from "lucide-react"
+import { GeoPrice } from "@/components/GeoPrice"
 import { CtaBand, MarkerText, SectionTitle, V2Footer, V2Header, V2Page } from "../_components/V2Primitives"
 import { RoutineFinderButton } from "../_components/RoutineFinder"
 
@@ -48,7 +50,7 @@ export default function PricingPage() {
           subtitle="Solve one repetitive problem."
           copy="A focused, one-off engagement to identify and remove one routine that is costing you time and customers."
           items={["A fast, targeted solution", "To see how Sorted works", "Immediate impact"]}
-          price="£2,500"
+          price={<GeoPrice amount={2500} />}
           suffix="One-off implementation"
           button="Remove my first routine"
         />
@@ -59,7 +61,7 @@ export default function PricingPage() {
           subtitle="Continuously improve performance."
           copy="We continuously identify, remove and improve repetitive work across your business."
           items={["Ongoing operational improvement", "Multiple routines removed over time", "Measurable performance every month", "A long-term partner in their growth"]}
-          price="£750"
+          price={<GeoPrice amount={750} />}
           suffix="Per month"
           button="Become an operational partner"
           featured
@@ -119,7 +121,7 @@ function PricingCard({
   subtitle: string
   copy: string
   items: string[]
-  price: string
+  price: ReactNode
   suffix: string
   button: string
   featured?: boolean

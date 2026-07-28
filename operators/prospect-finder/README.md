@@ -14,6 +14,12 @@ A `prospects` table in Supabase — one row per qualified business, deduped by G
 
 Production-ready. Python 3.x. Apify Google Maps Scraper. Supabase storage.
 
+## Targeting Standard
+
+Prospect Finder defaults to **Scenario 2, Tier A — High-Value Project Buyers** from [`doctrine/priority-manufacturing-categories.md`](../../doctrine/priority-manufacturing-categories.md). The active categories are builders, general contractors, extension specialists, loft conversion companies, kitchen and bathroom fitters, roofers, window and door installers, landscapers, and driveway companies.
+
+Use this as the default acquisition focus. Change category priorities only when the commercial goal changes and record the corresponding doctrine scenario in `implementation/config.py`.
+
 ---
 
 ## Setup

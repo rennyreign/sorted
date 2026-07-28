@@ -22,34 +22,19 @@ All other cities are defined in CITY_QUERIES and can be run manually:
 # Categories — shared across all cities
 # ---------------------------------------------------------------------------
 
+# Default acquisition focus: Scenario 2, Tier A — High-Value Project Buyers.
+# Source of truth: doctrine/priority-manufacturing-categories.md.
 CATEGORIES = [
-    # Priority segments
-    "dentist",
-    "accountant",
-    "boutique hotel",
-    "hair salon",
-    "nail salon",
-    "beauty salon",
-
-    # Fitness
-    "personal trainer",
-    "gym",
-    "yoga studio",
-
-    # Food & hospitality
-    "restaurant",
-    "cafe",
-    "takeaway",
-
-    # Trades & home services (high volume of weak sites)
-    "plumber",
-    "electrician",
-    "cleaning service",
-    "barber shop",
-
-    # Professional services
-    "solicitor",
-    "estate agent",
+    "builder",
+    "general contractor",
+    "extension specialist",
+    "loft conversion company",
+    "kitchen fitter",
+    "bathroom fitter",
+    "roofer",
+    "window and door installer",
+    "landscaper",
+    "driveway company",
 ]
 
 # ---------------------------------------------------------------------------

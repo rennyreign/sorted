@@ -3,6 +3,25 @@
 import { useState } from "react"
 import { supabase } from "@/lib/supabase"
 
+type AssessmentCategory = {
+  score: number
+  evidence: string[]
+  why_it_matters: string
+  recommended_improvement: string
+}
+
+export type ModernisationAssessmentReport = {
+  business_modernisation_score?: number
+  categories?: Record<string, AssessmentCategory>
+  why_a_new_website_solves_this?: {
+    problems: string[]
+    solutions: string[]
+  }
+  executive_summary?: string
+  business_interpretation?: string
+  prioritised_recommendations?: string[]
+}
+
 export type ReviewProspect = {
   place_id: string
   name: string
@@ -26,6 +45,9 @@ export type ReviewProspect = {
   review_slug: string | null
   mockup_url: string | null
   mockup_urls: string[] | null
+  business_modernisation_score: number | null
+  assessment_report: ModernisationAssessmentReport | null
+  assessed_at: string | null
 }
 
 // Patterns that indicate internal operator notes — never shown to prospects
@@ -45,6 +67,79 @@ function getScoreColour(score: number) {
   return { text: "text-red-600", bg: "bg-red-50", border: "border-red-200", bar: "bg-red-500" }
 }
 
+function getModernisationScoreColour(score: number) {
+  if (score >= 70) return { text: "text-emerald-600", bg: "bg-emerald-50", border: "border-emerald-200", dot: "bg-emerald-500" }
+  if (score >= 45) return { text: "text-amber-600", bg: "bg-amber-50", border: "border-amber-200", dot: "bg-amber-500" }
+  return { text: "text-red-600", bg: "bg-red-50", border: "border-red-200", dot: "bg-red-500" }
+}
+
+const CATEGORY_LABELS: Record<string, string> = {
+  discoverability: "Discoverability",
+  infrastructure: "Infrastructure",
+  trust_and_brand: "Trust & Brand",
+  customer_experience: "Customer Experience",
+  modernisation: "Modernisation",
+}
+
+const CATEGORY_ORDER = ["discoverability", "infrastructure", "trust_and_brand", "customer_experience", "modernisation"]
+
+const CATEGORY_OUTCOMES: Record<string, string> = {
+  discoverability: "Your business shows up more clearly in search and AI results.",
+  infrastructure: "Pages load fast, work on every device, and never feel broken.",
+  trust_and_brand: "Visitors see a credible, professional business they want to contact.",
+  customer_experience: "People find what they need and get in touch without friction.",
+  modernisation: "You can update content, track leads, and add bookings without rebuilding.",
+}
+
+const SUPERB_CLEANING_FIXTURE: ModernisationAssessmentReport = {
+  business_modernisation_score: 38,
+  categories: {
+    discoverability: {
+      score: 32,
+      evidence: ["No meta description found.", "Most images lack alt text."],
+      why_it_matters: "Search engines and AI assistants struggle to understand and surface the business.",
+      recommended_improvement: "Add a unique title and meta description, use a single H1, fix heading hierarchy, add alt text to images, and implement relevant JSON-LD schema.",
+    },
+    infrastructure: {
+      score: 41,
+      evidence: ["Server response is slow (2.8s).", "Response is not compressed."],
+      why_it_matters: "A slow, insecure, or broken site loses visitors before they convert.",
+      recommended_improvement: "Move to HTTPS, fix mixed content, add security headers, compress assets, reduce page weight, and repair broken links.",
+    },
+    trust_and_brand: {
+      score: 45,
+      evidence: ["Images appear to be stock or placeholder photos.", "No awards or accreditations mentioned."],
+      why_it_matters: "Trust is the difference between a visitor choosing you or a competitor.",
+      recommended_improvement: "Use real business photography, add contact details and reviews, and show history or accreditations.",
+    },
+    customer_experience: {
+      score: 38,
+      evidence: ["No clear primary call-to-action above the fold.", "Contact form is hard to find."],
+      why_it_matters: "Visitors leave when they cannot quickly understand what to do next.",
+      recommended_improvement: "Add one obvious call-to-action, simplify navigation, and make contact details easy to tap.",
+    },
+    modernisation: {
+      score: 34,
+      evidence: ["Built on an old platform with limited analytics.", "No CRM or booking integration."],
+      why_it_matters: "An outdated platform makes it hard to measure and improve marketing.",
+      recommended_improvement: "Move to a modern, editable platform that supports analytics, CRM, booking and review automation.",
+    },
+  },
+  why_a_new_website_solves_this: {
+    problems: [
+      "Search engines and AI assistants struggle to understand and surface the business.",
+      "Slow, insecure or broken pages create friction and cause visitors to leave.",
+      "The business appears less credible than modern competitors.",
+    ],
+    solutions: [
+      "Clear metadata, headings and structured data make the business easier to find.",
+      "Fast, secure hosting and clean code keep visitors engaged.",
+      "Professional design, real photos and visible reviews build trust.",
+    ],
+  },
+  business_interpretation: "The website is significantly behind current standards and is likely costing the business enquiries.",
+}
+
 function ScoreBar({ score, max = 10 }: { score: number; max?: number }) {
   const pct = Math.round((score / max) * 100)
   const c = getScoreColour(score)
@@ -54,6 +149,119 @@ function ScoreBar({ score, max = 10 }: { score: number; max?: number }) {
         <div className={`h-full rounded-full ${c.bar} transition-all duration-700`} style={{ width: `${pct}%` }} />
       </div>
       <span className={`font-mono text-sm font-bold tabular-nums ${c.text}`}>{score}/10</span>
+    </div>
+  )
+}
+
+function resolveAssessment(prospect: ReviewProspect): { report: ModernisationAssessmentReport | null; score: number | null } {
+  if (prospect.business_modernisation_score !== null && prospect.assessment_report) {
+    return { report: prospect.assessment_report, score: prospect.business_modernisation_score }
+  }
+  if (process.env.NODE_ENV === "development" && prospect.review_slug === "superb-cleaning-services") {
+    return { report: SUPERB_CLEANING_FIXTURE, score: SUPERB_CLEANING_FIXTURE.business_modernisation_score ?? null }
+  }
+  return { report: null, score: null }
+}
+
+function ModernisationAssessment({ report, score }: { report: ModernisationAssessmentReport; score: number }) {
+  const colours = getModernisationScoreColour(score)
+  const categories = report.categories || {}
+  const ordered = CATEGORY_ORDER
+    .filter((key) => categories[key])
+    .map((key) => ({ key, label: CATEGORY_LABELS[key] ?? key, ...categories[key] }))
+    .sort((a, b) => a.score - b.score)
+  const blockers = ordered.slice(0, 3)
+  const solutions =
+    report.why_a_new_website_solves_this?.solutions?.slice(0, 3) ??
+    blockers.map((c) => CATEGORY_OUTCOMES[c.key] ?? `Improve ${c.label.toLowerCase()} to win more enquiries.`)
+  const verdict = report.business_interpretation ??
+    (score >= 70
+      ? "The website is reasonably modern but has room to sharpen conversion and future-proof the platform."
+      : score >= 45
+      ? "The website is holding the business back in several visible ways and would benefit from a redesign."
+      : "The website is significantly behind current standards and is likely costing the business enquiries.")
+
+  return (
+    <div className="bg-white rounded-2xl border border-black/[0.08] p-6 sm:p-8">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-6">
+        <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3]">Business modernisation assessment</p>
+        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#F5F5F4] border border-black/[0.06]">
+          <span className={`w-1.5 h-1.5 rounded-full ${colours.dot}`} />
+          <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#737373]">Evidence-led</span>
+        </span>
+      </div>
+
+      <div className="flex flex-col sm:flex-row sm:items-end gap-4 mb-2">
+        <div className="flex items-baseline gap-2">
+          <span className={`font-sans font-extrabold text-6xl sm:text-7xl tabular-nums leading-none ${colours.text}`}>{score}</span>
+          <span className="text-[#A3A3A3] text-xl font-light">/100</span>
+        </div>
+        <div className="sm:pb-2">
+          <p className="font-sans font-bold text-[#0A0A0A] text-base leading-snug">{verdict}</p>
+          <p className="text-[#A3A3A3] text-sm mt-0.5">Based on your live website</p>
+        </div>
+      </div>
+
+      <div className="mt-8">
+        <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">The three biggest blockers</p>
+        <ol className="space-y-4">
+          {blockers.map((cat, i) => {
+            const catColours = getModernisationScoreColour(cat.score)
+            return (
+              <li key={cat.key} className="flex items-start gap-3">
+                <span className="w-6 h-6 rounded-full bg-black/[0.06] text-[#525252] flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
+                  {i + 1}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-3 mb-1">
+                    <h3 className="font-sans font-bold text-[#0A0A0A] text-sm">{cat.label}</h3>
+                    <span className={`font-mono text-xs font-bold tabular-nums ${catColours.text}`}>{cat.score}/100</span>
+                  </div>
+                  <p className="text-sm text-[#737373] leading-relaxed">{cat.why_it_matters}</p>
+                </div>
+              </li>
+            )
+          })}
+        </ol>
+      </div>
+
+      {solutions.length > 0 && (
+        <div className="mt-8 pt-6 border-t border-black/[0.08]">
+          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">What a modern site changes</p>
+          <ul className="space-y-3">
+            {solutions.map((solution, i) => (
+              <li key={i} className="flex items-start gap-3 text-sm text-[#525252] leading-relaxed">
+                <span className="text-emerald-600 shrink-0 mt-0.5">✓</span>
+                <span>{solution}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <details className="mt-8 group">
+        <summary className="flex items-center justify-between cursor-pointer list-none py-3 -mx-3 px-3 rounded-xl hover:bg-black/[0.02] transition-colors">
+          <span className="font-sans font-bold text-[#0A0A0A] text-sm">See supporting assessment</span>
+          <span className="text-[#A3A3A3] group-open:rotate-180 transition-transform duration-200">▼</span>
+        </summary>
+        <div className="pt-4 space-y-4">
+          {ordered.map((cat) => {
+            const catColours = getModernisationScoreColour(cat.score)
+            const evidence = cat.evidence[0] ?? "No summary available."
+            return (
+              <div key={cat.key} className="flex items-start gap-3">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-3 mb-1">
+                    <h4 className="font-sans font-bold text-[#0A0A0A] text-sm">{cat.label}</h4>
+                    <span className={`font-mono text-xs font-bold tabular-nums ${catColours.text}`}>{cat.score}/100</span>
+                  </div>
+                  <p className="text-sm text-[#737373] leading-relaxed">{evidence}</p>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </details>
     </div>
   )
 }
@@ -76,6 +284,9 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
   const projectedScore = Math.min(10, score + (10 - score) * 0.75)
   const hasScore = prospect.site_score !== null
   const hasMockup = mockupScreens.length > 0
+
+  const { report: assessmentReport, score: modScore } = resolveAssessment(prospect)
+  const hasAssessment = assessmentReport !== null && modScore !== null
 
   async function handleReveal() {
     if (revealed || revealing) return
@@ -159,6 +370,11 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
                 </div>
               </div>
             </div>
+
+            {/* Business modernisation assessment */}
+            {hasAssessment && assessmentReport && modScore !== null && (
+              <ModernisationAssessment report={assessmentReport} score={modScore} />
+            )}
 
             {/* What it's costing you */}
             {prospect.site_weaknesses && prospect.site_weaknesses.length > 0 && (
