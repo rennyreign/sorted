@@ -41,7 +41,6 @@ type PipelineProspect = {
 const STAGES: { key: CrmStatus; label: string; color: string; dropColor: string; dot: string }[] = [
   { key: "new",             label: "New",             color: "bg-[#F5F5F5] border-black/[0.06]",  dropColor: "bg-black/[0.04] border-black/20",       dot: "bg-[#D4D4D4]" },
   { key: "outreached",      label: "Outreached",      color: "bg-blue-50 border-blue-100",         dropColor: "bg-blue-100 border-blue-300",            dot: "bg-blue-400" },
-  { key: "responded",       label: "Responded",       color: "bg-violet-50 border-violet-100",     dropColor: "bg-violet-100 border-violet-300",        dot: "bg-violet-400" },
   { key: "mockup_revealed", label: "Mockup Revealed", color: "bg-amber-50 border-amber-100",       dropColor: "bg-amber-100 border-amber-300",          dot: "bg-amber-400" },
   { key: "build",           label: "Build",           color: "bg-orange-50 border-orange-100",     dropColor: "bg-orange-100 border-orange-300",        dot: "bg-orange-400" },
   { key: "quote",           label: "Quote",           color: "bg-emerald-50 border-emerald-100",   dropColor: "bg-emerald-100 border-emerald-300",      dot: "bg-emerald-400" },
@@ -52,8 +51,7 @@ const STAGES: { key: CrmStatus; label: string; color: string; dropColor: string;
 
 const NEXT_STAGE: Partial<Record<CrmStatus, CrmStatus>> = {
   new:             "outreached",
-  outreached:      "responded",
-  responded:       "mockup_revealed",
+  outreached:      "mockup_revealed",
   mockup_revealed: "build",
   build:           "quote",
   quote:           "paid",
@@ -61,8 +59,7 @@ const NEXT_STAGE: Partial<Record<CrmStatus, CrmStatus>> = {
 
 const PREV_STAGE: Partial<Record<CrmStatus, CrmStatus>> = {
   outreached:      "new",
-  responded:       "outreached",
-  mockup_revealed: "responded",
+  mockup_revealed: "outreached",
   build:           "mockup_revealed",
   quote:           "build",
   paid:            "quote",
@@ -490,14 +487,13 @@ export default function PipelineBoard() {
     })
   }, [prospects, search, cityFilter, mockupFilter, reviewPageFilter, stageFilter, enrichedFilter])
 
-  const allByStage = (stage: CrmStatus) => prospects.filter(p => p.crm_status === stage)
+  const allByStage = (stage: CrmStatus) => prospects.filter(p => p.crm_status === stage || (stage === "outreached" && p.crm_status === "responded"))
   const allCounts = Object.fromEntries(STAGES.map(s => [s.key, allByStage(s.key).length])) as Record<CrmStatus, number>
   const totalActive = STAGES.filter(s => s.key !== "lost" && s.key !== "na").reduce((sum, s) => sum + allCounts[s.key], 0)
-  const responseRate = allCounts.outreached > 0 ? Math.round((allCounts.responded / allCounts.outreached) * 100) : null
-  const revealRate = allCounts.responded > 0 ? Math.round((allCounts.mockup_revealed / allCounts.responded) * 100) : null
+  const revealRate = allCounts.outreached > 0 ? Math.round((allCounts.mockup_revealed / allCounts.outreached) * 100) : null
   const convertRate = allCounts.mockup_revealed > 0 ? Math.round((allCounts.build / allCounts.mockup_revealed) * 100) : null
 
-  const byStage = (stage: CrmStatus) => filteredProspects.filter(p => p.crm_status === stage)
+  const byStage = (stage: CrmStatus) => filteredProspects.filter(p => p.crm_status === stage || (stage === "outreached" && p.crm_status === "responded"))
 
   if (loading) {
     return (
@@ -514,7 +510,6 @@ export default function PipelineBoard() {
       <div className="border-b border-black/[0.06] bg-white px-6 sm:px-10 py-4 flex items-center gap-8 overflow-x-auto shrink-0">
         <Metric label="Active" value={totalActive} />
         <MetricDivider />
-        <Metric label="Response rate" value={responseRate !== null ? `${responseRate}%` : "—"} />
         <Metric label="Reveal rate" value={revealRate !== null ? `${revealRate}%` : "—"} />
         <Metric label="Convert rate" value={convertRate !== null ? `${convertRate}%` : "—"} />
         <MetricDivider />
@@ -602,7 +597,6 @@ export default function PipelineBoard() {
           <option value="all">All stages</option>
           <option value="new">New</option>
           <option value="outreached">Outreached</option>
-          <option value="responded">Responded</option>
           <option value="mockup_revealed">Mockup Revealed</option>
           <option value="build">Build</option>
           <option value="quote">Quote</option>
@@ -796,6 +790,11 @@ export default function PipelineBoard() {
                             "text-[#737373]"
                           }`}>
                             {p.outreach_status.replace(/_/g, " ").toLowerCase()}
+                          </span>
+                        )}
+                        {p.crm_status === "responded" && (
+                          <span className="font-mono text-[9px] text-violet-600 uppercase tracking-wide">
+                            responded
                           </span>
                         )}
                       </div>

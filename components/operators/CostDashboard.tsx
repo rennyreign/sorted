@@ -251,7 +251,7 @@ export default function CostDashboard() {
   const variableBreakdown = pipelineData?.summary.variableBreakdown ?? {}
 
   const counts = pipelineData?.counts ?? {}
-  const visitCount = (counts.responded || 0) > 0 ? counts.responded : counts.outreached || 0
+  const visitCount = counts.outreached || 0
   const performanceRates = {
     visitToReveal: visitCount > 0 ? ((counts.mockup_revealed || 0) / visitCount) * 100 : null,
     revealToBuild: (counts.mockup_revealed || 0) > 0 ? ((counts.build || 0) / counts.mockup_revealed) * 100 : null,

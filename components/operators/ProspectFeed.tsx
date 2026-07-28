@@ -81,7 +81,13 @@ export default function ProspectFeed() {
       if (filters.mockup === "none" && hasMockupImage) return false
       if (filters.reviewPage === "ready" && !hasReviewPage) return false
       if (filters.reviewPage === "none" && hasReviewPage) return false
-      if (filters.crmStatus !== "all" && p.crm_status !== filters.crmStatus) return false
+      if (filters.crmStatus !== "all") {
+        const isOutreachedFilter = filters.crmStatus === "outreached"
+        const matches = isOutreachedFilter
+          ? p.crm_status === "outreached" || p.crm_status === "responded"
+          : p.crm_status === filters.crmStatus
+        if (!matches) return false
+      }
       if (filters.enriched === "owner" && !p.owner_name) return false
       if (filters.enriched === "owner_email" && !p.owner_email) return false
       if (filters.enriched === "not_enriched" && p.owner_name) return false
@@ -158,7 +164,6 @@ export default function ProspectFeed() {
               <option value="all">Any CRM stage</option>
               <option value="new">New</option>
               <option value="outreached">Outreached</option>
-              <option value="responded">Responded</option>
               <option value="mockup_revealed">Mockup Revealed</option>
               <option value="build">Build</option>
               <option value="quote">Quote</option>
@@ -469,7 +474,6 @@ function AnalysisPanel({ prospect: p, onClose, onCrmChange }: {
           >
             <option value="new">New</option>
             <option value="outreached">Outreached</option>
-            <option value="responded">Responded</option>
             <option value="mockup_revealed">Mockup Revealed</option>
             <option value="build">Build</option>
             <option value="quote">Quote</option>
@@ -505,15 +509,6 @@ function AnalysisPanel({ prospect: p, onClose, onCrmChange }: {
               className="bg-amber-50 text-amber-700 border border-amber-200 text-xs font-medium rounded-lg px-3 py-2 hover:bg-amber-100 transition-colors disabled:opacity-40"
             >
               Skip to mockup reveal
-            </button>
-          )}
-          {crmStatus === "outreached" && (
-            <button
-              onClick={() => setCrm("responded")}
-              disabled={crmSaving}
-              className="bg-violet-50 text-violet-700 border border-violet-200 text-xs font-medium rounded-lg px-3 py-2 hover:bg-violet-100 transition-colors disabled:opacity-40"
-            >
-              Mark responded
             </button>
           )}
           {crmStatus !== "new" && crmStatus !== "lost" && crmStatus !== "paid" && crmStatus !== "na" && (

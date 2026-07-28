@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
+import type { ReactNode } from "react"
 import { Check, HelpCircle, Rocket, ShieldCheck, Sparkles, Sprout, Trophy, Zap } from "lucide-react"
 import Image from "next/image"
+import { GeoPrice } from "@/components/GeoPrice"
 import { DarkCta, SitesFooter, SitesHeader, SitesPage, SitesTitle, Underline } from "../_components/SitesPrimitives"
 import { MockupButton } from "../_components/SitesMockupModal"
 
@@ -59,9 +61,9 @@ export default function PricingPage() {
               A new business needs access. An established business gets more commercial value from the same design work. The price should reflect that.
             </p>
           </div>
-          <StagePriceCard icon={Sprout} stage="New business" years="Less than 1 year trading" price="£495" note="For founders who need to look credible quickly without betting money they do not have yet." />
-          <StagePriceCard icon={Rocket} stage="Growing business" years="1 to 3 years trading" price="£995" note="For businesses with proof, customers and momentum who need a stronger site to convert demand." featured />
-          <StagePriceCard icon={Trophy} stage="Established business" years="3+ years trading" price="£1995" note="For businesses where better design has a clearer revenue impact and the site needs more depth." />
+          <StagePriceCard icon={Sprout} stage="New business" years="Less than 1 year trading" price={<GeoPrice amount={495} />} note="For founders who need to look credible quickly without betting money they do not have yet." />
+          <StagePriceCard icon={Rocket} stage="Growing business" years="1 to 3 years trading" price={<GeoPrice amount={995} />} note="For businesses with proof, customers and momentum who need a stronger site to convert demand." featured />
+          <StagePriceCard icon={Trophy} stage="Established business" years="3+ years trading" price={<GeoPrice amount={1995} />} note="For businesses where better design has a clearer revenue impact and the site needs more depth." />
         </div>
       </section>
 
@@ -151,7 +153,7 @@ function StagePriceCard({
   icon: typeof Sprout
   stage: string
   years: string
-  price: string
+  price: ReactNode
   note: string
   featured?: boolean
 }) {

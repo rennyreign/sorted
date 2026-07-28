@@ -100,6 +100,8 @@ The Sorted site-build chain runs in two modes. See `doctrine/operator-chain.md` 
 | Mockup generation | Custom GPT (manual) | Always manual |
 | Outreach email draft | `operators/skills/outreach-drafter.md` | Active |
 
+**Prospect Finder default:** Use **Scenario 2, Tier A — High-Value Project Buyers** from `doctrine/priority-manufacturing-categories.md`. This is the standard acquisition focus unless Renaldo explicitly selects a different prioritisation scenario.
+
 ### Build Chain (after nod from prospect)
 
 | Step | Skill | Status |

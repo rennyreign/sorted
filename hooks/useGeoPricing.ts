@@ -4,55 +4,53 @@ import { useState, useEffect } from "react"
 
 export type PricingRegion = "GB" | "US" | "ES" | "default"
 
-export interface GeoPricing {
-  currency: string
-  symbol: string
-  monthlyUpdates: string
-  perUpdate: string
-  siteFrom: string
-  siteTo: string
-  region: PricingRegion
-  loaded: boolean
+type CurrencyCode = "GBP" | "USD" | "EUR"
+
+const CURRENCY_BY_REGION: Record<PricingRegion, CurrencyCode> = {
+  GB: "GBP",
+  US: "USD",
+  ES: "EUR",
+  default: "GBP",
 }
 
-const PRICING: Record<PricingRegion, Omit<GeoPricing, "region" | "loaded">> = {
-  GB: {
-    currency: "GBP",
-    symbol: "£",
-    monthlyUpdates: "£39",
-    perUpdate: "£19",
-    siteFrom: "£400",
-    siteTo: "£3,000",
+const LOCAL_PRICES: Partial<Record<CurrencyCode, Record<number, number>>> = {
+  USD: {
+    495: 650,
+    995: 1300,
+    1995: 2600,
+    2500: 3250,
+    750: 1000,
   },
-  US: {
-    currency: "USD",
-    symbol: "$",
-    monthlyUpdates: "$49",
-    perUpdate: "$25",
-    siteFrom: "$500",
-    siteTo: "$4,000",
+  EUR: {
+    495: 600,
+    995: 1200,
+    1995: 2400,
+    2500: 3000,
+    750: 900,
   },
-  ES: {
-    currency: "EUR",
-    symbol: "€",
-    monthlyUpdates: "€39",
-    perUpdate: "€19",
-    siteFrom: "€400",
-    siteTo: "€3,000",
-  },
-  default: {
-    currency: "GBP",
-    symbol: "£",
-    monthlyUpdates: "£39",
-    perUpdate: "£19",
-    siteFrom: "£400",
-    siteTo: "£3,000",
-  },
+}
+
+export interface GeoPricing {
+  currency: CurrencyCode
+  region: PricingRegion
+  loaded: boolean
+  formatPrice: (gbp: number) => string
 }
 
 export function useGeoPricing(): GeoPricing {
   const [region, setRegion] = useState<PricingRegion>("default")
   const [loaded, setLoaded] = useState(false)
+
+  const currency = CURRENCY_BY_REGION[region]
+
+  const formatPrice = (gbp: number) => {
+    const amount = LOCAL_PRICES[currency]?.[gbp] ?? gbp
+    return new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency,
+      maximumFractionDigits: 0,
+    }).format(amount)
+  }
 
   useEffect(() => {
     fetch("https://ipapi.co/json/")
@@ -68,5 +66,5 @@ export function useGeoPricing(): GeoPricing {
       .finally(() => setLoaded(true))
   }, [])
 
-  return { ...PRICING[region], region, loaded }
+  return { currency, region, loaded, formatPrice }
 }
