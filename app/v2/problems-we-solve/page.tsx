@@ -3,8 +3,8 @@ import { ArrowRight, CalendarDays, Clock3, FileText, Frown, MessageCircle, Phone
 import { CtaBand, MarkerText, SectionTitle, V2Footer, V2Header, V2Page } from "../_components/V2Primitives"
 
 export const metadata: Metadata = {
-  title: "Problems We Solve | Sorted V2",
-  description: "Browse the repetitive business routines Sorted replaces, from missed calls and slow replies to forgotten customers and manual admin.",
+  title: "Problems We Solve | Sorted Ops",
+  description: "Browse the operational constraints Sorted Ops removes — from missed calls and slow replies to forgotten customers and manual admin — and the systems we install to fix them.",
 }
 
 const categories = [
@@ -52,11 +52,11 @@ const systems = [
 ]
 
 const solveSteps = [
-  ["We find the routine.", "We look at where work gets repeated, delayed, forgotten or handed around."],
-  ["We find what breaks.", "We show where customers wait, teams lose time, and responsibility becomes unclear."],
-  ["We design the replacement.", "We plan a simpler way for the routine to happen consistently."],
-  ["We build and show it working.", "You see the replacement in action before anything becomes permanent."],
-  ["We measure what changed.", "We track time returned, work removed and the results created."],
+  ["We inspect.", "We look at where work gets repeated, delayed, forgotten or handed around."],
+  ["We diagnose.", "We show where customers wait, teams lose time, and responsibility becomes unclear."],
+  ["We design the system.", "We plan a simpler way for the work to happen consistently."],
+  ["We install it.", "You see the system working in your business before anything becomes permanent."],
+  ["We improve.", "We track time returned, work removed and the results created."],
 ]
 
 export default function ProblemsPage() {
@@ -66,16 +66,16 @@ export default function ProblemsPage() {
       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-10 pt-8 sm:px-8 md:grid-cols-[1fr_0.92fr] md:items-center">
         <div>
           <h1 className="max-w-[620px] text-[clamp(4rem,7.2vw,6.7rem)] font-black leading-[0.9] tracking-[-0.05em]">
-            Every business has routines.
+            Every business has constraints.
             <br />
             <MarkerText className="block text-[clamp(3.2rem,6vw,5.55rem)]">These are the ones that cost you.</MarkerText>
           </h1>
           <p className="mt-7 max-w-[510px] text-[15px] font-semibold leading-[1.6] tracking-[-0.025em]">
-            We focus on the repetitive work that slows your team down, frustrates customers, and makes you miss opportunities.
+            We find the operational constraints that slow your team down, frustrate customers, and cap how the business performs — then install the systems that remove them.
           </p>
         </div>
         <div className="rounded-[22px] bg-[#f7efe3] p-7 shadow-[0_22px_55px_rgba(20,14,8,0.13)]">
-          <SectionTitle title="Repetitive work creates hidden costs." />
+          <SectionTitle title="Operational constraints create hidden costs." />
           <div className="mt-8 grid grid-cols-3 divide-x divide-black/15 text-center">
             {[
               [Frown, "Customers get frustrated."],
@@ -92,7 +92,7 @@ export default function ProblemsPage() {
             })}
           </div>
           <div className="mx-auto mt-8 max-w-[360px] rounded-[16px] bg-[#070707] px-8 py-4 text-center text-white">
-            <p className="[font-family:var(--font-v2-marker)] text-[2rem]">WE REMOVE IT.</p>
+            <p className="[font-family:var(--font-v2-marker)] text-[2rem]">WE INSTALL THE FIX.</p>
           </div>
         </div>
       </section>
@@ -136,7 +136,7 @@ export default function ProblemsPage() {
       <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
         <div className="rounded-[18px] bg-[#f4f3ef] p-7">
           <div className="grid gap-8 md:grid-cols-[0.26fr_0.74fr] md:items-center">
-            <SectionTitle title="How we solve these problems" />
+            <SectionTitle title="How constraints get fixed" />
             <div className="grid gap-5 md:grid-cols-5">
               {solveSteps.map(([step, copy], index) => (
                 <div key={step} className="text-center">
@@ -173,7 +173,7 @@ export default function ProblemsPage() {
         </div>
       </section>
 
-      <CtaBand title="Let's find the routine that's costing you." copy="Tell us what is frustrating you most and we will take it from there." />
+      <CtaBand title="Let's find the constraint that's costing you." copy="Tell us what is frustrating you most and we will take it from there." />
       <V2Footer />
     </V2Page>
   )
