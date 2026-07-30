@@ -31,9 +31,9 @@ const v2Highlight = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "Sorted. Repetitive work steals time. We remove it.",
+  title: "Sorted. Your business has gaps. We close them.",
   description:
-    "Sorted finds the routines slowing your business down, installs the systems that remove them, and shows exactly how much capacity you get back.",
+    "Sorted finds the gaps that leak revenue, hurt trust, and leave money on the table, installs the systems that close them, and shows exactly how much you get back.",
 }
 
 const accent = "#dfff00"
@@ -202,19 +202,19 @@ function Hero() {
     <section className="mx-auto grid max-w-[1220px] items-center gap-10 px-5 pb-6 sm:px-8 md:grid-cols-[1.18fr_0.82fr] md:gap-8 md:pb-7 lg:grid-cols-[1.04fr_0.96fr] lg:gap-14">
       <div className="relative pt-3">
         <h1 className="max-w-[650px] text-[clamp(3.35rem,6.45vw,6.75rem)] font-black leading-[0.9] tracking-[-0.05em] lg:text-[clamp(4.1rem,8.2vw,6.75rem)]">
-          Repetitive
+          Your business
           <br />
-          work steals time.
+          has gaps.
         </h1>
         <div className="relative mt-4 max-w-[565px]">
           <p className="whitespace-nowrap [font-family:var(--font-v2-highlight)] text-[clamp(3rem,5.6vw,5.65rem)] font-normal leading-[0.86] tracking-[-0.02em] text-[#cee700] lg:text-[clamp(3.7rem,6.8vw,5.65rem)]">
-            We remove it.
+            We close them.
           </p>
           <MarkerStroke className="-bottom-3 left-0 h-4 w-[96%]" />
         </div>
 
         <p className="mt-6 max-w-[420px] text-[13px] font-semibold leading-[1.55] tracking-[-0.025em] text-[#111] lg:mt-12 lg:text-[17px]">
-          We find the routines slowing your business down, install the systems that remove them, and show you exactly how much capacity you get back.
+          We find the gaps that leak revenue, hurt trust, and leave money on the table, install the systems that close them, and show you exactly how much you get back.
         </p>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center lg:mt-9 lg:gap-4">
