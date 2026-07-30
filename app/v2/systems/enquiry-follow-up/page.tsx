@@ -4,8 +4,8 @@ import { CheckList, CtaBand, MarkerText, SectionTitle, V2Footer, V2Header, V2Pag
 import { RoutineFinderButton } from "../../_components/RoutineFinder"
 
 export const metadata: Metadata = {
-  title: "Enquiry Follow-up System | Sorted V2",
-  description: "A Sorted system that makes sure every enquiry receives the right follow-up until it is answered, booked, or closed.",
+  title: "Follow: The Enquiry System | Sorted Ops",
+  description: "Follow is the enquiry system from Sorted Ops. It makes sure every enquiry receives the right follow-up until it is answered, booked, or closed.",
 }
 
 const features = [
@@ -26,12 +26,12 @@ export default function EnquiryFollowUpPage() {
       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-10 pt-8 sm:px-8 md:grid-cols-[1fr_1fr] md:items-center">
         <div>
           <h1 className="max-w-[620px] text-[clamp(4rem,7.2vw,6.7rem)] font-black leading-[0.9] tracking-[-0.05em]">
-            Enquiries are just the start.
+            Follow.
             <br />
-            <MarkerText className="block text-[clamp(3.1rem,5.7vw,5.55rem)]">Follow-up gets them over the line.</MarkerText>
+            <MarkerText className="block text-[clamp(3.1rem,5.7vw,5.55rem)]">Never lose another enquiry.</MarkerText>
           </h1>
           <p className="mt-7 max-w-[510px] text-[15px] font-semibold leading-[1.6] tracking-[-0.025em]">
-            The Enquiry Follow-up System makes sure every enquiry gets a timely response, every time. No more forgotten leads, no more missed opportunities.
+            Follow is the enquiry system from Sorted Ops. It makes sure every enquiry gets a timely response, every time, until it is answered, booked, or closed.
           </p>
           <div className="mt-7 flex flex-wrap gap-4">
             <RoutineFinderButton label="See what this would look like in your business" variant="primary" />

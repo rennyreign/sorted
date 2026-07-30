@@ -3,7 +3,7 @@ import { ProblemDetailTemplate } from "../_components/ProblemDetailTemplate"
 
 export const metadata: Metadata = {
   title: "Nobody Owns It | Sorted V2",
-  description: "Why unclear ownership, memory-based routines and invisible handoffs create operational drag.",
+  description: "Why unclear ownership, memory-based routines and invisible handoffs are gaps that create operational drag.",
 }
 
 export default function NobodyOwnsItPage() {

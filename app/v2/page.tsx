@@ -31,9 +31,9 @@ const v2Highlight = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "Sorted. Repetitive work steals time. We remove it.",
+  title: "Sorted. Your business has gaps. We close them.",
   description:
-    "Sorted finds the routines slowing your business down, replaces them with proven systems, and shows exactly how much capacity you get back.",
+    "Sorted finds the gaps that leak revenue, hurt trust, and leave money on the table, installs the systems that close them, and shows exactly how much you get back.",
 }
 
 const accent = "#dfff00"
@@ -61,23 +61,23 @@ const problems = [
 
 const steps = [
   {
-    title: "We look for repetitive work.",
-    copy: "We review your business to find the routines slowing it down.",
+    title: "We find the gap.",
+    copy: "We review your business to find where revenue, trust, or time is leaking out.",
     icon: Search,
   },
   {
-    title: "We replace the first routine worth fixing.",
-    copy: "We install a proven system that removes it. No unnecessary software. No disruption.",
+    title: "We install the system.",
+    copy: "We install a proven system that closes the gap. No unnecessary software. No disruption.",
     icon: SettingsIcon,
   },
   {
     title: "We measure what changed.",
-    copy: "You will see exactly what improved and how much capacity was created.",
+    copy: "You will see exactly what improved and how much you got back.",
     icon: BarChart3,
   },
   {
-    title: "We repeat.",
-    copy: "Businesses change. New routines appear. We keep removing them.",
+    title: "We improve.",
+    copy: "Businesses change. New gaps appear. We keep closing them.",
     icon: RefreshCw,
   },
 ]
@@ -118,7 +118,7 @@ const familiar = [
 const results = [
   { icon: Clock3, value: "412", label: "Hours returned this year", delta: "+31%" },
   { icon: MessageCircle, value: "1,146", label: "Manual checks removed", delta: "+24%" },
-  { icon: CheckCircle2, value: "9", label: "Routines mapped and replaced", delta: "+20%" },
+  { icon: CheckCircle2, value: "9", label: "Gaps found and closed", delta: "+20%" },
   { icon: Star, value: "£18.4k", label: "Estimated value created", delta: "+27%" },
 ]
 
@@ -202,19 +202,19 @@ function Hero() {
     <section className="mx-auto grid max-w-[1220px] items-center gap-10 px-5 pb-6 sm:px-8 md:grid-cols-[1.18fr_0.82fr] md:gap-8 md:pb-7 lg:grid-cols-[1.04fr_0.96fr] lg:gap-14">
       <div className="relative pt-3">
         <h1 className="max-w-[650px] text-[clamp(3.35rem,6.45vw,6.75rem)] font-black leading-[0.9] tracking-[-0.05em] lg:text-[clamp(4.1rem,8.2vw,6.75rem)]">
-          Repetitive
+          Your business
           <br />
-          work steals time.
+          has gaps.
         </h1>
         <div className="relative mt-4 max-w-[565px]">
           <p className="whitespace-nowrap [font-family:var(--font-v2-highlight)] text-[clamp(3rem,5.6vw,5.65rem)] font-normal leading-[0.86] tracking-[-0.02em] text-[#cee700] lg:text-[clamp(3.7rem,6.8vw,5.65rem)]">
-            We remove it.
+            We close them.
           </p>
           <MarkerStroke className="-bottom-3 left-0 h-4 w-[96%]" />
         </div>
 
         <p className="mt-6 max-w-[420px] text-[13px] font-semibold leading-[1.55] tracking-[-0.025em] text-[#111] lg:mt-12 lg:text-[17px]">
-          We find the routines slowing your business down, replace them with proven systems, and show you exactly how much capacity you get back.
+          We find the gaps that leak revenue, hurt trust, and leave money on the table, install the systems that close them, and show you exactly how much you get back.
         </p>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center lg:mt-9 lg:gap-4">
@@ -292,9 +292,9 @@ function CapacityCard() {
 function Problems() {
   return (
     <section id="problems" className="mx-auto max-w-[1220px] px-5 py-5 sm:px-8 md:py-6 lg:py-12">
-      <SectionTitle title="You already know where time gets lost." />
+      <SectionTitle title="You already know where the gaps are." />
       <p className="mt-3 max-w-[560px] text-[15px] font-semibold leading-[1.45] tracking-[-0.035em] lg:mt-4 lg:text-[19px]">
-        It's the small repetitive work that keeps customers waiting, slows your team down, and blocks the work that actually needs people.
+        These are the gaps that leak revenue, hurt trust, and leave money on the table, while your team stays busy with work that doesn't move the business forward.
       </p>
 
       <div className="mt-6 grid gap-4 md:grid-cols-3 lg:mt-10">
@@ -469,11 +469,11 @@ function FinalCta() {
           <h2 className="[font-family:var(--font-v2-marker)] text-[clamp(3.4rem,6.2vw,6.9rem)] font-normal uppercase leading-[0.92] tracking-[0]">
             YOU ALREADY KNOW
             <br />
-            WHAT'S ANNOYING.
+            WHERE THE GAPS ARE.
           </h2>
           <div className="mt-6 h-[4px] w-[340px] max-w-full rounded-full bg-[#ff73d2]" />
           <p className="mt-10 text-[clamp(1.6rem,2.25vw,2.4rem)] font-black leading-none tracking-[-0.055em]">
-            Let's fix it.
+            Let's close them.
           </p>
         </div>
 
@@ -483,7 +483,7 @@ function FinalCta() {
               Start with the diagnostic. Talk if that is easier.
             </p>
             <p className="mt-4 max-w-[340px] text-[14px] font-black leading-[1.45] tracking-[-0.03em]">
-              Either way, the next step is the same: find the first routine worth removing.
+              Either way, the next step is the same: find the first gap worth closing.
             </p>
             <ul className="mt-6 grid gap-2 text-[12px] font-black sm:grid-cols-3 lg:grid-cols-1">
               {["No obligation", "No jargon", "A useful first answer"].map((item) => (
@@ -515,7 +515,7 @@ function Footer() {
             Sorted<span className="text-[#cfe900]">.</span>
           </p>
           <p className="mt-2 max-w-[170px] text-[12px] font-semibold leading-[1.35] text-white/80">
-            We remove repetitive work from local businesses.
+            We find the gaps that cost local businesses revenue and trust, and close them.
           </p>
           <p className="mt-5 text-[10px] font-medium text-white/55">© 2026 Sorted. All rights reserved.</p>
         </div>

@@ -1,11 +1,9 @@
 import type { Metadata } from "next"
-import type { ReactNode } from "react"
 import Link from "next/link"
 import localFont from "next/font/local"
 import {
   ArrowDownToLine,
   ArrowRight,
-  BookOpen,
   Check,
   CheckCircle2,
   Clock3,
@@ -108,13 +106,13 @@ const ecosystem = [
 const typeRows = [
   {
     name: "Display",
-    sample: "Repetitive work steals time.",
+    sample: "Your business has gaps.",
     className: "text-[clamp(3.1rem,7vw,6.8rem)] font-black leading-[0.9] tracking-[-0.05em]",
     rule: "Use once per page. Short, direct, and useful.",
   },
   {
     name: "Highlight",
-    sample: "We remove it.",
+    sample: "We close them.",
     className: "[font-family:var(--font-v2-highlight)] text-[clamp(3rem,6vw,5.6rem)] font-normal leading-[0.86] tracking-[-0.02em] text-[#cfe900]",
     rule: "Use for one emotional emphasis line, never as paragraph text.",
   },
@@ -126,7 +124,7 @@ const typeRows = [
   },
   {
     name: "Body",
-    sample: "We find the routines slowing your business down, replace them with proven systems, and measure the capacity you get back.",
+    sample: "We find the gaps that leak revenue, hurt trust, and leave money on the table, install the systems that close them, and show you exactly how much you get back.",
     className: "max-w-[58ch] text-[15px] font-semibold leading-[1.55] tracking-[-0.025em]",
     rule: "Plain English. Concrete business language. No jargon.",
   },
@@ -204,8 +202,7 @@ function Hero() {
   return (
     <section className="mx-auto grid max-w-[1240px] gap-8 px-5 pb-12 pt-8 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
       <div>
-        <p className="text-[12px] font-black uppercase tracking-[0.04em] text-black/45">United Sorted ecosystem</p>
-        <h1 className="mt-5 max-w-[800px] text-[clamp(4.1rem,9vw,8.4rem)] font-black leading-[0.88] tracking-[-0.06em]">
+        <h1 className="max-w-[800px] text-[clamp(4.1rem,9vw,8.4rem)] font-black leading-[0.88] tracking-[-0.06em]">
           One brand.
           <br />
           Every surface.
@@ -233,7 +230,7 @@ function Hero() {
 function Ecosystem() {
   return (
     <section className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8">
-      <SectionTitle index="01" title="Brand Architecture" />
+      <SectionTitle title="Brand Architecture" />
       <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         {ecosystem.map((item) => {
           const Icon = item.icon
@@ -261,7 +258,7 @@ function Ecosystem() {
 function LogoSystem() {
   return (
     <section id="logos" className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8">
-      <SectionTitle index="02" title="Logo System" />
+      <SectionTitle title="Logo System" />
       <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {logoAssets.map((asset) => (
           <LogoCard key={asset.file} asset={asset} />
@@ -310,7 +307,7 @@ function LogoCard({ asset }: { asset: (typeof logoAssets)[number] }) {
 function PaletteSystem() {
   return (
     <section id="colors" className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8">
-      <SectionTitle index="03" title="Color System" />
+      <SectionTitle title="Color System" />
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {palette.map((color) => (
           <article key={color.hex} className="overflow-hidden rounded-[14px] border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.035)]">
@@ -336,7 +333,7 @@ function PaletteSystem() {
 function TypographySystem() {
   return (
     <section id="type" className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8">
-      <SectionTitle index="04" title="Typography" />
+      <SectionTitle title="Typography" />
       <div className="mt-8 divide-y divide-black/10 overflow-hidden rounded-[18px] border border-black/10 bg-white">
         {typeRows.map((row) => (
           <article key={row.name} className="grid gap-5 p-6 lg:grid-cols-[150px_1fr_260px] lg:items-center">
@@ -353,7 +350,7 @@ function TypographySystem() {
 function ComponentSystem() {
   return (
     <section id="components" className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8">
-      <SectionTitle index="05" title="Interface System" />
+      <SectionTitle title="Interface System" />
       <div className="mt-8 grid gap-5 lg:grid-cols-[0.95fr_1.05fr]">
         <div className="rounded-[18px] border border-black/10 bg-white p-6">
           <p className="[font-family:var(--font-v2-marker)] text-[2rem] leading-none">BUTTONS, MARKS, PROOF.</p>
@@ -408,7 +405,7 @@ function CapacitySample() {
 function LayoutRules() {
   return (
     <section className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8">
-      <SectionTitle index="06" title="Layout Rules" />
+      <SectionTitle title="Layout Rules" />
       <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {layouts.map(([title, copy]) => (
           <article key={title} className="rounded-[14px] border border-black/10 bg-white p-6">
@@ -448,8 +445,7 @@ function DownloadStrip() {
       <div className="rounded-[20px] border border-black/10 bg-white p-6 sm:p-8">
         <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
           <div>
-            <SectionEyebrow icon={<BookOpen className="size-4" />} label="Asset Library" />
-            <h2 className="mt-4 text-[clamp(2.4rem,4vw,4.2rem)] font-black leading-[0.95] tracking-[-0.06em]">Download the core brand assets.</h2>
+            <h2 className="text-[clamp(2.4rem,4vw,4.2rem)] font-black leading-[0.95] tracking-[-0.06em]">Download the core brand assets.</h2>
             <p className="mt-4 text-[14px] font-semibold leading-[1.55] text-black/62">
               These assets are safe to use across the public website, dashboards, SortedUpdates, proposals, reports, and client handoff pages.
             </p>
@@ -499,23 +495,11 @@ function Footer() {
   )
 }
 
-function SectionTitle({ index, title }: { index: string; title: string }) {
+function SectionTitle({ title }: { title: string }) {
   return (
-    <div className="flex items-end gap-4">
-      <span className="font-mono text-[12px] font-black text-black/35">{index}</span>
-      <div className="relative inline-block">
-        <h2 className="[font-family:var(--font-v2-marker)] text-[clamp(2rem,3.4vw,3rem)] font-normal leading-[1.05]">{title}</h2>
-        <span className="absolute -bottom-2 left-0 h-[7px] w-[78%] rounded-full bg-[#dfff00]" />
-      </div>
+    <div className="relative inline-block">
+      <h2 className="[font-family:var(--font-v2-marker)] text-[clamp(2rem,3.4vw,3rem)] font-normal leading-[1.05]">{title}</h2>
+      <span className="absolute -bottom-2 left-0 h-[7px] w-[78%] rounded-full bg-[#dfff00]" />
     </div>
-  )
-}
-
-function SectionEyebrow({ icon, label }: { icon: ReactNode; label: string }) {
-  return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-[#fbfbfa] px-3 py-2 text-[11px] font-black uppercase tracking-[0.04em] text-black/55">
-      {icon}
-      {label}
-    </span>
   )
 }

@@ -98,7 +98,7 @@ export function TemplatedResultPage({ slug }: { slug: TemplatedResultSlug }) {
           </Link>
           <p className="text-[27px] font-semibold tracking-[-0.05em]">{result.name}</p>
           <h1 className="mt-8 max-w-full text-[clamp(3.1rem,13vw,6.8rem)] font-black leading-[0.92] tracking-[-0.04em] sm:max-w-[680px]">
-            Repetitive work removed!
+            Gap closed!
             <br />
             <MarkerText className="block text-[clamp(2.75rem,12vw,5.55rem)]">What changed?</MarkerText>
           </h1>
@@ -112,7 +112,7 @@ export function TemplatedResultPage({ slug }: { slug: TemplatedResultSlug }) {
         <aside className="min-w-0 max-w-[calc(100vw-2.5rem)] rounded-[22px] bg-[#f7efe3] p-6 shadow-[0_22px_55px_rgba(20,14,8,0.13)] sm:max-w-none sm:p-8">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-[13px] font-black text-black/55">Routine removed</p>
+              <p className="text-[13px] font-black text-black/55">Gap closed</p>
               <h2 className="mt-5 max-w-[360px] text-[42px] font-black leading-[1.05] tracking-[-0.06em]">{result.routine}</h2>
             </div>
             <span className="grid size-16 place-items-center rounded-full bg-[#dfff00]">
@@ -140,18 +140,18 @@ export function TemplatedResultPage({ slug }: { slug: TemplatedResultSlug }) {
 
       <section className="mx-auto max-w-[1220px] px-5 py-6 sm:px-8">
         <div className="grid overflow-hidden rounded-[18px] border border-black/10 bg-white lg:grid-cols-4">
-          <ResultColumn icon={Clock3} label="Before" title="The impact of the routine." copy="This routine stole time and created friction before it was replaced.">
+          <ResultColumn icon={Clock3} label="Before" title="The impact of the gap." copy="This gap leaked time and trust before it was closed.">
             {details.comparison.map(([label, before, , Icon]) => (
               <Metric key={label} icon={Icon} label={label} value={before} />
             ))}
           </ResultColumn>
-          <ResultColumn icon={MessageCircle} label="The routine" title="The repetitive work we found." copy="A repeatable process that kept needing human attention.">
+          <ResultColumn icon={MessageCircle} label="The gap" title="The gap we found." copy="A gap that kept leaking time and trust.">
             <CheckListBlock items={details.routineSteps} />
           </ResultColumn>
-          <ResultColumn icon={BarChart3} label="What we changed" title="The operational capability we built." copy="The routine was replaced with a cleaner operating rhythm.">
+          <ResultColumn icon={BarChart3} label="What we changed" title="The operational capability we built." copy="The gap was closed with a cleaner operating rhythm.">
             <CheckListBlock items={details.changedSteps} good />
           </ResultColumn>
-          <ResultColumn icon={Star} label="What changed" title="The impact after removal." copy="The result became easier to see, repeat and improve.">
+          <ResultColumn icon={Star} label="What changed" title="The impact after closing." copy="The result became easier to see, repeat and improve.">
             {details.comparison.map(([label, , after, Icon, delta]) => (
               <Metric key={label} icon={Icon} label={label} value={after} delta={delta} />
             ))}
@@ -164,7 +164,7 @@ export function TemplatedResultPage({ slug }: { slug: TemplatedResultSlug }) {
           <div className="flex items-center gap-6">
             <BarChart3 className="size-16 text-[#dfff00]" strokeWidth={2.4} />
             <p className="text-[31px] font-black leading-[1.05] tracking-[-0.05em]">
-              Less repetitive work.
+              Fewer gaps.
               <br />
               More capacity.
               <br />

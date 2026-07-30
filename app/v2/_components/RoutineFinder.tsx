@@ -67,25 +67,25 @@ const steps: Step[] = [
 
 const recommendations = {
   enquiry: {
-    label: "Enquiry follow-up",
+    label: "Follow, the enquiry system",
     summary: "Nobody consistently owns what happens after an enquiry arrives.",
     impact: ["Faster replies", "Less chasing", "Clearer ownership", "More enquiries converted"],
-    href: "/ops/problems/we-lose-customers",
+    href: "/ops/systems/enquiry-follow-up",
   },
   admin: {
-    label: "Admin routine replacement",
-    summary: "The first opportunity is repetitive internal work that keeps pulling people away from customers.",
+    label: "An admin system",
+    summary: "The first opportunity is the internal work that keeps pulling people away from customers.",
     impact: ["Fewer copied updates", "Cleaner handoffs", "Less duplicated work", "More time returned"],
     href: "/ops/how-it-works",
   },
   reviews: {
-    label: "Review collection",
+    label: "Reviews, the trust system",
     summary: "You already have happy customers, but the request is not happening consistently enough.",
     impact: ["More review requests", "Better timing", "Less manual asking", "Stronger local proof"],
     href: "/ops/problems-we-solve",
   },
   response: {
-    label: "Customer response system",
+    label: "A customer response system",
     summary: "The same questions are being answered manually when the first response could be systemised.",
     impact: ["Quicker answers", "Less interruption", "More consistent replies", "Better customer experience"],
     href: "/ops/problems/we-lose-customers",
@@ -249,15 +249,15 @@ function QuestionStep({ step, value, onChoose }: { step: Step; value?: string; o
 
 function LoadingStep({ answers }: { answers: Partial<Record<StepKey, string>> }) {
   const observations = [
-    answers.industry ? `${answers.industry} businesses usually lose time in handoffs.` : "Looking at the business type.",
-    answers.frustration ? answers.frustration : "Checking the routine pattern.",
-    answers.owner === "Nobody consistently" ? "Ownership looks like the first weak point." : "Checking who owns the routine.",
+    answers.industry ? `${answers.industry} businesses usually leak revenue in handoffs.` : "Looking at the business type.",
+    answers.frustration ? answers.frustration : "Checking where it's leaking.",
+    answers.owner === "Nobody consistently" ? "Ownership looks like the first weak point." : "Checking who owns the gap.",
   ]
 
   return (
     <section className="mx-auto max-w-[760px] text-center">
       <Loader2 className="mx-auto size-12 animate-spin text-[#acc500]" strokeWidth={2.6} />
-      <h2 className="mt-7 [font-family:var(--font-v2-marker)] text-[clamp(3.2rem,7vw,6.8rem)] uppercase leading-[0.92]">Looking for routines...</h2>
+      <h2 className="mt-7 [font-family:var(--font-v2-marker)] text-[clamp(3.2rem,7vw,6.8rem)] uppercase leading-[0.92]">Looking for the gaps...</h2>
       <div className="mx-auto mt-8 grid max-w-[560px] gap-3">
         {observations.map((item) => (
           <p key={item} className="rounded-full bg-white px-5 py-3 text-[13px] font-black shadow-[0_12px_32px_rgba(0,0,0,0.05)]">
@@ -287,7 +287,7 @@ function ResultStep({
         </h2>
         <div className="mt-6 h-[4px] w-80 max-w-full rounded-full bg-[#ff73d2]" />
         <p className="mt-7 max-w-[520px] text-[16px] font-bold leading-[1.55] tracking-[-0.03em]">
-          Based on what you told us, the first routine worth reviewing is probably <span className="bg-[#dfff00] px-1 font-black">{recommendation.label}</span>.
+          Based on what you told us, the first system worth installing is probably <span className="bg-[#dfff00] px-1 font-black">{recommendation.label}</span>.
         </p>
       </div>
 
@@ -333,7 +333,7 @@ function ResultStep({
 
         <p className="mt-4 flex items-center gap-2 text-[11px] font-black text-black/55">
           <MessageCircle className="size-4" strokeWidth={2.5} />
-          No obligation. No jargon. Just the first routine worth looking at.
+          No obligation. No jargon. Just the right first system.
         </p>
       </div>
     </section>

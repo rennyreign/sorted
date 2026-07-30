@@ -7,12 +7,12 @@ import { RoutineFinderButton } from "../_components/RoutineFinder"
 
 export const metadata: Metadata = {
   title: "Pricing | Sorted V2",
-  description: "Two ways to work with Sorted: remove one routine or become an operational partner.",
+  description: "Two ways to work with Sorted: install one system or become an operational partner.",
 }
 
 const includes = [
-  [Search, "Routine identification", "We find the routines costing you the most."],
-  [Wrench, "Capability implementation", "We build, test and integrate the replacement."],
+  [Search, "Gap identification", "We find the gaps costing you the most."],
+  [Wrench, "System installation", "We install, test and integrate the system."],
   [BarChart3, "Performance dashboard", "You see the impact in real time."],
   [UsersRound, "Team enablement", "We train your team and hand over."],
   [ShieldCheck, "Ongoing support", "We are here when you need us."],
@@ -46,21 +46,21 @@ export default function PricingPage() {
         <PricingCard
           icon={Target}
           option="Option 1"
-          title="Remove One Routine"
-          subtitle="Solve one repetitive problem."
-          copy="A focused, one-off engagement to identify and remove one routine that is costing you time and customers."
+          title="Install One System"
+          subtitle="Close your biggest gap."
+          copy="A focused, one-off engagement to identify the gap costing you most and install the system that closes it."
           items={["A fast, targeted solution", "To see how Sorted works", "Immediate impact"]}
           price={<GeoPrice amount={2500} />}
-          suffix="One-off implementation"
-          button="Remove my first routine"
+          suffix="One-off installation"
+          button="Install my first system"
         />
         <PricingCard
           icon={TrendingUp}
           option="Option 2"
           title="Operational Partner"
           subtitle="Continuously improve performance."
-          copy="We continuously identify, remove and improve repetitive work across your business."
-          items={["Ongoing operational improvement", "Multiple routines removed over time", "Measurable performance every month", "A long-term partner in their growth"]}
+          copy="We continuously find and close the gaps leaking revenue, trust, and time across your business."
+          items={["Ongoing operational improvement", "More systems installed over time", "Measurable performance every month", "A long-term partner in their growth"]}
           price={<GeoPrice amount={750} />}
           suffix="Per month"
           button="Become an operational partner"
@@ -73,7 +73,7 @@ export default function PricingPage() {
           <SectionTitle title="Which option is right for you?" />
           <div className="grid gap-5 md:grid-cols-3">
             <Compare title="If you..." items={["Have one specific problem to solve", "Want continuous improvement across your business"]} />
-            <Compare title="Choose..." items={["Remove One Routine", "Operational Partner"]} strong />
+            <Compare title="Choose..." items={["Install One System", "Operational Partner"]} strong />
             <Compare title="Why" items={["Focused engagement. Fast results.", "Compounding value. Greater long-term impact."]} />
           </div>
         </div>
@@ -97,7 +97,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <CtaBand title="Not sure where to start?" copy="Start the diagnostic and we will recommend the best way to solve the routine costing you most." />
+      <CtaBand title="Not sure where to start?" copy="Start the diagnostic and we will recommend the best system to close the gap costing you most." />
       <V2Footer />
     </V2Page>
   )

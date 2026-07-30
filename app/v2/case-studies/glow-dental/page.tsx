@@ -4,7 +4,7 @@ import { CheckList, CtaBand, SectionTitle, V2Footer, V2Header, V2Page } from "..
 
 export const metadata: Metadata = {
   title: "Glow Dental Case Study | Sorted V2",
-  description: "How Glow Dental recovered 63 enquiries every month by replacing an inconsistent follow-up routine.",
+  description: "How Glow Dental recovered 63 enquiries every month by closing the gap in their follow-up.",
 }
 
 export default function GlowDentalCaseStudyPage() {
@@ -13,8 +13,7 @@ export default function GlowDentalCaseStudyPage() {
       <div className="grid lg:grid-cols-[220px_1fr]">
         <aside className="hidden border-r border-black/10 px-7 py-8 lg:block">
           <a href="/ops" className="inline-flex min-h-11 items-center text-[27px] font-extrabold tracking-[-0.06em]">Sorted<span className="text-[#cfe900]">.</span></a>
-          <p className="mt-14 text-[12px] font-black uppercase">Case study</p>
-          <nav className="mt-6 space-y-3 text-[12px] font-bold">
+          <nav className="mt-14 space-y-3 text-[12px] font-bold">
             {["Overview", "The challenge", "The diagnosis", "The solution", "The results", "What they say", "Details"].map((item, index) => (
               <a key={item} href={`#case-${index + 1}`} className={`flex gap-4 rounded-lg px-3 py-3 ${index === 0 ? "bg-[#e7ff1e]" : ""}`}>
                 <span>{String(index + 1).padStart(2, "0")}</span>{item}
@@ -35,7 +34,6 @@ export default function GlowDentalCaseStudyPage() {
           <V2Header active="results" />
           <section id="case-1" className="mx-auto grid max-w-[1120px] gap-8 px-5 py-8 sm:px-8 md:grid-cols-[0.9fr_1.1fr]">
             <div>
-              <p className="mb-3 inline-block bg-[#dfff00] px-2 py-1 text-[11px] font-black uppercase">Case study</p>
               <h1 className="text-[clamp(3.2rem,6vw,5.6rem)] font-black leading-[0.92] tracking-[-0.055em]">How Glow Dental Recovered 63 Enquiries Every Month</h1>
               <div className="mt-5 h-[5px] w-56 rounded-full bg-[#dfff00]" />
               <p className="mt-7 max-w-[520px] text-[17px] font-semibold leading-[1.55] tracking-[-0.03em]">
@@ -132,7 +130,7 @@ export default function GlowDentalCaseStudyPage() {
                 <article key={item} className="text-center">
                   <Check className="mx-auto size-9" />
                   <h3 className="mt-4 text-[15px] font-black">{item}</h3>
-                  <p className="mt-2 text-[12px] font-semibold leading-[1.4] text-black/60">The system handles the repetitive part so the team can focus on care.</p>
+                  <p className="mt-2 text-[12px] font-semibold leading-[1.4] text-black/60">The system closes the gap so the team can focus on care.</p>
                 </article>
               ))}
             </div>
@@ -146,7 +144,7 @@ export default function GlowDentalCaseStudyPage() {
             </div>
           </CaseSection>
 
-          <CtaBand title="What could we recover in your business?" copy="Show us one routine that is frustrating you and we will show you what could change." />
+          <CtaBand title="What could we recover in your business?" copy="Show us one gap that is frustrating you and we will show you what could change." />
           <V2Footer />
         </main>
       </div>

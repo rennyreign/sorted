@@ -66,7 +66,7 @@ export default function DentalPracticesPage() {
       </section>
 
       <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
-        <SectionTitle title="We fix the routines that cost dental practices every day." center />
+        <SectionTitle title="We close the gaps that cost dental practices every day." center />
         <div className="mt-10 grid gap-4 md:grid-cols-6">
           {routines.map(([title, Icon, copy]) => {
             const RealIcon = Icon as typeof Phone
@@ -87,7 +87,6 @@ export default function DentalPracticesPage() {
       <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
         <div className="grid gap-8 rounded-[18px] bg-[#070707] p-7 text-white md:grid-cols-[0.9fr_0.5fr_1.1fr] md:items-center">
           <div>
-            <p className="mb-3 inline-block bg-[#dfff00] px-2 py-1 text-[11px] font-black uppercase text-black">Case study</p>
             <h2 className="text-[36px] font-black leading-[1.05] tracking-[-0.06em]">How Glow Dental recovered 63 enquiries every month.</h2>
             <p className="mt-5 text-[15px] font-semibold leading-[1.5] text-white/75">A 3-chair practice. No marketing change. Just a better system behind the scenes.</p>
             <a href="/ops/case-studies/glow-dental" className="mt-7 inline-flex h-12 items-center gap-4 rounded-full bg-[#dfff00] px-6 text-[12px] font-black text-black">Read the full case study</a>
@@ -108,9 +107,8 @@ export default function DentalPracticesPage() {
       <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
         <div className="grid gap-6 rounded-[18px] bg-[#f4f3ef] p-7 md:grid-cols-[0.28fr_0.72fr] md:items-center">
           <div>
-            <p className="mb-2 inline-block bg-[#dfff00] px-2 py-1 text-[11px] font-black uppercase">Example review</p>
             <h2 className="text-[36px] font-black leading-[1.05] tracking-[-0.06em]">See what a review looks like.</h2>
-            <p className="mt-5 text-[14px] font-semibold leading-[1.5]">We analyse one routine, identify the friction, and show you what a better version looks like.</p>
+            <p className="mt-5 text-[14px] font-semibold leading-[1.5]">We analyse one gap, identify what it's costing you, and show you what a better version looks like.</p>
             <a href="/ops/reviews/glow-dental" className="mt-6 inline-flex h-11 items-center gap-4 rounded-full bg-[#070707] px-5 text-[11px] font-black text-white">View an example review</a>
           </div>
           <div className="grid gap-4 md:grid-cols-4">
@@ -127,7 +125,7 @@ export default function DentalPracticesPage() {
       <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
         <SectionTitle title="What to expect" center />
         <div className="mt-8 grid gap-4 md:grid-cols-[repeat(5,1fr)_0.9fr]">
-          {["Tell us about one frustrating routine.", "We review how it works today.", "We recommend the best replacement.", "We show you a working demo.", "You decide what is worth doing."].map((step, index) => (
+          {["Tell us about one frustrating gap.", "We review how it works today.", "We recommend the best fix.", "We show you a working demo.", "You decide what is worth doing."].map((step, index) => (
             <article key={step} className="relative rounded-[14px] border border-black/10 bg-white p-5">
               <span className="absolute -top-3 left-5 grid size-7 place-items-center rounded-full bg-[#dfff00] text-[12px] font-black">{index + 1}</span>
               <p className="mt-5 text-[13px] font-black leading-[1.35]">{step}</p>
@@ -140,7 +138,7 @@ export default function DentalPracticesPage() {
         </div>
       </section>
 
-      <CtaBand title="Let's find the routine costing your practice time." copy="Show us where patients are slipping through and we will show you what can change." />
+      <CtaBand title="Let's find the gap costing your practice patients." copy="Show us where patients are slipping through and we will show you what can change." />
       <V2Footer />
     </V2Page>
   )
