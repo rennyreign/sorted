@@ -14,7 +14,7 @@ export default function DiagnosticReviewPage() {
     <V2Page>
       <div className="grid min-h-screen lg:grid-cols-[235px_1fr]">
         <aside className="hidden border-r border-black/10 bg-[#fbfbfa] px-7 py-8 lg:block">
-          <a href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">Sorted<span className="[font-family:var(--font-v2-bakeshop)] text-[#cfe900]">.ops</span></a>
+          <a href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-v2-bakeshop)] text-[#cfe900]">ops</span></a>
           <p className="mt-14 text-[16px] font-bold">Glow Dental</p>
           <nav className="mt-8 space-y-2">
             {contents.map((item, index) => (
@@ -45,7 +45,7 @@ export default function DiagnosticReviewPage() {
               <p className="mt-8 text-[12px] font-black">DATE: <span className="ml-8">12 May 2025</span></p>
               <p className="mt-3 text-[12px] font-black">PREPARED BY: <span className="ml-8">Sorted.</span></p>
             </div>
-            <a href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">Sorted<span className="[font-family:var(--font-v2-bakeshop)] text-[#cfe900]">.ops</span></a>
+            <a href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-v2-bakeshop)] text-[#cfe900]">ops</span></a>
           </header>
 
           <section className="grid gap-5 border-b border-black/10 px-6 py-8 sm:px-10 lg:grid-cols-[0.5fr_0.9fr_0.9fr_0.8fr]">
