@@ -23,10 +23,16 @@ export const sitesFaveScript = localFont({
   display: "swap",
 })
 
+export const sitesBakeshop = localFont({
+  src: "../../../public/fonts/Bakeshop-Regular.ttf",
+  variable: "--font-sites-bakeshop",
+  display: "swap",
+})
+
 export const accent = "#dfff00"
 
 export function SitesPage({ children }: { children: ReactNode }) {
-  return <main className={`${sitesMarker.variable} ${sitesHighlight.variable} ${sitesFaveScript.variable} sorted-sites-shell min-h-screen bg-[#fbfbfa] pt-[76px] text-[#070707]`}>{children}</main>
+  return <main className={`${sitesMarker.variable} ${sitesHighlight.variable} ${sitesFaveScript.variable} ${sitesBakeshop.variable} sorted-sites-shell min-h-screen bg-[#fbfbfa] pt-[76px] text-[#070707]`}>{children}</main>
 }
 
 export function SitesHeader({ active }: { active?: "how" | "examples" | "pricing" | "about" | "updates" }) {
@@ -83,8 +89,9 @@ function FooterLinks({ title, links }: { title: string; links: [string, string][
 
 export function Logo({ dark = false }: { dark?: boolean }) {
   return (
-    <span className={`inline-flex items-center text-[32px] font-black leading-none tracking-[-0.045em] ${dark ? "text-white" : "text-[#070707]"}`}>
-      Sorted<span className="text-[#cfe900]">.</span>
+    <span
+      className={`inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px] ${dark ? "text-white" : "text-[#070707]"}`}>
+      Sorted<span className="[font-family:var(--font-sites-bakeshop)] text-[#cfe900]">.sites</span>
     </span>
   )
 }

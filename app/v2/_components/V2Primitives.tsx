@@ -16,10 +16,16 @@ export const v2Highlight = localFont({
   display: "swap",
 })
 
+export const v2Bakeshop = localFont({
+  src: "../../../public/fonts/Bakeshop-Regular.ttf",
+  variable: "--font-v2-bakeshop",
+  display: "swap",
+})
+
 export const accent = "#dfff00"
 
 export function V2Page({ children }: { children: ReactNode }) {
-  return <main className={`${v2Marker.variable} ${v2Highlight.variable} min-h-screen overflow-hidden bg-[#fbfbfa] text-[#070707]`}>{children}</main>
+  return <main className={`${v2Marker.variable} ${v2Highlight.variable} ${v2Bakeshop.variable} min-h-screen overflow-hidden bg-[#fbfbfa] text-[#070707]`}>{children}</main>
 }
 
 export function V2Header({ active }: { active?: "how" | "problems" | "results" | "about" | "pricing" }) {
@@ -34,7 +40,7 @@ export function V2Header({ active }: { active?: "how" | "problems" | "results" |
   return (
     <header className="mx-auto flex w-full max-w-[1220px] items-center justify-between px-5 pb-6 pt-6 sm:px-8">
       <Link href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
-        Sorted<span className="text-[#cfe900]">.</span>
+        Sorted<span className="[font-family:var(--font-v2-bakeshop)] text-[#cfe900]">.ops</span>
       </Link>
       <nav className="hidden items-center gap-8 text-[12px] font-extrabold tracking-[-0.02em] md:flex">
         {links.map((link) => (
@@ -60,7 +66,7 @@ export function V2Footer() {
       <div className="mx-auto grid max-w-[1220px] gap-7 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <p className="text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
-            Sorted<span className="text-[#cfe900]">.</span>
+            Sorted<span className="[font-family:var(--font-v2-bakeshop)] text-[#cfe900]">.ops</span>
           </p>
           <p className="mt-2 max-w-[180px] text-[12px] font-semibold leading-[1.35] text-white/80">
             We find the gaps that cost local businesses revenue and trust, and close them.

@@ -12,7 +12,7 @@ export default function GlowDentalCaseStudyPage() {
     <V2Page>
       <div className="grid lg:grid-cols-[220px_1fr]">
         <aside className="hidden border-r border-black/10 px-7 py-8 lg:block">
-          <a href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">Sorted<span className="text-[#cfe900]">.</span></a>
+          <a href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">Sorted<span className="[font-family:var(--font-v2-bakeshop)] text-[#cfe900]">.ops</span></a>
           <nav className="mt-14 space-y-3 text-[12px] font-bold">
             {["Overview", "The challenge", "The diagnosis", "The solution", "The results", "What they say", "Details"].map((item, index) => (
               <a key={item} href={`#case-${index + 1}`} className={`flex gap-4 rounded-lg px-3 py-3 ${index === 0 ? "bg-[#e7ff1e]" : ""}`}>

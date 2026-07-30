@@ -33,6 +33,12 @@ const highlight = localFont({
   display: "swap",
 })
 
+const bakeshop = localFont({
+  src: "../../../public/fonts/Bakeshop-Regular.ttf",
+  variable: "--font-v2-bakeshop",
+  display: "swap",
+})
+
 export const metadata: Metadata = {
   title: "Sorted Brand System",
   description: "The unified brand system for Sorted, SortedUpdates, dashboards, reports, proposals, and client delivery.",
@@ -158,7 +164,7 @@ const voice = [
 
 export default function SortedBrandPage() {
   return (
-    <main className={`${marker.variable} ${highlight.variable} min-h-screen bg-[#fbfbfa] text-[#070707]`}>
+    <main className={`${marker.variable} ${highlight.variable} ${bakeshop.variable} min-h-screen bg-[#fbfbfa] text-[#070707]`}>
       <BrandHeader />
       <Hero />
       <Ecosystem />
@@ -178,7 +184,7 @@ function BrandHeader() {
   return (
     <header className="mx-auto flex w-full max-w-[1240px] items-center justify-between gap-4 px-5 py-5 sm:px-8">
       <Link href="/v2" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
-        Sorted<span className="text-[#cfe900]">.</span>
+        Sorted<span className="[font-family:var(--font-v2-bakeshop)] text-[#cfe900]">.ops</span>
       </Link>
       <nav className="hidden items-center gap-7 text-[12px] font-extrabold tracking-[-0.02em] lg:flex">
         <a className="inline-flex min-h-11 items-center px-2" href="#logos">Logos</a>

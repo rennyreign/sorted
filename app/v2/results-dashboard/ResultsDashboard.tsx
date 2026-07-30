@@ -20,7 +20,7 @@ import {
   Star,
   UsersRound,
 } from "lucide-react"
-import { v2Highlight, v2Marker } from "../_components/V2Primitives"
+import { v2Bakeshop, v2Highlight, v2Marker } from "../_components/V2Primitives"
 
 const ranges = [
   {
@@ -123,11 +123,11 @@ export function ResultsDashboard() {
   const [pageTitle, pageDescription] = pageCopy[activeNav]
 
   return (
-    <main className={`${v2Marker.variable} ${v2Highlight.variable} min-h-screen overflow-x-hidden bg-[#fbfbfa] text-[#070707]`}>
+    <main className={`${v2Marker.variable} ${v2Highlight.variable} ${v2Bakeshop.variable} min-h-screen overflow-x-hidden bg-[#fbfbfa] text-[#070707]`}>
       <div className="grid min-h-screen min-w-0 lg:grid-cols-[236px_1fr]">
         <aside className="flex min-w-0 flex-col overflow-x-hidden overflow-y-auto bg-[#070707] px-5 py-6 text-white lg:sticky lg:top-0 lg:h-screen">
           <a href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]" aria-label="Sorted V2 home">
-            Sorted<span className="text-[#cfe900]">.</span>
+            Sorted<span className="[font-family:var(--font-v2-bakeshop)] text-[#cfe900]">.ops</span>
           </a>
 
           <nav className="mt-8 grid max-w-full grid-cols-2 gap-2 pb-2 sm:grid-cols-3 lg:grid-cols-1 lg:gap-2.5 lg:pb-0">

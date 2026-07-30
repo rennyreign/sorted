@@ -30,6 +30,12 @@ const v2Highlight = localFont({
   display: "swap",
 })
 
+const v2Bakeshop = localFont({
+  src: "../../public/fonts/Bakeshop-Regular.ttf",
+  variable: "--font-v2-bakeshop",
+  display: "swap",
+})
+
 export const metadata: Metadata = {
   title: "Sorted. Your business has gaps. We close them.",
   description:
@@ -148,7 +154,7 @@ const testimonials = [
 
 export default function SortedV2Page() {
   return (
-    <main className={`${v2Marker.variable} ${v2Highlight.variable} min-h-screen overflow-hidden bg-[#fbfbfa] text-[#080808]`}>
+    <main className={`${v2Marker.variable} ${v2Highlight.variable} ${v2Bakeshop.variable} min-h-screen overflow-hidden bg-[#fbfbfa] text-[#080808]`}>
       <Header />
       <Hero />
       <Problems />
@@ -166,7 +172,7 @@ function Header() {
   return (
     <header className="mx-auto flex w-full max-w-[1220px] items-center justify-between px-5 pb-5 pt-6 sm:px-8 md:pb-6">
       <Link href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
-        Sorted<span className="text-[#cfe900]">.</span>
+        Sorted<span className="[font-family:var(--font-v2-bakeshop)] text-[#cfe900]">.ops</span>
       </Link>
 
       <nav className="hidden items-center gap-8 text-[12px] font-extrabold tracking-[-0.02em] md:flex lg:gap-10 lg:text-[13px]">
@@ -512,7 +518,7 @@ function Footer() {
       <div className="mx-auto grid max-w-[1220px] gap-6 md:grid-cols-[1.4fr_1fr_1fr_1fr] lg:gap-8">
         <div>
           <p className="text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
-            Sorted<span className="text-[#cfe900]">.</span>
+            Sorted<span className="[font-family:var(--font-v2-bakeshop)] text-[#cfe900]">.ops</span>
           </p>
           <p className="mt-2 max-w-[170px] text-[12px] font-semibold leading-[1.35] text-white/80">
             We find the gaps that cost local businesses revenue and trust, and close them.
