@@ -165,7 +165,7 @@ export default function SortedV2Page() {
 function Header() {
   return (
     <header className="mx-auto flex w-full max-w-[1220px] items-center justify-between px-5 pb-5 pt-6 sm:px-8 md:pb-6">
-      <Link href="/ops" className="inline-flex min-h-11 items-center text-[27px] font-extrabold leading-none tracking-[-0.06em]">
+      <Link href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
         Sorted<span className="text-[#cfe900]">.</span>
       </Link>
 
@@ -511,7 +511,7 @@ function Footer() {
     <footer className="bg-[#070707] px-5 py-6 text-white sm:px-8 lg:py-7">
       <div className="mx-auto grid max-w-[1220px] gap-6 md:grid-cols-[1.4fr_1fr_1fr_1fr] lg:gap-8">
         <div>
-          <p className="text-[27px] font-extrabold leading-none tracking-[-0.06em]">
+          <p className="text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
             Sorted<span className="text-[#cfe900]">.</span>
           </p>
           <p className="mt-2 max-w-[170px] text-[12px] font-semibold leading-[1.35] text-white/80">

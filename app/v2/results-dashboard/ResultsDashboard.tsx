@@ -126,7 +126,7 @@ export function ResultsDashboard() {
     <main className={`${v2Marker.variable} ${v2Highlight.variable} min-h-screen overflow-x-hidden bg-[#fbfbfa] text-[#070707]`}>
       <div className="grid min-h-screen min-w-0 lg:grid-cols-[236px_1fr]">
         <aside className="flex min-w-0 flex-col overflow-x-hidden overflow-y-auto bg-[#070707] px-5 py-6 text-white lg:sticky lg:top-0 lg:h-screen">
-          <a href="/ops" className="inline-flex min-h-11 items-center text-[30px] font-extrabold leading-none tracking-[-0.06em]" aria-label="Sorted V2 home">
+          <a href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]" aria-label="Sorted V2 home">
             Sorted<span className="text-[#cfe900]">.</span>
           </a>
 

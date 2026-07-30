@@ -33,7 +33,7 @@ export function V2Header({ active }: { active?: "how" | "problems" | "results" |
 
   return (
     <header className="mx-auto flex w-full max-w-[1220px] items-center justify-between px-5 pb-6 pt-6 sm:px-8">
-      <Link href="/ops" className="inline-flex min-h-11 items-center text-[27px] font-extrabold leading-none tracking-[-0.06em]">
+      <Link href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
         Sorted<span className="text-[#cfe900]">.</span>
       </Link>
       <nav className="hidden items-center gap-8 text-[12px] font-extrabold tracking-[-0.02em] md:flex">
@@ -59,7 +59,7 @@ export function V2Footer() {
     <footer className="bg-[#070707] px-5 py-7 text-white sm:px-8">
       <div className="mx-auto grid max-w-[1220px] gap-7 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
-          <p className="text-[27px] font-extrabold leading-none tracking-[-0.06em]">
+          <p className="text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
             Sorted<span className="text-[#cfe900]">.</span>
           </p>
           <p className="mt-2 max-w-[180px] text-[12px] font-semibold leading-[1.35] text-white/80">
