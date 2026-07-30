@@ -294,7 +294,7 @@ function Problems() {
     <section id="problems" className="mx-auto max-w-[1220px] px-5 py-5 sm:px-8 md:py-6 lg:py-12">
       <SectionTitle title="You already know where the gaps are." />
       <p className="mt-3 max-w-[560px] text-[15px] font-semibold leading-[1.45] tracking-[-0.035em] lg:mt-4 lg:text-[19px]">
-        These are the gaps that leak revenue, hurt trust, and leave money on the table, while your team stays busy with work that doesn't move the business forward.
+        They cost you customers, time, and trust — every single day.
       </p>
 
       <div className="mt-6 grid gap-4 md:grid-cols-3 lg:mt-10">
