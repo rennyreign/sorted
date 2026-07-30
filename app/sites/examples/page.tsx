@@ -4,6 +4,12 @@ import { MockupButton } from "../_components/SitesMockupModal"
 import { SitesFooter, SitesHeader, SitesPage, Underline } from "../_components/SitesPrimitives"
 import { ExamplesGallery } from "./ExamplesGallery"
 import { ExamplesCaseStudyRail } from "./ExamplesCaseStudyRail"
+import { fetchExamples } from "./data"
+
+// Note: with NEXT_BUILD_STATIC=true the page is fully static. This revalidate
+// value is respected by the dev/Node server, but for production the site must
+// be rebuilt daily (e.g. via a scheduled GitHub Actions run) to refresh data.
+export const revalidate = 86400
 
 export const metadata: Metadata = {
   title: "Examples | Sorted",
@@ -13,12 +19,6 @@ export const metadata: Metadata = {
   },
 }
 
-const metrics = [
-  [Activity, "482", "Mockups created this month"],
-  [Sparkles, "+7", "New mockups today"],
-  [Calendar, "12m ago", "Last mockup generated"],
-] as const
-
 const processSteps = [
   [Edit3, "We build a mockup", "A free, custom design made for your business."],
   [Eye, "You review it", "See exactly what you are getting."],
@@ -26,7 +26,15 @@ const processSteps = [
   [Rocket, "We build & launch", "We build your website and get you live."],
 ] as const
 
-export default function ExamplesPage() {
+export default async function ExamplesPage() {
+  const { mockups, metrics: exampleMetrics } = await fetchExamples()
+
+  const metrics = [
+    [Activity, String(exampleMetrics.total), "Mockups created this month"],
+    [Sparkles, `+${exampleMetrics.today}`, "New mockups today"],
+    [Calendar, exampleMetrics.lastCreatedAgo, "Last mockup generated"],
+  ] as const
+
   return (
     <SitesPage>
       <SitesHeader active="examples" />
@@ -86,7 +94,7 @@ export default function ExamplesPage() {
         <ExamplesCaseStudyRail />
       </section>
 
-      <ExamplesGallery />
+      <ExamplesGallery mockups={mockups} totalCount={exampleMetrics.total} />
 
       <section className="bg-white px-5 py-8 sm:px-8">
         <div className="mx-auto grid max-w-[1220px] gap-8 lg:grid-cols-[0.28fr_0.72fr] lg:items-center">
