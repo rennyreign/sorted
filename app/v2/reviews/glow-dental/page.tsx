@@ -24,7 +24,13 @@ export default function DiagnosticReviewPage() {
               </a>
             ))}
           </nav>
-          <div className="mt-16 rounded-[14px] border border-black/10 bg-white p-5">
+          <a
+            href="/ops/results-dashboard"
+            className="mt-10 inline-flex h-12 w-full items-center justify-center gap-3 rounded-full bg-[#dfff00] px-5 text-[12px] font-black text-black"
+          >
+            View example dashboard <ArrowRight className="size-4" strokeWidth={3} />
+          </a>
+          <div className="mt-6 rounded-[14px] border border-black/10 bg-white p-5">
             <p className="text-[12px] font-semibold leading-[1.45] text-black/60">We are here to help you understand it.</p>
             <p className="mt-5 text-[12px] font-black">WhatsApp us</p>
             <p className="mt-3 text-[12px] font-black">hello@sorted.ai</p>
