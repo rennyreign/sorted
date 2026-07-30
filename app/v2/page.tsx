@@ -33,7 +33,7 @@ const v2Highlight = localFont({
 export const metadata: Metadata = {
   title: "Sorted. Repetitive work steals time. We remove it.",
   description:
-    "Sorted finds the routines slowing your business down, replaces them with proven systems, and shows exactly how much capacity you get back.",
+    "Sorted finds the routines slowing your business down, installs the systems that remove them, and shows exactly how much capacity you get back.",
 }
 
 const accent = "#dfff00"
@@ -61,13 +61,13 @@ const problems = [
 
 const steps = [
   {
-    title: "We look for repetitive work.",
+    title: "We inspect the routine.",
     copy: "We review your business to find the routines slowing it down.",
     icon: Search,
   },
   {
-    title: "We replace the first routine worth fixing.",
-    copy: "We install a proven system that removes it. No unnecessary software. No disruption.",
+    title: "We install the system.",
+    copy: "We install a proven system that removes the routine. No unnecessary software. No disruption.",
     icon: SettingsIcon,
   },
   {
@@ -76,8 +76,8 @@ const steps = [
     icon: BarChart3,
   },
   {
-    title: "We repeat.",
-    copy: "Businesses change. New routines appear. We keep removing them.",
+    title: "We improve.",
+    copy: "Businesses change. New constraints appear. We keep installing better systems.",
     icon: RefreshCw,
   },
 ]
@@ -214,7 +214,7 @@ function Hero() {
         </div>
 
         <p className="mt-6 max-w-[420px] text-[13px] font-semibold leading-[1.55] tracking-[-0.025em] text-[#111] lg:mt-12 lg:text-[17px]">
-          We find the routines slowing your business down, replace them with proven systems, and show you exactly how much capacity you get back.
+          We find the routines slowing your business down, install the systems that remove them, and show you exactly how much capacity you get back.
         </p>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center lg:mt-9 lg:gap-4">
@@ -467,9 +467,9 @@ function FinalCta() {
       <div className="relative grid gap-8 overflow-hidden rounded-[28px] bg-[#e7ff1e] px-8 py-10 shadow-[0_18px_45px_rgba(170,190,0,0.16)] md:grid-cols-[0.88fr_1.12fr] md:items-center md:px-12 lg:px-16 lg:py-14">
         <div>
           <h2 className="[font-family:var(--font-v2-marker)] text-[clamp(3.4rem,6.2vw,6.9rem)] font-normal uppercase leading-[0.92] tracking-[0]">
-            YOU ALREADY KNOW
+            START WITH CLARITY.
             <br />
-            WHAT'S ANNOYING.
+            FIX THE FIRST CONSTRAINT.
           </h2>
           <div className="mt-6 h-[4px] w-[340px] max-w-full rounded-full bg-[#ff73d2]" />
           <p className="mt-10 text-[clamp(1.6rem,2.25vw,2.4rem)] font-black leading-none tracking-[-0.055em]">
@@ -483,7 +483,7 @@ function FinalCta() {
               Start with the diagnostic. Talk if that is easier.
             </p>
             <p className="mt-4 max-w-[340px] text-[14px] font-black leading-[1.45] tracking-[-0.03em]">
-              Either way, the next step is the same: find the first routine worth removing.
+              Either way, the next step is the same: find the first constraint worth removing.
             </p>
             <ul className="mt-6 grid gap-2 text-[12px] font-black sm:grid-cols-3 lg:grid-cols-1">
               {["No obligation", "No jargon", "A useful first answer"].map((item) => (
@@ -515,7 +515,7 @@ function Footer() {
             Sorted<span className="text-[#cfe900]">.</span>
           </p>
           <p className="mt-2 max-w-[170px] text-[12px] font-semibold leading-[1.35] text-white/80">
-            We remove repetitive work from local businesses.
+            We install systems that remove repetitive work.
           </p>
           <p className="mt-5 text-[10px] font-medium text-white/55">© 2026 Sorted. All rights reserved.</p>
         </div>
