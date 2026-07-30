@@ -22,9 +22,8 @@ export function V2Page({ children }: { children: ReactNode }) {
   return <main className={`${v2Marker.variable} ${v2Highlight.variable} min-h-screen overflow-hidden bg-[#fbfbfa] text-[#070707]`}>{children}</main>
 }
 
-export function V2Header({ active }: { active?: "sites" | "how" | "problems" | "results" | "about" | "pricing" }) {
+export function V2Header({ active }: { active?: "how" | "problems" | "results" | "about" | "pricing" }) {
   const links = [
-    { key: "sites", label: "Sorted Sites", href: "/sites" },
     { key: "how", label: "How it works", href: "/ops/how-it-works" },
     { key: "problems", label: "Problems we solve", href: "/ops/problems-we-solve" },
     { key: "results", label: "Results", href: "/ops/results" },
@@ -64,12 +63,12 @@ export function V2Footer() {
             Sorted<span className="text-[#cfe900]">.</span>
           </p>
           <p className="mt-2 max-w-[180px] text-[12px] font-semibold leading-[1.35] text-white/80">
-            Modern business systems that help businesses perform better.
+            We remove repetitive work from local businesses.
           </p>
           <p className="mt-5 text-[10px] font-medium text-white/55">© 2026 Sorted. All rights reserved.</p>
         </div>
-        <FooterLinks links={[["How it works", "/ops/how-it-works"], ["Follow", "/ops/systems/enquiry-follow-up"], ["Pricing", "/ops/pricing"]]} />
-        <FooterLinks links={[["Sorted Sites", "/sites"], ["About", "/ops/about"], ["Results", "/ops/results"]]} />
+        <FooterLinks links={[["How it works", "/ops/how-it-works"], ["Problems we solve", "/ops/problems-we-solve"], ["Pricing", "/ops/pricing"]]} />
+        <FooterLinks links={[["About", "/ops/about"], ["Results", "/ops/results"], ["Example dashboard", "/ops/results-dashboard"]]} />
         <div>
           <p className="mb-4 text-[12px] font-black">Ready to start?</p>
           <RoutineFinderButton label="Start the diagnostic" variant="nav" className="mb-3 h-11 border border-[#dfff00] bg-[#dfff00] !text-[#070707] shadow-none" />
@@ -155,7 +154,7 @@ export function MetricBand({ title = "WHAT YOU GET BACK." }: { title?: string })
   const metrics = [
     { icon: Clock3, value: "24.6", label: "Hours returned this month", delta: "+28%" },
     { icon: MessageCircle, value: "63", label: "Enquiries recovered this month", delta: "+31%" },
-    { icon: CheckCircle2, value: "18", label: "Manual tasks removed", delta: "+20%" },
+    { icon: CheckCircle2, value: "18", label: "Repetitive tasks removed", delta: "+20%" },
     { icon: Star, value: "214", label: "Reviews generated this month", delta: "+42%" },
   ]
 
@@ -164,7 +163,7 @@ export function MetricBand({ title = "WHAT YOU GET BACK." }: { title?: string })
       <div className="grid overflow-hidden rounded-[18px] bg-[#070707] text-white shadow-[0_18px_55px_rgba(0,0,0,0.18)] md:grid-cols-[1.15fr_4fr]">
         <div className="px-7 py-6 sm:px-9 lg:px-12 lg:py-10">
           <SectionTitle title={title} dark />
-          <p className="mt-5 max-w-[170px] text-[12px] font-semibold leading-[1.35] text-white lg:mt-8 lg:max-w-[190px] lg:text-[15px]">Real capacity. Measurable improvement. One installed system at a time.</p>
+          <p className="mt-5 max-w-[170px] text-[12px] font-semibold leading-[1.35] text-white lg:mt-8 lg:max-w-[190px] lg:text-[15px]">Real capacity. Measurable results. From one routine at a time.</p>
           <Link href="/ops/results-dashboard" className="mt-5 inline-flex min-h-11 items-center gap-4 rounded-xl bg-[#dfff00] px-4 text-[9px] font-black text-black transition-transform hover:-translate-y-0.5 lg:mt-8 lg:h-12 lg:gap-5 lg:px-6 lg:text-[12px]">
             See an example dashboard <ArrowRight className="size-4" strokeWidth={3} />
           </Link>

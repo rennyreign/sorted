@@ -4,8 +4,8 @@ import { CheckList, CtaBand, MarkerText, SectionTitle, V2Footer, V2Header, V2Pag
 import { RoutineFinderButton } from "../../_components/RoutineFinder"
 
 export const metadata: Metadata = {
-  title: "Follow — Never lose another enquiry | Sorted Ops",
-  description: "Follow is the enquiry system from Sorted Ops. It captures every enquiry, responds immediately, reminds your team, and automates follow-up until it is answered, booked, or closed.",
+  title: "Enquiry Follow-up System | Sorted V2",
+  description: "A Sorted system that makes sure every enquiry receives the right follow-up until it is answered, booked, or closed.",
 }
 
 const features = [
@@ -25,16 +25,13 @@ export default function EnquiryFollowUpPage() {
       <V2Header active="problems" />
       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-10 pt-8 sm:px-8 md:grid-cols-[1fr_1fr] md:items-center">
         <div>
-          <p className="mb-5 inline-flex items-center rounded-full bg-[#dfff00] px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.1em]">
-            A Sorted Ops system
-          </p>
           <h1 className="max-w-[620px] text-[clamp(4rem,7.2vw,6.7rem)] font-black leading-[0.9] tracking-[-0.05em]">
-            Follow.
+            Enquiries are just the start.
             <br />
-            <MarkerText className="block text-[clamp(3.1rem,5.7vw,5.55rem)]">Never lose another enquiry.</MarkerText>
+            <MarkerText className="block text-[clamp(3.1rem,5.7vw,5.55rem)]">Follow-up gets them over the line.</MarkerText>
           </h1>
           <p className="mt-7 max-w-[510px] text-[15px] font-semibold leading-[1.6] tracking-[-0.025em]">
-            Follow is the enquiry system for your business. It captures every enquiry, responds immediately, reminds your team, and keeps following up until it is answered, booked, or closed.
+            The Enquiry Follow-up System makes sure every enquiry gets a timely response, every time. No more forgotten leads, no more missed opportunities.
           </p>
           <div className="mt-7 flex flex-wrap gap-4">
             <RoutineFinderButton label="See what this would look like in your business" variant="primary" />
@@ -77,7 +74,7 @@ export default function EnquiryFollowUpPage() {
           note="No clear owner. No reminders. Life gets in the way. Interested customers move on."
         />
         <WorkflowCard
-          title="What Follow does"
+          title="What the enquiry follow-up system does"
           tone="green"
           icons={[Mail, CheckCircle2, Workflow, MessageCircle, UserRound, CheckCircle2]}
           labels={["Enquiry comes in", "Instant acknowledgement", "Follow-up sequence", "Human takes over", "Right time", "Converted"]}
@@ -87,7 +84,7 @@ export default function EnquiryFollowUpPage() {
 
       <section className="mx-auto grid max-w-[1220px] gap-8 px-5 py-8 sm:px-8 md:grid-cols-[1.15fr_0.85fr]">
         <div>
-          <SectionTitle title="What Follow does for you" />
+          <SectionTitle title="What the system does" />
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {features.map(([title, copy]) => (
               <article key={title}>
@@ -151,7 +148,7 @@ export default function EnquiryFollowUpPage() {
           </div>
         </div>
         <aside className="rounded-[14px] border border-black/10 bg-white p-6">
-          <SectionTitle title="Is Follow right for you?" />
+          <SectionTitle title="Is this right for you?" />
           <p className="mt-6 text-[13px] font-semibold leading-[1.5] text-black/65">If you get enquiries but are not sure every one of them gets the follow-up they deserve, this system is for you.</p>
         </aside>
       </section>

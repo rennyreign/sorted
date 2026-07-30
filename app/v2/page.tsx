@@ -4,19 +4,16 @@ import localFont from "next/font/local"
 import {
   ArrowRight,
   BarChart3,
-  CalendarDays,
   Check,
   CheckCircle2,
   Clock3,
   Frown,
   MessageCircle,
   Phone,
-  PoundSterling,
   RefreshCw,
   Search,
   Star,
   TrendingUp,
-  UserRound,
 } from "lucide-react"
 import { RoutineFinderButton } from "./_components/RoutineFinder"
 import { BookDiscoveryButton } from "./_components/V2Primitives"
@@ -34,9 +31,9 @@ const v2Highlight = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "Sorted Ops | Modern business systems that drive better results.",
+  title: "Sorted. Repetitive work steals time. We remove it.",
   description:
-    "Sorted Ops inspects your business, identifies the operational constraint holding it back, and installs modern business systems — Follow, Reviews, Reach and more — that measurably improve performance.",
+    "Sorted finds the routines slowing your business down, replaces them with proven systems, and shows exactly how much capacity you get back.",
 }
 
 const accent = "#dfff00"
@@ -64,79 +61,64 @@ const problems = [
 
 const steps = [
   {
-    title: "Inspect",
-    copy: "We analyse your business and identify what's holding it back.",
+    title: "We look for repetitive work.",
+    copy: "We review your business to find the routines slowing it down.",
     icon: Search,
   },
   {
-    title: "Install",
-    copy: "We install the right system, configured for your business.",
+    title: "We replace the first routine worth fixing.",
+    copy: "We install a proven system that removes it. No unnecessary software. No disruption.",
     icon: SettingsIcon,
   },
   {
-    title: "Improve",
-    copy: "We measure what changed and keep making it better.",
+    title: "We measure what changed.",
+    copy: "You will see exactly what improved and how much capacity was created.",
     icon: BarChart3,
   },
   {
-    title: "Evolve",
-    copy: "We add more systems as your business grows and changes.",
+    title: "We repeat.",
+    copy: "Businesses change. New routines appear. We keep removing them.",
     icon: RefreshCw,
   },
 ]
 
-const systems: {
-  name: string
-  tagline: string
-  copy: string
-  icon: typeof MessageCircle
-  splash: string
-  href?: string
-  live?: boolean
-}[] = [
+const familiar = [
   {
-    name: "Follow",
-    tagline: "Never lose another enquiry.",
-    copy: "Capture, follow up and convert more leads automatically.",
-    icon: MessageCircle,
+    quote: "We only have 14 Google reviews.",
+    label: "Review System",
+    icon: Star,
     splash: "bg-[#e8ff1a]",
-    href: "/ops/systems/enquiry-follow-up",
-    live: true,
   },
   {
-    name: "Reviews",
-    tagline: "Build trust that brings in business.",
-    copy: "Generate more 5-star reviews on autopilot and showcase them.",
-    icon: Star,
+    quote: "We are terrible at following people up.",
+    label: "Enquiry System",
+    icon: MessageCircle,
     splash: "bg-[#ff9ad8]",
   },
   {
-    name: "Reach",
-    tagline: "Be found by more of the right people.",
-    copy: "Improve your visibility across search, maps and AI platforms.",
-    icon: Search,
+    quote: "Customers wait too long for a reply.",
+    label: "Customer Response System",
+    mark: "?",
+    splash: "bg-[#ffe48a]",
+  },
+  {
+    quote: "We have got thousands of old customers and do nothing with them.",
+    label: "Reactivation System",
+    icon: UsersIcon,
     splash: "bg-[#b86cff]",
   },
   {
-    name: "Book",
-    tagline: "Make it easy to book and show up.",
-    copy: "Simple booking, reminders and fewer no-shows.",
-    icon: CalendarDays,
+    quote: "We keep missing calls.",
+    label: "Reception System",
+    icon: Phone,
     splash: "bg-[#a7e6ff]",
-  },
-  {
-    name: "Data",
-    tagline: "See what's working. Fix what's not.",
-    copy: "Clear dashboards and insights to help you make better decisions.",
-    icon: BarChart3,
-    splash: "bg-[#ffe48a]",
   },
 ]
 
 const results = [
   { icon: Clock3, value: "412", label: "Hours returned this year", delta: "+31%" },
   { icon: MessageCircle, value: "1,146", label: "Manual checks removed", delta: "+24%" },
-  { icon: CheckCircle2, value: "9", label: "Systems installed and running", delta: "+20%" },
+  { icon: CheckCircle2, value: "9", label: "Routines mapped and replaced", delta: "+20%" },
   { icon: Star, value: "£18.4k", label: "Estimated value created", delta: "+27%" },
 ]
 
@@ -170,8 +152,8 @@ export default function SortedV2Page() {
       <Header />
       <Hero />
       <Problems />
-      <Systems />
       <Process />
+      <SoundFamiliar />
       <ResultsBand />
       <Testimonials />
       <FinalCta />
@@ -188,9 +170,6 @@ function Header() {
       </Link>
 
       <nav className="hidden items-center gap-8 text-[12px] font-extrabold tracking-[-0.02em] md:flex lg:gap-10 lg:text-[13px]">
-        <Link className="inline-flex min-h-11 items-center transition-opacity hover:opacity-60" href="/sites">
-          Sorted Sites
-        </Link>
         <Link className="inline-flex min-h-11 items-center transition-opacity hover:opacity-60" href="/ops/how-it-works">
           How it works
         </Link>
@@ -222,23 +201,20 @@ function Hero() {
   return (
     <section className="mx-auto grid max-w-[1220px] items-center gap-10 px-5 pb-6 sm:px-8 md:grid-cols-[1.18fr_0.82fr] md:gap-8 md:pb-7 lg:grid-cols-[1.04fr_0.96fr] lg:gap-14">
       <div className="relative pt-3">
-        <p className="mb-5 inline-flex items-center rounded-full bg-[#dfff00] px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.1em] lg:text-[11px]">
-          Sorted Ops
-        </p>
         <h1 className="max-w-[650px] text-[clamp(3.35rem,6.45vw,6.75rem)] font-black leading-[0.9] tracking-[-0.05em] lg:text-[clamp(4.1rem,8.2vw,6.75rem)]">
-          Modern business
+          Repetitive
           <br />
-          systems that drive
+          work steals time.
         </h1>
         <div className="relative mt-4 max-w-[565px]">
           <p className="whitespace-nowrap [font-family:var(--font-v2-highlight)] text-[clamp(3rem,5.6vw,5.65rem)] font-normal leading-[0.86] tracking-[-0.02em] text-[#cee700] lg:text-[clamp(3.7rem,6.8vw,5.65rem)]">
-            better results.
+            We remove it.
           </p>
           <MarkerStroke className="-bottom-3 left-0 h-4 w-[96%]" />
         </div>
 
         <p className="mt-6 max-w-[420px] text-[13px] font-semibold leading-[1.55] tracking-[-0.025em] text-[#111] lg:mt-12 lg:text-[17px]">
-          Sorted Ops installs the systems that make your business run better — so you stop losing time, miss fewer opportunities, and create more capacity to grow.
+          We find the routines slowing your business down, replace them with proven systems, and show you exactly how much capacity you get back.
         </p>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center lg:mt-9 lg:gap-4">
@@ -264,22 +240,19 @@ function Hero() {
 
 function CapacityCard() {
   const metrics = [
-    { icon: MessageCircle, value: "128", label: "Enquiries received", delta: "+32%" },
-    { icon: Clock3, value: "18m", label: "Average response time", delta: "-54%" },
-    { icon: UserRound, value: "24", label: "New customers", delta: "+26%" },
-    { icon: PoundSterling, value: "18.4k", label: "Revenue attributed", delta: "+41%" },
+    { icon: Clock3, value: "412", label: "Hours returned", delta: "+31%" },
+    { icon: MessageCircle, value: "1,146", label: "Manual checks removed", delta: "+24%" },
+    { icon: CheckCircle2, value: "9", label: "Routines replaced", delta: "+20%" },
+    { icon: Star, value: "£18.4k", label: "Estimated value created", delta: "+27%" },
   ]
 
   return (
     <div className="relative mx-auto w-full max-w-[350px] rotate-[2.2deg] rounded-[20px] bg-[#f7efe3] p-3.5 shadow-[0_22px_55px_rgba(20,14,8,0.16)] ring-1 ring-black/5 md:mr-1 lg:max-w-[515px] lg:rounded-[22px] lg:p-7">
-      <div className="relative mb-3 flex items-center justify-between gap-4 lg:mb-6">
-        <div className="relative inline-block">
-          <p className="[font-family:var(--font-v2-marker)] text-[18px] font-normal uppercase leading-[1.08] tracking-[0] lg:text-[25px]">
-            Your business overview.
-          </p>
-          <MarkerStroke className="-bottom-2 left-0 h-2.5 w-[58%]" />
-        </div>
-        <p className="shrink-0 rounded-full border border-black/15 bg-white/70 px-3 py-1 text-[8px] font-black uppercase tracking-[0.06em] lg:text-[10px]">This month</p>
+      <div className="relative mb-3 inline-block lg:mb-6">
+        <p className="[font-family:var(--font-v2-marker)] text-[18px] font-normal uppercase leading-[1.08] tracking-[0] lg:text-[25px]">
+          Here's what changed this year.
+        </p>
+        <MarkerStroke className="-bottom-2 left-0 h-2.5 w-[58%]" />
       </div>
 
       <div className="grid grid-cols-2 gap-2.5 lg:gap-4">
@@ -319,9 +292,9 @@ function CapacityCard() {
 function Problems() {
   return (
     <section id="problems" className="mx-auto max-w-[1220px] px-5 py-5 sm:px-8 md:py-6 lg:py-12">
-      <SectionTitle title="Your business could be performing better." />
+      <SectionTitle title="You already know where time gets lost." />
       <p className="mt-3 max-w-[560px] text-[15px] font-semibold leading-[1.45] tracking-[-0.035em] lg:mt-4 lg:text-[19px]">
-        It is rarely effort that's missing. Somewhere in the operation there is a constraint — missed enquiries, inconsistent follow-up, manual admin — quietly deciding how the business performs.
+        It's the small repetitive work that keeps customers waiting, slows your team down, and blocks the work that actually needs people.
       </p>
 
       <div className="mt-6 grid gap-4 md:grid-cols-3 lg:mt-10">
@@ -360,7 +333,7 @@ function Problems() {
 function Process() {
   return (
     <section id="how-it-works" className="mx-auto max-w-[1220px] px-5 py-3 sm:px-8 md:py-4 lg:py-7">
-      <SectionTitle title="We install. You benefit. Your business grows." />
+      <SectionTitle title="Here's how we work." />
       <div className="mt-5 grid gap-8 md:grid-cols-4 md:gap-5 lg:mt-7">
         {steps.map((step, index) => {
           const Icon = step.icon
@@ -379,64 +352,33 @@ function Process() {
           )
         })}
       </div>
-      <div className="mt-6 text-center lg:mt-8">
-        <Link href="/ops/how-it-works" className="inline-flex min-h-11 items-center gap-3 text-[11px] font-extrabold tracking-[-0.02em] lg:text-[13px]">
-          See the full process
-          <ArrowRight className="size-4" strokeWidth={3} />
-        </Link>
-      </div>
     </section>
   )
 }
 
-function Systems() {
+function SoundFamiliar() {
   return (
-    <section id="systems" className="mx-auto max-w-[1220px] px-5 py-5 sm:px-8 md:py-6 lg:py-12">
-      <div className="text-center">
-        <p className="mb-2 inline-flex items-center rounded-full border border-black/15 px-3.5 py-1 text-[9px] font-black uppercase tracking-[0.12em] text-black/55 lg:text-[10px]">
-          Choose your system
-        </p>
-        <SectionTitle title="Powerful systems. One connected business." />
-        <p className="mx-auto mt-5 max-w-[520px] text-[13px] font-semibold leading-[1.5] tracking-[-0.025em] text-black/65 lg:text-[15px]">
-          Choose the system your business needs most. Each one is designed to remove friction, save time, and help you grow.
-        </p>
-      </div>
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:mt-10">
-        {systems.map((system) => {
-          const Icon = system.icon
+    <section className="mx-auto max-w-[1220px] px-5 py-5 sm:px-8 md:py-6 lg:py-12">
+      <SectionTitle title="Sound familiar?" />
+      <div className="mt-5 grid gap-4 sm:grid-cols-2 md:grid-cols-5">
+        {familiar.map((item) => {
+          const Icon = item.icon
           return (
             <article
-              key={system.name}
-              className="flex min-h-[200px] flex-col rounded-[14px] border border-black/10 bg-white px-5 py-5 shadow-[0_14px_40px_rgba(0,0,0,0.035)] lg:min-h-[240px] lg:px-6 lg:py-6"
+              key={item.label}
+              className="flex min-h-[145px] flex-col items-center rounded-[14px] border border-black/10 bg-white px-3 py-3.5 text-center shadow-[0_14px_40px_rgba(0,0,0,0.035)] lg:min-h-[246px] lg:px-5 lg:py-6"
             >
-              <div className={`grid size-[52px] place-items-center rounded-full ${system.splash} lg:size-[64px]`}>
-                <Icon className="size-7 lg:size-9" strokeWidth={2.4} />
+              <div className={`relative grid size-[50px] place-items-center rounded-[42%_58%_55%_45%] ${item.splash} lg:size-[86px]`}>
+                {Icon ? <Icon className="size-8 lg:size-14" strokeWidth={2.7} /> : <span className="text-[36px] font-black leading-none lg:text-[62px]">{item.mark}</span>}
               </div>
-              <h3 className="mt-4 text-[20px] font-black tracking-[-0.045em] lg:text-[24px]">{system.name}</h3>
-              <p className="mt-1 text-[12px] font-black leading-[1.25] tracking-[-0.025em] lg:text-[14px]">{system.tagline}</p>
-              <p className="mt-2 text-[10px] font-semibold leading-[1.4] text-black/60 lg:text-[12px]">{system.copy}</p>
-              {system.live ? (
-                <Link href={system.href ?? "/ops"} className="mt-auto inline-flex min-h-11 items-center gap-2 pt-3 text-[11px] font-extrabold tracking-[-0.02em] lg:gap-3 lg:text-[12px]">
-                  Explore {system.name}
-                  <ArrowRight className="size-3.5" strokeWidth={3} />
-                </Link>
-              ) : (
-                <p className="mt-auto pt-3 text-[10px] font-black uppercase tracking-[0.1em] text-black/35 lg:text-[11px]">Coming soon</p>
-              )}
+              <p className="mt-2.5 min-h-[38px] text-[9px] font-black leading-[1.12] tracking-[-0.04em] lg:mt-5 lg:min-h-[52px] lg:text-[14px]">"{item.quote}"</p>
+              <Link href="/ops/problems/we-lose-customers" className="mt-auto inline-flex min-h-11 items-center gap-2 text-[10px] font-extrabold tracking-[-0.02em] lg:gap-3 lg:text-[12px]">
+                {item.label}
+                <ArrowRight className="size-3.5" strokeWidth={3} />
+              </Link>
             </article>
           )
         })}
-        <article className="flex min-h-[200px] flex-col justify-center rounded-[14px] bg-[#070707] px-5 py-5 text-white shadow-[0_14px_40px_rgba(0,0,0,0.12)] lg:min-h-[240px] lg:px-6 lg:py-6">
-          <h3 className="[font-family:var(--font-v2-marker)] text-[18px] font-normal uppercase leading-[1.08] lg:text-[22px]">
-            Not sure which system fits?
-          </h3>
-          <p className="mt-3 text-[10px] font-semibold leading-[1.45] text-white/70 lg:text-[12px]">
-            The diagnostic inspects your operation and points at the right first system.
-          </p>
-          <div className="mt-5">
-            <RoutineFinderButton label="Start the diagnostic" variant="band" />
-          </div>
-        </article>
       </div>
     </section>
   )
@@ -525,9 +467,9 @@ function FinalCta() {
       <div className="relative grid gap-8 overflow-hidden rounded-[28px] bg-[#e7ff1e] px-8 py-10 shadow-[0_18px_45px_rgba(170,190,0,0.16)] md:grid-cols-[0.88fr_1.12fr] md:items-center md:px-12 lg:px-16 lg:py-14">
         <div>
           <h2 className="[font-family:var(--font-v2-marker)] text-[clamp(3.4rem,6.2vw,6.9rem)] font-normal uppercase leading-[0.92] tracking-[0]">
-            START WITH CLARITY.
+            YOU ALREADY KNOW
             <br />
-            BUILD A BETTER BUSINESS.
+            WHAT'S ANNOYING.
           </h2>
           <div className="mt-6 h-[4px] w-[340px] max-w-full rounded-full bg-[#ff73d2]" />
           <p className="mt-10 text-[clamp(1.6rem,2.25vw,2.4rem)] font-black leading-none tracking-[-0.055em]">
@@ -538,10 +480,10 @@ function FinalCta() {
         <div className="relative z-[1] grid gap-7 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
           <div>
             <p className="text-[clamp(1.45rem,2.3vw,2.15rem)] font-black leading-[1.08] tracking-[-0.055em]">
-              We'll inspect your business, show you what's holding it back, and recommend the right systems to fix it.
+              Start with the diagnostic. Talk if that is easier.
             </p>
             <p className="mt-4 max-w-[340px] text-[14px] font-black leading-[1.45] tracking-[-0.03em]">
-              Start with the diagnostic. Talk if that is easier.
+              Either way, the next step is the same: find the first routine worth removing.
             </p>
             <ul className="mt-6 grid gap-2 text-[12px] font-black sm:grid-cols-3 lg:grid-cols-1">
               {["No obligation", "No jargon", "A useful first answer"].map((item) => (
@@ -573,12 +515,12 @@ function Footer() {
             Sorted<span className="text-[#cfe900]">.</span>
           </p>
           <p className="mt-2 max-w-[170px] text-[12px] font-semibold leading-[1.35] text-white/80">
-            Modern business systems that help businesses perform better.
+            We remove repetitive work from local businesses.
           </p>
           <p className="mt-5 text-[10px] font-medium text-white/55">© 2026 Sorted. All rights reserved.</p>
         </div>
-        <FooterLinks links={[["How it works", "/ops/how-it-works"], ["Follow", "/ops/systems/enquiry-follow-up"], ["Results", "/ops/results"]]} />
-        <FooterLinks links={[["Sorted Sites", "/sites"], ["About", "/ops/about"], ["Pricing", "/ops/pricing"]]} />
+        <FooterLinks links={[["How it works", "/ops/how-it-works"], ["Problems we solve", "/ops/problems-we-solve"], ["Results", "/ops/results"]]} />
+        <FooterLinks links={[["About", "/ops/about"], ["Pricing", "/ops/pricing"], ["Example dashboard", "/ops/results-dashboard"]]} />
         <div>
           <p className="mb-4 text-[12px] font-black">Ready to start?</p>
           <RoutineFinderButton label="Start the diagnostic" variant="nav" className="mb-3 h-11 border border-[#dfff00] bg-[#dfff00] !text-[#070707] shadow-none" />
@@ -698,4 +640,13 @@ function SettingsIcon({ className = "", strokeWidth = 2.4 }: { className?: strin
   )
 }
 
-
+function UsersIcon({ className = "", strokeWidth = 2.7 }: { className?: string; strokeWidth?: number }) {
+  return (
+    <svg className={className} viewBox="0 0 64 64" fill="none" aria-hidden>
+      <circle cx="24" cy="24" r="9" fill="currentColor" />
+      <circle cx="43" cy="22" r="8" fill="currentColor" />
+      <path d="M8 53C10 42 17 36 25 36C33 36 39 42 41 53H8Z" fill="currentColor" />
+      <path d="M34 52C35 43 40 38 47 38C53 38 58 43 60 52H34Z" fill="currentColor" />
+    </svg>
+  )
+}
