@@ -42,9 +42,9 @@ export default async function ExamplesPage() {
       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-8 pt-11 sm:px-8 sm:pb-12 sm:pt-14 lg:grid-cols-[0.96fr_1.04fr] lg:items-center">
         <div>
           <h1 className="max-w-[610px] text-[clamp(3.55rem,7vw,7.3rem)] font-black leading-[0.86] tracking-[-0.06em]">
-            Real work.
+            Real work
             <br />
-            Real results.
+            Real results
           </h1>
           <div className="mt-2 max-w-[430px] [font-family:var(--font-sites-highlight)] text-[clamp(3.35rem,6.2vw,6.6rem)] font-normal leading-[0.74] tracking-[-0.02em] text-[#cfea00]">
             Built first.
@@ -99,7 +99,7 @@ export default async function ExamplesPage() {
       <section className="bg-white px-5 py-8 sm:px-8">
         <div className="mx-auto grid max-w-[1220px] gap-8 lg:grid-cols-[0.28fr_0.72fr] lg:items-center">
           <div>
-            <h2 className="text-[34px] font-black leading-[0.95] tracking-[-0.05em]">How every website starts.</h2>
+            <h2 className="text-[34px] font-black leading-[0.95] tracking-[-0.05em]">How every website starts</h2>
             <p className="mt-4 max-w-[260px] text-[15px] font-semibold leading-[1.45] text-black/65">
               Simple, fast and built around your business.
             </p>
@@ -124,7 +124,7 @@ export default async function ExamplesPage() {
             <span className="grid size-12 place-items-center rounded-full bg-black/10">
               <Edit3 className="size-7" strokeWidth={2.2} />
             </span>
-            <h2 className="text-[22px] font-black leading-[1.02] tracking-[-0.04em]">See what we can build for your business.</h2>
+            <h2 className="text-[22px] font-black leading-[1.02] tracking-[-0.04em]">See what we can build for your business</h2>
           </div>
           <p className="text-[13px] font-black leading-[1.35]">
             Get your free mockup in 24 hours.

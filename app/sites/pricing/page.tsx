@@ -20,7 +20,7 @@ export default function PricingPage() {
       <SitesHeader active="pricing" />
       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-12 pt-12 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <div>
-          <SitesTitle title={<>Built first.<br />Priced second.</>} marker={<>That's the Sorted way.</>} />
+          <SitesTitle title={<>Built first<br />Priced second</>} marker={<>That's the Sorted way</>} />
           <Underline className="mt-2 w-[280px]" />
           <p className="mt-7 max-w-[450px] text-[17px] font-semibold leading-[1.55] tracking-[-0.03em]">
             Great design should not only belong to businesses with agency budgets. We build first, then price according to the stage you are at and the value the site can reasonably create.
@@ -88,7 +88,7 @@ export default function PricingPage() {
       </section>
 
       <section className="mx-auto max-w-[1220px] px-5 py-12 sm:px-8">
-        <h2 className="text-[38px] font-black tracking-[-0.035em]">Why we are different.</h2>
+        <h2 className="text-[38px] font-black tracking-[-0.035em]">Why we are different</h2>
         <p className="mt-3 text-[17px] font-semibold text-black/65">We have removed everything that slows you down.</p>
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_90px_1fr] lg:items-center">
           <ProcessBox title="The traditional agency process" items={[["Discovery meeting", "Time consuming"], ["Proposal & strategy", "Lots of back and forth"], ["Quote", "Often unclear"], ["Deposit", "Before you have seen anything"], ["Design & revisions", "Weeks of waiting"], ["Development", "More waiting"], ["Launch", "Hope it works"]]} />
@@ -100,7 +100,7 @@ export default function PricingPage() {
       <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
         <div className="grid gap-8 rounded-[18px] bg-[#dfff00] p-8 lg:grid-cols-[0.46fr_0.34fr_0.2fr] lg:items-center">
           <div>
-            <h2 className="text-[28px] font-black tracking-[-0.035em]">What you are actually paying for.</h2>
+            <h2 className="text-[28px] font-black tracking-[-0.035em]">What you are actually paying for</h2>
             <p className="mt-5 text-[14px] font-black">Most agencies charge for:</p>
             <div className="mt-4 grid gap-2 text-[13px] font-semibold sm:grid-cols-2">
               {["Meetings", "Proposals", "Discovery workshops", "Revisions", "Project management", "Lengthy design phases", "Estimates", "Uncertainty"].map((item) => (
@@ -121,7 +121,7 @@ export default function PricingPage() {
       </section>
 
       <section className="mx-auto max-w-[1220px] px-5 py-12 sm:px-8">
-        <h2 className="text-[34px] font-black tracking-[-0.035em]">Frequently asked.</h2>
+        <h2 className="text-[34px] font-black tracking-[-0.035em]">Frequently asked</h2>
         <div className="mt-6 grid gap-5 md:grid-cols-3">
           {[
             ["Why price by business stage?", "Because the same website creates different value depending on where the business is. We want great design to be accessible without pretending every business is in the same position."],

@@ -127,7 +127,7 @@ export function ResultsDashboard() {
       <div className="grid min-h-screen min-w-0 lg:grid-cols-[236px_1fr]">
         <aside className="flex min-w-0 flex-col overflow-x-hidden overflow-y-auto bg-[#070707] px-5 py-6 text-white lg:sticky lg:top-0 lg:h-screen">
           <a href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]" aria-label="Sorted V2 home">
-            Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-v2-bakeshop)] text-[#cfe900]">ops</span>
+            Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-v2-bakeshop)] translate-y-[-0.06em] text-[#cfe900]">ops</span>
           </a>
 
           <nav className="mt-8 grid max-w-full grid-cols-2 gap-2 pb-2 sm:grid-cols-3 lg:grid-cols-1 lg:gap-2.5 lg:pb-0">

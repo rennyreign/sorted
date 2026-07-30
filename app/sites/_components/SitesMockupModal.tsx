@@ -197,7 +197,7 @@ function LoadingStep({ answers }: { answers: Partial<Record<StepKey, string>> })
     <section className="mx-auto max-w-[760px] text-center">
       <Loader2 className="mx-auto size-12 animate-spin text-[#bdd900]" strokeWidth={3} />
       <h2 className="mt-8 [font-family:var(--font-sites-marker)] text-[clamp(3.4rem,6vw,6.2rem)] uppercase leading-[0.9]">
-        Building your mockup brief.
+        Building your mockup brief
       </h2>
       <p className="mx-auto mt-5 max-w-[520px] text-[16px] font-bold leading-[1.5]">
         We are turning {answers.business?.toLowerCase() ?? "your business"} into a practical website direction.
@@ -268,7 +268,7 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
       <div>
         <p className="text-[12px] font-black text-black/45">Your free mockup direction</p>
         <h2 className="mt-5 [font-family:var(--font-sites-marker)] text-[clamp(3.5rem,7vw,7.2rem)] uppercase leading-[0.92]">
-          We can build this first.
+          We can build this first
         </h2>
         <div className="mt-6 h-[4px] w-80 max-w-full rounded-full bg-[#ff73d2]" />
         <p className="mt-7 max-w-[520px] text-[17px] font-bold leading-[1.5]">{summary}</p>
