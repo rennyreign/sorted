@@ -87,7 +87,6 @@ export default function DentalPracticesPage() {
       <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
         <div className="grid gap-8 rounded-[18px] bg-[#070707] p-7 text-white md:grid-cols-[0.9fr_0.5fr_1.1fr] md:items-center">
           <div>
-            <p className="mb-3 inline-block bg-[#dfff00] px-2 py-1 text-[11px] font-black uppercase text-black">Case study</p>
             <h2 className="text-[36px] font-black leading-[1.05] tracking-[-0.06em]">How Glow Dental recovered 63 enquiries every month.</h2>
             <p className="mt-5 text-[15px] font-semibold leading-[1.5] text-white/75">A 3-chair practice. No marketing change. Just a better system behind the scenes.</p>
             <a href="/ops/case-studies/glow-dental" className="mt-7 inline-flex h-12 items-center gap-4 rounded-full bg-[#dfff00] px-6 text-[12px] font-black text-black">Read the full case study</a>
@@ -108,7 +107,6 @@ export default function DentalPracticesPage() {
       <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
         <div className="grid gap-6 rounded-[18px] bg-[#f4f3ef] p-7 md:grid-cols-[0.28fr_0.72fr] md:items-center">
           <div>
-            <p className="mb-2 inline-block bg-[#dfff00] px-2 py-1 text-[11px] font-black uppercase">Example review</p>
             <h2 className="text-[36px] font-black leading-[1.05] tracking-[-0.06em]">See what a review looks like.</h2>
             <p className="mt-5 text-[14px] font-semibold leading-[1.5]">We analyse one gap, identify what it's costing you, and show you what a better version looks like.</p>
             <a href="/ops/reviews/glow-dental" className="mt-6 inline-flex h-11 items-center gap-4 rounded-full bg-[#070707] px-5 text-[11px] font-black text-white">View an example review</a>

@@ -13,8 +13,7 @@ export default function GlowDentalCaseStudyPage() {
       <div className="grid lg:grid-cols-[220px_1fr]">
         <aside className="hidden border-r border-black/10 px-7 py-8 lg:block">
           <a href="/ops" className="inline-flex min-h-11 items-center text-[27px] font-extrabold tracking-[-0.06em]">Sorted<span className="text-[#cfe900]">.</span></a>
-          <p className="mt-14 text-[12px] font-black uppercase">Case study</p>
-          <nav className="mt-6 space-y-3 text-[12px] font-bold">
+          <nav className="mt-14 space-y-3 text-[12px] font-bold">
             {["Overview", "The challenge", "The diagnosis", "The solution", "The results", "What they say", "Details"].map((item, index) => (
               <a key={item} href={`#case-${index + 1}`} className={`flex gap-4 rounded-lg px-3 py-3 ${index === 0 ? "bg-[#e7ff1e]" : ""}`}>
                 <span>{String(index + 1).padStart(2, "0")}</span>{item}
@@ -35,7 +34,6 @@ export default function GlowDentalCaseStudyPage() {
           <V2Header active="results" />
           <section id="case-1" className="mx-auto grid max-w-[1120px] gap-8 px-5 py-8 sm:px-8 md:grid-cols-[0.9fr_1.1fr]">
             <div>
-              <p className="mb-3 inline-block bg-[#dfff00] px-2 py-1 text-[11px] font-black uppercase">Case study</p>
               <h1 className="text-[clamp(3.2rem,6vw,5.6rem)] font-black leading-[0.92] tracking-[-0.055em]">How Glow Dental Recovered 63 Enquiries Every Month</h1>
               <div className="mt-5 h-[5px] w-56 rounded-full bg-[#dfff00]" />
               <p className="mt-7 max-w-[520px] text-[17px] font-semibold leading-[1.55] tracking-[-0.03em]">

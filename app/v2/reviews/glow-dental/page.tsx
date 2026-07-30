@@ -15,10 +15,8 @@ export default function DiagnosticReviewPage() {
       <div className="grid min-h-screen lg:grid-cols-[235px_1fr]">
         <aside className="hidden border-r border-black/10 bg-[#fbfbfa] px-7 py-8 lg:block">
           <a href="/ops" className="inline-flex min-h-11 items-center text-[27px] font-extrabold tracking-[-0.06em]">Sorted<span className="text-[#cfe900]">.</span></a>
-          <p className="mt-14 text-[12px] font-black uppercase">Diagnostic review</p>
-          <p className="mt-3 text-[16px] font-bold">Glow Dental</p>
-          <p className="mt-14 text-[12px] font-black uppercase">Contents</p>
-          <nav className="mt-5 space-y-2">
+          <p className="mt-14 text-[16px] font-bold">Glow Dental</p>
+          <nav className="mt-8 space-y-2">
             {contents.map((item, index) => (
               <a key={item} href={`#section-${index + 1}`} className={`flex gap-4 rounded-lg px-3 py-3 text-[11px] font-bold ${index === 1 ? "bg-[#e7ff1e]" : ""}`}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
@@ -27,8 +25,7 @@ export default function DiagnosticReviewPage() {
             ))}
           </nav>
           <div className="mt-16 rounded-[14px] border border-black/10 bg-white p-5">
-            <p className="text-[12px] font-black uppercase">Questions about this review?</p>
-            <p className="mt-4 text-[12px] font-semibold leading-[1.45] text-black/60">We are here to help you understand it.</p>
+            <p className="text-[12px] font-semibold leading-[1.45] text-black/60">We are here to help you understand it.</p>
             <p className="mt-5 text-[12px] font-black">WhatsApp us</p>
             <p className="mt-3 text-[12px] font-black">hello@sorted.ai</p>
           </div>
@@ -37,8 +34,7 @@ export default function DiagnosticReviewPage() {
         <main>
           <header className="flex items-start justify-between border-b border-black/10 px-6 py-8 sm:px-10">
             <div>
-              <p className="text-[12px] font-black">Example review <span className="ml-3 rounded bg-[#dfff00] px-2 py-1">Sample report</span></p>
-              <h1 className="mt-5 max-w-[620px] text-[clamp(3.2rem,6vw,5.7rem)] font-black leading-[0.92] tracking-[-0.055em]">Diagnostic Review<br />Glow Dental</h1>
+              <h1 className="max-w-[620px] text-[clamp(3.2rem,6vw,5.7rem)] font-black leading-[0.92] tracking-[-0.055em]">Diagnostic Review<br />Glow Dental</h1>
               <div className="mt-5 h-[6px] w-48 rounded-full bg-[#dfff00]" />
               <p className="mt-8 text-[12px] font-black">DATE: <span className="ml-8">12 May 2025</span></p>
               <p className="mt-3 text-[12px] font-black">PREPARED BY: <span className="ml-8">Sorted.</span></p>

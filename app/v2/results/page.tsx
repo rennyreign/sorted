@@ -21,7 +21,6 @@ export default function ResultsIndexPage() {
       <V2Header active="results" />
       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-8 pt-12 sm:px-8 lg:grid-cols-[1fr_0.92fr] lg:items-center">
         <div className="min-w-0">
-          <p className="mb-5 text-[13px] font-black text-[#a8c000]">Results</p>
           <h1 className="max-w-full text-[clamp(3.25rem,13vw,6.7rem)] font-black leading-[0.92] tracking-[-0.04em] sm:max-w-[680px]">
             Real changes.
             <br />
