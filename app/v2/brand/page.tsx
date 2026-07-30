@@ -177,7 +177,7 @@ export default function SortedBrandPage() {
 function BrandHeader() {
   return (
     <header className="mx-auto flex w-full max-w-[1240px] items-center justify-between gap-4 px-5 py-5 sm:px-8">
-      <Link href="/v2" className="inline-flex min-h-11 items-center text-[27px] font-extrabold leading-none tracking-[-0.06em]">
+      <Link href="/v2" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
         Sorted<span className="text-[#cfe900]">.</span>
       </Link>
       <nav className="hidden items-center gap-7 text-[12px] font-extrabold tracking-[-0.02em] lg:flex">
