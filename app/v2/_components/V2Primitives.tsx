@@ -63,7 +63,7 @@ export function V2Footer() {
             Sorted<span className="text-[#cfe900]">.</span>
           </p>
           <p className="mt-2 max-w-[180px] text-[12px] font-semibold leading-[1.35] text-white/80">
-            We find the gaps that cost local businesses revenue and trust — and close them.
+            We find the gaps that cost local businesses revenue and trust, and close them.
           </p>
           <p className="mt-5 text-[10px] font-medium text-white/55">© 2026 Sorted. All rights reserved.</p>
         </div>

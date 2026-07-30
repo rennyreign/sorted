@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const beliefs = [
   ["Every business has gaps.", "It is a natural consequence of growth. More customers, more systems and more people create more places for revenue and trust to leak out.", Layers3],
-  ["Gaps leak revenue and trust.", "Every gap left open costs more than it looks like — in lost customers, wasted time, and money left on the table.", Clock3],
+  ["Gaps leak revenue and trust.", "Every gap left open costs more than it looks like: lost customers, wasted time, and money left on the table.", Clock3],
   ["Better systems compound.", "Closing one gap will not transform a business overnight. Closing one every month will.", Sparkles],
   ["What gets measured gets improved.", "We do not measure success by the number of systems we install. We measure what changes after they are installed.", BarChart3],
 ]

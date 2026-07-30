@@ -67,7 +67,7 @@ const steps: Step[] = [
 
 const recommendations = {
   enquiry: {
-    label: "Follow — the enquiry system",
+    label: "Follow, the enquiry system",
     summary: "Nobody consistently owns what happens after an enquiry arrives.",
     impact: ["Faster replies", "Less chasing", "Clearer ownership", "More enquiries converted"],
     href: "/ops/systems/enquiry-follow-up",
@@ -79,7 +79,7 @@ const recommendations = {
     href: "/ops/how-it-works",
   },
   reviews: {
-    label: "Reviews — the trust system",
+    label: "Reviews, the trust system",
     summary: "You already have happy customers, but the request is not happening consistently enough.",
     impact: ["More review requests", "Better timing", "Less manual asking", "Stronger local proof"],
     href: "/ops/problems-we-solve",

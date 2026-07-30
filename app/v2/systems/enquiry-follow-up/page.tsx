@@ -4,7 +4,7 @@ import { CheckList, CtaBand, MarkerText, SectionTitle, V2Footer, V2Header, V2Pag
 import { RoutineFinderButton } from "../../_components/RoutineFinder"
 
 export const metadata: Metadata = {
-  title: "Follow — The Enquiry System | Sorted Ops",
+  title: "Follow: The Enquiry System | Sorted Ops",
   description: "Follow is the enquiry system from Sorted Ops. It makes sure every enquiry receives the right follow-up until it is answered, booked, or closed.",
 }
 

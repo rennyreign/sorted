@@ -294,7 +294,7 @@ function Problems() {
     <section id="problems" className="mx-auto max-w-[1220px] px-5 py-5 sm:px-8 md:py-6 lg:py-12">
       <SectionTitle title="You already know where the gaps are." />
       <p className="mt-3 max-w-[560px] text-[15px] font-semibold leading-[1.45] tracking-[-0.035em] lg:mt-4 lg:text-[19px]">
-        These are the gaps that leak revenue, hurt trust, and leave money on the table — while your team stays busy with work that doesn't move the business forward.
+        These are the gaps that leak revenue, hurt trust, and leave money on the table, while your team stays busy with work that doesn't move the business forward.
       </p>
 
       <div className="mt-6 grid gap-4 md:grid-cols-3 lg:mt-10">
@@ -515,7 +515,7 @@ function Footer() {
             Sorted<span className="text-[#cfe900]">.</span>
           </p>
           <p className="mt-2 max-w-[170px] text-[12px] font-semibold leading-[1.35] text-white/80">
-            We find the gaps that cost local businesses revenue and trust — and close them.
+            We find the gaps that cost local businesses revenue and trust, and close them.
           </p>
           <p className="mt-5 text-[10px] font-medium text-white/55">© 2026 Sorted. All rights reserved.</p>
         </div>

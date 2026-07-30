@@ -4,7 +4,7 @@ import { CtaBand, MarkerText, SectionTitle, V2Footer, V2Header, V2Page } from ".
 
 export const metadata: Metadata = {
   title: "Problems We Solve | Sorted V2",
-  description: "Browse the operational gaps Sorted closes, from missed calls and slow replies to forgotten customers and manual admin — and the systems we install to fix them.",
+  description: "Browse the operational gaps Sorted closes, from missed calls and slow replies to forgotten customers and manual admin, and the systems we install to fix them.",
 }
 
 const categories = [
@@ -52,7 +52,7 @@ const systems = [
 ]
 
 const solveSteps = [
-  ["We inspect.", "We look at where gaps appear in your day — repeated work, delays, forgotten handoffs."],
+  ["We inspect.", "We look at where gaps appear in your day: repeated work, delays, forgotten handoffs."],
   ["We diagnose.", "We show where customers wait, teams lose time, and responsibility becomes unclear."],
   ["We design the system.", "We plan a simpler way for the work to happen consistently."],
   ["We install it.", "You see the system in action before anything becomes permanent."],
@@ -71,7 +71,7 @@ export default function ProblemsPage() {
             <MarkerText className="block text-[clamp(3.2rem,6vw,5.55rem)]">These are the ones that cost you.</MarkerText>
           </h1>
           <p className="mt-7 max-w-[510px] text-[15px] font-semibold leading-[1.6] tracking-[-0.025em]">
-            We focus on the operational gaps that slow your team down, frustrate customers, and make you miss opportunities — then install the systems that close them.
+            We focus on the operational gaps that slow your team down, frustrate customers, and make you miss opportunities, then install the systems that close them.
           </p>
         </div>
         <div className="rounded-[22px] bg-[#f7efe3] p-7 shadow-[0_22px_55px_rgba(20,14,8,0.13)]">
