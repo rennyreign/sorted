@@ -12,12 +12,11 @@ const marker = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "Sorted Brand Switchboard",
+  title: "Sorted | Business modernisation company",
   description:
-    "Archived Sorted switchboard page retained for internal reference.",
-  robots: {
-    index: false,
-    follow: false,
+    "Sorted is a business modernisation company. Start with Sorted Sites for websites or Sorted Ops for operational improvement.",
+  alternates: {
+    canonical: "/",
   },
 }
 
@@ -44,7 +43,13 @@ export default function Home() {
         <Link href="/" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
           Sorted<span className="text-[#cfe900]">.</span>
         </Link>
-        <nav className="flex items-center gap-5 text-[12px] font-black sm:gap-8 sm:text-[14px]">
+        <nav className="flex items-center gap-3 text-[12px] font-black sm:gap-5 sm:text-[14px]">
+          <Link className="hidden min-h-11 items-center transition-opacity hover:opacity-60 sm:inline-flex" href="/sites">
+            Sorted Sites
+          </Link>
+          <Link className="hidden min-h-11 items-center transition-opacity hover:opacity-60 sm:inline-flex" href="/ops">
+            Sorted Ops
+          </Link>
           <a
             href="https://wa.me/447386468085"
             className="inline-flex h-11 items-center gap-3 rounded-full bg-[#070707] px-5 text-[12px] font-black text-white shadow-[0_14px_34px_rgba(0,0,0,0.16)] sm:h-14 sm:px-7 sm:text-[15px]"
@@ -60,12 +65,9 @@ export default function Home() {
           We modernise businesses.
         </h1>
         <span className="mx-auto mt-3 block h-[7px] w-[78%] max-w-[560px] rounded-full bg-[#dfff00]" />
-        <p className="mx-auto mt-7 max-w-[560px] text-[22px] font-semibold leading-[1.25] tracking-[-0.025em] text-black/62 sm:text-[30px]">
-          Choose where you’d like to start.
-        </p>
       </section>
 
-      <section className="mx-auto grid max-w-[1120px] gap-5 px-5 sm:px-8 lg:grid-cols-2 lg:gap-7">
+      <section className="mx-auto grid max-w-[1120px] gap-5 px-5 pt-2 sm:px-8 lg:grid-cols-2 lg:gap-7">
         <OfferCard
           href="/sites"
           theme="light"
@@ -106,9 +108,9 @@ export default function Home() {
           icon={<Clock3 className="size-10" strokeWidth={2.6} />}
           title={
             <>
-              Run your
+              Fix your
               <br />
-              business better.
+              digital operations.
             </>
           }
           lines={["Remove repetitive work.", "Recover time.", "Improve operations."]}
