@@ -36,7 +36,7 @@ export function SitesHeaderClient({ active }: { active?: ActivePage }) {
     >
       <div className="mx-auto flex w-full max-w-[1220px] items-center justify-between">
         <a href="/sites" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]" aria-label="Sorted Sites home">
-          Sorted<span className="[font-family:var(--font-sites-bakeshop)] text-[#cfe900]">.sites</span>
+          Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-sites-bakeshop)] text-[#cfe900]">sites</span>
         </a>
         <nav className="hidden items-center gap-8 text-[12px] font-extrabold tracking-[-0.02em] md:flex">
           {links.map(([key, label, href]) => (
