@@ -1,0 +1,355 @@
+
+# Devin Brief: Website Modernisation Assessment & Business Modernisation Score
+
+## Objective
+
+We are evolving our existing website scoring system into a more comprehensive assessment that explains **why a business should replace its current website**.
+
+The important distinction is:
+
+> **We are still selling websites.**
+
+This is **not** a consulting product.
+
+This is **not** a digital transformation report.
+
+The assessment exists purely to create evidence that naturally leads to one conclusion:
+
+> **"A modern website is the correct investment for this business."**
+
+The website remains the primary artifact we are selling.
+
+---
+
+# Core Philosophy
+
+Our competitors begin with:
+
+> "Would you like a new website?"
+
+We begin with:
+
+> "We assessed your current website."
+
+The assessment creates evidence.
+
+The evidence justifies the website.
+
+The website solves the problems identified.
+
+---
+
+# The New Flow
+
+```
+Website URL
+
+↓
+
+Website Modernisation Assessment
+
+↓
+
+Business Modernisation Score
+
+↓
+
+Evidence Report
+
+↓
+
+Website Mockup
+
+↓
+
+Video Walkthrough
+
+↓
+
+Client Nod
+
+↓
+
+Website Build
+```
+
+The mockup should no longer feel random.
+
+It should clearly answer the problems identified by the assessment.
+
+---
+
+# Assessment Structure
+
+The assessment should produce a single score:
+
+## Business Modernisation Score
+
+Score:
+
+0–100
+
+The score represents how effectively the business can compete online today.
+
+It is **not** simply an SEO score.
+
+---
+
+# Scoring Categories
+
+## 1. Discoverability
+
+Measures how easily search engines and AI systems can understand and surface the business.
+
+Includes:
+
+- Technical SEO
+- Metadata
+- Heading structure
+- Internal linking
+- Schema markup
+- Local SEO
+- AI readability (AEO foundations)
+- Content structure
+- Entity clarity
+- Search visibility
+
+Potential integrations:
+
+- Lighthouse
+- Moz
+- Ahrefs (future)
+- Semrush (future)
+
+---
+
+## 2. Infrastructure
+
+Measures the technical quality of the current website.
+
+Includes:
+
+- Core Web Vitals
+- Mobile responsiveness
+- Performance
+- Accessibility
+- HTTPS
+- Security
+- Broken links
+- Technical health
+
+---
+
+## 3. Trust & Brand
+
+Measures perceived credibility.
+
+Includes:
+
+- Visual professionalism
+- Typography
+- Photography
+- Brand consistency
+- Contact clarity
+- Review visibility
+- Social proof
+
+Many of these will be proprietary heuristics.
+
+---
+
+## 4. Customer Experience
+
+Measures how effectively customers can use the website.
+
+Includes:
+
+- Navigation
+- Calls-to-action
+- Booking flow
+- Forms
+- Information hierarchy
+- Mobile usability
+- Customer journey
+
+---
+
+## 5. Modernisation
+
+Measures how well the website supports modern business requirements.
+
+Includes:
+
+- CMS flexibility
+- Analytics
+- CRM readiness
+- Integration readiness
+- AI readiness
+- Booking integrations
+- Review automation potential
+- Overall platform maturity
+
+---
+
+# Shared Evidence Collection
+
+The website should only be crawled once.
+
+Collect once:
+
+- HTML
+- Screenshots
+- Metadata
+- Lighthouse report
+- Technologies
+- Navigation
+- Forms
+- Images
+- Structured data
+- Mobile screenshots
+
+Persist all findings into one shared JSON object.
+
+Every subsequent operator reads from this shared state.
+
+No repeated crawling.
+
+---
+
+# Operators
+
+Important principle:
+
+> **Operator = one logical responsibility.**
+
+Operators are NOT individual AI agents.
+
+They are logical units.
+
+Examples:
+
+- Discoverability Operator
+- Infrastructure Operator
+- Trust Operator
+- Customer Experience Operator
+- Modernisation Operator
+
+An operator may be implemented using:
+
+- deterministic code
+- Lighthouse
+- Playwright
+- APIs
+- vision models
+- LLMs
+
+Implementation is irrelevant.
+
+Only the responsibility matters.
+
+---
+
+# AI Usage
+
+AI should NOT perform the inspection.
+
+The inspection should be primarily deterministic.
+
+AI should only be used after all evidence has been collected.
+
+Its responsibilities are:
+
+- Executive summary
+- Business interpretation
+- Prioritised recommendations
+- Website redesign brief
+- Mockup prompt generation
+
+Think of AI as the narrator.
+
+Not the inspector.
+
+---
+
+# Report Structure
+
+The assessment should generate:
+
+## Website Modernisation Assessment
+
+### Business Modernisation Score
+
+Overall score
+
+Then five expandable categories:
+
+- Discoverability
+- Infrastructure
+- Trust & Brand
+- Customer Experience
+- Modernisation
+
+Each section should include:
+
+- Score
+- Evidence
+- Why this matters
+- Recommended improvement
+
+---
+
+# Most Important Addition
+
+At the end of the report add:
+
+## Why a New Website Solves This
+
+This section connects every identified problem back to one solution.
+
+Example:
+
+Your current website is limiting your business because:
+
+- Customers take longer to understand what you do.
+- Search engines and AI assistants receive poorly structured information.
+- Your business appears less credible than modern competitors.
+- Mobile visitors experience unnecessary friction.
+- The current platform restricts future improvements.
+
+A modern website addresses these issues by improving:
+
+- Discoverability
+- Technical performance
+- Customer trust
+- Customer experience
+- Long-term flexibility
+
+Immediately beneath this section display the generated website mockup.
+
+The report should naturally lead into:
+
+> "Here's what your modernised business could look like."
+
+---
+
+# Design Principle
+
+The assessment should never feel like an SEO audit.
+
+It should feel like an explanation of **why replacing the website is a commercially sensible decision**.
+
+Every metric should answer one question:
+
+> **"How does a new website help this business compete more effectively?"**
+
+If a metric cannot ultimately support the case for a better website, it probably doesn't belong in Version 1.
+
+---
+
+# Future Expansion (Do Not Build Yet)
+
+This assessment architecture is intentionally extensible.
+
+In the future, additional manufactured digital assets (CRM, automation, analytics, AI operators, etc.) may contribute to the Business Modernisation Score.
+
+However, **Version 1 should remain focused on one commercial outcome: helping businesses understand why investing in a new website is the right decision.**

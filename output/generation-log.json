@@ -1,0 +1,120 @@
+[
+  {
+    "asset_id": "logo_trc",
+    "mode": "reuse",
+    "status": "skipped",
+    "duration_ms": 0,
+    "error": "Reuse — supply brand asset manually",
+    "timestamp": "2026-07-15T22:53:09.997Z"
+  },
+  {
+    "asset_id": "hero_person_writing",
+    "mode": "skip",
+    "status": "skipped",
+    "duration_ms": 0,
+    "timestamp": "2026-07-15T22:53:09.998Z"
+  },
+  {
+    "asset_id": "booking_icon_user",
+    "mode": "skip",
+    "status": "skipped",
+    "duration_ms": 0,
+    "timestamp": "2026-07-15T22:53:09.998Z"
+  },
+  {
+    "asset_id": "booking_icon_relationship",
+    "mode": "skip",
+    "status": "skipped",
+    "duration_ms": 0,
+    "timestamp": "2026-07-15T22:53:09.998Z"
+  },
+  {
+    "asset_id": "booking_icon_work",
+    "mode": "skip",
+    "status": "skipped",
+    "duration_ms": 0,
+    "timestamp": "2026-07-15T22:53:09.998Z"
+  },
+  {
+    "asset_id": "testimonial_clouds",
+    "mode": "source",
+    "status": "skipped",
+    "duration_ms": 0,
+    "error": "Stock — source manually from stock library",
+    "timestamp": "2026-07-15T22:53:09.998Z"
+  },
+  {
+    "asset_id": "trust_icon_lock",
+    "mode": "skip",
+    "status": "skipped",
+    "duration_ms": 0,
+    "timestamp": "2026-07-15T22:53:09.998Z"
+  },
+  {
+    "asset_id": "trust_icon_badge",
+    "mode": "skip",
+    "status": "skipped",
+    "duration_ms": 0,
+    "timestamp": "2026-07-15T22:53:09.998Z"
+  },
+  {
+    "asset_id": "trust_icon_globe",
+    "mode": "skip",
+    "status": "skipped",
+    "duration_ms": 0,
+    "timestamp": "2026-07-15T22:53:09.998Z"
+  },
+  {
+    "asset_id": "trust_icon_chat",
+    "mode": "recreate",
+    "status": "ok",
+    "duration_ms": 25014,
+    "model": "gpt-image-1",
+    "prompt": "Line icon of a chat bubble, minimal, gold on navy blue. Simple flat icon. Single colour or minimal palette. Transparent background. No text. Visual style: Professional services, premium psychology consulting, warm and approachable with elegant serif and sans-serif typography, subtle gold accents, and calming imagery., light.",
+    "timestamp": "2026-07-15T22:53:35.012Z"
+  },
+  {
+    "asset_id": "process_icon_chat",
+    "mode": "recreate",
+    "status": "ok",
+    "duration_ms": 27828,
+    "model": "gpt-image-1",
+    "prompt": "Line icon of a speech bubble, minimal, navy blue on white. Simple flat icon. Single colour or minimal palette. Transparent background. No text. Visual style: Professional services, premium psychology consulting, warm and approachable with elegant serif and sans-serif typography, subtle gold accents, and calming imagery., light.",
+    "timestamp": "2026-07-15T22:54:02.840Z"
+  },
+  {
+    "asset_id": "process_icon_pattern",
+    "mode": "recreate",
+    "status": "ok",
+    "duration_ms": 30327,
+    "model": "gpt-image-1",
+    "prompt": "Line icon of a repeating pattern or arrows, minimal, navy blue on white. Simple flat icon. Single colour or minimal palette. Transparent background. No text. Visual style: Professional services, premium psychology consulting, warm and approachable with elegant serif and sans-serif typography, subtle gold accents, and calming imagery., light.",
+    "timestamp": "2026-07-15T22:54:33.167Z"
+  },
+  {
+    "asset_id": "process_icon_type",
+    "mode": "recreate",
+    "status": "ok",
+    "duration_ms": 29170,
+    "model": "gpt-image-1",
+    "prompt": "Line icon of a cog or brain, minimal, navy blue on white. Simple flat icon. Single colour or minimal palette. Transparent background. No text. Visual style: Professional services, premium psychology consulting, warm and approachable with elegant serif and sans-serif typography, subtle gold accents, and calming imagery., light.",
+    "timestamp": "2026-07-15T22:55:02.338Z"
+  },
+  {
+    "asset_id": "process_icon_clarity",
+    "mode": "recreate",
+    "status": "ok",
+    "duration_ms": 25305,
+    "model": "gpt-image-1",
+    "prompt": "Line icon of a pencil or checkmark, minimal, navy blue on white. Simple flat icon. Single colour or minimal palette. Transparent background. No text. Visual style: Professional services, premium psychology consulting, warm and approachable with elegant serif and sans-serif typography, subtle gold accents, and calming imagery., light.",
+    "timestamp": "2026-07-15T22:55:27.643Z"
+  },
+  {
+    "asset_id": "cta_coffee_notebook",
+    "mode": "source",
+    "status": "skipped",
+    "duration_ms": 0,
+    "error": "Stock — source manually from stock library",
+    "timestamp": "2026-07-15T22:55:27.643Z"
+  }
+]

@@ -1,0 +1,210 @@
+{
+  "mockup": "mockup.PNG.png",
+  "deconstruction": "the-personality-company-2.json",
+  "generated_at": "2026-07-15T22:55:27.643Z",
+  "operator_version": "0.1.0",
+  "assets": [
+    {
+      "id": "logo_trc",
+      "mode": "reuse",
+      "status": "skipped",
+      "files": {},
+      "meta": {
+        "format": "webp",
+        "error": "Reuse — supply brand asset manually"
+      }
+    },
+    {
+      "id": "hero_person_writing",
+      "mode": "skip",
+      "status": "skipped",
+      "files": {
+        "original": "../hero_person_writing/original.webp"
+      },
+      "meta": {
+        "format": "webp"
+      }
+    },
+    {
+      "id": "booking_icon_user",
+      "mode": "skip",
+      "status": "skipped",
+      "files": {
+        "original": "../booking_icon_user/original.webp"
+      },
+      "meta": {
+        "format": "webp"
+      }
+    },
+    {
+      "id": "booking_icon_relationship",
+      "mode": "skip",
+      "status": "skipped",
+      "files": {
+        "original": "../booking_icon_relationship/original.webp"
+      },
+      "meta": {
+        "format": "webp"
+      }
+    },
+    {
+      "id": "booking_icon_work",
+      "mode": "skip",
+      "status": "skipped",
+      "files": {
+        "original": "../booking_icon_work/original.webp"
+      },
+      "meta": {
+        "format": "webp"
+      }
+    },
+    {
+      "id": "testimonial_clouds",
+      "mode": "source",
+      "status": "skipped",
+      "files": {},
+      "meta": {
+        "format": "webp",
+        "error": "Stock — source manually from stock library"
+      }
+    },
+    {
+      "id": "trust_icon_lock",
+      "mode": "skip",
+      "status": "skipped",
+      "files": {
+        "original": "../trust_icon_lock/original.webp"
+      },
+      "meta": {
+        "format": "webp"
+      }
+    },
+    {
+      "id": "trust_icon_badge",
+      "mode": "skip",
+      "status": "skipped",
+      "files": {
+        "original": "../trust_icon_badge/original.webp"
+      },
+      "meta": {
+        "format": "webp"
+      }
+    },
+    {
+      "id": "trust_icon_globe",
+      "mode": "skip",
+      "status": "skipped",
+      "files": {
+        "original": "../trust_icon_globe/original.webp"
+      },
+      "meta": {
+        "format": "webp"
+      }
+    },
+    {
+      "id": "trust_icon_chat",
+      "mode": "recreate",
+      "status": "ok",
+      "files": {
+        "original": "assets/trust_icon_chat/original.webp",
+        "md": "assets/trust_icon_chat/md.webp",
+        "sm": "assets/trust_icon_chat/sm.webp",
+        "xs": "assets/trust_icon_chat/xs.webp"
+      },
+      "meta": {
+        "format": "webp",
+        "width": 1024,
+        "height": 1024,
+        "source_model": "gpt-image-1",
+        "prompt_used": "Line icon of a chat bubble, minimal, gold on navy blue. Simple flat icon. Single colour or minimal palette. Transparent background. No text. Visual style: Professional services, premium psychology consulting, warm and approachable with elegant serif and sans-serif typography, subtle gold accents, and calming imagery., light.",
+        "aspect_ratio": "1:1"
+      }
+    },
+    {
+      "id": "process_icon_chat",
+      "mode": "recreate",
+      "status": "ok",
+      "files": {
+        "original": "assets/process_icon_chat/original.webp",
+        "md": "assets/process_icon_chat/md.webp",
+        "sm": "assets/process_icon_chat/sm.webp",
+        "xs": "assets/process_icon_chat/xs.webp"
+      },
+      "meta": {
+        "format": "webp",
+        "width": 1024,
+        "height": 1024,
+        "source_model": "gpt-image-1",
+        "prompt_used": "Line icon of a speech bubble, minimal, navy blue on white. Simple flat icon. Single colour or minimal palette. Transparent background. No text. Visual style: Professional services, premium psychology consulting, warm and approachable with elegant serif and sans-serif typography, subtle gold accents, and calming imagery., light.",
+        "aspect_ratio": "1:1"
+      }
+    },
+    {
+      "id": "process_icon_pattern",
+      "mode": "recreate",
+      "status": "ok",
+      "files": {
+        "original": "assets/process_icon_pattern/original.webp",
+        "md": "assets/process_icon_pattern/md.webp",
+        "sm": "assets/process_icon_pattern/sm.webp",
+        "xs": "assets/process_icon_pattern/xs.webp"
+      },
+      "meta": {
+        "format": "webp",
+        "width": 1024,
+        "height": 1024,
+        "source_model": "gpt-image-1",
+        "prompt_used": "Line icon of a repeating pattern or arrows, minimal, navy blue on white. Simple flat icon. Single colour or minimal palette. Transparent background. No text. Visual style: Professional services, premium psychology consulting, warm and approachable with elegant serif and sans-serif typography, subtle gold accents, and calming imagery., light.",
+        "aspect_ratio": "1:1"
+      }
+    },
+    {
+      "id": "process_icon_type",
+      "mode": "recreate",
+      "status": "ok",
+      "files": {
+        "original": "assets/process_icon_type/original.webp",
+        "md": "assets/process_icon_type/md.webp",
+        "sm": "assets/process_icon_type/sm.webp",
+        "xs": "assets/process_icon_type/xs.webp"
+      },
+      "meta": {
+        "format": "webp",
+        "width": 1024,
+        "height": 1024,
+        "source_model": "gpt-image-1",
+        "prompt_used": "Line icon of a cog or brain, minimal, navy blue on white. Simple flat icon. Single colour or minimal palette. Transparent background. No text. Visual style: Professional services, premium psychology consulting, warm and approachable with elegant serif and sans-serif typography, subtle gold accents, and calming imagery., light.",
+        "aspect_ratio": "1:1"
+      }
+    },
+    {
+      "id": "process_icon_clarity",
+      "mode": "recreate",
+      "status": "ok",
+      "files": {
+        "original": "assets/process_icon_clarity/original.webp",
+        "md": "assets/process_icon_clarity/md.webp",
+        "sm": "assets/process_icon_clarity/sm.webp",
+        "xs": "assets/process_icon_clarity/xs.webp"
+      },
+      "meta": {
+        "format": "webp",
+        "width": 1024,
+        "height": 1024,
+        "source_model": "gpt-image-1",
+        "prompt_used": "Line icon of a pencil or checkmark, minimal, navy blue on white. Simple flat icon. Single colour or minimal palette. Transparent background. No text. Visual style: Professional services, premium psychology consulting, warm and approachable with elegant serif and sans-serif typography, subtle gold accents, and calming imagery., light.",
+        "aspect_ratio": "1:1"
+      }
+    },
+    {
+      "id": "cta_coffee_notebook",
+      "mode": "source",
+      "status": "skipped",
+      "files": {},
+      "meta": {
+        "format": "webp",
+        "error": "Stock — source manually from stock library"
+      }
+    }
+  ]
+}
