@@ -7,7 +7,7 @@ import { ProblemRoutineAccordion } from "./ProblemRoutineAccordion"
 
 export const metadata: Metadata = {
   title: "We Lose Customers | Sorted V2",
-  description: "Why slow replies, missed calls, and inconsistent follow-up cost businesses customers, trust, and revenue.",
+  description: "Why slow replies, missed calls, and inconsistent follow-up are gaps that cost businesses customers, trust, and revenue.",
 }
 
 export default function ProblemDetailPage() {
@@ -55,7 +55,7 @@ export default function ProblemDetailPage() {
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_58%,rgba(0,0,0,0.08)_100%)]" />
             <div className="absolute right-4 top-[56%] z-10 max-w-[210px] rotate-[-2deg] rounded-[14px] bg-[#dfff00] px-4 py-4 shadow-[0_16px_35px_rgba(0,0,0,0.14)] sm:right-[-8px]">
-              <p className="[font-family:var(--font-v2-marker)] text-[1.55rem] uppercase leading-[0.9] sm:text-[1.75rem]">Small routines.<br />Big loss.</p>
+              <p className="[font-family:var(--font-v2-marker)] text-[1.55rem] uppercase leading-[0.9] sm:text-[1.75rem]">Small gaps.<br />Big loss.</p>
               <div className="mt-2.5 h-[3px] w-24 rounded-full bg-black" />
             </div>
           </div>
@@ -86,7 +86,7 @@ export default function ProblemDetailPage() {
         <div className="grid gap-6 rounded-[20px] bg-[#f7efe3] p-7 md:grid-cols-[0.27fr_repeat(4,1fr)]">
           <div>
             <SectionTitle title="Why it happens." />
-            <p className="mt-6 text-[14px] font-semibold leading-[1.45]">These routines look small, but they create big gaps in your customer journey.</p>
+            <p className="mt-6 text-[14px] font-semibold leading-[1.45]">These gaps look small, but they cost you customers, trust, and revenue.</p>
           </div>
           {[
             [Bell, "No instant alerts", "New enquiries arrive, but no one knows right away."],
@@ -110,14 +110,14 @@ export default function ProblemDetailPage() {
 
       <section id="fix" className="mx-auto grid max-w-[1220px] gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[0.28fr_0.72fr]">
         <div>
-          <SectionTitle title="The routines that cost your customers." />
-          <p className="mt-7 text-[14px] font-semibold leading-[1.5]">Click a routine to see why it happens, what it costs, and how we remove it.</p>
+          <SectionTitle title="The gaps that cost your customers." />
+          <p className="mt-7 text-[14px] font-semibold leading-[1.5]">Click a gap to see why it happens, what it costs, and how we close it.</p>
         </div>
         <ProblemRoutineAccordion />
       </section>
 
       <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
-        <SectionTitle title="What changes when these routines disappear." />
+        <SectionTitle title="What changes when these gaps close." />
         <div className="mt-8 grid gap-5 lg:grid-cols-3">
           <article className="rounded-[16px] border border-black/10 bg-white p-6">
             <SectionTitle title="Capabilities that fix this" />
@@ -142,7 +142,7 @@ export default function ProblemDetailPage() {
           </article>
           <article className="rounded-[16px] border border-black/10 bg-white p-6">
             <SectionTitle title="Every capability is measured" />
-            <p className="mt-6 text-[13px] font-semibold leading-[1.5]">Live visibility across every routine, so you can see what changed and where capacity came back.</p>
+            <p className="mt-6 text-[13px] font-semibold leading-[1.5]">Live visibility across every gap, so you can see what changed and where you got it back.</p>
             <div className="mt-5 grid gap-3 rounded-xl bg-[#f7f7f3] p-4">
               {["31s average response time", "127 opportunities recovered", "34% source uplift"].map((item) => (
                 <p key={item} className="rounded-lg bg-white px-3 py-2 text-[12px] font-black">{item}</p>
@@ -152,7 +152,7 @@ export default function ProblemDetailPage() {
         </div>
       </section>
 
-      <CtaBand title="Let's stop losing customers." copy="We will review your business and find the routines costing you customers right now." />
+      <CtaBand title="Let's stop losing customers." copy="We will review your business and find the gaps costing you customers right now." />
       <V2Footer />
     </V2Page>
   )

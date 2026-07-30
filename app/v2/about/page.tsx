@@ -4,13 +4,13 @@ import { CtaBand, SectionTitle, V2Footer, V2Header, V2Page } from "../_component
 
 export const metadata: Metadata = {
   title: "About Sorted | Sorted V2",
-  description: "Why Sorted exists, what we believe, how we work, and why every installed system is measured.",
+  description: "Why Sorted exists, what we believe, how we work, and why every gap we close is measured.",
 }
 
 const beliefs = [
-  ["Every business accumulates repetitive work.", "It is a natural consequence of growth. More customers, more systems and more people create more manual routines.", Layers3],
-  ["Repetitive work steals time.", "Every unnecessary routine takes attention away from customers, improvement and growth.", Clock3],
-  ["Better systems compound.", "Installing one system will not transform a business overnight. Installing one every month will.", Sparkles],
+  ["Every business has gaps.", "It is a natural consequence of growth. More customers, more systems and more people create more places for revenue and trust to leak out.", Layers3],
+  ["Gaps leak revenue and trust.", "Every gap left open costs more than it looks like — in lost customers, wasted time, and money left on the table.", Clock3],
+  ["Better systems compound.", "Closing one gap will not transform a business overnight. Closing one every month will.", Sparkles],
   ["What gets measured gets improved.", "We do not measure success by the number of systems we install. We measure what changes after they are installed.", BarChart3],
 ]
 
@@ -33,8 +33,8 @@ export default function AboutPage() {
         <div className="text-[17px] font-semibold leading-[1.65] tracking-[-0.035em]">
           <p>Businesses do not struggle because people do not work hard.</p>
           <p className="mt-5">They struggle because <mark className="bg-[#dfff00] px-1 font-black">important work quietly stops happening.</mark></p>
-          <p className="mt-8">As businesses grow, repetitive routines appear everywhere. Calls are not returned. Reviews are not requested. Customers are not followed up. Information gets copied from one system to another.</p>
-          <p className="mt-8">Sorted finds the routine, installs the system that removes it, and gives businesses the capacity to focus on the <strong>work only people can do.</strong></p>
+          <p className="mt-8">As businesses grow, gaps appear everywhere. Calls are not returned. Reviews are not requested. Customers are not followed up. Revenue leaks out through the cracks.</p>
+          <p className="mt-8">Sorted finds the gap, installs the system that closes it, and gives businesses the capacity to focus on the <strong>work only people can do.</strong></p>
         </div>
 
         <div className="relative overflow-hidden rounded-[22px] bg-[#070707] p-8 text-white shadow-[0_22px_55px_rgba(0,0,0,0.18)]">
@@ -42,10 +42,10 @@ export default function AboutPage() {
           <div className="relative">
             <p className="text-[44px] font-black tracking-[-0.07em]">S<span className="text-[#dfff00]">.</span></p>
             <p className="mt-14 max-w-[320px] text-[28px] font-black uppercase leading-[1.18] tracking-[-0.04em]">
-              We remove repetitive work so businesses can focus on what matters.
+              We close the gaps so businesses can focus on what matters.
             </p>
             <div className="mt-6 h-[3px] w-16 rounded-full bg-[#dfff00]" />
-            <p className="mt-8 text-[17px] font-semibold leading-[1.6] text-white/85">Less manual work.<br />More capacity.<br />Better experiences.<br />Stronger results.</p>
+            <p className="mt-8 text-[17px] font-semibold leading-[1.6] text-white/85">Less leaking revenue.<br />More trust.<br />Better experiences.<br />Stronger results.</p>
           </div>
         </div>
       </section>
@@ -86,7 +86,7 @@ export default function AboutPage() {
           <Clock3 className="size-10" />
           <SectionTitle title="Why we measure everything." />
           <p className="mt-8 text-[14px] font-black leading-[1.65]">Every change should produce evidence.</p>
-          <p className="mt-5 text-[14px] font-semibold leading-[1.65]">If removing a routine does not return time, improve consistency or create measurable business value, then nothing meaningful has changed.</p>
+          <p className="mt-5 text-[14px] font-semibold leading-[1.65]">If closing a gap does not recover revenue, rebuild trust or create measurable business value, then nothing meaningful has changed.</p>
           <p className="mt-5 text-[14px] font-semibold leading-[1.65]">That is why every improvement we make is tracked. Not because dashboards look impressive. Because businesses deserve proof.</p>
         </article>
 
@@ -94,18 +94,18 @@ export default function AboutPage() {
           <UsersRound className="size-10" />
           <SectionTitle title="About Sorted." />
           <p className="mt-8 max-w-[460px] text-[14px] font-semibold leading-[1.7]">
-            Sorted helps businesses remove repetitive work. We do not sell automation for the sake of automation. We do not build systems because technology is interesting.
+            Sorted helps businesses close the gaps that leak revenue and trust. We do not sell automation for the sake of automation. We do not build systems because technology is interesting.
           </p>
           <p className="mt-5 max-w-[460px] text-[14px] font-semibold leading-[1.7]">
             Everything we do is guided by one question:
           </p>
-          <p className="mt-5 inline-block rounded-lg bg-[#dfff00] px-4 py-3 text-[16px] font-black">Does this remove repetitive work?</p>
+          <p className="mt-5 inline-block rounded-lg bg-[#dfff00] px-4 py-3 text-[16px] font-black">Does this close a gap that's costing the business?</p>
           <p className="mt-5 text-[14px] font-semibold">If the answer is no, we do not build it.</p>
           <Mountain className="absolute bottom-8 right-8 size-40 text-black/12" strokeWidth={1.4} />
         </article>
       </section>
 
-      <CtaBand title="Every business has routines like this." copy="Start with a diagnostic and we will help you identify the first routine worth removing." />
+      <CtaBand title="Every business has gaps like this." copy="Start with a diagnostic and we will help you identify the first gap worth closing." />
       <V2Footer />
     </V2Page>
   )

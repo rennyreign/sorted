@@ -56,7 +56,7 @@ export function ProblemDetailTemplate({ slug }: { slug: ProblemSlug }) {
               <p className="mt-6 max-w-[280px] text-[15px] font-black leading-[1.35] tracking-[-0.04em]">{problem.description}</p>
             </div>
             <div className="absolute bottom-8 right-4 z-10 max-w-[210px] rotate-[-2deg] rounded-[14px] bg-[#dfff00] px-4 py-4 shadow-[0_16px_35px_rgba(0,0,0,0.14)] sm:right-[-8px]">
-              <p className="[font-family:var(--font-v2-marker)] text-[1.55rem] uppercase leading-[0.9] sm:text-[1.75rem]">Small routines.<br />Big cost.</p>
+              <p className="[font-family:var(--font-v2-marker)] text-[1.55rem] uppercase leading-[0.9] sm:text-[1.75rem]">Small gaps.<br />Big cost.</p>
               <div className="mt-2.5 h-[3px] w-24 rounded-full bg-black" />
             </div>
           </div>
@@ -82,7 +82,7 @@ export function ProblemDetailTemplate({ slug }: { slug: ProblemSlug }) {
         <div className="grid gap-6 rounded-[20px] bg-[#f7efe3] p-7 md:grid-cols-[0.27fr_repeat(4,1fr)]">
           <div>
             <SectionTitle title="Why it happens." />
-            <p className="mt-6 text-[14px] font-semibold leading-[1.45]">These routines look small, but they create drag across the whole business.</p>
+            <p className="mt-6 text-[14px] font-semibold leading-[1.45]">These gaps look small, but they leak revenue and trust across the whole business.</p>
           </div>
           {problem.reasons.map(([Icon, title, copy]) => {
             const RealIcon = Icon
@@ -101,14 +101,14 @@ export function ProblemDetailTemplate({ slug }: { slug: ProblemSlug }) {
 
       <section id="fix" className="mx-auto grid max-w-[1220px] gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[0.28fr_0.72fr]">
         <div>
-          <SectionTitle title="The routines that create this problem." />
-          <p className="mt-7 text-[14px] font-semibold leading-[1.5]">Click a routine to see why it happens, what it costs, and how we remove it.</p>
+          <SectionTitle title="The gaps that create this problem." />
+          <p className="mt-7 text-[14px] font-semibold leading-[1.5]">Click a gap to see why it happens, what it costs, and how we close it.</p>
         </div>
         <GenericProblemRoutineAccordion routines={accordionRoutines} />
       </section>
 
       <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
-        <SectionTitle title="What changes when these routines disappear." />
+        <SectionTitle title="What changes when these gaps close." />
         <div className="mt-8 grid gap-5 lg:grid-cols-3">
           <article className="rounded-[16px] border border-black/10 bg-white p-6">
             <SectionTitle title="Capabilities that fix this" />
@@ -128,7 +128,7 @@ export function ProblemDetailTemplate({ slug }: { slug: ProblemSlug }) {
           </article>
           <article className="rounded-[16px] border border-black/10 bg-white p-6">
             <SectionTitle title="Every capability is measured" />
-            <p className="mt-6 text-[13px] font-semibold leading-[1.5]">Live visibility across every routine, so you can see what changed and where capacity came back.</p>
+            <p className="mt-6 text-[13px] font-semibold leading-[1.5]">Live visibility across every gap, so you can see what changed and where you got it back.</p>
             <div className="mt-5 grid gap-3 rounded-xl bg-[#f7f7f3] p-4">
               {problem.stats.slice(0, 3).map(([, value, label]) => (
                 <p key={label} className="rounded-lg bg-white px-3 py-2 text-[12px] font-black">{value} {label}</p>
@@ -138,7 +138,7 @@ export function ProblemDetailTemplate({ slug }: { slug: ProblemSlug }) {
         </div>
       </section>
 
-      <CtaBand title="Let's remove the routine behind this." copy="Start the diagnostic and we will identify the first routine worth replacing." />
+      <CtaBand title="Let's close the gap behind this." copy="Start the diagnostic and we will identify the first gap worth closing." />
       <V2Footer />
     </V2Page>
   )

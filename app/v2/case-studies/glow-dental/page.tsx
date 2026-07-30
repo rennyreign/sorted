@@ -4,7 +4,7 @@ import { CheckList, CtaBand, SectionTitle, V2Footer, V2Header, V2Page } from "..
 
 export const metadata: Metadata = {
   title: "Glow Dental Case Study | Sorted V2",
-  description: "How Glow Dental recovered 63 enquiries every month by replacing an inconsistent follow-up routine.",
+  description: "How Glow Dental recovered 63 enquiries every month by closing the gap in their follow-up.",
 }
 
 export default function GlowDentalCaseStudyPage() {
@@ -132,7 +132,7 @@ export default function GlowDentalCaseStudyPage() {
                 <article key={item} className="text-center">
                   <Check className="mx-auto size-9" />
                   <h3 className="mt-4 text-[15px] font-black">{item}</h3>
-                  <p className="mt-2 text-[12px] font-semibold leading-[1.4] text-black/60">The system handles the repetitive part so the team can focus on care.</p>
+                  <p className="mt-2 text-[12px] font-semibold leading-[1.4] text-black/60">The system closes the gap so the team can focus on care.</p>
                 </article>
               ))}
             </div>
@@ -146,7 +146,7 @@ export default function GlowDentalCaseStudyPage() {
             </div>
           </CaseSection>
 
-          <CtaBand title="What could we recover in your business?" copy="Show us one routine that is frustrating you and we will show you what could change." />
+          <CtaBand title="What could we recover in your business?" copy="Show us one gap that is frustrating you and we will show you what could change." />
           <V2Footer />
         </main>
       </div>

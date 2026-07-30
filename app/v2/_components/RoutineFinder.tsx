@@ -249,15 +249,15 @@ function QuestionStep({ step, value, onChoose }: { step: Step; value?: string; o
 
 function LoadingStep({ answers }: { answers: Partial<Record<StepKey, string>> }) {
   const observations = [
-    answers.industry ? `${answers.industry} businesses usually lose time in handoffs.` : "Looking at the business type.",
-    answers.frustration ? answers.frustration : "Checking the routine pattern.",
-    answers.owner === "Nobody consistently" ? "Ownership looks like the first weak point." : "Checking who owns the routine.",
+    answers.industry ? `${answers.industry} businesses usually leak revenue in handoffs.` : "Looking at the business type.",
+    answers.frustration ? answers.frustration : "Checking where it's leaking.",
+    answers.owner === "Nobody consistently" ? "Ownership looks like the first weak point." : "Checking who owns the gap.",
   ]
 
   return (
     <section className="mx-auto max-w-[760px] text-center">
       <Loader2 className="mx-auto size-12 animate-spin text-[#acc500]" strokeWidth={2.6} />
-      <h2 className="mt-7 [font-family:var(--font-v2-marker)] text-[clamp(3.2rem,7vw,6.8rem)] uppercase leading-[0.92]">Looking for routines...</h2>
+      <h2 className="mt-7 [font-family:var(--font-v2-marker)] text-[clamp(3.2rem,7vw,6.8rem)] uppercase leading-[0.92]">Looking for the gaps...</h2>
       <div className="mx-auto mt-8 grid max-w-[560px] gap-3">
         {observations.map((item) => (
           <p key={item} className="rounded-full bg-white px-5 py-3 text-[13px] font-black shadow-[0_12px_32px_rgba(0,0,0,0.05)]">

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 const includes = [
-  [Search, "Routine identification", "We find the routines costing you the most."],
+  [Search, "Gap identification", "We find the gaps costing you the most."],
   [Wrench, "System installation", "We install, test and integrate the system."],
   [BarChart3, "Performance dashboard", "You see the impact in real time."],
   [UsersRound, "Team enablement", "We train your team and hand over."],
@@ -47,8 +47,8 @@ export default function PricingPage() {
           icon={Target}
           option="Option 1"
           title="Install One System"
-          subtitle="Solve one repetitive problem."
-          copy="A focused, one-off engagement to identify the routine costing you most and install the system that removes it."
+          subtitle="Close your biggest gap."
+          copy="A focused, one-off engagement to identify the gap costing you most and install the system that closes it."
           items={["A fast, targeted solution", "To see how Sorted works", "Immediate impact"]}
           price={<GeoPrice amount={2500} />}
           suffix="One-off installation"
@@ -59,7 +59,7 @@ export default function PricingPage() {
           option="Option 2"
           title="Operational Partner"
           subtitle="Continuously improve performance."
-          copy="We continuously identify, remove and improve repetitive work across your business."
+          copy="We continuously find and close the gaps leaking revenue, trust, and time across your business."
           items={["Ongoing operational improvement", "More systems installed over time", "Measurable performance every month", "A long-term partner in their growth"]}
           price={<GeoPrice amount={750} />}
           suffix="Per month"
@@ -97,7 +97,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <CtaBand title="Not sure where to start?" copy="Start the diagnostic and we will recommend the best system to remove the routine costing you most." />
+      <CtaBand title="Not sure where to start?" copy="Start the diagnostic and we will recommend the best system to close the gap costing you most." />
       <V2Footer />
     </V2Page>
   )

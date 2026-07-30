@@ -45,7 +45,7 @@ const results = [
     name: "Bodysharp",
     icon: HeartPulse,
     tone: "bg-[#c8f2d3]",
-    copy: "A templated operational result showing admin, follow-up and customer update routines ready for replacement.",
+    copy: "A templated operational result showing admin, follow-up and customer update gaps ready to close.",
     stats: ["Admin mapped", "Follow-up planned", "Capacity forecast"],
     href: "/ops/results/bodysharp",
   },

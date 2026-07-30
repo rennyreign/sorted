@@ -108,13 +108,13 @@ const ecosystem = [
 const typeRows = [
   {
     name: "Display",
-    sample: "Repetitive work steals time.",
+    sample: "Your business has gaps.",
     className: "text-[clamp(3.1rem,7vw,6.8rem)] font-black leading-[0.9] tracking-[-0.05em]",
     rule: "Use once per page. Short, direct, and useful.",
   },
   {
     name: "Highlight",
-    sample: "We remove it.",
+    sample: "We close them.",
     className: "[font-family:var(--font-v2-highlight)] text-[clamp(3rem,6vw,5.6rem)] font-normal leading-[0.86] tracking-[-0.02em] text-[#cfe900]",
     rule: "Use for one emotional emphasis line, never as paragraph text.",
   },
@@ -126,7 +126,7 @@ const typeRows = [
   },
   {
     name: "Body",
-    sample: "We find the routines slowing your business down, replace them with proven systems, and measure the capacity you get back.",
+    sample: "We find the gaps that leak revenue, hurt trust, and leave money on the table, install the systems that close them, and show you exactly how much you get back.",
     className: "max-w-[58ch] text-[15px] font-semibold leading-[1.55] tracking-[-0.025em]",
     rule: "Plain English. Concrete business language. No jargon.",
   },

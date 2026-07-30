@@ -21,7 +21,7 @@ const categories = [
     href: "/ops/problems/we-waste-time",
     color: "#ffe48a",
     icon: Clock3,
-    copy: "Repetitive admin eats your day and drains your team.",
+    copy: "Manual admin eats your day and drains your team.",
     items: ["Copying information", "Updating customers", "Answering the same questions", "Moving data between systems", "Manual reporting"],
   },
   {
@@ -92,7 +92,7 @@ export default function ProblemsPage() {
             })}
           </div>
           <div className="mx-auto mt-8 max-w-[360px] rounded-[16px] bg-[#070707] px-8 py-4 text-center text-white">
-            <p className="[font-family:var(--font-v2-marker)] text-[2rem]">WE REMOVE IT.</p>
+            <p className="[font-family:var(--font-v2-marker)] text-[2rem]">WE CLOSE IT.</p>
           </div>
         </div>
       </section>
