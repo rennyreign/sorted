@@ -113,7 +113,7 @@ export default function Home() {
               operations.
             </>
           }
-          lines={["Remove repetitive work.", "Recover time.", "Improve operations."]}
+          lines={["Remove repetitive work.", "Recover time.", "Stop losing customers."]}
           cta="Explore Sorted Ops"
         >
           <div className="absolute -bottom-8 left-[8%] z-0 w-[94%] rotate-[-9deg] overflow-hidden rounded-[18px] border border-white/15 bg-[#0d0d0d] p-6 shadow-[0_28px_70px_rgba(0,0,0,0.42)] sm:bottom-4 sm:left-[13%] sm:w-[86%]">
