@@ -2,44 +2,13 @@
 
 import { useEffect, useMemo, useState } from "react"
 import { ArrowDownUp, ArrowRight, Maximize2, RefreshCw, X } from "lucide-react"
+import type { ExampleMockup } from "./data"
 
 type Status = "Mockup" | "Approved" | "Building"
 
-type MockupExample = {
-  title: string
-  location: string
-  category: string
-  status: Status
-  createdAt: string
-  image: string
-}
+export type MockupExample = ExampleMockup
 
 const filters = ["All", "Home services", "Health & fitness", "Hospitality", "Retail", "Professional", "Other"]
-
-const mockupBaseUrl = "https://qweevancxedkkfxysnzq.supabase.co/storage/v1/object/public/Mockups/"
-
-const mockups: MockupExample[] = [
-  { title: "Pilates Studio", location: "London", category: "Health & fitness", status: "Mockup", createdAt: "2026-07-23T10:42:00+01:00", image: `${mockupBaseUrl}labpilates.png` },
-  { title: "Farm Shop", location: "Farleigh", category: "Retail", status: "Approved", createdAt: "2026-07-23T09:58:00+01:00", image: `${mockupBaseUrl}farleigh2.png` },
-  { title: "Rural Venue", location: "Kent", category: "Hospitality", status: "Mockup", createdAt: "2026-07-23T08:31:00+01:00", image: `${mockupBaseUrl}farleigh.png` },
-  { title: "Local Service Business", location: "Woolwich", category: "Home services", status: "Building", createdAt: "2026-07-23T07:46:00+01:00", image: `${mockupBaseUrl}woolwich.png` },
-  { title: "Hair Salon", location: "London", category: "Retail", status: "Approved", createdAt: "2026-07-22T21:24:00+01:00", image: `${mockupBaseUrl}no77.png` },
-  { title: "Fitness Club", location: "Birmingham", category: "Health & fitness", status: "Building", createdAt: "2026-07-22T20:07:00+01:00", image: `${mockupBaseUrl}sinfit.png` },
-  { title: "Wellness Studio", location: "Bristol", category: "Professional", status: "Mockup", createdAt: "2026-07-22T18:52:00+01:00", image: `${mockupBaseUrl}origin.png` },
-  { title: "Dental Practice", location: "Mayfield", category: "Professional", status: "Approved", createdAt: "2026-07-22T17:19:00+01:00", image: `${mockupBaseUrl}mayfield-dental.png` },
-  { title: "Community Hub", location: "Thamesmead", category: "Other", status: "Mockup", createdAt: "2026-07-22T16:38:00+01:00", image: `${mockupBaseUrl}thamesmeadB.png` },
-  { title: "Community Project", location: "Thamesmead", category: "Other", status: "Mockup", createdAt: "2026-07-22T15:06:00+01:00", image: `${mockupBaseUrl}thamesmeadA.png` },
-  { title: "Personal Trainer", location: "Manchester", category: "Health & fitness", status: "Building", createdAt: "2026-07-22T14:22:00+01:00", image: `${mockupBaseUrl}lanept.png` },
-  { title: "Beauty Salon", location: "London", category: "Retail", status: "Mockup", createdAt: "2026-07-22T13:47:00+01:00", image: `${mockupBaseUrl}salon108.png` },
-  { title: "Interior Design", location: "London", category: "Professional", status: "Approved", createdAt: "2026-07-22T12:11:00+01:00", image: `${mockupBaseUrl}edgmockup1.png` },
-  { title: "Flooring", location: "Leeds", category: "Home services", status: "Mockup", createdAt: "2026-07-22T11:36:00+01:00", image: `${mockupBaseUrl}edgmockup2.png` },
-  { title: "Hair Boutique", location: "Birmingham", category: "Retail", status: "Building", createdAt: "2026-07-22T10:18:00+01:00", image: `${mockupBaseUrl}hairboutique.png` },
-  { title: "Greek Restaurant", location: "Manchester", category: "Hospitality", status: "Approved", createdAt: "2026-07-22T09:41:00+01:00", image: `${mockupBaseUrl}moderngreek.png` },
-  { title: "Aesthetics Clinic", location: "London", category: "Professional", status: "Mockup", createdAt: "2026-07-22T08:56:00+01:00", image: `${mockupBaseUrl}positive-beauty-aesthetics.png` },
-  { title: "Coffee Shop", location: "Nottingham", category: "Hospitality", status: "Mockup", createdAt: "2026-07-22T08:03:00+01:00", image: `${mockupBaseUrl}coffeeoncorner.png` },
-  { title: "Italian Restaurant", location: "London", category: "Hospitality", status: "Mockup", createdAt: "2026-07-22T07:28:00+01:00", image: `${mockupBaseUrl}la-coppola.png` },
-  { title: "Private Gym", location: "Cardiff", category: "Health & fitness", status: "Building", createdAt: "2026-07-22T06:52:00+01:00", image: `${mockupBaseUrl}gymshed.png` },
-]
 
 const statusStyles: Record<Status, string> = {
   Mockup: "bg-[#252525] text-white before:bg-[#dfff00]",
@@ -50,7 +19,7 @@ const statusStyles: Record<Status, string> = {
 const initialVisibleCount = 10
 const visibleIncrement = 10
 
-export function ExamplesGallery() {
+export function ExamplesGallery({ mockups, totalCount }: { mockups: MockupExample[]; totalCount: number }) {
   const [activeFilter, setActiveFilter] = useState("All")
   const [visibleCount, setVisibleCount] = useState(initialVisibleCount)
   const [shuffleSeed, setShuffleSeed] = useState(0)
@@ -60,7 +29,7 @@ export function ExamplesGallery() {
     setShuffleSeed(Date.now() + Math.floor(Math.random() * 10000))
   }, [])
 
-  const shuffledMockups = useMemo(() => seededShuffle(mockups, shuffleSeed), [shuffleSeed])
+  const shuffledMockups = useMemo(() => seededShuffle(mockups, shuffleSeed), [mockups, shuffleSeed])
 
   const filteredMockups = useMemo(() => {
     if (activeFilter === "All") return shuffledMockups
@@ -128,7 +97,7 @@ export function ExamplesGallery() {
                 <div className="flex flex-wrap items-center justify-between gap-4 text-[12px] font-black">
                   <div className="flex items-center gap-5">
                     <span className="text-white/72">{filteredMockups.length} mockups shown</span>
-                    <span className="text-[#dfff00]">482 in the factory</span>
+                    <span className="text-[#dfff00]">{totalCount} in the factory</span>
                   </div>
                   <button type="button" className="inline-flex h-10 items-center gap-2 rounded-full border border-white/22 px-4 text-[11px] transition-colors hover:border-white/70">
                     Newest first <ArrowDownUp className="size-3.5" strokeWidth={2.4} />
@@ -138,7 +107,7 @@ export function ExamplesGallery() {
 
               <div className="mt-7 grid grid-cols-1 gap-4 min-[360px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
                 {visibleMockups.map((mockup) => (
-                  <article key={`${mockup.title}-${mockup.location}`} className="overflow-hidden rounded-[8px] bg-white text-black shadow-[0_16px_34px_rgba(0,0,0,0.28)]">
+                  <article key={mockup.id} className="overflow-hidden rounded-[8px] bg-white text-black shadow-[0_16px_34px_rgba(0,0,0,0.28)]">
                     <button
                       type="button"
                       onClick={() => setSelectedMockup(mockup)}
@@ -161,7 +130,7 @@ export function ExamplesGallery() {
                     <div className="grid min-h-[66px] grid-cols-[1fr_auto] gap-2 p-3">
                       <div>
                         <h3 className="text-[12px] font-black leading-tight tracking-[-0.025em]">{mockup.title}</h3>
-                        <p className="mt-1 text-[11px] font-semibold leading-none text-black/52">{mockup.location}</p>
+                        {mockup.location ? <p className="mt-1 text-[11px] font-semibold leading-none text-black/52">{mockup.location}</p> : null}
                       </div>
                       <span className="self-end whitespace-nowrap text-[10px] font-bold text-black/50">{formatFactoryTime(mockup.createdAt)}</span>
                     </div>
@@ -199,7 +168,9 @@ export function ExamplesGallery() {
             <header className="grid grid-cols-[1fr_auto] items-center gap-4 border-b border-black/10 bg-white px-4 py-3 sm:px-5">
               <div>
                 <h3 className="text-[18px] font-black leading-tight tracking-[-0.035em] text-black">{selectedMockup.title}</h3>
-                <p className="mt-1 text-[12px] font-bold text-black/50">{selectedMockup.location} · {selectedMockup.category}</p>
+                <p className="mt-1 text-[12px] font-bold text-black/50">
+                  {selectedMockup.location ? `${selectedMockup.location} · ` : null}{selectedMockup.category}
+                </p>
               </div>
               <button
                 type="button"
