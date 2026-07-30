@@ -17,7 +17,7 @@ export default function UpdatesPage() {
       <SitesHeader active="updates" />
       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-12 pt-12 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
         <div>
-          <SitesTitle kicker="SORTED CMS" title={<>Your content.<br />Your control.</>} marker="Update it yourself." />
+          <SitesTitle kicker="SORTED CMS" title={<>Your content<br />Your control</>} marker="Update it yourself." />
           <Underline className="mt-2 w-full max-w-[320px] sm:max-w-[380px]" />
           <p className="mt-7 max-w-[450px] text-[16px] font-semibold leading-[1.55] tracking-[-0.03em]">
             Every Sorted website includes a built-in content editor. Change text, images, services, prices and contact details yourself. Save, publish and see your updates live in minutes.
@@ -33,7 +33,7 @@ export default function UpdatesPage() {
 
       <section className="mx-auto max-w-[1220px] border-t border-black/10 px-5 py-12 sm:px-8">
         <p className="mb-5 text-[12px] font-black uppercase text-black/45">What it is</p>
-        <h2 className="text-[34px] font-black tracking-[-0.035em]">A CMS built into every site.</h2>
+        <h2 className="text-[34px] font-black tracking-[-0.035em]">A CMS built into every site</h2>
         <div className="mt-9 grid gap-8 md:grid-cols-3">
           {[
             ["SortedCMS", "A clean, git-backed content editor living at /cms/ on your site. Edit in your browser, save, and publish."],
@@ -52,7 +52,7 @@ export default function UpdatesPage() {
       <section className="mx-auto grid max-w-[1220px] gap-8 border-t border-black/10 px-5 py-12 sm:px-8 lg:grid-cols-[0.32fr_0.68fr]">
         <div>
           <p className="mb-5 text-[12px] font-black uppercase text-black/45">What you can edit</p>
-          <h2 className="text-[34px] font-black leading-[1] tracking-[-0.035em]">If it appears on the page, you can change it.</h2>
+          <h2 className="text-[34px] font-black leading-[1] tracking-[-0.035em]">If it appears on the page, you can change it</h2>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
           {[
@@ -79,7 +79,7 @@ export default function UpdatesPage() {
 
       <section className="mx-auto max-w-[1220px] border-t border-black/10 px-5 py-12 sm:px-8">
         <p className="mb-5 text-[12px] font-black uppercase text-black/45">How it works</p>
-        <h2 className="text-[34px] font-black tracking-[-0.035em]">Log in, edit, publish.</h2>
+        <h2 className="text-[34px] font-black tracking-[-0.035em]">Log in, edit, publish</h2>
         <div className="mt-9 grid gap-7 md:grid-cols-4">
           {[
             [LockKeyhole, "Log in", "Access your CMS at yoursite.com/cms/. We send you a secure invite."],
@@ -129,7 +129,7 @@ function CmsPanel() {
         <main className="p-4 sm:p-7">
           <h3 className="text-[23px] font-black tracking-[-0.05em] sm:text-[27px]">Hero</h3>
           <label className="mt-6 block text-[11px] font-black text-black/45">Title</label>
-          <div className="mt-2 rounded-xl border border-black/10 p-3 text-[12px] font-bold leading-[1.35] sm:p-4 sm:text-[14px]">YOUR SPACE.<br />YOUR STRENGTH.<br />YOUR RESULTS.</div>
+          <div className="mt-2 rounded-xl border border-black/10 p-3 text-[12px] font-bold leading-[1.35] sm:p-4 sm:text-[14px]">YOUR SPACE<br />YOUR STRENGTH<br />YOUR RESULTS.</div>
           <label className="mt-5 block text-[11px] font-black text-black/45">Subtitle</label>
           <div className="mt-2 rounded-xl border border-black/10 p-3 text-[12px] font-semibold sm:p-4 sm:text-[13px]">We design and build websites that drive real growth.</div>
           <div className="mt-5 h-28 rounded-xl bg-[#070707] p-4 text-[12px] text-white sm:h-36 sm:text-base">Hero image preview</div>

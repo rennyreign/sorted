@@ -45,13 +45,13 @@ function HeroSection() {
   return (
     <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-10 pt-10 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:pt-14">
       <div>
-        <p className="text-[12px] font-black uppercase tracking-[0.08em] text-black/45">Our process. Your results.</p>
+        <p className="text-[12px] font-black uppercase tracking-[0.08em] text-black/45">Our process / Your results</p>
         <h1 className="mt-5 text-[clamp(3.4rem,7vw,7rem)] font-black leading-[0.92] tracking-[-0.05em]">
-          See it first.
+          See it first
           <br />
           <span className="inline-block">
             Then you{" "}
-            <span className="[font-family:var(--font-sites-highlight)] text-[#d4ea00]">decide</span>.
+            <span className="[font-family:var(--font-sites-highlight)] text-[#d4ea00]">decide</span>
           </span>
         </h1>
         <p className="mt-6 max-w-[470px] text-[17px] font-semibold leading-[1.55] tracking-[-0.02em] text-black/75">

@@ -27,10 +27,10 @@ export default function SortedSitesHome() {
           <div className="mt-8">
             <h2 className="text-[clamp(1.85rem,2.75vw,2.85rem)] font-black leading-[0.98] tracking-[-0.045em] md:whitespace-nowrap">
               <span className="inline-block">
-                See it first.
+                See it first
                 <Underline className="mt-1 h-[5px] w-full" />
               </span>{" "}
-              Then decide.
+              Then decide
             </h2>
           </div>
           <p className="mt-5 max-w-[470px] text-[17px] font-semibold leading-[1.5] tracking-[-0.03em]">
@@ -38,7 +38,7 @@ export default function SortedSitesHome() {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-5">
             <MockupButton />
-            <span className="[font-family:var(--font-sites-highlight)] text-[23px] leading-none text-[#d0e600]">No card details.<br />No obligation.</span>
+            <span className="[font-family:var(--font-sites-highlight)] text-[23px] leading-none text-[#d0e600]">No card details<br />No obligation.</span>
           </div>
         </div>
 
@@ -58,7 +58,7 @@ export default function SortedSitesHome() {
 
       <section className="mx-auto grid max-w-[1220px] gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.28fr_0.72fr]">
         <div>
-          <h2 className="text-[36px] font-black leading-[0.98] tracking-[-0.035em]">Simple process.<br />Serious results.</h2>
+          <h2 className="text-[36px] font-black leading-[0.98] tracking-[-0.035em]">Simple process<br />Serious results</h2>
           <Underline className="mt-5 w-60" />
         </div>
         <div className="grid grid-cols-2 gap-5 md:grid-cols-4 md:gap-7">
@@ -85,7 +85,7 @@ export default function SortedSitesHome() {
 
       <section className="mx-auto grid max-w-[1220px] gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[0.28fr_0.72fr]">
         <div>
-          <h2 className="text-[36px] font-black leading-[1] tracking-[-0.035em]">Websites that<br />drive real growth.</h2>
+          <h2 className="text-[36px] font-black leading-[1] tracking-[-0.035em]">Websites that<br />drive real growth</h2>
         </div>
         <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
           {[
@@ -109,7 +109,7 @@ export default function SortedSitesHome() {
 
       <section className="mx-auto grid max-w-[1220px] gap-7 px-5 py-12 sm:px-8 lg:grid-cols-[0.32fr_repeat(3,1fr)]">
         <div>
-          <h2 className="text-[34px] font-black leading-[1] tracking-[-0.035em]">Real businesses.<br />Real mockups.<br />Real results.</h2>
+          <h2 className="text-[34px] font-black leading-[1] tracking-[-0.035em]">Real businesses<br />Real mockups<br />Real results</h2>
           <a href="/examples" className="mt-7 inline-flex h-12 items-center gap-3 whitespace-nowrap rounded-full border border-black/20 px-5 text-[12px] font-black">
             View more examples <ArrowRight className="size-4" strokeWidth={2.5} />
           </a>
@@ -151,9 +151,9 @@ function HomeBottom() {
         <div className="grid gap-10 lg:grid-cols-[0.82fr_1fr] lg:items-start">
           <div>
             <h2 className="max-w-[480px] text-[clamp(2.8rem,5vw,5rem)] font-black leading-[0.95] tracking-[-0.045em]">
-              You see it first.
+              You see it first
               <br />
-              Then you decide.
+              Then you decide
             </h2>
             <Underline className="mt-5 w-60" />
             <p className="mt-6 max-w-[450px] text-[15px] font-semibold leading-[1.5] text-white/82">
@@ -196,7 +196,7 @@ function HomeBottom() {
             </span>
             <p className="text-[24px] font-black leading-[1.05] tracking-[-0.035em]">Ready for your<br />new website?</p>
           </div>
-          <p className="text-[14px] font-semibold leading-[1.45]">Get your free mockup in 24 hours.<br />No obligation. No credit card.</p>
+          <p className="text-[14px] font-semibold leading-[1.45]">Get your free mockup in 24 hours<br />No obligation. No credit card.</p>
           <ArrowRight className="hidden size-16 rotate-[-8deg] lg:block" strokeWidth={1.7} />
           <MockupButton variant="primary" className="justify-self-start whitespace-nowrap lg:justify-self-end" />
         </div>
