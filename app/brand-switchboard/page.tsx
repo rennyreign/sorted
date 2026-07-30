@@ -108,9 +108,9 @@ export default function Home() {
           icon={<Clock3 className="size-10" strokeWidth={2.6} />}
           title={
             <>
-              Fix your
+              Sort your
               <br />
-              digital operations.
+              operations.
             </>
           }
           lines={["Remove repetitive work.", "Recover time.", "Improve operations."]}
