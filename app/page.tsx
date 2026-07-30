@@ -1,1 +1,1 @@
-export { metadata, default } from "./sites/page"
+export { metadata, default } from "./brand-switchboard/page"
