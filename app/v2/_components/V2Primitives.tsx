@@ -38,13 +38,13 @@ export function V2Header({ active }: { active?: "how" | "problems" | "results" |
   ] as const
 
   return (
-    <header className="mx-auto flex w-full max-w-[1220px] items-center justify-between px-5 pb-6 pt-6 sm:px-8">
+    <header className="mx-auto flex w-full max-w-[1220px] items-center justify-between px-5 pb-5 pt-6 sm:px-8 md:pb-6">
       <Link href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
         Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-v2-bakeshop)] translate-y-[-0.06em] text-[#cfe900]">ops</span>
       </Link>
-      <nav className="hidden items-center gap-8 text-[12px] font-extrabold tracking-[-0.02em] md:flex">
+      <nav className="hidden items-center gap-8 text-[12px] font-extrabold tracking-[-0.02em] md:flex lg:gap-10 lg:text-[13px]">
         {links.map((link) => (
-          <Link key={link.key} href={link.href} className="relative inline-flex min-h-11 items-center py-2">
+          <Link key={link.key} href={link.href} className="relative inline-flex min-h-11 items-center py-2 transition-opacity hover:opacity-60">
             {link.label}
             {active === link.key ? <span className="absolute inset-x-0 -bottom-0.5 h-[3px] rounded-full bg-[#dfff00]" /> : null}
           </Link>

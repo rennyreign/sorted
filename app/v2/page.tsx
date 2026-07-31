@@ -16,7 +16,7 @@ import {
   TrendingUp,
 } from "lucide-react"
 import { RoutineFinderButton } from "./_components/RoutineFinder"
-import { BookDiscoveryButton } from "./_components/V2Primitives"
+import { BookDiscoveryButton, V2Header } from "./_components/V2Primitives"
 
 const v2Marker = localFont({
   src: "../../public/fonts/cc-ask-for-mercy.ttf",
@@ -155,7 +155,7 @@ const testimonials = [
 export default function SortedV2Page() {
   return (
     <main className={`${v2Marker.variable} ${v2Highlight.variable} ${v2Bakeshop.variable} min-h-screen overflow-hidden bg-[#fbfbfa] text-[#080808]`}>
-      <Header />
+      <V2Header />
       <Hero />
       <Problems />
       <Process />
@@ -165,41 +165,6 @@ export default function SortedV2Page() {
       <FinalCta />
       <Footer />
     </main>
-  )
-}
-
-function Header() {
-  return (
-    <header className="mx-auto flex w-full max-w-[1220px] items-center justify-between px-5 pb-5 pt-6 sm:px-8 md:pb-6">
-      <Link href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
-        Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-v2-bakeshop)] translate-y-[-0.06em] text-[#cfe900]">ops</span>
-      </Link>
-
-      <nav className="hidden items-center gap-8 text-[12px] font-extrabold tracking-[-0.02em] md:flex lg:gap-10 lg:text-[13px]">
-        <Link className="inline-flex min-h-11 items-center transition-opacity hover:opacity-60" href="/ops/how-it-works">
-          How it works
-        </Link>
-        <Link className="inline-flex min-h-11 items-center transition-opacity hover:opacity-60" href="/ops/problems-we-solve">
-          Problems we solve
-        </Link>
-        <Link className="inline-flex min-h-11 items-center transition-opacity hover:opacity-60" href="/ops/results">
-          Results
-        </Link>
-        <Link className="inline-flex min-h-11 items-center transition-opacity hover:opacity-60" href="/ops/about">
-          About
-        </Link>
-        <Link className="inline-flex min-h-11 items-center transition-opacity hover:opacity-60" href="/ops/pricing">
-          Pricing
-        </Link>
-      </nav>
-
-      <div className="relative">
-        <RoutineFinderButton label="Start the diagnostic" variant="nav" />
-        <span className="absolute -right-5 -top-3 hidden h-8 w-8 rotate-12 text-[#dfff00] sm:block">
-          <DoodleBurst />
-        </span>
-      </div>
-    </header>
   )
 }
 
@@ -606,18 +571,6 @@ function SketchArrow({ className = "" }: { className?: string }) {
       <path d="M8 40C30 39 54 36 79 30C90 27 101 25 112 27" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
       <path d="M97 14C106 18 113 24 120 33" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
       <path d="M98 52C106 45 113 39 121 33" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
-    </svg>
-  )
-}
-
-function DoodleBurst() {
-  return (
-    <svg viewBox="0 0 48 48" fill="none" className="h-full w-full" aria-hidden>
-      <path d="M22 4L21 14" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      <path d="M36 9L29 17" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      <path d="M44 23L34 24" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      <path d="M36 39L29 31" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      <path d="M7 16L15 21" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
     </svg>
   )
 }
