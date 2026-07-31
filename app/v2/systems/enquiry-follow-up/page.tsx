@@ -35,7 +35,7 @@ export default function EnquiryFollowUpPage() {
           </p>
           <div className="mt-7 flex flex-wrap gap-4">
             <RoutineFinderButton label="See what this would look like in your business" variant="primary" />
-            <a href="/ops/reviews/glow-dental" className="inline-flex h-12 items-center rounded-full border border-black/20 px-5 text-[11px] font-black">
+            <a href="/ops/results-dashboard" className="inline-flex h-12 items-center rounded-full border border-black/20 px-5 text-[11px] font-black">
               See an example review
             </a>
           </div>
@@ -133,7 +133,7 @@ export default function EnquiryFollowUpPage() {
             <p className="text-[22px] font-black tracking-[-0.05em]">Glow Dental</p>
             <p className="mt-1 text-[12px] font-semibold text-black/55">Dental Practice, 3 chairs</p>
             <CheckList items={["Before: 38% enquiries never responded to", "After: 82% enquiries responded to", "Enquiries converted: +41%", "Monthly treatment value recovered: £8,400"]} />
-            <a href="/ops/case-studies/glow-dental" className="mt-5 inline-flex min-h-11 items-center gap-3 text-[12px] font-black">View full case study</a>
+            <a href="/ops/results-dashboard" className="mt-5 inline-flex min-h-11 items-center gap-3 text-[12px] font-black">View full case study</a>
           </div>
         </div>
         <div>
