@@ -22,6 +22,7 @@ export default function ApplyPage() {
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
   const [password, setPassword] = useState("")
+  const [program, setProgram] = useState<"referral" | "factory" | "">("")
   const [audience, setAudience] = useState("")
   const [agree, setAgree] = useState(false)
 
@@ -37,6 +38,10 @@ export default function ApplyPage() {
       setError("Password must be at least 6 characters.")
       return
     }
+    if (!program) {
+      setError("Please choose the partner program that suits you.")
+      return
+    }
     if (!agree) {
       setError("Please agree to the partner terms to continue.")
       return
@@ -48,6 +53,7 @@ export default function ApplyPage() {
       password,
       displayName: displayName.trim(),
       phone: phone.trim() || undefined,
+      program: program || undefined,
     })
 
     if (!result.ok) {
@@ -148,6 +154,23 @@ export default function ApplyPage() {
                   autoComplete="new-password"
                 />
               </Field>
+              <Field label="Partner program" required hint="Choose the path that fits how you want to earn.">
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <ProgramOption
+                    selected={program === "referral"}
+                    onSelect={() => setProgram("referral")}
+                    title="Referral Partner"
+                    description="You refer businesses and earn commission."
+                  />
+                  <ProgramOption
+                    selected={program === "factory"}
+                    onSelect={() => setProgram("factory")}
+                    title="Factory Partner"
+                    description="You set the price and keep the margin."
+                  />
+                </div>
+              </Field>
+
               <Field label="How will you reach businesses? (optional)" hint="Tell us about your network: local groups, social following, trade associations, existing clients, etc.">
                 <textarea
                   value={audience}
@@ -167,7 +190,7 @@ export default function ApplyPage() {
                 />
                 <span>
                   I agree to the{" "}
-                  <a href="/partners#about" className="font-black underline underline-offset-2">
+                  <a href="/partners/about-the-scheme" className="font-black underline underline-offset-2">
                     partner terms
                   </a>{" "}
                   and confirm the information above is accurate. I understand payouts are made when a referred client purchases a Sorted website.
@@ -252,3 +275,39 @@ function Field({
 
 const inputClass =
   "h-12 rounded-xl border border-black/12 bg-white px-4 text-[14px] font-semibold text-black outline-none transition-colors placeholder:text-black/35 focus:border-black/40"
+
+function ProgramOption({
+  selected,
+  onSelect,
+  title,
+  description,
+}: {
+  selected: boolean
+  onSelect: () => void
+  title: string
+  description: string
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className={`flex items-start gap-3 rounded-xl border p-4 text-left transition-colors ${
+        selected
+          ? "border-[#070707] bg-[#dfff00]"
+          : "border-black/12 bg-white hover:border-black/25"
+      }`}
+    >
+      <span
+        className={`mt-0.5 grid size-5 place-items-center rounded-full border ${
+          selected ? "border-[#070707] bg-[#070707]" : "border-black/25"
+        }`}
+      >
+        {selected ? <span className="size-2.5 rounded-full bg-[#dfff00]" /> : null}
+      </span>
+      <div>
+        <p className="text-[14px] font-black">{title}</p>
+        <p className="text-[12px] font-semibold leading-[1.45] text-black/65">{description}</p>
+      </div>
+    </button>
+  )
+}

@@ -12,6 +12,7 @@ export type SignUpInput = {
   password: string
   displayName: string
   phone?: string
+  program?: "referral" | "factory"
 }
 
 export type SignInInput = {
@@ -31,6 +32,7 @@ export async function signUpAffiliate(input: SignUpInput): Promise<AuthResult> {
       data: {
         display_name: input.displayName,
         phone: input.phone ?? null,
+        program: input.program ?? null,
       },
       emailRedirectTo: `${typeof window !== "undefined" ? window.location.origin : ""}/partners/login`,
     },

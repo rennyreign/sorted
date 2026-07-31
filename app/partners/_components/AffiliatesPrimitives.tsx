@@ -40,14 +40,12 @@ export function AffiliatesHeader({
   active,
   showLogin = true,
 }: {
-  active?: "about" | "how" | "rates" | "doctrine" | "apply" | "login"
+  active?: "about" | "what-you-earn" | "apply" | "login"
   showLogin?: boolean
 }) {
   const links: [string, string, string][] = [
-    ["how", "How it works", "/partners"],
-    ["rates", "What you earn", "/partners#rates"],
-    ["about", "About the scheme", "/partners#about"],
-    ["doctrine", "Sales doctrine", "/partners/doctrine"],
+    ["what-you-earn", "What you earn", "/partners/what-you-earn"],
+    ["about", "About the scheme", "/partners/about-the-scheme"],
   ]
   return (
     <header className="fixed left-0 right-0 top-0 z-50 border-b border-transparent bg-transparent px-4 py-4 transition-colors duration-200 sm:px-8">
@@ -103,9 +101,8 @@ export function AffiliatesFooter() {
         <FooterLinks
           title="Partners"
           links={[
-            ["How it works", "/partners"],
-            ["What you earn", "/partners#rates"],
-            ["Sales doctrine", "/partners/doctrine"],
+            ["What you earn", "/partners/what-you-earn"],
+            ["About the scheme", "/partners/about-the-scheme"],
             ["Apply", "/partners/apply"],
             ["Login", "/partners/login"],
           ]}

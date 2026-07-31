@@ -67,6 +67,7 @@ export type Affiliate = {
   email: string
   display_name: string
   phone: string | null
+  program: "referral" | "factory" | null
   bank_account_ref: string | null
   status: AffiliateStatus
   declined_reason: string | null
