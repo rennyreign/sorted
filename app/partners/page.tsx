@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { ArrowRight, BadgePoundSterling, Check, Clock3, HandCoins, Rocket, Sprout, Trophy, Users } from "lucide-react"
+import { ArrowRight, BadgePoundSterling, BarChart3, Check, Clock3, HandCoins, Users } from "lucide-react"
 import {
   AffiliatesFooter,
   AffiliatesHeader,
@@ -8,8 +8,7 @@ import {
   SectionTitle,
   Underline,
 } from "./_components/AffiliatesPrimitives"
-import { BUSINESS_STAGE_META } from "@/lib/affiliateClient"
-import { formatGbp, payoutForStage } from "@/lib/affiliatePayouts"
+
 
 export const metadata: Metadata = {
   title: "Sorted Partners Portal | Earn £75–£300 per website you refer",
@@ -92,39 +91,41 @@ export default function AffiliatesLanding() {
 
       {/* Rates */}
       <section id="rates" className="mx-auto max-w-[1220px] px-5 py-12 sm:px-8">
-        <div className="grid gap-6 rounded-[18px] bg-[#f7f1e8] p-8 lg:grid-cols-[0.34fr_repeat(3,1fr)] lg:items-stretch">
-          <div>
+        <div className="grid gap-6 rounded-[18px] bg-[#f7f1e8] p-8 lg:grid-cols-[0.38fr_0.62fr] lg:items-start">
+          <div className="lg:sticky lg:top-28">
             <SectionTitle title={<>What you earn.</>} marker={<>Two ways to partner.</>} />
             <Underline className="mt-3 w-52" />
-            <p className="mt-6 max-w-[290px] text-[14px] font-semibold leading-[1.5] text-black/68">
-              Refer businesses and earn commission, or build your own website business at factory cost. The more you sell, the more you earn.
+            <p className="mt-6 max-w-[300px] text-[14px] font-semibold leading-[1.5] text-black/68">
+              Pick the path that fits your goals. Refer businesses and earn commission, or build your own website business at factory cost.
             </p>
             <PrimaryButton href="/partners/what-you-earn" className="mt-5">
               See what you earn <ArrowRight className="size-4" strokeWidth={3} />
             </PrimaryButton>
           </div>
-          {(["new", "growing", "established"] as const).map((stage, i) => {
-            const meta = BUSINESS_STAGE_META[stage]
-            const Icon = [Sprout, Rocket, Trophy][i]
-            const featured = stage === "growing"
-            return (
-              <article
-                key={stage}
-                className={`flex min-h-[300px] flex-col rounded-[16px] border p-6 ${
-                  featured ? "border-black bg-[#dfff00] shadow-[0_18px_44px_rgba(0,0,0,0.1)]" : "border-black/10 bg-white"
-                }`}
-              >
-                <span className={`grid size-12 place-items-center rounded-full ${featured ? "bg-[#070707] text-[#dfff00]" : "bg-[#dfff00] text-black"}`}>
-                  <Icon className="size-6" strokeWidth={2.4} />
-                </span>
-                <h3 className="mt-5 text-[22px] font-black tracking-[-0.045em]">{meta.label}</h3>
-                <p className="mt-2 text-[12px] font-black uppercase text-black/50">{meta.description}</p>
-                <p className="mt-7 text-[15px] font-black uppercase text-black/55">You earn</p>
-                <p className="text-[60px] font-black leading-none tracking-[-0.08em]">{formatGbp(payoutForStage(stage))}</p>
-                <p className="mt-5 text-[13px] font-semibold leading-[1.45] text-black/68">Per referral that purchases a Sorted website.</p>
-              </article>
-            )
-          })}
+          <div className="grid gap-4 sm:grid-cols-2">
+            <PartnerPathCard
+              icon={Users}
+              title="Referral Partner"
+              subtitle="Earn commission for every sale."
+              bullets={[
+                "You refer, we handle the rest",
+                "No pricing conversations",
+                "Earn up to 30% per sale",
+              ]}
+              footer="Earn up to 30% commission"
+            />
+            <PartnerPathCard
+              icon={BarChart3}
+              title="Factory Partner"
+              subtitle="Build your own business."
+              bullets={[
+                "You set the price",
+                "Buy at factory cost",
+                "Keep 100% of your margin",
+              ]}
+              footer="Keep 100% of your margin"
+            />
+          </div>
         </div>
       </section>
 
@@ -173,6 +174,41 @@ export default function AffiliatesLanding() {
 
       <AffiliatesFooter />
     </AffiliatesPage>
+  )
+}
+
+function PartnerPathCard({
+  icon: Icon,
+  title,
+  subtitle,
+  bullets,
+  footer,
+}: {
+  icon: typeof Users
+  title: string
+  subtitle: string
+  bullets: string[]
+  footer: string
+}) {
+  return (
+    <article className="rounded-[16px] border border-black/10 bg-white p-6 shadow-[0_14px_40px_rgba(0,0,0,0.06)]">
+      <span className="grid size-11 place-items-center rounded-full bg-[#dfff00]">
+        <Icon className="size-5" strokeWidth={2.2} />
+      </span>
+      <h3 className="mt-5 text-[20px] font-black tracking-[-0.04em]">{title}</h3>
+      <p className="mt-1 text-[14px] font-semibold text-black/70">{subtitle}</p>
+      <ul className="mt-5 space-y-2.5">
+        {bullets.map((bullet) => (
+          <li key={bullet} className="flex items-start gap-2.5 text-[13px] font-semibold leading-[1.4] text-black/72">
+            <Check className="mt-0.5 size-4 shrink-0 rounded-full bg-[#dfff00] p-0.5" strokeWidth={3} />
+            {bullet}
+          </li>
+        ))}
+      </ul>
+      <div className="mt-8 border-t border-black/10 pt-5">
+        <span className="text-[13px] font-black">{footer}</span>
+      </div>
+    </article>
   )
 }
 
