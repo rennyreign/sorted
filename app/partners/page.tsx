@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function AffiliatesLanding() {
   return (
     <AffiliatesPage>
-      <AffiliatesHeader active="how" />
+      <AffiliatesHeader />
 
       {/* Hero */}
       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-10 pt-12 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
