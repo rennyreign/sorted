@@ -31,7 +31,7 @@ export default function WhatYouEarnPage() {
       <AffiliatesHeader active="what-you-earn" />
 
       {/* Hero */}
-      <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-12 pt-12 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      <section className="mx-auto grid max-w-[1220px] gap-8 px-5 pb-12 pt-12 sm:px-8 lg:grid-cols-[0.95fr_0.85fr] lg:items-start">
         <div>
           <p className="mb-5 text-[12px] font-black text-black/45">Sorted Partners Program</p>
           <h1 className="text-[clamp(3.2rem,6.2vw,6.8rem)] font-black leading-[0.92] tracking-[-0.045em]">
@@ -160,7 +160,7 @@ export default function WhatYouEarnPage() {
             </div>
           </div>
           <a
-            href="/partners/about-the-scheme"
+            href="/partners/sales-philosophy"
             className="inline-flex items-center gap-2 text-[12px] font-black underline underline-offset-4"
           >
             View full terms <ArrowRight className="size-4" strokeWidth={3} />
@@ -249,7 +249,7 @@ function FeatureTile({
 function PartnerDashboardMockup() {
   return (
     <div className="relative">
-      <div className="rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_22px_55px_rgba(0,0,0,0.1)] sm:p-6">
+      <div className="rounded-[22px] border border-black/10 bg-white p-4 shadow-[0_22px_55px_rgba(0,0,0,0.1)] sm:p-5">
         <div className="flex items-start justify-between">
           <div>
             <p className="text-[16px] font-black">Partner Dashboard</p>
@@ -295,11 +295,6 @@ function PartnerDashboardMockup() {
             <ArrowRight className="size-4" strokeWidth={2.5} />
           </div>
         </div>
-      </div>
-
-      <div className="absolute -bottom-4 -right-4 z-10 max-w-[180px] rotate-[-3deg] rounded-[14px] bg-[#dfff00] px-4 py-4 shadow-[0_16px_35px_rgba(0,0,0,0.14)]">
-        <p className="[font-family:var(--font-aff-marker)] text-[1.45rem] uppercase leading-[0.9]">Small gaps.<br />Big wins.</p>
-        <div className="mt-2.5 h-[3px] w-24 rounded-full bg-black" />
       </div>
     </div>
   )

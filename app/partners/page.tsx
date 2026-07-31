@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function AffiliatesLanding() {
   return (
     <AffiliatesPage>
-      <AffiliatesHeader />
+      <AffiliatesHeader active="home" />
 
       {/* Hero */}
       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-10 pt-12 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
@@ -99,6 +99,9 @@ export default function AffiliatesLanding() {
             <p className="mt-6 max-w-[290px] text-[14px] font-semibold leading-[1.5] text-black/68">
               Payouts scale with the business stage, the same way our pricing does. Bigger businesses mean bigger sites, so we pay you more for them.
             </p>
+            <PrimaryButton href="/partners/what-you-earn" className="mt-5">
+              See what you earn <ArrowRight className="size-4" strokeWidth={3} />
+            </PrimaryButton>
           </div>
           {(["new", "growing", "established"] as const).map((stage, i) => {
             const meta = BUSINESS_STAGE_META[stage]
