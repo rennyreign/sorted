@@ -18,7 +18,7 @@ import {
 import { AffiliatesFooter, AffiliatesHeader, AffiliatesPage, Underline } from "../_components/AffiliatesPrimitives"
 
 export const metadata: Metadata = {
-  title: "About the scheme | Sorted Partners",
+  title: "Sales Philosophy | Sorted Partners",
   description:
     "How the Sorted Partners scheme works: identify the right businesses, open useful conversations, and introduce prospects to Sorted.",
 }
@@ -109,12 +109,12 @@ const standards = ["Professional", "Friendly", "Curious", "Helpful", "Honest", "
 export default function AffiliateDoctrinePage() {
   return (
     <AffiliatesPage>
-      <AffiliatesHeader active="about" showLogin={false} />
+      <AffiliatesHeader active="sales-philosophy" showLogin={false} />
 
       <section className="mx-auto grid max-w-[1220px] gap-8 px-5 pb-12 pt-10 sm:px-8 lg:grid-cols-[0.98fr_1.02fr] lg:items-end">
         <div>
           <p className="mb-5 text-[12px] font-black uppercase tracking-[0.12em] text-black/45">
-            About the scheme
+            Sales Philosophy
           </p>
           <h1 className="max-w-[760px] text-[clamp(3.4rem,8vw,8.8rem)] font-black leading-[0.86] tracking-[-0.06em]">
             We don&apos;t sell.
