@@ -94,10 +94,10 @@ export default function AffiliatesLanding() {
       <section id="rates" className="mx-auto max-w-[1220px] px-5 py-12 sm:px-8">
         <div className="grid gap-6 rounded-[18px] bg-[#f7f1e8] p-8 lg:grid-cols-[0.34fr_repeat(3,1fr)] lg:items-stretch">
           <div>
-            <SectionTitle title={<>What you earn.</>} marker={<>Per closed site.</>} />
+            <SectionTitle title={<>What you earn.</>} marker={<>Two ways to partner.</>} />
             <Underline className="mt-3 w-52" />
             <p className="mt-6 max-w-[290px] text-[14px] font-semibold leading-[1.5] text-black/68">
-              Payouts scale with the business stage, the same way our pricing does. Bigger businesses mean bigger sites, so we pay you more for them.
+              Refer businesses and earn commission, or build your own website business at factory cost. The more you sell, the more you earn.
             </p>
             <PrimaryButton href="/partners/what-you-earn" className="mt-5">
               See what you earn <ArrowRight className="size-4" strokeWidth={3} />
