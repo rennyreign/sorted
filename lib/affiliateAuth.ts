@@ -32,7 +32,7 @@ export async function signUpAffiliate(input: SignUpInput): Promise<AuthResult> {
         display_name: input.displayName,
         phone: input.phone ?? null,
       },
-      emailRedirectTo: `${typeof window !== "undefined" ? window.location.origin : ""}/affiliates/login`,
+      emailRedirectTo: `${typeof window !== "undefined" ? window.location.origin : ""}/partners/login`,
     },
   })
 

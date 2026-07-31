@@ -154,7 +154,7 @@ export async function PATCH(
           businessName: updated.business_name,
           stage: stage.label,
           amountGbp: amount,
-          portalUrl: `${PORTAL_BASE}/affiliates/dashboard`,
+          portalUrl: `${PORTAL_BASE}/partners/dashboard`,
         }),
       })
     }

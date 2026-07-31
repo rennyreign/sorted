@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS affiliates (
 CREATE INDEX IF NOT EXISTS idx_affiliates_status ON affiliates (status);
 
 -- Auto-create an affiliates row when a new auth user signs up.
--- Sign-ups arrive via the public /affiliates/apply flow; the row starts
+-- Sign-ups arrive via the public /partners/apply flow; the row starts
 -- as 'pending' until an operator flips it to 'active'.
 CREATE OR REPLACE FUNCTION handle_new_affiliate()
 RETURNS TRIGGER AS $$

@@ -39,7 +39,7 @@ export default function AffiliatesLanding() {
             We build world-class websites fast, with no upfront cost to the client. You find the business, we do the work, and you pocket £75–£300 every time a site sells.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-5">
-            <PrimaryButton href="/affiliates/apply">
+            <PrimaryButton href="/partners/apply">
               Become a partner <ArrowRight className="size-4" strokeWidth={3} />
             </PrimaryButton>
             <span className="[font-family:var(--font-aff-highlight)] text-[23px] leading-none text-[#d0e600]">
@@ -162,7 +162,7 @@ export default function AffiliatesLanding() {
             </p>
           </div>
           <ArrowRight className="hidden size-16 rotate-[-8deg] lg:block" strokeWidth={1.7} />
-          <PrimaryButton href="/affiliates/apply" className="justify-self-start whitespace-nowrap lg:justify-self-end">
+          <PrimaryButton href="/partners/apply" className="justify-self-start whitespace-nowrap lg:justify-self-end">
             Apply now <ArrowRight className="size-4" strokeWidth={3} />
           </PrimaryButton>
         </div>

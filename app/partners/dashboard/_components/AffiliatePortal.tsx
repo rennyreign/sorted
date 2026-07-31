@@ -49,11 +49,11 @@ export default function AffiliatePortal() {
     ;(async () => {
       const aff = await getCurrentAffiliate()
       if (!aff) {
-        window.location.href = "/affiliates/login"
+        window.location.href = "/partners/login"
         return
       }
       if (aff.status !== "active") {
-        window.location.href = "/affiliates/login"
+        window.location.href = "/partners/login"
         return
       }
       setAffiliate(aff)
@@ -102,7 +102,7 @@ export default function AffiliatePortal() {
 
   async function handleSignOut() {
     await signOutAffiliate()
-    window.location.href = "/affiliates"
+    window.location.href = "/partners"
   }
 
   function openReferral(id: number) {
@@ -124,7 +124,7 @@ export default function AffiliatePortal() {
       {/* Top bar */}
       <header className="sticky top-0 z-40 border-b border-black/8 bg-white/90 backdrop-blur-xl">
         <div className="mx-auto flex h-16 w-full max-w-[1220px] items-center justify-between px-5 sm:px-8">
-          <a href="/affiliates/dashboard" className="flex items-center gap-3" onClick={(e) => { e.preventDefault(); navigate("overview") }}>
+          <a href="/partners/dashboard" className="flex items-center gap-3" onClick={(e) => { e.preventDefault(); navigate("overview") }}>
             <span className="text-[28px] font-black leading-none tracking-[-0.045em] text-[#070707]">
               Sorted<span className="text-[#cfe900]">.</span>
             </span>
