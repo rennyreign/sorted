@@ -2,7 +2,7 @@ import { Bell, BarChart3, CalendarDays, CheckCircle2, Clock3, FileText, MessageC
 
 export const problemDetails = {
   "we-waste-time": {
-    title: "We waste time.",
+    title: "We waste time",
     description: "Manual admin, repeated questions and copied updates keep pulling people away from useful work.",
     pain: ["Work is copied between tools", "Customers ask the same thing again", "Reports take too long", "People spend time chasing updates"],
     stats: [
@@ -28,7 +28,7 @@ export const problemDetails = {
     resultCopy: "Admin and repeated customer updates were taking time away from booked work.",
   },
   "we-miss-opportunities": {
-    title: "We miss opportunities.",
+    title: "We miss opportunities",
     description: "Happy customers, warm leads and old clients are sitting in the business with no consistent routine to bring them back.",
     pain: ["Review requests are forgotten", "Old customers are ignored", "Quotes are not chased", "Referrals are not requested"],
     stats: [
@@ -54,7 +54,7 @@ export const problemDetails = {
     resultCopy: "A manual property research and outreach process became a working research tool.",
   },
   "nobody-owns-it": {
-    title: "Nobody owns it.",
+    title: "Nobody owns it",
     description: "Important routines fall between people because ownership, timing and outcomes are unclear.",
     pain: ["Everyone assumes someone else has it", "Work depends on memory", "No one sees the outcome", "Key people become bottlenecks"],
     stats: [

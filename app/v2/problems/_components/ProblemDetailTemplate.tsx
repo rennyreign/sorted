@@ -24,8 +24,7 @@ export function ProblemDetailTemplate({ slug }: { slug: ProblemSlug }) {
             Back to all problems
           </a>
           <h1 className="max-w-full text-[clamp(3.15rem,13vw,6.8rem)] font-black leading-[0.9] tracking-[-0.04em] sm:max-w-[520px]">
-            {problem.title.replace(".", "")}
-            <span className="text-[#cfe900]">.</span>
+            {problem.title}
           </h1>
           <p className="mt-6 max-w-[460px] text-[18px] font-semibold leading-[1.35] tracking-[-0.035em]">{problem.description}</p>
           <div className="mt-7 h-[5px] w-28 rounded-full bg-[#dfff00]" />
@@ -56,7 +55,7 @@ export function ProblemDetailTemplate({ slug }: { slug: ProblemSlug }) {
               <p className="mt-6 max-w-[280px] text-[15px] font-black leading-[1.35] tracking-[-0.04em]">{problem.description}</p>
             </div>
             <div className="absolute bottom-8 right-4 z-10 max-w-[210px] rotate-[-2deg] rounded-[14px] bg-[#dfff00] px-4 py-4 shadow-[0_16px_35px_rgba(0,0,0,0.14)] sm:right-[-8px]">
-              <p className="[font-family:var(--font-v2-marker)] text-[1.55rem] uppercase leading-[0.9] sm:text-[1.75rem]">Small gaps.<br />Big cost.</p>
+              <p className="[font-family:var(--font-v2-marker)] text-[1.55rem] uppercase leading-[0.9] sm:text-[1.75rem]">Small gaps<br />Big cost</p>
               <div className="mt-2.5 h-[3px] w-24 rounded-full bg-black" />
             </div>
           </div>
