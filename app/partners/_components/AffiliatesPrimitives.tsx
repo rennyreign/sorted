@@ -50,14 +50,14 @@ export function AffiliatesHeader({
   ]
   return (
     <header className="fixed left-0 right-0 top-0 z-50 border-b border-transparent bg-transparent px-4 py-4 transition-colors duration-200 sm:px-8">
-      <div className="mx-auto flex w-full max-w-[1220px] items-center justify-between">
+      <div className="relative mx-auto flex w-full max-w-[1220px] items-center justify-between">
         <a href="/partners" className="flex items-center gap-3 shrink-0" aria-label="Sorted Partners Portal home">
           <span className="text-[32px] font-black leading-none tracking-[-0.045em] text-[#070707]">
             Sorted<span className="text-[#cfe900]">.</span>
           </span>
           <span className="text-[11px] font-black uppercase tracking-[0.12em] text-black/55">Partners</span>
         </a>
-        <nav className="hidden items-center gap-8 text-[12px] font-extrabold tracking-[-0.02em] md:flex">
+        <nav className="hidden items-center gap-8 text-[12px] font-extrabold tracking-[-0.02em] md:absolute md:left-1/2 md:top-1/2 md:flex md:-translate-x-1/2 md:-translate-y-1/2">
           {links.map(([key, label, href]) => (
             <a key={key} href={href} className="relative py-2">
               {label}
@@ -65,7 +65,7 @@ export function AffiliatesHeader({
             </a>
           ))}
         </nav>
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {showLogin ? (
             <a
               href="/partners/login"

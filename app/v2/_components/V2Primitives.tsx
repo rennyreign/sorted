@@ -39,7 +39,7 @@ export function V2Header({ active }: { active?: "how" | "problems" | "results" |
 
   return (
     <header className="mx-auto flex w-full max-w-[1220px] items-center justify-between px-5 pb-5 pt-6 sm:px-8 md:pb-6">
-      <Link href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
+      <Link href="/ops" className="inline-block min-h-11 py-2 text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
         Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-v2-bakeshop)] translate-y-[-0.06em] text-[#cfe900]">ops</span>
       </Link>
       <nav className="hidden items-center gap-8 text-[12px] font-extrabold tracking-[-0.02em] md:flex lg:gap-10 lg:text-[13px]">
