@@ -133,7 +133,7 @@ export default function AffiliateAdmin() {
         {tab === "affiliates" ? (
           <div className="grid gap-3">
             {affiliates.length === 0 ? (
-              <Empty text="No partner applications yet. The apply form is at /affiliates/apply." />
+              <Empty text="No partner applications yet. The apply form is at /partners/apply." />
             ) : (
               affiliates.map((a) => (
                 <div key={a.id} className="grid grid-cols-[1fr_auto] items-center gap-4 rounded-xl border border-black/[0.08] bg-white px-5 py-4">

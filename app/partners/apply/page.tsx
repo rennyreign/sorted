@@ -167,7 +167,7 @@ export default function ApplyPage() {
                 />
                 <span>
                   I agree to the{" "}
-                  <a href="/affiliates#about" className="font-black underline underline-offset-2">
+                  <a href="/partners#about" className="font-black underline underline-offset-2">
                     partner terms
                   </a>{" "}
                   and confirm the information above is accurate. I understand payouts are made when a referred client purchases a Sorted website.
@@ -192,7 +192,7 @@ export default function ApplyPage() {
 
               <div className="mt-2 flex items-center justify-between text-[12px] font-semibold text-black/55">
                 <span>Already a partner?</span>
-                <GhostButton href="/affiliates/login" className="h-9 px-4 text-[11px]">
+                <GhostButton href="/partners/login" className="h-9 px-4 text-[11px]">
                   Sign in
                 </GhostButton>
               </div>
@@ -221,7 +221,7 @@ function ApplyDone({ email }: { email: string }) {
         Once approved, you can sign in at any time to submit your first mockup request.
       </p>
       <div className="mt-7 flex justify-center">
-        <GhostButton href="/affiliates/login">Go to login</GhostButton>
+        <GhostButton href="/partners/login">Go to login</GhostButton>
       </div>
     </div>
   )

@@ -54,7 +54,7 @@ export function SitesFooter() {
           </p>
         </div>
         <FooterLinks title="Product" links={[["How it works", "/howitworks"], ["Examples", "/examples"], ["Pricing", "/pricing"], ["Updates", "/website-updates"]]} />
-        <FooterLinks title="Company" links={[["About us", "/about"], ["Our process", "/"], ["Reviews", "/examples"], ["Partner program", "/affiliates"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
+        <FooterLinks title="Company" links={[["About us", "/about"], ["Our process", "/"], ["Reviews", "/examples"], ["Partner program", "/partners"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
         <div>
           <p className="mb-4 text-[12px] font-black">Let's talk</p>
           <a href="https://wa.me/447386468085" className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#dfff00] px-5 text-[12px] font-black text-black">

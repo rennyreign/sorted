@@ -28,7 +28,7 @@ export default function LoginPage() {
       if (!active || !aff) return
       if (aff.status === "active") {
         setPhase("redirecting")
-        window.location.href = "/affiliates/dashboard"
+        window.location.href = "/partners/dashboard"
       } else if (aff.status === "pending") {
         setPendingName(aff.display_name)
         setPhase("pending")
@@ -64,7 +64,7 @@ export default function LoginPage() {
       return
     }
     if (aff.status === "active") {
-      window.location.href = "/affiliates/dashboard"
+      window.location.href = "/partners/dashboard"
       return
     }
     if (aff.status === "pending") {
@@ -107,7 +107,7 @@ export default function LoginPage() {
                 Hi{pendingName ? ` ${pendingName}` : ""}, your application is in. We review every partner personally and will email you within 48 hours once your account is approved.
               </p>
               <div className="mt-6">
-                <GhostButton href="/affiliates">Back to home</GhostButton>
+                <GhostButton href="/partners">Back to home</GhostButton>
               </div>
             </CenteredMessage>
           ) : phase === "suspended" ? (
@@ -162,7 +162,7 @@ export default function LoginPage() {
 
               <div className="mt-2 flex items-center justify-between text-[12px] font-semibold text-black/55">
                 <span>New here?</span>
-                <GhostButton href="/affiliates/apply" className="h-9 px-4 text-[11px]">
+                <GhostButton href="/partners/apply" className="h-9 px-4 text-[11px]">
                   Apply to join
                 </GhostButton>
               </div>
