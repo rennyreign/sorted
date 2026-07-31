@@ -185,7 +185,7 @@ function Hero() {
         </div>
 
         <p className="mt-6 max-w-[420px] text-[13px] font-semibold leading-[1.55] tracking-[-0.025em] text-[#111] lg:mt-12 lg:text-[17px]">
-          We find the gaps that leak revenue, hurt trust, and leave money on the table, install the systems that close them, and show you exactly how much you get back.
+          Missed enquiries. Repetitive work. Manual processes. Delays. We&apos;ve already built the systems that solve them. We simply install the ones your business needs and show you exactly what they return.
         </p>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center lg:mt-9 lg:gap-4">
