@@ -52,7 +52,7 @@ export default function AffiliatesLanding() {
 
         <div className="relative">
           <div className="grid gap-4 sm:grid-cols-2">
-            <StatTile icon={Users} stat="10" label="Founding partners" copy="Hand-picked for the launch cohort." />
+            <StatTile icon={Users} stat="Live" label="Referral tracking" copy="Submit prospects and follow each one through to payout." />
             <StatTile icon={Clock3} stat="24hrs" label="Mockup turnaround" copy="Most mockups built within a day." />
             <StatTile icon={BadgePoundSterling} stat="£300" label="Top payout per site" copy="For established business referrals." />
             <StatTile icon={Check} stat="0" label="Upfront cost to client" copy="They see the design before paying." />

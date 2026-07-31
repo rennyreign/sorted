@@ -40,16 +40,17 @@ export function AffiliatesHeader({
   active,
   showLogin = true,
 }: {
-  active?: "about" | "how" | "rates" | "apply" | "login"
+  active?: "about" | "how" | "rates" | "doctrine" | "apply" | "login"
   showLogin?: boolean
 }) {
   const links: [string, string, string][] = [
     ["how", "How it works", "/affiliates"],
     ["rates", "What you earn", "/affiliates#rates"],
     ["about", "About the scheme", "/affiliates#about"],
+    ["doctrine", "Sales doctrine", "/affiliates/doctrine"],
   ]
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 border-b border-transparent bg-transparent px-5 py-4 transition-colors duration-200 sm:px-8">
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-transparent bg-transparent px-4 py-4 transition-colors duration-200 sm:px-8">
       <div className="mx-auto flex w-full max-w-[1220px] items-center justify-between">
         <a href="/affiliates" className="flex items-center gap-3 shrink-0" aria-label="Sorted Partners Portal home">
           <span className="text-[32px] font-black leading-none tracking-[-0.045em] text-[#070707]">
@@ -65,7 +66,7 @@ export function AffiliatesHeader({
             </a>
           ))}
         </nav>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           {showLogin ? (
             <a
               href="/affiliates/login"
@@ -76,7 +77,7 @@ export function AffiliatesHeader({
           ) : null}
           <a
             href="/affiliates/apply"
-            className="inline-flex h-11 items-center gap-2 rounded-full bg-[#070707] px-5 text-[11px] font-black text-white shadow-[0_14px_30px_rgba(0,0,0,0.16)] transition-transform duration-200 hover:-translate-y-0.5"
+            className="inline-flex h-11 items-center gap-2 rounded-full bg-[#070707] px-4 text-[11px] font-black text-white shadow-[0_14px_30px_rgba(0,0,0,0.16)] transition-transform duration-200 hover:-translate-y-0.5 sm:px-5"
           >
             Become a partner
           </a>
@@ -104,6 +105,7 @@ export function AffiliatesFooter() {
           links={[
             ["How it works", "/affiliates"],
             ["What you earn", "/affiliates#rates"],
+            ["Sales doctrine", "/affiliates/doctrine"],
             ["Apply", "/affiliates/apply"],
             ["Login", "/affiliates/login"],
           ]}
