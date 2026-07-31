@@ -191,7 +191,7 @@ function Hero() {
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center lg:mt-9 lg:gap-4">
           <RoutineFinderButton label="Start the diagnostic" variant="primary" />
           <Link
-            href="/ops/reviews/glow-dental"
+            href="/ops/results-dashboard"
             className="group inline-flex h-12 items-center justify-center gap-3 rounded-full px-4 text-[11px] font-extrabold lg:h-14 lg:gap-4 lg:text-[12px]"
           >
             See an example review

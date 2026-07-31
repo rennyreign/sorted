@@ -35,7 +35,7 @@ export default function DentalPracticesPage() {
           </p>
           <div className="mt-7 flex flex-wrap gap-4">
             <RoutineFinderButton label="Start the diagnostic" variant="primary" />
-            <a href="/ops/case-studies/glow-dental" className="inline-flex h-12 items-center gap-4 rounded-full px-5 text-[11px] font-black">See an example review</a>
+            <a href="/ops/results-dashboard" className="inline-flex h-12 items-center gap-4 rounded-full px-5 text-[11px] font-black">See an example review</a>
           </div>
         </div>
         <div>
@@ -89,7 +89,7 @@ export default function DentalPracticesPage() {
           <div>
             <h2 className="text-[36px] font-black leading-[1.05] tracking-[-0.06em]">How Glow Dental recovered 63 enquiries every month.</h2>
             <p className="mt-5 text-[15px] font-semibold leading-[1.5] text-white/75">A 3-chair practice. No marketing change. Just a better system behind the scenes.</p>
-            <a href="/ops/case-studies/glow-dental" className="mt-7 inline-flex h-12 items-center gap-4 rounded-full bg-[#dfff00] px-6 text-[12px] font-black text-black">Read the full case study</a>
+            <a href="/ops/results-dashboard" className="mt-7 inline-flex h-12 items-center gap-4 rounded-full bg-[#dfff00] px-6 text-[12px] font-black text-black">Read the full case study</a>
           </div>
           <div className="space-y-5">
             <p className="text-[20px] font-black text-[#dfff00]">63 <span className="block text-[11px] text-white">enquiries recovered per month</span></p>
@@ -109,7 +109,7 @@ export default function DentalPracticesPage() {
           <div>
             <h2 className="text-[36px] font-black leading-[1.05] tracking-[-0.06em]">See what a review looks like.</h2>
             <p className="mt-5 text-[14px] font-semibold leading-[1.5]">We analyse one gap, identify what it's costing you, and show you what a better version looks like.</p>
-            <a href="/ops/reviews/glow-dental" className="mt-6 inline-flex h-11 items-center gap-4 rounded-full bg-[#070707] px-5 text-[11px] font-black text-white">View an example review</a>
+            <a href="/ops/results-dashboard" className="mt-6 inline-flex h-11 items-center gap-4 rounded-full bg-[#070707] px-5 text-[11px] font-black text-white">View an example review</a>
           </div>
           <div className="grid gap-4 md:grid-cols-4">
             {["Diagnostic Review", "The real cost", "Our recommendation", "Impact forecast"].map((item) => (

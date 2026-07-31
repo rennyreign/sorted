@@ -54,7 +54,7 @@ export default function HowItWorksPage() {
           </p>
           <div className="mt-7 flex flex-wrap gap-4">
             <RoutineFinderButton label="Start the diagnostic" variant="primary" />
-            <a href="/ops/reviews/glow-dental" className="inline-flex h-12 items-center gap-4 rounded-full border border-black/20 px-5 text-[11px] font-black">
+            <a href="/ops/results-dashboard" className="inline-flex h-12 items-center gap-4 rounded-full border border-black/20 px-5 text-[11px] font-black">
               See an example review
             </a>
           </div>
