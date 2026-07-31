@@ -139,9 +139,9 @@ export default function WhatYouEarnPage() {
             title="Factory Partner"
             subtitle="Your factory cost per website"
             rows={[
-              ["1 – 5", "£995"],
-              ["6 – 10", "£895"],
-              ["11 – 20", "£795"],
+              ["1 – 5", "£400"],
+              ["6 – 10", "£350"],
+              ["11 – 20", "£300"],
               ["20+", "Custom"],
             ]}
             leftHeader="Websites sold / month"
