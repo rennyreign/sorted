@@ -21,7 +21,7 @@ export default function ProblemDetailPage() {
             Back to all problems
           </a>
           <h1 className="max-w-full text-[clamp(3.15rem,13vw,6.8rem)] font-black leading-[0.9] tracking-[-0.04em] sm:max-w-[520px]">
-            We lose customers<span className="text-[#cfe900]">.</span>
+            We lose customers
           </h1>
           <p className="mt-6 max-w-[430px] text-[18px] font-semibold leading-[1.35] tracking-[-0.035em]">
             Slow replies, forgotten follow-ups and missed opportunities mean customers choose someone else.
@@ -55,7 +55,7 @@ export default function ProblemDetailPage() {
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_58%,rgba(0,0,0,0.08)_100%)]" />
             <div className="absolute right-4 top-[56%] z-10 max-w-[210px] rotate-[-2deg] rounded-[14px] bg-[#dfff00] px-4 py-4 shadow-[0_16px_35px_rgba(0,0,0,0.14)] sm:right-[-8px]">
-              <p className="[font-family:var(--font-v2-marker)] text-[1.55rem] uppercase leading-[0.9] sm:text-[1.75rem]">Small gaps.<br />Big loss.</p>
+              <p className="[font-family:var(--font-v2-marker)] text-[1.55rem] uppercase leading-[0.9] sm:text-[1.75rem]">Small gaps<br />Big loss</p>
               <div className="mt-2.5 h-[3px] w-24 rounded-full bg-black" />
             </div>
           </div>
