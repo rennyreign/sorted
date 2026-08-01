@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useState } from "react"
 import { Check, Loader2, Users, X } from "lucide-react"
+import { supabase } from "@/lib/supabase"
+import { OPERATOR_API_TOKEN } from "@/lib/operatorAuth"
 import { BUSINESS_STAGE_META, PAYOUT_STATUS_META, REFERRAL_STATUS_META } from "@/lib/affiliateClient"
 import type { AffiliateReferral, BusinessStage, ReferralStatus } from "@/lib/affiliateClient"
 import { formatGbp } from "@/lib/affiliatePayouts"
@@ -48,15 +50,21 @@ export default function AffiliateAdmin() {
   const [toast, setToast] = useState<string | null>(null)
 
   const loadAffiliates = useCallback(async () => {
-    const resp = await fetch("/api/operators/affiliates", { cache: "no-store" })
-    const json = (await resp.json().catch(() => null)) as { affiliates?: AffiliateRow[] } | null
-    if (json?.affiliates) setAffiliates(json.affiliates)
+    const { data, error } = await supabase.rpc("operator_get_affiliates", {
+      p_operator_token: OPERATOR_API_TOKEN,
+    })
+    if (!error && data) {
+      setAffiliates(data as AffiliateRow[])
+    }
   }, [])
 
   const loadReferrals = useCallback(async () => {
-    const resp = await fetch("/api/operators/affiliates/referrals", { cache: "no-store" })
-    const json = (await resp.json().catch(() => null)) as { referrals?: ReferralRow[] } | null
-    if (json?.referrals) setReferrals(json.referrals as ReferralRow[])
+    const { data, error } = await supabase.rpc("operator_get_referrals", {
+      p_operator_token: OPERATOR_API_TOKEN,
+    })
+    if (!error && data) {
+      setReferrals(data as unknown as ReferralRow[])
+    }
   }, [])
 
   useEffect(() => {
@@ -70,10 +78,11 @@ export default function AffiliateAdmin() {
 
   async function setAffiliateStatus(id: string, status: "active" | "suspended", declinedReason?: string) {
     setBusy(`aff:${id}`)
-    await fetch("/api/operators/affiliates", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ affiliate_id: id, status, declined_reason: declinedReason }),
+    await supabase.rpc("operator_set_affiliate_status", {
+      p_operator_token: OPERATOR_API_TOKEN,
+      p_affiliate_id: id,
+      p_status: status,
+      p_declined_reason: declinedReason ?? null,
     })
     await loadAffiliates()
     setBusy(null)
@@ -82,17 +91,17 @@ export default function AffiliateAdmin() {
 
   async function setReferralStatus(id: number, status: ReferralStatus) {
     setBusy(`ref:${id}`)
-    const resp = await fetch(`/api/operators/affiliates/referrals/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status }),
+    const { data } = await supabase.rpc("operator_set_referral_status", {
+      p_operator_token: OPERATOR_API_TOKEN,
+      p_referral_id: id,
+      p_status: status,
     })
-    const json = (await resp.json().catch(() => ({}))) as { referral?: AffiliateReferral }
+    const updated = (data as unknown as AffiliateReferral[] | null)?.[0]
     await loadReferrals()
     await loadAffiliates()
     setBusy(null)
-    if (status === "purchased" && json.referral) {
-      const amt = json.referral.payout_amount_gbp
+    if (status === "purchased" && updated) {
+      const amt = updated.payout_amount_gbp
       showToast(`Marked purchased — £${amt} payout notified to the partner.`)
     } else {
       showToast(`Referral moved to ${REFERRAL_STATUS_META[status].label}.`)
