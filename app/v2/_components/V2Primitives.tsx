@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import Link from "next/link"
 import localFont from "next/font/local"
-import { ArrowRight, CalendarDays, Check, Clock3, MessageCircle, Phone, Star, CheckCircle2 } from "lucide-react"
+import { ArrowRight, CalendarDays, Check, Clock3, LogOut, MessageCircle, Phone, Star, CheckCircle2 } from "lucide-react"
 import { RoutineFinderButton } from "./RoutineFinder"
 
 export const v2Marker = localFont({
@@ -50,11 +50,20 @@ export function V2Header({ active }: { active?: "how" | "problems" | "results" |
           </Link>
         ))}
       </nav>
-      <div className="relative">
-        <RoutineFinderButton label="Start the diagnostic" variant="nav" />
-        <span className="absolute -right-5 -top-3 hidden h-8 w-8 rotate-12 text-[#dfff00] sm:block">
-          <DoodleBurst />
-        </span>
+      <div className="flex items-center gap-3 sm:gap-4">
+        <a
+          href="/"
+          aria-label="Back to Sorted homepage"
+          className="hidden rounded-full border border-black/10 p-2.5 text-black/70 transition-colors hover:bg-black/5 md:block"
+        >
+          <LogOut className="size-5" strokeWidth={2.4} />
+        </a>
+        <div className="relative">
+          <RoutineFinderButton label="Start the diagnostic" variant="nav" />
+          <span className="absolute -right-5 -top-3 hidden h-8 w-8 rotate-12 text-[#dfff00] sm:block">
+            <DoodleBurst />
+          </span>
+        </div>
       </div>
     </header>
   )
