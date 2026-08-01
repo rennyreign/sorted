@@ -90,7 +90,7 @@ function FooterLinks({ title, links }: { title: string; links: [string, string][
 export function Logo({ dark = false }: { dark?: boolean }) {
   return (
     <span
-      className={`inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px] ${dark ? "text-white" : "text-[#070707]"}`}>
+      className={`inline-block min-h-11 py-2 text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px] ${dark ? "text-white" : "text-[#070707]"}`}>
       Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-sites-bakeshop)] translate-y-[-0.06em] text-[#cfe900]">sites</span>
     </span>
   )
