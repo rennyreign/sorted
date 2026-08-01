@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { supabase } from "@/lib/supabase"
 
 type AssessmentCategory = {
   score: number
@@ -292,12 +291,17 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
     if (revealed || revealing) return
     setRevealing(true)
     try {
-      await supabase
-        .from("prospects")
-        .update({ crm_status: "mockup_revealed" })
-        .eq("review_slug", slug)
-        .neq("crm_status", "mockup_revealed")
-    } catch { /* fire and forget */ }
+      const res = await fetch("/api/review/reveal", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug }),
+      })
+      if (!res.ok) {
+        console.error("[review] Reveal failed:", await res.text())
+      }
+    } catch (error) {
+      console.error("[review] Reveal error:", error)
+    }
     setRevealed(true)
     setRevealing(false)
   }
@@ -337,10 +341,11 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
           )}
         </div>
 
-        {hasScore ? (
+        {hasScore || hasMockup ? (
           <>
             {/* Score card */}
-            <div className={`rounded-2xl border p-8 ${scoreColour.bg} ${scoreColour.border}`}>
+            {hasScore ? (
+              <div className={`rounded-2xl border p-8 ${scoreColour.bg} ${scoreColour.border}`}>
               <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">Trust Score</p>
               <div className="flex items-end gap-4 mb-6">
                 <span className={`font-sans font-extrabold text-7xl tabular-nums leading-none ${scoreColour.text}`}>
@@ -370,6 +375,7 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
                 </div>
               </div>
             </div>
+            ) : null}
 
             {/* Business modernisation assessment */}
             {hasAssessment && assessmentReport && modScore !== null && (
@@ -488,7 +494,8 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
         )}
 
         {/* CTA */}
-        <div className="bg-[#0A0A0A] rounded-2xl p-8 sm:p-12">
+        {(hasScore || hasMockup) ? (
+          <div className="bg-[#0A0A0A] rounded-2xl p-8 sm:p-12">
           <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/40 mb-4 text-center">The full build</p>
           <h2 className="font-sans font-extrabold text-white text-2xl sm:text-3xl tracking-tight mb-8 text-center">
             There is a full website waiting for you.
@@ -520,6 +527,7 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
             </a>
           </div>
         </div>
+        ) : null}
 
         <p className="text-center font-mono text-[10px] text-[#C4C4C4] uppercase tracking-[0.12em]">
           Sorted · Digital Excellence Review · Confidential

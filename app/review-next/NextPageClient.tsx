@@ -102,14 +102,15 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
 
   // Mark crm_status as 'build' when they land here
   useEffect(() => {
-    supabase
-      .from("prospects")
-      .update({ crm_status: "build" })
-      .eq("review_slug", slug)
-      .in("crm_status", ["new", "outreached", "responded", "mockup_revealed"])
-      .then(({ error }) => {
-        if (error) console.error("[review-next] Failed to update crm_status to build:", error.message)
-      })
+    fetch("/api/review/build", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ slug }),
+    }).then(async (res) => {
+      if (!res.ok) {
+        console.error("[review-next] Failed to update crm_status to build:", await res.text())
+      }
+    })
   }, [slug])
 
   function handleBudgetChange(e: React.ChangeEvent<HTMLInputElement>) {
