@@ -105,7 +105,7 @@ export default function AboutPage() {
             <p className="mt-6 text-[14px] font-semibold leading-[1.5] text-black/65">Sorted was founded by people who love websites, systems, process and doing things properly. We bring that mindset to every business we work with.</p>
           </div>
           <blockquote className="rounded-[14px] bg-white/35 p-4 sm:bg-transparent sm:p-0">
-            <p className="[font-family:var(--font-sites-marker)] text-[2rem] leading-[1.03] sm:text-[2.5rem] sm:leading-[1.05]">“We are not here to be the biggest. We are here to be the most trusted partner for small businesses serious about growth.”</p>
+            <p className="[font-family:var(--font-sites-marker)] text-[2rem] leading-[1.03] sm:text-[2.5rem] sm:leading-[1.05]">“Business owners have enough to do. They shouldn’t have to become designers, developers and digital experts too. Our job is simple: make that side of running a business easier.”</p>
             <p className="mt-6 text-[12px] font-black">Renaldo Edmondson</p>
             <p className="text-[12px] font-semibold text-black/60">Founder, Sorted.</p>
           </blockquote>
