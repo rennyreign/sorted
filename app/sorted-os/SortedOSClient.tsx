@@ -1,17 +1,23 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
-import { ArrowUpRight, ChevronRight, Command, Menu, Search, X } from "lucide-react"
+import { ArrowUpRight, ChevronRight, Command, LockKeyhole, Menu, Search, X } from "lucide-react"
 import { canvas, chapters, sections } from "./data"
 
 function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })
 }
 
+const AUTH_KEY = "sorted_os_auth"
+const AUTH_DURATION_MS = 30 * 24 * 60 * 60 * 1000
+
 export default function SortedOSClient() {
   const [query, setQuery] = useState("")
   const [menuOpen, setMenuOpen] = useState(false)
   const [active, setActive] = useState("vision")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState(false)
+  const [authenticated, setAuthenticated] = useState(false)
   const results = useMemo(() => {
     const term = query.trim().toLowerCase()
     if (!term) return []
@@ -19,6 +25,18 @@ export default function SortedOSClient() {
   }, [query])
 
   useEffect(() => {
+    try {
+      const stored = localStorage.getItem(AUTH_KEY)
+      const session = stored ? JSON.parse(stored) : null
+      if (session?.expires && new Date(session.expires).getTime() > Date.now()) setAuthenticated(true)
+      else localStorage.removeItem(AUTH_KEY)
+    } catch {
+      localStorage.removeItem(AUTH_KEY)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!authenticated) return
     const observer = new IntersectionObserver((entries) => {
       const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
       if (visible) setActive(visible.target.id)
@@ -28,9 +46,51 @@ export default function SortedOSClient() {
       if (node) observer.observe(node)
     })
     return () => observer.disconnect()
-  }, [])
+  }, [authenticated])
 
   const choose = (id: string) => { scrollToId(id); setMenuOpen(false); setQuery("") }
+
+  const unlock = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (password.toLowerCase() !== "sorted2026") {
+      setError(true)
+      return
+    }
+    localStorage.setItem(AUTH_KEY, JSON.stringify({ expires: new Date(Date.now() + AUTH_DURATION_MS).toISOString() }))
+    setAuthenticated(true)
+    setError(false)
+  }
+
+  if (!authenticated) {
+    return (
+      <main className="grid min-h-screen bg-[#fbfbfa] px-5 py-5 text-[#070707] sm:px-8 sm:py-8">
+        <div className="grid min-h-full border border-black/15 bg-white lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.42fr)]">
+          <section className="flex min-h-[360px] flex-col justify-between bg-[#070707] p-7 text-white sm:p-10 lg:min-h-[640px] lg:p-14">
+            <a href="/" className="w-fit text-[28px] font-black tracking-[-0.05em]">Sorted<span className="text-[#cfe900]">.</span></a>
+            <div className="max-w-[620px] py-12">
+              <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#dfff00]">Private operating handbook</p>
+              <h1 className="mt-5 text-[clamp(3rem,6.5vw,6.5rem)] font-black leading-[0.88] tracking-[-0.065em]">The system<br />behind the work.</h1>
+              <p className="mt-7 max-w-[430px] font-[family-name:Arial] text-[16px] leading-[1.6] text-white/70">Strategy, doctrine, offers, operators, and the factory system for Sorted Global.</p>
+            </div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-white/40">Sorted OS / Internal access</p>
+          </section>
+          <section className="flex items-center p-7 sm:p-10 lg:p-14">
+            <form onSubmit={unlock} className="w-full max-w-[390px]">
+              <span className="grid size-12 place-items-center bg-[#dfff00]"><LockKeyhole className="size-6" strokeWidth={2.4} /></span>
+              <p className="mt-8 text-[10px] font-black uppercase tracking-[0.14em] text-black/45">Access required</p>
+              <h2 className="mt-3 text-[clamp(2.2rem,4vw,3.4rem)] font-black leading-[0.93] tracking-[-0.055em]">Enter the handbook.</h2>
+              <p className="mt-5 font-[family-name:Arial] text-[15px] leading-[1.6] text-black/62">Use the access password to open the Sorted OS. This device will stay signed in for 30 days.</p>
+              <label htmlFor="sorted-os-password" className="mt-9 block text-[11px] font-black uppercase tracking-[0.12em] text-black/55">Password</label>
+              <input id="sorted-os-password" type="password" value={password} onChange={(event) => { setPassword(event.target.value); setError(false) }} className="mt-3 h-12 w-full border border-black/20 px-4 text-[15px] font-semibold outline-none transition focus:border-black focus:ring-2 focus:ring-[#cfe900]" autoComplete="current-password" autoFocus />
+              {error ? <p className="mt-3 text-[12px] font-semibold text-[#d61f69]">Incorrect password. Please try again.</p> : null}
+              <button type="submit" className="mt-5 inline-flex h-12 items-center bg-[#070707] px-5 text-[12px] font-black uppercase tracking-[0.08em] text-white transition hover:bg-[#252525] focus:outline-none focus:ring-2 focus:ring-[#cfe900] focus:ring-offset-2">Open Sorted OS <ArrowUpRight className="ml-3 size-4" /></button>
+            </form>
+          </section>
+        </div>
+      </main>
+    )
+  }
+
   return (
     <main className="min-h-screen bg-[#fbfbfa] text-[#070707]">
       <header className="sticky top-0 z-30 border-b border-black/10 bg-[#fbfbfa]/95 backdrop-blur-sm">
