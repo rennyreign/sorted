@@ -15,7 +15,7 @@ export async function GET() {
   // Affiliates with a referral count + pending payout sum
   const { data: affiliates, error } = await db
     .from("affiliates")
-    .select("id, email, display_name, phone, status, created_at, updated_at")
+    .select("id, email, display_name, phone, program, status, created_at, updated_at")
     .order("created_at", { ascending: false })
 
   if (error) {
