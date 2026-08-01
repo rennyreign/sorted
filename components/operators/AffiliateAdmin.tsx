@@ -11,6 +11,7 @@ type AffiliateRow = {
   email: string
   display_name: string
   phone: string | null
+  program: "referral" | "factory" | null
   status: "pending" | "active" | "suspended"
   created_at: string
   updated_at: string
@@ -144,7 +145,8 @@ export default function AffiliateAdmin() {
                     </div>
                     <p className="text-xs text-[#737373]">{a.email}{a.phone ? ` · ${a.phone}` : ""}</p>
                     <p className="text-xs text-[#A3A3A3]">
-                      {a.referrals_total} referral{a.referrals_total === 1 ? "" : "s"} · {a.referrals_purchased} purchased
+                      {a.program ? <span className="uppercase tracking-wide">{a.program}</span> : "No program"}
+                      {" · "}{a.referrals_total} referral{a.referrals_total === 1 ? "" : "s"} · {a.referrals_purchased} purchased
                       {a.pending_payout_gbp > 0 ? ` · ${formatGbp(a.pending_payout_gbp)} pending payout` : ""}
                       {" · joined "}{new Date(a.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
                     </p>
