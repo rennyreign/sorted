@@ -40,13 +40,13 @@ export function AffiliatesHeader({
   active,
   showLogin = true,
 }: {
-  active?: "home" | "what-you-earn" | "sales-philosophy" | "apply" | "login"
+  active?: "home" | "what-you-earn" | "selling-sorted" | "apply" | "login"
   showLogin?: boolean
 }) {
   const links: [string, string, string][] = [
     ["home", "Home", "/partners"],
     ["what-you-earn", "What you earn", "/partners/what-you-earn"],
-    ["sales-philosophy", "Sales Philosophy", "/partners/sales-philosophy"],
+    ["selling-sorted", "Selling Sorted", "/partners/selling-sorted"],
   ]
   return (
     <header className="fixed left-0 right-0 top-0 z-50 border-b border-transparent bg-transparent px-4 py-4 transition-colors duration-200 sm:px-8">
@@ -104,7 +104,7 @@ export function AffiliatesFooter() {
           links={[
             ["Home", "/partners"],
             ["What you earn", "/partners/what-you-earn"],
-            ["Sales Philosophy", "/partners/sales-philosophy"],
+            ["Selling Sorted", "/partners/selling-sorted"],
             ["Apply", "/partners/apply"],
             ["Login", "/partners/login"],
           ]}

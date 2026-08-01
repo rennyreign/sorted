@@ -190,7 +190,7 @@ export default function ApplyPage() {
                 />
                 <span>
                   I agree to the{" "}
-                  <a href="/partners/sales-philosophy" className="font-black underline underline-offset-2">
+                  <a href="/partners/selling-sorted" className="font-black underline underline-offset-2">
                     partner terms
                   </a>{" "}
                   and confirm the information above is accurate. I understand payouts are made when a referred client purchases a Sorted website.
