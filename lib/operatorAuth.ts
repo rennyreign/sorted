@@ -4,6 +4,11 @@ const SESSION_DURATION = 30 * 24 * 60 * 60 * 1000 // 30 days
 const VALID_USERNAME = process.env.NEXT_PUBLIC_OPERATOR_USERNAME || "sorted"
 const VALID_PASSWORD = process.env.NEXT_PUBLIC_OPERATOR_PASSWORD || "sorted2026"
 
+// Public token used to call operator-only Supabase RPCs from the static dashboard.
+// It is the same token stored in Supabase Vault under `operator_api_token`.
+export const OPERATOR_API_TOKEN =
+  process.env.NEXT_PUBLIC_OPERATOR_API_TOKEN || "b07e0be213bcf5f3bb6c639d0c4c8769a1b66e165b5cb0533c2fca10a756c733"
+
 interface Session {
   token: string
   timestamp: number
