@@ -160,7 +160,7 @@ export default function WhatYouEarnPage() {
             </div>
           </div>
           <a
-            href="/partners/sales-philosophy"
+            href="/partners/selling-sorted"
             className="inline-flex items-center gap-2 text-[12px] font-black underline underline-offset-4"
           >
             View full terms <ArrowRight className="size-4" strokeWidth={3} />
