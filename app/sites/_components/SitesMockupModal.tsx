@@ -243,6 +243,7 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
       }
 
       let reviewUrl: string | null = null
+      let reviewSlug: string | null = null
       if (leadId) {
         const { data: lead } = await supabase
           .from("prospects")
@@ -251,12 +252,32 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
           .single()
 
         if (lead?.review_slug && typeof window !== "undefined") {
+          reviewSlug = lead.review_slug
           reviewUrl = `${window.location.origin}/review/?slug=${lead.review_slug}`
         }
       }
 
       setSuccessDetails({ email: cleanEmail, reviewUrl })
       setSubmitState("success")
+
+      // Notify the Sorted operator (fire-and-forget — customer success state is already shown)
+      if (reviewSlug) {
+        fetch("/api/operators/notify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: "website_lead",
+            businessName: cleanBusinessName,
+            email: cleanEmail,
+            websiteUrl: websiteUrl.trim() || undefined,
+            reviewSlug,
+            summary,
+            answers,
+          }),
+        }).catch((error) => {
+          console.error("[SitesMockupModal] Operator notification failed:", error)
+        })
+      }
     } catch (error) {
       setSubmitState("error")
       setSubmitError(error instanceof Error ? error.message : "Could not submit your mockup brief")
