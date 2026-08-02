@@ -15,7 +15,7 @@ SortedUpdates is deliberately applied after Nod 2. The client evaluates the appr
 
 Before Nod 1, Sorted carries the manufacturing risk. The prospect owes nothing and has not bought creative hours, revisions, or a claim on production capacity.
 
-At the Nod, the prospect is saying: **"Yes. I want this website."** The object of exchange is known to both sides. The customer is protected from paying for an unknown outcome; Sorted is protected from an undefined creative obligation.
+At the Nod, the prospect is saying: **"Yes. I want this website."** Both sides know what is being exchanged. The customer sees the finished site before paying; Sorted can take responsibility for delivering one complete, coherent result.
 
 The commercial sequence is:
 
@@ -23,6 +23,6 @@ The commercial sequence is:
 Build -> Inspect -> Nod -> Fixed Price -> Acquire -> Content Setup -> QA -> Launch
 ```
 
-There is no revision stage. Factual corrections are part of launch readiness. A request to rework structure, composition, colour direction, page types, or component behaviour is customisation: new work, separately scoped.
+There is no open-ended revision stage. Factual corrections are part of launch readiness. After launch, customers can keep their content current through SortedUpdates. Sorted retains responsibility for the design, structure, and build standard so every Sorted site remains coherent and recognisable. Material redesign is not part of the current Sorted Sites offer and is not promised by default.
 
 Source: `doctrine/sorted-operating-model.md`.

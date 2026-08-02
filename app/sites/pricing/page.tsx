@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Check, CircleDollarSign, Eye, Pencil, Rocket, ShieldCheck, Sparkles } from "lucide-react"
+import { Check, CircleDollarSign, Eye, Pencil, Rocket, ShieldCheck } from "lucide-react"
 import Image from "next/image"
 import { DarkCta, SitesFooter, SitesHeader, SitesPage, SitesTitle, Underline } from "../_components/SitesPrimitives"
 import { MockupButton } from "../_components/SitesMockupModal"
@@ -67,10 +67,12 @@ export default function PricingPage() {
               {purchaseSteps.map(([Icon, title, copy], index) => {
                 const RealIcon = Icon as typeof Pencil
                 return (
-                  <article key={title} className="border-black/12 sm:border-l sm:pl-6 first:sm:border-l-0 first:sm:pl-0">
-                    <span className="grid size-10 place-items-center rounded-full bg-[#070707] text-[12px] font-black text-white">{index + 1}</span>
-                    <RealIcon className="mt-5 size-7" strokeWidth={2.2} />
-                    <h3 className="mt-4 text-[15px] font-black">{title}</h3>
+                  <article key={title} className="border-black/12 sm:border-l sm:pl-6">
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="grid size-10 place-items-center rounded-full bg-[#070707] text-[12px] font-black text-white">{index + 1}</span>
+                      <RealIcon className="size-7 text-black/72" strokeWidth={2.2} />
+                    </div>
+                    <h3 className="mt-6 text-[15px] font-black">{title}</h3>
                     <p className="mt-2 max-w-[260px] text-[13px] font-semibold leading-[1.5] text-black/65">{copy}</p>
                   </article>
                 )
@@ -83,23 +85,23 @@ export default function PricingPage() {
       <section className="mx-auto grid max-w-[1220px] gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.95fr_1.05fr]">
         <div>
           <p className="text-[12px] font-black uppercase tracking-[0.08em] text-black/45">A complete exchange</p>
-          <h2 className="mt-3 text-[38px] font-black leading-[0.96] tracking-[-0.045em]">Finished websites.<br />Clear ownership.</h2>
+          <h2 className="mt-3 text-[38px] font-black leading-[0.96] tracking-[-0.045em]">A complete site.<br />Built to stay strong.</h2>
           <p className="mt-6 max-w-[480px] text-[16px] font-semibold leading-[1.55] text-black/68">
-            You are not buying open-ended design hours. You are buying the finished website you have inspected and approved. That protects you from paying for an unknown outcome and protects the product from undefined creative obligations.
+            You get a complete, professional website you can be proud to send people to. We take it from build through to launch, so the final site is coherent, considered and ready to work for your business.
           </p>
         </div>
         <div className="grid gap-5 rounded-[18px] border border-black/10 bg-white p-6 sm:grid-cols-2">
           <article>
             <span className="grid size-12 place-items-center rounded-full bg-[#dfff00]"><Check className="size-6" strokeWidth={2.8} /></span>
-            <h3 className="mt-5 text-[19px] font-black tracking-[-0.04em]">Included in the product</h3>
+            <h3 className="mt-5 text-[19px] font-black tracking-[-0.04em]">Everything you need to launch</h3>
             <ul className="mt-4 space-y-2 text-[13px] font-semibold leading-[1.45] text-black/68">
               {["The approved website design and structure", "Build, required setup, QA and launch", "Content editing through SortedUpdates", "A tutorial, secure CMS access and factory reset"].map((item) => <li key={item} className="flex gap-3"><Check className="mt-0.5 size-4 shrink-0 text-[#83a000]" strokeWidth={3} />{item}</li>)}
             </ul>
           </article>
           <article className="border-t border-black/10 pt-6 sm:border-l sm:border-t-0 sm:pl-6 sm:pt-0">
-            <span className="grid size-12 place-items-center rounded-full bg-black/5"><Sparkles className="size-6" strokeWidth={2.2} /></span>
-            <h3 className="mt-5 text-[19px] font-black tracking-[-0.04em]">Separate customisation</h3>
-            <p className="mt-4 text-[13px] font-semibold leading-[1.5] text-black/68">Factual corrections are part of getting the approved artifact ready to launch. New sections, new page types, reworked layouts, visual redesign, or new behaviour are separate work, scoped and priced clearly.</p>
+            <span className="grid size-12 place-items-center rounded-full bg-black/5"><ShieldCheck className="size-6" strokeWidth={2.2} /></span>
+            <h3 className="mt-5 text-[19px] font-black tracking-[-0.04em]">We protect the standard</h3>
+            <p className="mt-4 text-[13px] font-semibold leading-[1.5] text-black/68">We remain responsible for the design and build, so your site stays cohesive, considered and a strong representation of your business long after it goes live.</p>
           </article>
         </div>
       </section>
@@ -127,9 +129,9 @@ export default function PricingPage() {
         <h2 className="text-[34px] font-black tracking-[-0.035em]">Frequently asked</h2>
         <div className="mt-6 grid gap-5 md:grid-cols-3">
           {[
-            ["Why is there no price menu?", "A price menu implies we are selling a fixed imaginary package. We build the website first, then give you one clear fixed price for the real artifact and the work required to launch it."],
-            ["What happens after I Nod?", "We confirm the fixed price. Once you acquire the website, we complete content setup, quality assurance and launch. There is no open-ended revision stage."],
-            ["Can I change the site later?", "You can update content such as text, images, services, prices and contact details. Design or structural changes are new work, scoped separately."],
+            ["Why is there no price menu?", "We build the website first, then give you one clear fixed price for the site we have built and the final work required to launch it."],
+            ["What happens after I Nod?", "We agree the fixed price. Once you acquire the website, we complete content setup, quality assurance and launch."],
+            ["Can I keep the site up to date?", "Yes. You can update everyday content such as text, images, services, prices and contact details. We look after the design and build standard so the site stays consistent."],
           ].map(([question, answer]) => (
             <article key={question} className="border-l border-black/10 pl-6">
               <h3 className="flex items-center justify-between gap-3 text-[15px] font-black">{question}<ShieldCheck className="size-4 shrink-0" /></h3>
