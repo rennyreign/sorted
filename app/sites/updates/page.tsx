@@ -17,7 +17,7 @@ export default function UpdatesPage() {
       <SitesHeader active="updates" />
       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-12 pt-12 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
         <div>
-          <SitesTitle kicker="SORTEDUPDATES" title={<>Your content<br />Your control</>} marker="Update it yourself." />
+          <SitesTitle title={<>Your content<br />Your control</>} marker="Update it yourself." />
           <Underline className="mt-2 w-full max-w-[320px] sm:max-w-[380px]" />
           <p className="mt-7 max-w-[450px] text-[16px] font-semibold leading-[1.55] tracking-[-0.03em]">
             Every Sorted website includes a built-in content editor. Change text, images, services, prices and contact details yourself. Save, publish and see your updates live in minutes.
@@ -32,7 +32,6 @@ export default function UpdatesPage() {
       </section>
 
       <section className="mx-auto max-w-[1220px] border-t border-black/10 px-5 py-12 sm:px-8">
-        <p className="mb-5 text-[12px] font-black uppercase text-black/45">What it is</p>
         <h2 className="text-[34px] font-black tracking-[-0.035em]">SortedUpdates comes with every site</h2>
         <div className="mt-9 grid gap-8 md:grid-cols-3">
           {[
@@ -51,7 +50,6 @@ export default function UpdatesPage() {
 
       <section className="mx-auto grid max-w-[1220px] gap-8 border-t border-black/10 px-5 py-12 sm:px-8 lg:grid-cols-[0.32fr_0.68fr]">
         <div>
-          <p className="mb-5 text-[12px] font-black uppercase text-black/45">What you can edit</p>
           <h2 className="text-[34px] font-black leading-[1] tracking-[-0.035em]">If it appears on the page, you can change it</h2>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
@@ -78,7 +76,6 @@ export default function UpdatesPage() {
       </section>
 
       <section className="mx-auto max-w-[1220px] border-t border-black/10 px-5 py-12 sm:px-8">
-        <p className="mb-5 text-[12px] font-black uppercase text-black/45">How it works</p>
         <h2 className="text-[34px] font-black tracking-[-0.035em]">Log in, edit, publish</h2>
         <div className="mt-9 grid gap-7 md:grid-cols-4">
           {[
@@ -102,8 +99,8 @@ export default function UpdatesPage() {
 
       <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
         <div className="grid gap-8 rounded-[18px] border border-black/10 bg-white p-8 md:grid-cols-2">
-          <InfoBlock icon={LockKeyhole} kicker="Security" title="Invite only. You control the content." copy="Access is locked to invite-only identity. You decide who can edit. Sorted retains the design, code and factory reset capability." />
-          <InfoBlock icon={RefreshCcw} kicker="Factory reset" title="Made a mess? We can reset it." copy="Every site ships with a recorded handoff state. If content changes go too far off track, we can restore the original approved content." />
+          <InfoBlock icon={LockKeyhole} title="Invite only. You control the content." copy="Access is locked to invite-only identity. You decide who can edit. Sorted retains the design, code and factory reset capability." />
+          <InfoBlock icon={RefreshCcw} title="Made a mess? We can reset it." copy="Every site ships with a recorded handoff state. If content changes go too far off track, we can restore the original approved content." />
         </div>
       </section>
 
@@ -145,13 +142,12 @@ function CmsPanel() {
   )
 }
 
-function InfoBlock({ icon: Icon, kicker, title, copy }: { icon: typeof LockKeyhole; kicker: string; title: string; copy: string }) {
+function InfoBlock({ icon: Icon, title, copy }: { icon: typeof LockKeyhole; title: string; copy: string }) {
   return (
     <article className="grid gap-6 md:grid-cols-[90px_1fr]">
       <span className="grid size-20 place-items-center rounded-full bg-[#dfff00]"><Icon className="size-10" /></span>
       <div>
-        <p className="text-[11px] font-black uppercase text-black/45">{kicker}</p>
-        <h3 className="mt-3 text-[30px] font-black leading-[1] tracking-[-0.035em]">{title}</h3>
+        <h3 className="text-[30px] font-black leading-[1] tracking-[-0.035em]">{title}</h3>
         <p className="mt-4 max-w-[430px] text-[14px] font-semibold leading-[1.5] text-black/65">{copy}</p>
       </div>
     </article>
