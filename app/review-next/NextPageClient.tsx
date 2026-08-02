@@ -102,13 +102,9 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
 
   // Mark crm_status as 'build' when they land here
   useEffect(() => {
-    fetch("/api/review/build", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ slug }),
-    }).then(async (res) => {
-      if (!res.ok) {
-        console.error("[review-next] Failed to update crm_status to build:", await res.text())
+    supabase.rpc("review_mark_build", { p_slug: slug }).then(({ error }) => {
+      if (error) {
+        console.error("[review-next] Failed to update crm_status to build:", error.message)
       }
     })
   }, [slug])
