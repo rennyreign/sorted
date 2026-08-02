@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { supabase } from "@/lib/supabase"
 
 type AssessmentCategory = {
   score: number
@@ -291,13 +292,9 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
     if (revealed || revealing) return
     setRevealing(true)
     try {
-      const res = await fetch("/api/review/reveal", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug }),
-      })
-      if (!res.ok) {
-        console.error("[review] Reveal failed:", await res.text())
+      const { error } = await supabase.rpc("review_reveal_mockup", { p_slug: slug })
+      if (error) {
+        console.error("[review] Reveal failed:", error.message)
       }
     } catch (error) {
       console.error("[review] Reveal error:", error)
