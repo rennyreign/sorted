@@ -59,8 +59,7 @@ export default function PricingPage() {
         <div className="rounded-[18px] bg-[#f7f1e8] p-6 sm:p-8">
           <div className="grid gap-7 lg:grid-cols-[0.32fr_0.68fr]">
             <div>
-              <p className="text-[12px] font-black uppercase tracking-[0.08em] text-black/45">How pricing works</p>
-              <h2 className="mt-3 max-w-[310px] text-[36px] font-black leading-[0.96] tracking-[-0.045em]">Buy the website.<br />Not a promise.</h2>
+              <h2 className="max-w-[310px] text-[36px] font-black leading-[0.96] tracking-[-0.045em]">Buy the website.<br />Not a promise.</h2>
               <Underline className="mt-5 w-52" />
             </div>
             <div className="grid gap-5 sm:grid-cols-2">
@@ -84,8 +83,7 @@ export default function PricingPage() {
 
       <section className="mx-auto grid max-w-[1220px] gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.95fr_1.05fr]">
         <div>
-          <p className="text-[12px] font-black uppercase tracking-[0.08em] text-black/45">A complete exchange</p>
-          <h2 className="mt-3 text-[38px] font-black leading-[0.96] tracking-[-0.045em]">A complete site.<br />Built to stay strong.</h2>
+          <h2 className="text-[38px] font-black leading-[0.96] tracking-[-0.045em]">A complete site.<br />Built to stay strong.</h2>
           <p className="mt-6 max-w-[480px] text-[16px] font-semibold leading-[1.55] text-black/68">
             You get a complete, professional website you can be proud to send people to. We take it from build through to launch, so the final site is coherent, considered and ready to work for your business.
           </p>
