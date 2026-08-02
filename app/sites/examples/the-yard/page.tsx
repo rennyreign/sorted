@@ -39,7 +39,6 @@ export default function TheYardExamplePage() {
 
       <section className="mx-auto grid max-w-[1220px] gap-10 border-t border-black/10 px-5 py-12 sm:px-8 lg:grid-cols-[0.35fr_0.65fr]">
         <div>
-          <p className="mb-8 text-[12px] font-black uppercase text-black/45">About the client</p>
           {[
             ["The Yard Training Club", "Private personal training studio in Manchester, UK"],
             ["Their goal", "Get more enquiries and new members with a professional online presence that builds trust."],
@@ -55,7 +54,6 @@ export default function TheYardExamplePage() {
           ))}
         </div>
         <blockquote className="rounded-[20px] bg-[#f7f1e8] p-6 sm:p-10">
-          <p className="mb-6 text-[12px] font-black uppercase tracking-[0.08em] text-black/55">Client testimonial</p>
           <p className="max-w-[720px] text-[28px] font-black leading-[1.05] tracking-[-0.035em] sm:text-[34px]">
             “The whole process was ridiculously simple. The mockup blew me away. It felt like you actually got our brand.”
           </p>
@@ -71,7 +69,6 @@ export default function TheYardExamplePage() {
 
       <section className="mx-auto grid max-w-[1220px] gap-8 border-t border-black/10 px-5 py-12 sm:px-8 lg:grid-cols-[0.25fr_0.75fr]">
         <div>
-          <p className="mb-5 text-[12px] font-black uppercase text-black/45">Google review</p>
           <p className="text-[72px] font-black tracking-[-0.07em]">4.9</p>
           <p className="text-[#ffd400]">★★★★★</p>
           <p className="mt-3 text-[15px] font-semibold">Based on 28 reviews</p>

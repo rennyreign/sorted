@@ -59,7 +59,6 @@ export default async function ExampleCaseStudyPage({ params }: PageProps) {
 
       <section className="mx-auto grid max-w-[1220px] gap-10 border-t border-black/10 px-5 py-12 sm:px-8 lg:grid-cols-[0.35fr_0.65fr]">
         <div>
-          <p className="mb-8 text-[12px] font-black uppercase text-black/45">About the client</p>
           {[
             [caseStudy.business, `${caseStudy.category} business in ${caseStudy.location}`],
             ["Their goal", caseStudy.goal],
@@ -76,7 +75,6 @@ export default async function ExampleCaseStudyPage({ params }: PageProps) {
         </div>
 
         <blockquote className="rounded-[20px] bg-[#f7f1e8] p-6 sm:p-10">
-          <p className="mb-6 text-[12px] font-black uppercase tracking-[0.08em] text-black/55">Client testimonial</p>
           <p className="max-w-[720px] text-[28px] font-black leading-[1.05] tracking-[-0.035em] sm:text-[34px]">“{caseStudy.testimonial}”</p>
           <div className="mt-8 flex items-center gap-4">
             <span className="grid size-16 place-items-center rounded-full bg-[#070707] text-[18px] font-black text-white">{caseStudy.business.slice(0, 2).toUpperCase()}</span>

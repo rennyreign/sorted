@@ -45,8 +45,7 @@ function HeroSection() {
   return (
     <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-10 pt-10 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:pt-14">
       <div>
-        <p className="text-[12px] font-black uppercase tracking-[0.08em] text-black/45">Our process / Your results</p>
-        <h1 className="mt-5 text-[clamp(3.4rem,7vw,7rem)] font-black leading-[0.92] tracking-[-0.05em]">
+        <h1 className="text-[clamp(3.4rem,7vw,7rem)] font-black leading-[0.92] tracking-[-0.05em]">
           See it first
           <br />
           <span className="inline-block">
@@ -148,8 +147,7 @@ function ProcessSection() {
   return (
     <section className="mx-auto max-w-[1220px] px-5 py-16 sm:px-8">
       <div>
-        <p className="text-[12px] font-black uppercase tracking-[0.08em] text-black/45">THE NOD MOCKUP SYSTEM™</p>
-        <h2 className="mt-3 text-[clamp(2.4rem,5vw,3.6rem)] font-black leading-[0.98] tracking-[-0.045em]">
+        <h2 className="text-[clamp(2.4rem,5vw,3.6rem)] font-black leading-[0.98] tracking-[-0.045em]">
           <span className="inline-block whitespace-nowrap">A simple process.</span>
           <br />
           <span className="inline-block whitespace-nowrap">Total clarity.</span>
@@ -228,8 +226,7 @@ function IncludesSection() {
   return (
     <section className="mx-auto max-w-[1220px] px-5 py-16 sm:px-8">
       <div>
-        <p className="text-[12px] font-black uppercase tracking-[0.08em] text-black/45">EVERY SITE INCLUDES</p>
-        <h2 className="mt-3 text-[clamp(2.4rem,5vw,3.6rem)] font-black leading-[0.98] tracking-[-0.045em]">
+        <h2 className="text-[clamp(2.4rem,5vw,3.6rem)] font-black leading-[0.98] tracking-[-0.045em]">
           <span className="inline-block whitespace-nowrap">Built for today.</span>
           <br />
           <span className="inline-block whitespace-nowrap">Ready for tomorrow.</span>
@@ -280,8 +277,7 @@ function SpeedSection() {
   return (
     <section className="mx-auto max-w-[1220px] px-5 py-16 sm:px-8">
       <div>
-        <p className="text-[12px] font-black uppercase tracking-[0.08em] text-black/45">SPEED YOU CAN COUNT ON</p>
-        <h2 className="mt-3 text-[clamp(2.4rem,5vw,3.6rem)] font-black leading-[0.98] tracking-[-0.045em]">
+        <h2 className="text-[clamp(2.4rem,5vw,3.6rem)] font-black leading-[0.98] tracking-[-0.045em]">
           <span className="inline-block whitespace-nowrap">See it today.</span>
           <br />
           <span className="inline-block whitespace-nowrap">Live in days.</span>
