@@ -12,6 +12,7 @@ function getBudgetResponse(value: number): {
   heading: string
   body: string
   showBooking: boolean
+  callOptional: boolean
 } {
   if (value < FLOOR) {
     return {
@@ -19,6 +20,7 @@ function getBudgetResponse(value: number): {
       heading: "We can work with that.",
       body: `Every site we build is the same full build. The budget just determines how we structure the payment. Our minimum is £${FLOOR}, and we can split that across two payments if it helps. Book a call below and we will walk you through it. No pressure.`,
       showBooking: true,
+      callOptional: false,
     }
   }
   if (value < TARGET) {
@@ -27,21 +29,24 @@ function getBudgetResponse(value: number): {
       heading: "That works.",
       body: "You will get the exact same site regardless of where your budget sits. The build is the build. Book a call below and we can confirm the details and talk through payment.",
       showBooking: true,
+      callOptional: false,
     }
   }
   if (value <= 1000) {
     return {
       tone: "good",
       heading: "Perfect.",
-      body: "That covers the full build comfortably. Same site, same quality, same handoff as every client we work with. Book a quick call below to confirm the brief and we will get started.",
+      body: "That covers the full build comfortably. Same site, same quality, same handoff as every client we work with. A call is not required — book one below if you would like to talk it through, or reply by email and we will get started.",
       showBooking: true,
+      callOptional: true,
     }
   }
   return {
     tone: "great",
     heading: "Great.",
-    body: "That gives us plenty of room to get started immediately. Book a call below. 15 minutes to confirm the brief and we are off.",
+    body: "That gives us plenty of room to get started immediately. A call is entirely optional — book one below if useful, or reply by email and we will get moving on the build.",
     showBooking: true,
+    callOptional: true,
   }
 }
 
@@ -244,7 +249,9 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
         {/* Booking */}
         <div ref={bookingRef} className={`transition-all duration-500 ${submitted ? "opacity-100" : "opacity-40 pointer-events-none"}`}>
           <div className="bg-white border border-black/[0.08] rounded-2xl p-8">
-            <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">Book a call</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">
+              {response?.callOptional ? "Book a call (optional)" : "Book a call"}
+            </p>
             <h2 className="font-sans font-bold text-[#0A0A0A] text-xl mb-2">Book a 15-minute chat</h2>
             <p className="text-sm text-[#737373] mb-6 leading-relaxed">
               15 minutes. We confirm the brief, answer your questions, and get the build started. No hard sell.
@@ -258,6 +265,17 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
                 title="Book a 15-minute call with Sorted"
               />
             </div>
+            {response?.callOptional && (
+              <div className="mt-6 pt-6 border-t border-black/[0.06] text-center">
+                <p className="text-sm text-[#737373] mb-3">Prefer to skip the call?</p>
+                <a
+                  href={`mailto:hello@sortmydigital.site?subject=${encodeURIComponent(`Ready to proceed — ${prospectName}`)}&body=${encodeURIComponent(`Hi,\n\nMy budget of £${budgetValue ?? ""} covers the full build. I'd like to skip the call and get started.\n\nReview link: https://sortmydigital.site/review-next/?slug=${slug}\n\nThanks,`)}`}
+                  className="inline-block bg-white border border-black/[0.12] text-[#0A0A0A] font-bold text-sm px-6 py-3 rounded-xl hover:bg-black/[0.02] transition-colors"
+                >
+                  Email us to get started →
+                </a>
+              </div>
+            )}
           </div>
         </div>
 
