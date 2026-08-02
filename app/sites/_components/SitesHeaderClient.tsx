@@ -10,8 +10,8 @@ const links = [
   ["how", "How it works", "/howitworks"],
   ["examples", "Examples", "/examples"],
   ["pricing", "Pricing", "/pricing"],
-  ["about", "About", "/about"],
   ["updates", "SortedUpdates", "/website-updates"],
+  ["about", "About", "/about"],
 ] as const
 
 export function SitesHeaderClient({ active }: { active?: ActivePage }) {
