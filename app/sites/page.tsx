@@ -212,7 +212,7 @@ function HomeBottom() {
               Sorted is a trading name of ADX Engine Ltd · Registered in England &amp; Wales · Company number 17327041
             </p>
           </div>
-          <HomeFooterLinks title="Product" links={[["How it works", "/"], ["Examples", "/examples"], ["Pricing", "/pricing"], ["Updates", "/website-updates"]]} />
+          <HomeFooterLinks title="Product" links={[["How it works", "/"], ["Examples", "/examples"], ["Pricing", "/pricing"], ["SortedUpdates", "/website-updates"]]} />
           <HomeFooterLinks title="Company" links={[["About us", "/about"], ["Our process", "/"], ["Reviews", "/examples"], ["Partner program", "/partners"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
           <div>
             <p className="mb-4 text-[12px] font-black">Let's talk</p>
