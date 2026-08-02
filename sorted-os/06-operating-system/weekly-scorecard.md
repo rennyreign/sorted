@@ -14,4 +14,6 @@ The current CRM dashboard also exposes active pipeline count, response rate, moc
 
 Ops work should additionally report capacity returned, manual tasks or checks removed, gaps closed, and value created where those figures are validly measured. Formal definitions and targets belong in `08-metrics` once agreed.
 
+During the Circulation Pricing phase, review pricing evidence separately: Nod strength, quote, objection, counteroffer, accepted price, sales-cycle duration, delivery friction, satisfaction, referral/review, and expansion. Pricing doctrine follows observed exchanges, not assumed willingness to pay.
+
 Source: `doctrine/operator-chain.md`, `app/v2/page.tsx`.
