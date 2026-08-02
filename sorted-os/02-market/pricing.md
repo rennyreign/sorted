@@ -2,7 +2,7 @@
 
 ## Sorted Sites
 
-Sorted Sites is currently in a **Circulation Pricing** phase. The objective is to maximise profitable deployment of high-quality finished artifacts while discovering market-clearing price through real Nod conversations.
+Sorted Sites is currently in a **Circulation Pricing** phase. The objective is to maximise profitable deployment of high-quality finished websites while discovering market-clearing price through real Nod conversations.
 
 The public model is:
 
@@ -12,7 +12,7 @@ Build -> Inspect -> Nod -> Fixed Price -> Acquire -> Content Setup -> QA -> Laun
 
 Do not use company age as a public price segmentation model. It does not describe the manufacturing output and creates avoidable doubt about whether Sorted is charging for affordability rather than substance.
 
-Sorted does not quote an imaginary website. It builds the website first, then gives the prospect a simple fixed price based on the finished artifact and what is required to launch it. The public page gives this mechanism rather than an invented menu or an unbounded "flexible pricing" promise.
+Sorted does not quote an imaginary website. It builds the website first, then gives the prospect a simple fixed price based on the finished site and what is required to launch it. The public page gives this mechanism rather than an invented menu or an unbounded "flexible pricing" promise.
 
 ### Internal Floor
 
@@ -43,9 +43,9 @@ Price should rise as demonstrated substance, proof, demand, and capacity rise.
 
 ### Scope Boundary
 
-Sorted sells finished websites, not open-ended design services. The Nod confirms the prospect wants the artifact substantially as manufactured. Factual corrections are part of launch readiness; structural redesign, new sections, new page types, or new behaviour are separately scoped customisation.
+Sorted sells complete websites, not open-ended design services. The Nod confirms the prospect wants the site substantially as manufactured. Factual corrections are part of launch readiness. Customers can update their content after launch, while Sorted retains responsibility for the design, structure, and build standard.
 
-The CMS is an ownership tool for content, not an ongoing design tool. Editable does not mean unfinished.
+The CMS is an ownership tool for content, not an ongoing design tool. Editable does not mean unfinished. Material redesign, new page types, or new behaviour are outside the current Sorted Sites offer and are not promised by default; this protects the integrity of every delivered site and its case study.
 
 ## Sorted Ops
 
