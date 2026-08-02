@@ -11,7 +11,7 @@ const links = [
   ["examples", "Examples", "/examples"],
   ["pricing", "Pricing", "/pricing"],
   ["about", "About", "/about"],
-  ["updates", "Updates", "/website-updates"],
+  ["updates", "SortedUpdates", "/website-updates"],
 ] as const
 
 export function SitesHeaderClient({ active }: { active?: ActivePage }) {

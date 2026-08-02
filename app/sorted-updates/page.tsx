@@ -3,7 +3,7 @@ import Footer from "@/components/Footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Sorted Updates | CMS included with every site",
+  title: "SortedUpdates | Included with every site",
   description:
     "Every Sorted website ships with SortedUpdates, a Decap CMS that lets you edit text, images, and content directly. No tickets, no code.",
 }

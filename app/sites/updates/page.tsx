@@ -4,7 +4,7 @@ import { DarkCta, SitesFooter, SitesHeader, SitesPage, SitesTitle, Underline } f
 import { MockupButton } from "../_components/SitesMockupModal"
 
 export const metadata: Metadata = {
-  title: "Website Updates | Sorted",
+  title: "SortedUpdates | Sorted",
   description: "Every Sorted website includes a clean content editor so business owners can update pages, images, services and contact details.",
   alternates: {
     canonical: "/website-updates",
@@ -17,7 +17,7 @@ export default function UpdatesPage() {
       <SitesHeader active="updates" />
       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-12 pt-12 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
         <div>
-          <SitesTitle kicker="SORTED CMS" title={<>Your content<br />Your control</>} marker="Update it yourself." />
+          <SitesTitle kicker="SORTEDUPDATES" title={<>Your content<br />Your control</>} marker="Update it yourself." />
           <Underline className="mt-2 w-full max-w-[320px] sm:max-w-[380px]" />
           <p className="mt-7 max-w-[450px] text-[16px] font-semibold leading-[1.55] tracking-[-0.03em]">
             Every Sorted website includes a built-in content editor. Change text, images, services, prices and contact details yourself. Save, publish and see your updates live in minutes.
@@ -33,11 +33,11 @@ export default function UpdatesPage() {
 
       <section className="mx-auto max-w-[1220px] border-t border-black/10 px-5 py-12 sm:px-8">
         <p className="mb-5 text-[12px] font-black uppercase text-black/45">What it is</p>
-        <h2 className="text-[34px] font-black tracking-[-0.035em]">A CMS built into every site</h2>
+        <h2 className="text-[34px] font-black tracking-[-0.035em]">SortedUpdates comes with every site</h2>
         <div className="mt-9 grid gap-8 md:grid-cols-3">
           {[
-            ["SortedCMS", "A clean, git-backed content editor living at /cms/ on your site. Edit in your browser, save, and publish."],
-            ["Included", "SortedCMS comes with every Sorted website we build. It is part of the handoff, not an extra."],
+            ["SortedUpdates", "A clean content editor living at /cms/ on your site. Edit in your browser, save, and publish."],
+            ["Included", "SortedUpdates comes with every Sorted website we build. It is part of the handoff, not an extra."],
             ["Self-service", "Swap words, images, prices and service details yourself. Changes publish automatically."],
           ].map(([title, copy], index) => (
             <article key={title}>
@@ -117,7 +117,7 @@ function CmsPanel() {
   return (
     <div className="overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_22px_55px_rgba(20,14,8,0.11)]">
       <div className="flex h-11 items-center justify-between bg-[#070707] px-4 text-[11px] font-bold text-white sm:px-5 sm:text-[12px]">
-        <span>SortedCMS / Pages / Home</span>
+        <span>SortedUpdates / Pages / Home</span>
         <span>•••</span>
       </div>
       <div className="grid min-h-[390px] grid-cols-[82px_1fr] sm:min-h-[460px] sm:grid-cols-[150px_1fr_180px]">
