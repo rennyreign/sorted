@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { supabase } from "@/lib/supabase"
 import type { CrmStatus, Prospect } from "@/lib/supabase"
+import ChannelPerformance from "./ChannelPerformance"
 
 const STAGES: { key: CrmStatus; label: string; colour: string }[] = [
   { key: "new", label: "New", colour: "bg-[#D4D4D4]" },
@@ -246,6 +247,11 @@ export default function ProspectPulse() {
           <Kpi label="Opened today" value={today.opened} />
           <Kpi label="Revealed today" value={today.revealed} />
           <Kpi label="Clicked today" value={today.clicked} />
+        </div>
+
+        {/* Channel + content performance */}
+        <div className="mb-10">
+          <ChannelPerformance />
         </div>
 
         {/* Pipeline funnel */}

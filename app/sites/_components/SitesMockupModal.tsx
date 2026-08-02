@@ -4,6 +4,7 @@ import type { FormEvent } from "react"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { ArrowLeft, ArrowRight, Check, ExternalLink, Loader2, Mail, Sparkles, X } from "lucide-react"
 import { supabase } from "@/lib/supabase"
+import { getAttribution } from "@/lib/attribution"
 
 type StepKey = "business" | "currentSite" | "goal" | "style" | "timeline"
 
@@ -230,12 +231,18 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
         throw new Error("Please add a valid email address.")
       }
 
+      const attribution = getAttribution()
       const { data: leadId, error } = await supabase.rpc("submit_website_lead", {
         p_business_name: cleanBusinessName,
         p_website_url: websiteUrl.trim() || null,
         p_email: cleanEmail,
         p_answers: answers,
         p_summary: summary,
+        p_utm_source: attribution.utm_source,
+        p_utm_medium: attribution.utm_medium,
+        p_utm_campaign: attribution.utm_campaign,
+        p_utm_content: attribution.utm_content,
+        p_utm_term: attribution.utm_term,
       })
 
       if (error) {
