@@ -46,31 +46,39 @@ export const metadata: Metadata = {
 
 const logoAssets = [
   {
-    title: "Primary Wordmark",
-    description: "Use on light backgrounds, headers, documents, proposal pages, and default website placements.",
-    preview: "/brand/sorted-wordmark.svg",
-    file: "/brand/sorted-wordmark.svg",
+    title: "Sorted Ops Wordmark",
+    description: "Use on Sorted Ops surfaces, pitch decks, headers, and anywhere the operational improvement offer is represented.",
+    preview: "/brand/sorted-ops-wordmark-light.png",
+    files: [
+      { label: "White", file: "/brand/sorted-ops-wordmark-light.png" },
+      { label: "Black", file: "/brand/sorted-ops-wordmark-dark.png" },
+      { label: "Transparent", file: "/brand/sorted-ops-wordmark-transparent.png" },
+    ],
     dark: false,
   },
   {
-    title: "Reversed Wordmark",
-    description: "Use on black surfaces, dark footers, pitch decks, and report sidebars.",
-    preview: "/brand/sorted-wordmark-reversed.svg",
-    file: "/brand/sorted-wordmark-reversed.svg",
-    dark: true,
+    title: "Sorted Sites Wordmark",
+    description: "Use on Sorted Sites surfaces, website headers, and anywhere the website offer is represented.",
+    preview: "/brand/sorted-sites-wordmark-light.png",
+    files: [
+      { label: "White", file: "/brand/sorted-sites-wordmark-light.png" },
+      { label: "Black", file: "/brand/sorted-sites-wordmark-dark.png" },
+      { label: "Transparent", file: "/brand/sorted-sites-wordmark-transparent.png" },
+    ],
+    dark: false,
   },
   {
     title: "Compact Mark",
     description: "Use for favicons, app icons, dashboard shortcuts, loading states, and small brand stamps.",
     preview: "/brand/sorted-mark.svg",
-    file: "/brand/sorted-mark.svg",
+    files: [{ label: "SVG", file: "/brand/sorted-mark.svg" }],
     dark: true,
   },
   {
     title: "Compact Mark Light",
     description: "Use where the compact mark sits inside a light UI card or neutral admin surface.",
     preview: "/brand/sorted-mark-light.svg",
-    file: "/brand/sorted-mark-light.svg",
+    files: [{ label: "SVG", file: "/brand/sorted-mark-light.svg" }],
     dark: false,
   },
 ]
@@ -183,7 +191,7 @@ export default function SortedBrandPage() {
 function BrandHeader() {
   return (
     <header className="mx-auto flex w-full max-w-[1240px] items-center justify-between gap-4 px-5 py-5 sm:px-8">
-      <Link href="/v2" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
+      <Link href="/v2" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.02em] sm:text-[40px]">
         Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-v2-bakeshop)] translate-y-[-0.06em] text-[#cfe900]">ops</span>
       </Link>
       <nav className="hidden items-center gap-7 text-[12px] font-extrabold tracking-[-0.02em] lg:flex">
@@ -245,7 +253,7 @@ function Ecosystem() {
               <span className="grid size-12 place-items-center rounded-full bg-[#dfff00]">
                 <Icon className="size-5" strokeWidth={2.6} />
               </span>
-              <h2 className="mt-6 text-[20px] font-black tracking-[-0.05em]">{item.title}</h2>
+              <h2 className="mt-6 text-[20px] font-black tracking-[-0.02em]">{item.title}</h2>
               <p className="mt-3 text-[13px] font-semibold leading-[1.5] text-black/62">{item.copy}</p>
             </article>
           )
@@ -267,7 +275,7 @@ function LogoSystem() {
       <SectionTitle title="Logo System" />
       <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {logoAssets.map((asset) => (
-          <LogoCard key={asset.file} asset={asset} />
+          <LogoCard key={asset.title} asset={asset} />
         ))}
       </div>
       <div className="mt-6 grid gap-5 lg:grid-cols-3">
@@ -296,16 +304,21 @@ function LogoCard({ asset }: { asset: (typeof logoAssets)[number] }) {
       <p className={`mt-2 min-h-16 text-[12px] font-semibold leading-[1.45] ${asset.dark ? "text-white/62" : "text-black/58"}`}>
         {asset.description}
       </p>
-      <a
-        href={asset.file}
-        download
-        className={`mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full text-[12px] font-black ${
-          asset.dark ? "bg-[#dfff00] text-black" : "bg-[#070707] text-white"
-        }`}
-      >
-        <ArrowDownToLine className="size-4" strokeWidth={2.8} />
-        Download SVG
-      </a>
+      <div className="mt-5 grid gap-2">
+        {asset.files.map((file) => (
+          <a
+            key={file.file}
+            href={file.file}
+            download
+            className={`inline-flex h-11 items-center justify-center gap-2 rounded-full text-[12px] font-black ${
+              asset.dark ? "bg-[#dfff00] text-black" : "bg-[#070707] text-white"
+            }`}
+          >
+            <ArrowDownToLine className="size-4" strokeWidth={2.8} />
+            {file.label}
+          </a>
+        ))}
+      </div>
     </article>
   )
 }
@@ -457,17 +470,21 @@ function DownloadStrip() {
             </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
-            {logoAssets.map((asset) => (
-              <a
-                key={asset.file}
-                href={asset.file}
-                download
-                className="flex min-h-16 items-center justify-between gap-4 rounded-[12px] border border-black/10 bg-[#fbfbfa] px-5 text-[13px] font-black transition hover:border-black/25 hover:bg-[#dfff00]"
-              >
-                {asset.title}
-                <ArrowDownToLine className="size-4 shrink-0" strokeWidth={2.8} />
-              </a>
-            ))}
+            {logoAssets.flatMap((asset) =>
+              asset.files.map((file) => (
+                <a
+                  key={file.file}
+                  href={file.file}
+                  download
+                  className="flex min-h-16 items-center justify-between gap-4 rounded-[12px] border border-black/10 bg-[#fbfbfa] px-5 text-[13px] font-black transition hover:border-black/25 hover:bg-[#dfff00]"
+                >
+                  <span>
+                    {asset.title} <span className="font-semibold text-black/50">({file.label})</span>
+                  </span>
+                  <ArrowDownToLine className="size-4 shrink-0" strokeWidth={2.8} />
+                </a>
+              ))
+            )}
             <a
               href="/brand/sorted-brand-token-card.svg"
               download
@@ -488,7 +505,7 @@ function Footer() {
     <footer className="mt-10 bg-[#070707] px-5 py-8 text-white sm:px-8">
       <div className="mx-auto flex max-w-[1240px] flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="text-[28px] font-extrabold tracking-[-0.07em]">
+          <p className="text-[28px] font-extrabold tracking-[-0.02em]">
             Sorted<span className="text-[#dfff00]">.</span>
           </p>
           <p className="mt-1 text-[12px] font-semibold text-white/60">The united brand system for the entire Sorted ecosystem.</p>
