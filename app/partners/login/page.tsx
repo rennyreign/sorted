@@ -133,7 +133,14 @@ export default function LoginPage() {
                   autoComplete="email"
                 />
               </Field>
-              <Field label="Password">
+              <Field
+                label="Password"
+                right={
+                  <a href="/partners/forgot-password" className="text-[11px] font-black text-black/55 underline underline-offset-2 hover:text-black">
+                    Forgot password?
+                  </a>
+                }
+              >
                 <input
                   type="password"
                   value={password}
@@ -176,10 +183,13 @@ export default function LoginPage() {
   )
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({ label, right, children }: { label: string; right?: React.ReactNode; children: React.ReactNode }) {
   return (
     <label className="grid gap-2">
-      <span className="text-[12px] font-black uppercase tracking-[0.06em] text-black/55">{label}</span>
+      <span className="flex items-center justify-between">
+        <span className="text-[12px] font-black uppercase tracking-[0.06em] text-black/55">{label}</span>
+        {right ? <span>{right}</span> : null}
+      </span>
       {children}
     </label>
   )

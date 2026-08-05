@@ -20,6 +20,15 @@ export type SignInInput = {
   password: string
 }
 
+export type ResetPasswordInput = {
+  email: string
+  redirectTo: string
+}
+
+export type UpdatePasswordInput = {
+  password: string
+}
+
 export type AuthResult =
   | { ok: true; userId: string }
   | { ok: false; error: string }
@@ -64,6 +73,33 @@ export async function signInAffiliate(input: SignInInput): Promise<AuthResult> {
 
 export async function signOutAffiliate(): Promise<void> {
   await affiliateDb.auth.signOut()
+}
+
+export async function resetPasswordForEmail(input: ResetPasswordInput): Promise<AuthResult> {
+  const { error } = await affiliateDb.auth.resetPasswordForEmail(input.email, {
+    redirectTo: input.redirectTo,
+  })
+
+  if (error) {
+    return { ok: false, error: friendlyAuthError(error.message) }
+  }
+  // Supabase returns an empty data object on success. Don't leak whether the
+  // email exists — the UI shows the same "check your inbox" message either way.
+  return { ok: true, userId: "" }
+}
+
+export async function updateAffiliatePassword(input: UpdatePasswordInput): Promise<AuthResult> {
+  const { data, error } = await affiliateDb.auth.updateUser({
+    password: input.password,
+  })
+
+  if (error) {
+    return { ok: false, error: friendlyAuthError(error.message) }
+  }
+  if (!data.user) {
+    return { ok: false, error: "Could not update password. Please try again." }
+  }
+  return { ok: true, userId: data.user.id }
 }
 
 export async function getCurrentAffiliate(): Promise<Affiliate | null> {
