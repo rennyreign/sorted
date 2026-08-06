@@ -112,7 +112,7 @@ export function AffiliatesFooter() {
         <FooterLinks
           title="Sorted Sites"
           links={[
-            ["Our product", "/sites"],
+            ["Our product", "/"],
             ["Pricing", "/sites/pricing"],
             ["Examples", "/sites/examples"],
           ]}

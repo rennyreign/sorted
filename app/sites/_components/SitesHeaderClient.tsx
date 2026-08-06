@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { LogOut, Menu, Phone, X } from "lucide-react"
+import { Menu, Phone, X } from "lucide-react"
 import { MockupButton } from "./SitesMockupModal"
 
 type ActivePage = "how" | "examples" | "pricing" | "about" | "updates"
@@ -35,8 +35,8 @@ export function SitesHeaderClient({ active }: { active?: ActivePage }) {
       }`}
     >
       <div className="mx-auto flex w-full max-w-[1220px] items-center justify-between">
-        <a href="/sites" className="inline-block min-h-11 py-2 text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]" aria-label="Sorted Sites home">
-          Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-sites-bakeshop)] translate-y-[-0.06em] text-[#cfe900]">sites</span>
+        <a href="/" className="inline-block min-h-11 py-2 text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]" aria-label="Sorted home">
+          Sorted<span className="text-[#cfe900]">.</span>
         </a>
         <nav className="hidden items-center gap-8 text-[12px] font-extrabold tracking-[-0.02em] md:flex">
           {links.map(([key, label, href]) => (
@@ -47,13 +47,6 @@ export function SitesHeaderClient({ active }: { active?: ActivePage }) {
           ))}
         </nav>
         <div className="flex items-center gap-5">
-          <a
-            href="/"
-            aria-label="Back to Sorted homepage"
-            className="hidden rounded-full border border-black/10 p-2 text-black/70 transition-colors hover:bg-black/5 md:block"
-          >
-            <LogOut className="size-5" strokeWidth={2.4} />
-          </a>
           <a href="https://wa.me/447386468085" aria-label="WhatsApp Sorted" className="hidden text-[#04b800] md:block">
             <Phone className="size-6" strokeWidth={2.4} />
           </a>
@@ -88,14 +81,6 @@ export function SitesHeaderClient({ active }: { active?: ActivePage }) {
               </a>
             ))}
           </nav>
-          <a
-            href="/"
-            onClick={() => setMenuOpen(false)}
-            className="mt-3 flex min-h-12 items-center justify-between rounded-xl border border-black/10 px-4 text-[15px] font-black text-black/72"
-          >
-            Back to Sorted
-            <LogOut className="size-4" strokeWidth={2.4} />
-          </a>
           <div className="mt-3 grid grid-cols-2 gap-3">
             <a href="https://wa.me/447386468085" className="inline-flex min-h-12 items-center justify-center rounded-full border border-black/12 text-[12px] font-black">
               WhatsApp
