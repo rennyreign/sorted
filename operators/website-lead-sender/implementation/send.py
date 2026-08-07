@@ -180,6 +180,7 @@ def send_email(lead, dry_run):
         json={
             "from": f"{FROM_NAME} <{FROM_EMAIL}>",
             "to": [lead["email"]],
+            "reply_to": FROM_EMAIL,
             "subject": subject,
             "html": email_html(lead),
             "text": text,
@@ -282,6 +283,7 @@ def notify_operator(lead, dry_run):
             json={
                 "from": f"{FROM_NAME} <{FROM_EMAIL}>",
                 "to": [OPERATOR_EMAIL],
+                "reply_to": FROM_EMAIL,
                 "subject": subject,
                 "html": operator_email_html(lead),
             },
