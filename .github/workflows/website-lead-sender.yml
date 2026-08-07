@@ -48,6 +48,7 @@ jobs:
           FROM_EMAIL: hello@sortmydigital.site
           FROM_NAME: Sorted
           REVIEW_BASE_URL: https://sortmydigital.site/review/
+          OPERATOR_EMAIL: hello@sortmydigital.site
         run: |
           ARGS="--batch ${{ inputs.batch || '10' }}"
           if [ "${{ inputs.dry_run }}" = "true" ]; then
