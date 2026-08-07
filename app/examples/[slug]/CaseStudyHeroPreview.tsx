@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { useState } from "react"
 import { ExternalLink, Monitor, Smartphone, Tablet } from "lucide-react"
-import { Underline } from "../../_components/SitesPrimitives"
+import { Underline } from "../../sites/_components/SitesPrimitives"
 
 type Device = "desktop" | "tablet" | "mobile"
 
