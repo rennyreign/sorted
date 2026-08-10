@@ -88,7 +88,7 @@ export const exampleCaseStudies: ExampleCaseStudy[] = [
       tablet: "/examples/live/bodysharp-fitness-v2-tablet.png",
       mobile: "/examples/live/bodysharp-fitness-v2-mobile.png",
     },
-    liveUrl: "https://bodysharp-fitness.netlify.app/",
+    liveUrl: "https://bodysharpfitness.com",
     goal: "Move away from the look of a typical personal trainer website and establish a premium coaching brand that immediately built credibility, communicated the philosophy and converted visitors into Discovery Sessions.",
     solution: "We designed a bold, conversion-focused website centred around BodySharp's core message: getting your energy back. Strong typography, clear programme pathways and compelling proof create a site that positions Mikey as a trusted coach.",
     testimonial:
