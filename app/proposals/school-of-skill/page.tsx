@@ -94,8 +94,7 @@ export default function SchoolOfSkillProposal() {
     return (
       <main className="min-h-screen flex items-center justify-center px-6">
         <div className="max-w-sm w-full">
-          <div className="mb-8 flex items-center gap-3">
-            <img src="/brand/sorted-mark.svg" alt="Sorted" className="w-10 h-10 rounded-[10px]" />
+          <div className="mb-8">
             <span className="font-sans font-extrabold text-[#0A0A0A] text-2xl tracking-tight">Sorted.</span>
           </div>
           <h1 className="font-sans font-bold text-[#0A0A0A] text-xl mb-2">Private Proposal</h1>
@@ -126,9 +125,9 @@ export default function SchoolOfSkillProposal() {
   return (
     <>
       <main className="max-w-[680px] mx-auto px-6 sm:px-10 pt-24 pb-32">
-        {/* Brand Mark */}
+        {/* Brand Wordmark */}
         <div className="mb-16">
-          <img src="/brand/sorted-mark.svg" alt="Sorted" className="w-12 h-12 rounded-[12px]" />
+          <span className="font-sans font-extrabold text-[#0A0A0A] text-2xl tracking-tight">Sorted.</span>
         </div>
 
         {/* Date + Private Label */}
@@ -519,12 +518,9 @@ export default function SchoolOfSkillProposal() {
         )}
 
         {/* Signature */}
-        <div className="mb-24 flex items-center gap-3">
-          <img src="/brand/sorted-mark.svg" alt="Sorted" className="w-10 h-10 rounded-[10px]" />
-          <div>
-            <p className="font-sans font-bold text-[#0A0A0A] text-lg">Renaldo</p>
-            <p className="text-[#A3A3A3] text-sm">Sorted</p>
-          </div>
+        <div className="mb-24">
+          <p className="font-sans font-bold text-[#0A0A0A] text-lg">Renaldo</p>
+          <p className="text-[#A3A3A3] text-sm">Sorted</p>
         </div>
 
         {/* Footer */}
