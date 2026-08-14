@@ -104,12 +104,12 @@ export default function SchoolOfSkillProposal() {
         {/* Date + Private Label */}
         <div className="mb-16">
           <p className="font-mono text-xs text-[#A3A3A3] uppercase tracking-[0.15em] mb-1">August 2026</p>
-          <p className="font-mono text-xs text-[#A3A3A3] uppercase tracking-[0.15em]">Private — for Dalian, School of Skill</p>
+          <p className="font-mono text-xs text-[#A3A3A3] uppercase tracking-[0.15em]">Private, for Dalian, School of Skill</p>
         </div>
 
         {/* Header */}
         <h1 className="font-sans font-extrabold text-[#0A0A0A] text-4xl sm:text-5xl leading-tight tracking-tight mb-10">
-          The 90-Day Plan.
+          SOS 90 Day Plan.
         </h1>
 
         {/* Opening */}
@@ -247,7 +247,7 @@ export default function SchoolOfSkillProposal() {
               <p className="font-sans font-extrabold text-[#0A0A0A] text-2xl tracking-tight">£500</p>
             </div>
             <p className="text-[#737373] text-sm leading-relaxed mb-4">
-              £250 on commencement. The remaining £250 once new revenue has been generated. We can hold the balance for 30 days from the start of the project — work begins immediately, but the second payment only lands after there has been time to generate new revenue and assess what the reserves can comfortably afford.
+              £250 on commencement. The remaining £250 once new revenue has been generated. We can hold the balance for 30 days from the start of the project. Work begins immediately, but the second payment only lands after there has been time to generate new revenue and assess what the reserves can comfortably afford.
             </p>
             <p className="text-[#525252] text-sm leading-relaxed">
               The website's job is to convert: parent enquiries and bookings, school consultations, and camp registrations. Number of visits is not a success measure.
@@ -274,7 +274,7 @@ export default function SchoolOfSkillProposal() {
             Payment terms & schedule
           </span>
           <p className="text-[#737373] text-base leading-relaxed mb-6">
-            Recurring costs should come out of trading income, not the £2,000 reserve. So the payments are split — nothing lands bigger than £750.
+            Recurring costs should come out of trading income, not the £2,000 reserve. So the payments are split. Nothing lands bigger than £750.
           </p>
           <div className="p-5 bg-[#0A0A0A] rounded-xl mb-6">
             <p className="text-white/70 text-sm leading-relaxed">
@@ -314,8 +314,8 @@ export default function SchoolOfSkillProposal() {
           </div>
 
           <ul className="space-y-2 text-sm text-[#737373] mb-2">
-            <li className="flex gap-3"><span className="text-[#0A0A0A]">—</span>Retainer: £1,000/month, collected as 2 × £500</li>
-            <li className="flex gap-3"><span className="text-[#0A0A0A]">—</span>Website: £500, collected as 2 × £250</li>
+            <li className="flex gap-3"><span className="text-[#0A0A0A]">·</span>Retainer: £1,000/month, collected as 2 × £500</li>
+            <li className="flex gap-3"><span className="text-[#0A0A0A]">·</span>Website: £500, collected as 2 × £250</li>
           </ul>
           <p className="text-xs text-[#A3A3A3] mt-4">An invoice will be issued at the start of the month and 7 days before the end of the month.</p>
         </div>
@@ -365,7 +365,7 @@ export default function SchoolOfSkillProposal() {
         {/* Closing */}
         <div className="space-y-6 text-[#525252] text-lg leading-relaxed mb-16">
           <p>
-            Four priorities. Simple measures. A payment schedule built around cashflow, not ambition. The first milestone is £5,000–£10,000 of new revenue through the system — at that point everything after becomes safer.
+            Four priorities. Simple measures. A payment schedule built around cashflow, not ambition. The first milestone is £5,000 to £10,000 of new revenue through the system. At that point everything after becomes safer.
           </p>
           <p className="text-[#0A0A0A] font-semibold">
             If this looks right, accept below and we'll get started.
@@ -475,7 +475,7 @@ export default function SchoolOfSkillProposal() {
                   }}
                   className="flex-1 bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-4 py-3 hover:bg-[#2a2a2a] transition-colors"
                 >
-                  I Accept — Sign as {signerName}
+                  I Accept - Sign as {signerName}
                 </button>
               </div>
             </div>
@@ -491,7 +491,7 @@ export default function SchoolOfSkillProposal() {
 
         {/* Footer */}
         <div className="border-t border-black/[0.06] pt-8 flex items-center justify-between">
-          <p className="text-xs text-[#C4C4C4] font-mono">Sorted. — sortmydigital.site</p>
+          <p className="text-xs text-[#C4C4C4] font-mono">Sorted. - sortmydigital.site</p>
           <button
             onClick={handleSignOut}
             className="text-xs text-[#A3A3A3] hover:text-[#525252] transition-colors font-mono"

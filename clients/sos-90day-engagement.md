@@ -67,7 +67,7 @@ Reduce dependency on facilities we don't control.
 
 ## Investment
 
-### Strategic Growth Retainer — £1,000 per month
+### Strategic Growth Retainer - £1,000 per month
 
 Covers strategy (mentorship is a natural part), tech and marketing infrastructure: offer and pricing design, sales system, CRM (where student profiles are built and will live), marketing and website direction, partnerships and facility economics.
 
@@ -106,7 +106,7 @@ At that point the retainer pays for itself, marketing becomes safer, extra coach
 
 ## Payment Terms & Schedule
 
-Recurring costs should come out of trading income, not the £2,000 reserve. So the payments are split — nothing lands bigger than £750.
+Recurring costs should come out of trading income, not the £2,000 reserve. So the payments are split. Nothing lands bigger than £750.
 
 <aside>
 💡
