@@ -94,7 +94,8 @@ export default function SchoolOfSkillProposal() {
     return (
       <main className="min-h-screen flex items-center justify-center px-6">
         <div className="max-w-sm w-full">
-          <div className="mb-8">
+          <div className="mb-8 flex items-center gap-3">
+            <img src="/brand/sorted-mark.svg" alt="Sorted" className="w-10 h-10 rounded-[10px]" />
             <span className="font-sans font-extrabold text-[#0A0A0A] text-2xl tracking-tight">Sorted.</span>
           </div>
           <h1 className="font-sans font-bold text-[#0A0A0A] text-xl mb-2">Private Proposal</h1>
@@ -125,6 +126,11 @@ export default function SchoolOfSkillProposal() {
   return (
     <>
       <main className="max-w-[680px] mx-auto px-6 sm:px-10 pt-24 pb-32">
+        {/* Brand Mark */}
+        <div className="mb-16">
+          <img src="/brand/sorted-mark.svg" alt="Sorted" className="w-12 h-12 rounded-[12px]" />
+        </div>
+
         {/* Date + Private Label */}
         <div className="mb-16">
           <p className="font-mono text-xs text-[#A3A3A3] uppercase tracking-[0.15em] mb-1">August 2026</p>
@@ -513,14 +519,20 @@ export default function SchoolOfSkillProposal() {
         )}
 
         {/* Signature */}
-        <div className="mb-24">
-          <p className="font-sans font-bold text-[#0A0A0A] text-lg">Renaldo</p>
-          <p className="text-[#A3A3A3] text-sm">Sorted</p>
+        <div className="mb-24 flex items-center gap-3">
+          <img src="/brand/sorted-mark.svg" alt="Sorted" className="w-10 h-10 rounded-[10px]" />
+          <div>
+            <p className="font-sans font-bold text-[#0A0A0A] text-lg">Renaldo</p>
+            <p className="text-[#A3A3A3] text-sm">Sorted</p>
+          </div>
         </div>
 
         {/* Footer */}
         <div className="border-t border-black/[0.06] pt-8 flex items-center justify-between">
-          <p className="text-xs text-[#C4C4C4] font-mono">Sorted. - sortmydigital.site</p>
+          <div className="flex items-center gap-2">
+            <img src="/brand/sorted-mark.svg" alt="Sorted" className="w-6 h-6 rounded-[6px]" />
+            <p className="text-xs text-[#C4C4C4] font-mono">Sorted. - sortmydigital.site</p>
+          </div>
           <button
             onClick={handleSignOut}
             className="text-xs text-[#A3A3A3] hover:text-[#525252] transition-colors font-mono"
