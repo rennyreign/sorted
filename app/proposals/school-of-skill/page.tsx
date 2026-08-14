@@ -529,10 +529,7 @@ export default function SchoolOfSkillProposal() {
 
         {/* Footer */}
         <div className="border-t border-black/[0.06] pt-8 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img src="/brand/sorted-mark.svg" alt="Sorted" className="w-6 h-6 rounded-[6px]" />
-            <p className="text-xs text-[#C4C4C4] font-mono">Sorted. - sortmydigital.site</p>
-          </div>
+          <p className="text-xs text-[#C4C4C4] font-mono">Sorted. - sortmydigital.site</p>
           <button
             onClick={handleSignOut}
             className="text-xs text-[#A3A3A3] hover:text-[#525252] transition-colors font-mono"
