@@ -323,11 +323,11 @@ export default function SchoolOfSkillProposal() {
               </thead>
               <tbody>
                 {[
-                  ["Start Month 1", "Retainer (first half) + website deposit", "£750"],
-                  ["End Month 1", "Retainer (second half)", "£500"],
-                  ["Day 30 – 60", "Website balance", "£250"],
-                  ["Start Month 2", "Retainer (first half)", "£500"],
-                  ["End Month 2", "Retainer (second half)", "£500"],
+                  ["Day 1", "Retainer (first half) + website deposit", "£750"],
+                  ["Day 30", "Retainer (second half)", "£500"],
+                  ["Day 31 – 60", "Website balance", "£250"],
+                  ["Day 31", "Retainer (first half, month 2)", "£500"],
+                  ["Day 60", "Retainer (second half, month 2)", "£500"],
                 ].map(([when, what, amount], i) => (
                   <tr key={when} className={i % 2 === 1 ? "bg-black/[0.015]" : ""}>
                     <td className="px-5 py-3 text-[#0A0A0A] font-medium whitespace-nowrap">{when}</td>
@@ -347,7 +347,7 @@ export default function SchoolOfSkillProposal() {
             <li className="flex gap-3"><span className="text-[#0A0A0A]">·</span>Retainer: £1,000/month, collected as 2 × £500</li>
             <li className="flex gap-3"><span className="text-[#0A0A0A]">·</span>Website: £500, collected as 2 × £250</li>
           </ul>
-          <p className="text-xs text-[#A3A3A3] mt-4">An invoice will be issued at the start of the month and 7 days before the end of the month.</p>
+          <p className="text-xs text-[#A3A3A3] mt-4">An invoice will be issued on Day 1 and Day 23 of each 30-day period.</p>
         </div>
 
         <div className="border-t border-black/[0.08] mb-16" />
@@ -470,7 +470,7 @@ export default function SchoolOfSkillProposal() {
                   £500 total. £250 on commencement, £250 balance once new revenue has been generated, held for up to 30 days from project start.</p>
 
                   <p><strong className="text-[#0A0A0A]">4. Payment Schedule</strong><br/>
-                  Total across the 60-day commitment is £2,500, split so no single payment exceeds £750. Invoices issued at the start of the month and 7 days before the end of the month. This is a payment schedule, not a performance condition.</p>
+                  Total across the 60-day commitment is £2,500, split so no single payment exceeds £750. Invoices issued on Day 1 and Day 23 of each 30-day period. This is a payment schedule, not a performance condition.</p>
 
                   <p><strong className="text-[#0A0A0A]">5. Review</strong><br/>
                   After 60 days, direct attributable revenue from the partnership will be identified. If returning clear value, the revenue model will be reviewed at 90 days.</p>
