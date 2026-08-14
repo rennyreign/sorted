@@ -95,7 +95,7 @@ export default function SchoolOfSkillProposal() {
       <main className="min-h-screen flex items-center justify-center px-6">
         <div className="max-w-sm w-full">
           <div className="mb-8">
-            <span className="font-sans font-extrabold text-[#0A0A0A] text-2xl tracking-tight">Sorted.</span>
+            <span className="inline-block text-[33px] font-black leading-none tracking-[-0.045em] text-[#070707] sm:text-[40px]">Sorted<span className="text-[#cfe900]">.</span></span>
           </div>
           <h1 className="font-sans font-bold text-[#0A0A0A] text-xl mb-2">Private Proposal</h1>
           <p className="text-[#737373] text-sm mb-6">Enter the password to view this engagement plan.</p>
@@ -127,7 +127,7 @@ export default function SchoolOfSkillProposal() {
       <main className="max-w-[680px] mx-auto px-6 sm:px-10 pt-24 pb-32">
         {/* Brand Wordmark */}
         <div className="mb-16">
-          <span className="font-sans font-extrabold text-[#0A0A0A] text-2xl tracking-tight">Sorted.</span>
+          <span className="inline-block text-[33px] font-black leading-none tracking-[-0.045em] text-[#070707] sm:text-[40px]">Sorted<span className="text-[#cfe900]">.</span></span>
         </div>
 
         {/* Date + Private Label */}
@@ -525,7 +525,7 @@ export default function SchoolOfSkillProposal() {
 
         {/* Footer */}
         <div className="border-t border-black/[0.06] pt-8 flex items-center justify-between">
-          <p className="text-xs text-[#C4C4C4] font-mono">Sorted. - sortmydigital.site</p>
+          <span className="text-sm font-black tracking-[-0.045em] text-[#070707]">Sorted<span className="text-[#cfe900]">.</span></span>
           <button
             onClick={handleSignOut}
             className="text-xs text-[#A3A3A3] hover:text-[#525252] transition-colors font-mono"
