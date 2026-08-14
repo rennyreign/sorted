@@ -24,9 +24,14 @@ export default function SchoolOfSkillProposal() {
     const stored = localStorage.getItem(AUTH_KEY)
     if (stored) {
       try {
-        const { expires } = JSON.parse(stored)
+        const { expires, signature } = JSON.parse(stored)
         if (new Date().getTime() < expires) {
           setIsAuthenticated(true)
+          if (signature) {
+            setIsSigned(true)
+            setSignedAt(signature.signedAt)
+            setSignerName(signature.signerName)
+          }
         } else {
           localStorage.removeItem(AUTH_KEY)
         }
@@ -37,15 +42,34 @@ export default function SchoolOfSkillProposal() {
     setIsLoading(false)
   }, [])
 
-  const saveAuth = () => {
+  const saveAuth = (signatureData?: { signerName: string; signedAt: string }) => {
     const expires = new Date().getTime() + (AUTH_EXPIRY_DAYS * 24 * 60 * 60 * 1000)
-    localStorage.setItem(AUTH_KEY, JSON.stringify({ expires }))
+    const data: { expires: number; signature?: { signerName: string; signedAt: string } } = { expires }
+    if (signatureData) data.signature = signatureData
+    localStorage.setItem(AUTH_KEY, JSON.stringify(data))
   }
 
   const handleSignOut = () => {
     localStorage.removeItem(AUTH_KEY)
     setIsAuthenticated(false)
+    setIsSigned(false)
+    setSignerName("")
+    setSignedAt(null)
   }
+
+  const handleSignatureSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (signerName.trim()) {
+      const now = new Date().toISOString()
+      setIsSigned(true)
+      setSignedAt(now)
+      saveAuth({ signerName: signerName.trim(), signedAt: now })
+      setShowAgreement(false)
+    }
+  }
+
+  const formatDate = (iso: string) =>
+    new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -372,40 +396,36 @@ export default function SchoolOfSkillProposal() {
           </p>
         </div>
 
-        {/* Accept Section */}
-        <div className="mb-16 pt-8 border-t border-black/[0.08]">
-          {!isSigned ? (
-            <>
-              <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#525252] mb-4">Accept This Plan: Enter Your Name</p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <input
-                  type="text"
-                  value={signerName}
-                  onChange={(e) => setSignerName(e.target.value)}
-                  placeholder="Enter your full name"
-                  className="flex-1 px-4 py-3 bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] placeholder:text-[#A3A3A3] focus:outline-none focus:border-black/[0.3] transition-colors"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowAgreement(true)}
-                  disabled={!signerName.trim()}
-                  className="bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-6 py-3 hover:bg-[#2a2a2a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
-                >
-                  Review & Accept
-                </button>
-              </div>
-              <p className="text-xs text-[#A3A3A3] mt-3">By accepting, you agree to the terms outlined in this engagement plan.</p>
-            </>
-          ) : (
+        {/* Agreement Modal Trigger */}
+        {!isSigned ? (
+          <section className="mb-16 pt-8 border-t border-black/[0.08]">
+            <button
+              onClick={() => setShowAgreement(true)}
+              className="w-full bg-[#0A0A0A] text-[#FAFAFA] font-semibold rounded-xl px-6 py-4 hover:bg-[#1a1a1a] transition-colors"
+            >
+              Review & Accept Agreement
+            </button>
+            <p className="text-center text-[#A3A3A3] text-xs mt-4">
+              Review the engagement terms, then sign to accept.
+            </p>
+          </section>
+        ) : (
+          <section className="mb-16 pt-8 border-t border-black/[0.08]">
             <div className="bg-green-50 border border-green-200 rounded-xl p-6">
-              <p className="font-mono text-xs uppercase tracking-[0.15em] text-green-700 mb-2">Plan Accepted</p>
-              <p className="text-green-800 text-[2rem]" style={{ fontFamily: "Georgia, serif", fontStyle: "italic" }}>
-                {signerName}
-              </p>
-              <p className="text-xs text-green-600 mt-2">Signed on {signedAt}</p>
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center shrink-0">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M4 10L8 14L16 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-green-900">Plan Accepted</h3>
+                  <p className="text-green-700 text-sm">Signed by {signerName}{signedAt ? ` on ${formatDate(signedAt)}` : ""}</p>
+                </div>
+              </div>
             </div>
-          )}
-        </div>
+          </section>
+        )}
 
         {/* Agreement Modal */}
         {showAgreement && mounted && createPortal(
@@ -433,50 +453,59 @@ export default function SchoolOfSkillProposal() {
               </div>
 
               <div className="px-6 py-5 overflow-y-auto flex-1">
-                <div className="space-y-4 text-sm text-[#525252] leading-relaxed">
-                  <p>
-                    <strong className="text-[#0A0A0A]">1. Services:</strong> Sorted agrees to provide strategic growth support across the four priorities: School Acquisition System, Repurposing the 1:1s, October Half-Term Camp launch, and Venue & Facility economics. This includes strategy, tech and marketing infrastructure, CRM, website direction, and partnerships.
-                  </p>
-                  <p>
-                    <strong className="text-[#0A0A0A]">2. Retainer:</strong> £1,000 per month, collected as 2 × £500 per month. Initial commitment is 60 days, with a formal review at 60 or 90 days subject to success and cashflow.
-                  </p>
-                  <p>
-                    <strong className="text-[#0A0A0A]">3. Website:</strong> £500 total. £250 on commencement, £250 balance once new revenue has been generated, held for up to 30 days from project start.
-                  </p>
-                  <p>
-                    <strong className="text-[#0A0A0A]">4. Payment Schedule:</strong> Total across the 60-day commitment is £2,500, split so no single payment exceeds £750. Invoices issued at the start of the month and 7 days before the end of the month. This is a payment schedule, not a performance condition.
-                  </p>
-                  <p>
-                    <strong className="text-[#0A0A0A]">5. Review:</strong> After 60 days, direct attributable revenue from the partnership will be identified. If returning clear value, the revenue model will be reviewed at 90 days.
-                  </p>
-                  <p>
-                    <strong className="text-[#0A0A0A]">6. Payment:</strong> All payments to be made to ADX ENGINE LTD, Sort Code 52-30-02, Account Number 30189489.
-                  </p>
-                  <p>
-                    <strong className="text-[#0A0A0A]">7. Cancellation:</strong> Either party may end the engagement at the formal review point. Work completed and costs incurred up to that point will be settled in full.
-                  </p>
-                </div>
-              </div>
+                <div className="bg-black/[0.02] rounded-xl p-5 mb-6 space-y-4 text-sm text-[#525252] max-h-64 overflow-y-auto">
+                  <p><strong className="text-[#0A0A0A]">1. Services</strong><br/>
+                  Sorted agrees to provide strategic growth support across the four priorities: School Acquisition System, Repurposing the 1:1s, October Half-Term Camp launch, and Venue & Facility economics. This includes strategy, tech and marketing infrastructure, CRM, website direction, and partnerships.</p>
 
-              <div className="flex gap-3 px-6 py-4 border-t border-black/[0.08] shrink-0">
-                <button
-                  type="button"
-                  onClick={() => setShowAgreement(false)}
-                  className="flex-1 px-4 py-3 border border-black/[0.12] rounded-lg text-[#525252] font-medium text-sm hover:bg-black/[0.02] transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsSigned(true)
-                    setShowAgreement(false)
-                    setSignedAt(new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }))
-                  }}
-                  className="flex-1 bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-4 py-3 hover:bg-[#2a2a2a] transition-colors"
-                >
-                  I Accept - Sign as {signerName}
-                </button>
+                  <p><strong className="text-[#0A0A0A]">2. Retainer</strong><br/>
+                  £1,000 per month, collected as 2 x £500 per month. Initial commitment is 60 days, with a formal review at 60 or 90 days subject to success and cashflow.</p>
+
+                  <p><strong className="text-[#0A0A0A]">3. Website</strong><br/>
+                  £500 total. £250 on commencement, £250 balance once new revenue has been generated, held for up to 30 days from project start.</p>
+
+                  <p><strong className="text-[#0A0A0A]">4. Payment Schedule</strong><br/>
+                  Total across the 60-day commitment is £2,500, split so no single payment exceeds £750. Invoices issued at the start of the month and 7 days before the end of the month. This is a payment schedule, not a performance condition.</p>
+
+                  <p><strong className="text-[#0A0A0A]">5. Review</strong><br/>
+                  After 60 days, direct attributable revenue from the partnership will be identified. If returning clear value, the revenue model will be reviewed at 90 days.</p>
+
+                  <p><strong className="text-[#0A0A0A]">6. Payment</strong><br/>
+                  All payments to be made to ADX ENGINE LTD, Sort Code 52-30-02, Account Number 30189489.</p>
+
+                  <p><strong className="text-[#0A0A0A]">7. Cancellation</strong><br/>
+                  Either party may end the engagement at the formal review point. Work completed and costs incurred up to that point will be settled in full.</p>
+                </div>
+
+                <form onSubmit={handleSignatureSubmit} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-[#0A0A0A] mb-2">
+                      Your Full Name
+                    </label>
+                    <input
+                      type="text"
+                      value={signerName}
+                      onChange={(e) => setSignerName(e.target.value)}
+                      placeholder="Enter your name to sign"
+                      className="w-full px-4 py-3 bg-white border border-black/[0.12] rounded-lg text-[#0A0A0A] placeholder:text-[#A3A3A3] focus:outline-none focus:border-black/[0.3] transition-colors"
+                      required
+                    />
+                  </div>
+                  <div className="flex gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setShowAgreement(false)}
+                      className="flex-1 px-4 py-3 border border-black/[0.12] rounded-lg text-[#525252] font-medium hover:bg-black/[0.02] transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex-1 bg-[#0A0A0A] text-[#FAFAFA] font-semibold rounded-lg px-4 py-3 hover:bg-[#2a2a2a] transition-colors"
+                    >
+                      Accept & Sign
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>,
