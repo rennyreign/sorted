@@ -153,24 +153,9 @@ export default function EdgbastonTuitionCentreProposal() {
 
         <div className="border-t border-black/[0.08] mb-16" />
 
-        {/* Monthly Retainer */}
-        <div className="mb-16">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">
-            Monthly retainer
-          </span>
-          <div className="bg-[#0A0A0A] rounded-2xl p-8 sm:p-10">
-            <p className="font-sans font-extrabold text-white text-5xl tracking-tight mb-4">£1,000<span className="text-2xl text-white/50 font-bold"> /mo</span></p>
-            <p className="text-white/70 text-sm leading-relaxed">
-              Advertising spend is not included in the retainer. Any paid media budget will be agreed separately before campaigns are launched.
-            </p>
-          </div>
-        </div>
-
-        <div className="border-t border-black/[0.08] mb-16" />
-
         {/* What the Service Includes */}
         <div className="mb-16">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">
+          <span className="inline-block font-mono text-sm uppercase tracking-[0.15em] text-[#525252] font-bold mb-8 block">
             What the service includes
           </span>
           <div className="space-y-10">
@@ -251,7 +236,7 @@ export default function EdgbastonTuitionCentreProposal() {
 
         {/* Month One Focus */}
         <div className="mb-16">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">
+          <span className="inline-block font-mono text-sm uppercase tracking-[0.15em] text-[#525252] font-bold mb-8 block">
             Month-one focus
           </span>
           <div className="space-y-6 text-[#525252] text-base leading-relaxed mb-8">
@@ -298,7 +283,7 @@ export default function EdgbastonTuitionCentreProposal() {
 
         {/* Why This Matters */}
         <div className="mb-16">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">
+          <span className="inline-block font-mono text-sm uppercase tracking-[0.15em] text-[#525252] font-bold mb-8 block">
             Why this matters
           </span>
           <div className="space-y-6 text-[#525252] text-base leading-relaxed">
@@ -335,7 +320,7 @@ export default function EdgbastonTuitionCentreProposal() {
 
         {/* Working Method */}
         <div className="mb-16">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">
+          <span className="inline-block font-mono text-sm uppercase tracking-[0.15em] text-[#525252] font-bold mb-8 block">
             Working method
           </span>
           <div className="space-y-6 text-[#525252] text-base leading-relaxed mb-6">
@@ -375,7 +360,7 @@ export default function EdgbastonTuitionCentreProposal() {
 
         {/* Monthly Review */}
         <div className="mb-16">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">
+          <span className="inline-block font-mono text-sm uppercase tracking-[0.15em] text-[#525252] font-bold mb-8 block">
             Monthly review
           </span>
           <p className="text-[#525252] text-base leading-relaxed mb-6">Each month, we will review:</p>
@@ -409,7 +394,7 @@ export default function EdgbastonTuitionCentreProposal() {
 
         {/* Onboarding Steps */}
         <div className="mb-16">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-8 block">
+          <span className="inline-block font-mono text-sm uppercase tracking-[0.15em] text-[#525252] font-bold mb-8 block">
             Basic onboarding steps
           </span>
           <div className="space-y-10">
@@ -458,9 +443,24 @@ export default function EdgbastonTuitionCentreProposal() {
 
         <div className="border-t border-black/[0.08] mb-16" />
 
+        {/* Monthly Retainer */}
+        <div className="mb-16">
+          <span className="inline-block font-mono text-sm uppercase tracking-[0.15em] text-[#525252] font-bold mb-8 block">
+            Monthly retainer
+          </span>
+          <div className="bg-[#0A0A0A] rounded-2xl p-8 sm:p-10">
+            <p className="font-sans font-extrabold text-white text-5xl tracking-tight mb-4">£1,000<span className="text-2xl text-white/50 font-bold"> /mo</span></p>
+            <p className="text-white/70 text-sm leading-relaxed">
+              Advertising spend is not included in the retainer. Any paid media budget will be agreed separately before campaigns are launched.
+            </p>
+          </div>
+        </div>
+
+        <div className="border-t border-black/[0.08] mb-16" />
+
         {/* Account Details */}
         <div className="mb-16">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-[#525252] font-medium mb-6 block">
+          <span className="inline-block font-mono text-sm uppercase tracking-[0.15em] text-[#525252] font-bold mb-6 block">
             Account details
           </span>
           <div className="p-6 bg-black/[0.02] rounded-xl border border-black/[0.06]">
@@ -614,7 +614,7 @@ export default function EdgbastonTuitionCentreProposal() {
 
         {/* Signature */}
         <div className="mb-24">
-          <p className="font-sans font-bold text-[#0A0A0A] text-lg">Renaldo</p>
+          <p className="font-sans font-bold text-[#0A0A0A] text-lg">Renaldo Edmondson</p>
           <p className="text-[#A3A3A3] text-sm">Sorted</p>
         </div>
 
