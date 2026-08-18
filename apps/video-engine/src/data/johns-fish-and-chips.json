@@ -1,0 +1,26 @@
+{
+  "business": "John's Fish & Chips",
+  "location": "Birmingham",
+  "tagline": "TODAY WE MODERNISED",
+  "beforeImage": "before.png",
+  "afterImage": "after.png",
+  "problems": [
+    "No online booking",
+    "No reviews",
+    "Weak mobile layout"
+  ],
+  "improvements": [
+    "Modern",
+    "Reviews",
+    "Mobile",
+    "Ordering"
+  ],
+  "comparisonQuestion": "Which one would YOU trust?",
+  "cta": {
+    "lines": [
+      "Know the owner?",
+      "Send them this.",
+      "We've already built it."
+    ]
+  }
+}

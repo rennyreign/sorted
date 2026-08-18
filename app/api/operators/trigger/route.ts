@@ -8,16 +8,23 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "GITHUB_TOKEN not configured" }, { status: 500 })
   }
 
-  const { workflow, category, location } = await req.json()
+  const { workflow, ...providedInputs } = await req.json()
 
   if (!workflow) {
     return NextResponse.json({ error: "workflow is required" }, { status: 400 })
   }
 
-  // Build inputs for the workflow_dispatch event
+  // Build inputs for the workflow_dispatch event. Any non-empty string/boolean/number
+  // field from the client is forwarded as a string input.
   const inputs: Record<string, string> = {}
-  if (category) inputs.category = category
-  if (location) inputs.location = location
+  for (const [key, value] of Object.entries(providedInputs)) {
+    if (value == null || value === "") continue
+    if (typeof value === "boolean") {
+      inputs[key] = value ? "true" : "false"
+    } else {
+      inputs[key] = String(value)
+    }
+  }
 
   const res = await fetch(
     `https://api.github.com/repos/${REPO}/actions/workflows/${workflow}/dispatches`,

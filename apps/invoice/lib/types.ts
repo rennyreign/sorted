@@ -14,6 +14,7 @@ export type BankAccount = {
   bank_name: string;
   account_name: string;
   account_number: string;
+  account_type: string;
   iban: string;
   swift: string;
   routing: string;
@@ -26,6 +27,7 @@ export type CompanySettings = {
   company_email: string;
   company_address: string;
   company_registration: string;
+  company_logo: string;
   default_currency: string;
   invoice_prefix: string;
   default_notes: string;

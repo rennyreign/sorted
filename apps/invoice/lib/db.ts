@@ -33,6 +33,7 @@ function init(database: Database.Database): void {
       bank_name TEXT NOT NULL DEFAULT '',
       account_name TEXT NOT NULL DEFAULT '',
       account_number TEXT NOT NULL DEFAULT '',
+      account_type TEXT NOT NULL DEFAULT '',
       iban TEXT NOT NULL DEFAULT '',
       swift TEXT NOT NULL DEFAULT '',
       routing TEXT NOT NULL DEFAULT '',
@@ -69,11 +70,21 @@ function init(database: Database.Database): void {
     CREATE INDEX IF NOT EXISTS idx_line_items_invoice ON line_items(invoice_id);
   `);
 
+  const bankColumns = database
+    .prepare("PRAGMA table_info(bank_accounts)")
+    .all() as { name: string }[];
+  if (!bankColumns.some((c) => c.name === "account_type")) {
+    database.exec(
+      "ALTER TABLE bank_accounts ADD COLUMN account_type TEXT NOT NULL DEFAULT ''",
+    );
+  }
+
   const defaults: Record<string, string> = {
     company_name: "Sorted",
     company_email: "",
     company_address: "",
     company_registration: "",
+    company_logo: "",
     default_currency: "USD",
     invoice_prefix: "INV",
     default_notes: "Payment due within 14 days of the invoice date.",

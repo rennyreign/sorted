@@ -431,6 +431,15 @@ a {
   font-weight: 800;
 }
 
+.field-hint {
+  display: block;
+  margin-top: -2px;
+  color: var(--studio-soft);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
 .field input,
 .field textarea {
   width: 100%;
@@ -733,4 +742,240 @@ a {
   .preview-frame-shell.is-mobile iframe {
     width: 100%;
   }
+}
+
+/* Auth overlay for production publishing */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--studio-bg);
+}
+
+.auth-card {
+  width: min(420px, calc(100% - 48px));
+  padding: 40px;
+  border: 1px solid var(--studio-border);
+  border-radius: 20px;
+  background: var(--studio-surface);
+  box-shadow: var(--studio-shadow);
+  text-align: center;
+}
+
+.auth-mark {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  background: var(--studio-text);
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.auth-card h1 {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.auth-card p {
+  margin: 0 0 24px;
+  color: var(--studio-soft);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.auth-card .primary-button {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Toast notifications */
+.studio-toast {
+  position: fixed;
+  bottom: 60px;
+  right: 24px;
+  z-index: 9999;
+  max-width: 420px;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #ffffff;
+  background: #0b0b0b;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.studio-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.studio-toast[data-tone="success"] {
+  background: #48b02c;
+}
+
+.studio-toast[data-tone="error"] {
+  background: #c0392b;
+}
+
+.studio-toast[data-tone="warn"] {
+  background: #b8860b;
+}
+
+.studio-toast[data-tone="neutral"] {
+  background: #0b0b0b;
+}
+
+/* Property list editor */
+.property-preview {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.add-property-button,
+.list-add-button,
+.toggle-property-button {
+  border: 1px solid var(--studio-border);
+  border-radius: 6px;
+  background: var(--studio-surface);
+  padding: 6px 10px;
+  color: var(--studio-text);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.add-property-button,
+.list-add-button {
+  border-style: dashed;
+  margin-top: 4px;
+}
+
+.add-property-button:hover,
+.list-add-button:hover,
+.toggle-property-button:hover {
+  background: var(--studio-muted);
+}
+
+.property-card {
+  border: 1px solid var(--studio-border);
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.property-card.is-collapsed,
+.property-card.is-expanded {
+  padding: 12px;
+}
+
+.property-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.property-card-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.property-card-title strong {
+  display: block;
+  font-size: 13px;
+  color: var(--studio-text);
+}
+
+.property-card-title small {
+  display: block;
+  margin-top: 2px;
+  color: var(--studio-soft);
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.property-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.remove-property-button,
+.list-remove-button {
+  border: 0;
+  background: transparent;
+  padding: 6px 8px;
+  color: #c0392b;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.property-card-body {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--studio-border);
+}
+
+.string-list-item,
+.image-list-item,
+.review-card {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding: 8px;
+  border: 1px solid var(--studio-border);
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.string-list-item {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.image-list-item .media-control {
+  margin: 0;
+}
+
+.review-card .nested-field {
+  margin: 0;
+}
+
+.image-list-items,
+.string-list-items,
+.review-list-items {
+  display: grid;
+  gap: 6px;
+}
+
+.property-list-field,
+.property-image-list,
+.property-review-list {
+  margin-top: 4px;
 }

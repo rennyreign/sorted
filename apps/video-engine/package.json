@@ -1,0 +1,25 @@
+{
+  "name": "sorted-video-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sorted Content Engine - a Remotion-based video design system for programmatic before/after business modernisation videos",
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion render",
+    "render:john": "remotion render src/index.ts johns-fish-and-chips out/johns-fish-and-chips.mp4",
+    "still": "remotion still",
+    "upgrade": "remotion upgrade",
+    "lint": "tsc -noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.505",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.505"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "typescript": "^5"
+  }
+}

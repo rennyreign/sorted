@@ -120,6 +120,7 @@ Every build must include:
 - [ ] `<title>` and `<meta name="description">` updated for the client
 - [ ] No dead placeholder links
 - [ ] No commented-out dead code
+- [ ] All images optimized (run `node scripts/optimize-images.mjs` — see `sorted/doctrine/image-optimization.md`)
 - [ ] `npm run build` passes clean with zero TypeScript errors
 
 ---
@@ -134,6 +135,8 @@ Every build must include:
 - Are all sections useful — not decorative filler?
 - Is the copy plain, local, and believable?
 - Does it feel like something a real business owner would proudly approve?
+
+Stage 1 completion is not launch approval. Final launch readiness is handled later by Sorted's Launch QA Operator after CMS, domain, analytics, forms, and production hygiene are configured.
 
 ---
 
@@ -191,3 +194,5 @@ Full doctrine: `sorted/doctrine/cascade-deployment-discipline.md`
 1. Run `npm run build` — confirm it passes clean
 2. Commit on a feature branch: `feat/stage-1-build`
 3. Report: Standard or Premium tier, any notable decisions made, any Premium upgrade opportunities spotted
+
+Do not tag a launch baseline during Stage 1. Baseline tags are created only after the Launch QA Operator passes the production candidate.

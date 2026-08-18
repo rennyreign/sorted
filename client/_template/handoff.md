@@ -25,4 +25,14 @@
 
 ## Credentials and access
 
+## Launch QA
+
+## Baseline commit/tag
+
+## Domain and canonical host
+
+## Analytics and conversion events
+
+## Form / booking / integration destinations
+
 ## Final status

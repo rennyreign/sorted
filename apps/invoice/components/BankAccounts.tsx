@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { CURRENCIES } from "@/lib/currencies";
 import type { BankAccount } from "@/lib/types";
@@ -11,16 +11,18 @@ import {
   deleteBankAccountAction,
 } from "@/lib/actions";
 
+const ACCOUNT_TYPES = ["Checking", "Savings"];
+
 const FIELDS: { name: keyof BankAccount; label: string; placeholder: string }[] =
   [
-    { name: "label", label: "Label", placeholder: "EUR account (Wise)" },
+    { name: "label", label: "Label", placeholder: "USD ACH (Wise)" },
     { name: "bank_name", label: "Bank name", placeholder: "Wise" },
     { name: "account_name", label: "Account name", placeholder: "Your Name Ltd" },
     { name: "account_number", label: "Account number", placeholder: "12345678" },
-    { name: "iban", label: "IBAN", placeholder: "BE00 0000 0000 0000" },
-    { name: "swift", label: "SWIFT / BIC", placeholder: "TRWIBEB1XXX" },
-    { name: "routing", label: "Routing / sort code", placeholder: "000000" },
-    { name: "bank_address", label: "Bank address", placeholder: "City, country" },
+    { name: "routing", label: "Routing number (ACH & wire)", placeholder: "084009519" },
+    { name: "bank_address", label: "Bank address", placeholder: "108 W 13th St, Wilmington, DE 19801, United States" },
+    { name: "iban", label: "IBAN (international only)", placeholder: "BE00 0000 0000 0000" },
+    { name: "swift", label: "SWIFT / BIC (international only)", placeholder: "TRWIUS35XXX" },
   ];
 
 function BankForm({
@@ -45,15 +47,34 @@ function BankForm({
       {initial ? <input type="hidden" name="id" value={initial.id} /> : null}
       <div className="grid gap-4 sm:grid-cols-2">
         {FIELDS.map((f) => (
-          <div key={f.name}>
-            <label className={labelClass}>{f.label}</label>
-            <input
-              name={f.name}
-              defaultValue={initial ? String(initial[f.name] ?? "") : ""}
-              placeholder={f.placeholder}
-              className={inputClass}
-            />
-          </div>
+          <Fragment key={f.name}>
+            <div>
+              <label className={labelClass}>{f.label}</label>
+              <input
+                name={f.name}
+                defaultValue={initial ? String(initial[f.name] ?? "") : ""}
+                placeholder={f.placeholder}
+                className={inputClass}
+              />
+            </div>
+            {f.name === "account_number" && (
+              <div>
+                <label className={labelClass}>Account type</label>
+                <select
+                  name="account_type"
+                  defaultValue={initial?.account_type ?? ""}
+                  className={inputClass}
+                >
+                  <option value="">Select account type</option>
+                  {ACCOUNT_TYPES.map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </Fragment>
         ))}
         <div>
           <label className={labelClass}>Currency</label>
@@ -117,7 +138,11 @@ export default function BankAccounts({ accounts }: { accounts: BankAccount[] }) 
                 </span>
               </p>
               <p className="mt-1 text-[#737373]">
-                {[acc.account_name, acc.iban || acc.account_number]
+                {[
+                  acc.account_name,
+                  acc.iban || acc.account_number,
+                  acc.account_type,
+                ]
                   .filter(Boolean)
                   .join(" · ")}
               </p>
