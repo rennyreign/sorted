@@ -55,6 +55,7 @@ export function printSummary(manifest: Manifest, logEntries: LogEntry[]): void {
   }
 
   const totalMs = logEntries.reduce((s, e) => s + e.duration_ms, 0);
+  const totalCost = manifest.assets.reduce((s, a) => s + (a.meta.estimated_cost_usd ?? 0), 0);
 
   console.log(`\nAsset Generation Complete`);
   console.log('─'.repeat(40));
@@ -69,6 +70,7 @@ export function printSummary(manifest: Manifest, logEntries: LogEntry[]): void {
   }
   console.log('');
   console.log(`  Duration : ${(totalMs / 1000).toFixed(1)}s`);
+  if (totalCost > 0) console.log(`  Est. cost: ~$${totalCost.toFixed(3)}`);
 }
 
 // ── Helpers ───────────────────────────────────────────────────

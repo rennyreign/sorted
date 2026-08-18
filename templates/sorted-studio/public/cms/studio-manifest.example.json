@@ -4,7 +4,7 @@
     "name": "__CLIENT_NAME__",
     "domain": "__CLIENT_DOMAIN__",
     "productionUrl": "",
-    "accent": "#cfe900",
+    "accent": "#dfff00",
     "initial": "__CLIENT_INITIAL__"
   },
   "pages": [

@@ -130,6 +130,8 @@ function friendlyAuthError(message: string): string {
   if (m.includes("invalid login credentials")) return "Email or password is incorrect."
   if (m.includes("user already registered") || m.includes("already been registered"))
     return "An account with this email already exists. Try signing in instead."
+  if (m.includes("email not confirmed") || m.includes("email_not_confirmed"))
+    return "Your email hasn't been confirmed yet. If your account has already been approved, try resetting your password — that will verify your email automatically."
   if (m.includes("email rate limit")) return "Too many attempts. Please wait a moment and try again."
   if (m.includes("database error saving new user")) return "Something went wrong creating your account. Please try again or contact support."
   if (m.includes("password")) return "Password must be at least 6 characters."

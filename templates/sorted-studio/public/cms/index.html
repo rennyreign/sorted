@@ -5,8 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sorted Studio - __CLIENT_NAME__</title>
   <link rel="stylesheet" href="/cms/studio.css" />
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
+  <div id="auth-overlay" class="auth-overlay" style="display:none;">
+    <div class="auth-card">
+      <span class="auth-mark">__CLIENT_INITIAL__</span>
+      <h1>__CLIENT_NAME__</h1>
+      <p>Sign in to edit and publish site content.</p>
+      <button id="login-button" class="primary-button" type="button">Sign in</button>
+    </div>
+  </div>
+
   <div id="studio-app" class="studio-app" data-loading="true">
     <main class="studio-main">
       <header class="studio-topbar">

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { supabase } from "@/lib/supabase"
 import type { Prospect } from "@/lib/supabase"
 import ProspectFinderRun from "./ProspectFinderRun"
+import NewBusinessFinderRun from "./NewBusinessFinderRun"
 
 interface OverviewPageProps {
   onViewProspects: () => void
@@ -203,6 +204,7 @@ export default function OperatorOverview({ onViewProspects }: OverviewPageProps)
         </span>
         <div className="space-y-4">
           <ProspectFinderRun />
+          <NewBusinessFinderRun />
           <WebsiteAnalyserRun />
         </div>
       </div>

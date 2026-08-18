@@ -238,10 +238,10 @@ function ApplyDone({ email }: { email: string }) {
       <h2 className="mt-6 text-[28px] font-black tracking-[-0.04em]">Application received.</h2>
       <p className="mx-auto mt-4 max-w-[420px] text-[15px] font-semibold leading-[1.5] text-black/72">
         Thanks, your application is in. We'll review it personally and email{" "}
-        <span className="font-black text-black">{email}</span> within 48 hours to confirm your account and send your portal link.
+        <span className="font-black text-black">{email}</span> within 48 hours once your account is approved.
       </p>
       <p className="mx-auto mt-3 max-w-[420px] text-[13px] font-semibold leading-[1.5] text-black/55">
-        Once approved, you can sign in at any time to submit your first mockup request.
+        You'll also receive a confirmation email from Supabase — please click the link in it to verify your address. Once approved, you can sign in to submit your first mockup request.
       </p>
       <div className="mt-7 flex justify-center">
         <GhostButton href="/partners/login">Go to login</GhostButton>

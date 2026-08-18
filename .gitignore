@@ -18,3 +18,7 @@ __pycache__/
 
 # Temporary build artifacts
 .tmp/
+marketing/social/
+marketing/source-files/
+marketing/01-screencast.mp4
+marketing/01-talking-head.mp4

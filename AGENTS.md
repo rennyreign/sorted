@@ -109,7 +109,9 @@ The Sorted site-build chain runs in two modes. See `doctrine/operator-chain.md` 
 | Mockup Deconstructor | `operators/skills/mockup-deconstructor.md` | Active |
 | Asset Generator | `operators/skills/asset-generator.md` | Active |
 | Frontend Builder | `operators/skills/frontend-builder.md` | Active |
+| Image Optimization | `.devin/workflows/image-optimization.md` | Active |
 | SortedUpdates CMS | `.devin/workflows/add-decap-cms.md` | Active |
+| Launch QA | `operators/skills/launch-qa.md` | Active |
 
 ---
 
@@ -193,14 +195,14 @@ Apply SortedUpdates. Wire content to JSON, configure Decap CMS, add tutorial pan
 
 Key points:
 1. Follow the workflow step by step — it is self-contained
-2. **Reference implementation:** `rennyreign/savannah-villegas` on GitHub — study `public/cms/`, `lib/content.ts`, `content/` before writing any code
+2. **Reference implementation:** `warwickshire-str` — the most complete and current example. Study `public/cms/`, `lib/content.ts`, `content/` before writing any code
 3. Every image field must use the `imgSrc()` helper from `lib/image.ts`
 4. One JSON file per page section — not one per page
-5. Loader fallback defaults must match the original approved content exactly — these are the factory reset state
-6. `/cms/` must be the Sorted Studio client-facing UI; stock Decap lives at `/cms/decap.html` as a Sorted fallback only
+5. JSON content files are the factory reset state — keep them matching the approved build exactly
+6. `/cms/` must be the Sorted Studio client-facing UI (three-column workspace); stock Decap lives at `/cms/decap.html` as a Sorted fallback only
 7. Studio UI must expose only real client workflows: existing pages, existing sections, editable content fields, save state, and live preview
 8. Do not link clients from Studio to stock Decap, and do not expose add/reorder/publish/design controls unless fully implemented and tested
-9. Runtime Studio saves must not trigger Netlify deploys automatically; publish remains a deliberate Sorted-managed Git/Netlify step unless a real publish workflow exists
+9. Studio operates in dual-mode: local mode saves drafts via `decap-server` (no deploys); production mode publishes via Git Gateway with Netlify Identity JWT (triggers Netlify deploy)
 10. Sorted favicon (`s.` on black) goes in `public/cms/`, referenced in `config.yml` as `logo_url`
 11. Factory reset: record handoff SHA in `content/site/general.json`, create `scripts/reset.sh`, tag `handoff/[client-slug]`
 
@@ -253,6 +255,7 @@ Before closing any client delivery:
 - `doctrine/factory-reset.md` — reset standard, script, tagging
 - `doctrine/client-onboarding.md` — Netlify Identity setup, handoff message template
 - `doctrine/cascade-deployment-discipline.md` — branch-based workflow, credit protection
+- `doctrine/image-optimization.md` — image format, compression, and orphan removal standard
 
 ---
 

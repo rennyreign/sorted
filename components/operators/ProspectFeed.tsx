@@ -14,6 +14,7 @@ type FilterState = {
   reviewPage: "all" | "ready" | "none"
   crmStatus: "all" | CrmStatus
   enriched: "all" | "owner" | "owner_email" | "not_enriched"
+  source: "all" | "google_maps" | "companies_house"
 }
 
 export default function ProspectFeed() {
@@ -30,6 +31,7 @@ export default function ProspectFeed() {
     reviewPage: "all",
     crmStatus: "all",
     enriched: "all",
+    source: "all",
   })
 
   useEffect(() => {
@@ -91,6 +93,8 @@ export default function ProspectFeed() {
       if (filters.enriched === "owner" && !p.owner_name) return false
       if (filters.enriched === "owner_email" && !p.owner_email) return false
       if (filters.enriched === "not_enriched" && p.owner_name) return false
+      if (filters.source === "google_maps" && (p.source !== "google_maps" || p.source_company_number != null)) return false
+      if (filters.source === "companies_house" && !(p.source === "companies_house" || p.source_company_number != null)) return false
       return true
     })
   }, [prospects, filters])
@@ -177,9 +181,14 @@ export default function ProspectFeed() {
               <option value="owner_email">Has owner email</option>
               <option value="not_enriched">Not enriched</option>
             </select>
-            {(filters.category !== "All" || filters.city !== "All" || filters.qualification !== "all" || filters.analysed !== "all" || filters.mockup !== "all" || filters.reviewPage !== "all" || filters.crmStatus !== "all" || filters.enriched !== "all") && (
+            <select value={filters.source} onChange={(e) => update("source", e.target.value as FilterState["source"])} className={selectClass}>
+              <option value="all">All sources</option>
+              <option value="google_maps">Google Maps</option>
+              <option value="companies_house">Companies House</option>
+            </select>
+            {(filters.category !== "All" || filters.city !== "All" || filters.qualification !== "all" || filters.analysed !== "all" || filters.mockup !== "all" || filters.reviewPage !== "all" || filters.crmStatus !== "all" || filters.enriched !== "all" || filters.source !== "all") && (
               <button
-                onClick={() => setFilters({ search: filters.search, category: "All", city: "All", qualification: "all", analysed: "all", mockup: "all", reviewPage: "all", crmStatus: "all", enriched: "all" })}
+                onClick={() => setFilters({ search: filters.search, category: "All", city: "All", qualification: "all", analysed: "all", mockup: "all", reviewPage: "all", crmStatus: "all", enriched: "all", source: "all" })}
                 className="text-xs text-[#A3A3A3] hover:text-[#525252] transition-colors"
               >
                 Clear filters
@@ -204,7 +213,7 @@ export default function ProspectFeed() {
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="border-b border-black/[0.06]">
-                    {["Business", "Category", "Location", "Score", "Website", "Email", "Phone", "Owner", "Mockup", "Review", "CRM", "Status", "Maps"].map((h) => (
+                    {["Business", "Category", "Location", "Score", "Website", "Email", "Phone", "Owner", "Mockup", "Review", "CRM", "Status", "Source"].map((h) => (
                       <th key={h} className="text-left font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] px-3 py-2.5 whitespace-nowrap font-normal">
                         {h}
                       </th>
@@ -214,10 +223,10 @@ export default function ProspectFeed() {
                 <tbody>
                   {filtered.map((p) => (
                     <ProspectRow
-                      key={p.place_id}
+                      key={p.id}
                       prospect={p}
-                      isSelected={selected?.place_id === p.place_id}
-                      onSelect={() => setSelected(selected?.place_id === p.place_id ? null : p)}
+                      isSelected={selected?.id === p.id}
+                      onSelect={() => setSelected(selected?.id === p.id ? null : p)}
                     />
                   ))}
                 </tbody>
@@ -238,9 +247,9 @@ export default function ProspectFeed() {
         <AnalysisPanel
           prospect={selected}
           onClose={() => setSelected(null)}
-          onCrmChange={(place_id, status) =>
+          onCrmChange={(id, status) =>
             setProspects(prev => prev.map(p =>
-              p.place_id === place_id ? { ...p, crm_status: status as CrmStatus } : p
+              p.id === id ? { ...p, crm_status: status as CrmStatus } : p
             ))
           }
         />
@@ -378,9 +387,19 @@ function ProspectRow({
         <StatusBadge status={p.status} />
       </td>
 
-      {/* Maps */}
+      {/* Source */}
       <td className="px-3 py-3">
-        {p.google_maps_url ? (
+        {p.source === "companies_house" || p.source_company_number ? (
+          <a
+            href={p.source_url ?? `https://find-and-update.company-information.service.gov.uk/company/${p.source_company_number}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-[0.1em] text-emerald-700 bg-emerald-50 border border-emerald-100 rounded px-2 py-0.5 hover:bg-emerald-100 transition-colors"
+          >
+            CH ↗
+          </a>
+        ) : p.google_maps_url ? (
           <a
             href={p.google_maps_url}
             target="_blank"
@@ -388,7 +407,7 @@ function ProspectRow({
             onClick={(e) => e.stopPropagation()}
             className="text-xs text-[#525252] underline underline-offset-2 decoration-black/[0.2] hover:text-[#0A0A0A] hover:decoration-black/[0.5] transition-colors"
           >
-            View ↗
+            Maps ↗
           </a>
         ) : (
           <span className="text-xs text-[#C4C4C4]">—</span>
@@ -427,7 +446,7 @@ function ScoreBadge({ score }: { score: number | null }) {
 function AnalysisPanel({ prospect: p, onClose, onCrmChange }: {
   prospect: Prospect
   onClose: () => void
-  onCrmChange: (place_id: string, status: string) => void
+  onCrmChange: (id: number, status: string) => void
 }) {
   const hasAnalysis = p.site_score != null
   const [crmStatus, setCrmStatus] = useState<CrmStatus>(p.crm_status ?? "new")
@@ -436,8 +455,8 @@ function AnalysisPanel({ prospect: p, onClose, onCrmChange }: {
   async function setCrm(status: CrmStatus) {
     setCrmSaving(true)
     setCrmStatus(status)
-    onCrmChange(p.place_id, status)
-    await supabase.from("prospects").update({ crm_status: status }).eq("place_id", p.place_id)
+    onCrmChange(p.id, status)
+    await supabase.from("prospects").update({ crm_status: status }).eq("id", p.id)
     setCrmSaving(false)
   }
 

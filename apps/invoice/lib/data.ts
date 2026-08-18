@@ -25,6 +25,7 @@ export function getSettings(): CompanySettings {
     company_email: map.get("company_email") ?? "",
     company_address: map.get("company_address") ?? "",
     company_registration: map.get("company_registration") ?? "",
+    company_logo: map.get("company_logo") ?? "",
     default_currency: map.get("default_currency") ?? "USD",
     invoice_prefix: map.get("invoice_prefix") ?? "INV",
     default_notes: map.get("default_notes") ?? "",
@@ -43,6 +44,7 @@ export function saveSettings(settings: CompanySettings): void {
     ["company_email", settings.company_email],
     ["company_address", settings.company_address],
     ["company_registration", settings.company_registration],
+    ["company_logo", settings.company_logo],
     ["default_currency", settings.default_currency],
     ["invoice_prefix", settings.invoice_prefix],
     ["default_notes", settings.default_notes],
@@ -76,8 +78,8 @@ export function createBankAccount(data: Omit<BankAccount, "id">): number {
   const result = db
     .prepare(
       `INSERT INTO bank_accounts
-        (label, bank_name, account_name, account_number, iban, swift, routing, bank_address, currency)
-       VALUES (@label, @bank_name, @account_name, @account_number, @iban, @swift, @routing, @bank_address, @currency)`,
+        (label, bank_name, account_name, account_number, account_type, iban, swift, routing, bank_address, currency)
+       VALUES (@label, @bank_name, @account_name, @account_number, @account_type, @iban, @swift, @routing, @bank_address, @currency)`,
     )
     .run(data);
   return Number(result.lastInsertRowid);
@@ -88,7 +90,7 @@ export function updateBankAccount(id: number, data: Omit<BankAccount, "id">): vo
   db.prepare(
     `UPDATE bank_accounts SET
        label = @label, bank_name = @bank_name, account_name = @account_name,
-       account_number = @account_number, iban = @iban, swift = @swift,
+       account_number = @account_number, account_type = @account_type, iban = @iban, swift = @swift,
        routing = @routing, bank_address = @bank_address, currency = @currency
      WHERE id = @id`,
   ).run({ ...data, id });

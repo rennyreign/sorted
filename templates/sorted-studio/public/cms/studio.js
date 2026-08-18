@@ -8,7 +8,8 @@
     originalContent: {},
     dirty: false,
     saving: false,
-    viewport: "desktop"
+    viewport: "desktop",
+    expandedProperties: new Set()
   };
 
   var els = {};
@@ -55,19 +56,138 @@
     });
   }
 
+  function isLocal() {
+    var host = window.location.hostname;
+    return host === "localhost" || host === "127.0.0.1" || host === "[::1]";
+  }
+
+  function toBase64(str) {
+    return btoa(unescape(encodeURIComponent(str)));
+  }
+
+  function fromBase64(str) {
+    return decodeURIComponent(escape(atob(str)));
+  }
+
+  function getIdentityJwt() {
+    if (!window.netlifyIdentity) {
+      return Promise.reject(new Error("Netlify Identity is not loaded"));
+    }
+    var user = window.netlifyIdentity.currentUser();
+    if (!user) {
+      return Promise.reject(new Error("Not signed in"));
+    }
+    return window.netlifyIdentity.refresh().catch(function () {
+      return user.jwt ? user.jwt() : Promise.reject(new Error("Unable to refresh token"));
+    });
+  }
+
+  function gitGatewayRequest(method, path, body) {
+    return getIdentityJwt().then(function (token) {
+      var options = {
+        method: method,
+        headers: { "Authorization": "Bearer " + token }
+      };
+      if (body !== undefined) {
+        options.headers["Content-Type"] = "application/json";
+        options.body = JSON.stringify(body);
+      }
+      return fetch(path, options).then(function (response) {
+        if (!response.ok) {
+          return response.text().then(function (text) {
+            throw new Error("CMS server returned " + response.status + ": " + text);
+          });
+        }
+        if (response.status === 204 || method === "DELETE") return null;
+        return response.json().catch(function () { return null; });
+      });
+    });
+  }
+
+  function gitGatewayContentsUrl(repoPath) {
+    // Git Gateway proxies GitHub's contents endpoint. The path is passed as-is
+    // so literal slashes separate directories; only encode if a segment needs it.
+    var parts = repoPath.split("/").map(encodeURIComponent).join("/");
+    return "/.netlify/git/github/contents/" + parts;
+  }
+
+  function gitGatewayGetFile(repoPath, branch) {
+    return gitGatewayRequest(
+      "GET",
+      gitGatewayContentsUrl(repoPath) + "?ref=" + encodeURIComponent(branch || "main")
+    ).then(function (result) {
+      if (!result || !result.content) return null;
+      return { sha: result.sha, raw: fromBase64(result.content) };
+    });
+  }
+
+  function gitGatewayPutFile(repoPath, raw, message, branch, sha) {
+    var body = {
+      message: message || "chore: update content",
+      content: toBase64(raw),
+      branch: branch || "main"
+    };
+    if (sha) body.sha = sha;
+    return gitGatewayRequest(
+      "PUT",
+      gitGatewayContentsUrl(repoPath),
+      body
+    );
+  }
+
+  function gitGatewayPutMedia(repoPath, base64Content, message, branch, sha) {
+    var body = {
+      message: message || "chore: upload media",
+      content: base64Content,
+      branch: branch || "main"
+    };
+    if (sha) body.sha = sha;
+    return gitGatewayRequest(
+      "PUT",
+      gitGatewayContentsUrl(repoPath),
+      body
+    );
+  }
+
   function setStatus(message, tone) {
     if (!els.saveStatus) return;
     els.saveStatus.textContent = message;
     els.saveStatus.setAttribute("data-tone", tone || "neutral");
   }
 
+  var toastTimer = null;
+  function showToast(message, tone) {
+    var toast = qs("studio-toast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "studio-toast";
+      toast.className = "studio-toast";
+      var app = qs("studio-app") || document.body;
+      app.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.setAttribute("data-tone", tone || "neutral");
+    toast.classList.add("is-visible");
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toast.classList.remove("is-visible");
+    }, tone === "error" ? 8000 : 4000);
+  }
+
   function setDirty(isDirty) {
     state.dirty = isDirty;
     if (els.saveSection) {
+      var local = isLocal();
       els.saveSection.disabled = state.saving || !state.dirty;
-      els.saveSection.textContent = state.saving ? "Saving..." : state.dirty ? "Save draft" : "Saved";
+      if (state.saving) {
+        els.saveSection.textContent = local ? "Saving..." : "Publishing...";
+      } else if (isDirty) {
+        els.saveSection.textContent = local ? "Save draft" : "Publish";
+      } else {
+        els.saveSection.textContent = local ? "Saved" : "Published";
+      }
     }
-    setStatus(isDirty ? "Unsaved local changes" : "✓ All changes saved", isDirty ? "warn" : "success");
+    setStatus(isDirty ? (isLocal() ? "Unsaved local changes" : "Unpublished changes") : "✓ All changes saved", isDirty ? "warn" : "success");
   }
 
   function groupFields(fields) {
@@ -93,6 +213,54 @@
 
   function isImageKey(key) {
     return /(^image$|image$|heroImage|mainImage|insetImage|logo|gallery)/i.test(String(key || "")) && !/alt/i.test(String(key || ""));
+  }
+
+  var PROPERTY_SCHEMA = {
+    name: { label: "Name", type: "text" },
+    slug: { label: "Slug", type: "text" },
+    location: { label: "Location", type: "text" },
+    postcode: { label: "Postcode", type: "text" },
+    summary: { label: "Summary", type: "textarea" },
+    description: { label: "Description", type: "textarea" },
+    bedrooms: { label: "Bedrooms", type: "number" },
+    sleeps: { label: "Sleeps", type: "number" },
+    bathrooms: { label: "Bathrooms", type: "number" },
+    priceFrom: { label: "Price From", type: "number" },
+    heroImage: { label: "Hero Image", type: "image" },
+    imageAlt: { label: "Image Alt Text", type: "text" },
+    gallery: { label: "Gallery", type: "image-list" },
+    highlights: { label: "Highlights", type: "string-list" },
+    amenities: { label: "Amenities", type: "string-list" },
+    bestFor: { label: "Best For", type: "string-list" },
+    mapLabel: { label: "Map Label", type: "text" },
+    tokeetRentalId: { label: "Tokeet Rental ID", type: "text" },
+    tokeetBookingWidgetCode: { label: "Tokeet Booking Widget Code", type: "textarea" },
+    reviews: { label: "Reviews", type: "review-list" }
+  };
+
+  function defaultProperty() {
+    return {
+      name: "New property",
+      slug: "",
+      location: "",
+      postcode: "",
+      summary: "",
+      description: "",
+      bedrooms: 0,
+      sleeps: 0,
+      bathrooms: 0,
+      priceFrom: 0,
+      heroImage: "",
+      imageAlt: "",
+      gallery: [],
+      highlights: [],
+      amenities: [],
+      bestFor: [],
+      mapLabel: "",
+      tokeetRentalId: "",
+      tokeetBookingWidgetCode: "",
+      reviews: []
+    };
   }
 
   function uploadName(name) {
@@ -121,6 +289,8 @@
 
   function renderMediaControl(options) {
     var value = options.value || "";
+    var isLogo = options.field === "logo" || options.key === "logo";
+    var fallback = isLogo ? "/logo.png" : "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
     var pathAttr = options.field
       ? ' data-field="' + escapeHtml(options.field) + '"'
       : ' data-list="' + escapeHtml(options.list) + '" data-index="' + options.index + '"' + (options.key ? ' data-key="' + escapeHtml(options.key) + '"' : "") + (options.subindex != null ? ' data-subindex="' + options.subindex + '"' : "");
@@ -129,7 +299,7 @@
       : ' data-media-upload data-list="' + escapeHtml(options.list) + '" data-index="' + options.index + '"' + (options.key ? ' data-key="' + escapeHtml(options.key) + '"' : "") + (options.subindex != null ? ' data-subindex="' + options.subindex + '"' : "");
     return '<label class="media-control"><span>' + escapeHtml(options.label) + '</span>' +
       '<div class="media-field">' +
-      '<img src="' + escapeHtml(value || "/logo.png") + '" alt="" onerror="this.style.visibility=\'hidden\'" />' +
+      '<img src="' + escapeHtml(value || fallback) + '" alt="" onerror="this.style.visibility=\'hidden\'" />' +
       '<div class="media-actions">' +
       '<input class="media-path-input" value="' + escapeHtml(value) + '"' + pathAttr + ' />' +
       '<label class="upload-button">Upload image<input type="file" accept="image/*"' + uploadAttr + ' /></label>' +
@@ -157,6 +327,138 @@
     }
     var type = typeof value === "number" ? "number" : "text";
     return '<label class="nested-field"><span>' + escapeHtml(label) + '</span><input type="' + type + '"' + attr + ' value="' + escapeHtml(value == null ? "" : value) + '" /></label>';
+  }
+
+  function propertyFieldKeys(property) {
+    var known = Object.keys(PROPERTY_SCHEMA);
+    var extra = Object.keys(property || {}).filter(function (key) {
+      return known.indexOf(key) === -1;
+    });
+    return known.concat(extra);
+  }
+
+  function renderPropertyStringList(field, property, index, key, items, label) {
+    var list = escapeHtml(field.name);
+    var safeKey = escapeHtml(key);
+    var safeLabel = escapeHtml(label);
+    var values = Array.isArray(items) ? items : [];
+    return '<div class="nested-field property-list-field"><span>' + safeLabel + '</span>' +
+      '<div class="string-list-items">' +
+      values.map(function (item, subindex) {
+        return '<div class="string-list-item">' +
+          '<input type="text" data-list="' + list + '" data-index="' + index + '" data-key="' + safeKey + '" data-subindex="' + subindex + '" value="' + escapeHtml(item == null ? "" : item) + '" />' +
+          '<button type="button" class="list-remove-button" data-remove-list-item data-list="' + list + '" data-index="' + index + '" data-key="' + safeKey + '" data-subindex="' + subindex + '">Remove</button>' +
+          '</div>';
+      }).join("") +
+      '</div>' +
+      '<button type="button" class="list-add-button" data-add-list-item data-list="' + list + '" data-index="' + index + '" data-key="' + safeKey + '">+ Add ' + safeLabel + '</button>' +
+      '</div>';
+  }
+
+  function renderPropertyImageList(field, property, index, key, items, label) {
+    var list = escapeHtml(field.name);
+    var safeKey = escapeHtml(key);
+    var safeLabel = escapeHtml(label);
+    var values = Array.isArray(items) ? items : [];
+    return '<div class="nested-field property-image-list"><span>' + safeLabel + '</span>' +
+      '<div class="image-list-items">' +
+      values.map(function (item, subindex) {
+        return '<div class="image-list-item">' +
+          renderMediaControl({ label: safeLabel + " " + (subindex + 1), list: field.name, index: index, key: key, subindex: subindex, value: item }) +
+          '<button type="button" class="list-remove-button" data-remove-list-item data-list="' + list + '" data-index="' + index + '" data-key="' + safeKey + '" data-subindex="' + subindex + '">Remove</button>' +
+          '</div>';
+      }).join("") +
+      '</div>' +
+      '<button type="button" class="list-add-button" data-add-list-item data-list="' + list + '" data-index="' + index + '" data-key="' + safeKey + '">+ Add image</button>' +
+      '</div>';
+  }
+
+  function renderPropertyReviewList(field, property, index, key, reviews, label) {
+    var list = escapeHtml(field.name);
+    var safeKey = escapeHtml(key);
+    var safeLabel = escapeHtml(label);
+    var values = Array.isArray(reviews) ? reviews : [];
+    return '<div class="nested-field property-review-list"><span>' + safeLabel + '</span>' +
+      '<div class="review-list-items">' +
+      values.map(function (review, subindex) {
+        return '<div class="review-card">' +
+          '<label class="nested-field"><span>Quote</span><textarea data-list="' + list + '" data-index="' + index + '" data-key="' + safeKey + '" data-subindex="' + subindex + '" data-subkey="quote">' + escapeHtml(review.quote || "") + '</textarea></label>' +
+          '<label class="nested-field"><span>Guest Name</span><input type="text" data-list="' + list + '" data-index="' + index + '" data-key="' + safeKey + '" data-subindex="' + subindex + '" data-subkey="name" value="' + escapeHtml(review.name || "") + '" /></label>' +
+          '<label class="nested-field"><span>Guest Type</span><input type="text" data-list="' + list + '" data-index="' + index + '" data-key="' + safeKey + '" data-subindex="' + subindex + '" data-subkey="type" value="' + escapeHtml(review.type || "") + '" /></label>' +
+          '<button type="button" class="list-remove-button" data-remove-list-item data-list="' + list + '" data-index="' + index + '" data-key="' + safeKey + '" data-subindex="' + subindex + '">Remove review</button>' +
+          '</div>';
+      }).join("") +
+      '</div>' +
+      '<button type="button" class="list-add-button" data-add-list-item data-list="' + list + '" data-index="' + index + '" data-key="' + safeKey + '">+ Add review</button>' +
+      '</div>';
+  }
+
+  function renderPropertyControl(field, property, index, key) {
+    var value = property[key];
+    var spec = PROPERTY_SCHEMA[key] || {};
+    var label = spec.label || labelFromKey(key);
+    var list = escapeHtml(field.name);
+    var safeKey = escapeHtml(key);
+    var attr = ' data-list="' + list + '" data-index="' + index + '" data-key="' + safeKey + '"';
+
+    if (spec.type === "image-list" || (spec.type === "auto" && key === "gallery" && Array.isArray(value))) {
+      return renderPropertyImageList(field, property, index, key, value, label);
+    }
+    if (spec.type === "review-list" || (spec.type === "auto" && key === "reviews" && Array.isArray(value))) {
+      return renderPropertyReviewList(field, property, index, key, value, label);
+    }
+    if (spec.type === "string-list" || (Array.isArray(value) && (spec.type === "auto" || !spec.type))) {
+      return renderPropertyStringList(field, property, index, key, value, label);
+    }
+    if (spec.type === "image" || isImageKey(key)) {
+      return renderMediaControl({ label: label, list: field.name, index: index, key: key, value: value });
+    }
+    if (spec.type === "textarea" || (spec.type === "auto" && shouldUseTextarea(key, value))) {
+      return '<label class="nested-field"><span>' + escapeHtml(label) + '</span><textarea' + attr + '>' + escapeHtml(value || "") + '</textarea></label>';
+    }
+    var inputType = spec.type === "number" || (spec.type === "auto" && typeof value === "number") ? "number" : "text";
+    return '<label class="nested-field"><span>' + escapeHtml(label) + '</span><input type="' + inputType + '"' + attr + ' value="' + escapeHtml(value == null ? "" : value) + '" /></label>';
+  }
+
+  function renderPropertyCard(field, property, index) {
+    var list = escapeHtml(field.name);
+    var isExpanded = state.expandedProperties.has(property);
+    var header = '<div class="property-card-header">' +
+      '<button type="button" class="property-card-title" data-toggle-property data-list="' + list + '" data-index="' + index + '">' +
+      '<strong>' + escapeHtml(property.name || "Property") + '</strong>' +
+      '<small>' + escapeHtml([property.location, property.postcode, property.bedrooms ? property.bedrooms + " bedrooms" : "", property.sleeps ? "Sleeps " + property.sleeps : ""].filter(Boolean).join(" · ")) + '</small>' +
+      '</button>' +
+      '<div class="property-card-actions">' +
+      '<button type="button" class="toggle-property-button" data-toggle-property data-list="' + list + '" data-index="' + index + '">' + (isExpanded ? "Collapse" : "Edit") + '</button>' +
+      '<button type="button" class="remove-property-button" data-remove-property data-list="' + list + '" data-index="' + index + '">Remove</button>' +
+      '</div>' +
+      '</div>';
+
+    if (!isExpanded) {
+      return '<div class="property-card is-collapsed" data-property-index="' + index + '">' + header + '</div>';
+    }
+
+    var keys = propertyFieldKeys(property);
+    return '<div class="property-card is-expanded" data-property-index="' + index + '">' +
+      header +
+      '<div class="property-card-body">' +
+      '<div class="nested-grid">' +
+      keys.map(function (key) { return renderPropertyControl(field, property, index, key); }).join("") +
+      '</div>' +
+      '</div>' +
+      '</div>';
+  }
+
+  function renderPropertyList(field, value) {
+    var list = escapeHtml(field.name);
+    var properties = Array.isArray(value) ? value : [];
+    return '<div class="field"><label>' + escapeHtml(field.label) + '</label>' +
+      renderFieldHint(field) +
+      '<button type="button" class="add-property-button" data-add-property data-list="' + list + '">+ Add property</button>' +
+      '<div class="property-preview" data-list="' + list + '">' +
+      properties.map(function (property, index) { return renderPropertyCard(field, property, index); }).join("") +
+      '</div>' +
+      '</div>';
   }
 
   function renderPageTabs() {
@@ -204,14 +506,20 @@
     els.sectionList.innerHTML = html;
   }
 
+  function renderFieldHint(field) {
+    return field.hint ? '<small class="field-hint">' + escapeHtml(field.hint) + '</small>' : '';
+  }
+
   function renderField(field, value) {
     if (field.type === "textarea") {
       return '<div class="field"><label>' + escapeHtml(field.label) + '</label>' +
+        renderFieldHint(field) +
         '<textarea data-field="' + escapeHtml(field.name) + '">' + escapeHtml(value || "") + '</textarea></div>';
     }
 
     if (field.type === "image") {
-      return '<div class="field">' + renderMediaControl({ label: field.label, field: field.name, value: value }) + '</div>';
+      return '<div class="field"><label>' + escapeHtml(field.label) + '</label>' + renderFieldHint(field) +
+        renderMediaControl({ label: field.label, field: field.name, value: value }) + '</div>';
     }
 
     if (field.type === "list") {
@@ -219,6 +527,7 @@
       var summaryFields = field.summaryFields || [];
       var keys = listItemKeys(items, field);
       return '<div class="field"><label>' + escapeHtml(field.label) + '</label>' +
+        renderFieldHint(field) +
         '<div class="list-preview">' +
         items.map(function (item, index) {
           if (typeof item === "string") {
@@ -237,25 +546,12 @@
     }
 
     if (field.type === "property-list") {
-      var properties = Array.isArray(value) ? value : [];
-      return '<div class="field"><label>' + escapeHtml(field.label) + '</label>' +
-        '<div class="property-preview">' +
-        properties.map(function (property, index) {
-          var keys = ["name", "location", "postcode", "summary", "bedrooms", "sleeps", "bathrooms", "priceFrom", "heroImage", "imageAlt", "gallery"];
-          return '<div class="property-card">' +
-            '<strong>' + escapeHtml(property.name || "Property") + '</strong>' +
-            '<small>' + escapeHtml([property.location, property.postcode, property.bedrooms ? property.bedrooms + " bedrooms" : "", property.sleeps ? "Sleeps " + property.sleeps : ""].filter(Boolean).join(" · ")) + '</small>' +
-            '<small>' + escapeHtml(property.summary || "") + '</small>' +
-            '<div class="nested-grid">' +
-            keys.map(function (key) { return renderListControl(field, index, key, property[key]); }).join("") +
-            '</div>' +
-            '</div>';
-        }).join("") +
-        '</div></div>';
+      return renderPropertyList(field, value);
     }
 
     var type = field.type === "color" ? "color" : "text";
     return '<div class="field"><label>' + escapeHtml(field.label) + '</label>' +
+      renderFieldHint(field) +
       '<input type="' + type + '" data-field="' + escapeHtml(field.name) + '" value="' + escapeHtml(value || "") + '" />' +
       '</div>';
   }
@@ -267,7 +563,8 @@
     els.editorTitle.textContent = section.title;
     els.editorId.textContent = section.id;
     if (els.editorNote) {
-      els.editorNote.textContent = "Editing " + section.file + ". Save draft writes to your local content file; publish remains a separate Git/Netlify step.";
+      var local = isLocal();
+      els.editorNote.textContent = (local ? "Editing " : "Publishing ") + section.file + (local ? ". Save draft writes to your local content file." : ". Publish commits to Git and triggers a Netlify deploy.");
     }
 
     var html = Object.keys(groups).map(function (groupName) {
@@ -328,12 +625,46 @@
     });
   }
 
+  function isInsideHeaderOrFooter(element) {
+    var node = element && element.parentElement;
+    while (node) {
+      if (node.tagName === "HEADER" || node.tagName === "FOOTER") return true;
+      node = node.parentElement;
+    }
+    return false;
+  }
+
+  function srcMatches(src, value) {
+    if (!value) return false;
+    if (src === value || src.indexOf(value) >= 0) return true;
+    try {
+      if (decodeURIComponent(src).indexOf(value) >= 0) return true;
+    } catch (e) {}
+    return false;
+  }
+
   function patchImages(doc, fieldName, oldValue, newValue) {
     if (!/image|logo/i.test(fieldName) || !newValue) return;
+
+    var fallbackLogo = "/logo.png";
+
     Array.prototype.forEach.call(doc.querySelectorAll("img"), function (img) {
       var src = img.getAttribute("src") || "";
       var alt = img.getAttribute("alt") || "";
-      if (!oldValue || src.indexOf(oldValue) >= 0 || alt === state.originalContent.imageAlt || fieldName === "logo") {
+
+      // For normal image fields, only replace images whose current src matches the old value.
+      if (!/logo/i.test(fieldName)) {
+        if (oldValue && srcMatches(src, oldValue)) {
+          img.setAttribute("src", newValue);
+        }
+        return;
+      }
+
+      // For the logo field, only replace actual logo images:
+      // - images inside <header> or <footer>
+      // - images whose src is (or encodes) the fallback /logo.png path
+      var isFallback = src === fallbackLogo || srcMatches(src, fallbackLogo) || src.indexOf("logo.png") >= 0;
+      if (isFallback || isInsideHeaderOrFooter(img)) {
         img.setAttribute("src", newValue);
       }
     });
@@ -399,11 +730,17 @@
     updatePreview();
   }
 
-  function loadContentFromProxy(section) {
-    return localProxyRequest("getEntry", { branch: "main", path: cleanPath(section.file) })
+  function loadContentFromBackend(section) {
+    if (isLocal()) {
+      return localProxyRequest("getEntry", { branch: "main", path: cleanPath(section.file) })
+        .then(function (result) {
+          var raw = result && (result.data || (result.entry && result.entry.raw));
+          return raw ? JSON.parse(raw) : null;
+        });
+    }
+    return gitGatewayGetFile(cleanPath(section.file), "main")
       .then(function (result) {
-        var raw = result && (result.data || (result.entry && result.entry.raw));
-        return raw ? JSON.parse(raw) : null;
+        return result && result.raw ? JSON.parse(result.raw) : null;
       });
   }
 
@@ -411,7 +748,7 @@
     state.dirty = false;
     setStatus("Loading section...", "neutral");
 
-    return loadContentFromProxy(section)
+    return loadContentFromBackend(section)
       .catch(function () {
         return state.studioContent && state.studioContent[section.id] ? state.studioContent[section.id] : null;
       })
@@ -436,43 +773,68 @@
     var section = getSection();
     if (!state.dirty || state.saving) return Promise.resolve();
 
+    var local = isLocal();
     state.saving = true;
     if (els.saveSection) {
       els.saveSection.disabled = true;
-      els.saveSection.textContent = "Saving...";
+      els.saveSection.textContent = local ? "Saving..." : "Publishing...";
     }
-    setStatus("Saving draft locally...", "neutral");
+    setStatus(local ? "Saving draft locally..." : "Publishing to live site...", "neutral");
+    showToast(local ? "Saving draft..." : "Publishing to live site...", "neutral");
 
-    return localProxyRequest("persistEntry", {
-      branch: "main",
-      dataFiles: [{
-        slug: section.entry,
-        path: cleanPath(section.file),
-        raw: JSON.stringify(state.content, null, 2) + "\n"
-      }],
-      assets: [],
-      options: {
-        branch: "main",
-        collectionName: section.collection,
-        commitMessage: "chore: update " + section.title,
-        useWorkflow: false,
-        status: "draft"
-      }
-    }).then(function () {
+    var raw = JSON.stringify(state.content, null, 2) + "\n";
+    var repoPath = cleanPath(section.file);
+
+    function onSuccess() {
       state.studioContent[section.id] = cloneJson(state.content);
       state.originalContent = cloneJson(state.content);
       state.saving = false;
       setDirty(false);
       applyPreviewPatch();
-    }).catch(function (error) {
+      showToast(local ? "Draft saved" : "Published! Netlify will rebuild in ~60s.", "success");
+    }
+
+    function onError(error) {
+      console.error("[Studio] Save failed:", error);
       state.saving = false;
       if (els.saveSection) {
         els.saveSection.disabled = false;
-        els.saveSection.textContent = "Save draft";
+        els.saveSection.textContent = local ? "Save draft" : "Publish";
       }
-      setStatus("Local save failed. Start npm run cms, or publish in Decap.", "error");
+      var msg = local
+        ? "Local save failed. Start npm run cms and try again."
+        : "Publish failed: " + (error && error.message ? error.message : "unknown error") + ". Check you are signed in and Git Gateway is enabled.";
+      setStatus(msg, "error");
+      showToast(msg, "error");
       throw error;
-    });
+    }
+
+    if (local) {
+      return localProxyRequest("persistEntry", {
+        branch: "main",
+        dataFiles: [{
+          slug: section.entry,
+          path: repoPath,
+          raw: raw
+        }],
+        assets: [],
+        options: {
+          branch: "main",
+          collectionName: section.collection,
+          commitMessage: "chore: update " + section.title,
+          useWorkflow: false,
+          status: "draft"
+        }
+      }).then(onSuccess).catch(onError);
+    }
+
+    return gitGatewayGetFile(repoPath, "main")
+      .catch(function () { return null; })
+      .then(function (existing) {
+        return gitGatewayPutFile(repoPath, raw, "chore: update " + section.title, "main", existing && existing.sha);
+      })
+      .then(onSuccess)
+      .catch(onError);
   }
 
   function readFileAsBase64(file) {
@@ -494,8 +856,11 @@
       var index = Number(target.getAttribute("data-index"));
       var key = target.getAttribute("data-key");
       var subindex = target.getAttribute("data-subindex");
+      var subkey = target.getAttribute("data-subkey");
       var current = state.content[list][index];
-      if (key && subindex != null) {
+      if (key && subindex != null && subkey != null) {
+        current[key][Number(subindex)][subkey] = value;
+      } else if (key && subindex != null) {
         current[key][Number(subindex)] = value;
       } else if (key) {
         current[key] = value;
@@ -509,44 +874,92 @@
 
   function handleMediaUpload(input) {
     var file = input.files && input.files[0];
-    if (!file) return Promise.resolve();
+    if (!file) {
+      console.warn("[Studio] Upload triggered but no file selected");
+      return Promise.resolve();
+    }
+
+    console.log("[Studio] Upload started:", file.name, file.type, file.size, "bytes");
 
     var uploadPath = "public/uploads/" + uploadName(file.name);
     var publicPath = "/uploads/" + uploadPath.split("/").pop();
+    var local = isLocal();
+
+    // Show loading state on the upload button
+    var uploadLabel = input.closest(".upload-button");
+    if (uploadLabel) {
+      uploadLabel.setAttribute("data-loading", "true");
+      uploadLabel.style.opacity = "0.6";
+      uploadLabel.style.pointerEvents = "none";
+    }
+
     setStatus("Uploading image...", "neutral");
+    showToast("Uploading " + file.name + "...", "neutral");
+
+    function finishLoading() {
+      if (uploadLabel) {
+        uploadLabel.removeAttribute("data-loading");
+        uploadLabel.style.opacity = "";
+        uploadLabel.style.pointerEvents = "";
+      }
+    }
+
+    function applyUpload() {
+      console.log("[Studio] Upload succeeded, applying to field:", publicPath);
+      setValueFromElementTarget(input, publicPath);
+      var mediaField = input.closest(".media-field");
+      if (mediaField) {
+        var image = mediaField.querySelector("img");
+        var pathInput = mediaField.querySelector(".media-path-input");
+        if (image) {
+          image.src = publicPath;
+          image.style.visibility = "visible";
+        }
+        if (pathInput) pathInput.value = publicPath;
+      }
+      setDirty(true);
+      applyPreviewPatch();
+      var msg = local
+        ? "Image uploaded. Save draft to keep this change."
+        : "Image uploaded. Click Publish to make it live.";
+      setStatus(msg, "warn");
+      showToast("Image uploaded successfully", "success");
+      finishLoading();
+    }
 
     return readFileAsBase64(file)
       .then(function (content) {
-        return localProxyRequest("persistMedia", {
-          branch: "main",
-          asset: {
-            path: uploadPath,
-            content: content,
-            encoding: "base64"
-          },
-          options: {
-            commitMessage: "chore: upload CMS image"
-          }
-        });
-      })
-      .then(function () {
-        setValueFromElementTarget(input, publicPath);
-        var mediaField = input.closest(".media-field");
-        if (mediaField) {
-          var image = mediaField.querySelector("img");
-          var pathInput = mediaField.querySelector(".media-path-input");
-          if (image) {
-            image.src = publicPath;
-            image.style.visibility = "visible";
-          }
-          if (pathInput) pathInput.value = publicPath;
+        console.log("[Studio] File read as base64, length:", content.length);
+        if (local) {
+          console.log("[Studio] Uploading via local decap-server proxy");
+          return localProxyRequest("persistMedia", {
+            branch: "main",
+            asset: {
+              path: uploadPath,
+              content: content,
+              encoding: "base64"
+            },
+            options: {
+              commitMessage: "chore: upload CMS image"
+            }
+          });
         }
-        setDirty(true);
-        applyPreviewPatch();
-        setStatus("Image uploaded. Save draft to keep this section update.", "warn");
+        console.log("[Studio] Uploading via Git Gateway");
+        return gitGatewayGetFile(uploadPath, "main")
+          .catch(function () { return null; })
+          .then(function (existing) {
+            return gitGatewayPutMedia(uploadPath, content, "chore: upload CMS image", "main", existing && existing.sha);
+          });
       })
+      .then(applyUpload)
       .catch(function (error) {
-        setStatus("Image upload failed. Start npm run cms and try again.", "error");
+        console.error("[Studio] Upload failed:", error);
+        finishLoading();
+        var msg = local
+          ? "Image upload failed. Start npm run cms and try again."
+          : "Image upload failed: " + (error && error.message ? error.message : "unknown error") + ". Check you are signed in and Git Gateway is enabled.";
+        setStatus(msg, "error");
+        showToast(msg, "error");
         throw error;
       });
   }
@@ -587,9 +1000,12 @@
         var index = Number(event.target.getAttribute("data-index"));
         var key = event.target.getAttribute("data-key");
         var subindex = event.target.getAttribute("data-subindex");
+        var subkey = event.target.getAttribute("data-subkey");
         var current = state.content[list][index];
         var value = event.target.type === "number" ? Number(event.target.value) : event.target.value;
-        if (key && subindex != null) {
+        if (key && subindex != null && subkey != null) {
+          current[key][Number(subindex)][subkey] = value;
+        } else if (key && subindex != null) {
           current[key][Number(subindex)] = value;
         } else if (key) {
           current[key] = value;
@@ -604,10 +1020,84 @@
     });
 
     els.editorForm.addEventListener("change", function (event) {
+      console.log("[Studio] change event on:", event.target.tagName, "data-media-upload:", event.target.hasAttribute("data-media-upload"));
       if (!event.target.matches("[data-media-upload]")) return;
       handleMediaUpload(event.target).catch(function (error) {
         console.error(error);
       });
+    });
+
+    els.editorForm.addEventListener("click", function (event) {
+      var toggleProperty = event.target.closest("[data-toggle-property]");
+      if (toggleProperty) {
+        var list = toggleProperty.getAttribute("data-list");
+        var index = Number(toggleProperty.getAttribute("data-index"));
+        var property = state.content[list][index];
+        if (state.expandedProperties.has(property)) {
+          state.expandedProperties.delete(property);
+        } else {
+          state.expandedProperties.add(property);
+        }
+        renderEditor();
+        return;
+      }
+
+      var addProperty = event.target.closest("[data-add-property]");
+      if (addProperty) {
+        var list = addProperty.getAttribute("data-list");
+        state.content[list] = state.content[list] || [];
+        var newProperty = cloneJson(defaultProperty());
+        state.content[list].unshift(newProperty);
+        state.expandedProperties.clear();
+        state.expandedProperties.add(newProperty);
+        setDirty(true);
+        renderEditor();
+        return;
+      }
+
+      var removeProperty = event.target.closest("[data-remove-property]");
+      if (removeProperty) {
+        var list = removeProperty.getAttribute("data-list");
+        var index = Number(removeProperty.getAttribute("data-index"));
+        var property = state.content[list][index];
+        if (confirm("Remove this property? This cannot be undone.")) {
+          state.expandedProperties.delete(property);
+          state.content[list].splice(index, 1);
+          setDirty(true);
+          renderEditor();
+        }
+        return;
+      }
+
+      var addListItem = event.target.closest("[data-add-list-item]");
+      if (addListItem) {
+        var list = addListItem.getAttribute("data-list");
+        var index = Number(addListItem.getAttribute("data-index"));
+        var key = addListItem.getAttribute("data-key");
+        var arr = state.content[list][index][key];
+        if (key === "reviews") {
+          arr.push({ quote: "", name: "", type: "" });
+        } else if (isImageKey(key) || key === "gallery") {
+          arr.push("");
+        } else {
+          arr.push("");
+        }
+        setDirty(true);
+        renderEditor();
+        return;
+      }
+
+      var removeListItem = event.target.closest("[data-remove-list-item]");
+      if (removeListItem) {
+        var list = removeListItem.getAttribute("data-list");
+        var index = Number(removeListItem.getAttribute("data-index"));
+        var key = removeListItem.getAttribute("data-key");
+        var subindex = Number(removeListItem.getAttribute("data-subindex"));
+        state.content[list][index][key].splice(subindex, 1);
+        setDirty(true);
+        renderEditor();
+        return;
+      }
     });
 
     els.saveSection.addEventListener("click", function () {
@@ -649,6 +1139,46 @@
     });
   }
 
+  function startApp() {
+    Promise.all([
+      fetch("/cms/studio-manifest.json", { cache: "no-store" }).then(function (response) { return response.json(); }),
+      fetch("/cms/studio-content.json", { cache: "no-store" })
+        .then(function (response) { return response.ok ? response.json() : { content: {} }; })
+        .catch(function () { return { content: {} }; })
+    ])
+      .then(function (results) {
+        state.manifest = results[0];
+        state.studioContent = results[1].content || {};
+        updateChromeForMode();
+        bindEvents();
+        return loadSection(getSection());
+      })
+      .catch(function (error) {
+        document.body.innerHTML = '<main style="padding:32px;font-family:system-ui"><h1>Sorted Studio could not load</h1><p>' + escapeHtml(error.message) + '</p><p>Refresh the page, or ask Sorted to check the CMS setup.</p></main>';
+      });
+  }
+
+  function updateChromeForMode() {
+    var local = isLocal();
+    if (els.editorNote) {
+      els.editorNote.textContent = local
+        ? "Editing local content files. Save draft writes to your local content file; publish stays a separate Git/Netlify step."
+        : "Editing live site content. Click Publish to commit changes to Git and trigger a Netlify deploy.";
+    }
+    if (els.saveSection) {
+      if (state.dirty) {
+        els.saveSection.textContent = local ? "Save draft" : "Publish";
+      } else {
+        els.saveSection.textContent = local ? "Saved" : "Published";
+      }
+    }
+    if (els.publishNote) {
+      els.publishNote.textContent = local
+        ? "Draft saves locally. Publishing is handled by Sorted."
+        : "Publishing commits to Git. Netlify rebuilds the live site in about 60 seconds.";
+    }
+  }
+
   function init() {
     els = {
       topSiteName: qs("top-site-name"),
@@ -668,24 +1198,46 @@
       mobilePreview: qs("mobile-preview"),
       saveSection: qs("save-section"),
       saveStatus: qs("save-status"),
-      editorNote: qs("editor-note")
+      editorNote: qs("editor-note"),
+      publishNote: qs("publish-note"),
+      authOverlay: qs("auth-overlay"),
+      loginButton: qs("login-button")
     };
 
-    Promise.all([
-      fetch("/cms/studio-manifest.json", { cache: "no-store" }).then(function (response) { return response.json(); }),
-      fetch("/cms/studio-content.json", { cache: "no-store" })
-        .then(function (response) { return response.ok ? response.json() : { content: {} }; })
-        .catch(function () { return { content: {} }; })
-    ])
-      .then(function (results) {
-        state.manifest = results[0];
-        state.studioContent = results[1].content || {};
-        bindEvents();
-        return loadSection(getSection());
-      })
-      .catch(function (error) {
-        document.body.innerHTML = '<main style="padding:32px;font-family:system-ui"><h1>Sorted Studio could not load</h1><p>' + escapeHtml(error.message) + '</p><p>Refresh the page, or ask Sorted to check the local CMS server.</p></main>';
+    if (isLocal()) {
+      startApp();
+      return;
+    }
+
+    if (!window.netlifyIdentity) {
+      document.body.innerHTML = '<main style="padding:32px;font-family:system-ui"><h1>Sorted Studio could not load</h1><p>Netlify Identity is not loaded. Check that the Identity widget script is included.</p></main>';
+      return;
+    }
+
+    window.netlifyIdentity.init();
+
+    function onLogin() {
+      if (els.authOverlay) els.authOverlay.style.display = "none";
+      startApp();
+    }
+
+    if (window.netlifyIdentity.currentUser()) {
+      onLogin();
+      return;
+    }
+
+    if (els.authOverlay) els.authOverlay.style.display = "flex";
+    if (els.loginButton) {
+      els.loginButton.addEventListener("click", function () {
+        window.netlifyIdentity.open("login");
       });
+    }
+
+    window.netlifyIdentity.on("login", onLogin);
+    window.netlifyIdentity.on("error", function (error) {
+      console.error("Identity error:", error);
+      setStatus("Sign-in error. Please try again.", "error");
+    });
   }
 
   if (document.readyState === "loading") {

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Container, PageHeader, inputClass, labelClass } from "@/components/ui";
 import BankAccounts from "@/components/BankAccounts";
 import { getSettings, getBankAccounts } from "@/lib/data";
@@ -58,6 +59,35 @@ export default function SettingsPage() {
               defaultValue={settings.company_address}
               className={inputClass}
             />
+          </div>
+
+          <div>
+            <label className={labelClass}>Logo path</label>
+            <div className="flex items-center gap-4">
+              <input
+                name="company_logo"
+                placeholder="/logos/adx-engine.png"
+                defaultValue={settings.company_logo}
+                className={inputClass}
+              />
+              {settings.company_logo && (
+                <div className="flex h-12 w-24 shrink-0 items-center justify-center rounded-lg border border-black/[0.08] bg-white p-1">
+                  <Image
+                    src={settings.company_logo}
+                    alt="Company logo"
+                    width={96}
+                    height={40}
+                    className="h-full w-full object-contain"
+                    unoptimized
+                  />
+                </div>
+              )}
+            </div>
+            <p className="mt-1.5 text-xs text-[#A3A3A3]">
+              Path to a logo file in <code>public/</code> (e.g.{" "}
+              <code>/logos/adx-engine.png</code>). Shown on invoices instead
+              of the company name.
+            </p>
           </div>
 
           <div className="grid gap-5 sm:grid-cols-3">

@@ -39,7 +39,12 @@ export type OutreachConfig = {
 
 export type Prospect = {
   id: number
-  place_id: string
+  place_id: string | null
+  source: string
+  source_company_number: string | null
+  source_incorporation_date: string | null
+  source_sic_codes: string[] | null
+  source_url: string | null
   name: string
   category: string | null
   address: string | null

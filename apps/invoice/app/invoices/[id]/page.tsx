@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getFullInvoice } from "@/lib/data";
@@ -19,16 +21,17 @@ export default async function InvoiceViewPage({
   const { invoice, client, items, bankAccount, company, totals } = data;
   const currency = getCurrency(invoice.currency);
 
-  const bankRows: [string, string][] = bankAccount
+  const bankRows: [string, string, string?][] = bankAccount
     ? ([
         ["Bank", bankAccount.bank_name],
         ["Account name", bankAccount.account_name],
         ["Account number", bankAccount.account_number],
+        ["Account type", bankAccount.account_type],
+        ["Routing number", bankAccount.routing, "For wire & ACH"],
         ["IBAN", bankAccount.iban],
         ["SWIFT / BIC", bankAccount.swift],
-        ["Sort code", bankAccount.routing],
         ["Bank address", bankAccount.bank_address],
-      ].filter(([, v]) => v && v.trim() !== "") as [string, string][])
+      ].filter(([, v]) => v && v.trim() !== "") as [string, string, string?][])
     : [];
 
   return (
@@ -66,9 +69,20 @@ export default async function InvoiceViewPage({
           </div>
           {invoice.show_company_name === 1 && company.company_name && (
             <div className="text-right">
-              <p className="font-extrabold tracking-tight text-[#0A0A0A] text-xl">
-                {company.company_name}
-              </p>
+              {company.company_logo ? (
+                <Image
+                  src={company.company_logo}
+                  alt={company.company_name}
+                  width={160}
+                  height={56}
+                  className="ml-auto h-14 w-auto object-contain"
+                  unoptimized
+                />
+              ) : (
+                <p className="font-extrabold tracking-tight text-[#0A0A0A] text-xl">
+                  {company.company_name}
+                </p>
+              )}
               {company.company_email && (
                 <p className="mt-1 text-sm text-[#737373]">
                   {company.company_email}
@@ -139,19 +153,19 @@ export default async function InvoiceViewPage({
         <table className="mt-8 w-full text-left">
           <thead>
             <tr className="border-b border-black/[0.12]">
-              <th className="pb-2 font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3]">
+              <th className="w-full pb-2 pr-4 font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3]">
                 Description
               </th>
-              <th className="pb-2 font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3]">
+              <th className="pb-2 pl-4 font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] whitespace-nowrap">
                 Unit
               </th>
-              <th className="pb-2 text-right font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3]">
+              <th className="pb-2 pl-4 text-right font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] whitespace-nowrap">
                 Qty
               </th>
-              <th className="pb-2 text-right font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3]">
+              <th className="pb-2 pl-4 text-right font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] whitespace-nowrap">
                 Rate
               </th>
-              <th className="pb-2 text-right font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3]">
+              <th className="pb-2 pl-4 text-right font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] whitespace-nowrap">
                 Amount
               </th>
             </tr>
@@ -159,17 +173,17 @@ export default async function InvoiceViewPage({
           <tbody>
             {items.map((item) => (
               <tr key={item.id} className="border-b border-black/[0.06]">
-                <td className="py-3 text-sm text-[#0A0A0A]">
+                <td className="py-3 pr-4 text-sm text-[#0A0A0A]">
                   {item.description}
                 </td>
-                <td className="py-3 text-sm text-[#737373]">{item.unit}</td>
-                <td className="py-3 text-right font-mono text-sm text-[#525252] tabular-nums">
+                <td className="py-3 pl-4 text-sm text-[#737373] whitespace-nowrap">{item.unit}</td>
+                <td className="py-3 pl-4 text-right font-mono text-sm text-[#525252] tabular-nums whitespace-nowrap">
                   {item.quantity}
                 </td>
-                <td className="py-3 text-right font-mono text-sm text-[#525252] tabular-nums">
+                <td className="py-3 pl-4 text-right font-mono text-sm text-[#525252] tabular-nums whitespace-nowrap">
                   {formatMoney(item.unit_price, invoice.currency)}
                 </td>
-                <td className="py-3 text-right font-mono text-sm text-[#0A0A0A] tabular-nums">
+                <td className="py-3 pl-4 text-right font-mono text-sm text-[#0A0A0A] tabular-nums whitespace-nowrap">
                   {formatMoney(
                     item.quantity * item.unit_price,
                     invoice.currency,
@@ -208,24 +222,31 @@ export default async function InvoiceViewPage({
 
         {/* Bank details + notes */}
         {(bankRows.length > 0 || invoice.notes) && (
-          <div className="mt-10 grid gap-8 border-t border-black/[0.08] pt-6 sm:grid-cols-2">
+          <div className="mt-10 border-t border-black/[0.08] pt-6">
             {bankRows.length > 0 && (
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3]">
                   Payment details
                 </p>
-                <dl className="mt-3 space-y-1.5 text-sm">
-                  {bankRows.map(([k, v]) => (
-                    <div key={k} className="flex gap-3">
-                      <dt className="w-28 shrink-0 text-[#A3A3A3]">{k}</dt>
-                      <dd className="text-[#0A0A0A]">{v}</dd>
-                    </div>
+                <dl className="mt-3 grid grid-cols-[8rem_1fr] gap-y-2.5 text-sm sm:grid-cols-[10rem_1fr]">
+                  {bankRows.map(([k, v, caption]) => (
+                    <Fragment key={k}>
+                      <dt className="pr-4 text-[#A3A3A3]">{k}</dt>
+                      <dd className="text-[#0A0A0A]">
+                        {v}
+                        {caption && (
+                          <span className="ml-2 text-xs text-[#A3A3A3]">
+                            ({caption})
+                          </span>
+                        )}
+                      </dd>
+                    </Fragment>
                   ))}
                 </dl>
               </div>
             )}
             {invoice.notes && (
-              <div>
+              <div className={bankRows.length > 0 ? "mt-6" : ""}>
                 <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3]">
                   Notes
                 </p>
