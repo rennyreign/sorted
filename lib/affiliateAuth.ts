@@ -43,7 +43,7 @@ export async function signUpAffiliate(input: SignUpInput): Promise<AuthResult> {
         phone: input.phone ?? null,
         program: input.program ?? null,
       },
-      emailRedirectTo: `${typeof window !== "undefined" ? window.location.origin : ""}/partners/login`,
+      emailRedirectTo: `${typeof window !== "undefined" ? window.location.origin : ""}/partners/login/`,
     },
   })
 
