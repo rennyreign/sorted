@@ -30,7 +30,11 @@ export default function ForgotPasswordPage() {
     setPhase("submitting")
     const result = await resetPasswordForEmail({
       email: trimmed,
-      redirectTo: `${typeof window !== "undefined" ? window.location.origin : ""}/partners/reset-password`,
+      // trailingSlash: true is set in next.config.mjs, so the canonical route
+      // is /partners/reset-password/. The redirectTo MUST match the URL
+      // registered in Supabase's Auth → URL Configuration → Redirect URLs,
+      // otherwise Supabase falls back to the project Site URL.
+      redirectTo: `${typeof window !== "undefined" ? window.location.origin : ""}/partners/reset-password/`,
     })
 
     if (!result.ok) {
