@@ -24,7 +24,6 @@
  */
 
 const { BetaAnalyticsDataClient } = require("@google-analytics/data")
-const { JWT } = require("google-auth-library")
 
 const GA4_PROPERTY_ID = process.env.GA4_PROPERTY_ID
 const GA4_SERVICE_ACCOUNT_JSON = process.env.GA4_SERVICE_ACCOUNT_JSON
@@ -51,14 +50,12 @@ async function run() {
   }
 
   const credentials = JSON.parse(GA4_SERVICE_ACCOUNT_JSON)
-  const authClient = new JWT({
-    email: credentials.client_email,
-    key: credentials.private_key,
-    scopes: ["https://www.googleapis.com/auth/analytics.readonly"],
-  })
 
   const analyticsDataClient = new BetaAnalyticsDataClient({
-    auth: authClient,
+    credentials: {
+      client_email: credentials.client_email,
+      private_key: credentials.private_key,
+    },
   })
 
   // Sync the most recent complete week (last week) and the current week
