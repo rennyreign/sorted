@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { ArrowLeft, ArrowRight, Check, ExternalLink, Loader2, Mail, Sparkles, X } from "lucide-react"
 import { supabase } from "@/lib/supabase"
 import { getAttribution } from "@/lib/attribution"
+import { trackEvent, TRACKING_EVENTS } from "@/lib/tracking"
 
 type StepKey = "business" | "currentSite" | "goal" | "style" | "timeline"
 
@@ -61,7 +62,14 @@ export function MockupButton({
 
   return (
     <>
-      <button type="button" onClick={() => setOpen(true)} className={`${buttonClass(variant)} ${className}`}>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        data-track="cta_click"
+        data-cta-text={label}
+        data-cta-location={variant === "nav" ? "header" : "body"}
+        className={`${buttonClass(variant)} ${className}`}
+      >
         {label}
         <ArrowRight className="size-4" strokeWidth={3} />
       </button>
@@ -264,9 +272,26 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
 
       setSuccessDetails({ email: cleanEmail, reviewUrl })
       setSubmitState("success")
+
+      trackEvent(TRACKING_EVENTS.FORM_SUBMIT, {
+        form_name: "mockup_request",
+        form_type: "modal",
+        conversion_type: "lead",
+        conversion_name: "mockup_request",
+      })
+      trackEvent(TRACKING_EVENTS.THANK_YOU_VIEW, {
+        form_name: "mockup_request",
+        conversion_type: "lead",
+        conversion_name: "mockup_request",
+      })
     } catch (error) {
       setSubmitState("error")
       setSubmitError(error instanceof Error ? error.message : "Could not submit your mockup brief")
+
+      trackEvent(TRACKING_EVENTS.FORM_ERROR, {
+        form_name: "mockup_request",
+        form_type: "modal",
+      })
     }
   }
 

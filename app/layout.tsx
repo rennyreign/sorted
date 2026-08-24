@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Script from "next/script"
 import localFont from "next/font/local"
+import { AnalyticsTracker } from "@/components/AnalyticsTracker"
 import "./globals.css"
 
 const signature = localFont({
@@ -63,6 +64,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         <div className="scroll-progress" />
+        <AnalyticsTracker />
         {children}
       </body>
     </html>

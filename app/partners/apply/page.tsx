@@ -11,6 +11,7 @@ import {
   Underline,
 } from "../_components/AffiliatesPrimitives"
 import { signUpAffiliate } from "@/lib/affiliateAuth"
+import { trackEvent, TRACKING_EVENTS } from "@/lib/tracking"
 
 type Phase = "form" | "submitting" | "done"
 
@@ -59,6 +60,10 @@ export default function ApplyPage() {
     if (!result.ok) {
       setError(result.error)
       setPhase("form")
+      trackEvent(TRACKING_EVENTS.FORM_ERROR, {
+        form_name: "partner_apply",
+        form_type: "signup",
+      })
       return
     }
 
@@ -74,6 +79,18 @@ export default function ApplyPage() {
     }
 
     setPhase("done")
+
+    trackEvent(TRACKING_EVENTS.FORM_SUBMIT, {
+      form_name: "partner_apply",
+      form_type: "signup",
+      conversion_type: "lead",
+      conversion_name: "partner_apply",
+    })
+    trackEvent(TRACKING_EVENTS.THANK_YOU_VIEW, {
+      form_name: "partner_apply",
+      conversion_type: "lead",
+      conversion_name: "partner_apply",
+    })
   }
 
   return (
