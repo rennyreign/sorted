@@ -120,7 +120,7 @@ async function run() {
       metrics: [{ name: "eventCount" }],
       dimensionFilter: {
         orGroup: {
-          filterExpressions: [
+          expressions: [
             { filter: { fieldName: "eventName", stringFilter: { value: "cta_click" } } },
             { filter: { fieldName: "eventName", stringFilter: { value: "thank_you_view" } } },
             { filter: { fieldName: "eventName", stringFilter: { value: "booking_completed" } } },
@@ -138,7 +138,7 @@ async function run() {
       metrics: [{ name: "eventCount" }],
       dimensionFilter: {
         orGroup: {
-          filterExpressions: [
+          expressions: [
             { filter: { fieldName: "eventName", stringFilter: { value: "form_submit" } } },
             { filter: { fieldName: "eventName", stringFilter: { value: "thank_you_view" } } },
           ],
