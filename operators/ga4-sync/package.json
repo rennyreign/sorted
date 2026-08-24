@@ -1,0 +1,9 @@
+{
+  "name": "ga4-sync",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@google-analytics/data": "^4.0.0",
+    "google-auth-library": "^9.0.0"
+  }
+}

@@ -1,0 +1,45 @@
+name: GA4 Weekly Sync + Scorecard Snapshot
+
+on:
+  schedule:
+    # Every Monday at 07:00 UTC
+    - cron: '0 7 * * 1'
+  workflow_dispatch:
+    inputs:
+      week_start:
+        description: 'Week start date (YYYY-MM-DD). Defaults to current week.'
+        required: false
+        type: string
+
+jobs:
+  sync:
+    name: Pull GA4 metrics and save scorecard snapshot
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    defaults:
+      run:
+        working-directory: operators/ga4-sync
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: operators/ga4-sync/package.json
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Sync GA4 metrics + save snapshot
+        env:
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          GA4_SERVICE_ACCOUNT_JSON: ${{ secrets.GA4_SERVICE_ACCOUNT_JSON }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          OPERATOR_API_TOKEN: ${{ secrets.OPERATOR_API_TOKEN }}
+        run: node sync.js
