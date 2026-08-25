@@ -82,3 +82,24 @@
 .animate-fade-in {
   animation: fade-in 0.4s cubic-bezier(0.32, 0.72, 0, 1) both;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .page-enter,
+  .scroll-progress,
+  .animate-fade-in {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .affiliates-shell *,
+  .affiliates-shell *::before,
+  .affiliates-shell *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
