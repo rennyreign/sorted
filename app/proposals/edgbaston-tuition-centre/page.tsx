@@ -454,7 +454,7 @@ export default function EdgbastonTuitionCentreProposal() {
               Advertising spend is not included in the retainer. Any paid media budget will be agreed separately before campaigns are launched.
             </p>
             <p className="text-white/70 text-sm leading-relaxed">
-              After 3 months of production, we will carry out a formal review of the engagement. Clear performance metrics &mdash; website visits, enquiry conversion, enquiries and their sources, enquiry-to-customer conversion, new Google reviews, and advertising results where active &mdash; will be available each month so the impact of the work can be assessed continuously, and the 3-month review will use that accumulated evidence to decide whether to continue, adjust, or expand the scope.
+              After 3 months of production, we will carry out a formal review of the engagement. Clear performance metrics, including website visits, enquiry conversion, enquiries and their sources, enquiry-to-customer conversion, new Google reviews, and advertising results where active, will be available each month so the impact of the work can be assessed continuously, and the 3-month review will use that accumulated evidence to decide whether to continue, adjust, or expand the scope.
             </p>
           </div>
         </div>
@@ -493,11 +493,45 @@ export default function EdgbastonTuitionCentreProposal() {
 
         <div className="border-t border-black/[0.08] mb-16" />
 
+        {/* Immediate Priorities */}
+        <div className="mb-16">
+          <span className="inline-block font-mono text-sm uppercase tracking-[0.15em] text-[#525252] font-bold mb-8 block">
+            Immediate priorities
+          </span>
+          <div className="space-y-6 text-[#525252] text-base leading-relaxed mb-8">
+            <p>
+              The first priorities once we begin are straightforward:
+            </p>
+          </div>
+          <div className="space-y-10">
+            <div className="flex gap-8">
+              <span className="font-mono text-[11px] text-[#C4C4C4] tabular-nums pt-1 shrink-0">01</span>
+              <div>
+                <h3 className="font-sans font-bold text-[#0A0A0A] text-lg leading-snug tracking-tight mb-2">Re-instate Meta ads</h3>
+                <p className="text-[#737373] text-base leading-relaxed">
+                  Get access to the centre&rsquo;s Meta Business Manager so ads can be assessed and initialised, immediately driving traffic into leads.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-8">
+              <span className="font-mono text-[11px] text-[#C4C4C4] tabular-nums pt-1 shrink-0">02</span>
+              <div>
+                <h3 className="font-sans font-bold text-[#0A0A0A] text-lg leading-snug tracking-tight mb-2">Re-build the website, integrate tracking &amp; start Google Ads</h3>
+                <p className="text-[#737373] text-base leading-relaxed">
+                  Build a new, higher-converting website, set up clear performance tracking, and stand up Google Ads, all handled from the materials already available, with no active content needed from the centre at this stage.
+                </p>
+              </div>
+            </div>
+          </div>
+          <p className="text-[#525252] text-base leading-relaxed mt-8">
+            Detailed instructions for each priority, including what access is needed and next steps, have been sent separately for your review.
+          </p>
+        </div>
+
+        <div className="border-t border-black/[0.08] mb-16" />
+
         {/* Closing */}
         <div className="space-y-6 text-[#525252] text-lg leading-relaxed mb-16">
-          <p>
-            The first job is to stop wasting the attention the centre already has. A rebuilt website, clearer offers, better enquiry routes, proper follow-up and real tracking. All before a single pound goes into advertising.
-          </p>
           <p className="text-[#0A0A0A] font-semibold">
             If this looks right, accept below and we&rsquo;ll get started.
           </p>
@@ -574,7 +608,7 @@ export default function EdgbastonTuitionCentreProposal() {
                   Work is structured as defined projects: Problem &gt; Objective &gt; Work &gt; Measure &gt; Finish. Each month includes a review of what was done, what happened, what was learned, and what to do next.</p>
 
                   <p><strong className="text-[#0A0A0A]">5. Performance Metrics &amp; 3-Month Review</strong><br/>
-                  Clear performance metrics &mdash; website visits, enquiry conversion, enquiries and their sources, enquiry-to-customer conversion, new Google reviews, and advertising results where active &mdash; will be available each month so the impact of the work can be assessed continuously. After 3 months of production, a formal review will use that accumulated evidence to decide whether to continue, adjust, or expand the scope of the engagement.</p>
+                  Clear performance metrics, including website visits, enquiry conversion, enquiries and their sources, enquiry-to-customer conversion, new Google reviews, and advertising results where active, will be available each month so the impact of the work can be assessed continuously. After 3 months of production, a formal review will use that accumulated evidence to decide whether to continue, adjust, or expand the scope of the engagement.</p>
 
                   <p><strong className="text-[#0A0A0A]">6. Onboarding</strong><br/>
                   The centre provides access to the existing website, Google Business Profile, booking links, enquiry routes, analytics, testimonials, images, programme details and pricing. The website rebuild begins once access and materials are received.</p>
