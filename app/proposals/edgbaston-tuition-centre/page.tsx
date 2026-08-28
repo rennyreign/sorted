@@ -449,9 +449,12 @@ export default function EdgbastonTuitionCentreProposal() {
             Monthly retainer
           </span>
           <div className="bg-[#0A0A0A] rounded-2xl p-8 sm:p-10">
-            <p className="font-sans font-extrabold text-white text-5xl tracking-tight mb-4">£1,000<span className="text-2xl text-white/50 font-bold"> /mo</span></p>
-            <p className="text-white/70 text-sm leading-relaxed">
+            <p className="font-sans font-extrabold text-white text-5xl tracking-tight mb-4">£750<span className="text-2xl text-white/50 font-bold"> /mo</span></p>
+            <p className="text-white/70 text-sm leading-relaxed mb-4">
               Advertising spend is not included in the retainer. Any paid media budget will be agreed separately before campaigns are launched.
+            </p>
+            <p className="text-white/70 text-sm leading-relaxed">
+              After 3 months of production, we will carry out a formal review of the engagement. Clear performance metrics &mdash; website visits, enquiry conversion, enquiries and their sources, enquiry-to-customer conversion, new Google reviews, and advertising results where active &mdash; will be available each month so the impact of the work can be assessed continuously, and the 3-month review will use that accumulated evidence to decide whether to continue, adjust, or expand the scope.
             </p>
           </div>
         </div>
@@ -465,6 +468,10 @@ export default function EdgbastonTuitionCentreProposal() {
           </span>
           <div className="p-6 bg-black/[0.02] rounded-xl border border-black/[0.06]">
             <div className="space-y-3 text-sm">
+              <div className="flex gap-4">
+                <span className="text-[#A3A3A3] w-32 shrink-0">Business Bank</span>
+                <span className="text-[#0A0A0A] font-medium">NatWest</span>
+              </div>
               <div className="flex gap-4">
                 <span className="text-[#A3A3A3] w-32 shrink-0">Account Name</span>
                 <span className="text-[#0A0A0A] font-medium">ADX ENGINE LTD</span>
@@ -558,7 +565,7 @@ export default function EdgbastonTuitionCentreProposal() {
                   Sorted agrees to take ongoing responsibility for Edgbaston Tuition Centre&rsquo;s digital commercial infrastructure: website rebuild and improvement, offer and customer journey design, reviews and local trust, measurement and tracking, and advertising readiness. The work is delivered as short, defined commercial projects.</p>
 
                   <p><strong className="text-[#0A0A0A]">2. Retainer</strong><br/>
-                  £1,000 per month. Advertising spend is not included. Any paid media budget will be agreed separately before campaigns are launched.</p>
+                  £750 per month. Advertising spend is not included. Any paid media budget will be agreed separately before campaigns are launched.</p>
 
                   <p><strong className="text-[#0A0A0A]">3. Website Rebuild</strong><br/>
                   Included within the retainer. Target timeline: 5&ndash;7 days from receipt of access and materials.</p>
@@ -566,13 +573,16 @@ export default function EdgbastonTuitionCentreProposal() {
                   <p><strong className="text-[#0A0A0A]">4. Working Method</strong><br/>
                   Work is structured as defined projects: Problem &gt; Objective &gt; Work &gt; Measure &gt; Finish. Each month includes a review of what was done, what happened, what was learned, and what to do next.</p>
 
-                  <p><strong className="text-[#0A0A0A]">5. Onboarding</strong><br/>
+                  <p><strong className="text-[#0A0A0A]">5. Performance Metrics &amp; 3-Month Review</strong><br/>
+                  Clear performance metrics &mdash; website visits, enquiry conversion, enquiries and their sources, enquiry-to-customer conversion, new Google reviews, and advertising results where active &mdash; will be available each month so the impact of the work can be assessed continuously. After 3 months of production, a formal review will use that accumulated evidence to decide whether to continue, adjust, or expand the scope of the engagement.</p>
+
+                  <p><strong className="text-[#0A0A0A]">6. Onboarding</strong><br/>
                   The centre provides access to the existing website, Google Business Profile, booking links, enquiry routes, analytics, testimonials, images, programme details and pricing. The website rebuild begins once access and materials are received.</p>
 
-                  <p><strong className="text-[#0A0A0A]">6. Payment</strong><br/>
-                  £1,000 per month, invoiced at the start of each month. Payment due within 30 days. All payments to be made to ADX ENGINE LTD, Sort Code 52-30-02, Account Number 30189489.</p>
+                  <p><strong className="text-[#0A0A0A]">7. Payment</strong><br/>
+                  £750 per month, invoiced at the start of each month. Payment due within 30 days. All payments to be made to ADX ENGINE LTD, NatWest, Sort Code 52-30-02, Account Number 30189489.</p>
 
-                  <p><strong className="text-[#0A0A0A]">7. Cancellation</strong><br/>
+                  <p><strong className="text-[#0A0A0A]">8. Cancellation</strong><br/>
                   Either party may end the engagement at the monthly review point. Work completed and costs incurred up to that point will be settled in full.</p>
                 </div>
 
