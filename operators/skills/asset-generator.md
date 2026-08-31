@@ -1,65 +1,74 @@
 # Skill: asset-generator
 
-**Type:** Step skill — Chain Step 2 of 3  
-**Trigger:** Loaded by `site-build` skill, or directly when user asks to generate assets  
-**External API:** Image generation model (gpt-image-1 by default)  
-**Input:** `deconstruction.json` + mockup image  
+**Type:** Step skill — Chain Step 2 of 3
+**Trigger:** Loaded by `site-build` skill, or directly when user asks to generate assets
+**External API:** Image generation model (flux-2-flex by default)
+**Input:** `deconstruction.json` + mockup image
 **Output:** `assets/` folder + `manifest.json`
 
 ---
 
 ## What this step does
 
-Takes the asset list from the deconstruction JSON and produces a complete folder of production-ready WebP image assets. Each asset is:
+Takes the asset list from the deconstruction JSON and produces a complete folder of production-ready WebP image assets. All assets are **generated fresh** via AI image generation — no mockup extraction. Mockup crops are low-resolution samples unsuitable for production.
 
-- **Generated** (AI image gen from description) — for assets where extraction would be too small or low quality
-- **Extracted** (cropped directly from the mockup) — for assets that pass quality gates (minimum px dimensions)
-- **Skipped** (logged for manual supply) — for logos, licensed stock images, and brand-supplied assets
+Each asset is:
 
-Every generated or extracted asset is resized to 5 variants: `original`, `lg` (1920px), `md` (1024px), `sm` (640px), `xs` (320px).
+- **Generated** (AI image gen from description) — the standard path for all assets
+- **Skipped** (logged for manual supply) — for logos, licensed stock images, and brand-supplied assets with `source: reuse` or `source: stock`
+
+Every generated asset is resized to 5 variants: `original`, `lg` (1920px), `md` (1024px), `sm` (640px), `xs` (320px).
 
 ---
 
 ## Execution
 
-### Orchestration agent path (standard)
-
-Use the operator CLI directly:
+### Standard run (Flux-2-Flex — default)
 
 ```bash
 cd operators/asset-generator/implementation
 node dist/cli.js \
-  <mockup-image> \
-  <path-to-deconstruction.json> \
+  --mockup <mockup-image> \
+  --deconstruction <path-to-deconstruction.json> \
+  --output <output-dir> \
+  --format webp \
   --verbose
-# Output: output/<slug>/assets/ + output/<slug>/manifest.json
 ```
+
+The default model is `flux-2-flex`. No `--model` flag needed.
 
 **Dry run first** to see what will be generated before spending API credits:
 ```bash
-node dist/cli.js <mockup-image> <deconstruction.json> --dry-run --verbose
+node dist/cli.js --mockup <mockup> --deconstruction <decon.json> --output <out> --dry-run --verbose
 ```
-
-Review the dry-run output:
-- Check `mode` assignments (recreate vs extract vs skipped)
-- Check asset count — if fewer than expected, inspect `status: skipped` entries
-- Confirm `critical` priority assets will all run
 
 Then run live:
 ```bash
-node dist/cli.js <mockup-image> <deconstruction.json> --verbose
+node dist/cli.js --mockup <mockup> --deconstruction <decon.json> --output <out> --verbose
 ```
 
-### Operator pipeline path (scale)
+### Alternative models
 
-The Node.js operator at `operators/asset-generator/implementation/` is the canonical implementation. It is stateless and idempotent — safe to retry with `--skip-existing` to resume interrupted runs.
+```bash
+# Flux-2-Max (higher quality)
+node dist/cli.js ... --model flux-2-max
+
+# Gemini 2.5 Flash Image (cheapest)
+node dist/cli.js ... --model gemini-2.5-flash-image
+
+# GPT-image-1 (OpenAI)
+node dist/cli.js ... --model gpt-image-1 --quality high
+
+# Ladder mode (Gemini → Flux-2-Flex → Flux-2-Max)
+node dist/cli.js ... --ladder
+```
 
 ---
 
 ## Output path convention
 
 ```
-operators/asset-generator/implementation/output/<slug>/
+output/<slug>/
   assets/
     <asset_id>/
       original.webp
@@ -70,21 +79,6 @@ operators/asset-generator/implementation/output/<slug>/
   manifest.json
   generation-log.json
 ```
-
----
-
-## Quality gates (automatic)
-
-The operator applies quality gates before deciding extract vs recreate:
-
-| Asset type | Minimum crop size |
-|---|---|
-| Person / portrait | 400×400px in the mockup |
-| Logo | 200×80px in the mockup |
-| Hero / landscape | 800×400px in the mockup |
-| Thumbnail / small | 200×200px in the mockup |
-
-If the cropped region is too small → automatically switches to `recreate`. This is expected behaviour for thumbnails and small UI elements.
 
 ---
 
@@ -103,13 +97,26 @@ Place manually-supplied assets in the correct `assets/<asset_id>/` folder as `or
 
 ## Cost guidance
 
-| Asset type | Approx. cost |
+| Model | Approx. cost per image |
 |---|---|
-| gpt-image-1 generation | ~$0.04–0.08 per image |
-| Extract (no API call) | $0 |
-| Typical 10-asset build | ~$0.30–0.60 |
+| flux-2-flex (default) | ~$0.07 (wide) |
+| flux-2-max | ~$0.10 (wide) |
+| gemini-2.5-flash-image | ~$0.039 |
+| gpt-image-1 (high) | ~$0.25 (wide) |
 
-Run dry-run first to count how many `recreate` assets will be generated.
+Typical 7-asset build with flux-2-flex: ~$0.50.
+
+Run dry-run first to count how many assets will be generated.
+
+---
+
+## Environment variables
+
+| Variable | Required for |
+|---|---|
+| `FLUX_API_KEY` | Default model (flux-2-flex) and all flux-* models |
+| `GEMINI_API_KEY` | gemini-2.5-flash-image and ladder's Gemini rung |
+| `OPENAI_API_KEY` | gpt-image-1, dall-e-3, and ladder's human branch + similarity judge |
 
 ---
 
@@ -117,8 +124,8 @@ Run dry-run first to count how many `recreate` assets will be generated.
 
 | Failure | Cause | Fix |
 |---|---|---|
-| Generation fails on an asset | API timeout or content policy | Re-run with `--skip-existing` — only failed assets re-generate |
-| Extracted image is black/blank | `bbox` coordinates wrong in deconstruction | Set `mode_hint: recreate` in the deconstruction JSON for that asset and re-run |
+| Generation fails on an asset | API timeout, rate limit, or insufficient credits | Add credits / wait and re-run with `--skip-existing` |
+| All assets fail | API key missing or no credits | Check `.env` for `FLUX_API_KEY`, add billing credits |
 | All assets skipped | `source: reuse` on everything | Check deconstruction JSON — correct source values before re-running |
 | WebP corrupt | Sharp processing error | Check `generation-log.json` for the specific asset error |
 
@@ -126,7 +133,7 @@ Run dry-run first to count how many `recreate` assets will be generated.
 
 ## Manifest reference
 
-Full schema: `operators/asset-generator/implementation/src/types.ts`  
+Full schema: `operators/asset-generator/implementation/src/types.ts`
 Example output: `operators/asset-generator/implementation/examples/fitness-studio-manifest.json`
 
 ---

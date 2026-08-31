@@ -61,6 +61,15 @@ function aspectToSize(aspectRatio: string | undefined, model: GenerationModel): 
     return '1024x1024';                     // square
   }
 
+  if (isGeminiImageModel(model)) {
+    // Gemini image generation — returns images at its native resolution,
+    // we let it determine aspect from the prompt/reference. Use the same
+    // bucket sizes as gpt-image-1 for the sizeToPixels metadata.
+    if (r > 1.2) return '1536x1024';
+    if (r < 0.8) return '1024x1536';
+    return '1024x1024';
+  }
+
   // gpt-image-1
   if (r > 1.2) return '1536x1024';
   if (r < 0.8) return '1024x1536';
@@ -99,13 +108,17 @@ function buildPrompt(
     background:
       'Abstract or environmental. No subjects. Suitable as full-bleed section background. No text.',
     product:
-      'Clean product shot. White or neutral background. Studio lighting. No text.',
+      'Photorealistic. Professional food/product photography. No text overlays, no watermarks, no UI elements.',
+    card_image:
+      'Photorealistic. Professional quality. Suitable for a website card image. No text overlays, no watermarks.',
     icon:
       'Simple flat icon. Single colour or minimal palette. Transparent background. No text.',
     illustration:
       'Digital illustration. Clean linework. No text overlays.',
     gallery_image:
       'Photorealistic. Suitable for gallery grid. No text.',
+    map:
+      'Clean static map image. No UI controls, no text labels except location names. Light neutral style.',
     generic:
       'Photorealistic. Professional quality. Suitable for website use. No text overlays.',
   };
@@ -168,6 +181,10 @@ const BFL_ENDPOINTS: Record<string, string> = {
 
 export function isFluxModel(model: string): boolean {
   return model in BFL_ENDPOINTS;
+}
+
+export function isGeminiImageModel(model: string): boolean {
+  return model === 'gemini-2.5-flash-image';
 }
 
 async function bflRequest(endpoint: string, apiKey: string, body: unknown): Promise<any> {
@@ -268,6 +285,71 @@ async function generateFluxAsset(opts: GenerateOptions, prompt: string, size: st
   };
 }
 
+// ── Gemini 2.5 Flash Image — Google's image generation model ──
+// Supports both text-to-image and image-editing (with inlineData reference).
+// Uses @google/generative-ai, same package as the mockup-deconstructor.
+
+async function generateGeminiAsset(opts: GenerateOptions, prompt: string, tmpPath: string): Promise<GenerateResult> {
+  const { GoogleGenerativeAI } = await import('@google/generative-ai');
+  const client = new GoogleGenerativeAI(process.env.GEMINI_API_KEY ?? '');
+  const model = client.getGenerativeModel({ model: opts.model });
+
+  const parts: any[] = [{ text: prompt }];
+
+  // If a reference image is supplied, pass it as inline data for image editing
+  if (opts.referenceImagePath) {
+    const refBuffer = fs.readFileSync(opts.referenceImagePath);
+    const refExt = path.extname(opts.referenceImagePath).toLowerCase().replace('.', '');
+    const refMime: Record<string, string> = {
+      png: 'image/png',
+      jpg: 'image/jpeg',
+      jpeg: 'image/jpeg',
+      webp: 'image/webp',
+    };
+    parts.push({
+      inlineData: {
+        data: refBuffer.toString('base64'),
+        mimeType: refMime[refExt] ?? 'image/png',
+      },
+    });
+  }
+
+  const result = await model.generateContent({
+    contents: [{ role: 'user', parts }],
+    generationConfig: {
+      // responseModalities is not in the type defs of older @google/generative-ai
+      // but is required for image generation models
+      ...(({ responseModalities: ['TEXT', 'IMAGE'] }) as object),
+    },
+  });
+
+  // Extract image from response
+  const candidates = result.response.candidates ?? [];
+  for (const candidate of candidates) {
+    for (const part of candidate.content?.parts ?? []) {
+      if (part.inlineData?.data) {
+        const imgBuffer = Buffer.from(part.inlineData.data, 'base64');
+        fs.writeFileSync(tmpPath, imgBuffer);
+
+        const { default: sharpDefault } = await import('sharp');
+        await convertFormat(sharpDefault, tmpPath, opts.outputPath, opts.format);
+        fs.unlinkSync(tmpPath);
+
+        const outMeta = await sharpDefault(opts.outputPath).metadata();
+        return {
+          outputPath: opts.outputPath,
+          width: outMeta.width ?? 0,
+          height: outMeta.height ?? 0,
+          model: opts.model,
+          promptUsed: prompt,
+        };
+      }
+    }
+  }
+
+  throw new Error('Gemini image generation returned no image data');
+}
+
 // ── Main generation call ──────────────────────────────────────
 
 export async function generateAsset(opts: GenerateOptions): Promise<GenerateResult> {
@@ -279,6 +361,10 @@ export async function generateAsset(opts: GenerateOptions): Promise<GenerateResu
 
   // Temp path for the raw generated image (PNG from API)
   const tmpPath = opts.outputPath.replace(/\.[^.]+$/, '.tmp.png');
+
+  if (isGeminiImageModel(opts.model)) {
+    return generateGeminiAsset(opts, prompt, tmpPath);
+  }
 
   if (isFluxModel(opts.model)) {
     return generateFluxAsset(opts, prompt, size, tmpPath);

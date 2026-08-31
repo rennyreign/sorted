@@ -1,8 +1,8 @@
 // ─────────────────────────────────────────────────────────────
 // Asset Generator — Core Orchestrator
 // Processes every asset in the deconstruction JSON:
-//   1. Resolves execution mode (extract / recreate / reuse / source)
-//   2. Runs the appropriate production pipeline
+//   1. Resolves execution mode (recreate / reuse / source)
+//   2. Runs the appropriate production pipeline (always generates — no mockup extraction)
 //   3. Produces size variants
 //   4. Builds manifest + generation log
 // ─────────────────────────────────────────────────────────────
@@ -18,8 +18,7 @@ import type {
 } from './types.js';
 import { validateDeconstruction } from './schema.js';
 import { resolveMode, filterAndSortAssets } from './quality.js';
-import { extractFromMockup, checkExtractionQuality } from './extract.js';
-import { generateAsset, isFluxModel } from './generate.js';
+import { generateAsset, isFluxModel, isGeminiImageModel } from './generate.js';
 import { produceVariants, toRelativePaths } from './resize.js';
 import { buildManifest, writeManifest, writeGenerationLog, printSummary } from './manifest.js';
 import { estimateAssetCost, formatUsd } from './cost.js';
@@ -69,11 +68,13 @@ export async function runAssetGenerator(config: AssetGeneratorConfig): Promise<v
   const deconstruction = parsed.data;
   const openaiApiKey = process.env.OPENAI_API_KEY ?? '';
   const fluxApiKey = process.env.FLUX_API_KEY ?? '';
+  const geminiApiKey = process.env.GEMINI_API_KEY ?? '';
 
-  // Ladder mode walks multiple providers per asset, so it needs both keys
+  // Ladder mode walks multiple providers per asset, so it needs available keys
   // (missing keys just skip that rung rather than hard-failing).
-  const apiKey = isFluxModel(model) ? fluxApiKey : openaiApiKey;
-  const requiredKeyName = isFluxModel(model) ? 'FLUX_API_KEY' : 'OPENAI_API_KEY';
+  const isGeminiModel = isGeminiImageModel(model);
+  const apiKey = isFluxModel(model) ? fluxApiKey : isGeminiModel ? geminiApiKey : openaiApiKey;
+  const requiredKeyName = isFluxModel(model) ? 'FLUX_API_KEY' : isGeminiModel ? 'GEMINI_API_KEY' : 'OPENAI_API_KEY';
 
   if (!ladder && !apiKey && !dryRun) {
     throw new Error(`${requiredKeyName} is required for recreate mode with model "${model}". Set it in your .env file.`);
@@ -119,7 +120,6 @@ export async function runAssetGenerator(config: AssetGeneratorConfig): Promise<v
       ? await processAssetLadder(asset, resolvedMockup, assetDir, format, openaiApiKey, fluxApiKey, styleHint, similarityThreshold, realPhotosDir, realPhotosMap, dryRun, skipExisting, verbose)
       : await processAsset(
           asset,
-          resolvedMockup,
           assetDir,
           format,
           model,
@@ -200,7 +200,6 @@ export async function runAssetGenerator(config: AssetGeneratorConfig): Promise<v
 
 async function processAsset(
   asset: InputAsset,
-  mockupPath: string,
   assetDir: string,
   format: string,
   model: string,
@@ -227,7 +226,7 @@ async function processAsset(
   }
 
   // Resolve mode
-  const { mode, reason } = await resolveMode(asset, mockupPath, verbose);
+  const { mode, reason } = await resolveMode(asset, '', verbose);
 
   if (verbose) {
     console.log(`    mode: ${mode} — ${reason}`);
@@ -246,8 +245,6 @@ async function processAsset(
   // Execute mode
   try {
     switch (mode) {
-      case 'extract':
-        return await runExtract(asset, mockupPath, assetDir, fmt);
       case 'recreate':
         return await runRegenerate(asset, assetDir, fmt, model as import('./types.js').GenerationModel, quality, apiKey, styleHint);
       case 'reuse':
@@ -317,16 +314,11 @@ async function processAssetLadder(
       const realPhotoPath = resolveRealPhoto(asset.id, realPhotosDir, realPhotosMap);
       if (realPhotoPath) {
         note = `HUMAN — real photo on file (${path.basename(realPhotoPath)}), would GPT-reconstruct it`;
-      } else if (asset.bbox) {
-        note = 'HUMAN — no real photo, would GPT-reconstruct from the mockup crop (flagged for replacement)';
       } else {
-        note = 'HUMAN — no real photo and no bbox, would blind-generate (flagged for replacement)';
+        note = 'HUMAN — no real photo, would GPT-generate from description (flagged for replacement)';
       }
-    } else if (asset.bbox) {
-      const check = await checkExtractionQuality(mockupPath, asset.bbox, asset.type);
-      note = check.pass ? 'crop already meets minimum — would extract at $0' : 'would attempt upscale, else escalate flux-2-flex -> flux-2-max (image-edit from crop)';
     } else {
-      note = 'no bbox — would start at flux-2-flex (blind text)';
+      note = 'would generate via gemini-2.5-flash-image -> flux-2-flex -> flux-2-max';
     }
     return { id: asset.id, mode: 'skip', status: 'skipped', files: {}, meta: { format: fmt, is_human_asset: humanAsset, error: note } };
   }
@@ -371,8 +363,7 @@ async function processAssetLadder(
     fs.unlinkSync(rawPath);
   }
 
-  const executionMode: import('./types.js').ExecutionMode =
-    ladderResult.finalMode === 'extract' || ladderResult.finalMode === 'extract-upscale' ? 'extract' : 'recreate';
+  const executionMode: import('./types.js').ExecutionMode = 'recreate';
 
   return {
     id: asset.id,
@@ -390,39 +381,6 @@ async function processAssetLadder(
       is_human_asset: ladderResult.isHumanAsset,
       real_photo_used: ladderResult.realPhotoUsed,
       ai_placeholder_human: ladderResult.aiPlaceholderHuman,
-    },
-  };
-}
-
-// ── Extract pipeline ──────────────────────────────────────────
-
-async function runExtract(
-  asset: InputAsset,
-  mockupPath: string,
-  assetDir: string,
-  format: import('./types.js').OutputFormat,
-): Promise<AssetResult> {
-  const ext = `.${format}`;
-  const rawExtractPath = path.join(assetDir, `extracted${ext}`);
-
-  if (!asset.bbox) throw new Error(`Cannot extract ${asset.id} — no bbox provided`);
-
-  const extracted = await extractFromMockup(mockupPath, asset.bbox, rawExtractPath, format);
-  const variants = await produceVariants(extracted.outputPath, assetDir, format);
-
-  fs.unlinkSync(rawExtractPath); // remove temp extracted file
-
-  return {
-    id: asset.id,
-    mode: 'extract',
-    status: 'ok',
-    files: variants.files,
-    meta: {
-      format,
-      width: variants.originalWidth,
-      height: variants.originalHeight,
-      extracted_from: path.basename(mockupPath),
-      aspect_ratio: asset.aspect_ratio,
     },
   };
 }

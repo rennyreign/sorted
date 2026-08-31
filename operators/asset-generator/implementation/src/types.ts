@@ -25,7 +25,6 @@ export interface InputAsset {
   aspect_ratio?: string;
   bbox?: BoundingBox;
   variants?: string[];
-  mode_hint?: 'extract' | 'recreate';
   notes?: string;
 }
 
@@ -45,7 +44,7 @@ export interface DeconstructionJSON {
 
 // ── Execution modes ───────────────────────────────────────────
 
-export type ExecutionMode = 'extract' | 'recreate' | 'source' | 'reuse' | 'skip' | 'human_review' | 'excluded';
+export type ExecutionMode = 'recreate' | 'source' | 'reuse' | 'skip' | 'human_review' | 'excluded';
 
 // ── Output size variants ──────────────────────────────────────
 
@@ -128,6 +127,7 @@ export interface LogEntry {
 export type GenerationModel =
   | 'dall-e-3'
   | 'gpt-image-1'
+  | 'gemini-2.5-flash-image'
   | 'flux-pro-1.1'
   | 'flux-pro-1.1-ultra'
   | 'flux-2-klein-4b'
@@ -159,22 +159,20 @@ export interface AssetGeneratorConfig {
 
 // ── Cost-escalation ladder ──────────────────────────────────────
 // Routing:
-//   crop -> classify (human vs non-human, free — reuses deconstruction `type`)
+//   classify (human vs non-human, free — reuses deconstruction `type`)
 //     human:      real photo available? -> GPT edit/upscale it   (else) -> GPT generate placeholder human
-//     non-human:  crop already big enough? -> extract ($0)       (else, small gap) -> sharp upscale ($0)
-//                                                                 (else, or upscale insufficient) -> flux-2-flex -> flux-2-max -> human review
+//     non-human:  gemini-2.5-flash-image -> flux-2-flex -> flux-2-max -> human review
 
 export type LadderRung =
-  | 'upscale'            // free: direct extract or sharp upscale
   | 'gpt-human-edit'     // real client photo supplied — GPT reconstructs/upscales it
-  | 'gpt-reconstruct'    // no real photo, but a mockup crop exists — GPT reconstructs from that reference
-  | 'gpt-human-generate' // no real photo AND no bbox — last-resort blind text generation, flagged
-  | 'flux-flex'          // non-human — first Flux attempt (image-edit from crop if available, else text)
+  | 'gpt-human-generate' // no real photo — blind text generation, flagged
+  | 'gemini-image'       // non-human — Gemini 2.5 Flash Image
+  | 'flux-flex'          // non-human — first Flux attempt
   | 'flux-max';          // non-human — escalation if flex fails the judge
 
 export interface LadderAttempt {
   rung: LadderRung;
-  model: string;              // 'sharp-extract' / 'sharp-upscale' for the free rung, else a GenerationModel
+  model: string;
   cost: number;
   pass: boolean;
   score?: number;             // vision-judge score, 0-100 (generation rungs only)
@@ -183,11 +181,11 @@ export interface LadderAttempt {
 }
 
 export interface LadderResult {
-  finalMode: 'extract' | 'extract-upscale' | 'recreate' | 'human_review' | 'excluded';
+  finalMode: 'recreate' | 'human_review' | 'excluded';
   attempts: LadderAttempt[];
   totalCost: number;
   chosen?: LadderAttempt;
   isHumanAsset: boolean;
   realPhotoUsed?: string;
-  aiPlaceholderHuman?: boolean; // true when the export is not verified real client photography (reconstructed from a mockup crop, or fully generated)
+  aiPlaceholderHuman?: boolean; // true when the export is not verified real client photography
 }

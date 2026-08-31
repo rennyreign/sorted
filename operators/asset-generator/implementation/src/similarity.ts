@@ -41,6 +41,19 @@ function loadImageAsDataUrl(imagePath: string): string {
 }
 
 export async function judgeSimilarity(opts: SimilarityJudgeOptions): Promise<SimilarityJudgeResult> {
+  const anthropicKey = process.env.ANTHROPIC_API_KEY ?? '';
+
+  // Try OpenAI first, fall back to Anthropic if OpenAI fails (out of credits, etc.)
+  try {
+    return await judgeWithOpenAI(opts);
+  } catch (openaiErr) {
+    if (!anthropicKey) throw openaiErr;
+    // OpenAI failed (likely out of credits) — fall back to Anthropic Haiku
+    return await judgeWithAnthropic(opts, anthropicKey);
+  }
+}
+
+async function judgeWithOpenAI(opts: SimilarityJudgeOptions): Promise<SimilarityJudgeResult> {
   const { default: OpenAI } = await import('openai');
   const client = new OpenAI({ apiKey: opts.apiKey });
 
@@ -78,15 +91,63 @@ A "pass" should require score >= ${opts.threshold ?? DEFAULT_THRESHOLD}.`;
   });
 
   const raw = response.choices[0]?.message?.content ?? '';
+  return parseJudgeResponse(raw, opts.threshold);
+}
+
+async function judgeWithAnthropic(opts: SimilarityJudgeOptions, apiKey: string): Promise<SimilarityJudgeResult> {
+  const { default: Anthropic } = await import('@anthropic-ai/sdk');
+  const client = new Anthropic({ apiKey });
+
+  const imageBuffer = fs.readFileSync(opts.candidatePath);
+  const ext = path.extname(opts.candidatePath).toLowerCase().replace('.', '');
+  const mimeMap: Record<string, string> = { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp' };
+  const mimeType = mimeMap[ext] ?? 'image/png';
+
+  const styleClause = opts.styleHint ? ` Intended visual style: ${opts.styleHint}.` : '';
+
+  const prompt = `You are a QA judge for AI-generated website assets. Score how well the attached image
+fulfils the following brief as a usable production asset for a website.
+
+Asset type: ${opts.assetType}
+Brief: ${opts.description}${styleClause}
+
+Score strictly on:
+- Does it depict the described subject/content correctly?
+- Is it free of obvious AI artifacts (extra limbs, garbled text, broken objects)?
+- Is it usable as-is on a real client website without embarrassment?
+
+Respond with ONLY a JSON object, no markdown fences:
+{"score": <0-100 integer>, "pass": <true|false>, "reasoning": "<one sentence>"}
+A "pass" should require score >= ${opts.threshold ?? DEFAULT_THRESHOLD}.`;
+
+  const response = await client.messages.create({
+    model: 'claude-haiku-4-5',
+    max_tokens: 300,
+    messages: [
+      {
+        role: 'user',
+        content: [
+          { type: 'image', source: { type: 'base64', media_type: mimeType as any, data: imageBuffer.toString('base64') } },
+          { type: 'text', text: prompt },
+        ],
+      },
+    ],
+  });
+
+  const raw = response.content[0]?.type === 'text' ? response.content[0].text : '';
+  return parseJudgeResponse(raw, opts.threshold);
+}
+
+function parseJudgeResponse(raw: string, threshold?: number): SimilarityJudgeResult {
   const stripped = raw.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
 
   try {
     const parsed = JSON.parse(stripped);
     const score = Number(parsed.score ?? 0);
-    const threshold = opts.threshold ?? DEFAULT_THRESHOLD;
+    const t = threshold ?? DEFAULT_THRESHOLD;
     return {
       score,
-      pass: Boolean(parsed.pass) && score >= threshold,
+      pass: Boolean(parsed.pass) && score >= t,
       reasoning: String(parsed.reasoning ?? ''),
     };
   } catch {

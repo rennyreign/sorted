@@ -1,17 +1,19 @@
 // ─────────────────────────────────────────────────────────────
-// Asset Generator — Quality Gate + Mode Resolver
+// Asset Generator — Mode Resolver
 //
-// Given an asset's declared source hint and whether a valid bbox
-// exists, resolves the final execution mode:
+// Given an asset's declared source, resolves the final execution mode.
 //
-//   extract   → crop from mockup (quality gates pass)
-//   recreate  → AI-generate a new image
+//   recreate  → AI-generate a new image (always — no mockup extraction)
 //   reuse     → pull from existing brand assets folder
+//   source    → flag for manual stock sourcing
 //   skip      → no action needed / not applicable
+//
+// Mockup extraction has been removed. Mockup crops are low-resolution
+// samples from GPT-image mockups and are not suitable as production
+// assets. All imagery is generated fresh via the configured model.
 // ─────────────────────────────────────────────────────────────
 
 import type { InputAsset, ExecutionMode } from './types.js';
-import { checkExtractionQuality } from './extract.js';
 
 export interface ModeDecision {
   mode: ExecutionMode;
@@ -22,11 +24,11 @@ export interface ModeDecision {
 
 export async function resolveMode(
   asset: InputAsset,
-  mockupPath: string,
-  verbose: boolean = false,
+  _mockupPath: string,
+  _verbose: boolean = false,
 ): Promise<ModeDecision> {
 
-  // Reuse assets (logos, existing brand files) — never extract or regenerate
+  // Reuse assets (logos, existing brand files) — never generate
   if (asset.source === 'reuse') {
     return { mode: 'reuse', reason: 'source=reuse — use existing brand asset' };
   }
@@ -36,24 +38,8 @@ export async function resolveMode(
     return { mode: 'source', reason: 'source=stock — find stock equivalent' };
   }
 
-  // source=generate: always recreate regardless of bbox
-  if (asset.source === 'generate') {
-    // Unless mode_hint explicitly says extract — respect that and try it
-    if (asset.mode_hint === 'extract' && asset.bbox) {
-      const check = await checkExtractionQuality(mockupPath, asset.bbox, asset.type);
-      if (check.pass) {
-        if (verbose) console.log(`    [quality] extract passed for ${asset.id} (${check.width}×${check.height}px)`);
-        return { mode: 'extract', reason: `mode_hint=extract; quality check passed (${check.width}×${check.height}px)` };
-      }
-      if (verbose) console.log(`    [quality] extract failed for ${asset.id}: ${check.reason} — falling back to recreate`);
-      return { mode: 'recreate', reason: `mode_hint=extract but quality failed: ${check.reason}` };
-    }
-
-    return { mode: 'recreate', reason: 'source=generate — AI recreate' };
-  }
-
-  // Fallback
-  return { mode: 'recreate', reason: 'default fallback — AI recreate' };
+  // source=generate: always recreate — no mockup extraction
+  return { mode: 'recreate', reason: 'source=generate — AI generate via configured model' };
 }
 
 // ── Priority filter ───────────────────────────────────────────

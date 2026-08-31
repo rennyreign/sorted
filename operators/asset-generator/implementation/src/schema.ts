@@ -24,7 +24,6 @@ export const InputAssetSchema = z.object({
   aspect_ratio: z.string().optional(),
   bbox: BoundingBoxSchema.optional(),
   variants: z.array(z.string()).optional(),
-  mode_hint: z.enum(['extract', 'recreate']).optional(),
   notes: z.string().optional(),
 });
 
@@ -58,7 +57,7 @@ export const AssetFilesSchema = z.object({
 
 export const AssetResultSchema = z.object({
   id: z.string(),
-  mode: z.enum(['extract', 'recreate', 'source', 'reuse', 'skip']),
+  mode: z.enum(['recreate', 'source', 'reuse', 'skip', 'human_review', 'excluded']),
   status: z.enum(['ok', 'failed', 'skipped']),
   files: AssetFilesSchema.partial(),
   meta: z.object({

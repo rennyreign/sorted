@@ -15,7 +15,7 @@ import path from 'path';
 import { runAssetGenerator } from './orchestrator.js';
 import type { AssetGeneratorConfig, GenerationModel, GenerationQuality, OutputFormat, AssetPriority } from './types.js';
 
-const VALID_MODELS = ['gpt-image-1', 'dall-e-3', 'flux-pro-1.1', 'flux-pro-1.1-ultra'];
+const VALID_MODELS = ['gpt-image-1', 'dall-e-3', 'gemini-2.5-flash-image', 'flux-pro-1.1', 'flux-pro-1.1-ultra', 'flux-2-flex', 'flux-2-max'];
 const VALID_QUALITIES = ['low', 'medium', 'high'];
 
 // Load .env
@@ -36,7 +36,7 @@ function parseArgs(argv: string[]): AssetGeneratorConfig {
   let deconstructionPath = '';
   let outputDir = 'output';
   let format: OutputFormat = 'webp';
-  let model: GenerationModel = 'gpt-image-1';
+  let model: GenerationModel = 'flux-2-flex';
   let quality: GenerationQuality | undefined;
   let priorityFilter: AssetPriority[] | undefined;
   let dryRun = false;
@@ -54,6 +54,10 @@ function parseArgs(argv: string[]): AssetGeneratorConfig {
 
     if (arg === '--output' || arg === '-o') {
       outputDir = args[++i] ?? 'output';
+    } else if (arg === '--mockup') {
+      mockupPath = args[++i] ?? '';
+    } else if (arg === '--deconstruction') {
+      deconstructionPath = args[++i] ?? '';
     } else if (arg === '--format' || arg === '-f') {
       const val = args[++i];
       if (!val || !['webp', 'jpg', 'png'].includes(val)) {
@@ -101,11 +105,12 @@ function parseArgs(argv: string[]): AssetGeneratorConfig {
     }
   }
 
-  if (positional.length < 1) die('No mockup image path provided.');
-  if (positional.length < 2) die('No deconstruction JSON path provided.');
+  if (positional.length < 1 && !mockupPath) die('No mockup image path provided. Use --mockup <path> or pass as first positional argument.');
+  if (positional.length < 2 && !deconstructionPath) die('No deconstruction JSON path provided. Use --deconstruction <path> or pass as second positional argument.');
 
-  mockupPath = positional[0]!;
-  deconstructionPath = positional[1]!;
+  // Positional args override flags if provided
+  if (positional[0]) mockupPath = positional[0];
+  if (positional[1]) deconstructionPath = positional[1];
 
   return { mockupPath, deconstructionPath, outputDir, format, model, quality, priorityFilter, dryRun, verbose, skipExisting, ladder, similarityThreshold, realPhotosDir, realPhotosMap };
 }
@@ -117,32 +122,30 @@ function printHelp(): void {
 Asset Generator v0.1.0 — Sorted Manufacturing Line
 
 USAGE
-  npm run assets -- <mockup.jpg> <mockup.json> [options]
+  npm run assets -- <mockup.jpg> <deconstruction.json> [options]
+  npm run assets -- --mockup <mockup.jpg> --deconstruction <deconstruction.json> [options]
 
 ARGUMENTS
-  <mockup.jpg>      Path to the mockup image
-  <mockup.json>     Path to the Mockup Deconstructor output JSON
+  <mockup.jpg>           Path to the mockup image (or use --mockup)
+  <deconstruction.json>  Path to the deconstruction JSON (or use --deconstruction)
 
 OPTIONS
+  --mockup          Path to the mockup image (alternative to positional arg)
+  --deconstruction  Path to the deconstruction JSON (alternative to positional arg)
   --output, -o      Output directory  (default: output/)
   --format, -f      Output image format: webp | jpg | png  (default: webp)
-  --model, -m       Generation model: gpt-image-1 | dall-e-3 | flux-pro-1.1 | flux-pro-1.1-ultra  (default: gpt-image-1)
+  --model, -m       Generation model: flux-2-flex | flux-2-max | gemini-2.5-flash-image | gpt-image-1 | dall-e-3  (default: flux-2-flex)
   --quality, -q     Rendering fidelity, gpt-image-1 only: low | medium | high  (default: high)
   --priority, -p    Only process these priorities (comma-separated): critical,high,medium,low
   --dry-run, -d     Show what would be done — no files written, prints estimated cost
   --skip-existing   Skip assets whose output folder already exists
   --ladder          Cost-escalation decision tree instead of a fixed --model. Excludes icons
-                    entirely (frontend-builder supplies these). Classifies everything else as
-                    human or non-human (free — reuses deconstruction type/description):
+                    entirely (frontend-builder supplies these). No mockup extraction — all assets
+                    are generated. Classifies as human or non-human:
                       HUMAN:      real photo on file?  -> GPT reconstructs it (image reference)
-                                  no real photo?        -> GPT reconstructs from the mockup's own
-                                                           crop (flagged for replacement once real
-                                                           photography exists); blind text-generate
-                                                           only if there's no crop to reference at all
-                      NON-HUMAN:  crop big enough?      -> extract ($0)
-                                  small gap?            -> sharp upscale ($0)
-                                  otherwise             -> flux-2-flex -> flux-2-max, image-edited
-                                                           from the mockup crop -> human review
+                                  no real photo?        -> GPT generates from description (flagged
+                                                           for replacement once real photography exists)
+                      NON-HUMAN:  gemini-2.5-flash-image -> flux-2-flex -> flux-2-max -> human review
                     All reconstruction calls (human or non-human) use the same recovery-focused
                     prompt (docs: doctrine/image-reconstruction-operator.md) — minimum visual
                     change, not creative reinterpretation. Generation rungs are graded by a
@@ -154,18 +157,19 @@ OPTIONS
   --help, -h        Show this help
 
 ENVIRONMENT VARIABLES
-  OPENAI_API_KEY    Required for recreate mode with gpt-image-1 or dall-e-3; also used by
-                    --ladder for the human branch and the non-human similarity judge
-  FLUX_API_KEY      Required for recreate mode with any flux-* model, including --ladder's
-                    non-human branch
+  FLUX_API_KEY      Required for recreate mode with flux-2-flex (default) or any flux-* model
+  OPENAI_API_KEY    Required for gpt-image-1 or dall-e-3; also used by --ladder for the
+                    human branch and the non-human similarity judge
+  GEMINI_API_KEY    Required for gemini-2.5-flash-image model and --ladder's Gemini rung
 
 APPROX. COST PER RECREATED IMAGE (see dry-run output for exact estimate)
+  flux-2-flex          $0.05/MP (~$0.07 per wide image)
+  flux-2-max           $0.07/MP (~$0.10 per wide image)
+  gemini-2.5-flash-image ~$0.039 per image
   gpt-image-1  low     $0.011 (square) / $0.016 (wide)
   gpt-image-1  medium  $0.042 (square) / $0.063 (wide)
   gpt-image-1  high    $0.167 (square) / $0.25  (wide)
   dall-e-3     hd      ~$0.08 (square) / ~$0.12 (wide)
-  flux-pro-1.1         $0.04 flat
-  flux-pro-1.1-ultra   $0.06 flat
 
 OUTPUT STRUCTURE
   output/
@@ -184,8 +188,10 @@ EXAMPLES
   npm run assets -- mockup.jpg output/mockup.json --verbose
   npm run assets -- mockup.jpg output/mockup.json --dry-run
   npm run assets -- mockup.jpg output/mockup.json --priority critical,high
+  npm run assets -- mockup.jpg output/mockup.json --model flux-2-flex
+  npm run assets -- mockup.jpg output/mockup.json --model flux-2-max
+  npm run assets -- mockup.jpg output/mockup.json --model gemini-2.5-flash-image
   npm run assets -- mockup.jpg output/mockup.json --model gpt-image-1 --quality medium
-  npm run assets -- mockup.jpg output/mockup.json --model flux-pro-1.1 --dry-run
   npm run assets -- mockup.jpg output/mockup.json --model dall-e-3 --format jpg
   npm run assets -- mockup.jpg output/mockup.json --output /path/to/client/assets/
   npm run assets -- mockup.jpg output/mockup.json --ladder --dry-run
