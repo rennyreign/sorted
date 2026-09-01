@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import Image from "next/image"
+import { ProposalTracker } from "@/components/ProposalTracker"
 
 const AUTH_KEY = "raffles_auth"
 const AUTH_EXPIRY_DAYS = 30
@@ -103,6 +104,7 @@ export default function RafflesProposal() {
 
   return (
     <>
+      <ProposalTracker slug="raffles-restaurant" />
       <main className="max-w-[680px] mx-auto px-6 sm:px-10 pt-24 pb-32">
         {/* Date + Private Label */}
         <div className="mb-16">

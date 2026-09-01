@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { ProposalTracker } from "@/components/ProposalTracker"
 
 export const metadata: Metadata = {
   title: "Proposal for Roye Abramson — Sorted.",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 export default function RoyeProposal() {
   return (
     <>
+      <ProposalTracker slug="roye" />
       <main className="max-w-[680px] mx-auto px-6 sm:px-10 pt-24 pb-32">
 
         {/* Date + Address */}

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { ProposalTracker } from "@/components/ProposalTracker"
 
 const AUTH_KEY = "partyworld_auth"
 const AUTH_EXPIRY_DAYS = 30
@@ -146,7 +147,9 @@ export default function OnboardingChecklist() {
   const stages = Array.from(new Set(items.map(item => item.stage)))
 
   return (
-    <main className="max-w-[720px] mx-auto px-6 sm:px-10 pt-16 pb-24">
+    <>
+      <ProposalTracker slug="party-world/checklist" />
+      <main className="max-w-[720px] mx-auto px-6 sm:px-10 pt-16 pb-24">
       {/* Header */}
       <div className="mb-10">
         <p className="font-mono text-xs text-[#A3A3A3] uppercase tracking-[0.15em] mb-4">
@@ -291,5 +294,6 @@ export default function OnboardingChecklist() {
         </button>
       </div>
     </main>
+    </>
   )
 }

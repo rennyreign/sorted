@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
+import { ProposalTracker } from "@/components/ProposalTracker"
 
 const AUTH_KEY = "etc_auth"
 const AUTH_EXPIRY_DAYS = 30
@@ -124,6 +125,7 @@ export default function EdgbastonTuitionCentreProposal() {
 
   return (
     <>
+      <ProposalTracker slug="edgbaston-tuition-centre" />
       <main className="max-w-[680px] mx-auto px-6 sm:px-10 pt-24 pb-32">
         {/* Brand Wordmark */}
         <div className="mb-16">

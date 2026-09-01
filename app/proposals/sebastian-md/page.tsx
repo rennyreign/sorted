@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import Image from "next/image"
+import { ProposalTracker } from "@/components/ProposalTracker"
 
 const AUTH_KEY = "sebastianmd_auth"
 const AUTH_EXPIRY_DAYS = 30
@@ -129,6 +130,7 @@ export default function SebastianMDProposal() {
 
   return (
     <>
+      <ProposalTracker slug="sebastian-md" />
       <main className={`${wideLayout ? 'max-w-[1100px]' : 'max-w-[720px]'} mx-auto px-6 sm:px-10 pt-24 pb-32 transition-all duration-300`}>
         {/* Layout Toggle */}
         <div className="fixed top-4 right-4 z-50">

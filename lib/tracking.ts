@@ -51,6 +51,7 @@ export const TRACKING_EVENTS = {
   FORM_ERROR: "form_error",
   THANK_YOU_VIEW: "thank_you_view",
   BOOKING_COMPLETED: "booking_completed",
+  PROPOSAL_VIEW: "proposal_view",
 } as const
 
 /**
