@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "studio:upgrade": "node scripts/upgrade-sorted-studio.mjs",
-    "lint": "next lint"
+    "lint": "next lint",
+    "ad-review:install": "node scripts/install-sorted-ad-review.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.1",
