@@ -9,7 +9,7 @@ const value = name => {
 }
 const flag = name => args.includes(`--${name}`)
 const usage = () => console.log(`Usage:
-  node scripts/install-sorted-ad-review.mjs --target ../client-repo --slug client-slug --portal-origin https://ads.sortmydigital.site [--dry-run]
+  node scripts/install-sorted-ad-review.mjs --target ../client-repo --slug client-slug --portal-origin https://sortmydigital.site/ad-previewer [--dry-run]
 `)
 
 if (flag('help') || flag('h')) { usage(); process.exit(0) }
@@ -79,6 +79,7 @@ const redirectsNext = redirectsManaged.test(redirectsExisting)
 console.log(`${flag('dry-run') ? 'Would configure' : 'Configuring'} ${target}`)
 console.log(`Public route: /ads/`)
 console.log(`Tenant target: ${origin}/portal/${slug}/`)
+console.log('Interface standard: Edgbaston canonical v1.0.0')
 if (!flag('dry-run')) {
   writeFileSync(configPath, next)
   if (existsSync(join(target, 'public'))) writeFileSync(redirectsPath, redirectsNext)

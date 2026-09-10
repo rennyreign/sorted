@@ -1,10 +1,12 @@
-# Ad previewer
+# Sorted Ad Review
 
-Ad previewer is Sorted's central, multi-tenant advertising approval product. The client-facing name is exactly **Ad previewer**.
+Sorted Ad Review is Sorted's central, multi-tenant advertising approval product. The client-facing name is exactly **Ad Review**.
 
 Production origin: `https://sortmydigital.site/ad-previewer`
 
-Client sites install one reverse proxy from `/ads/` to `/ad-previewer/portal/<tenant>/`. Campaign creation, revisions and decisions then use the central database and do not rebuild client sites.
+The live Edgbaston Tuition Centre `/ads/` portal is the visual and interaction acceptance benchmark. `public/app.js` and `public/styles.css` are the maintained shared implementation. A tenant may change identity, campaigns, creative and decisions, but not the interface design system or behavior.
+
+Client sites install one thin route from `/ads/` to `/ad-previewer/portal/<tenant>/`. Campaign creation, revisions, decisions and central UI upgrades then use the central service and do not rebuild client sites.
 
 ## Runtime
 
@@ -16,6 +18,10 @@ Client sites install one reverse proxy from `/ads/` to `/ad-previewer/portal/<te
 - Immutable creative filenames
 
 The Hostinger config lives outside `public_html` at `domains/sortmydigital.site/ad-previewer-config.php`. It is created during deployment from GitHub secrets and is never committed.
+
+## Interface standard
+
+The complete contract is in `operators/skills/sorted-ad-review/references/interface-standard.md`. Do not create a client-local portal UI. Update the shared central implementation and verify it against Edgbaston at desktop, tablet and mobile widths.
 
 ## Checks
 

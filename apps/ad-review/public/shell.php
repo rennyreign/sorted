@@ -7,6 +7,7 @@ if (!preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $tenant)) {
     exit('Not found');
 }
 $origin = 'https://sortmydigital.site/ad-previewer';
+$interfaceVersion = '1.0.0';
 header('Content-Type: text/html; charset=utf-8');
 header('Cache-Control: no-store');
 header('X-Robots-Tag: noindex, nofollow');
@@ -18,10 +19,10 @@ header('X-Robots-Tag: noindex, nofollow');
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>Ad Review | Sorted</title>
-  <link rel="stylesheet" href="<?= $origin ?>/styles.css">
+  <link rel="stylesheet" href="<?= $origin ?>/styles.css?v=<?= $interfaceVersion ?>">
 </head>
 <body>
   <div id="app"><main class="loading"><span></span><p>Opening Ad Review</p></main></div>
-  <script type="module" src="<?= $origin ?>/app.js"></script>
+  <script type="module" src="<?= $origin ?>/app.js?v=<?= $interfaceVersion ?>"></script>
 </body>
 </html>
