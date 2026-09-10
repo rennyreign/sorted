@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-const STATUSES = ['approved', 'changes_requested', 'rejected'];
+const STATUSES = ['awaiting_review', 'approved', 'changes_requested', 'rejected'];
 const TARGET_TYPES = ['concept', 'ad'];
 
 function respond(array $body, int $status = 200, array $headers = []): never {
@@ -147,7 +147,7 @@ try {
     }
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') respond(['error' => 'Method not allowed.'], 405, $headers);
     $input = requestBody();
-    if (!$input || !in_array($input['target_type'] ?? '', TARGET_TYPES, true) || !in_array($input['status'] ?? '', STATUSES, true)) respond(['error' => 'Invalid decision.'], 400, $headers);
+    if (!$input || !in_array($input['target_type'] ?? '', TARGET_TYPES, true) || !in_array($input['status'] ?? '', STATUSES, true) || (($input['status'] ?? '') === 'awaiting_review' && ($input['target_type'] ?? '') !== 'concept')) respond(['error' => 'Invalid decision.'], 400, $headers);
     $reviewer = trim($input['reviewer'] ?? '');
     $comment = trim($input['comment'] ?? '');
     if (!$reviewer || strlen($reviewer) > 100 || strlen($comment) > 2000 || ($input['status'] === 'changes_requested' && !$comment)) respond(['error' => 'Add your name and the requested change.'], 400, $headers);
