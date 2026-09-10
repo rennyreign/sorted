@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "idempotency_key": "school-of-skill-youth-camp-r2",
+  "client_slug": "school-of-skill",
+  "campaign": {
+    "id": "youth-camp-parents",
+    "revision": 2,
+    "name": "Youth Camp | Parents",
+    "platform": "meta",
+    "objective": "Help parents of players aged 11 to 15 understand the experience and secure a place at the September youth camp.",
+    "status": "awaiting_review",
+    "created_at": "2026-09-10T17:00:00Z",
+    "concepts": [
+      {
+        "id": "they-just-love-it",
+        "revision": 1,
+        "name": "They Just Love It",
+        "strategy": "Enter through the observable fact that some kids just love basketball. Describe the evidence so the parent recognises their own child. Do not label. Let self-recognition do the work.",
+        "audience": "Parents and guardians of basketball players aged 11 to 15 in Birmingham and the West Midlands whose child is enthusiastic about the game.",
+        "proposition": "Give their enthusiasm a coached day where they get better, compete and come home buzzing.",
+        "ads": [
+          {
+            "id": "YC-101",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Some kids just love basketball.\n\nThey are practising around the house. Watching clips. Trying new moves. Asking when training is. You do not have to push them. They would play all day if you let them.\n\nAt 11 to 15, that enthusiasm is the thing. The question is not whether they will make it to the top. The question is whether they are in the right environment to grow.\n\nSchool of Skill Youth Camp. A coached day where they get better, compete and come home buzzing.\n\n27 September 2026. Sandwell Academy, West Bromwich. Ages 11 to 15. £50 per player.",
+            "headline": "They just love it.",
+            "description": "Give it the right place to grow",
+            "creative_key": "/creatives/70101707187791685f2e2acf95c25e67a2d4242fcfde73d10990cb034561773e.webp",
+            "creative_alt": "A young basketball player working through a dribbling drill at youth camp.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          },
+          {
+            "id": "YC-102",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "You know the signs.\n\nThe ball in their hands walking through the house. The clips they watch on repeat. The question about when the next session is.\n\nThey do not need to be convinced. They need a place to get better.\n\nYouth Camp. 27 September 2026. Sandwell Academy. Ages 11 to 15. £50.",
+            "headline": "They just love basketball.",
+            "description": "A coached day for ages 11 to 15",
+            "creative_key": "/creatives/40b0249ef461dfb2e170718464982b5647d74816b2b61a83cd11b4e30a9a9df7.webp",
+            "creative_alt": "A young basketball player practising close control with a coach at School of Skill.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          }
+        ]
+      },
+      {
+        "id": "the-right-place-to-grow",
+        "revision": 1,
+        "name": "The Right Place To Grow",
+        "strategy": "Reframe the parent's anxiety from 'is my child going to become elite' to 'my job right now is to give their enthusiasm a good environment'. Surface the parental tension without manufacturing insecurity.",
+        "audience": "Parents who want structured basketball development for their child but feel pressure around expectations and outcomes.",
+        "proposition": "A coached environment with NBA, England Talent Pathway and professional-level staff where effort and growth matter more than results.",
+        "ads": [
+          {
+            "id": "YC-103",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "At 11 to 15, they do not need somebody putting huge expectations on them.\n\nThey need good coaching, real competition and a place where effort and growth matter more than results.\n\nThe rest takes care of itself. Sometimes you simply give something they love the right place to grow.\n\nSchool of Skill Youth Camp. Coached by former NBA, England Talent Pathway and professional players. All abilities welcome.\n\n27 September 2026. Sandwell Academy, West Bromwich. £50 per player.",
+            "headline": "The right place to grow.",
+            "description": "Coached by NBA and pro-level staff",
+            "creative_key": "/creatives/eb6ab8288f36f27d4c5b730a02d463162aec67120afeac4a9862f6102718ca18.webp",
+            "creative_alt": "A School of Skill coach demonstrating ball control to young basketball players.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          },
+          {
+            "id": "YC-104",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "You do not have to figure out whether basketball is their future. That is not your job right now.\n\nYour job is to give them a good environment. Coaches who know the game. Players who push them. A place where they can try things, make mistakes and get better.\n\nThe Youth Camp is that place.\n\n27 September 2026. Ages 11 to 15. £50.",
+            "headline": "Give it a good environment.",
+            "description": "Youth Camp for ages 11 to 15",
+            "creative_key": "/creatives/40b0249ef461dfb2e170718464982b5647d74816b2b61a83cd11b4e30a9a9df7.webp",
+            "creative_alt": "A young basketball player practising close control with a coach at School of Skill.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          }
+        ]
+      },
+      {
+        "id": "they-came-home-buzzing",
+        "revision": 1,
+        "name": "They Came Home Buzzing",
+        "strategy": "Use the existing parent testimonial as a recognition device. The parent recognises the experience through another parent's words. The evidence does the selling.",
+        "audience": "Parents considering a basketball camp for their child aged 11 to 15 who want social proof of the experience.",
+        "proposition": "A day where they get better, have fun and want more, confirmed by parents who have already sent their child.",
+        "ads": [
+          {
+            "id": "YC-105",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "\"My child came home buzzing, and asking when the next session was.\"\n\nThat is what a parent told us after last year's camp.\n\nBuzzing. Not tired. Not relieved it was over. Asking when the next one was.\n\nThat is what happens when a kid spends an afternoon doing something they love, in a place that takes them seriously.\n\nYouth Camp. 27 September 2026. Sandwell Academy, West Bromwich. Ages 11 to 15. £50 per player.",
+            "headline": "They came home buzzing.",
+            "description": "A day they will talk about",
+            "creative_key": "/creatives/70101707187791685f2e2acf95c25e67a2d4242fcfde73d10990cb034561773e.webp",
+            "creative_alt": "A young basketball player working through a dribbling drill at youth camp.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          },
+          {
+            "id": "YC-106",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "The best feedback we get is not from players. It is from parents.\n\n\"My child came home buzzing, and asking when the next session was.\"\n\nThat is the whole thing. A day where they got better, had fun and wanted more.\n\n27 September 2026. Ages 11 to 15. £50.",
+            "headline": "Asking when the next one was.",
+            "description": "Youth Camp. 27 September.",
+            "creative_key": "/creatives/40b0249ef461dfb2e170718464982b5647d74816b2b61a83cd11b4e30a9a9df7.webp",
+            "creative_alt": "A young basketball player practising close control with a coach at School of Skill.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          }
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "agent": "recognition-belief-framework",
+    "run_id": "sos-campaign-library-2026-09-10",
+    "created_by": "Devin for Sorted"
+  }
+}

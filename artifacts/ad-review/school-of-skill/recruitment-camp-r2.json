@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "idempotency_key": "school-of-skill-recruitment-camp-r2",
+  "client_slug": "school-of-skill",
+  "campaign": {
+    "id": "recruitment-camp-players",
+    "revision": 2,
+    "name": "LA Recruitment Camp | Players",
+    "platform": "meta",
+    "objective": "Reach ambitious players aged 16 to 20 and move them to secure a place at the October LA recruitment camp.",
+    "status": "awaiting_review",
+    "created_at": "2026-09-10T17:00:00Z",
+    "concepts": [
+      {
+        "id": "how-good-are-you-really",
+        "revision": 1,
+        "name": "How Good Are You Really",
+        "strategy": "Enter through the inner truth that every ambitious player privately wonders about their actual level. Reframe 'am I good enough' as 'I have only been measured against my current environment'. The camp becomes the credible external evaluation that reveals what pathway makes sense.",
+        "audience": "Club, academy and National League players aged 16 to 20 who believe they can progress but have never been assessed outside their own circle.",
+        "proposition": "Get honest evaluation from coaches who have played and scouted at the levels above yours, so you know where you actually stand.",
+        "ads": [
+          {
+            "id": "RC-101",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "Being one of the better players on your team tells you something. You score, you create, you get minutes. The coach trusts you.\n\nBut one of the hardest things in basketball is knowing how good you actually are. Every environment creates its own definition of good. You have only been measured against one pool of players.\n\nBefore you chase exposure, get honest evaluation from people who have seen the levels above yours.\n\nCome and show us your game.\n\nRecruitment Camp. 4 October 2026. Holly Lodge High School, Smethwick. Ages 16 to 20. £50 per player.",
+            "headline": "How good are you really?",
+            "description": "Find out at the Recruitment Camp",
+            "creative_key": "/creatives/bb23c6b5354731515c6cfc8321ac851d68282f9f862863d757997824982e0165.webp",
+            "creative_alt": "Competitive basketball players in a live game situation at School of Skill.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-102",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "You know you are good here. The question is whether that means anything out there.\n\nEvery environment has its own standard. Until you have been assessed against players from outside your circle, you are guessing.\n\nCome train in front of Dijon Thompson. Former NBA. UCLA alumnus. He will tell you where you actually stand.\n\n4 October 2026. Holly Lodge High School. Ages 16 to 20. £50.",
+            "headline": "Stop guessing. Get assessed.",
+            "description": "Recruitment Camp with Dijon Thompson",
+            "creative_key": "/creatives/d8ca839315bc37d5992931afa7782861e01ffb5af05da1064193e92866e3565f.webp",
+            "creative_alt": "Dijon Thompson, former NBA player and UCLA alumnus, with a basketball.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          }
+        ]
+      },
+      {
+        "id": "america-is-still-the-goal",
+        "revision": 1,
+        "name": "America Is Still The Goal",
+        "strategy": "Enter through the fact that ambitious UK players want America. Do not sell the camp. Articulate the ambition, then show that the pathway requires more than wanting it. Last year's UCLA group is the proof.",
+        "audience": "Basketball players aged 16 to 20 who want exposure to college recruitment pathways in America.",
+        "proposition": "Attend the recruitment camp to become eligible for selection for the LA trip and the preparation programme that leads to it.",
+        "ads": [
+          {
+            "id": "RC-103",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "For a lot of ambitious UK basketball players, America is still the goal.\n\nCollege basketball. Scouts. A real pathway. That is not a dream you have to explain to anyone.\n\nBut wanting it and being ready for it are different things. Last year we took our first group to UCLA. They did not get there by talking about it. They got there by showing up, getting assessed and proving they belonged.\n\nThis year we are selecting again. The camp is where it starts.\n\n4 October 2026. Holly Lodge High School, Smethwick. Ages 16 to 20. £50 per player.",
+            "headline": "America is still the goal.",
+            "description": "The pathway starts at Recruitment Camp",
+            "creative_key": "/creatives/3ba44581b79e8aa2365fb0126af44304db9b4037993018f281b0b54d065480a1.webp",
+            "creative_alt": "School of Skill players visiting Los Angeles on the previous USA basketball trip.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-104",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Last year, a group of players from Birmingham flew to UCLA.\n\nThey trained on college courts. They met scouts. They saw what the next level actually looks like.\n\nThis year we are doing it again. But first you have to show us your game.\n\nRecruitment Camp. 4 October 2026. Ages 16 to 20. £50.",
+            "headline": "The pathway is real.",
+            "description": "Selected at camp. Headed to LA.",
+            "creative_key": "/creatives/3ba44581b79e8aa2365fb0126af44304db9b4037993018f281b0b54d065480a1.webp",
+            "creative_alt": "School of Skill players visiting Los Angeles on the previous USA basketball trip.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          }
+        ]
+      },
+      {
+        "id": "more-than-highlights",
+        "revision": 1,
+        "name": "More Than Highlights",
+        "strategy": "Reframe highlight reel culture. A highlight reel shows the moments you choose. Scouts care about what happens between the clips. The camp evaluates your whole game in live competition.",
+        "audience": "Players aged 16 to 20 who rely on highlight reels for exposure and want to understand what scouts actually evaluate.",
+        "proposition": "Be assessed on how you compete, decide and respond in live game situations, not just the moments you choose to show.",
+        "ads": [
+          {
+            "id": "RC-105",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "A highlight reel shows the moments you choose.\n\nThe crossover that worked. The dunk. The game-winner. All real, but all selected.\n\nWhat it does not show is how you read the game. How you respond when things go wrong. How you compete when nobody is filming.\n\nAt the Recruitment Camp, you are not editing. You are playing. We assess how you actually perform under pressure, in real competition, against players you have never met.\n\nThat is what scouts care about.\n\n4 October 2026. Holly Lodge High School. Ages 16 to 20. £50.",
+            "headline": "More than highlights.",
+            "description": "Show us how you actually compete",
+            "creative_key": "/creatives/bb23c6b5354731515c6cfc8321ac851d68282f9f862863d757997824982e0165.webp",
+            "creative_alt": "Competitive basketball players in a live game situation at School of Skill.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-106",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Everybody has highlights. Not everybody can play.\n\nThe difference is what happens between the clips. The decisions. The defence. The things that do not make a montage but decide whether you progress.\n\nCome and be evaluated properly. Not on your best moments. On your whole game.\n\nRecruitment Camp. 4 October 2026. Ages 16 to 20. £50.",
+            "headline": "Show your whole game.",
+            "description": "Real evaluation, not highlights",
+            "creative_key": "/creatives/bb23c6b5354731515c6cfc8321ac851d68282f9f862863d757997824982e0165.webp",
+            "creative_alt": "Competitive basketball players in a live game situation at School of Skill.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          }
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "agent": "recognition-belief-framework",
+    "run_id": "sos-campaign-library-2026-09-10",
+    "created_by": "Devin for Sorted"
+  }
+}
