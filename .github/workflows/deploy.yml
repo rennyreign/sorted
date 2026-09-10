@@ -4,12 +4,23 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      component:
+        description: "Choose a deployment target"
+        required: true
+        type: choice
+        default: sorted-site
+        options:
+          - sorted-site
+          - ad-previewer
   schedule:
     # Rebuild once a day at 06:00 UTC so the examples gallery stays fresh.
     - cron: "0 6 * * *"
 
 jobs:
   deploy:
+    if: github.event_name != 'workflow_dispatch' || inputs.component == 'sorted-site'
     runs-on: ubuntu-latest
 
     steps:
@@ -43,4 +54,58 @@ jobs:
           source: "./out/*"
           target: "/home/u212019412/domains/sortmydigital.site/public_html"
           strip_components: 1
+          overwrite: true
+
+  deploy-ad-previewer:
+    if: github.event_name == 'workflow_dispatch' && inputs.component == 'ad-previewer'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+
+      - name: Validate and build Ad previewer
+        working-directory: apps/ad-review
+        run: |
+          npm test
+          npm run check:php
+          npm run build
+
+      - name: Prepare private runtime config
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: php -r '$config = ["SUPABASE_URL" => getenv("SUPABASE_URL"), "SUPABASE_SERVICE_KEY" => getenv("SUPABASE_SERVICE_KEY")]; file_put_contents("ad-previewer-config.php", "<?php return " . var_export($config, true) . ";\n");'
+
+      - name: Deploy application
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "apps/ad-review/dist/*"
+          target: "/home/u212019412/domains/sortmydigital.site/public_html/ad-previewer"
+          strip_components: 3
+          overwrite: true
+
+      - name: Deploy private runtime config
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "ad-previewer-config.php"
+          target: "/home/u212019412/domains/sortmydigital.site"
           overwrite: true

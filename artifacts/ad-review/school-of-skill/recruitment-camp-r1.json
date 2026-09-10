@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "idempotency_key": "school-of-skill-recruitment-camp-r1",
+  "client_slug": "school-of-skill",
+  "campaign": {
+    "id": "recruitment-camp-players",
+    "revision": 1,
+    "name": "LA Recruitment Camp | Players",
+    "platform": "meta",
+    "objective": "Reach ambitious players aged 16 to 20 and move them to secure a place at the October LA recruitment camp.",
+    "status": "awaiting_review",
+    "created_at": "2026-09-10T13:00:00Z",
+    "concepts": [
+      {
+        "id": "your-route-to-la",
+        "revision": 1,
+        "name": "Your Route to LA",
+        "strategy": "Lead with the concrete opportunity that matters most to ambitious players: eligibility for selection to next summer's Los Angeles trip.",
+        "audience": "Basketball players aged 16 to 20 who want exposure to college recruitment pathways in America.",
+        "proposition": "Attend the recruitment camp to become eligible for selection for the LA trip and preparation programme.",
+        "ads": [
+          {
+            "id": "RC-001",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "Want to be considered for next summer's Los Angeles trip? Your route starts at the School of Skill Recruitment Camp. Compete, be assessed and show that you are ready for the preparation programme and the opportunity ahead.\n\n4 October 2026 at Holly Lodge High School. Ages 16 to 20. £50 per player.",
+            "headline": "Your route to LA starts here.",
+            "description": "Attend to be eligible for selection",
+            "creative_key": "/creatives/3ba44581b79e8aa2365fb0126af44304db9b4037993018f281b0b54d065480a1.webp",
+            "creative_alt": "School of Skill players visiting Los Angeles on the previous USA basketball trip.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          }
+        ]
+      },
+      {
+        "id": "train-where-it-counts",
+        "revision": 1,
+        "name": "Train Where It Counts",
+        "strategy": "Sell the quality of the assessment environment directly to players who want to test themselves.",
+        "audience": "Competitive players aged 16 to 20 who believe they can progress and want credible assessment.",
+        "proposition": "Train and compete in front of former NBA player, UCLA alumnus, head coach and talent scout Dijon Thompson.",
+        "ads": [
+          {
+            "id": "RC-002",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "You say you want the next level. Come and show it. Train and compete in front of Dijon Thompson, former NBA player, UCLA alumnus, head coach and talent scout. Get direct assessment in a serious performance environment.\n\n4 October 2026. Holly Lodge High School. £50 per player.",
+            "headline": "Train where the decision gets made.",
+            "description": "LA Recruitment Camp for ages 16 to 20",
+            "creative_key": "/creatives/d8ca839315bc37d5992931afa7782861e01ffb5af05da1064193e92866e3565f.webp",
+            "creative_alt": "Dijon Thompson, former NBA player and UCLA alumnus, with a basketball.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          }
+        ]
+      },
+      {
+        "id": "prove-your-game",
+        "revision": 1,
+        "name": "Prove Your Game",
+        "strategy": "Challenge serious players to demonstrate their level through live competition and structured evaluation.",
+        "audience": "Club, academy and National League players aged 16 to 20 who want to understand how their game measures up.",
+        "proposition": "Leave with a clearer picture of your strengths, numbers and next development priorities.",
+        "ads": [
+          {
+            "id": "RC-003",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "A highlight reel only shows the moments you choose. This camp shows how you compete, decide and respond when the game is live. Build a clearer player profile, receive direct assessment and prove what level you are ready for.\n\nRecruitment Camp. 4 October 2026. Ages 16 to 20.",
+            "headline": "Show more than highlights.",
+            "description": "Compete. Get assessed. Know your next step.",
+            "creative_key": "/creatives/bb23c6b5354731515c6cfc8321ac851d68282f9f862863d757997824982e0165.webp",
+            "creative_alt": "Competitive basketball players in a live game situation at School of Skill.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          }
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "agent": "campaign-builder",
+    "run_id": "sos-camps-2026-09-10",
+    "created_by": "Codex for Sorted"
+  }
+}

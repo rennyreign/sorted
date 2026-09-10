@@ -1,0 +1,59 @@
+name: Deploy Ad previewer to Hostinger
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/ad-review/**"
+      - ".github/workflows/deploy-ad-previewer.yml"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+
+      - name: Validate portal
+        working-directory: apps/ad-review
+        run: |
+          npm test
+          npm run check:php
+          npm run build
+
+      - name: Prepare private runtime config
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: php -r '$config = ["SUPABASE_URL" => getenv("SUPABASE_URL"), "SUPABASE_SERVICE_KEY" => getenv("SUPABASE_SERVICE_KEY")]; file_put_contents("ad-previewer-config.php", "<?php return " . var_export($config, true) . ";\n");'
+
+      - name: Deploy application
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "apps/ad-review/dist/*"
+          target: "/home/u212019412/domains/sortmydigital.site/public_html/ad-previewer"
+          strip_components: 3
+          overwrite: true
+
+      - name: Deploy private runtime config
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "ad-previewer-config.php"
+          target: "/home/u212019412/domains/sortmydigital.site"
+          overwrite: true
