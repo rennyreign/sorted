@@ -46,6 +46,9 @@ test('database: manual protection, concurrent edits, history and exact approvals
   assert.equal(write(packageFor(id,7,key('3')),6).ok,true,'explicit unlock permits future agent selection')
   assert.equal(write(packageFor(id,7,key('3')),6).idempotent,true,'agent retries are idempotent')
   assert.equal(write(packageFor(id,7,key('4')),6).status,409,'same intent cannot change its payload')
+  const conceptDecision={campaign_id:id,campaign_revision:7,target_type:'concept',target_id:'concept',fingerprint:'concept-original',status:'approved',comment:'',reviewer:'Reviewer'}
+  assert.equal(decide(conceptDecision).decision.status,'approved')
+  assert.equal(decide({...conceptDecision,status:'awaiting_review'}).decision.status,'awaiting_review','reopening remains an append-only decision')
   assert.equal(query("select has_function_privilege('anon','public.ad_review_write_revision(text,jsonb,integer,text,text,text,boolean,text,text)','execute')"),'f')
   assert.equal(query("select has_table_privilege('authenticated','ad_review_editors','select')"),'f')
 })
