@@ -1,0 +1,11 @@
+{
+  "name": "sorted-ad-previewer",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs && node scripts/validate-campaigns.mjs ../../artifacts/ad-review/school-of-skill/youth-camp-r1.json ../../artifacts/ad-review/school-of-skill/recruitment-camp-r1.json",
+    "check:php": "php -l public/api/index.php && php -l public/shell.php"
+  }
+}

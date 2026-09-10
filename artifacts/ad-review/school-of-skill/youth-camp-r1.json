@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "idempotency_key": "school-of-skill-youth-camp-r1",
+  "client_slug": "school-of-skill",
+  "campaign": {
+    "id": "youth-camp-parents",
+    "revision": 1,
+    "name": "Youth Camp | Parents",
+    "platform": "meta",
+    "objective": "Help parents of players aged 11 to 15 understand the experience and secure a place at the September youth camp.",
+    "status": "awaiting_review",
+    "created_at": "2026-09-10T13:00:00Z",
+    "concepts": [
+      {
+        "id": "confidence-through-play",
+        "revision": 1,
+        "name": "Confidence Through Play",
+        "strategy": "Show parents that the camp combines meaningful skill development with an experience their child will genuinely enjoy.",
+        "audience": "Parents and guardians of basketball players aged 11 to 15 in Birmingham and the West Midlands.",
+        "proposition": "One focused afternoon can help a young player improve, compete and come home more confident.",
+        "ads": [
+          {
+            "id": "YC-001",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Give your young player an afternoon built around getting better and enjoying the game. School of Skill Youth Camp combines focused coaching, game-like drills and positive competition for ages 11 to 15.\n\n27 September 2026 at Sandwell Academy. £50 per player.",
+            "headline": "A basketball day they will talk about.",
+            "description": "Youth Camp for ages 11 to 15",
+            "creative_key": "/creatives/40b0249ef461dfb2e170718464982b5647d74816b2b61a83cd11b4e30a9a9df7.webp",
+            "creative_alt": "A young basketball player practising close control with a coach at School of Skill.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          }
+        ]
+      },
+      {
+        "id": "coaching-they-can-use",
+        "revision": 1,
+        "name": "Coaching They Can Use",
+        "strategy": "Make the quality and relevance of the coaching tangible for parents.",
+        "audience": "Parents who want structured basketball development, not simply childcare for the day.",
+        "proposition": "Experienced coaches help young players understand technique, decisions and what to work on next.",
+        "ads": [
+          {
+            "id": "YC-002",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "More than keeping them busy. This is a coached basketball experience designed to sharpen ball handling, shooting, movement and decision-making. Players aged 11 to 15 learn from experienced staff in a positive environment where effort and growth matter.\n\n27 September 2026. Sandwell Academy. £50 per player.",
+            "headline": "Coaching built for young players.",
+            "description": "Focused development in a positive setting",
+            "creative_key": "/creatives/eb6ab8288f36f27d4c5b730a02d463162aec67120afeac4a9862f6102718ca18.webp",
+            "creative_alt": "A School of Skill coach demonstrating ball control to young basketball players.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          }
+        ]
+      },
+      {
+        "id": "find-their-game",
+        "revision": 1,
+        "name": "Find Their Game",
+        "strategy": "Connect the booking decision to the confidence, belonging and motivation parents want for their child.",
+        "audience": "Parents of new, developing and club-level players aged 11 to 15.",
+        "proposition": "Every ability level is welcomed into an environment where young players can take risks and grow.",
+        "ads": [
+          {
+            "id": "YC-003",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "The right environment can change how a young player sees their game. At School of Skill Youth Camp, ages 11 to 15 can practise, compete, make mistakes and build confidence with coaches who know how to help them progress.\n\nPlaces are limited for 27 September 2026.",
+            "headline": "Let them find their game.",
+            "description": "Secure their place for £50",
+            "creative_key": "/creatives/70101707187791685f2e2acf95c25e67a2d4242fcfde73d10990cb034561773e.webp",
+            "creative_alt": "A young basketball player working through a dribbling drill at youth camp.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          }
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "agent": "campaign-builder",
+    "run_id": "sos-camps-2026-09-10",
+    "created_by": "Codex for Sorted"
+  }
+}

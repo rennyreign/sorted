@@ -127,7 +127,7 @@ export default function EnterprisePartnersPage() {
       </section>
 
       <section className="border-y border-black/10 bg-white">
-        <div className="mx-auto grid max-w-[1220px] gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.38fr_0.62fr] lg:gap-20 lg:py-24">
+        <div className="mx-auto grid max-w-[1220px] gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[3fr_7fr] lg:gap-12 lg:py-24">
           <div>
             <h2 className="text-[clamp(2.5rem,4.7vw,4.8rem)] font-black leading-[0.94] tracking-[-0.045em]">
               Built for organisations already close to business.
@@ -137,7 +137,7 @@ export default function EnterprisePartnersPage() {
 
           <ol className="border-t border-black">
             {audiences.map(({ title, copy }, index) => (
-              <li key={title} className="grid gap-3 border-b border-black/16 py-6 sm:grid-cols-[54px_0.8fr_1.2fr] sm:gap-5 sm:py-7">
+              <li key={title} className="grid gap-3 border-b border-black/16 py-6 sm:grid-cols-[44px_0.9fr_1.25fr] sm:gap-5 sm:py-7">
                 <span className="text-[11px] font-black tabular-nums text-black/65">0{index + 1}</span>
                 <h3 className="text-[clamp(1.2rem,2vw,1.65rem)] font-black leading-[1.05] tracking-[-0.035em]">{title}</h3>
                 <p className="max-w-[520px] text-[14px] font-semibold leading-[1.55] text-black/64">{copy}</p>
