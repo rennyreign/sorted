@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "base_revision": 0,
+  "idempotency_key": "edgbaston-parent-acquisition-central-r1",
+  "client_slug": "edgbaston",
+  "campaign": {
+    "id": "edgbaston-parent-acquisition",
+    "revision": 1,
+    "name": "Parent Acquisition",
+    "platform": "meta",
+    "objective": "Introduce local families to the centre and invite them to a free first lesson.",
+    "status": "awaiting_review",
+    "created_at": "2026-09-10T23:12:06.449Z",
+    "concepts": [
+      {
+        "id": "academic-excellence",
+        "revision": 1,
+        "name": "Academic Excellence",
+        "strategy": "Show ambitious families a focused, supportive place to build strong academic foundations.",
+        "audience": "Parents of children aged 5–16 around Edgbaston.",
+        "proposition": "High expectations, clear teaching and individual attention.",
+        "ads": [
+          {
+            "id": "AE-001",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Help your child build knowledge, confidence and good study habits. Discover small-group tuition at Edgbaston Tuition Centre. Book a free first lesson and meet our tutors.",
+            "headline": "Academic Excellence Starts Here.",
+            "description": "Expert tuition in Edgbaston",
+            "creative_key": "/creatives/2fd1f2de3f7e6d7c711becb5945a833912b9658091b91ae999052f1c39029b8b.webp",
+            "creative_alt": "Academic Excellence campaign photograph of learning at Edgbaston Tuition Centre",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://edgbaston-tuition-centre.netlify.app/free-lesson/"
+          },
+          {
+            "id": "AE-002",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "1:1",
+            "primary_text": "A little focused support can make learning feel different. Explore Maths, English and Science tuition for primary-age children in a welcoming local centre.",
+            "headline": "Stronger foundations. Greater confidence.",
+            "description": "Find the right support for your child",
+            "creative_key": "/creatives/094f02edd848d8cfc019cfc874e95d3e41042724273164a2061bfdb17c803689.webp",
+            "creative_alt": "Academic Excellence campaign photograph of learning at Edgbaston Tuition Centre",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://edgbaston-tuition-centre.netlify.app/programmes/"
+          },
+          {
+            "id": "AE-003",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "From understanding a topic to applying it in an exam: our tutors guide students through each step. Try a free GCSE Maths lesson at Edgbaston Tuition Centre.",
+            "headline": "A clearer path through GCSE Maths.",
+            "description": "Small groups. Focused support.",
+            "creative_key": "/creatives/7348f056246a0cfd309fce4dc2ec226b98b590c8a7890e3570cc32df49c33cdd.webp",
+            "creative_alt": "Academic Excellence campaign photograph of learning at Edgbaston Tuition Centre",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://edgbaston-tuition-centre.netlify.app/subjects/gcse-maths/"
+          }
+        ]
+      },
+      {
+        "id": "learning-how-to-learn",
+        "revision": 1,
+        "name": "Learning How to Learn",
+        "strategy": "Explain the teaching approach through understanding, practice and useful learning habits.",
+        "audience": "Parents who want their child to become a more confident, independent learner.",
+        "proposition": "Build the skills behind better learning.",
+        "ads": [
+          {
+            "id": "LL-001",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Understanding a topic is only the beginning. We help students practise, ask questions and build habits they can use beyond the classroom. Experience our approach in a free first lesson.",
+            "headline": "Don’t just study harder. Learn better.",
+            "description": "Discover a structured approach to learning",
+            "creative_key": "/creatives/ba437410173ce218e71ea19c6a594a9e52410cafb5b3a0568e47011d71e3a7fa.webp",
+            "creative_alt": "Learning How to Learn campaign photograph of learning at Edgbaston Tuition Centre",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://edgbaston-tuition-centre.netlify.app/free-lesson/"
+          },
+          {
+            "id": "LL-002",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "1:1",
+            "primary_text": "Learning grows when children feel comfortable asking for help. Our small groups give students space to ask questions and work through topics with a tutor.",
+            "headline": "Make room for the questions.",
+            "description": "Support that starts with understanding",
+            "creative_key": "/creatives/6b83c156204c15cb3fe79089c0381f60abab4733b0ca795ec38b5185b0c62eac.webp",
+            "creative_alt": "Learning How to Learn campaign photograph of learning at Edgbaston Tuition Centre",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://edgbaston-tuition-centre.netlify.app/free-lesson/"
+          },
+          {
+            "id": "LL-003",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "16:9",
+            "primary_text": "Give your child a structured place to learn, with focused teaching and time to practise. Explore tuition at Edgbaston Tuition Centre.",
+            "headline": "Understand. Practise. Build confidence.",
+            "description": "Explore our programmes",
+            "creative_key": "/creatives/276ea9945e86285509f86b70df0e91c114da3f90094c282425684edfdf9c8be5.webp",
+            "creative_alt": "Learning How to Learn campaign photograph of learning at Edgbaston Tuition Centre",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://edgbaston-tuition-centre.netlify.app/programmes/"
+          }
+        ]
+      },
+      {
+        "id": "results-proof",
+        "revision": 1,
+        "name": "Results & Proof",
+        "strategy": "Show the learning environment now. Add specific results or testimonials only after the client supplies and verifies them.",
+        "audience": "Parents looking for credible evidence of the centre’s approach.",
+        "proposition": "See the support behind a student’s progress.",
+        "ads": [
+          {
+            "id": "SR-001",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Meet the tutors, see the classroom and experience a lesson. A free first visit is a simple way to explore whether our centre is right for your child.",
+            "headline": "See the support behind the progress.",
+            "description": "Experience Edgbaston Tuition Centre",
+            "creative_key": "/creatives/6a059ecea497ce4bfba49497d49f50d58befb354d0fdcf1f3cb60f75ee593a37.webp",
+            "creative_alt": "Results & Proof campaign photograph of learning at Edgbaston Tuition Centre",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://edgbaston-tuition-centre.netlify.app/free-lesson/"
+          },
+          {
+            "id": "SR-002",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "1:1",
+            "primary_text": "Get to know the environment where your child could learn. Visit Edgbaston Tuition Centre for a free first lesson and talk to us about their goals.",
+            "headline": "A place to focus. People to help.",
+            "description": "Start with a conversation and a lesson",
+            "creative_key": "/creatives/7348f056246a0cfd309fce4dc2ec226b98b590c8a7890e3570cc32df49c33cdd.webp",
+            "creative_alt": "Results & Proof campaign photograph of learning at Edgbaston Tuition Centre",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://edgbaston-tuition-centre.netlify.app/free-lesson/"
+          },
+          {
+            "id": "SR-003",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Every learner arrives with different questions and goals. Talk to our team about the support available, then try a lesson for yourself.",
+            "headline": "Start with your child’s next step.",
+            "description": "Find a programme that fits",
+            "creative_key": "/creatives/8248643ebf14f763038901843b477816065f1b4f6fbcaf4cb11514cc9aa6a034.webp",
+            "creative_alt": "Results & Proof campaign photograph of learning at Edgbaston Tuition Centre",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://edgbaston-tuition-centre.netlify.app/programmes/"
+          }
+        ]
+      },
+      {
+        "id": "free-lesson",
+        "revision": 1,
+        "name": "Free Lesson",
+        "strategy": "Make the next step simple: experience the centre before choosing a programme.",
+        "audience": "Local parents considering tuition for the first time.",
+        "proposition": "Try a lesson and meet the people who will support your child.",
+        "ads": [
+          {
+            "id": "FL-001",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Looking for tuition in Edgbaston? Come and experience a lesson, meet our tutors and see how your child feels in the classroom. Book your free first lesson today.",
+            "headline": "Start with a FREE lesson.",
+            "description": "Your first step starts here",
+            "creative_key": "/creatives/cae57e6f5396f825205f8d1a77daadaf3e42c01b4d1afa0f5777ee72ab30f4b3.webp",
+            "creative_alt": "Free Lesson campaign photograph of learning at Edgbaston Tuition Centre",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://edgbaston-tuition-centre.netlify.app/free-lesson/"
+          },
+          {
+            "id": "FL-002",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "1:1",
+            "primary_text": "Choose a subject, meet the tutor and give it a go. A free first lesson lets your family get to know Edgbaston Tuition Centre.",
+            "headline": "Come and experience the difference.",
+            "description": "Book a free first lesson",
+            "creative_key": "/creatives/7970614197ce6b1049042a3dee19ccd9539b47fd92f353dcdf41019945494e39.webp",
+            "creative_alt": "Free Lesson campaign photograph of learning at Edgbaston Tuition Centre",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://edgbaston-tuition-centre.netlify.app/free-lesson/"
+          },
+          {
+            "id": "FL-003",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "16:9",
+            "primary_text": "Maths, English, Science and more, with focused support in a local learning environment. Explore our programmes and book a free first lesson.",
+            "headline": "Your child’s next chapter starts here.",
+            "description": "Tuition for ages 5–16",
+            "creative_key": "/creatives/a85ffb97128d994fa879f80af7b8b1cb33c1aeab8855be7f9f2553e8a3c66ac6.webp",
+            "creative_alt": "Free Lesson campaign photograph of learning at Edgbaston Tuition Centre",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://edgbaston-tuition-centre.netlify.app/free-lesson/"
+          }
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "agent": "prototype-migration",
+    "created_by": "Sorted"
+  }
+}

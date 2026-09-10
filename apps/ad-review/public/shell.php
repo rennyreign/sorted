@@ -17,11 +17,11 @@ header('X-Robots-Tag: noindex, nofollow');
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>Ad previewer | Sorted</title>
+  <title>Ad Review | Sorted</title>
   <link rel="stylesheet" href="<?= $origin ?>/styles.css">
 </head>
 <body>
-  <div id="app"><main class="loading"><span></span><p>Opening Ad previewer</p></main></div>
+  <div id="app"><main class="loading"><span></span><p>Opening Ad Review</p></main></div>
   <script type="module" src="<?= $origin ?>/app.js"></script>
 </body>
 </html>

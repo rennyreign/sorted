@@ -1,0 +1,38 @@
+name: Validate Ad Review editor
+on:
+  pull_request:
+    paths: ['apps/ad-review/**', 'supabase/migrations/*ad_previewer*', '.github/workflows/validate-ad-previewer.yml']
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: test-password
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      AD_REVIEW_TEST_DATABASE: postgresql://postgres:test-password@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+      - name: Prepare disposable database
+        run: >-
+          psql "$AD_REVIEW_TEST_DATABASE" -v ON_ERROR_STOP=1
+          -f apps/ad-review/tests/database-bootstrap.sql
+          -f supabase/migrations/20260910130000_ad_previewer.sql
+          -f supabase/migrations/20260910180000_ad_previewer_editor.sql
+      - name: Check portal
+        working-directory: apps/ad-review
+        run: |
+          npm test
+          npm run check:php
+          npm run build

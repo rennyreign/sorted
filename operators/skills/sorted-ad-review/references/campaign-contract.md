@@ -7,6 +7,7 @@ browser tenant field.
 ```json
 {
   "schema_version": 1,
+  "base_revision": 0,
   "idempotency_key": "edgbaston-parent-acquisition-r1",
   "client_slug": "edgbaston",
   "campaign": {
@@ -70,3 +71,20 @@ browser tenant field.
 Reject the complete package on validation failure. Return structured field errors to the
 harness; never publish a partially accepted campaign to the client index.
 
+## Manual selections and concurrent revisions
+
+GET `api/?action=ingest&campaign_id=<id>` with the tenant ingestion credential before
+each revision. The response contains the current package, `base_revision`, library
+metadata and protected `image_locks`. Submit `base_revision` in the package; the new
+campaign revision must equal `base_revision + 1`. First submissions use base 0.
+
+Registered library keys may be `/media/<tenant-slug>/<sha256>.webp` as well as deployed
+`/creatives/<sha256>.webp` keys. Optional ad `crop` is `{ "x": 50, "y": 50 }`, with
+numeric percentages from 0 to 100 matching CSS object-position. Preserve crop and ratio
+along with the key for protected selections. Do not remove or rename protected ads.
+
+Only named human editors can replace or release a protected image. A changed selection
+creates a fresh immutable revision and needs fresh approval. Restoring an earlier image
+also creates a new revision. Unchanged ads/concepts retain their revision and fields.
+Stale submissions or protected-image conflicts return HTTP 409; re-read and reconcile.
+Never retry a changed payload under an existing idempotency key.

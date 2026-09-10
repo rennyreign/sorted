@@ -1,3 +1,8 @@
+import { attachImageEditor, imageStyle } from './image-editor.js'
+const editorStyles = document.createElement('link')
+editorStyles.rel = 'stylesheet'
+editorStyles.href = new URL('./image-editor.css', import.meta.url).href
+document.head.append(editorStyles)
 const root = document.documentElement
 const tenant = root.dataset.tenant
 const origin = root.dataset.origin || 'https://sortmydigital.site/ad-previewer'
@@ -10,9 +15,12 @@ const latest = (campaign, target) => [...state.data.decisions].reverse().find(it
 const statusOf = (campaign, target) => latest(campaign, target)?.status || 'awaiting_review'
 const adsOf = campaign => campaign.concepts.flatMap(concept => concept.ads)
 const date = value => new Date(value).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })
+const imageUrl = key => state.data?.assets?.find(asset => asset.creative_key === key)?.url || `${origin}${key}`
 
-async function api(method, body) {
-  const response = await fetch(`${origin}/api/?tenant=${encodeURIComponent(tenant)}`, { method, cache: 'no-store', headers: { Authorization: `Bearer ${state.token}`, 'Content-Type': 'application/json' }, ...(body ? { body: JSON.stringify(body) } : {}) })
+async function api(method, body, action = 'portal', query = {}) {
+  const multipart = body instanceof FormData
+  const params = new URLSearchParams({ tenant, action, ...query })
+  const response = await fetch(`${origin}/api/?${params}`, { method, cache: 'no-store', headers: { Authorization: `Bearer ${state.token}`, ...(!multipart ? { 'Content-Type': 'application/json' } : {}) }, ...(body ? { body: multipart ? body : JSON.stringify(body) } : {}) })
   const data = await response.json().catch(() => ({}))
   if (!response.ok) throw new Error(data.error || 'Ad previewer could not be reached.')
   return data
@@ -49,25 +57,29 @@ async function decide(campaign, type, target, status, comment = '') {
   } catch (error) { state.message = ''; state.error = error.message; renderMessages() }
 }
 
-function renderLoading() { app.innerHTML = '<main class="loading"><span></span><p>Opening Ad previewer</p></main>' }
+function tenantInitials(name) { return (name || '').split(/\s+/).map(w => w[0]).join('').slice(0, 3).toUpperCase() }
+function tenantWebsite(url) { try { return new URL(url).hostname.replace(/^www\./, '') } catch { return '' } }
+function renderLoading() { app.innerHTML = '<main class="loading"><span></span><p>Opening Ad Review</p></main>' }
 function renderMessages() { document.querySelector('.messages')?.remove(); if (!state.message && !state.error) return; const node = document.createElement('div'); node.className = 'messages'; node.innerHTML = `<div class="${state.error ? 'error' : 'notice'}" role="status">${esc(state.error || state.message)}</div>`; document.body.append(node) }
-function shell(content) { return `<header class="topbar"><div class="sorted">Sorted<i>.</i></div><span class="product">Ad previewer</span><span class="private">Private client workspace</span></header>${content}<div class="messages"></div>` }
+function footer() { return `<footer class="footer"><span class="sorted">Sorted<i>.</i></span><p>Clear feedback. Better creative.</p><span>Draft previews · Platform appearance may vary</span></footer>` }
+function shell(content) { return `<header class="topbar"><div class="sorted">Sorted<i>.</i></div><span class="product">Ad Review</span><span class="private">Private workspace</span></header>${content}${footer()}<div class="messages"></div>` }
 
 function accessView() {
-  return shell(`<main class="access"><div class="access-mark">↗</div><p class="eyebrow">Private review workspace</p><h1>Welcome to Ad previewer.</h1><p>Review each campaign idea and exact ad. Approve what works, or leave a precise change request.</p><form id="access-form"><label>Your name<input name="reviewer" autocomplete="name" required value="${esc(state.reviewer)}" placeholder="Name"></label><label>Access code<input name="token" type="password" autocomplete="current-password" required placeholder="Private access code"></label><button>Open workspace <span>→</span></button></form>${state.error ? `<p class="error">${esc(state.error)}</p>` : ''}</main>`)
+  return shell(`<main class="access"><div class="access-mark">↗</div><p class="eyebrow">Private review workspace</p><h1>Your next campaign,<br>ready for your eyes.</h1><p>Review the ideas, explore the ads, and tell us what you think. Every decision goes back to Sorted.</p><form id="access-form"><label>Your name<input name="reviewer" autocomplete="name" required value="${esc(state.reviewer)}" placeholder="How should we record your feedback?"></label><label>Review access code<input name="token" type="password" autocomplete="current-password" required placeholder="Enter the code from Sorted"></label><button>Open review board <span>→</span></button></form>${state.error ? `<p class="error">${esc(state.error)}</p>` : ''}</main>`)
 }
 
 function campaignIndex() {
   const cards = state.data.campaigns.map(campaign => {
     const ads = adsOf(campaign); const approved = ads.filter(ad => statusOf(campaign, ad) === 'approved').length
-    return `<button class="campaign-card" data-campaign="${esc(campaign.id)}"><span class="eyebrow">${esc(campaign.platform)} campaign · ${ads.length} ads</span><h2>${esc(campaign.name)}</h2><p>${esc(campaign.objective)}</p><span class="campaign-meta"><span>Revision ${campaign.revision}</span><strong>${approved}/${ads.length} approved →</strong></span></button>`
+    return `<button class="campaign-card" data-campaign="${esc(campaign.id)}"><span><small>${esc(campaign.platform)} · Draft campaign</small><strong>${esc(campaign.name)}</strong><span>${esc(campaign.objective)}</span></span><span class="campaign-meta"><strong>${approved} / ${ads.length}</strong><small>ads approved</small></span>→</button>`
   }).join('')
   return shell(`<main class="main"><section class="hero"><div><p class="eyebrow">${esc(state.data.tenant.name)}</p><h1>Campaigns ready for your review.</h1><p>Approve the strategic direction first, then review each individual execution. An ad approval applies only to the exact copy, image, CTA and destination shown.</p></div><div class="reviewer"><label>Reviewing as<input id="reviewer" value="${esc(state.reviewer)}"></label></div></section><section class="campaign-list">${cards || '<p>No campaigns are ready yet.</p>'}</section></main>`)
 }
 
 function adCard(campaign, concept, ad) {
   const decision = latest(campaign, ad); const status = decision?.status || 'awaiting_review'; const ratioClass = ad.ratio === '1:1' ? 'square' : ad.ratio === '16:9' ? 'wide' : ''
-  return `<article class="ad-card"><div class="ad-meta"><strong>${esc(ad.id)}</strong><span>${esc(ad.placement.replaceAll('_',' '))} · ${esc(ad.ratio)}</span></div><div class="ad-id"><span class="avatar">SOS</span><div><strong>School of Skill</strong><small>Sponsored · Public</small></div></div><p class="ad-text">${esc(ad.primary_text)}</p><div class="creative ${ratioClass}"><img src="${origin}${esc(ad.creative_key)}" alt="${esc(ad.creative_alt)}" loading="lazy"></div><div class="destination"><div><small>schoolofskill.co.uk</small><h3>${esc(ad.headline)}</h3><p>${esc(ad.description)}</p></div><span class="mock-cta">${esc(ctaLabels[ad.cta] || ad.cta)}</span></div><div class="social"><span>Like</span><span>Comment</span><span>Share</span></div><div class="review"><div class="review-head"><strong>Review ${esc(ad.id)}</strong><span class="status ${status}">${esc(labels[status])}</span></div>${decision ? `<div class="decision">${decision.comment ? `<p>${esc(decision.comment)}</p>` : ''}<small>${esc(decision.reviewer)} · ${date(decision.created_at)}</small></div>` : ''}<div class="actions"><button class="approve" data-decision="approved" data-type="ad" data-target="${esc(ad.id)}">Approve</button><button data-change="${esc(ad.id)}">Request change</button><button class="reject" data-decision="rejected" data-type="ad" data-target="${esc(ad.id)}">Reject</button></div><form class="change-form" data-change-form="${esc(ad.id)}" hidden><label>What would you like changed?</label><textarea name="comment" required maxlength="2000" placeholder="Be specific about the copy, image or direction"></textarea><div><button class="approve">Submit request</button><button type="button" data-cancel="${esc(ad.id)}">Cancel</button></div></form></div></article>`
+  const name = state.data.tenant.name; const initials = tenantInitials(name); const site = tenantWebsite(ad.destination_url)
+  return `<article class="ad-card"><div class="ad-meta"><strong>${esc(ad.id)}</strong><span>${esc(ad.placement.replaceAll('_',' '))} · ${esc(ad.ratio)}</span></div><div class="ad-id"><span class="avatar">${esc(initials)}</span><div><strong>${esc(name)}</strong><small>Sponsored · Public</small></div></div><p class="ad-text">${esc(ad.primary_text)}</p><div class="creative ${ratioClass}"><img src="${origin}${esc(ad.creative_key)}" alt="${esc(ad.creative_alt)}" loading="lazy"></div><div class="destination"><div><small>${esc(site)}</small><h3>${esc(ad.headline)}</h3><p>${esc(ad.description)}</p></div><span class="mock-cta">${esc(ctaLabels[ad.cta] || ad.cta)}</span></div><div class="social"><span>Like</span><span>Comment</span><span>Share</span></div><div class="review"><div class="review-head"><strong>Review ${esc(ad.id)}</strong><span class="status ${status}">${esc(labels[status])}</span></div>${decision ? `<div class="decision">${decision.comment ? `<p>${esc(decision.comment)}</p>` : ''}<small>${esc(decision.reviewer)} · ${date(decision.created_at)}</small></div>` : ''}<div class="actions"><button class="approve" data-decision="approved" data-type="ad" data-target="${esc(ad.id)}">Approve</button><button data-change="${esc(ad.id)}">Request change</button><button class="reject" data-decision="rejected" data-type="ad" data-target="${esc(ad.id)}">Reject</button></div><form class="change-form" data-change-form="${esc(ad.id)}" hidden><label>What would you like changed?</label><textarea name="comment" required maxlength="2000" placeholder="Be specific about the copy, image or direction"></textarea><div><button class="approve">Submit request</button><button type="button" data-cancel="${esc(ad.id)}">Cancel</button></div></form></div></article>`
 }
 
 function campaignView(campaign) {
@@ -80,10 +92,27 @@ function campaignView(campaign) {
   }).join('')
   const summaries = [['awaiting_review',count('awaiting_review')],['approved',approved],['changes_requested',count('changes_requested')],['rejected',count('rejected')]].map(([key,value]) => `<button data-filter="${key}" class="${state.filter === key ? 'active' : ''}"><strong>${value}</strong>${esc(labels[key])}</button>`).join('')
   const options = campaign.concepts.map(c => `<option value="${esc(c.id)}" ${state.concept === c.id ? 'selected' : ''}>${esc(c.name)}</option>`).join('')
-  return shell(`<main class="main"><button class="breadcrumb" id="back">← All campaigns</button><section class="campaign-head"><div><p class="eyebrow">${esc(state.data.tenant.name)} · ${esc(campaign.platform)} · revision ${campaign.revision}</p><h1>${esc(campaign.name)}</h1><p>${esc(campaign.objective)}</p></div><div class="progress"><strong>${approved}<span>/${ads.length}</span></strong><p>ads approved</p><div class="progress-bar"><i style="width:${ads.length ? approved/ads.length*100 : 0}%"></i></div><small>Concept and ad approvals are separate.</small></div></section><div class="summary"><button data-filter="all" class="${state.filter === 'all' ? 'active' : ''}"><strong>${ads.length}</strong>All ads</button>${summaries}</div><div class="toolbar"><p>Review the idea, then the exact execution.</p><select id="concept-filter"><option value="all">All concepts</option>${options}</select></div>${concepts || '<div class="empty">No ads match this filter.</div>'}</main>`)
+  const tabs = [['all','All ads'],['awaiting_review',labels.awaiting_review],['approved',labels.approved],['changes_requested',labels.changes_requested],['rejected',labels.rejected]].map(([key,label]) => `<button data-filter="${key}" class="${state.filter === key ? 'active' : ''}">${esc(label)}</button>`).join('')
+  return shell(`<main class="main"><button class="breadcrumb" id="back">← All campaigns</button><section class="campaign-head"><div><p class="eyebrow">${esc(state.data.tenant.name)} · ${esc(campaign.platform)} · revision ${campaign.revision}</p><h1>${esc(campaign.name)}</h1><p>${esc(campaign.objective)}</p></div><div class="progress"><strong>${approved}<span>/${ads.length}</span></strong><p>ads approved</p><div class="progress-bar"><i style="width:${ads.length ? approved/ads.length*100 : 0}%"></i></div><small>Concept and ad approvals are separate.</small></div></section><div class="summary">${summaries}</div><div class="guide"><span class="guide-number">01</span><span>Choose a concept</span><span class="guide-number">02</span><span>Review each execution</span><span class="guide-number">03</span><span>Approve or leave feedback</span></div><div class="toolbar"><div class="tabs">${tabs}</div><select id="concept-filter"><option value="all">All concepts</option>${options}</select></div>${concepts || '<div class="empty">No ads match this filter.</div>'}</main>`)
 }
 
 function bind() {
+  if (state.data?.role === 'editor' && state.campaign) {
+    attachImageEditor({ state, api, esc, imageUrl, reload: load, date })
+  }
+  document.querySelectorAll('.ad-card').forEach((card, index) => {
+    const campaign = state.data?.campaigns.find(c => c.id === state.campaign)
+    if (!campaign) return
+    const id = card.querySelector('.ad-meta strong')?.textContent
+    const ad = adsOf(campaign).find(item => item.id === id)
+    if (ad) { const img = card.querySelector('.creative img'); img.src = imageUrl(ad.creative_key); img.style.cssText = imageStyle(ad) }
+  })
+  if (state.data) {
+    const access = document.createElement('button')
+    access.textContent = state.data.role === 'editor' ? 'Editor · Sign out' : 'Switch access'
+    access.addEventListener('click', () => { sessionStorage.removeItem(`ad-preview-token:${tenant}`); state.token = ''; state.data = null; state.campaign = null; render() })
+    document.querySelector('.topbar')?.append(access)
+  }
   document.querySelector('#access-form')?.addEventListener('submit', signIn)
   document.querySelector('#reviewer')?.addEventListener('change', event => { state.reviewer = event.target.value.trim(); sessionStorage.setItem(`ad-preview-reviewer:${tenant}`, state.reviewer) })
   document.querySelectorAll('[data-campaign]').forEach(button => button.addEventListener('click', () => { state.campaign = button.dataset.campaign; state.filter = 'all'; state.concept = 'all'; render() }))

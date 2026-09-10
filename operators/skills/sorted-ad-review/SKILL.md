@@ -52,6 +52,16 @@ IDs stable, revisions immutable and creative object keys content-addressed or im
 Verify claims and destination URLs before requesting approval. Keep internal notes out
 of the client response.
 
+Named portal editors can correct image selections, upload client assets, adjust photo
+crops and restore earlier selections. Manual selections are protected by the server;
+only an editor can release them. Reviewer codes never grant editing rights.
+
+Before revising a campaign, GET the authenticated ingestion endpoint with `campaign_id`.
+Use the returned `base_revision`, package, asset library and `image_locks`. Preserve
+protected image keys, crops, ratios and ads. POST a new revision exactly one greater
+than the base. New campaigns use base 0. Treat HTTP 409 as a conflict requiring a fresh
+read and reconciliation, never as a reason to overwrite or recreate protected ads.
+
 Concept approval and ad approval are separate. A changed fingerprint cannot inherit an
 earlier approval. Ingestion must be idempotent by tenant, campaign ID and revision.
 

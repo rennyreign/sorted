@@ -7,7 +7,7 @@ test('portal uses the required product name and private indexing policy', async 
     readFile(new URL('../public/shell.php', import.meta.url), 'utf8'),
     readFile(new URL('../public/.htaccess', import.meta.url), 'utf8'),
   ])
-  assert.match(shell, /Ad previewer/)
+  assert.match(shell, /Ad Review/)
   assert.match(shell, /noindex,nofollow/)
   assert.match(htaccess, /X-Robots-Tag "noindex, nofollow"/)
 })
