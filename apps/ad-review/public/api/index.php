@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 const STATUSES = ['awaiting_review', 'approved', 'changes_requested', 'rejected'];
 const TARGET_TYPES = ['concept', 'ad'];
+require_once __DIR__ . '/editor.php';
 
 function respond(array $body, int $status = 200, array $headers = []): never {
     http_response_code($status);
@@ -68,21 +69,21 @@ function validatePackage(?array $input): array {
     if (!is_array($campaign) || !preg_match($slug, $campaign['id'] ?? '') || !is_int($campaign['revision'] ?? null) || $campaign['revision'] < 1) $errors[] = 'campaign identity is invalid';
     if (($campaign['platform'] ?? '') !== 'meta' || !trim($campaign['name'] ?? '') || !trim($campaign['objective'] ?? '')) $errors[] = 'campaign fields are invalid';
     if (empty($campaign['concepts']) || !is_array($campaign['concepts'])) $errors[] = 'campaign concepts are required';
-    $conceptIds = [];
+    $conceptIds = []; $adIds = [];
     foreach (($campaign['concepts'] ?? []) as $concept) {
         $id = $concept['id'] ?? '';
         if (!preg_match($slug, $id) || isset($conceptIds[$id])) $errors[] = 'concept id is invalid or duplicated: ' . $id;
         $conceptIds[$id] = true;
         foreach (['name', 'strategy', 'audience', 'proposition'] as $field) if (!trim($concept[$field] ?? '')) $errors[] = 'concept ' . $id . ' missing ' . $field;
         if (!is_int($concept['revision'] ?? null) || $concept['revision'] < 1 || empty($concept['ads'])) $errors[] = 'concept ' . $id . ' metadata is invalid';
-        $adIds = [];
         foreach (($concept['ads'] ?? []) as $ad) {
             $adId = $ad['id'] ?? '';
             if (!preg_match('/^[A-Za-z0-9-]+$/', $adId) || isset($adIds[$adId])) $errors[] = 'ad id is invalid or duplicated: ' . $adId;
             $adIds[$adId] = true;
             if (!is_int($ad['revision'] ?? null) || $ad['revision'] < 1 || !in_array($ad['placement'] ?? '', ['facebook_feed', 'instagram_feed'], true) || !in_array($ad['ratio'] ?? '', ['4:5', '1:1', '16:9'], true) || !in_array($ad['cta'] ?? '', ['BOOK_NOW', 'LEARN_MORE', 'SIGN_UP'], true)) $errors[] = 'ad metadata is invalid: ' . $adId;
             foreach (['primary_text', 'headline', 'description', 'creative_key', 'creative_alt', 'destination_url'] as $field) if (!trim($ad[$field] ?? '')) $errors[] = 'ad ' . $adId . ' missing ' . $field;
-            if (!preg_match('#^/creatives/[a-f0-9]{64}\.webp$#', $ad['creative_key'] ?? '')) $errors[] = 'ad ' . $adId . ' creative key is not immutable';
+            if (!preg_match('#^/(?:creatives|media/[a-z0-9-]+)/[a-f0-9]{64}\.webp$#', $ad['creative_key'] ?? '')) $errors[] = 'ad ' . $adId . ' creative key is not immutable';
+            if (isset($ad['crop'])) foreach (['x','y'] as $axis) if (!isset($ad['crop'][$axis]) || !is_numeric($ad['crop'][$axis]) || $ad['crop'][$axis] < 0 || $ad['crop'][$axis] > 100) $errors[] = 'Invalid crop: ' . $adId;
             $destination = parse_url($ad['destination_url'] ?? '');
             if (($destination['scheme'] ?? '') !== 'https' || empty($destination['host'])) $errors[] = 'ad ' . $adId . ' destination is invalid';
         }
@@ -93,15 +94,21 @@ function validatePackage(?array $input): array {
 try {
     $action = $_GET['action'] ?? 'portal';
     if ($action === 'ingest') {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') respond(['error' => 'Method not allowed.'], 405);
+        if (!in_array($_SERVER['REQUEST_METHOD'], ['GET','POST'], true)) respond(['error' => 'Method not allowed.'], 405);
         $tokenHash = hash('sha256', bearer());
         $keys = db('ad_review_agent_keys?token_hash=eq.' . $tokenHash . '&revoked_at=is.null&select=tenant_slug');
         $tenantSlug = $keys[0]['tenant_slug'] ?? '';
         if (!$tenantSlug) respond(['error' => 'Invalid ingestion credential.'], 401);
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $rows = db('ad_review_campaigns?tenant_slug=eq.' . rawurlencode($tenantSlug) . '&campaign_id=eq.' . rawurlencode($_GET['campaign_id'] ?? '') . '&order=revision.desc&limit=1&select=package');
+            $locks = db('ad_review_image_locks?tenant_slug=eq.' . rawurlencode($tenantSlug) . '&campaign_id=eq.' . rawurlencode($_GET['campaign_id'] ?? '') . '&select=ad_id,selection');
+            respond(['package' => $rows[0]['package'] ?? null, 'base_revision' => $rows[0]['package']['campaign']['revision'] ?? 0, 'image_locks' => $locks, 'assets' => tenantAssets($tenantSlug)]);
+        }
         $input = requestBody();
         $errors = validatePackage($input);
         if ($errors) respond(['error' => 'Campaign package failed validation.', 'fields' => $errors], 422);
         if ($input['client_slug'] !== $tenantSlug) respond(['error' => 'Credential is not authorised for this client.'], 403);
+        if (!is_int($input['base_revision'] ?? null) || $input['base_revision'] < 0) respond(['error' => 'Fetch the latest campaign and supply base_revision (0 for a new campaign).'], 422);
         $tenantRows = db('ad_review_tenants?slug=eq.' . rawurlencode($tenantSlug) . '&select=allowed_destination_hosts');
         $allowedHosts = $tenantRows[0]['allowed_destination_hosts'] ?? [];
         foreach ($input['campaign']['concepts'] as $concept) foreach ($concept['ads'] as $ad) if (!in_array(parse_url($ad['destination_url'], PHP_URL_HOST), $allowedHosts, true)) respond(['error' => 'Destination host is not allowed for ' . $ad['id'] . '.'], 422);
@@ -117,9 +124,9 @@ try {
         }
         unset($concept, $ad);
         $campaign = $input['campaign'];
-        db('ad_review_campaigns', 'POST', ['tenant_slug' => $tenantSlug, 'campaign_id' => $campaign['id'], 'revision' => $campaign['revision'], 'name' => $campaign['name'], 'objective' => $campaign['objective'], 'platform' => $campaign['platform'], 'status' => $campaign['status'], 'package' => $input, 'provenance' => $input['provenance'] ?? new stdClass()], ['Prefer: return=minimal']);
-        db('ad_review_ingestions', 'POST', ['tenant_slug' => $tenantSlug, 'idempotency_key' => $input['idempotency_key'], 'payload_hash' => $payloadHash, 'campaign_id' => $campaign['id'], 'campaign_revision' => $campaign['revision']], ['Prefer: return=minimal']);
-        respond(['ok' => true, 'idempotent' => false, 'campaign_id' => $campaign['id'], 'revision' => $campaign['revision']], 201);
+        ensureAssets($tenantSlug, $campaign);
+        $result = db('rpc/ad_review_write_revision', 'POST', ['p_tenant' => $tenantSlug, 'p_package' => $input, 'p_base_revision' => $input['base_revision'], 'p_actor' => 'agent', 'p_mode' => 'agent', 'p_idempotency_key' => $input['idempotency_key'], 'p_hash' => $payloadHash]);
+        respond(rpcResult($result), 201);
     }
 
     $slug = $_GET['tenant'] ?? '';
@@ -134,16 +141,41 @@ try {
     $attempts = db('ad_review_access_audit?tenant_slug=eq.' . rawurlencode($slug) . '&ip_hash=eq.' . $ipHash . '&success=eq.false&created_at=gte.' . $since . '&select=id&limit=20');
     if (count($attempts) >= 20) respond(['error' => 'Too many attempts. Try again later.'], 429, $headers);
     $expired = !empty($tenant['access_expires_at']) && strtotime($tenant['access_expires_at']) <= time();
-    $valid = bearer() !== '' && !$expired && empty($tenant['access_revoked_at']) && hash_equals($tenant['access_token_hash'], hash('sha256', bearer()));
+    $editorRows = bearer() ? db('ad_review_editors?tenant_slug=eq.' . rawurlencode($slug) . '&token_hash=eq.' . hash('sha256', bearer()) . '&revoked_at=is.null&expires_at=gt.' . rawurlencode(gmdate('c')) . '&select=name') : [];
+    $editor = $editorRows[0] ?? null;
+    $valid = $editor !== null || (bearer() !== '' && !$expired && empty($tenant['access_revoked_at']) && hash_equals($tenant['access_token_hash'], hash('sha256', bearer())));
     db('ad_review_access_audit', 'POST', ['tenant_slug' => $slug, 'ip_hash' => $ipHash, 'success' => $valid, 'user_agent' => substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 300)], ['Prefer: return=minimal']);
     if (!$valid) respond(['error' => 'That access code is not valid.'], 401, $headers);
+
+    if (in_array($action, ['upload','edit-image','unlock-image'], true)) {
+        if (!$editor) respond(['error' => 'Editor access is required to change images.'], 403, $headers);
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') respond(['error' => 'Method not allowed.'], 405, $headers);
+        if ($action === 'upload') uploadAsset($slug, $headers);
+        editImage($slug, $editor, $headers, $action);
+    }
+    if ($action === 'history') {
+        if (!$editor) respond(['error' => 'Editor access is required.'], 403, $headers);
+        if ($_SERVER['REQUEST_METHOD'] !== 'GET') respond(['error' => 'Method not allowed.'], 405, $headers);
+        $rows = db('ad_review_campaigns?tenant_slug=eq.' . rawurlencode($slug) . '&campaign_id=eq.' . rawurlencode($_GET['campaign_id'] ?? '') . '&order=revision.desc&select=revision,package,provenance,created_at');
+        $history = [];
+        foreach ($rows as $row) foreach ($row['package']['campaign']['concepts'] as $concept) foreach ($concept['ads'] as $ad) if ($ad['id'] === ($_GET['ad_id'] ?? '')) $history[] = ['ad' => $ad, 'campaign_revision' => $row['revision'], 'actor' => $row['provenance']['actor'] ?? 'Agent', 'mode' => $row['provenance']['mode'] ?? 'agent', 'created_at' => $row['created_at']];
+        respond(['history' => $history], 200, $headers);
+    }
+    if ($action !== 'portal') respond(['error' => 'Unknown action.'], 404, $headers);
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $rows = db('ad_review_campaigns?tenant_slug=eq.' . rawurlencode($slug) . '&select=campaign_id,revision,package,created_at&order=revision.desc');
         $campaigns = [];
         foreach ($rows as $row) if (!isset($campaigns[$row['campaign_id']])) $campaigns[$row['campaign_id']] = $row['package']['campaign'];
         $decisions = db('ad_review_decisions?tenant_slug=eq.' . rawurlencode($slug) . '&select=id,campaign_id,campaign_revision,target_type,target_id,fingerprint,status,comment,reviewer,created_at&order=created_at.asc');
-        respond(['tenant' => ['slug' => $tenant['slug'], 'name' => $tenant['name']], 'campaigns' => array_values($campaigns), 'decisions' => $decisions], 200, $headers);
+        $locks = $editor ? db('ad_review_image_locks?tenant_slug=eq.' . rawurlencode($slug) . '&select=campaign_id,ad_id,editor') : [];
+        $assets = tenantAssets($slug);
+        if (!$editor) {
+            $used = [];
+            foreach ($campaigns as $campaign) foreach ($campaign['concepts'] as $concept) foreach ($concept['ads'] as $ad) $used[$ad['creative_key']] = true;
+            $assets = array_values(array_filter($assets, fn($asset) => isset($used[$asset['creative_key']])));
+        }
+        respond(['tenant' => ['slug' => $tenant['slug'], 'name' => $tenant['name']], 'role' => $editor ? 'editor' : 'reviewer', 'editor_name' => $editor['name'] ?? null, 'assets' => assetUrls($assets), 'image_locks' => $locks, 'campaigns' => array_values($campaigns), 'decisions' => $decisions], 200, $headers);
     }
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') respond(['error' => 'Method not allowed.'], 405, $headers);
     $input = requestBody();
@@ -160,8 +192,9 @@ try {
         foreach ($concept['ads'] as $ad) if (($input['target_type'] === 'ad') && $ad['id'] === ($input['target_id'] ?? '')) $target = $ad;
     }
     if (!$target || !hash_equals($target['fingerprint'], $input['fingerprint'] ?? '')) respond(['error' => 'This item has changed. Refresh before reviewing it.'], 409, $headers);
-    $saved = db('ad_review_decisions', 'POST', ['tenant_slug' => $slug, 'campaign_id' => $campaign['id'], 'campaign_revision' => $campaign['revision'], 'target_type' => $input['target_type'], 'target_id' => $input['target_id'], 'fingerprint' => $input['fingerprint'], 'status' => $input['status'], 'comment' => $comment, 'reviewer' => $reviewer], ['Prefer: return=representation']);
-    respond(['decision' => $saved[0]], 201, $headers);
+    $input['comment'] = $comment;
+    $input['reviewer'] = $editor['name'] ?? $reviewer;
+    respond(rpcResult(db('rpc/ad_review_save_decision', 'POST', ['p_tenant' => $slug, 'p_decision' => $input]), $headers), 201, $headers);
 } catch (Throwable $error) {
     error_log('Ad previewer: ' . $error->getMessage());
     respond(['error' => 'Ad previewer is temporarily unavailable.'], 503);

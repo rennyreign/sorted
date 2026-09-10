@@ -56,6 +56,18 @@ Reject changes that introduce a second design system, different product name, al
 
 The agent harness is the creation surface. Validate its output before ingestion. Keep IDs stable, revisions immutable, and creative object keys content-addressed or immutable. Verify claims and destination URLs before requesting approval. Keep internal notes out of the client response.
 
+Named portal editors can select/upload images, adjust photo crops, restore earlier
+selections and explicitly release protection. Reviewer codes cannot edit. Before each
+agent revision, GET `api/?action=ingest&campaign_id=<id>` with its ingestion credential.
+Preserve returned image locks (key, crop, ratio and ad identity), submit `base_revision`
+and use campaign revision exactly one greater. New campaigns use base 0. Re-read and
+reconcile HTTP 409 conflicts; never overwrite or recreate a protected ad to bypass them.
+
+For the iframe transport, create the `/ads` embedding page first, then use installer
+`--mode iframe` with a dry run. This removes managed proxy rules and retains privacy
+headers. Current Hostinger browser checks reject proxy traffic; both clients use the
+iframe fallback. Portal release assets use a content-derived cache version.
+
 Concept approval and ad approval are separate. Reopening a concept appends an `awaiting_review` event. A changed fingerprint cannot inherit an earlier approval. Ingestion must be idempotent by tenant, campaign ID, and revision.
 
 ## Completion

@@ -91,3 +91,22 @@ Do not issue or update a live client portal until all are true:
 - changed copy or creative invalidates the previous approval;
 - the portal is `noindex, nofollow` and absent from public navigation;
 - no Meta or Google publishing permission is present in the approval product.
+## Human image correction
+
+The harness creates campaigns; named human editors can correct images in the portal.
+Use a client-specific media library as the primary selection surface and uploads as a
+secondary path. Keep image selection, crop preview and the ad copy visible together.
+Photograph crops belong to the ad, not the reusable source asset. Finished artwork
+requires a matching aspect ratio; changing text or a photograph inside it requires a
+revised source design.
+
+Manual image choices are automatically protected against agent replacement, recropping,
+ratio changes and removal. Editors explicitly release protection. Enforce this in the
+server/database, not solely in harness instructions. Require a current base revision
+and serialize editor, ingestion and decision writes. Retain history, and treat restoring
+an old selection as a new revision requiring fresh approval.
+
+Editor credentials are distinct from client reviewer codes and carry a server-owned
+name, expiry and revocation state. Client reviewers keep approval/feedback access.
+Uploads are private, immutable tenant/hash objects; only authorized library queries
+return temporary signed URLs. Never expose service credentials to the browser.
