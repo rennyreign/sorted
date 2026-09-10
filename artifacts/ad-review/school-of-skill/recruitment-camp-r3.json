@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "idempotency_key": "school-of-skill-recruitment-camp-r3",
+  "client_slug": "school-of-skill",
+  "campaign": {
+    "id": "recruitment-camp-players",
+    "revision": 3,
+    "name": "LA Recruitment Camp | Players",
+    "platform": "meta",
+    "objective": "Reach ambitious players aged 16 to 20 and move them to secure a place at the October LA recruitment camp.",
+    "status": "awaiting_review",
+    "created_at": "2026-09-10T18:45:00Z",
+    "concepts": [
+      {
+        "id": "america-is-still-the-pinnacle",
+        "revision": 1,
+        "name": "America Is Still The Pinnacle",
+        "strategy": "Enter through the fact that for a lot of ambitious UK players, America is still the goal. We know that pathway because we have lived it. Reframe the camp as the place where players can start making that ambition real through training, competition and evaluation.",
+        "audience": "Basketball players aged 16 to 20 in the UK who want to play college basketball in America and understand that wanting it and being ready for it are different.",
+        "proposition": "Train with us, compete and get evaluated. The players we believe are ready will have the opportunity to progress towards our LA trip and preparation programme.",
+        "ads": [
+          {
+            "id": "RC-101",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "For a lot of ambitious UK players, America is still the goal.\n\nBetter competition. Bigger opportunity. College basketball. A chance to see how far you can really take your game.\n\nWe know that pathway because we've lived it.\n\nSo we're giving young players here the chance to train with us, compete, get evaluated and potentially earn the opportunity to come out to LA.\n\nIf America is where you want to go, this is a chance to start making it real.\n\nRecruitment Camp. 4 October 2026. Holly Lodge High School, Smethwick. Ages 16 to 20. \u00a350 per player.",
+            "headline": "America is still the goal.",
+            "description": "Start making it real at Recruitment Camp",
+            "creative_key": "/creatives/96848318d3694d9725f730f29ad2cfa7c982f54ce303b60f3024f6d5a3997f58.webp",
+            "creative_alt": "A young basketball player holds a ball and looks out at the court.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-102",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "I've lived that journey myself.\n\nFrom UCLA to the NBA and professional basketball around the world. So when a young player tells me they want to play in America, I understand.\n\nBut wanting it and being ready for it are different things.\n\nWe need to see you play. We need to see how you move, how you make decisions, how you compete.\n\nThat's why we're running this recruitment camp. Come train with us. Let us evaluate your game properly. And if we believe you're ready, there's an opportunity to progress towards our LA trip and preparation programme.\n\n4 October 2026. Holly Lodge High School, Smethwick. Ages 16 to 20. \u00a350 per player.",
+            "headline": "If America is the ambition, come and show us your game.",
+            "description": "Recruitment Camp with Dijon Thompson",
+            "creative_key": "/creatives/c678d3deaa2cabd42a5cc3a820a263e14685f2e59c94ce25f8e138760a4bb209.webp",
+            "creative_alt": "School of Skill players on the previous LA and UCLA basketball trip.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          }
+        ]
+      },
+      {
+        "id": "being-good-where-you-are",
+        "revision": 1,
+        "name": "Being Good Where You Are",
+        "strategy": "Enter through the recognition that being one of the better players on your team is a good start. Reframe the real question: how does your game hold up when you step outside the environment you already know? The camp provides that external test.",
+        "audience": "Club, academy and National League players aged 16 to 20 who are good in their current environment but have never been assessed against players from outside their circle.",
+        "proposition": "Get a genuine idea of where you are by competing in a new environment with coaches who can tell you what the next level actually requires.",
+        "ads": [
+          {
+            "id": "RC-103",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "Being one of the better players on your team is a good sign.\n\nBut eventually, you've got to step outside that environment and see how your game holds up.\n\nThat's what we want to see.\n\nCome train with us. Compete. Let us evaluate your game and give you a genuine idea of where you are.\n\nRecruitment Camp. 4 October 2026. Holly Lodge High School, Smethwick. Ages 16 to 20. \u00a350 per player.",
+            "headline": "Being good where you are is the start.",
+            "description": "Find out how your game holds up",
+            "creative_key": "/creatives/4f38c18ac1694138bd13260b6ed19efe458d2d4dbd39735de43704bfe47444a2.webp",
+            "creative_alt": "A competitive one-on-one basketball drill at School of Skill.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-104",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "You're good in your league. You know that.\n\nBut one of the hardest things in basketball is knowing how good you are outside the environment you already know.\n\nYour teammates know you. Your coach knows you. You know the competition.\n\nCome and put yourself somewhere new. Let us see how you compete when the level rises. We'll tell you where you are and what comes next.\n\nRecruitment Camp. 4 October 2026. Holly Lodge High School, Smethwick. Ages 16 to 20. \u00a350 per player.",
+            "headline": "If you want the next level, measure yourself against it.",
+            "description": "Recruitment Camp. Real evaluation.",
+            "creative_key": "/creatives/8e77860f01f99707e7ecc6901bb85e4f0f670792694eda87c9ef0f32a9ac572a.webp",
+            "creative_alt": "A player defends in a one-on-one situation at School of Skill.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          }
+        ]
+      },
+      {
+        "id": "youve-heard-youre-talented",
+        "revision": 1,
+        "name": "You've Heard You're Talented",
+        "strategy": "Enter through the truth that serious young players hear praise all the time. Reframe the need: not more encouragement, but an honest evaluation from someone who understands the level they want to reach.",
+        "audience": "Talented players aged 16 to 20 who have been told they have potential and want a clearer picture of what the next step actually requires.",
+        "proposition": "Get evaluated by people who can tell you what your game looks like at the next level and what needs work before you can move forward.",
+        "ads": [
+          {
+            "id": "RC-105",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "You've probably heard that you're talented.\n\nGood. Now let's find out what that talent looks like at the next level.\n\nCome train with us. Let us see your game, coach you, push you and give you a proper evaluation.\n\nYou don't need more people telling you you're good. You need to know what comes next.\n\nRecruitment Camp. 4 October 2026. Holly Lodge High School, Smethwick. Ages 16 to 20. \u00a350 per player.",
+            "headline": "More than highlights.",
+            "description": "Show us how you actually compete",
+            "creative_key": "/creatives/32e91d27f58d152622b463d0593481dee4b3589002b71d5e998d7b50552c9740.webp",
+            "creative_alt": "A basketball player attacks the rim during live play at School of Skill.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-106",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "If you're a serious young player, you've probably heard it plenty of times.\n\n'You've got potential.'\n\n'You could go far.'\n\n'You're one of the best players here.'\n\nThat's great. Take the confidence from it.\n\nBut eventually you need more than encouragement. You need somebody who understands the level you want to reach to look at your game and tell you what they actually see.\n\nCome and train with us. We'll push you, coach you and evaluate where your game is. If you're ready, we'll talk about what that pathway could look like. If not, we'll tell you what's missing.\n\nEither answer is more useful than another person telling you you've got potential.\n\n4 October 2026. Holly Lodge High School, Smethwick. Ages 16 to 20. \u00a350 per player.",
+            "headline": "Either answer is more useful.",
+            "description": "Real feedback from Dijon Thompson",
+            "creative_key": "/creatives/1f6c3c9b0ada401761aa9dc847ba48366f7b25ec777f9165fc1616ce747dd3f7.webp",
+            "creative_alt": "Dijon Thompson in a Phoenix Suns jersey with a basketball.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          }
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "agent": "recognition-belief-framework",
+    "run_id": "sos-campaign-library-2026-09-10-r3",
+    "created_by": "Devin for Sorted"
+  }
+}
