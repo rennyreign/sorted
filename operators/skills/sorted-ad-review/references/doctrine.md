@@ -32,6 +32,12 @@ The proxy maps the public client route to a server-owned tenant path such as
 on the client's domain. The central application must use base-path-safe or absolute
 assets and must not trust a browser-supplied client ID.
 
+When the hosting provider's browser checks reject proxy traffic, a client `/ads/` page
+may embed the same central tenant URL in an iframe. This is the current School of Skill
+and Edgbaston configuration. Use installer `--mode iframe` to remove managed proxies,
+retain privacy headers and avoid intercepting the static embedding page. The central
+database, credentials and revision rules remain unchanged.
+
 For a Netlify client site, installing the proxy requires one intentional deploy. After
 that, campaign creation, revision and approval are database operations and consume no
 client-site build credits. Changes to the central portal code deploy only the central

@@ -6,6 +6,10 @@ Production origin: `https://sortmydigital.site/ad-previewer`
 
 Client sites install one reverse proxy from `/ads/` to `/ad-previewer/portal/<tenant>/`. Campaign creation, revisions and decisions then use the central database and do not rebuild client sites.
 
+On the current Hostinger setup, School of Skill and Edgbaston instead embed that tenant
+URL in their `/ads/` page: the host's browser checks reject proxy traffic. Use installer
+`--mode iframe` for this configuration. Both approaches use the same central product.
+
 ## Runtime
 
 - Static interface and PHP API on Hostinger
@@ -76,6 +80,9 @@ Never share the editor code as a client review code.
    `api/editor.php`. No client rebuild is needed for existing central embeds/proxies.
 3. Issue editor credentials and check editor/reviewer access separately.
 4. Migrate prototype client campaigns and register their tenants before changing routes.
+
+Portal entry points use a content-derived release query on JS/CSS. Imported editor
+assets inherit it, so returning reviewers receive updates despite host/CDN caching.
 
 The new agent contract requires **base_revision**: fetch
 `GET api/?action=ingest&campaign_id=<id>` using the tenant's ingestion credential,
