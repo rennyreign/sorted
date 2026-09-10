@@ -1,7 +1,11 @@
-import { attachImageEditor, imageStyle } from './image-editor.js'
+const editorModule = new URL('./image-editor.js', import.meta.url)
+editorModule.search = new URL(import.meta.url).search
+const { attachImageEditor, imageStyle } = await import(editorModule.href)
 const editorStyles = document.createElement('link')
 editorStyles.rel = 'stylesheet'
-editorStyles.href = new URL('./image-editor.css', import.meta.url).href
+const editorStyleUrl = new URL('./image-editor.css', import.meta.url)
+editorStyleUrl.search = new URL(import.meta.url).search
+editorStyles.href = editorStyleUrl.href
 document.head.append(editorStyles)
 const root = document.documentElement
 const tenant = root.dataset.tenant
