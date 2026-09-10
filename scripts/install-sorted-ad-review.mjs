@@ -29,6 +29,7 @@ if (!/^https:\/\//.test(origin) && !/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/
 
 const target = resolve(process.cwd(), targetArg)
 const configPath = join(target, 'netlify.toml')
+const redirectsPath = join(target, 'public', '_redirects')
 if (!existsSync(join(target, '.git'))) throw new Error(`Target is not a Git checkout: ${target}`)
 let branch = ''
 try { branch = execFileSync('git', ['-C', target, 'branch', '--show-current'], { encoding: 'utf8' }).trim() } catch {}
@@ -63,8 +64,22 @@ const next = managed.test(existing)
   ? existing.replace(managed, block)
   : `${existing.trimEnd()}${existing.trim() ? '\n\n' : ''}${block}\n`
 
+const redirectsStart = '# BEGIN SORTED AD REVIEW managed block'
+const redirectsEnd = '# END SORTED AD REVIEW managed block'
+const redirectsBlock = `${redirectsStart}
+/ads ${origin}/portal/${slug} 200!
+/ads/* ${origin}/portal/${slug}/:splat 200!
+${redirectsEnd}`
+const redirectsExisting = existsSync(redirectsPath) ? readFileSync(redirectsPath, 'utf8') : ''
+const redirectsManaged = new RegExp(`${redirectsStart.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[\\s\\S]*?${redirectsEnd.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'm')
+const redirectsNext = redirectsManaged.test(redirectsExisting)
+  ? redirectsExisting.replace(redirectsManaged, redirectsBlock)
+  : `${redirectsExisting.trimEnd()}${redirectsExisting.trim() ? '\n\n' : ''}${redirectsBlock}\n`
+
 console.log(`${flag('dry-run') ? 'Would configure' : 'Configuring'} ${target}`)
 console.log(`Public route: /ads/`)
 console.log(`Tenant target: ${origin}/portal/${slug}/`)
-if (!flag('dry-run')) writeFileSync(configPath, next)
-
+if (!flag('dry-run')) {
+  writeFileSync(configPath, next)
+  if (existsSync(join(target, 'public'))) writeFileSync(redirectsPath, redirectsNext)
+}
