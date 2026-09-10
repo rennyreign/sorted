@@ -9,13 +9,15 @@ const value = name => {
 }
 const flag = name => args.includes(`--${name}`)
 const usage = () => console.log(`Usage:
-  node scripts/install-sorted-ad-review.mjs --target ../client-repo --slug client-slug --portal-origin https://ads.sortmydigital.site [--dry-run]
+  node scripts/install-sorted-ad-review.mjs --target ../client-repo --slug client-slug --portal-origin https://ads.sortmydigital.site [--mode proxy|iframe] [--dry-run]
 `)
 
 if (flag('help') || flag('h')) { usage(); process.exit(0) }
 
 const targetArg = value('target')
 const slug = value('slug')
+const mode = value('mode') || 'proxy'
+if (!['proxy','iframe'].includes(mode)) throw new Error('Mode must be proxy or iframe')
 const originArg = value('portal-origin') || process.env.SORTED_AD_REVIEW_ORIGIN || ''
 if (!targetArg || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) || !originArg) {
   usage()
@@ -35,10 +37,21 @@ let branch = ''
 try { branch = execFileSync('git', ['-C', target, 'branch', '--show-current'], { encoding: 'utf8' }).trim() } catch {}
 if (!branch) throw new Error('Could not determine target branch')
 if (branch === 'main' || branch === 'master') throw new Error(`Refusing to install on ${branch}; create a feature branch first`)
+if (mode === 'iframe') {
+  const route = join(target,'app','ads','page.tsx')
+  if (!existsSync(route) || !readFileSync(route,'utf8').includes(`${origin}/portal/${slug}/`)) throw new Error('Iframe mode requires an /ads page embedding the intended central tenant route first')
+}
 
 const start = '# BEGIN SORTED AD REVIEW — managed block'
 const end = '# END SORTED AD REVIEW — managed block'
-const block = `${start}
+const block = mode === 'iframe' ? `${start}
+# The /ads page embeds the central tenant. Do not proxy: upstream protection can reject server-to-server requests.
+[[headers]]
+  for = "/ads/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-store"
+${end}` : `${start}
 [[redirects]]
   from = "/ads"
   to = "${origin}/portal/${slug}/"
@@ -66,7 +79,7 @@ const next = managed.test(existing)
 
 const redirectsStart = '# BEGIN SORTED AD REVIEW managed block'
 const redirectsEnd = '# END SORTED AD REVIEW managed block'
-const redirectsBlock = `${redirectsStart}
+const redirectsBlock = mode === 'iframe' ? '' : `${redirectsStart}
 /ads ${origin}/portal/${slug}/ 200!
 /ads/* ${origin}/portal/${slug}/ 200!
 ${redirectsEnd}`
@@ -77,7 +90,7 @@ const redirectsNext = redirectsManaged.test(redirectsExisting)
   : `${redirectsExisting.trimEnd()}${redirectsExisting.trim() ? '\n\n' : ''}${redirectsBlock}\n`
 
 console.log(`${flag('dry-run') ? 'Would configure' : 'Configuring'} ${target}`)
-console.log(`Public route: /ads/`)
+console.log(`Public route: /ads/ (${mode})`)
 console.log(`Tenant target: ${origin}/portal/${slug}/`)
 if (!flag('dry-run')) {
   writeFileSync(configPath, next)

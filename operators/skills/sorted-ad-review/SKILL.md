@@ -21,7 +21,7 @@ creating or ingesting a campaign, also read
 - **QA:** verify access, tenant isolation, campaign hierarchy, exact-revision approval,
   comments, persistence, responsive layout and `noindex` behaviour.
 - **Upgrade:** update the central product once. Change client proxy configuration only
-  when the route or central origin actually changes.
+when the route or central origin actually changes.
 
 ## Provisioning rules
 
@@ -44,6 +44,12 @@ and review decisions must not trigger later client-site builds.
 Do not provision when the central service, tenant record or secure access path is
 missing. Do not embed service credentials, shared database keys or campaign content in
 the client repository.
+
+If the host rejects reverse-proxy requests, use the existing iframe fallback: create
+the client `/ads` page embedding the exact central tenant URL, then run the installer
+with `--mode iframe` (dry run first). This removes managed proxies so the static page
+can load, while retaining private-indexing headers. Test in a browser through the
+host's ordinary browser check. School of Skill and Edgbaston use this fallback.
 
 ## Campaign rules
 
