@@ -7,7 +7,7 @@ if (!preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $tenant)) {
     exit('Not found');
 }
 $origin = 'https://sortmydigital.site/ad-previewer';
-$interfaceVersion = '1.0.0';
+$interfaceVersion = '1.1.0';
 header('Content-Type: text/html; charset=utf-8');
 header('Cache-Control: no-store');
 header('X-Robots-Tag: noindex, nofollow');

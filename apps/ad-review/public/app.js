@@ -1,3 +1,12 @@
+const editorModule = new URL('./image-editor.js', import.meta.url)
+editorModule.search = new URL(import.meta.url).search
+const { attachImageEditor, imageStyle } = await import(editorModule.href)
+const editorStyles = document.createElement('link')
+editorStyles.rel = 'stylesheet'
+const editorStyleUrl = new URL('./image-editor.css', import.meta.url)
+editorStyleUrl.search = new URL(import.meta.url).search
+editorStyles.href = editorStyleUrl.href
+document.head.append(editorStyles)
 const root = document.documentElement
 const tenant = root.dataset.tenant
 const origin = root.dataset.origin || 'https://sortmydigital.site/ad-previewer'
@@ -20,6 +29,7 @@ const ctaLabels = { BOOK_NOW: 'Book Now', LEARN_MORE: 'Learn More', SIGN_UP: 'Si
 const esc = value => String(value ?? '').replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character])
 const date = value => new Date(value).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })
 const adsOf = campaign => campaign.concepts.flatMap(concept => concept.ads)
+const imageUrl = key => state.data?.assets?.find(asset => asset.creative_key === key)?.url || `${origin}${key}`
 const tenantInitials = name => String(name || '').split(/\s+/).map(word => word[0]).join('').slice(0, 3).toUpperCase()
 const tenantWebsite = url => { try { return new URL(url).hostname.replace(/^www\./, '') } catch { return '' } }
 const titleCase = value => String(value || '').replaceAll('_', ' ').replace(/\b\w/g, character => character.toUpperCase())
@@ -51,13 +61,15 @@ function statusBadge(status) {
   return `<span class="status ${status}"><span class="dot"></span>${esc(labels[status])}</span>`
 }
 
-async function api(method, body) {
-  const response = await fetch(`${origin}/api/?tenant=${encodeURIComponent(tenant)}`, {
+async function api(method, body, action = 'portal', query = {}) {
+  const multipart = body instanceof FormData
+  const params = new URLSearchParams({ tenant, action, ...query })
+  const response = await fetch(`${origin}/api/?${params}`, {
     method,
     cache: 'no-store',
-    headers: { Authorization: `Bearer ${state.token}`, 'Content-Type': 'application/json' },
-    ...(body ? { body: JSON.stringify(body) } : {}),
-    signal: AbortSignal.timeout(15000)
+    headers: { Authorization: `Bearer ${state.token}`, ...(!multipart ? { 'Content-Type': 'application/json' } : {}) },
+    ...(body ? { body: multipart ? body : JSON.stringify(body) } : {}),
+    signal: AbortSignal.timeout(multipart ? 60000 : 15000)
   })
   const data = await response.json().catch(() => ({}))
   if (!response.ok) throw new Error(data.error || 'The board could not be loaded.')
@@ -167,7 +179,7 @@ function adPreview(campaign, ad) {
   const name = state.data.tenant.name
   const initials = tenantInitials(name)
   const website = tenantWebsite(ad.destination_url)
-  return `<div class="ad"><div class="adIdentity"><div class="avatar">${esc(initials)}</div><div><strong>${esc(name)}</strong><small>Sponsored · ${icon('globe', 11)}</small></div>${icon('more', 20)}</div><p class="adText">${esc(ad.primary_text)}</p><div class="creative" style="aspect-ratio:${esc(ad.ratio.replace(':', '/'))}"><img src="${origin}${esc(ad.creative_key)}" alt="${esc(ad.creative_alt)}" loading="lazy"></div><div class="adDestination"><div><small>${esc(website)}</small><h3>${esc(ad.headline)}</h3><p>${esc(ad.description)}</p></div><span class="mockCta">${esc(ctaLabels[ad.cta] || titleCase(ad.cta))}</span></div><div class="adSocial" aria-hidden="true"><span>${icon('thumbsUp', 15)} Like</span><span>${icon('message', 15)} Comment</span><span>↗ Share</span></div></div>`
+  return `<div class="ad"><div class="adIdentity"><div class="avatar">${esc(initials)}</div><div><strong>${esc(name)}</strong><small>Sponsored · ${icon('globe', 11)}</small></div>${icon('more', 20)}</div><p class="adText">${esc(ad.primary_text)}</p><div class="creative" style="aspect-ratio:${esc(ad.ratio.replace(':', '/'))}"><img src="${esc(imageUrl(ad.creative_key))}" style="${imageStyle(ad)}" alt="${esc(ad.creative_alt)}" loading="lazy"></div><div class="adDestination"><div><small>${esc(website)}</small><h3>${esc(ad.headline)}</h3><p>${esc(ad.description)}</p></div><span class="mockCta">${esc(ctaLabels[ad.cta] || titleCase(ad.cta))}</span></div><div class="adSocial" aria-hidden="true"><span>${icon('thumbsUp', 15)} Like</span><span>${icon('message', 15)} Comment</span><span>↗ Share</span></div></div>`
 }
 function reviewControls(campaign, ad) {
   const decision = latest(campaign, ad)
@@ -180,7 +192,7 @@ function conceptView(campaign, concept) {
   const index = campaign.concepts.findIndex(candidate => candidate.id === concept.id) + 1
   const cards = visibleAds.map(ad => {
     const hasEarlierRevision = state.data.decisions.some(event => event.campaign_id === campaign.id && event.target_id === ad.id && event.fingerprint !== ad.fingerprint)
-    return `<article class="card"><div class="cardMeta"><span>${esc(ad.id)} <span class="muted">· v${ad.revision}</span></span><span>${esc(ad.ratio)} · Feed</span></div>${adPreview(campaign, ad)}<div class="review"><div class="reviewHead">${statusBadge(statusOf(campaign, ad))}<button class="quiet" data-detail="${esc(ad.id)}">Ad details ${icon('arrowUpRight', 14)}</button></div>${reviewControls(campaign, ad)}${hasEarlierRevision ? '<p class="revisionNote">This execution has changed. Earlier approvals do not apply.</p>' : ''}</div></article>`
+    return `<article class="card" data-ad-id="${esc(ad.id)}"><div class="cardMeta"><span>${esc(ad.id)} <span class="muted">· v${ad.revision}</span></span><span>${esc(ad.ratio)} · Feed</span></div>${adPreview(campaign, ad)}<div class="review"><div class="reviewHead">${statusBadge(statusOf(campaign, ad))}<button class="quiet" data-detail="${esc(ad.id)}">Ad details ${icon('arrowUpRight', 14)}</button></div>${reviewControls(campaign, ad)}${hasEarlierRevision ? '<p class="revisionNote">This execution has changed. Earlier approvals do not apply.</p>' : ''}</div></article>`
   }).join('')
   return `<section class="concept" aria-labelledby="concept-${esc(concept.id)}"><div class="conceptHead"><span class="index">${String(index).padStart(2, '0')}</span><div class="conceptInfo"><h2 id="concept-${esc(concept.id)}">${esc(concept.name)}</h2><p>${esc(concept.strategy)}</p><details><summary>Audience &amp; proposition ${icon('chevronDown', 14)}</summary><p><strong>Audience:</strong> ${esc(concept.audience)}</p><p><strong>Proposition:</strong> ${esc(concept.proposition)}</p></details></div><div class="conceptDecision">${statusBadge(conceptStatus)}<button data-decision="${conceptStatus === 'approved' ? 'awaiting_review' : 'approved'}" data-type="concept" data-target="${esc(concept.id)}" ${state.busy ? 'disabled' : ''}>${conceptStatus === 'approved' ? 'Reopen concept' : 'Approve concept'} ${icon('check', 15)}</button><small>Direction only; ads need separate approval.</small></div></div><div class="grid">${cards}</div></section>`
 }
@@ -246,6 +258,9 @@ function signOut() {
   render()
 }
 function bind() {
+  if (state.data?.role === 'editor' && state.campaign) attachImageEditor({ state, api, esc, imageUrl, reload: refresh, date })
+  const signOutButton = document.querySelector('#sign-out')
+  if (signOutButton) signOutButton.textContent = state.data.role === 'editor' ? 'Editor · Sign out' : 'Switch access'
   document.querySelector('#access-form')?.addEventListener('submit', signIn)
   document.querySelector('#sign-out')?.addEventListener('click', signOut)
   document.querySelector('#refresh')?.addEventListener('click', refresh)
