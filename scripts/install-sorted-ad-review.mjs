@@ -41,13 +41,13 @@ const end = '# END SORTED AD REVIEW — managed block'
 const block = `${start}
 [[redirects]]
   from = "/ads"
-  to = "${origin}/portal/${slug}"
+  to = "${origin}/shell.php?tenant=${slug}"
   status = 200
   force = true
 
 [[redirects]]
   from = "/ads/*"
-  to = "${origin}/portal/${slug}/:splat"
+  to = "${origin}/shell.php?tenant=${slug}"
   status = 200
   force = true
 
@@ -67,8 +67,8 @@ const next = managed.test(existing)
 const redirectsStart = '# BEGIN SORTED AD REVIEW managed block'
 const redirectsEnd = '# END SORTED AD REVIEW managed block'
 const redirectsBlock = `${redirectsStart}
-/ads ${origin}/portal/${slug} 200!
-/ads/* ${origin}/portal/${slug}/:splat 200!
+/ads ${origin}/shell.php?tenant=${slug} 200!
+/ads/* ${origin}/shell.php?tenant=${slug} 200!
 ${redirectsEnd}`
 const redirectsExisting = existsSync(redirectsPath) ? readFileSync(redirectsPath, 'utf8') : ''
 const redirectsManaged = new RegExp(`${redirectsStart.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[\\s\\S]*?${redirectsEnd.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'm')
