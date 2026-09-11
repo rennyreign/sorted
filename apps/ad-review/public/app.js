@@ -184,7 +184,7 @@ function adPreview(campaign, ad) {
 function copyEditor(campaign, ad) {
   const limits = { primary_text: 2000, headline: 40, description: 60 }
   const fields = [['primary_text', 'Primary text', 'textarea'], ['headline', 'Headline', 'input'], ['description', 'Description', 'input']]
-  const inputs = fields.map(([key, label, type]) => `<label>${label}<${type} name="${key}" maxlength="${limits[key]}" required ${type === 'input' ? 'type="text"' : 'rows="4"'}>${type === 'textarea' ? esc(ad[key]) : ''}</${type}><small class="char-count" data-count="${key}">${esc(ad[key]).length} / ${limits[key]}</small></label>`).join('')
+  const inputs = fields.map(([key, label, type]) => `<label>${label}<${type} name="${key}" maxlength="${limits[key]}" required ${type === 'input' ? `type="text" value="${esc(ad[key])}"` : 'rows="4"'}>${type === 'textarea' ? esc(ad[key]) : ''}</${type}><small class="char-count" data-count="${key}">${esc(ad[key]).length} / ${limits[key]}</small></label>`).join('')
   return `<dialog class="copy-editor" id="copy-dialog-${esc(ad.id)}"><form class="copy-form" data-copy-form="${esc(ad.id)}"><div class="copy-head"><div><p class="eyebrow">${esc(ad.id)} · ${esc(campaign.name)}</p><h2>Edit ad copy</h2></div><button type="button" class="quiet" data-close-copy="${esc(ad.id)}">${icon('x', 18)}</button></div><div class="copy-fields">${inputs}</div><div class="copy-footer"><p class="copy-status" id="copy-status-${esc(ad.id)}" role="status"></p><div class="copy-buttons"><button type="button" data-close-copy="${esc(ad.id)}">Cancel</button><button type="submit" class="primary">Save copy</button></div></div><input type="hidden" name="campaign_id" value="${esc(campaign.id)}"><input type="hidden" name="ad_id" value="${esc(ad.id)}"><input type="hidden" name="base_revision" value="${campaign.revision}"><input type="hidden" name="fingerprint" value="${esc(ad.fingerprint)}"></form></dialog>`
 }
 async function saveCopy(form) {
@@ -195,12 +195,11 @@ async function saveCopy(form) {
   const status = document.querySelector(`#copy-status-${CSS.escape(adId)}`)
   const submitBtn = form.querySelector('button[type="submit"]')
   const data = Object.fromEntries(new FormData(form))
+  data.base_revision = Number(data.base_revision)
   status.textContent = 'Saving…'
   status.classList.remove('error')
   submitBtn.disabled = true
   try {
-    state.busy = true
-    render()
     await api('POST', data, 'edit-copy')
     state.message = `${adId}: copy saved. Awaiting approval.`
     const dialog = document.querySelector(`#copy-dialog-${CSS.escape(adId)}`)
@@ -210,8 +209,6 @@ async function saveCopy(form) {
     status.textContent = error.message
     status.classList.add('error')
     submitBtn.disabled = false
-  } finally {
-    state.busy = false
   }
 }
 function reviewControls(campaign, ad) {
@@ -225,7 +222,7 @@ function conceptView(campaign, concept) {
   const index = campaign.concepts.findIndex(candidate => candidate.id === concept.id) + 1
   const cards = visibleAds.map(ad => {
     const hasEarlierRevision = state.data.decisions.some(event => event.campaign_id === campaign.id && event.target_id === ad.id && event.fingerprint !== ad.fingerprint)
-    return `<article class="card" data-ad-id="${esc(ad.id)}"><div class="cardMeta"><span>${esc(ad.id)} <span class="muted">· v${ad.revision}</span></span><span>${esc(ad.ratio)} · Feed</span></div>${adPreview(campaign, ad)}<div class="review"><div class="reviewHead">${statusBadge(statusOf(campaign, ad))}<button class="quiet" data-detail="${esc(ad.id)}">Ad details ${icon('arrowUpRight', 14)}</button></div><div class="edit-bar"><button type="button" data-edit-copy="${esc(ad.id)}">Edit copy</button></div>${reviewControls(campaign, ad)}${hasEarlierRevision ? '<p class="revisionNote">This execution has changed. Earlier approvals do not apply.</p>' : ''}</div></article>${copyEditor(campaign, ad)}`
+    return `<article class="card" data-ad-id="${esc(ad.id)}"><div class="cardMeta"><span>${esc(ad.id)} <span class="muted">· v${ad.revision}</span></span><span>${esc(ad.ratio)} · Feed</span></div>${adPreview(campaign, ad)}<div class="review"><div class="reviewHead">${statusBadge(statusOf(campaign, ad))}</div><div class="edit-bar"><button type="button" data-detail="${esc(ad.id)}">Ad details ${icon('arrowUpRight', 14)}</button><button type="button" data-edit-copy="${esc(ad.id)}">Edit copy</button></div>${reviewControls(campaign, ad)}${hasEarlierRevision ? '<p class="revisionNote">This execution has changed. Earlier approvals do not apply.</p>' : ''}</div></article>${copyEditor(campaign, ad)}`
   }).join('')
   return `<section class="concept" aria-labelledby="concept-${esc(concept.id)}"><div class="conceptHead"><span class="index">${String(index).padStart(2, '0')}</span><div class="conceptInfo"><h2 id="concept-${esc(concept.id)}">${esc(concept.name)}</h2><p>${esc(concept.strategy)}</p><details><summary>Audience &amp; proposition ${icon('chevronDown', 14)}</summary><p><strong>Audience:</strong> ${esc(concept.audience)}</p><p><strong>Proposition:</strong> ${esc(concept.proposition)}</p></details></div><div class="conceptDecision">${statusBadge(conceptStatus)}<button data-decision="${conceptStatus === 'approved' ? 'awaiting_review' : 'approved'}" data-type="concept" data-target="${esc(concept.id)}" ${state.busy ? 'disabled' : ''}>${conceptStatus === 'approved' ? 'Reopen concept' : 'Approve concept'} ${icon('check', 15)}</button><small>Direction only; ads need separate approval.</small></div></div><div class="grid">${cards}</div></section>`
 }
