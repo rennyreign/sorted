@@ -89,7 +89,9 @@ function CampaignDetailContent() {
           {campaign.goal && <p className="ads-campaign-desc">{campaign.goal}</p>}
         </div>
         <div className="ads-campaign-actions">
-          <button className="ads-btn ads-btn-secondary"><Share size={18} strokeWidth={1.75} /> Share</button>
+          <a href={`/review/?campaign=${encodeURIComponent(campaign.id)}`} target="_blank" rel="noopener noreferrer" className="ads-btn ads-btn-secondary" style={{ textDecoration: "none" }}>
+            <Share size={18} strokeWidth={1.75} /> Share
+          </a>
           <button className="ads-btn ads-btn-primary"><Send size={18} strokeWidth={1.75} /> Publish</button>
         </div>
       </div>

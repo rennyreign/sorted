@@ -2,7 +2,8 @@
 
 import { useEffect, useState, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
-import { Check, MessageSquare, ChevronLeft, ChevronRight } from "lucide-react"
+import { Check, MessageSquare, ChevronLeft, ChevronRight, Lock } from "lucide-react"
+import { getAccessCode, setAccessCode, getCampaigns, type Campaign, type Angle, type CopyVariant } from "@/lib/ads"
 
 type ReviewAd = {
   id: string
@@ -13,8 +14,12 @@ type ReviewAd = {
   description: string
   cta: string
   creative_url: string
+  creative_alt: string
   status: "pending" | "approved" | "changes_requested"
   comment: string
+  fingerprint: string
+  campaign_id: string
+  campaign_revision: number
 }
 
 export default function ClientReviewPage() {
@@ -28,29 +33,82 @@ export default function ClientReviewPage() {
 function ClientReviewContent() {
   const searchParams = useSearchParams()
   const token = searchParams.get("t") || ""
+  const campaignId = searchParams.get("campaign") || ""
   const [ads, setAds] = useState<ReviewAd[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+  const [needsCode, setNeedsCode] = useState(false)
+  const [codeInput, setCodeInput] = useState("")
   const [currentIndex, setCurrentIndex] = useState(0)
   const [showComment, setShowComment] = useState<string | null>(null)
   const [commentText, setCommentText] = useState("")
   const [campaignName, setCampaignName] = useState("")
   const [isMobile, setIsMobile] = useState(false)
+  const [campaignRevision, setCampaignRevision] = useState(0)
+
+  const loadData = () => {
+    setLoading(true)
+    setError("")
+    getCampaigns("school-of-skill")
+      .then((campaigns) => {
+        const campaign = campaigns.find((c) => c.id === campaignId) || campaigns[0]
+        if (!campaign) throw new Error("Campaign not found")
+        setCampaignName(campaign.name)
+        setCampaignRevision(campaign.revision)
+
+        const reviewAds: ReviewAd[] = []
+        for (const angle of campaign.angles) {
+          for (const variant of angle.variants) {
+            if (variant.primary_text) {
+              reviewAds.push({
+                id: variant.id,
+                angle: angle.name,
+                variant: variant.type.charAt(0).toUpperCase() + variant.type.slice(1),
+                primary_text: variant.primary_text,
+                headline: variant.headline,
+                description: variant.description,
+                cta: variant.cta,
+                creative_url: variant.creative_url || angle.shared_creative_url,
+                creative_alt: variant.creative_alt || angle.shared_creative_alt,
+                status: variant.approval_status === "approved" ? "approved" : "pending",
+                comment: "",
+                fingerprint: variant.fingerprint,
+                campaign_id: campaign.id,
+                campaign_revision: campaign.revision,
+              })
+            }
+          }
+        }
+        setAds(reviewAds)
+        setNeedsCode(false)
+      })
+      .catch((err) => {
+        if (err.message.includes("Access code required")) {
+          setNeedsCode(true)
+        } else {
+          setError(err.message)
+        }
+      })
+      .finally(() => setLoading(false))
+  }
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 768)
-    setCampaignName("Youth Camp | Parents")
-    setAds([
-      { id: "1", angle: "Recognition", variant: "Short", primary_text: "Your child already has the instinct. We just sharpen it.", headline: "Seen the potential?", description: "Book a camp place today.", cta: "Learn more", creative_url: "", status: "pending", comment: "" },
-      { id: "2", angle: "Recognition", variant: "Medium", primary_text: "They've been working on their game all year. Now they need the right room to grow in.", headline: "Ready for the next level?", description: "September camp. Limited places.", cta: "Sign up", creative_url: "", status: "pending", comment: "" },
-      { id: "3", angle: "Recognition", variant: "Long", primary_text: "Last year, 40 players walked into our camp with potential. They left with a plan, a network, and the kind of coaching that changes how they see the game.", headline: "Where potential meets opportunity", description: "Register for September camp.", cta: "Register now", creative_url: "", status: "pending", comment: "" },
-      { id: "4", angle: "Belief shift", variant: "Short", primary_text: "Talent gets noticed. Belief gets you in the room.", headline: "Do they believe yet?", description: "Camp starts September.", cta: "Learn more", creative_url: "", status: "pending", comment: "" },
-      { id: "5", angle: "Belief shift", variant: "Medium", primary_text: "We don't just train players. We build the belief that gets them into rooms they didn't think were for them.", headline: "Belief is the skill", description: "Book a place at camp.", cta: "Sign up", creative_url: "", status: "pending", comment: "" },
-      { id: "6", angle: "Last year", variant: "Long", primary_text: "Last year, they went to UCLA. This year, it could be your child. The path starts at camp.", headline: "Where could they go next?", description: "September camp. Register today.", cta: "Register now", creative_url: "", status: "pending", comment: "" },
-    ])
-    setLoading(false)
+    loadData()
   }, [])
 
+  const handleSignIn = (e: React.FormEvent) => {
+    e.preventDefault()
+    const code = codeInput.trim()
+    if (!code) return
+    setAccessCode(code)
+    setCodeInput("")
+    loadData()
+  }
+
+  if (needsCode) return <ReviewAccessGate onSubmit={handleSignIn} codeInput={codeInput} setCodeInput={setCodeInput} />
   if (loading) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", background: "#FBFBF7" }}><p style={{ color: "#646763" }}>Loading review…</p></div>
+  if (error) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", background: "#FBFBF7" }}><p style={{ color: "#646763" }}>{error}</p></div>
 
   const approvedCount = ads.filter((a) => a.status === "approved").length
 
@@ -101,8 +159,8 @@ function ReviewCard({ ad, onApprove, onRequestChange, showComment, commentText, 
       )}
       <div style={{ padding: "16px 20px 0", fontSize: 13, fontWeight: 600, color: "#003E32", textTransform: "uppercase", letterSpacing: "0.05em" }}>{ad.angle} · {ad.variant}</div>
       <div style={{ padding: "8px 20px 16px", fontSize: 15, lineHeight: 1.5 }}>{ad.primary_text}</div>
-      <div style={{ width: "100%", aspectRatio: "1", background: "linear-gradient(135deg, #E9F3EE 0%, #F2F8DD 100%)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <span style={{ color: "#8A8D88", fontSize: 14 }}>Creative preview</span>
+      <div style={{ width: "100%", aspectRatio: "1", background: ad.creative_url ? `url(${ad.creative_url}) center/cover` : "linear-gradient(135deg, #E9F3EE 0%, #F2F8DD 100%)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        {!ad.creative_url && <span style={{ color: "#8A8D88", fontSize: 14 }}>Creative preview</span>}
       </div>
       <div style={{ padding: "16px 20px", background: "#F6F7F3", borderBottom: "1px solid #E3E5DF" }}>
         <div style={{ fontSize: 12, color: "#646763", textTransform: "uppercase" }}>schoolofskill.co.uk</div>
@@ -144,6 +202,41 @@ function MobileReview({ ads, currentIndex, onPrev, onNext, onApprove, onRequestC
         <button onClick={onNext} disabled={currentIndex === ads.length - 1} style={{ width: 44, height: 44, borderRadius: 14, border: "1px solid #E3E5DF", background: "white", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", opacity: currentIndex === ads.length - 1 ? 0.4 : 1 }}><ChevronRight size={20} /></button>
       </div>
       <ReviewCard ad={ad} onApprove={onApprove} onRequestChange={onRequestChange} showComment={showComment === ad.id} commentText={commentText} setCommentText={setCommentText} onSubmitComment={onSubmitComment} onCancelComment={onCancelComment} />
+    </div>
+  )
+}
+
+function ReviewAccessGate({ onSubmit, codeInput, setCodeInput }: {
+  onSubmit: (e: React.FormEvent) => void
+  codeInput: string
+  setCodeInput: (v: string) => void
+}) {
+  return (
+    <div style={{ minHeight: "100vh", background: "#FBFBF7", fontFamily: "ui-sans-serif, system-ui, -apple-system, sans-serif", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ maxWidth: 400, width: "100%", textAlign: "center" }}>
+        <div style={{ width: 56, height: 56, borderRadius: "50%", background: "#F0F2ED", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
+          <Lock size={24} strokeWidth={1.75} style={{ color: "#003E32" }} />
+        </div>
+        <h1 style={{ fontSize: 28, fontWeight: 800, letterSpacing: "-0.03em", marginBottom: 8 }}>Sorted Ads</h1>
+        <p style={{ fontSize: 16, color: "#646763", marginBottom: 28 }}>Enter your review access code to see the campaign.</p>
+        <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <input
+            type="password"
+            value={codeInput}
+            onChange={(e) => setCodeInput(e.target.value)}
+            placeholder="Access code"
+            autoFocus
+            style={{
+              width: "100%", height: 48, padding: "0 16px", borderRadius: 12,
+              border: "1px solid #DDE0DA", fontSize: 16, outline: "none",
+              textAlign: "center", letterSpacing: "0.05em",
+            }}
+          />
+          <button type="submit" style={{ width: "100%", height: 48, borderRadius: 12, border: "none", background: "#003E32", color: "white", fontSize: 16, fontWeight: 600, cursor: "pointer" }}>
+            Open review
+          </button>
+        </form>
+      </div>
     </div>
   )
 }

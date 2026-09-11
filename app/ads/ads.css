@@ -593,17 +593,18 @@
 /* Copy variants */
 .ads-variants {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
 }
 
 .ads-variant {
   border: 1px solid var(--ads-border);
   border-radius: var(--ads-radius-md);
-  padding: 18px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
+  min-width: 0;
 }
 
 .ads-variant-header {
