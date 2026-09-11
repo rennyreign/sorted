@@ -181,6 +181,39 @@ function adPreview(campaign, ad) {
   const website = tenantWebsite(ad.destination_url)
   return `<div class="ad"><div class="adIdentity"><div class="avatar">${esc(initials)}</div><div><strong>${esc(name)}</strong><small>Sponsored · ${icon('globe', 11)}</small></div>${icon('more', 20)}</div><p class="adText">${esc(ad.primary_text)}</p><div class="creative" style="aspect-ratio:${esc(ad.ratio.replace(':', '/'))}"><img src="${esc(imageUrl(ad.creative_key))}" style="${imageStyle(ad)}" alt="${esc(ad.creative_alt)}" loading="lazy"></div><div class="adDestination"><div><small>${esc(website)}</small><h3>${esc(ad.headline)}</h3><p>${esc(ad.description)}</p></div><span class="mockCta">${esc(ctaLabels[ad.cta] || titleCase(ad.cta))}</span></div><div class="adSocial" aria-hidden="true"><span>${icon('thumbsUp', 15)} Like</span><span>${icon('message', 15)} Comment</span><span>↗ Share</span></div></div>`
 }
+function copyEditor(campaign, ad) {
+  const limits = { primary_text: 2000, headline: 40, description: 60 }
+  const fields = [['primary_text', 'Primary text', 'textarea'], ['headline', 'Headline', 'input'], ['description', 'Description', 'input']]
+  const inputs = fields.map(([key, label, type]) => `<label>${label}<${type} name="${key}" maxlength="${limits[key]}" required ${type === 'input' ? 'type="text"' : 'rows="4"'}>${type === 'textarea' ? esc(ad[key]) : ''}</${type}><small class="char-count" data-count="${key}">${esc(ad[key]).length} / ${limits[key]}</small></label>`).join('')
+  return `<dialog class="copy-editor" id="copy-dialog-${esc(ad.id)}"><form class="copy-form" data-copy-form="${esc(ad.id)}"><div class="copy-head"><div><p class="eyebrow">${esc(ad.id)} · ${esc(campaign.name)}</p><h2>Edit ad copy</h2></div><button type="button" class="quiet" data-close-copy="${esc(ad.id)}">${icon('x', 18)}</button></div><div class="copy-fields">${inputs}</div><div class="copy-footer"><p class="copy-status" id="copy-status-${esc(ad.id)}" role="status"></p><div class="copy-buttons"><button type="button" data-close-copy="${esc(ad.id)}">Cancel</button><button type="submit" class="primary">Save copy</button></div></div><input type="hidden" name="campaign_id" value="${esc(campaign.id)}"><input type="hidden" name="ad_id" value="${esc(ad.id)}"><input type="hidden" name="base_revision" value="${campaign.revision}"><input type="hidden" name="fingerprint" value="${esc(ad.fingerprint)}"></form></dialog>`
+}
+async function saveCopy(form) {
+  const adId = form.dataset.copyForm
+  const campaign = campaignById()
+  const ad = adsOf(campaign).find(a => a.id === adId)
+  if (!ad) return
+  const status = document.querySelector(`#copy-status-${CSS.escape(adId)}`)
+  const submitBtn = form.querySelector('button[type="submit"]')
+  const data = Object.fromEntries(new FormData(form))
+  status.textContent = 'Saving…'
+  status.classList.remove('error')
+  submitBtn.disabled = true
+  try {
+    state.busy = true
+    render()
+    await api('POST', data, 'edit-copy')
+    state.message = `${adId}: copy saved. Awaiting approval.`
+    const dialog = document.querySelector(`#copy-dialog-${CSS.escape(adId)}`)
+    if (dialog) { dialog.close(); dialog.remove() }
+    await refresh()
+  } catch (error) {
+    status.textContent = error.message
+    status.classList.add('error')
+    submitBtn.disabled = false
+  } finally {
+    state.busy = false
+  }
+}
 function reviewControls(campaign, ad) {
   const decision = latest(campaign, ad)
   return `${decision ? `<div class="decision">${decision.comment ? `<p>${esc(decision.comment)}</p>` : ''}<small>${esc(decision.reviewer)} · ${date(decision.created_at)}</small></div>` : ''}<div class="actions"><button class="approve" data-decision="approved" data-type="ad" data-target="${esc(ad.id)}" ${state.busy || decision?.status === 'approved' ? 'disabled' : ''}>${icon('check', 15)} Approve</button><button data-change="${esc(ad.id)}" ${state.busy ? 'disabled' : ''}>Request change</button><button class="reject" data-decision="rejected" data-type="ad" data-target="${esc(ad.id)}" ${state.busy || decision?.status === 'rejected' ? 'disabled' : ''}>Reject</button></div><form class="commentForm" data-change-form="${esc(ad.id)}" hidden><label for="comment-${esc(ad.id)}">What would you like changed?</label><textarea autofocus id="comment-${esc(ad.id)}" name="comment" required maxlength="2000" placeholder="Be specific about the copy, image or direction…"></textarea><div><button class="primary" ${state.busy ? 'disabled' : ''}>Submit request</button><button type="button" data-cancel="${esc(ad.id)}" ${state.busy ? 'disabled' : ''}>Cancel</button></div></form>`
@@ -192,7 +225,7 @@ function conceptView(campaign, concept) {
   const index = campaign.concepts.findIndex(candidate => candidate.id === concept.id) + 1
   const cards = visibleAds.map(ad => {
     const hasEarlierRevision = state.data.decisions.some(event => event.campaign_id === campaign.id && event.target_id === ad.id && event.fingerprint !== ad.fingerprint)
-    return `<article class="card" data-ad-id="${esc(ad.id)}"><div class="cardMeta"><span>${esc(ad.id)} <span class="muted">· v${ad.revision}</span></span><span>${esc(ad.ratio)} · Feed</span></div>${adPreview(campaign, ad)}<div class="review"><div class="reviewHead">${statusBadge(statusOf(campaign, ad))}<button class="quiet" data-detail="${esc(ad.id)}">Ad details ${icon('arrowUpRight', 14)}</button></div>${reviewControls(campaign, ad)}${hasEarlierRevision ? '<p class="revisionNote">This execution has changed. Earlier approvals do not apply.</p>' : ''}</div></article>`
+    return `<article class="card" data-ad-id="${esc(ad.id)}"><div class="cardMeta"><span>${esc(ad.id)} <span class="muted">· v${ad.revision}</span></span><span>${esc(ad.ratio)} · Feed</span></div>${adPreview(campaign, ad)}<div class="review"><div class="reviewHead">${statusBadge(statusOf(campaign, ad))}<button class="quiet" data-detail="${esc(ad.id)}">Ad details ${icon('arrowUpRight', 14)}</button></div><div class="edit-bar"><button class="quiet" data-edit-copy="${esc(ad.id)}">Edit copy</button></div>${reviewControls(campaign, ad)}${hasEarlierRevision ? '<p class="revisionNote">This execution has changed. Earlier approvals do not apply.</p>' : ''}</div></article>${copyEditor(campaign, ad)}`
   }).join('')
   return `<section class="concept" aria-labelledby="concept-${esc(concept.id)}"><div class="conceptHead"><span class="index">${String(index).padStart(2, '0')}</span><div class="conceptInfo"><h2 id="concept-${esc(concept.id)}">${esc(concept.name)}</h2><p>${esc(concept.strategy)}</p><details><summary>Audience &amp; proposition ${icon('chevronDown', 14)}</summary><p><strong>Audience:</strong> ${esc(concept.audience)}</p><p><strong>Proposition:</strong> ${esc(concept.proposition)}</p></details></div><div class="conceptDecision">${statusBadge(conceptStatus)}<button data-decision="${conceptStatus === 'approved' ? 'awaiting_review' : 'approved'}" data-type="concept" data-target="${esc(concept.id)}" ${state.busy ? 'disabled' : ''}>${conceptStatus === 'approved' ? 'Reopen concept' : 'Approve concept'} ${icon('check', 15)}</button><small>Direction only; ads need separate approval.</small></div></div><div class="grid">${cards}</div></section>`
 }
@@ -276,6 +309,11 @@ function bind() {
   document.querySelectorAll('[data-decision]').forEach(button => button.addEventListener('click', () => { const campaign = campaignById(); const target = button.dataset.type === 'concept' ? campaign.concepts.find(concept => concept.id === button.dataset.target) : adsOf(campaign).find(ad => ad.id === button.dataset.target); decide(campaign, button.dataset.type, target, button.dataset.decision) }))
   document.querySelectorAll('[data-change-form]').forEach(form => form.addEventListener('submit', event => { event.preventDefault(); const campaign = campaignById(); const ad = adsOf(campaign).find(candidate => candidate.id === form.dataset.changeForm); decide(campaign, 'ad', ad, 'changes_requested', String(new FormData(form).get('comment') || '').trim()) }))
   document.querySelectorAll('[data-detail]').forEach(button => button.addEventListener('click', () => { state.detail = button.dataset.detail; render() }))
+  document.querySelectorAll('[data-edit-copy]').forEach(button => button.addEventListener('click', () => { const dialog = document.querySelector(`#copy-dialog-${CSS.escape(button.dataset.editCopy)}`); if (dialog) dialog.showModal() }))
+  document.querySelectorAll('[data-close-copy]').forEach(button => button.addEventListener('click', () => { const dialog = document.querySelector(`#copy-dialog-${CSS.escape(button.dataset.closeCopy)}`); if (dialog) dialog.close() }))
+  document.querySelectorAll('[data-copy-form]').forEach(form => form.addEventListener('submit', event => { event.preventDefault(); saveCopy(form) }))
+  document.querySelectorAll('.copy-form textarea, .copy-form input[type="text"]').forEach(input => input.addEventListener('input', () => { const counter = input.closest('label')?.querySelector('.char-count'); if (counter) counter.textContent = `${input.value.length} / ${input.maxLength}` }))
+  document.querySelectorAll('.copy-editor').forEach(dialog => dialog.addEventListener('cancel', event => { event.preventDefault(); dialog.close() }))
   document.querySelector('#close-dialog')?.addEventListener('click', closeDetails)
   document.querySelector('#detail-dialog')?.addEventListener('cancel', event => { event.preventDefault(); closeDetails() })
   document.querySelector('#detail-dialog')?.addEventListener('click', event => { if (event.target === event.currentTarget) closeDetails() })
