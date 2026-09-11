@@ -81,9 +81,8 @@ async function signIn(event) {
   const form = new FormData(event.currentTarget)
   state.reviewer = String(form.get('reviewer') || '').trim()
   state.token = String(form.get('token') || '').trim()
-  state.busy = true
   state.error = ''
-  render()
+  showLoader('Signing in…')
   try {
     state.data = await api('GET')
     state.campaign = state.data.campaigns.length === 1 ? state.data.campaigns[0].id : null
@@ -93,15 +92,14 @@ async function signIn(event) {
     state.data = null
     state.error = error.message
   } finally {
-    state.busy = false
+    hideLoader()
     render()
   }
 }
 
 async function load() {
   if (!state.token || !state.reviewer) return render()
-  state.busy = true
-  render()
+  showLoader('Opening Ad Review…')
   try {
     state.data = await api('GET')
     state.campaign = state.data.campaigns.length === 1 ? state.data.campaigns[0].id : null
@@ -109,25 +107,41 @@ async function load() {
     state.data = null
     state.error = error.message
   } finally {
-    state.busy = false
+    hideLoader()
     render()
   }
 }
 
 async function refresh() {
-  state.busy = true
   state.error = ''
   state.message = ''
-  render()
+  showLoader('Refreshing board…')
   try {
     state.data = await api('GET')
     state.message = 'Board is up to date.'
   } catch (error) {
     state.error = error.message
   } finally {
-    state.busy = false
+    hideLoader()
     render()
   }
+}
+
+function showLoader(label = 'Loading…') {
+  let loader = document.querySelector('#app-loader')
+  if (!loader) {
+    loader = document.createElement('div')
+    loader.id = 'app-loader'
+    loader.className = 'app-loader'
+    loader.innerHTML = '<span></span><p></p>'
+    document.body.append(loader)
+  }
+  loader.querySelector('p').textContent = label
+  loader.classList.add('visible')
+}
+
+function hideLoader() {
+  document.querySelector('#app-loader')?.classList.remove('visible')
 }
 
 async function decide(campaign, type, target, status, comment = '') {
