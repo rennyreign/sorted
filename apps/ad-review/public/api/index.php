@@ -146,9 +146,10 @@ try {
     if (!$valid) respond(['error' => 'That access code is not valid.'], 401, $headers);
     $editor = ['name' => 'Portal editor'];
 
-    if (in_array($action, ['upload','edit-image','unlock-image'], true)) {
+    if (in_array($action, ['upload','edit-image','edit-copy','unlock-image'], true)) {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') respond(['error' => 'Method not allowed.'], 405, $headers);
         if ($action === 'upload') uploadAsset($slug, $headers);
+        if ($action === 'edit-copy') editCopy($slug, $editor, $headers);
         editImage($slug, $editor, $headers, $action);
     }
     if ($action === 'history') {

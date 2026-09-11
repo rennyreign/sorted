@@ -77,6 +77,38 @@ function uploadAsset(string $slug, array $headers): never {
     respond(['asset' => assetUrls($assets)[0]], 201, $headers);
 }
 
+function editCopy(string $slug, array $editor, array $headers): never {
+    $input = requestBody();
+    if (!$input || !is_int($input['base_revision'] ?? null)) respond(['error' => 'A current campaign revision is required.'], 422, $headers);
+    $rows = db('ad_review_campaigns?tenant_slug=eq.' . rawurlencode($slug) . '&campaign_id=eq.' . rawurlencode($input['campaign_id'] ?? '') . '&order=revision.desc&limit=1&select=package');
+    if (!$rows) respond(['error' => 'Campaign not found.'], 404, $headers);
+    $package = $rows[0]['package'];
+    $campaign = &$package['campaign'];
+    if ($campaign['revision'] !== $input['base_revision']) respond(['error' => 'This campaign has changed. Refresh before saving.'], 409, $headers);
+    $found = false;
+    foreach ($campaign['concepts'] as &$concept) foreach ($concept['ads'] as &$ad) {
+        if ($ad['id'] !== ($input['ad_id'] ?? '')) continue;
+        $found = true;
+        if (!hash_equals($ad['fingerprint'], $input['fingerprint'] ?? '')) respond(['error' => 'This ad has changed. Refresh before saving.'], 409, $headers);
+        foreach (['primary_text', 'headline', 'description'] as $field) {
+            $value = trim($input[$field] ?? '');
+            $limit = $field === 'primary_text' ? 2000 : ($field === 'headline' ? 40 : 60);
+            if (!$value || strlen($value) > $limit) respond(['error' => ucfirst($field) . ' must be between 1 and ' . $limit . ' characters.'], 422, $headers);
+            $ad[$field] = $value;
+        }
+        $ad['revision']++;
+        $ad['fingerprint'] = fingerprint($ad);
+    }
+    unset($concept, $ad);
+    if (!$found) respond(['error' => 'Ad not found.'], 404, $headers);
+    $campaign['revision']++;
+    $campaign['status'] = 'awaiting_review';
+    $package['provenance'] = ['created_by' => $editor['name'], 'source' => 'manual-copy-editor'];
+    unset($package['idempotency_key']);
+    $result = db('rpc/ad_review_write_revision', 'POST', ['p_tenant' => $slug, 'p_package' => $package, 'p_base_revision' => $input['base_revision'], 'p_actor' => $editor['name'], 'p_mode' => 'edit', 'p_target' => $input['ad_id']]);
+    respond(rpcResult($result, $headers), 200, $headers);
+}
+
 function editImage(string $slug, array $editor, array $headers, string $action): never {
     $input = requestBody();
     if (!$input || !is_int($input['base_revision'] ?? null)) respond(['error' => 'A current campaign revision is required.'], 422, $headers);
