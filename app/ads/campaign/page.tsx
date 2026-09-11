@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState, useCallback, Suspense } from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { Share, Send, ChevronDown, ImagePlus, Check, MessageSquare } from "lucide-react"
@@ -19,6 +19,14 @@ const fieldLimits = {
 }
 
 export default function CampaignDetailPage() {
+  return (
+    <Suspense fallback={<div className="ads-loader"><div className="ads-loader-spinner" /><p>Loading…</p></div>}>
+      <CampaignDetailContent />
+    </Suspense>
+  )
+}
+
+function CampaignDetailContent() {
   const searchParams = useSearchParams()
   const campaignId = searchParams.get("id") || ""
   const [campaign, setCampaign] = useState<Campaign | null>(null)
