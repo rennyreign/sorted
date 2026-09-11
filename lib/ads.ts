@@ -148,11 +148,22 @@ type ApiAd = {
   crop?: { x: number; y: number }
 }
 
+type ApiAsset = {
+  creative_key: string
+  name: string
+  collection: string
+  kind: string
+  width: number
+  height: number
+  created_at: string
+  url: string
+}
+
 type ApiResponse = {
   tenant: { slug: string; name: string }
   role: string
   editor_name: string
-  assets: Record<string, { url: string; media_type: string; width: number; height: number; file_size: number }[]>
+  assets: ApiAsset[]
   image_locks: { campaign_id: string; ad_id: string; editor: string }[]
   campaigns: ApiCampaign[]
   decisions: ReviewDecision[]
@@ -175,16 +186,15 @@ async function fetchPortal(tenant: string = DEFAULT_TENANT): Promise<ApiResponse
 
 // ---- Asset URL resolver ----
 
-function resolveAssetUrl(creativeKey: string, assets: ApiResponse["assets"]): string {
+function resolveAssetUrl(creativeKey: string, assets: ApiAsset[]): string {
   if (!creativeKey) return ""
-  // creative_key is like /creatives/hash.webp or /media/tenant-slug/hash.webp
-  for (const group of Object.values(assets)) {
-    for (const asset of group) {
-      if (asset.url && creativeKey.includes(asset.url.split("/").pop() || "")) return asset.url
-    }
-  }
-  // Fall back to constructing from the key + Supabase storage
-  return ""
+  // creative_key is like /creatives/hash.webp or /media/hash.webp
+  const match = assets.find((a) => a.creative_key === creativeKey)
+  if (match) return match.url
+  // Fall back to matching by filename
+  const filename = creativeKey.split("/").pop()
+  const fallback = assets.find((a) => a.creative_key.split("/").pop() === filename)
+  return fallback?.url || ""
 }
 
 // ---- Decision lookup ----
@@ -343,26 +353,23 @@ export async function getCampaign(workspace: string, campaignId: string): Promis
 
 export async function getAssets(workspace: string = DEFAULT_TENANT): Promise<Asset[]> {
   const data = await fetchPortal(workspace)
-  const assets: Asset[] = []
-  for (const [groupKey, items] of Object.entries(data.assets || {})) {
-    for (const item of items) {
-      const isVideo = item.media_type === "video" || groupKey === "videos"
-      assets.push({
-        id: `${groupKey}-${item.url.split("/").pop()}`,
-        name: item.url.split("/").pop() || groupKey,
-        media_type: isVideo ? "video" : "image",
-        url: item.url,
-        thumbnail: item.url,
-        width: item.width || 0,
-        height: item.height || 0,
-        aspect_ratio: item.width && item.height ? `${item.width}:${item.height}` : "1:1",
-        file_size: item.file_size ? `${(item.file_size / 1024 / 1024).toFixed(1)} MB` : "—",
-        usage: [],
-        created_at: "",
-      })
+  return (data.assets || []).map((item) => {
+    const isVideo = item.kind === "video"
+    const filename = item.creative_key.split("/").pop() || item.name
+    return {
+      id: item.creative_key,
+      name: item.name || filename,
+      media_type: isVideo ? "video" : "image",
+      url: item.url,
+      thumbnail: item.url,
+      width: item.width || 0,
+      height: item.height || 0,
+      aspect_ratio: item.width && item.height ? `${item.width}:${item.height}` : "1:1",
+      file_size: "—",
+      usage: item.collection ? [item.collection] : [],
+      created_at: item.created_at || "",
     }
-  }
-  return assets
+  })
 }
 
 // ---- Helpers ----
