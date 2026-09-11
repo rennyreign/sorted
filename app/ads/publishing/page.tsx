@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Send, Eye, Check, Calendar, DollarSign, Zap } from "lucide-react"
+import { getCampaigns, type Campaign, type Angle, type CopyVariant } from "@/lib/ads"
 
 type SelectableAd = {
   angleId: string
@@ -10,6 +11,7 @@ type SelectableAd = {
   variantType: "short" | "medium" | "long"
   status: "approved" | "ready"
   selected: boolean
+  primaryText: string
 }
 
 const steps = ["Select ads", "Set schedule", "Review & publish"] as const
@@ -17,15 +19,37 @@ type Step = (typeof steps)[number]
 
 export default function PublishingPage() {
   const [step, setStep] = useState<Step>("Select ads")
-  const [ads, setAds] = useState<SelectableAd[]>([
-    { angleId: "1", angleName: "Recognition", creativeThumb: "", variantType: "short", status: "approved", selected: true },
-    { angleId: "1", angleName: "Recognition", creativeThumb: "", variantType: "medium", status: "approved", selected: false },
-    { angleId: "1", angleName: "Recognition", creativeThumb: "", variantType: "long", status: "approved", selected: false },
-    { angleId: "2", angleName: "Belief shift", creativeThumb: "", variantType: "short", status: "approved", selected: true },
-    { angleId: "2", angleName: "Belief shift", creativeThumb: "", variantType: "medium", status: "approved", selected: false },
-    { angleId: "3", angleName: "Last year", creativeThumb: "", variantType: "long", status: "ready", selected: false },
-  ])
+  const [ads, setAds] = useState<SelectableAd[]>([])
+  const [loading, setLoading] = useState(true)
+  const [campaignName, setCampaignName] = useState("")
   const [schedule, setSchedule] = useState({ startDate: "", endDate: "", runTime: "09:00", budget: "500", optimisation: "registrations" })
+
+  useEffect(() => {
+    getCampaigns("school-of-skill")
+      .then((campaigns) => {
+        const campaign = campaigns[0]
+        if (!campaign) return
+        setCampaignName(campaign.name)
+        const selectable: SelectableAd[] = []
+        for (const angle of campaign.angles) {
+          for (const variant of angle.variants) {
+            if (variant.primary_text && variant.approval_status === "approved") {
+              selectable.push({
+                angleId: angle.id,
+                angleName: angle.name,
+                creativeThumb: variant.creative_url || angle.shared_creative_url,
+                variantType: variant.type,
+                status: variant.approval_status === "approved" ? "approved" : "ready",
+                selected: false,
+                primaryText: variant.primary_text,
+              })
+            }
+          }
+        }
+        setAds(selectable)
+      })
+      .finally(() => setLoading(false))
+  }, [])
 
   const stepIndex = steps.indexOf(step)
   const selectedCount = ads.filter((a) => a.selected).length
@@ -40,12 +64,14 @@ export default function PublishingPage() {
     setAds((prev) => prev.map((a) => ({ ...a, selected: !allSelected })))
   }
 
+  if (loading) return <div className="ads-loader"><div className="ads-loader-spinner" /><p>Loading publishing…</p></div>
+
   return (
     <div className="ads-content">
       <div className="ads-page-header">
         <div className="ads-page-header-row">
           <div>
-            <div className="eyebrow">School of Skill · Youth Camp</div>
+            <div className="eyebrow">School of Skill · {campaignName || "Campaign"}</div>
             <h1>Publishing</h1>
             <p className="subtitle">Get your approved ads live.</p>
           </div>
@@ -111,7 +137,7 @@ export default function PublishingPage() {
                         style={{ width: 20, height: 20, accentColor: "var(--ads-green)", cursor: "pointer" }}
                       />
                       <span style={{ fontSize: 14, fontWeight: 600, color: "var(--ads-text-subtle)", width: 28 }}>{String(i + 1).padStart(2, "0")}</span>
-                      <div style={{ width: 48, height: 48, borderRadius: 8, background: "linear-gradient(135deg, #E9F3EE 0%, #F2F8DD 100%)", flexShrink: 0 }} />
+                      <div style={{ width: 48, height: 48, borderRadius: 8, background: ad.creativeThumb ? `url(${ad.creativeThumb}) center/cover` : "linear-gradient(135deg, #E9F3EE 0%, #F2F8DD 100%)", flexShrink: 0 }} />
                       <div style={{ flex: 1 }}>
                         <div style={{ fontSize: 16, fontWeight: 600 }}>{ad.angleName}</div>
                         <div style={{ fontSize: 13, color: "var(--ads-text-muted)" }}>Copy: {ad.variantType}</div>
