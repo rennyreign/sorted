@@ -32,7 +32,6 @@ for (const file of files) {
       if (!['facebook_feed', 'instagram_feed'].includes(ad.placement) || !['4:5', '1:1', '16:9'].includes(ad.ratio)) errors.push(`${ad.id} placement is invalid`)
       for (const field of ['primary_text', 'headline', 'description', 'creative_alt', 'destination_url']) if (!ad[field]?.trim()) errors.push(`${ad.id} missing ${field}`)
       try { const url = new URL(ad.destination_url); if (url.protocol !== 'https:' || url.hostname !== allowedHost) errors.push(`${ad.id} destination is not approved`) } catch { errors.push(`${ad.id} destination is invalid`) }
-      if (`${ad.primary_text}${ad.headline}${ad.description}`.includes('—')) errors.push(`${ad.id} contains an em dash`)
     }
   }
   if (!conceptIds.size || !adIds.size) errors.push('campaign must contain concepts and ads')

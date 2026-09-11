@@ -1,0 +1,317 @@
+{
+  "schema_version": 1,
+  "base_revision": 3,
+  "idempotency_key": "school-of-skill-recruitment-camp-r4",
+  "client_slug": "school-of-skill",
+  "campaign": {
+    "id": "recruitment-camp-players",
+    "revision": 4,
+    "name": "US Recruitment Camp | Players",
+    "platform": "meta",
+    "objective": "Fill 30 recruitment camp places with ambitious players aged 16 to 21 before registration closes on 23 September.",
+    "status": "awaiting_review",
+    "created_at": "2026-09-11T01:08:41Z",
+    "concepts": [
+      {
+        "id": "former-nba-player-looking-for-talent",
+        "revision": 1,
+        "name": "A Former NBA Player Is Looking For Talent",
+        "strategy": "Lead with Dijon Thompson arriving in Birmingham for an active talent search, then make the in-gym assessment the immediate opportunity.",
+        "audience": "Ambitious UK basketball players aged 16 to 21 who want their game seen by someone with UCLA, NBA and professional experience.",
+        "proposition": "Train and compete in front of Dijon Thompson for a possible opportunity to progress towards the LA trip and US showcase.",
+        "ads": [
+          {
+            "id": "RC-01-S",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "A former UCLA and Phoenix Suns player is coming to Birmingham looking for basketball talent.\n\nHe’s not coming just to run a session.\n\nHe’s looking for players who could get the opportunity to go to LA, train at UCLA and showcase in front of US college and professional coaches.\n\nFirst, he needs to see you play.\n\n30 players get into the camp.\n\nRegistration closes Wednesday 23 September.\n\nIf you think you’ve got something, come show him.",
+            "headline": "A former NBA player is looking for talent.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/f44a8ac5a3a813238c9d82fca37ccf3e586bce4cf2b8a9e60f0939106f5f833f.webp",
+            "creative_alt": "Dijon Thompson in a Phoenix Suns uniform holding a basketball.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-01-M",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "A former UCLA and Phoenix Suns player is coming to Birmingham looking for basketball talent.\n\nThat’s Dijon Thompson.\n\nAnd he’s not coming here just to run a camp and leave.\n\nHe’s looking for players.\n\nYou’ll train. Get coached. Compete. Let him see your game properly.\n\nPlayers who stand out could get the opportunity to travel to LA, train at UCLA and showcase in front of college and professional coaches in the US.\n\nLast year, players came through this process and made that trip.\n\nNow he’s back looking again.\n\nWe’re only taking 30 players into the camp.\n\nRegistration closes Wednesday 23 September.\n\nIf you’re 16–21 and think your basketball can go somewhere, come play.",
+            "headline": "A former NBA player is looking for talent.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/f44a8ac5a3a813238c9d82fca37ccf3e586bce4cf2b8a9e60f0939106f5f833f.webp",
+            "creative_alt": "Dijon Thompson in a Phoenix Suns uniform holding a basketball.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-01-L",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "A former UCLA and Phoenix Suns player is coming to Birmingham looking for basketball talent.\n\nThat’s worth understanding properly.\n\nHis name is Dijon Thompson.\n\nHe played college basketball at UCLA, reached the NBA with Phoenix, then continued his career overseas.\n\nNow he’s coming here to see who can play.\n\nNot from a mixtape.\n\nIn the gym.\n\nYou’ll train.\n\nGet coached.\n\nCompete.\n\nHe gets to see what you do when somebody can actually guard you.\n\nHow you make decisions.\n\nHow you respond when your first option disappears.\n\nWhat you do when the shots aren’t falling.\n\nAnd whether there’s something in your game that could travel.\n\nBecause there’s somewhere for this to go.\n\nPlayers who stand out could get the opportunity to travel to Los Angeles, train at UCLA and showcase in front of college and professional coaches in the US.\n\nLast year, players came through the camp and made that trip.\n\nNow he’s coming back to Birmingham looking again.\n\nWe’re only taking 30 players. Enough to create a serious gym, but few enough that the players can actually be seen and assessed.\n\nRegistration closes Wednesday 23 September.\n\nYou don't need to tell us how serious you are.\n\nCome play.",
+            "headline": "A former NBA player is looking for talent.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/f44a8ac5a3a813238c9d82fca37ccf3e586bce4cf2b8a9e60f0939106f5f833f.webp",
+            "creative_alt": "Dijon Thompson in a Phoenix Suns uniform holding a basketball.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          }
+        ]
+      },
+      {
+        "id": "everyone-looks-good-in-highlights",
+        "revision": 1,
+        "name": "Everyone Looks Good In Their Highlights",
+        "strategy": "Accept that highlights are useful, then show why a serious evaluator also needs to see the possessions between the clips.",
+        "audience": "Players aged 16 to 21 who use highlights to show their game and want a fuller live assessment.",
+        "proposition": "Let Dijon see how you defend, decide, compete and contribute when the game is not edited.",
+        "ads": [
+          {
+            "id": "RC-02-S",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "Everyone looks good in their highlights.\n\nThat’s the point of highlights.\n\nYou made the shot. Beat your man. Got the block. Nice.\n\nA former UCLA and Phoenix Suns player is coming to Birmingham because he needs to see the rest.\n\nCan you defend? Make decisions? Compete? Stay useful when you’re not scoring?\n\n30 places.\n\nRegistration closes Wednesday 23 September.\n\nYour highlights can introduce you.\n\nCome show him the player.",
+            "headline": "Your highlights can introduce you.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/1d723cef7b4f7406af393d6ccc61f1201afd985b885ab87002027792e6af3028.webp",
+            "creative_alt": "A basketball player attacks the basket against a defender in live competition.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-02-M",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Everyone looks good in their highlights.\n\nThat’s literally the job of the edit.\n\nMade three.\n\nNice finish.\n\nBig block.\n\nGood.\n\nNow we need the other possessions.\n\nCan you defend?\n\nDo you move the ball?\n\nWhat happens when somebody takes away your first option?\n\nCan you still have a good game when your shot isn’t falling?\n\nFormer UCLA and Phoenix Suns player Dijon Thompson is coming to Birmingham looking for talent he could potentially take to LA and put in front of US college and professional coaches.\n\nSo he needs to see you play.\n\nNot just your best bits.\n\n30 players get that opportunity.\n\nRegistration closes Wednesday 23 September.\n\nCome show him the rest.",
+            "headline": "Your highlights can introduce you.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/1d723cef7b4f7406af393d6ccc61f1201afd985b885ab87002027792e6af3028.webp",
+            "creative_alt": "A basketball player attacks the basket against a defender in live competition.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-02-L",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Everyone looks good in their highlights.\n\nThat’s what highlights are for.\n\nYou made the three.\n\nBeat your defender.\n\nFinished through contact.\n\nGot the block.\n\nNice.\n\nKeep the clips. They’re useful.\n\nBut if somebody is considering taking you to LA and putting your game in front of college and professional coaches, eventually they need the other possessions too.\n\nThe one where you don’t touch the ball.\n\nWhat did you do?\n\nThe possession after you turned it over.\n\nDid you get back?\n\nThe game where you’ve missed your last four shots.\n\nAre you still helping your team?\n\nCan you guard?\n\nCan you make quick decisions?\n\nWhat happens when somebody takes away the move that normally works?\n\nThat stuff probably isn't making your mixtape.\n\nIt still tells us what kind of player you are.\n\nThat’s why former UCLA and Phoenix Suns player Dijon Thompson is coming to Birmingham to watch players train and compete.\n\nThe players who stand out could get the opportunity to go to LA, train at UCLA and showcase in front of US college and professional coaches.\n\nOnly 30 players are getting into the gym.\n\nRegistration closes Wednesday 23 September.\n\nYour highlights can introduce you.\n\nCome show him the possessions between them.",
+            "headline": "Your highlights can introduce you.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/1d723cef7b4f7406af393d6ccc61f1201afd985b885ab87002027792e6af3028.webp",
+            "creative_alt": "A basketball player attacks the basket against a defender in live competition.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          }
+        ]
+      },
+      {
+        "id": "last-year-they-went",
+        "revision": 1,
+        "name": "Last Year, They Went",
+        "strategy": "Use footage from the previous LA and UCLA trip as direct proof that players have already progressed from the recruitment camp to America.",
+        "audience": "Players aged 16 to 21 who want tangible evidence of where the recruitment camp can lead.",
+        "proposition": "Come through the recruitment camp and compete for the chance to be considered for the next LA group.",
+        "ads": [
+          {
+            "id": "RC-03-S",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "Last year, these players came to the recruitment camp.\n\nThen they went here.\n\nUCLA.\n\nThey trained, played and got to experience the level for themselves.\n\nNow the former UCLA and Phoenix Suns player who took them there is coming back to Birmingham looking for the next group.\n\n30 places.\n\nRegistration closes Wednesday 23 September.\n\nWatch what happened last year.\n\nThen come show him why you should be in the next video.",
+            "headline": "Last year, they went.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/13a39e701356534b123e183862d7205d9d52f7891e202943393bcb0eba429bd5.webp",
+            "creative_alt": "Animated footage from the previous School of Skill trip to Los Angeles and UCLA.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-03-M",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "The players in this video came to the recruitment camp last year.\n\nThen they got on a plane to LA.\n\nUCLA.\n\nThey trained. Played. Saw the facilities. Got around the programme and experienced the level for themselves.\n\nAmerica stopped being something they watched on a screen.\n\nThey were standing in it.\n\nNow former UCLA and Phoenix Suns player Dijon Thompson is coming back to Birmingham looking for the next group.\n\nThe camp is where he gets to see you.\n\nTrain. Compete. Get coached. Get assessed.\n\nThere are 30 places.\n\nRegistration closes Wednesday 23 September.\n\nLast year, it was them.\n\nCome show him who should go next.",
+            "headline": "Last year, they went.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/13a39e701356534b123e183862d7205d9d52f7891e202943393bcb0eba429bd5.webp",
+            "creative_alt": "Animated footage from the previous School of Skill trip to Los Angeles and UCLA.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-03-L",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "The players in this video came to the recruitment camp last year.\n\nThen they got on a plane to Los Angeles.\n\nUCLA.\n\nAnd there’s a big difference between saying you want to play basketball in America and actually walking into a place like that.\n\nYou see the facilities.\n\nYou get around the programme.\n\nYou train.\n\nYou play.\n\nYou see how people work.\n\nYou feel what the level is like.\n\nSuddenly, America isn’t basketball on your phone anymore.\n\nYou’re standing in it.\n\nFor the players who went last year, that changed what they knew was out there.\n\nNow the former UCLA and Phoenix Suns player who helped take them there is coming back to Birmingham looking for the next group.\n\nHis name is Dijon Thompson.\n\nHe knows UCLA because he played there himself before reaching the NBA and continuing his career overseas.\n\nThe recruitment camp is where he gets to see you.\n\nCome in.\n\nTrain.\n\nGet coached.\n\nCompete against other good players.\n\nLet him assess your game.\n\nPlayers who stand out could get the opportunity to make that trip to LA and showcase in front of college and professional coaches.\n\nThere are only 30 places in the camp.\n\nRegistration closes Wednesday 23 September.\n\nLast year, it was the players you’re watching.\n\nThis year?\n\nCome play.",
+            "headline": "Last year, they went.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/13a39e701356534b123e183862d7205d9d52f7891e202943393bcb0eba429bd5.webp",
+            "creative_alt": "Animated footage from the previous School of Skill trip to Los Angeles and UCLA.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          }
+        ]
+      },
+      {
+        "id": "america-comes-to-birmingham-first",
+        "revision": 1,
+        "name": "America Comes To Birmingham First",
+        "strategy": "Make the distance to US basketball feel practical by bringing an evaluator who played at UCLA and in the NBA into a Birmingham gym.",
+        "audience": "Birmingham and West Midlands players aged 16 to 21 who want to pursue basketball opportunities in America.",
+        "proposition": "Take a concrete first step from Birmingham by training and competing in front of Dijon Thompson.",
+        "ads": [
+          {
+            "id": "RC-04-S",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "Playing basketball in America can feel a long way from Birmingham.\n\nThis time, someone who actually did it is coming here.\n\nA former UCLA and Phoenix Suns player is coming to find talent.\n\nStand out, and you could get the opportunity to go the other way — LA, UCLA, and a showcase in front of US college and professional coaches.\n\nThere are 30 places to be seen.\n\nRegistration closes Wednesday 23 September.\n\nIf America is the plan, get in the gym.",
+            "headline": "America comes to Birmingham first.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/5bcf89e871a9a2212e402d7daf3ca2b25e5d5701bcc9ade3ccaee46ad868a3ca.webp",
+            "creative_alt": "A focused young basketball player stands courtside holding a ball.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-04-M",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "A lot of players here want to play basketball in America.\n\nUsually, America is thousands of miles away.\n\nThis time, someone who actually played there is coming to Birmingham.\n\nFormer UCLA and Phoenix Suns player Dijon Thompson is coming to find talent.\n\nYou’ll train.\n\nGet coached.\n\nCompete.\n\nLet him assess your game.\n\nPlayers who stand out could get the opportunity to travel the other way — to LA, to train at UCLA and showcase in front of college and professional coaches.\n\nLast year, players did exactly that.\n\nThis camp has 30 places.\n\nRegistration closes Wednesday 23 September.\n\nAmerica is still a long way away.\n\nThis is something you can actually do from Birmingham.",
+            "headline": "America comes to Birmingham first.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/5bcf89e871a9a2212e402d7daf3ca2b25e5d5701bcc9ade3ccaee46ad868a3ca.webp",
+            "creative_alt": "A focused young basketball player stands courtside holding a ball.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-04-L",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Playing basketball in America can feel a very long way from Birmingham.\n\nYou can train.\n\nPlay every weekend.\n\nPut clips online.\n\nTalk about where you want your basketball to go.\n\nBut the people and places you’re trying to reach are still thousands of miles away.\n\nThis time, someone is coming the other way.\n\nA former UCLA and Phoenix Suns player is coming to Birmingham looking for talent.\n\nHis name is Dijon Thompson.\n\nHe played at UCLA, reached the NBA and then continued his professional career overseas.\n\nSo he has a pretty useful idea of what basketball at another level looks like.\n\nAnd he’s coming here to watch.\n\nYou’ll train.\n\nGet coached.\n\nCompete.\n\nLet him see your game.\n\nThe players who stand out could get the opportunity to travel to Los Angeles, train at UCLA and showcase in front of college and professional coaches in the US.\n\nLast year, players made that trip.\n\nThis time, there are 30 places in the Birmingham gym.\n\n30 chances to get seen properly.\n\nRegistration closes Wednesday 23 September.\n\nNobody needs a big speech about how badly you want America.\n\nGet in the gym.\n\nPlay.\n\nGive someone who’s been there a reason to take a closer look.",
+            "headline": "America comes to Birmingham first.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/5bcf89e871a9a2212e402d7daf3ca2b25e5d5701bcc9ade3ccaee46ad868a3ca.webp",
+            "creative_alt": "A focused young basketball player stands courtside holding a ball.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          }
+        ]
+      },
+      {
+        "id": "get-in-a-better-room",
+        "revision": 1,
+        "name": "Get In A Better Room",
+        "strategy": "Show how a serious gym changes what basketball asks from a player and makes strengths and gaps visible quickly.",
+        "audience": "Competitive players aged 16 to 21 who want to test themselves alongside other ambitious players.",
+        "proposition": "Join a limited 30-player gym with strong competition, coaching and an experienced evaluator watching.",
+        "ads": [
+          {
+            "id": "RC-05-S",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "Put good players in a gym together and you find things out pretty quickly.\n\nSomeone is quicker than you.\n\nSomeone can guard you.\n\nSomeone sees a pass you didn’t.\n\nGood.\n\nNow add a former UCLA and NBA player who’s there looking for talent.\n\nThat’s a useful room.\n\nWe’re putting 30 players in it.\n\nRegistration closes Wednesday 23 September.\n\nCome see what your game looks like in there.",
+            "headline": "Get in a better room.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/bdde7372a1926579234e157fe85fa6f2dc72726e4857195c5f46f6ce23aa4d27.webp",
+            "creative_alt": "Two basketball players compete one-on-one while other players watch from the court.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-05-M",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Who you play with changes what basketball asks from you.\n\nPut good players in a gym together and suddenly the easy stuff isn’t so easy.\n\nSomeone stays in front of you.\n\nSomeone is just as quick.\n\nSomeone does something better than you.\n\nGood.\n\nNow you’re finding things out.\n\nThat’s the room we’re putting together.\n\n30 young players chasing their basketball seriously.\n\nAnd a former UCLA and Phoenix Suns player there to coach, watch and assess.\n\nPlayers who stand out could get the opportunity to go to LA and showcase their game at UCLA in front of US coaches.\n\nBut first, get into a good gym.\n\nThere are 30 places.\n\nRegistration closes Wednesday 23 September.\n\nCome compete.",
+            "headline": "Get in a better room.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/bdde7372a1926579234e157fe85fa6f2dc72726e4857195c5f46f6ce23aa4d27.webp",
+            "creative_alt": "Two basketball players compete one-on-one while other players watch from the court.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-05-L",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "You know when you walk into a good gym.\n\nNobody has to tell you.\n\nThe ball moves quicker.\n\nPeople defend.\n\nYou can't sleep through three possessions.\n\nSomeone can stay in front of you.\n\nSomeone is stronger than the players you normally play.\n\nSomeone sees the pass before you do.\n\nSomeone does the thing you thought you were really good at a little better than you.\n\nGood.\n\nThat’s a useful room.\n\nBecause now you’re finding things out about your game.\n\nThat’s what we want from this recruitment camp.\n\n30 players who want to see how far their basketball can go.\n\nTraining together.\n\nCompeting against each other.\n\nGetting coached.\n\nAnd watching the room is a former UCLA and Phoenix Suns player who has come to Birmingham specifically looking for talent.\n\nThat’s Dijon Thompson.\n\nPlayers who stand out could get the opportunity to travel to LA, train at UCLA and showcase their game in front of college and professional coaches.\n\nSo yes, there’s something much bigger that can come from the day.\n\nBut you still have to play basketball first.\n\nAnd there are only 30 places to do it.\n\nRegistration closes Wednesday 23 September.\n\nGet in a good room.\n\nThen show us how you look in it.",
+            "headline": "Get in a better room.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/bdde7372a1926579234e157fe85fa6f2dc72726e4857195c5f46f6ce23aa4d27.webp",
+            "creative_alt": "Two basketball players compete one-on-one while other players watch from the court.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          }
+        ]
+      },
+      {
+        "id": "we-dont-know-which-player-yet",
+        "revision": 1,
+        "name": "We Don't Know Which Player It Is Yet",
+        "strategy": "Keep the opportunity genuinely open by acknowledging that the player who stands out may be established, unknown or valuable in ways highlights miss.",
+        "audience": "Players aged 16 to 21 who believe their game deserves to be watched properly, whether or not they already have a profile.",
+        "proposition": "Enter the 30-player camp and make a live case for consideration for the next LA showcase group.",
+        "ads": [
+          {
+            "id": "RC-06-S",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "Someone in this camp could end up at UCLA.\n\nWe just don’t know who yet.\n\nThat’s why a former UCLA and Phoenix Suns player is coming to Birmingham.\n\nHe’s looking for talent.\n\n30 players get the chance to train, compete and be assessed.\n\nThe ones who stand out could get the opportunity to showcase in LA.\n\nRegistration closes Wednesday 23 September.\n\nWe don’t know who he’ll notice yet.\n\nCome make the decision difficult.",
+            "headline": "We don't know which player it is yet.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/b4a3d6a55b3a4914f3d056131e95d43122a52b3a0e13d70e25548cb951cd4442.webp",
+            "creative_alt": "A young basketball player drives past a defender during live play.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-06-M",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Someone who comes to this recruitment camp could end up at UCLA.\n\nWe don't know who.\n\nThat’s the point.\n\nFormer UCLA and Phoenix Suns player Dijon Thompson is coming to Birmingham to see what talent is here.\n\n30 players will train.\n\nGet coached.\n\nPlay against each other.\n\nCompete.\n\nAnd let someone who has actually played at that level assess what he sees.\n\nPlayers who stand out could get the opportunity to travel to LA and showcase their game at UCLA in front of college and professional coaches.\n\nIt happened last year.\n\nNow we’re looking again.\n\nThere are 30 places.\n\nRegistration closes Wednesday 23 September.\n\nCould be you.\n\nBut first, come play.",
+            "headline": "We don't know which player it is yet.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/b4a3d6a55b3a4914f3d056131e95d43122a52b3a0e13d70e25548cb951cd4442.webp",
+            "creative_alt": "A young basketball player drives past a defender during live play.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          },
+          {
+            "id": "RC-06-L",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Someone in this camp could end up at UCLA.\n\nRight now, we don't know who.\n\nMaybe it’s the player putting up 25 every weekend.\n\nMaybe it’s someone nobody outside their club has heard of yet.\n\nMaybe it’s a player who doesn’t have the best highlights but does a lot of things you only notice when you watch them properly.\n\nThat’s why you get players into a gym.\n\nAnd play.\n\nThis time, the person watching is a former UCLA and Phoenix Suns player who’s coming to Birmingham looking for talent.\n\nHis name is Dijon Thompson.\n\nHe’ll coach.\n\nHe’ll watch.\n\nHe’ll see how players compete against each other.\n\nAnd he’ll get a much better idea of what’s actually there.\n\nThe players who stand out could get the opportunity to travel to Los Angeles, train at UCLA and showcase their basketball in front of college and professional coaches.\n\nWe did it last year.\n\nPlayers came through the camp and made that trip.\n\nNow there’s another group wondering how far their game could go.\n\nOnly 30 of them are getting into this camp.\n\nRegistration closes Wednesday 23 September.\n\nWe don't know who’s going to stand out yet.\n\nThat’s what makes the day interesting.\n\nCome play.",
+            "headline": "We don't know which player it is yet.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/b4a3d6a55b3a4914f3d056131e95d43122a52b3a0e13d70e25548cb951cd4442.webp",
+            "creative_alt": "A young basketball player drives past a defender during live play.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/recruitment-camp/"
+          }
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "agent": "campaign-builder",
+    "run_id": "sos-campaign-library-2026-09-11-r4",
+    "created_by": "Devin for Sorted",
+    "source": "marketing/campaigns/la-recruitment-camp.md"
+  }
+}
