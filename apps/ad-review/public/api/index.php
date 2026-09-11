@@ -141,20 +141,17 @@ try {
     $attempts = db('ad_review_access_audit?tenant_slug=eq.' . rawurlencode($slug) . '&ip_hash=eq.' . $ipHash . '&success=eq.false&created_at=gte.' . $since . '&select=id&limit=20');
     if (count($attempts) >= 20) respond(['error' => 'Too many attempts. Try again later.'], 429, $headers);
     $expired = !empty($tenant['access_expires_at']) && strtotime($tenant['access_expires_at']) <= time();
-    $editorRows = bearer() ? db('ad_review_editors?tenant_slug=eq.' . rawurlencode($slug) . '&token_hash=eq.' . hash('sha256', bearer()) . '&revoked_at=is.null&expires_at=gt.' . rawurlencode(gmdate('c')) . '&select=name') : [];
-    $editor = $editorRows[0] ?? null;
-    $valid = $editor !== null || (bearer() !== '' && !$expired && empty($tenant['access_revoked_at']) && hash_equals($tenant['access_token_hash'], hash('sha256', bearer())));
+    $valid = bearer() !== '' && !$expired && empty($tenant['access_revoked_at']) && hash_equals($tenant['access_token_hash'], hash('sha256', bearer()));
     db('ad_review_access_audit', 'POST', ['tenant_slug' => $slug, 'ip_hash' => $ipHash, 'success' => $valid, 'user_agent' => substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 300)], ['Prefer: return=minimal']);
     if (!$valid) respond(['error' => 'That access code is not valid.'], 401, $headers);
+    $editor = ['name' => 'Portal editor'];
 
     if (in_array($action, ['upload','edit-image','unlock-image'], true)) {
-        if (!$editor) respond(['error' => 'Editor access is required to change images.'], 403, $headers);
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') respond(['error' => 'Method not allowed.'], 405, $headers);
         if ($action === 'upload') uploadAsset($slug, $headers);
         editImage($slug, $editor, $headers, $action);
     }
     if ($action === 'history') {
-        if (!$editor) respond(['error' => 'Editor access is required.'], 403, $headers);
         if ($_SERVER['REQUEST_METHOD'] !== 'GET') respond(['error' => 'Method not allowed.'], 405, $headers);
         $rows = db('ad_review_campaigns?tenant_slug=eq.' . rawurlencode($slug) . '&campaign_id=eq.' . rawurlencode($_GET['campaign_id'] ?? '') . '&order=revision.desc&select=revision,package,provenance,created_at');
         $history = [];
@@ -168,14 +165,9 @@ try {
         $campaigns = [];
         foreach ($rows as $row) if (!isset($campaigns[$row['campaign_id']])) $campaigns[$row['campaign_id']] = $row['package']['campaign'];
         $decisions = db('ad_review_decisions?tenant_slug=eq.' . rawurlencode($slug) . '&select=id,campaign_id,campaign_revision,target_type,target_id,fingerprint,status,comment,reviewer,created_at&order=created_at.asc');
-        $locks = $editor ? db('ad_review_image_locks?tenant_slug=eq.' . rawurlencode($slug) . '&select=campaign_id,ad_id,editor') : [];
+        $locks = db('ad_review_image_locks?tenant_slug=eq.' . rawurlencode($slug) . '&select=campaign_id,ad_id,editor');
         $assets = tenantAssets($slug);
-        if (!$editor) {
-            $used = [];
-            foreach ($campaigns as $campaign) foreach ($campaign['concepts'] as $concept) foreach ($concept['ads'] as $ad) $used[$ad['creative_key']] = true;
-            $assets = array_values(array_filter($assets, fn($asset) => isset($used[$asset['creative_key']])));
-        }
-        respond(['tenant' => ['slug' => $tenant['slug'], 'name' => $tenant['name']], 'role' => $editor ? 'editor' : 'reviewer', 'editor_name' => $editor['name'] ?? null, 'assets' => assetUrls($assets), 'image_locks' => $locks, 'campaigns' => array_values($campaigns), 'decisions' => $decisions], 200, $headers);
+        respond(['tenant' => ['slug' => $tenant['slug'], 'name' => $tenant['name']], 'role' => 'editor', 'editor_name' => $editor['name'], 'assets' => assetUrls($assets), 'image_locks' => $locks, 'campaigns' => array_values($campaigns), 'decisions' => $decisions], 200, $headers);
     }
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') respond(['error' => 'Method not allowed.'], 405, $headers);
     $input = requestBody();
@@ -193,7 +185,7 @@ try {
     }
     if (!$target || !hash_equals($target['fingerprint'], $input['fingerprint'] ?? '')) respond(['error' => 'This item has changed. Refresh before reviewing it.'], 409, $headers);
     $input['comment'] = $comment;
-    $input['reviewer'] = $editor['name'] ?? $reviewer;
+    $input['reviewer'] = $reviewer;
     respond(rpcResult(db('rpc/ad_review_save_decision', 'POST', ['p_tenant' => $slug, 'p_decision' => $input]), $headers), 201, $headers);
 } catch (Throwable $error) {
     error_log('Ad previewer: ' . $error->getMessage());
