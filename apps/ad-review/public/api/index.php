@@ -50,7 +50,7 @@ function requestBody(): ?array {
 
 function originHeaders(string $allowed): array {
     $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-    $accepted = ($origin === $allowed || preg_match('/^https:\/\/[a-z0-9-]+\.netlify\.app$/', $origin)) ? $origin : $allowed;
+    $accepted = ($origin === $allowed || $origin === 'https://sortmydigital.site' || preg_match('/^https:\/\/[a-z0-9-]+\.netlify\.app$/', $origin)) ? $origin : $allowed;
     return ['Access-Control-Allow-Origin' => $accepted, 'Access-Control-Allow-Headers' => 'Authorization, Content-Type', 'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS', 'Vary' => 'Origin'];
 }
 
