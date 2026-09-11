@@ -81,7 +81,7 @@ export default function CampaignsPage() {
       ) : (
         <div className="ads-campaign-grid">
           {visible.map((c) => (
-            <Link key={c.id} href={`/ads/${c.id}/`} className="ads-card">
+            <Link key={c.id} href={`/ads/campaign/?id=${encodeURIComponent(c.id)}`} className="ads-card">
               <div
                 className="ads-card-media"
                 style={{
