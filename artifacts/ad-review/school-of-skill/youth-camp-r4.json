@@ -1,0 +1,317 @@
+{
+  "schema_version": 1,
+  "base_revision": 3,
+  "idempotency_key": "school-of-skill-youth-camp-r4",
+  "client_slug": "school-of-skill",
+  "campaign": {
+    "id": "youth-camp-parents",
+    "revision": 4,
+    "name": "Youth Camp | Parents",
+    "platform": "meta",
+    "objective": "Fill 30 Youth Camp places with players aged 11 to 15 before registration closes on 23 September.",
+    "status": "awaiting_review",
+    "created_at": "2026-09-11T01:08:41Z",
+    "concepts": [
+      {
+        "id": "kids-use-what-works",
+        "revision": 1,
+        "name": "Kids Use What Works",
+        "strategy": "Start with the sensible choices young players make in games, then show why training creates room to develop the parts that are not ready yet.",
+        "audience": "Parents of basketball players aged 11 to 15 who want their child to add to a game that already has dependable strengths.",
+        "proposition": "A full day of coaching, repetition and live basketball where players can try, correct and use new skills.",
+        "ads": [
+          {
+            "id": "YC-01-S",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "If your kid can get to the basket going right, they’re going to keep going right.\n\nOf course they are. It works.\n\nTraining is where they can work on the stuff that doesn’t.\n\nGo left. Lose it. Get coached. Try again.\n\nThat’s a big part of our Youth Camp: coaching, repetitions and plenty of live basketball.\n\nIt’s for players aged 11–15, and we’ve only got 30 places.\n\nRegistration closes Wednesday 23 September.\n\nIf your kid wants to get better, bring them down.",
+            "headline": "Kids use what works.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/7f5034f507b8e2b3aa7280db8aa5dfb29f933597a110e1b40051fa17f3edc444.webp",
+            "creative_alt": "A young player dribbles through a basketball skills exercise.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          },
+          {
+            "id": "YC-01-M",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "If your kid can beat people going right, they’ll keep going right.\n\nIf they’re quicker than everyone, they’ll use their speed.\n\nIf one finish keeps working, they’ll keep using it.\n\nFair enough. They’re playing a game and trying to win.\n\nBut the stuff they can’t do yet needs somewhere to get worked on too.\n\nGo left. Lose it.\n\nAgain.\n\nGet the footwork wrong. Fix it.\n\nAgain.\n\nThen put a defender there and see if it still works.\n\nThat’s what training gives young players that games sometimes don’t: time to work on the parts of their game that aren’t ready yet.\n\nOur Youth Camp gives players aged 11–15 a full day of coaching, repetitions and live basketball.\n\nThere are 30 places.\n\nRegistration closes Wednesday 23 September.\n\nIf that sounds like a useful day for your kid, bring them down.",
+            "headline": "Kids use what works.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/7f5034f507b8e2b3aa7280db8aa5dfb29f933597a110e1b40051fa17f3edc444.webp",
+            "creative_alt": "A young player dribbles through a basketball skills exercise.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          },
+          {
+            "id": "YC-01-L",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "If your kid has something that works in a game, they’re going to use it.\n\nThey should.\n\nIf they can beat their defender going right, go right.\n\nIf they’re quicker than everyone else, use the speed.\n\nIf they’ve got one finish they trust around the basket, that’s probably the finish they’re choosing when the score is close.\n\nThat’s basketball.\n\nThe problem is, games don’t always give young players much reason to work on what doesn’t work.\n\nNobody gets two minutes in the middle of a match to practise going left.\n\nYou don’t stop the game because their footwork was wrong.\n\nAnd a player probably isn’t thinking, this would be an excellent time to try the move I’m terrible at.\n\nTraining gives them that space.\n\nGo left.\n\nLose it.\n\nAgain.\n\nGet coached.\n\nAgain.\n\nNow get it right.\n\nGood. Put a defender there.\n\nThat process isn’t as exciting as making three baskets in a game. But it’s where a lot of improvement happens.\n\nThat’s how we’re approaching our Youth Camp.\n\nPlayers aged 11–15 will spend the day working on skills, decisions and competitive basketball with experienced coaches, including a former UCLA and NBA player.\n\nWe’ll work on things. We’ll play. We’ll stop and fix things. Then we’ll play again.\n\nThere are only 30 places because we want enough coaching time with the players who come.\n\nRegistration closes Wednesday 23 September.\n\nIf your kid loves basketball and wants to get better at it, bring them down.",
+            "headline": "Kids use what works.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/7f5034f507b8e2b3aa7280db8aa5dfb29f933597a110e1b40051fa17f3edc444.webp",
+            "creative_alt": "A young player dribbles through a basketball skills exercise.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          }
+        ]
+      },
+      {
+        "id": "confidence-comes-after-doing-it",
+        "revision": 1,
+        "name": "Confidence Comes After Doing It",
+        "strategy": "Treat confidence as evidence earned through action rather than encouragement alone.",
+        "audience": "Parents of players aged 11 to 15 who want their child to build grounded confidence through basketball.",
+        "proposition": "Give players coached challenges and competitive moments that let them discover what they can do.",
+        "ads": [
+          {
+            "id": "YC-02-S",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "Kids get confident when they realise they can actually do something.\n\nBeat a defender they couldn’t beat before.\n\nUse their left without losing the ball.\n\nPlay against someone good and hold their own.\n\nYou can tell a kid to believe in themselves all day.\n\nActually doing the thing works better.\n\nThat’s the kind of day we want to give them at our Youth Camp.\n\nAges 11–15. 30 places.\n\nRegistration closes Wednesday 23 September.\n\nBring them down.",
+            "headline": "Confidence comes after doing it.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/6796a955b98da1b32b40b13e7bb16a91f958a4d2cb48456d673ee24c1533b09e.webp",
+            "creative_alt": "A young basketball player rises to shoot during a camp session.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          },
+          {
+            "id": "YC-02-M",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "You can tell a young player to be confident.\n\nSometimes they just need to do something that proves they can be.\n\nBring the ball up against pressure without panicking.\n\nMake the pass they weren’t seeing before.\n\nPlay against someone better and realise they can compete.\n\nThose little moments add up.\n\nBecause now confidence isn’t somebody saying, “Believe in yourself.”\n\nIt’s the player thinking, I know I can do that. I’ve done it.\n\nThat’s much more useful.\n\nAt our Youth Camp, players aged 11–15 get a full day to work on their game with experienced coaches, then test it in competitive basketball.\n\nWe’re keeping the camp to 30 players.\n\nRegistration closes Wednesday 23 September.\n\nGive them a day to find a few more things they can do.",
+            "headline": "Confidence comes after doing it.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/6796a955b98da1b32b40b13e7bb16a91f958a4d2cb48456d673ee24c1533b09e.webp",
+            "creative_alt": "A young basketball player rises to shoot during a camp session.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          },
+          {
+            "id": "YC-02-L",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Kids get confident when they realise they can actually do something.\n\nNot when we tell them they’re amazing.\n\nWhen they do it.\n\nA player has been avoiding their left hand for months.\n\nThen one day they use it, get past someone and finish.\n\nOkay.\n\nNow they know.\n\nThey normally panic when somebody pressures the ball.\n\nThis time they stay calm, protect it and get out.\n\nNow they know that too.\n\nOr they walk into a gym with players they’ve never met, feel a bit nervous, start playing and realise:\n\nI’m alright here.\n\nThat’s confidence they’ve earned.\n\nWe sometimes get the order backwards with young players.\n\nWe want them to feel confident so they’ll try difficult things.\n\nQuite often, trying difficult things is how they become confident.\n\nSo give them something they can’t quite do yet.\n\nHelp them with it.\n\nLet them get it wrong.\n\nCoach them.\n\nLet them go again.\n\nThen watch what happens when it starts working.\n\nThat’s the environment we want at our Youth Camp.\n\nPlayers aged 11–15 will spend a full day working with experienced coaches — including a former UCLA and NBA player — through skills, decisions and live basketball.\n\nWe’re only taking 30 players.\n\nRegistration closes Wednesday 23 September.\n\nIf your kid loves the game, bring them down and give them some things to figure out.",
+            "headline": "Confidence comes after doing it.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/6796a955b98da1b32b40b13e7bb16a91f958a4d2cb48456d673ee24c1533b09e.webp",
+            "creative_alt": "A young basketball player rises to shoot during a camp session.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          }
+        ]
+      },
+      {
+        "id": "getting-better-gets-harder-to-see",
+        "revision": 1,
+        "name": "Getting Better Gets Harder To See",
+        "strategy": "Describe how improvement becomes less obvious as players develop, shifting from new skills to better timing, decisions and positioning.",
+        "audience": "Parents of developing players aged 11 to 15 whose progress now appears in smaller details.",
+        "proposition": "Experienced coaches help players notice, understand and practise the details that make better basketball.",
+        "ads": [
+          {
+            "id": "YC-03-S",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "When kids first start basketball, improvement is obvious.\n\nThey couldn’t dribble. Now they can.\n\nCouldn’t make a layup. Now they can.\n\nLater, getting better looks different.\n\nSeeing the pass earlier. Using fewer dribbles. Knowing when not to drive.\n\nSmall things. Better basketball.\n\nThat’s the stuff we’ll be working on at our Youth Camp.\n\nAges 11–15. 30 places.\n\nRegistration closes Wednesday 23 September.",
+            "headline": "Getting better gets harder to see.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/3ba0deba2e4bc844d9795bf35be066096d813c3515b9d395839a2399d1e5204e.webp",
+            "creative_alt": "A School of Skill coach watches players closely during a basketball session.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          },
+          {
+            "id": "YC-03-M",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "When a kid first starts basketball, you can almost watch them improve week by week.\n\nFirst layup.\n\nFirst proper jump shot.\n\nThey start using both hands.\n\nEasy to see.\n\nAs they get better, the improvements get smaller.\n\nThey stop picking the ball up too early.\n\nSee a pass half a second quicker.\n\nChange pace instead of just trying to run past everyone.\n\nMake the simple play instead of the difficult one.\n\nThat stuff doesn’t always get a cheer from the sideline.\n\nIt’s still getting better.\n\nAt our Youth Camp, we’ll spend a full day working on those details — skills, decisions and then using them when the basketball becomes live.\n\nFor players aged 11–15.\n\n30 places available.\n\nRegistration closes Wednesday 23 September.\n\nCome and work on the little things.",
+            "headline": "Getting better gets harder to see.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/3ba0deba2e4bc844d9795bf35be066096d813c3515b9d395839a2399d1e5204e.webp",
+            "creative_alt": "A School of Skill coach watches players closely during a basketball session.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          },
+          {
+            "id": "YC-03-L",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "When kids first start basketball, getting better is pretty easy to spot.\n\nThey couldn’t dribble properly.\n\nNow they can.\n\nThey couldn’t make a layup.\n\nNow they can.\n\nThey learn to shoot, pass, change direction, use their other hand.\n\nBig, obvious improvements.\n\nThen they get better.\n\nAnd weirdly, getting better becomes harder to see.\n\nNow it might be taking one less dribble.\n\nSeeing the help defender a little earlier.\n\nChanging pace instead of just playing fast.\n\nKnowing when to attack and when to move the ball.\n\nKeeping their head up under pressure.\n\nGetting into the right position before the ball even arrives.\n\nNobody in the stands is necessarily jumping up because your kid made the correct cut.\n\nBut it’s better basketball.\n\nThat’s where coaching starts becoming really useful.\n\nNot just showing players another move.\n\nHelping them notice more.\n\nUnderstand more.\n\nMake better choices.\n\nThen giving them enough basketball to actually try it.\n\nThat’s what we’ll be doing at our Youth Camp with players aged 11–15.\n\nA full day of skills, decisions, competition and coaching — including time with a former UCLA and NBA player.\n\nWe’re keeping it to 30 players so there’s actually time to coach them.\n\nRegistration closes Wednesday 23 September.\n\nIf your kid is getting to the stage where the little things are starting to matter, bring them down.",
+            "headline": "Getting better gets harder to see.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/3ba0deba2e4bc844d9795bf35be066096d813c3515b9d395839a2399d1e5204e.webp",
+            "creative_alt": "A School of Skill coach watches players closely during a basketball session.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          }
+        ]
+      },
+      {
+        "id": "better-players-give-you-new-problems",
+        "revision": 1,
+        "name": "Better Players Give You New Problems",
+        "strategy": "Show why unfamiliar competition is useful: it stops familiar solutions and gives a young player a new basketball problem to solve.",
+        "audience": "Parents of players aged 11 to 15 who need different competition to reveal the next part of their development.",
+        "proposition": "Play against different players, discover what else your game needs and work on new answers with coaches.",
+        "ads": [
+          {
+            "id": "YC-04-S",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "It’s easy to think a move is great when nobody can stop it.\n\nThen you meet someone who can.\n\nGood.\n\nNow you need another answer.\n\nThat’s one of the useful things about playing different people. They show you parts of your game you don’t normally have to think about.\n\nOur Youth Camp gives players aged 11–15 a full day to work, compete and figure some of that out.\n\n30 places.\n\nRegistration closes Wednesday 23 September.\n\nCome and play.",
+            "headline": "Better players give you new problems.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/91bf4bf875ce2dd9a5545533ff8f7905798d564c290f6cc1b9316e2ff4a83b72.webp",
+            "creative_alt": "A young player shoots during a busy basketball camp session.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          },
+          {
+            "id": "YC-04-M",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Your kid might have a move that works every weekend.\n\nThen they play someone quicker.\n\nDoesn’t work.\n\nThey normally get wherever they want with the ball.\n\nNow someone keeps them in front.\n\nGood.\n\nThat’s useful.\n\nBecause now they have to find another way.\n\nChange pace. Use the other hand. Move the ball. Try something else.\n\nPlaying different people shows young players things their normal basketball sometimes doesn’t.\n\nAnd once you can see something, you can work on it.\n\nThat’s part of what our Youth Camp is for.\n\nPlayers aged 11–15 will spend the day being coached, working on their skills and competing with other players.\n\nWe’ve got 30 places.\n\nRegistration closes Wednesday 23 September.\n\nBring your game. Find out what else it needs.",
+            "headline": "Better players give you new problems.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/91bf4bf875ce2dd9a5545533ff8f7905798d564c290f6cc1b9316e2ff4a83b72.webp",
+            "creative_alt": "A young player shoots during a busy basketball camp session.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          },
+          {
+            "id": "YC-04-L",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "A young player can get very comfortable with something that works.\n\nMaybe they’re quicker than most of the kids they play.\n\nMaybe they can get to the basket whenever they want.\n\nMaybe there’s one move nobody at their club seems able to stop.\n\nGreat.\n\nThen somebody stops it.\n\nThat’s useful.\n\nNot because young players need somebody to “humble” them. That stuff gets silly.\n\nIt’s useful because now basketball is asking them a new question.\n\nWhat else have you got?\n\nCan you change pace?\n\nCan you go the other way?\n\nCan you give the ball up and get it back?\n\nCan you still have a good game when your favourite thing isn’t working?\n\nPlayers need those moments.\n\nOtherwise it’s very easy to keep doing the same thing because it keeps working.\n\nDifferent players give you different problems.\n\nDifferent problems make you find different answers.\n\nThat’s why we want plenty of live basketball at our Youth Camp, not just drills.\n\nPlayers aged 11–15 will get coached, work on their game and then test it against other players.\n\nWe’re keeping the camp to 30 places.\n\nRegistration closes Wednesday 23 September.\n\nCome and find a few new answers.",
+            "headline": "Better players give you new problems.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/91bf4bf875ce2dd9a5545533ff8f7905798d564c290f6cc1b9316e2ff4a83b72.webp",
+            "creative_alt": "A young player shoots during a busy basketball camp session.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          }
+        ]
+      },
+      {
+        "id": "mistakes-give-you-something-to-coach",
+        "revision": 1,
+        "name": "Mistakes Give You Something To Coach",
+        "strategy": "Normalise purposeful mistakes in training as useful information that lets a coach diagnose, correct and give the player another attempt.",
+        "audience": "Parents of players aged 11 to 15 who want a serious but supportive learning environment.",
+        "proposition": "Players try unfamiliar skills, receive specific feedback and test the correction again in live basketball.",
+        "ads": [
+          {
+            "id": "YC-05-S",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "If a kid never loses the ball in training, they might not be trying anything new.\n\nGo left. Lose it.\n\nFine.\n\nWhy did you lose it?\n\nFix that bit.\n\nGo again.\n\nA mistake you understand is useful.\n\nThat’s how we want players working at our Youth Camp — try things, get coached, try again, then put it into a game.\n\nAges 11–15. 30 places.\n\nRegistration closes Wednesday 23 September.",
+            "headline": "Mistakes give you something to coach.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/e8f206eadad34afc4d07329342adba6f4495f500fd6eb30d87a6a555e1addd67.webp",
+            "creative_alt": "A School of Skill coach demonstrates ball control during an individual drill.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          },
+          {
+            "id": "YC-05-M",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "We don’t want young players scared of making mistakes in training.\n\nIf they’re learning something new, some of it is going to go wrong.\n\nThat’s normal.\n\nLose the ball.\n\nOkay. Why?\n\nFootwork?\n\nToo high?\n\nWrong angle?\n\nFix it.\n\nAgain.\n\nNow we’ve got something useful.\n\nThe point isn’t to celebrate every mistake. It’s to actually use them.\n\nThat’s what coaching is there for.\n\nAt our Youth Camp, players aged 11–15 get a full day to work on their game, get feedback and keep having another go.\n\nThen we put it into live basketball and see what sticks.\n\nOnly 30 players are coming into the gym.\n\nRegistration closes Wednesday 23 September.\n\nBring them down.",
+            "headline": "Mistakes give you something to coach.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/e8f206eadad34afc4d07329342adba6f4495f500fd6eb30d87a6a555e1addd67.webp",
+            "creative_alt": "A School of Skill coach demonstrates ball control during an individual drill.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          },
+          {
+            "id": "YC-05-L",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "If your kid is learning something new in basketball, there’s a decent chance they’re going to be bad at it for a while.\n\nThat’s sort of how learning works.\n\nGoing left feels awkward.\n\nThe new footwork is slower than what they normally do.\n\nThey see the pass too late.\n\nThey try the move and lose the ball.\n\nFine.\n\nNow there’s something to coach.\n\nWhy did it go wrong?\n\nWhat did they miss?\n\nWhat needs changing?\n\nTry again.\n\nThe alternative is a player who only ever does the things they already know they can do.\n\nThey’ll probably make fewer mistakes.\n\nThey’ll also have a harder time adding anything new to their game.\n\nTraining should be one of the places where young players are allowed to get something wrong and actually learn from it.\n\nNot careless.\n\nNot messing about.\n\nJust trying something that isn't comfortable yet.\n\nThat’s the environment we want at our Youth Camp.\n\nPlayers aged 11–15 will get a full day of coaching, skill work and live basketball, with experienced coaches including a former UCLA and NBA player.\n\nTry it.\n\nGet some feedback.\n\nTry it again.\n\nThen see if you can do it when somebody’s defending you.\n\nThere are 30 places for the day.\n\nRegistration closes Wednesday 23 September.\n\nIf your kid wants to work on their game, that’s exactly what we’ll be doing.",
+            "headline": "Mistakes give you something to coach.",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/e8f206eadad34afc4d07329342adba6f4495f500fd6eb30d87a6a555e1addd67.webp",
+            "creative_alt": "A School of Skill coach demonstrates ball control during an individual drill.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          }
+        ]
+      },
+      {
+        "id": "what-do-they-take-home",
+        "revision": 1,
+        "name": "What Do They Take Home?",
+        "strategy": "Set an honest limit on what one camp can do, then define success as something useful the player understands and continues working on afterwards.",
+        "audience": "Parents of players aged 11 to 15 who want practical value from a one-day basketball camp.",
+        "proposition": "A full day designed to leave each player with useful corrections, ideas and motivation they can take back to training.",
+        "ads": [
+          {
+            "id": "YC-06-S",
+            "revision": 1,
+            "placement": "instagram_feed",
+            "ratio": "4:5",
+            "primary_text": "A camp lasts one day.\n\nThe useful bit is what your kid still has afterwards.\n\nSomething they understand better.\n\nSomething they know they need to fix.\n\nSomething new to practise.\n\nThat’s a good day.\n\nOur Youth Camp gives 30 players aged 11–15 a full day of coaching and basketball.\n\nRegistration closes Wednesday 23 September.\n\nCome for the day.\n\nTake something useful back to training.",
+            "headline": "What do they take home?",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/c150833d7b449c08b27b7e92198ceeced8378274d45c168002f66b01d4f0167f.webp",
+            "creative_alt": "A young basketball player sits courtside holding a ball and watching the gym.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          },
+          {
+            "id": "YC-06-M",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "Nobody becomes a completely different basketball player in one day.\n\nWe’re not going to pretend they do.\n\nBut one day can give a young player something useful.\n\nA coach spots something.\n\nA correction finally clicks.\n\nThey learn a new way to solve a problem.\n\nThey play against someone different and realise what they need to work on.\n\nThen they take that back to training.\n\nThat’s a good camp.\n\nOur Youth Camp gives players aged 11–15 a full day of coaching, skill work and competitive basketball.\n\nWe’re taking 30 players.\n\nRegistration closes Wednesday 23 September.\n\nHopefully they leave with something they’re still using after the camp is over.\n\nBring them down.",
+            "headline": "What do they take home?",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/c150833d7b449c08b27b7e92198ceeced8378274d45c168002f66b01d4f0167f.webp",
+            "creative_alt": "A young basketball player sits courtside holding a ball and watching the gym.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          },
+          {
+            "id": "YC-06-L",
+            "revision": 1,
+            "placement": "facebook_feed",
+            "ratio": "4:5",
+            "primary_text": "A basketball camp lasts a day.\n\nSo there’s only so much we’re going to claim about it.\n\nYour kid isn’t arriving in the morning as one player and leaving that afternoon completely transformed.\n\nCome on.\n\nBut they can leave with something.\n\nMaybe a coach notices why they keep struggling with a particular finish.\n\nMaybe something they’ve heard ten times finally makes sense when somebody explains it differently.\n\nMaybe they play against someone good and realise they can handle themselves.\n\nMaybe they discover something in their game that needs more work.\n\nMaybe they simply come home wanting to get outside with a ball and practise something they learned.\n\nAll of those are useful.\n\nBecause the important part of a camp isn’t only what happens while the player is there.\n\nIt’s what they take back with them.\n\nThat’s how we’re looking at our Youth Camp.\n\nPlayers aged 11–15 get a full day of skill work, decision-making and competitive basketball with experienced coaches, including a former UCLA and NBA player.\n\nWe’ll give them plenty to do.\n\nWe’d rather they leave with a few things they actually remember.\n\nThere are 30 places.\n\nRegistration closes Wednesday 23 September.\n\nIf your kid loves basketball, bring them down. We’ll give them something to work on.",
+            "headline": "What do they take home?",
+            "description": "30 places. Registration closes 23 September.",
+            "creative_key": "/creatives/c150833d7b449c08b27b7e92198ceeced8378274d45c168002f66b01d4f0167f.webp",
+            "creative_alt": "A young basketball player sits courtside holding a ball and watching the gym.",
+            "cta": "BOOK_NOW",
+            "destination_url": "https://schoolofskill.co.uk/camps/youth-camp/"
+          }
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "agent": "campaign-builder",
+    "run_id": "sos-campaign-library-2026-09-11-r4",
+    "created_by": "Devin for Sorted",
+    "source": "marketing/campaigns/youthcamp.md"
+  }
+}
