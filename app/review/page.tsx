@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { Check, MessageSquare, ChevronLeft, ChevronRight } from "lucide-react"
 
@@ -18,6 +18,14 @@ type ReviewAd = {
 }
 
 export default function ClientReviewPage() {
+  return (
+    <Suspense fallback={<div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", background: "#FBFBF7" }}><p style={{ color: "#646763" }}>Loading…</p></div>}>
+      <ClientReviewContent />
+    </Suspense>
+  )
+}
+
+function ClientReviewContent() {
   const searchParams = useSearchParams()
   const token = searchParams.get("t") || ""
   const [ads, setAds] = useState<ReviewAd[]>([])
