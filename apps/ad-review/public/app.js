@@ -260,7 +260,7 @@ function signOut() {
 function bind() {
   if (state.data?.role === 'editor' && state.campaign) attachImageEditor({ state, api, esc, imageUrl, reload: refresh, date })
   const signOutButton = document.querySelector('#sign-out')
-  if (signOutButton) signOutButton.textContent = state.data.role === 'editor' ? 'Editor · Sign out' : 'Switch access'
+  if (signOutButton) signOutButton.textContent = 'Sign out'
   document.querySelector('#access-form')?.addEventListener('submit', signIn)
   document.querySelector('#sign-out')?.addEventListener('click', signOut)
   document.querySelector('#refresh')?.addEventListener('click', refresh)
