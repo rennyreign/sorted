@@ -2,7 +2,7 @@
 
 import { useEffect, useState, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
-import { Check, MessageSquare, ChevronLeft, ChevronRight, Lock, X } from "lucide-react"
+import { Check, MessageSquare, ChevronLeft, ChevronRight, Lock, X, CheckCircle2 } from "lucide-react"
 import { getAccessCode, setAccessCode, getCampaigns, submitDecision, reviewStatusLabel, reviewStatusClass, type Campaign, type Angle, type CopyVariant, type ReviewStatus } from "@/lib/ads"
 
 type ReviewAd = {
@@ -65,6 +65,7 @@ function ClientReviewContent() {
   const [campaignRevision, setCampaignRevision] = useState(0)
   const [saving, setSaving] = useState(false)
   const [toast, setToast] = useState("")
+  const [submitted, setSubmitted] = useState(false)
 
   const loadData = () => {
     setLoading(true)
@@ -112,6 +113,8 @@ function ClientReviewContent() {
     setIsMobile(window.innerWidth < 768)
     const saved = sessionStorage.getItem(`ads-review-unlocked-${tenantSlug}`)
     if (saved === "true") setUnlocked(true)
+    const sub = sessionStorage.getItem(`ads-review-submitted-${tenantSlug}`)
+    if (sub === "true") setSubmitted(true)
   }, [tenantSlug])
 
   useEffect(() => {
@@ -154,6 +157,19 @@ function ClientReviewContent() {
   if (!unlocked) return <PasswordGate onSubmit={handleUnlock} passwordInput={passwordInput} setPasswordInput={setPasswordInput} passwordError={passwordError} campaignName={campaignName} />
   if (loading) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", background: "#FBFBF7" }}><p style={{ color: "#646763" }}>Loading review…</p></div>
   if (error) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", background: "#FBFBF7" }}><p style={{ color: "#646763" }}>{error}</p></div>
+
+  if (submitted) return (
+    <div style={{ minHeight: "100vh", background: "#FBFBF7", fontFamily: "ui-sans-serif, system-ui, -apple-system, sans-serif", display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
+      <div style={{ maxWidth: 440, width: "100%", textAlign: "center" }}>
+        <div style={{ width: 64, height: 64, borderRadius: "50%", background: "#EAF7F0", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px" }}>
+          <CheckCircle2 size={32} strokeWidth={1.75} style={{ color: "#1B6B48" }} />
+        </div>
+        <h1 style={{ fontSize: 28, fontWeight: 800, letterSpacing: "-0.03em", marginBottom: 8 }}>Review submitted</h1>
+        <p style={{ fontSize: 16, color: "#646763", marginBottom: 12 }}>Thank you for reviewing the campaign. Sorted has received your feedback and will be in touch shortly.</p>
+        <p style={{ fontSize: 14, color: "#8A8D88" }}>You can close this page.</p>
+      </div>
+    </div>
+  )
 
   const approvedCount = ads.filter((a) => a.review_status === "approved").length
   const changesCount = ads.filter((a) => a.review_status === "changes_requested").length
@@ -203,6 +219,26 @@ function ClientReviewContent() {
             ))}
           </div>
         )}
+
+        <div style={{ marginTop: 32, display: "flex", justifyContent: "center" }}>
+          <button
+            onClick={() => {
+              setSubmitted(true)
+              sessionStorage.setItem(`ads-review-submitted-${tenantSlug}`, "true")
+            }}
+            disabled={saving || ads.every((a) => a.review_status === "awaiting_review")}
+            style={{
+              height: 48, padding: "0 28px", borderRadius: 14, border: "none",
+              background: "#003E32", color: "white", fontSize: 15, fontWeight: 600,
+              cursor: saving || ads.every((a) => a.review_status === "awaiting_review") ? "default" : "pointer",
+              opacity: saving || ads.every((a) => a.review_status === "awaiting_review") ? 0.4 : 1,
+              fontFamily: "inherit",
+              display: "flex", alignItems: "center", gap: 8,
+            }}
+          >
+            <CheckCircle2 size={18} /> Submit review
+          </button>
+        </div>
       </div>
 
       {toast && (
