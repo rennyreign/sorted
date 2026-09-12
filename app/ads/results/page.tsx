@@ -83,7 +83,7 @@ export default function ResultsPage() {
         ))}
       </div>
 
-      <div style={{ display: "flex", gap: 32, alignItems: "flex-start" }}>
+      <div>
         <div style={{ flex: 1, minWidth: 0 }}>
           {/* Chart placeholder */}
           <div className="ads-rail-card" style={{ marginBottom: 24, padding: 24 }}>
@@ -173,9 +173,9 @@ export default function ResultsPage() {
           </div>
         </div>
 
-        {/* Right metrics */}
-        <div style={{ width: 280, flexShrink: 0 }}>
-          <div className="ads-rail-card">
+        {/* Inline performance metrics */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16, marginTop: 24 }}>
+          <div className="ads-rail-card" style={{ margin: 0 }}>
             <h3>Performance metrics</h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {rightMetrics.map((m) => (
@@ -198,7 +198,7 @@ export default function ResultsPage() {
               ))}
             </div>
           </div>
-          <div className="ads-rail-card">
+          <div className="ads-rail-card" style={{ margin: 0 }}>
             <h3>Performance by channel</h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               {channelBreakdown.map((ch) => (
