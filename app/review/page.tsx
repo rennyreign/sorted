@@ -17,6 +17,7 @@ type ReviewAd = {
   creative_url: string
   creative_alt: string
   ratio: string
+  crop: { x: number; y: number }
   review_status: ReviewStatus
   comment: string
   fingerprint: string
@@ -25,6 +26,15 @@ type ReviewAd = {
 }
 
 const CLIENT_PASSWORD = "schoolofskill"
+
+function ctaLabel(cta: string): string {
+  const labels: Record<string, string> = {
+    BOOK_NOW: "Book Now",
+    LEARN_MORE: "Learn More",
+    SIGN_UP: "Sign Up",
+  }
+  return labels[cta] || cta?.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase()) || "Learn More"
+}
 
 export default function ClientReviewPage() {
   return (
@@ -78,6 +88,7 @@ function ClientReviewContent() {
                 creative_url: variant.creative_url || angle.shared_creative_url,
                 creative_alt: variant.creative_alt || angle.shared_creative_alt,
                 ratio: variant.ratio || "1:1",
+                crop: variant.crop || { x: 50, y: 50 },
                 review_status: variant.review_status,
                 comment: variant.review_comment || "",
                 fingerprint: variant.fingerprint,
@@ -221,15 +232,19 @@ function ReviewCard({ ad, onDecision, showComment, setShowComment, commentText, 
       </div>
 
       {/* Ad preview */}
-      <div style={{ padding: "16px 20px 0", fontSize: 15, lineHeight: 1.5 }}>{ad.primary_text}</div>
-      <div style={{ width: "100%", aspectRatio, background: ad.creative_url ? `url(${ad.creative_url}) center/cover` : "linear-gradient(135deg, #E9F3EE 0%, #F2F8DD 100%)", marginTop: 12, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        {!ad.creative_url && <span style={{ color: "#8A8D88", fontSize: 14 }}>Creative preview</span>}
+      <div style={{ padding: "16px 20px 0", fontSize: 15, lineHeight: 1.5, whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{ad.primary_text}</div>
+      <div style={{ width: "100%", aspectRatio, background: "#F6F7F3", marginTop: 12, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+        {ad.creative_url ? (
+          <img src={ad.creative_url} alt={ad.creative_alt || ""} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: `${ad.crop?.x ?? 50}% ${ad.crop?.y ?? 50}%` }} />
+        ) : (
+          <span style={{ color: "#8A8D88", fontSize: 14 }}>Creative preview</span>
+        )}
       </div>
       <div style={{ padding: "16px 20px", background: "#F6F7F3", borderBottom: "1px solid #E3E5DF" }}>
         <div style={{ fontSize: 12, color: "#646763", textTransform: "uppercase" }}>schoolofskill.co.uk</div>
         <div style={{ fontSize: 16, fontWeight: 700, margin: "4px 0" }}>{ad.headline}</div>
         <div style={{ fontSize: 13, color: "#646763" }}>{ad.description}</div>
-        <div style={{ display: "inline-block", marginTop: 10, padding: "6px 12px", background: "#E2E4E7", borderRadius: 6, fontSize: 12, fontWeight: 600 }}>{ad.cta}</div>
+        <div style={{ display: "inline-block", marginTop: 10, padding: "6px 12px", background: "#E2E4E7", borderRadius: 6, fontSize: 12, fontWeight: 600 }}>{ctaLabel(ad.cta)}</div>
       </div>
 
       {/* Existing comment */}

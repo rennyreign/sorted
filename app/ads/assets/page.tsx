@@ -1,8 +1,8 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { Upload, Search, X, Download, Copy, Trash2, Replace, Film, Image as ImageIcon, Filter } from "lucide-react"
-import { getAssets as fetchAssets, type Asset } from "@/lib/ads"
+import { getAssets as fetchAssets, uploadAsset as uploadAssetApi, type Asset } from "@/lib/ads"
 
 const filterTabs = ["All assets", "Images", "Videos", "Deleted"] as const
 type FilterTab = (typeof filterTabs)[number]
@@ -14,6 +14,9 @@ export default function AssetsPage() {
   const [tab, setTab] = useState<FilterTab>("All assets")
   const [search, setSearch] = useState("")
   const [selected, setSelected] = useState<Asset | null>(null)
+  const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState("")
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     fetchAssets("school-of-skill")
@@ -21,6 +24,23 @@ export default function AssetsPage() {
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false))
   }, [])
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    setUploadError("")
+    try {
+      const name = file.name.replace(/\.[^.]+$/, "")
+      const asset = await uploadAssetApi("school-of-skill", file, name)
+      setAssets((prev) => [asset, ...prev])
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : "Upload failed")
+    } finally {
+      setUploading(false)
+      if (fileInputRef.current) fileInputRef.current.value = ""
+    }
+  }
 
   const visible = assets.filter((a) => {
     if (tab === "Images") return a.media_type === "image"
@@ -45,12 +65,19 @@ export default function AssetsPage() {
             <button className="ads-btn ads-btn-secondary">
               <Film size={18} strokeWidth={1.75} /> Generate with AI
             </button>
-            <button className="ads-btn ads-btn-primary">
-              <Upload size={18} strokeWidth={1.75} /> Upload assets
+            <input ref={fileInputRef} type="file" accept="image/webp" onChange={handleUpload} style={{ display: "none" }} />
+            <button className="ads-btn ads-btn-primary" onClick={() => fileInputRef.current?.click()} disabled={uploading}>
+              {uploading ? <><div className="ads-loader-spinner" style={{ width: 16, height: 16, borderWidth: 2 }} /> Uploading…</> : <><Upload size={18} strokeWidth={1.75} /> Upload assets</>}
             </button>
           </div>
         </div>
       </div>
+
+      {uploadError && (
+        <div style={{ background: "#FEF2F2", color: "#991B1B", padding: "12px 16px", borderRadius: 10, fontSize: 14, marginBottom: 16, border: "1px solid #FECACA" }}>
+          {uploadError}
+        </div>
+      )}
 
       <div className="ads-filters">
         <div className="ads-tabs">

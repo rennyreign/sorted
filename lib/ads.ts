@@ -155,11 +155,24 @@ type ApiAd = {
   crop?: { x: number; y: number }
 }
 
+type ApiAsset = {
+  creative_key: string
+  name: string
+  collection: string
+  kind: string
+  url: string
+  media_type: string
+  width: number
+  height: number
+  file_size: number
+  created_at?: string
+}
+
 type ApiResponse = {
   tenant: { slug: string; name: string }
   role: string
   editor_name: string
-  assets: Record<string, { url: string; media_type: string; width: number; height: number; file_size: number }[]>
+  assets: ApiAsset[]
   image_locks: { campaign_id: string; ad_id: string; editor: string }[]
   campaigns: ApiCampaign[]
   decisions: ReviewDecision[]
@@ -182,15 +195,12 @@ async function fetchPortal(tenant: string = DEFAULT_TENANT): Promise<ApiResponse
 
 // ---- Asset URL resolver ----
 
-function resolveAssetUrl(creativeKey: string, assets: ApiResponse["assets"]): string {
+function resolveAssetUrl(creativeKey: string, assets: ApiAsset[]): string {
   if (!creativeKey) return ""
-  // creative_key is like /creatives/hash.webp or /media/tenant-slug/hash.webp
-  for (const group of Object.values(assets)) {
-    for (const asset of group) {
-      if (asset.url && creativeKey.includes(asset.url.split("/").pop() || "")) return asset.url
-    }
+  for (const asset of assets) {
+    if (asset.url && creativeKey === asset.creative_key) return asset.url
+    if (asset.url && creativeKey.includes(asset.url.split("/").pop() || "")) return asset.url
   }
-  // Fall back to constructing from the key + Supabase storage
   return ""
 }
 
@@ -366,23 +376,21 @@ export async function getCampaign(workspace: string, campaignId: string): Promis
 export async function getAssets(workspace: string = DEFAULT_TENANT): Promise<Asset[]> {
   const data = await fetchPortal(workspace)
   const assets: Asset[] = []
-  for (const [groupKey, items] of Object.entries(data.assets || {})) {
-    for (const item of items) {
-      const isVideo = item.media_type === "video" || groupKey === "videos"
-      assets.push({
-        id: `${groupKey}-${item.url.split("/").pop()}`,
-        name: item.url.split("/").pop() || groupKey,
-        media_type: isVideo ? "video" : "image",
-        url: item.url,
-        thumbnail: item.url,
-        width: item.width || 0,
-        height: item.height || 0,
-        aspect_ratio: item.width && item.height ? `${item.width}:${item.height}` : "1:1",
-        file_size: item.file_size ? `${(item.file_size / 1024 / 1024).toFixed(1)} MB` : "—",
-        usage: [],
-        created_at: "",
-      })
-    }
+  for (const item of data.assets || []) {
+    const isVideo = item.media_type === "video" || item.kind === "video"
+    assets.push({
+      id: item.creative_key || item.url.split("/").pop() || `asset-${assets.length}`,
+      name: item.name || item.url.split("/").pop() || "Untitled",
+      media_type: isVideo ? "video" : "image",
+      url: item.url,
+      thumbnail: item.url,
+      width: item.width || 0,
+      height: item.height || 0,
+      aspect_ratio: item.width && item.height ? `${item.width}:${item.height}` : "1:1",
+      file_size: item.file_size ? `${(item.file_size / 1024 / 1024).toFixed(1)} MB` : "—",
+      usage: [],
+      created_at: item.created_at || "",
+    })
   }
   return assets
 }
@@ -431,6 +439,71 @@ export function reviewStatusClass(status: ReviewStatus): string {
     rejected: "ads-status-rejected",
   }
   return classes[status] || "ads-status-awaiting"
+}
+
+export async function uploadAsset(
+  workspace: string,
+  file: File,
+  name: string,
+  collection: string = "",
+  kind: "photo" | "artwork" = "photo"
+): Promise<Asset> {
+  const code = getAccessCode()
+  if (!code) throw new Error("Access code required")
+  const form = new FormData()
+  form.append("image", file)
+  form.append("name", name)
+  form.append("collection", collection)
+  form.append("kind", kind)
+  const res = await fetch(`${API_BASE}/index.php?tenant=${encodeURIComponent(workspace)}&action=upload`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${code}` },
+    body: form,
+  })
+  const data = await res.json().catch(() => ({}))
+  if (!res.ok) throw new Error(data.error || "Failed to upload image")
+  const a = data.asset
+  return {
+    id: a.creative_key || a.url?.split("/").pop() || `asset-${Date.now()}`,
+    name: a.name || file.name,
+    media_type: "image",
+    url: a.url,
+    thumbnail: a.url,
+    width: a.width || 0,
+    height: a.height || 0,
+    aspect_ratio: a.width && a.height ? `${a.width}:${a.height}` : "1:1",
+    file_size: `${(file.size / 1024 / 1024).toFixed(1)} MB`,
+    usage: [],
+    created_at: a.created_at || new Date().toISOString(),
+  }
+}
+
+export async function editImage(
+  workspace: string,
+  campaignId: string,
+  campaignRevision: number,
+  adId: string,
+  fingerprint: string,
+  creativeKey: string,
+  crop: { x: number; y: number } = { x: 50, y: 50 }
+): Promise<{ revision: number }> {
+  const code = getAccessCode()
+  if (!code) throw new Error("Access code required")
+  const res = await fetch(`${API_BASE}/index.php?tenant=${encodeURIComponent(workspace)}&action=edit-image`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${code}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      base_revision: campaignRevision,
+      campaign_id: campaignId,
+      ad_id: adId,
+      fingerprint,
+      creative_key: creativeKey,
+      crop,
+    }),
+  })
+  const data = await res.json().catch(() => ({}))
+  if (!res.ok) throw new Error(data.error || "Failed to update image")
+  return { revision: data.campaign_revision ?? data.revision ?? campaignRevision + 1 }
 }
 
 export async function submitDecision(

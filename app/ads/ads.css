@@ -747,8 +747,9 @@
 
 .ads-ad-card-creative img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
+  object-fit: cover;
 }
 
 .ads-ad-card-creative.ratio-1-1 { aspect-ratio: 1/1; }

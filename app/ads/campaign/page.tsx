@@ -5,12 +5,21 @@ import { createPortal } from "react-dom"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { Share, Send, ImagePlus, Pencil, MoreHorizontal, X, Globe, Search, SlidersHorizontal, Check } from "lucide-react"
-import { getCampaign, getCampaigns, getAssets, reviewStatusLabel, reviewStatusClass, statusLabel, statusClass, type Campaign, type Angle, type CopyVariant, type AdStatus, type ReviewStatus, type Asset } from "@/lib/ads"
+import { getCampaign, getCampaigns, getAssets, editImage, reviewStatusLabel, reviewStatusClass, statusLabel, statusClass, type Campaign, type Angle, type CopyVariant, type AdStatus, type ReviewStatus, type Asset } from "@/lib/ads"
 
 const variantLabels: Record<string, string> = {
   short: "Short",
   medium: "Medium",
   long: "Long",
+}
+
+function ctaLabel(cta: string): string {
+  const labels: Record<string, string> = {
+    BOOK_NOW: "Book Now",
+    LEARN_MORE: "Learn More",
+    SIGN_UP: "Sign Up",
+  }
+  return labels[cta] || cta?.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase()) || "Learn More"
 }
 
 const fieldLimits = {
@@ -47,8 +56,9 @@ function CampaignDetailContent() {
   const [filter, setFilter] = useState("All")
   const [search, setSearch] = useState("")
   const [showToast, setShowToast] = useState(false)
-  const [editorState, setEditorState] = useState<{ angleId: string; variantId: string } | null>(null)
+  const [editorState, setEditorState] = useState<{ angleId: string; variantId: string | null } | null>(null)
   const [assets, setAssets] = useState<Asset[]>([])
+  const [saving, setSaving] = useState(false)
 
   useEffect(() => {
     if (!campaignId) {
@@ -149,7 +159,20 @@ function CampaignDetailContent() {
 
       <div className="ads-angle-list">
         {visibleAngles.map((angle) => (
-          <AngleGroup key={angle.id} angle={angle} campaignName={campaign.name} onSaved={triggerToast} onOpenEditor={(variantId) => setEditorState({ angleId: angle.id, variantId })} />
+          <AngleGroup key={angle.id} angle={angle} campaignId={campaignId} campaignRevision={campaign.revision} campaignName={campaign.name} onSaved={triggerToast} onOpenEditor={(variantId) => setEditorState({ angleId: angle.id, variantId })} onOpenAngleEditor={() => setEditorState({ angleId: angle.id, variantId: null })} onCropSaved={(variantId, newCrop, newRevision) => {
+            setCampaign((prev) => {
+              if (!prev) return prev
+              return {
+                ...prev,
+                revision: newRevision,
+                angles: prev.angles.map((a) => {
+                  if (a.id !== angle.id) return a
+                  return { ...a, variants: a.variants.map((v) => v.id === variantId ? { ...v, crop: newCrop } : v) }
+                }),
+              }
+            })
+            triggerToast()
+          }} />
         ))}
       </div>
 
@@ -159,25 +182,45 @@ function CampaignDetailContent() {
         <ImageEditorModal
           campaign={campaign}
           angle={campaign.angles.find((a) => a.id === editorState.angleId)!}
-          variant={campaign.angles.find((a) => a.id === editorState.angleId)?.variants.find((v) => v.id === editorState.variantId)!}
+          variant={editorState.variantId ? campaign.angles.find((a) => a.id === editorState.angleId)?.variants.find((v) => v.id === editorState.variantId)! : null}
           assets={assets}
-          onClose={() => setEditorState(null)}
-          onSave={(newCrop) => {
-            setCampaign((prev) => {
-              if (!prev) return prev
-              return {
-                ...prev,
-                angles: prev.angles.map((a) => {
-                  if (a.id !== editorState.angleId) return a
-                  return {
-                    ...a,
-                    variants: a.variants.map((v) => v.id === editorState.variantId ? { ...v, crop: newCrop } : v),
-                  }
-                }),
+          saving={saving}
+          onClose={() => { if (!saving) setEditorState(null) }}
+          onSave={async (creativeKey, newCrop) => {
+            const angle = campaign.angles.find((a) => a.id === editorState.angleId)
+            if (!angle) return
+            setSaving(true)
+            try {
+              const targetVariants = editorState.variantId
+                ? angle.variants.filter((v) => v.id === editorState.variantId)
+                : angle.variants
+              let currentRev = campaign.revision
+              for (const v of targetVariants) {
+                const result = await editImage("school-of-skill", campaign.id, currentRev, v.id, v.fingerprint, creativeKey, newCrop)
+                currentRev = result.revision
               }
-            })
-            triggerToast()
-            setEditorState(null)
+              setCampaign((prev) => {
+                if (!prev) return prev
+                return {
+                  ...prev,
+                  revision: currentRev,
+                  angles: prev.angles.map((a) => {
+                    if (a.id !== editorState.angleId) return a
+                    const updatedVariants = editorState.variantId
+                      ? a.variants.map((v) => v.id === editorState.variantId ? { ...v, crop: newCrop, creative_key: creativeKey, creative_url: assets.find((as) => as.id === creativeKey)?.url || v.creative_url } : v)
+                      : a.variants.map((v) => ({ ...v, crop: newCrop, creative_key: creativeKey, creative_url: assets.find((as) => as.id === creativeKey)?.url || v.creative_url }))
+                    const firstCreativeUrl = updatedVariants[0]?.creative_url || a.shared_creative_url
+                    return { ...a, variants: updatedVariants, shared_creative_id: creativeKey, shared_creative_url: firstCreativeUrl }
+                  }),
+                }
+              })
+              triggerToast()
+              setEditorState(null)
+            } catch (err) {
+              setError(err instanceof Error ? err.message : "Failed to save image")
+            } finally {
+              setSaving(false)
+            }
           }}
         />
       )}
@@ -185,11 +228,15 @@ function CampaignDetailContent() {
   )
 }
 
-function AngleGroup({ angle, campaignName, onSaved, onOpenEditor }: {
+function AngleGroup({ angle, campaignId, campaignRevision, campaignName, onSaved, onOpenEditor, onOpenAngleEditor, onCropSaved }: {
   angle: Angle
+  campaignId: string
+  campaignRevision: number
   campaignName: string
   onSaved: () => void
   onOpenEditor: (variantId: string) => void
+  onOpenAngleEditor: () => void
+  onCropSaved: (variantId: string, crop: { x: number; y: number }, revision: number) => void
 }) {
   const approvedCount = angle.variants.filter((v) => v.review_status === "approved").length
   const changesCount = angle.variants.filter((v) => v.review_status === "changes_requested").length
@@ -220,29 +267,35 @@ function AngleGroup({ angle, campaignName, onSaved, onOpenEditor }: {
           <strong>Shared creative</strong>
           <small>Used by Short, Medium and Long. Changing it updates all three.</small>
         </div>
-        <button className="ads-btn ads-btn-secondary" style={{ height: 36, padding: "0 14px", fontSize: 13 }}><ImagePlus size={15} strokeWidth={1.75} /> Change</button>
+        <button className="ads-btn ads-btn-secondary" style={{ height: 36, padding: "0 14px", fontSize: 13 }} onClick={onOpenAngleEditor}><ImagePlus size={15} strokeWidth={1.75} /> Change</button>
       </div>
 
       <div className="ads-variants">
         {angle.variants.map((variant) => (
-          <AdCard key={variant.id} variant={variant} campaignName={campaignName} angleName={angle.name} sharedCreativeUrl={angle.shared_creative_url} onSaved={onSaved} onOpenEditor={() => onOpenEditor(variant.id)} />
+          <AdCard key={variant.id} variant={variant} campaignId={campaignId} campaignRevision={campaignRevision} campaignName={campaignName} angleName={angle.name} sharedCreativeUrl={angle.shared_creative_url} sharedCreativeId={angle.shared_creative_id} onSaved={onSaved} onCropSaved={(newCrop, newRevision) => onCropSaved(variant.id, newCrop, newRevision)} onOpenEditor={() => onOpenEditor(variant.id)} />
         ))}
       </div>
     </div>
   )
 }
 
-function AdCard({ variant, campaignName, angleName, sharedCreativeUrl, onSaved, onOpenEditor }: {
+function AdCard({ variant, campaignId, campaignRevision, campaignName, angleName, sharedCreativeUrl, sharedCreativeId, onSaved, onCropSaved, onOpenEditor }: {
   variant: CopyVariant
+  campaignId: string
+  campaignRevision: number
   campaignName: string
   angleName: string
   sharedCreativeUrl: string
+  sharedCreativeId: string
   onSaved: () => void
+  onCropSaved: (crop: { x: number; y: number }, revision: number) => void
   onOpenEditor: () => void
 }) {
   const [editing, setEditing] = useState(false)
   const [cropOpen, setCropOpen] = useState(false)
   const [crop, setCrop] = useState(variant.crop || { x: 50, y: 50 })
+  const [cropSaving, setCropSaving] = useState(false)
+  const [cropError, setCropError] = useState("")
   const [text, setText] = useState({
     primary_text: variant.primary_text || "",
     headline: variant.headline || "",
@@ -251,6 +304,19 @@ function AdCard({ variant, campaignName, angleName, sharedCreativeUrl, onSaved, 
 
   const creativeUrl = variant.creative_url || sharedCreativeUrl
   const ratio = variant.ratio || "1:1"
+
+  const saveCrop = async (newCrop: { x: number; y: number }) => {
+    setCropSaving(true)
+    setCropError("")
+    try {
+      const result = await editImage("school-of-skill", campaignId, campaignRevision, variant.id, variant.fingerprint, variant.creative_key || variant.id, newCrop)
+      onCropSaved(newCrop, result.revision)
+    } catch (err) {
+      setCropError(err instanceof Error ? err.message : "Failed to save crop")
+    } finally {
+      setCropSaving(false)
+    }
+  }
 
   const handleSave = () => {
     setEditing(false)
@@ -329,9 +395,9 @@ function AdCard({ variant, campaignName, angleName, sharedCreativeUrl, onSaved, 
       </div>
 
       <div className="ads-ad-card-image-controls">
-        <button onClick={onOpenEditor}><ImagePlus size={13} strokeWidth={2} /> Change image</button>
+        <button onClick={onOpenEditor}><ImagePlus size={13} strokeWidth={2} /> Override image</button>
         <button onClick={() => setCropOpen(!cropOpen)}><SlidersHorizontal size={13} strokeWidth={2} /> Adjust</button>
-        <span className="image-source">Agent selected</span>
+        <span className="image-source">{variant.creative_key && variant.creative_key !== sharedCreativeId ? "Custom" : "Agent selected"}</span>
       </div>
 
       <div className={`ads-ad-card-crop-controls ${cropOpen ? "open" : ""}`}>
@@ -343,7 +409,13 @@ function AdCard({ variant, campaignName, angleName, sharedCreativeUrl, onSaved, 
           <label>Vertical</label>
           <input type="range" min="0" max="100" value={crop.y} onChange={(e) => setCrop({ ...crop, y: Number(e.target.value) })} />
         </div>
-        <button className="ads-ad-card-crop-reset" onClick={() => { setCrop({ x: 50, y: 50 }); onSaved() }}>Centre image</button>
+        {cropError && <div style={{ color: "#B33A3A", fontSize: 12, marginBottom: 8 }}>{cropError}</div>}
+        <div style={{ display: "flex", gap: 8 }}>
+          <button className="ads-ad-card-crop-reset" disabled={cropSaving} onClick={() => { setCrop({ x: 50, y: 50 }); saveCrop({ x: 50, y: 50 }) }}>Centre image</button>
+          <button className="ads-btn ads-btn-primary" style={{ height: 32, padding: "0 14px", fontSize: 13, flex: 1 }} disabled={cropSaving} onClick={() => saveCrop(crop)}>
+            {cropSaving ? <><div className="ads-loader-spinner" style={{ width: 12, height: 12, borderWidth: 2 }} /> Saving…</> : "Save position"}
+          </button>
+        </div>
       </div>
 
       <div className="ads-ad-card-link">
@@ -354,7 +426,7 @@ function AdCard({ variant, campaignName, angleName, sharedCreativeUrl, onSaved, 
       <div className="ads-ad-card-link-preview">
         <div className="ads-ad-card-headline">{text.headline || "Headline"}</div>
         <div className="ads-ad-card-description">{text.description || "Description"}</div>
-        <div className="ads-ad-card-cta">{variant.cta || "Learn more"}</div>
+        <div className="ads-ad-card-cta">{ctaLabel(variant.cta)}</div>
       </div>
 
       {hasDecision && (
@@ -367,38 +439,38 @@ function AdCard({ variant, campaignName, angleName, sharedCreativeUrl, onSaved, 
   )
 }
 
-function ImageEditorModal({ campaign, angle, variant, assets, onClose, onSave }: {
+function ImageEditorModal({ campaign, angle, variant, assets, saving, onClose, onSave }: {
   campaign: Campaign
   angle: Angle
-  variant: CopyVariant
+  variant: CopyVariant | null
   assets: Asset[]
+  saving: boolean
   onClose: () => void
-  onSave: (crop: { x: number; y: number }) => void
+  onSave: (creativeKey: string, crop: { x: number; y: number }) => void
 }) {
   const [search, setSearch] = useState("")
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null)
-  const [crop, setCrop] = useState(variant.crop || { x: 50, y: 50 })
+  const [crop, setCrop] = useState(variant?.crop || { x: 50, y: 50 })
 
   const imageAssets = assets.filter((a) => a.media_type === "image")
   const visible = imageAssets.filter((a) => !search || a.name.toLowerCase().includes(search.toLowerCase()))
 
-  const creativeUrl = selectedAsset?.url || variant.creative_url || angle.shared_creative_url
-  const ratio = variant.ratio || "1:1"
-
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
-  if (!mounted) return null
+  const isAngleMode = !variant
+  const previewVariant = variant || angle.variants[0]
+  const creativeUrl = selectedAsset?.url || previewVariant?.creative_url || angle.shared_creative_url
+  const ratio = previewVariant?.ratio || "1:1"
+  const scopeLabel = isAngleMode ? `${angle.name} · All variants` : `${variant!.id} · ${campaign.name}`
 
   return createPortal(
     <div className="ads-image-editor" onClick={onClose}>
       <div className="ads-image-editor-dialog" onClick={(e) => e.stopPropagation()}>
         <div className="ads-image-editor-header">
           <div>
-            <p style={{ fontSize: 11, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.16em", color: "var(--ads-green)" }}>{variant.id} · {campaign.name}</p>
-            <h2>Choose the right image.</h2>
-            <p>Preview your choice with the ad before saving.</p>
+            <p style={{ fontSize: 11, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.16em", color: "var(--ads-green)" }}>{scopeLabel}</p>
+            <h2>{isAngleMode ? "Change the shared creative." : "Override this ad's image."}</h2>
+            <p>{isAngleMode ? "Updates Short, Medium and Long." : "Preview your choice with the ad before saving."}</p>
           </div>
-          <button className="ads-image-editor-close" onClick={onClose}><X size={20} strokeWidth={1.75} /></button>
+          <button className="ads-image-editor-close" onClick={onClose} disabled={saving}><X size={20} strokeWidth={1.75} /></button>
         </div>
 
         <div className="ads-image-editor-body">
@@ -441,7 +513,7 @@ function ImageEditorModal({ campaign, angle, variant, assets, onClose, onSave }:
                     <small>Sponsored · {angle.name}</small>
                   </div>
                 </div>
-                <div className="ad-text">{variant.primary_text || "No primary text yet."}</div>
+                <div className="ad-text">{previewVariant?.primary_text || "No primary text yet."}</div>
                 <div className="ad-creative" style={{ aspectRatio: ratio.replace(":", "/") }}>
                   {creativeUrl ? (
                     <img src={creativeUrl} alt="" style={imageStyle(crop)} />
@@ -468,12 +540,12 @@ function ImageEditorModal({ campaign, angle, variant, assets, onClose, onSave }:
 
         <div className="ads-image-editor-footer">
           <div>
-            <small>Your selection will be protected from agent changes. Saving creates a new revision that needs approval.</small>
+            <small>{isAngleMode ? "Updates all three variants and creates a new revision." : "Your selection will be protected from agent changes. Saving creates a new revision that needs approval."}</small>
           </div>
           <div className="actions">
-            <button className="ads-btn ads-btn-ghost" onClick={onClose}>Cancel</button>
-            <button className="ads-btn ads-btn-primary" style={{ height: 40, padding: "0 20px", fontSize: 14 }} onClick={() => onSave(crop)}>
-              <Check size={16} strokeWidth={2} /> Save selection
+            <button className="ads-btn ads-btn-ghost" onClick={onClose} disabled={saving}>Cancel</button>
+            <button className="ads-btn ads-btn-primary" style={{ height: 40, padding: "0 20px", fontSize: 14 }} disabled={!selectedAsset || saving} onClick={() => selectedAsset && onSave(selectedAsset.id, crop)}>
+              {saving ? <><div className="ads-loader-spinner" style={{ width: 14, height: 14, borderWidth: 2 }} /> Saving…</> : <><Check size={16} strokeWidth={2} /> {isAngleMode ? "Update all variants" : "Save selection"}</>}
             </button>
           </div>
         </div>
