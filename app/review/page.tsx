@@ -25,7 +25,10 @@ type ReviewAd = {
   campaign_revision: number
 }
 
-const CLIENT_PASSWORD = "schoolofskill"
+const TENANT_PASSWORDS: Record<string, string> = {
+  "school-of-skill": "schoolofskill",
+  "edgbaston-tuition": "edgbastontuition",
+}
 
 function ctaLabel(cta: string): string {
   const labels: Record<string, string> = {
@@ -47,6 +50,7 @@ export default function ClientReviewPage() {
 function ClientReviewContent() {
   const searchParams = useSearchParams()
   const campaignId = searchParams.get("campaign") || ""
+  const tenantSlug = searchParams.get("tenant") || "school-of-skill"
   const [ads, setAds] = useState<ReviewAd[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
@@ -65,7 +69,7 @@ function ClientReviewContent() {
   const loadData = () => {
     setLoading(true)
     setError("")
-    getCampaigns("school-of-skill")
+    getCampaigns(tenantSlug)
       .then((campaigns) => {
         const campaign = campaigns.find((c) => c.id === campaignId) || campaigns[0]
         if (!campaign) throw new Error("Campaign not found")
@@ -106,19 +110,20 @@ function ClientReviewContent() {
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 768)
-    const saved = sessionStorage.getItem("ads-review-unlocked")
+    const saved = sessionStorage.getItem(`ads-review-unlocked-${tenantSlug}`)
     if (saved === "true") setUnlocked(true)
-  }, [])
+  }, [tenantSlug])
 
   useEffect(() => {
     if (unlocked) loadData()
-  }, [unlocked])
+  }, [unlocked, tenantSlug])
 
   const handleUnlock = (e: React.FormEvent) => {
     e.preventDefault()
-    if (passwordInput.trim().toLowerCase() === CLIENT_PASSWORD) {
+    const expected = TENANT_PASSWORDS[tenantSlug] || TENANT_PASSWORDS["school-of-skill"]
+    if (passwordInput.trim().toLowerCase() === expected) {
       setUnlocked(true)
-      sessionStorage.setItem("ads-review-unlocked", "true")
+      sessionStorage.setItem(`ads-review-unlocked-${tenantSlug}`, "true")
       setPasswordError("")
     } else {
       setPasswordError("Incorrect password. Please check and try again.")
@@ -138,7 +143,7 @@ function ClientReviewContent() {
     setCommentText("")
     showToast(status === "approved" ? "Approved" : status === "changes_requested" ? "Changes requested" : "Rejected")
     try {
-      await submitDecision("school-of-skill", ad.campaign_id, ad.campaign_revision, "ad", ad.id, ad.fingerprint, status, comment, "Client")
+      await submitDecision(tenantSlug, ad.campaign_id, ad.campaign_revision, "ad", ad.id, ad.fingerprint, status, comment, "Client")
     } catch (err) {
       // Decision saved locally even if API fails (offline-friendly)
     } finally {
