@@ -129,7 +129,7 @@ function CampaignDetailContent() {
             <button
               className="ads-btn ads-btn-secondary"
               onClick={() => {
-                const url = `${window.location.origin}/review/?campaign=${encodeURIComponent(campaign.id)}`
+                const url = `${window.location.origin}/review/?tenant=${encodeURIComponent(tenant)}&campaign=${encodeURIComponent(campaign.id)}`
                 navigator.clipboard.writeText(url).then(() => {
                   setShareCopied(true)
                   setTimeout(() => setShareCopied(false), 2000)
