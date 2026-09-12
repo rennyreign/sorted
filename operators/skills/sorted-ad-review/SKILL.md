@@ -20,12 +20,37 @@ Do not redesign, reinterpret, simplify, reskin, or locally recreate the portal i
 - **Single portal:** `sortmydigital.site/ads/` serves all accounts
 - **Account selector:** dropdown in the top nav switches between tenant workspaces
 - **Internal workspace:** Sorted operators use the full `/ads/` interface with campaign management, image editing, crop controls, and asset uploads
-- **Client review:** clients receive shared preview links (e.g., `sortmydigital.site/review?campaign=...`) with a simple password gate — no login or account required
+- **Client review:** clients receive shared preview links (e.g., `sortmydigital.site/review?tenant=school-of-skill&campaign=...`) with a simple password gate — no login or account required
 - **No client portals:** clients never log into the ads workspace; they only receive shared preview links
+
+## Onboarding a new account
+
+To add a new client account to the Sorted Ads workspace, update exactly two files:
+
+1. **Account selector** — `app/ads/components/TenantContext.tsx`
+   - Add the new tenant to the `KNOWN_TENANTS` array:
+     ```ts
+     { slug: "client-slug", name: "Client Name" },
+     ```
+   - The slug must match the tenant slug registered in the central database.
+
+2. **Review password** — `app/review/page.tsx`
+   - Add the new tenant to the `TENANT_PASSWORDS` map:
+     ```ts
+     const TENANT_PASSWORDS: Record<string, string> = {
+       "school-of-skill": "schoolofskill",
+       "edgbaston-tuition": "edgbastontuition",
+       "client-slug": "clientpassword",
+     }
+     ```
+   - This is the password clients enter to access their shared review link.
+   - Share it out-of-band with the client (email, phone, etc.).
+
+No other files need to change. The account selector, campaign loading, asset loading, and review page all read the tenant from context or URL and scope automatically.
 
 ## Choose the mode
 
-- **Provision:** add a new tenant account to the central database and configure the account selector
+- **Provision:** add a new tenant account to the central database, then update the two files above
 - **Create or revise:** prepare a structured campaign package, validate it, then send it through the authenticated ingestion interface
 - **QA:** compare the workspace against the interface standard and verify access, tenant isolation, campaign hierarchy, exact-revision approval, comments, persistence, responsive layout, hover/focus states, and `noindex` behavior
 - **Upgrade:** change `apps/ad-review/` once. All accounts inherit the update. No client-site builds required.
