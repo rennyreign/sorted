@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState, useCallback, Suspense } from "react"
+import { createPortal } from "react-dom"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { Share, Send, ImagePlus, Pencil, MoreHorizontal, X, Globe, Search, SlidersHorizontal, Check } from "lucide-react"
@@ -384,7 +385,11 @@ function ImageEditorModal({ campaign, angle, variant, assets, onClose, onSave }:
   const creativeUrl = selectedAsset?.url || variant.creative_url || angle.shared_creative_url
   const ratio = variant.ratio || "1:1"
 
-  return (
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  if (!mounted) return null
+
+  return createPortal(
     <div className="ads-image-editor" onClick={onClose}>
       <div className="ads-image-editor-dialog" onClick={(e) => e.stopPropagation()}>
         <div className="ads-image-editor-header">
@@ -473,7 +478,8 @@ function ImageEditorModal({ campaign, angle, variant, assets, onClose, onSave }:
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
 
