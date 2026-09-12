@@ -152,6 +152,7 @@ function ClientReviewContent() {
 
   const approvedCount = ads.filter((a) => a.review_status === "approved").length
   const changesCount = ads.filter((a) => a.review_status === "changes_requested").length
+  const rejectedCount = ads.filter((a) => a.review_status === "rejected").length
 
   return (
     <div style={{ minHeight: "100vh", background: "#FBFBF7", fontFamily: "ui-sans-serif, system-ui, -apple-system, sans-serif", color: "#0B0B0A" }}>
@@ -163,6 +164,7 @@ function ClientReviewContent() {
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <span style={{ fontSize: 14, color: "#646763" }}>{approvedCount} of {ads.length} approved</span>
           {changesCount > 0 && <span style={{ fontSize: 14, color: "#8A6A25" }}>· {changesCount} changes</span>}
+          {rejectedCount > 0 && <span style={{ fontSize: 14, color: "#B33A3A" }}>· {rejectedCount} rejected</span>}
         </div>
       </header>
 
@@ -282,6 +284,21 @@ function ReviewCard({ ad, onDecision, showComment, setShowComment, commentText, 
           }}
         >
           <MessageSquare size={16} /> Request change
+        </button>
+        <button
+          onClick={() => onDecision(ad, "rejected")}
+          disabled={saving || ad.review_status === "rejected"}
+          style={{
+            flex: 1, height: 42, borderRadius: 14,
+            border: ad.review_status === "rejected" ? "none" : "1px solid #E3E5DF",
+            background: ad.review_status === "rejected" ? "#FDECEC" : "white",
+            color: ad.review_status === "rejected" ? "#B33A3A" : "#B33A3A",
+            fontSize: 14, fontWeight: 600, cursor: saving || ad.review_status === "rejected" ? "default" : "pointer",
+            display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+            opacity: saving ? 0.6 : 1,
+          }}
+        >
+          <X size={16} /> {ad.review_status === "rejected" ? "Rejected" : "Reject"}
         </button>
       </div>
 
