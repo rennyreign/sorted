@@ -61,6 +61,7 @@ function CampaignDetailContent() {
   const [editorState, setEditorState] = useState<{ angleId: string; variantId: string | null } | null>(null)
   const [assets, setAssets] = useState<Asset[]>([])
   const [saving, setSaving] = useState(false)
+  const [shareCopied, setShareCopied] = useState(false)
 
   useEffect(() => {
     if (!campaignId) {
@@ -125,9 +126,18 @@ function CampaignDetailContent() {
             {campaign.goal && <p className="ads-campaign-desc">{campaign.goal}</p>}
           </div>
           <div className="ads-campaign-actions">
-            <a href={`/review/?campaign=${encodeURIComponent(campaign.id)}`} target="_blank" rel="noopener noreferrer" className="ads-btn ads-btn-secondary" style={{ textDecoration: "none" }}>
-              <Share size={18} strokeWidth={1.75} /> Share
-            </a>
+            <button
+              className="ads-btn ads-btn-secondary"
+              onClick={() => {
+                const url = `${window.location.origin}/review/?campaign=${encodeURIComponent(campaign.id)}`
+                navigator.clipboard.writeText(url).then(() => {
+                  setShareCopied(true)
+                  setTimeout(() => setShareCopied(false), 2000)
+                })
+              }}
+            >
+              {shareCopied ? <><Check size={18} strokeWidth={1.75} /> Copied</> : <><Share size={18} strokeWidth={1.75} /> Share</>}
+            </button>
             <button className="ads-btn ads-btn-primary"><Send size={18} strokeWidth={1.75} /> Publish</button>
           </div>
         </div>
