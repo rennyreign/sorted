@@ -4,11 +4,13 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Plus, MoreHorizontal, Lock } from "lucide-react"
 import { getCampaigns, getAccessCode, setAccessCode, statusLabel, statusClass, type Campaign, type AdStatus } from "@/lib/ads"
+import { useTenant } from "./components/TenantContext"
 
 const filters = ["All", "Active", "Draft", "Completed"] as const
 type Filter = (typeof filters)[number]
 
 export default function CampaignsPage() {
+  const { tenant } = useTenant()
   const [campaigns, setCampaigns] = useState<Campaign[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
@@ -21,7 +23,7 @@ export default function CampaignsPage() {
   const loadCampaigns = () => {
     setLoading(true)
     setError("")
-    getCampaigns("school-of-skill")
+    getCampaigns(tenant)
       .then((data) => {
         setCampaigns(data)
         setNeedsCode(false)
@@ -38,7 +40,7 @@ export default function CampaignsPage() {
 
   useEffect(() => {
     loadCampaigns()
-  }, [])
+  }, [tenant])
 
   const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault()

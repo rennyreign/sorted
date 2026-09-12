@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { Send, Eye, Check, Calendar, DollarSign, Zap } from "lucide-react"
 import { getCampaigns, type Campaign, type Angle, type CopyVariant } from "@/lib/ads"
+import { useTenant } from "../components/TenantContext"
 
 type SelectableAd = {
   angleId: string
@@ -18,6 +19,7 @@ const steps = ["Select ads", "Set schedule", "Review & publish"] as const
 type Step = (typeof steps)[number]
 
 export default function PublishingPage() {
+  const { tenant } = useTenant()
   const [step, setStep] = useState<Step>("Select ads")
   const [ads, setAds] = useState<SelectableAd[]>([])
   const [loading, setLoading] = useState(true)
@@ -25,7 +27,7 @@ export default function PublishingPage() {
   const [schedule, setSchedule] = useState({ startDate: "", endDate: "", runTime: "09:00", budget: "500", optimisation: "registrations" })
 
   useEffect(() => {
-    getCampaigns("school-of-skill")
+    getCampaigns(tenant)
       .then((campaigns) => {
         const campaign = campaigns[0]
         if (!campaign) return

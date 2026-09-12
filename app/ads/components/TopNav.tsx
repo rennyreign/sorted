@@ -1,8 +1,10 @@
 "use client"
 
+import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { LayoutGrid, Image as ImageIcon, Send, BarChart3, Settings, Bell } from "lucide-react"
+import { LayoutGrid, Image as ImageIcon, Send, BarChart3, Settings, Bell, ChevronDown, Check } from "lucide-react"
+import { useTenant } from "./TenantContext"
 
 const navItems = [
   { href: "/ads/", label: "Campaigns", icon: LayoutGrid },
@@ -14,6 +16,21 @@ const navItems = [
 
 export function TopNav() {
   const pathname = usePathname()
+  const { tenant, setTenant, tenants } = useTenant()
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const currentTenant = tenants.find((t) => t.slug === tenant) || tenants[0]
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClick)
+    return () => document.removeEventListener("mousedown", handleClick)
+  }, [])
+
   return (
     <header className="ads-topnav">
       <div className="ads-topnav-inner">
@@ -21,6 +38,32 @@ export function TopNav() {
           <Link href="/ads/" className="ads-topnav-logo">
             Sorted<span>.</span>
           </Link>
+
+          {/* Account selector */}
+          <div className="ads-account-selector" ref={dropdownRef}>
+            <button className="ads-account-selector-btn" onClick={() => setDropdownOpen(!dropdownOpen)}>
+              <span className="ads-account-selector-name">{currentTenant.name}</span>
+              <ChevronDown size={14} strokeWidth={2} className={`ads-account-selector-chevron ${dropdownOpen ? "open" : ""}`} />
+            </button>
+            {dropdownOpen && (
+              <div className="ads-account-selector-dropdown">
+                {tenants.map((t) => (
+                  <button
+                    key={t.slug}
+                    className={`ads-account-selector-item ${t.slug === tenant ? "active" : ""}`}
+                    onClick={() => { setTenant(t.slug); setDropdownOpen(false) }}
+                  >
+                    <div className="ads-account-selector-item-info">
+                      <span className="ads-account-selector-item-name">{t.name}</span>
+                      <span className="ads-account-selector-item-slug">{t.slug}</span>
+                    </div>
+                    {t.slug === tenant && <Check size={14} strokeWidth={2} />}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           <nav className="ads-topnav-nav">
             {navItems.map((item) => {
               const active = pathname === item.href || (item.href !== "/ads/" && pathname.startsWith(item.href))

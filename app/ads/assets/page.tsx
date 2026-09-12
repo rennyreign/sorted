@@ -3,11 +3,13 @@
 import { useEffect, useState, useRef } from "react"
 import { Upload, Search, X, Download, Copy, Trash2, Replace, Film, Image as ImageIcon, Filter } from "lucide-react"
 import { getAssets as fetchAssets, uploadAsset as uploadAssetApi, type Asset } from "@/lib/ads"
+import { useTenant } from "../components/TenantContext"
 
 const filterTabs = ["All assets", "Images", "Videos", "Deleted"] as const
 type FilterTab = (typeof filterTabs)[number]
 
 export default function AssetsPage() {
+  const { tenant } = useTenant()
   const [assets, setAssets] = useState<Asset[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
@@ -19,11 +21,11 @@ export default function AssetsPage() {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    fetchAssets("school-of-skill")
+    fetchAssets(tenant)
       .then((data) => setAssets(data))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false))
-  }, [])
+  }, [tenant])
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -32,7 +34,7 @@ export default function AssetsPage() {
     setUploadError("")
     try {
       const name = file.name.replace(/\.[^.]+$/, "")
-      const asset = await uploadAssetApi("school-of-skill", file, name)
+      const asset = await uploadAssetApi(tenant, file, name)
       setAssets((prev) => [asset, ...prev])
     } catch (err) {
       setUploadError(err instanceof Error ? err.message : "Upload failed")

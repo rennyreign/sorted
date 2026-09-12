@@ -1,4 +1,5 @@
 import { TopNav } from "./components/TopNav"
+import { TenantProvider } from "./components/TenantContext"
 import "./ads.css"
 
 export const metadata = {
@@ -9,11 +10,13 @@ export const metadata = {
 
 export default function AdsLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="ads-app">
-      <TopNav />
-      <main className="ads-main">
-        {children}
-      </main>
-    </div>
+    <TenantProvider>
+      <div className="ads-app">
+        <TopNav />
+        <main className="ads-main">
+          {children}
+        </main>
+      </div>
+    </TenantProvider>
   )
 }
