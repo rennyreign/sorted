@@ -82,6 +82,97 @@
 
 .ads-topnav-logo span { color: var(--ads-lime); }
 
+/* Account selector */
+.ads-account-selector {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.ads-account-selector-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--ads-border);
+  background: var(--ads-surface-soft);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ads-ink);
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.ads-account-selector-btn:hover {
+  border-color: var(--ads-border-strong);
+  background: var(--ads-surface);
+}
+
+.ads-account-selector-chevron {
+  transition: transform 0.15s;
+  color: var(--ads-text-muted);
+}
+
+.ads-account-selector-chevron.open {
+  transform: rotate(180deg);
+}
+
+.ads-account-selector-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 220px;
+  background: var(--ads-surface);
+  border: 1px solid var(--ads-border);
+  border-radius: 12px;
+  box-shadow: var(--ads-shadow-overlay);
+  z-index: 100;
+  overflow: hidden;
+  padding: 4px;
+}
+
+.ads-account-selector-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: background 0.12s;
+}
+
+.ads-account-selector-item:hover {
+  background: var(--ads-surface-soft);
+}
+
+.ads-account-selector-item.active {
+  background: var(--ads-surface-soft);
+}
+
+.ads-account-selector-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ads-account-selector-item-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ads-ink);
+}
+
+.ads-account-selector-item-slug {
+  font-size: 11px;
+  color: var(--ads-text-muted);
+}
+
 .ads-topnav-nav {
   display: flex;
   align-items: center;

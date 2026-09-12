@@ -1,54 +1,44 @@
 ---
 name: sorted-ad-review
-description: Provision, configure, populate, upgrade, or QA Sorted Ad Review portals for client advertising approvals. Always use this skill when a client needs an /ads portal, campaign approval board, ad review link, or visual changes to the review experience. The Edgbaston Tuition Centre portal is the mandatory interface standard. Never create a separate client-specific portal UI and never use this workflow to publish ads to Meta or Google.
+description: Provision, configure, populate, upgrade, or QA the Sorted Ads workspace for client advertising approvals. Always use this skill when a client needs an ad campaign board, campaign approval workflow, ad review link, or visual changes to the ads experience. All clients live under one portal at sortmydigital.site/ads/ with an account selector. Never create a separate client-specific portal UI and never use this workflow to publish ads to Meta or Google.
 ---
 
-# Sorted Ad Review
+# Sorted Ads
 
-Build and operate one uniform approval product, not a collection of client-specific portals and not an ad-platform publisher.
+Build and operate one uniform ads product under a single portal. Not a collection of client-specific portals and not an ad-platform publisher.
 
 Before acting, read [the product doctrine](references/doctrine.md) and [the interface standard](references/interface-standard.md). When creating or ingesting a campaign, also read [the campaign contract](references/campaign-contract.md).
 
 ## Canonical rule
 
-Treat the live Edgbaston Tuition Centre `/ads/` portal as the visual and interaction acceptance benchmark. The maintained reusable implementation is `apps/ad-review/` in the Sorted repository.
+The Sorted Ads workspace at `sortmydigital.site/ads/` is the sole interface. All client accounts (School of Skill, Edgbaston Tuition, etc.) live as tenants within this single portal. An account selector dropdown in the top navigation switches between accounts.
 
-Do not redesign, reinterpret, simplify, reskin, or locally recreate the portal in a client repository. A client site may own only the thin `/ads/` transport required to display the central tenant workspace. All tenants use the same view layer, design tokens, typography, component geometry, hover states, responsive behavior, terminology, icons, and review interactions.
+Do not redesign, reinterpret, simplify, reskin, or locally recreate the portal in a client repository. Client accounts are tenants in the central database, not separate deployments. All accounts share the same view layer, design tokens, typography, component geometry, hover states, responsive behavior, terminology, icons, and review interactions.
+
+## Architecture
+
+- **Single portal:** `sortmydigital.site/ads/` serves all accounts
+- **Account selector:** dropdown in the top nav switches between tenant workspaces
+- **Internal workspace:** Sorted operators use the full `/ads/` interface with campaign management, image editing, crop controls, and asset uploads
+- **Client review:** clients receive shared preview links (e.g., `sortmydigital.site/review?campaign=...`) with a simple password gate — no login or account required
+- **No client portals:** clients never log into the ads workspace; they only receive shared preview links
 
 ## Choose the mode
 
-- **Provision:** install the one-time `/ads` route after the central service has a production origin and a registered tenant.
-- **Create or revise:** prepare a structured campaign package, validate it, then send it through the authenticated ingestion interface. Never commit campaign data to the client site.
-- **QA:** compare the tenant portal against the Edgbaston standard and verify access, tenant isolation, campaign hierarchy, exact-revision approval, comments, persistence, responsive layout, hover/focus states, and `noindex` behavior.
-- **Upgrade:** change `apps/ad-review/` once. Do not create tenant-specific UI forks. Change client route configuration only when the central route or origin changes.
-
-## Provisioning rules
-
-Inspect the target repo and deployment provider first. Work on a feature branch and never push directly to `main`. Use the canonical installer with the production Hostinger origin:
-
-```bash
-node scripts/install-sorted-ad-review.mjs \
-  --target ../client-repo \
-  --slug client-slug \
-  --portal-origin https://sortmydigital.site/ad-previewer \
-  --dry-run
-```
-
-Review the dry run, rerun without `--dry-run`, build the client site once, and use a deploy preview. Later campaign changes and central interface upgrades must not trigger client-site builds. Hostinger owns the shared application; Netlify serves only the existing client route.
-
-If a framework adapter rewrites an external proxy incorrectly, use a full-viewport iframe route to the tenant URL instead. The iframe must have no decorative wrapper, no duplicate header, no client-local styling, `width:100%`, `min-height:100dvh`, and `border:0`. This is transport only; the central portal remains the sole interface.
-
-Do not provision when the central service, tenant record, or secure access path is missing. Do not embed service credentials, database keys, campaign content, or a copied portal component in the client repository.
+- **Provision:** add a new tenant account to the central database and configure the account selector
+- **Create or revise:** prepare a structured campaign package, validate it, then send it through the authenticated ingestion interface
+- **QA:** compare the workspace against the interface standard and verify access, tenant isolation, campaign hierarchy, exact-revision approval, comments, persistence, responsive layout, hover/focus states, and `noindex` behavior
+- **Upgrade:** change `apps/ad-review/` once. All accounts inherit the update. No client-site builds required.
 
 ## Interface rules
 
-Before changing portal UI:
+Before changing the workspace UI:
 
-1. Open the Edgbaston reference at desktop and mobile widths.
-2. Read `references/interface-standard.md`.
-3. Change the central app only.
-4. Run the static contract tests and browser QA.
-5. Compare both portals at matching viewports before deployment.
+1. Open the Sorted Ads workspace at desktop and mobile widths
+2. Read `references/interface-standard.md`
+3. Change the central app only
+4. Run the static contract tests and browser QA
+5. Verify the account selector works across all tenants
 
 Reject changes that introduce a second design system, different product name, alternate font stack, tenant-specific card treatment, inconsistent hover state, missing review-history dialog, or divergent responsive behavior.
 
@@ -56,20 +46,22 @@ Reject changes that introduce a second design system, different product name, al
 
 The agent harness is the creation surface. Validate its output before ingestion. Keep IDs stable, revisions immutable, and creative object keys content-addressed or immutable. Verify claims and destination URLs before requesting approval. Keep internal notes out of the client response.
 
-Named portal editors can select/upload images, adjust photo crops, restore earlier
-selections and explicitly release protection. Reviewer codes cannot edit. Before each
-agent revision, GET `api/?action=ingest&campaign_id=<id>` with its ingestion credential.
-Preserve returned image locks (key, crop, ratio and ad identity), submit `base_revision`
-and use campaign revision exactly one greater. New campaigns use base 0. Re-read and
-reconcile HTTP 409 conflicts; never overwrite or recreate a protected ad to bypass them.
-
-For the iframe transport, create the `/ads` embedding page first, then use installer
-`--mode iframe` with a dry run. This removes managed proxy rules and retains privacy
-headers. Current Hostinger browser checks reject proxy traffic; both clients use the
-iframe fallback. Portal release assets use a content-derived cache version.
+Named portal editors can select/upload images, adjust photo crops, restore earlier selections and explicitly release protection. Reviewer codes cannot edit. Before each agent revision, GET `api/?action=ingest&campaign_id=<id>` with its ingestion credential. Preserve returned image locks (key, crop, ratio and ad identity), submit `base_revision` and use campaign revision exactly one greater. New campaigns use base 0. Re-read and reconcile HTTP 409 conflicts; never overwrite or recreate a protected ad to bypass them.
 
 Concept approval and ad approval are separate. Reopening a concept appends an `awaiting_review` event. A changed fingerprint cannot inherit an earlier approval. Ingestion must be idempotent by tenant, campaign ID, and revision.
 
+## Client review flow
+
+Clients receive a shared preview link with a simple password gate. They do not log into the ads workspace. The review page shows:
+
+- Campaign name and angle/variant labels
+- Ad preview with primary text, headline, description, CTA, and creative image
+- Approve / Request change / Reject buttons
+- Comment field for change requests
+- Status badges showing review progress
+
+The password is tenant-specific and shared out-of-band by Sorted. No account creation, no email, no friction.
+
 ## Completion
 
-Report the client route, central tenant slug, central application version, environment tested, authentication model, and whether ingestion is configured. Include desktop and mobile parity results against Edgbaston. Never describe a static seed or unconfigured endpoint as a working shared portal.
+Report the tenant slug, account selector configuration, central application version, environment tested, authentication model, and whether ingestion is configured. Include desktop and mobile parity results. Never describe a static seed or unconfigured endpoint as a working portal.

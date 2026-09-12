@@ -6,6 +6,7 @@ import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { Share, Send, ImagePlus, Pencil, MoreHorizontal, X, Globe, Search, SlidersHorizontal, Check } from "lucide-react"
 import { getCampaign, getCampaigns, getAssets, editImage, reviewStatusLabel, reviewStatusClass, statusLabel, statusClass, type Campaign, type Angle, type CopyVariant, type AdStatus, type ReviewStatus, type Asset } from "@/lib/ads"
+import { useTenant } from "../components/TenantContext"
 
 const variantLabels: Record<string, string> = {
   short: "Short",
@@ -50,6 +51,7 @@ export default function CampaignDetailPage() {
 function CampaignDetailContent() {
   const searchParams = useSearchParams()
   const campaignId = searchParams.get("id") || ""
+  const { tenant } = useTenant()
   const [campaign, setCampaign] = useState<Campaign | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
@@ -66,14 +68,14 @@ function CampaignDetailContent() {
       setError("No campaign ID provided.")
       return
     }
-    getCampaign("school-of-skill", campaignId)
+    getCampaign(tenant, campaignId)
       .then((data) => setCampaign(data))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false))
-    getAssets("school-of-skill")
+    getAssets(tenant)
       .then(setAssets)
       .catch(() => {})
-  }, [campaignId])
+  }, [campaignId, tenant])
 
   const triggerToast = useCallback(() => {
     setShowToast(true)
@@ -159,7 +161,7 @@ function CampaignDetailContent() {
 
       <div className="ads-angle-list">
         {visibleAngles.map((angle) => (
-          <AngleGroup key={angle.id} angle={angle} campaignId={campaignId} campaignRevision={campaign.revision} campaignName={campaign.name} onSaved={triggerToast} onOpenEditor={(variantId) => setEditorState({ angleId: angle.id, variantId })} onOpenAngleEditor={() => setEditorState({ angleId: angle.id, variantId: null })} onCropSaved={(variantId, newCrop, newRevision) => {
+          <AngleGroup key={angle.id} angle={angle} tenant={tenant} campaignId={campaignId} campaignRevision={campaign.revision} campaignName={campaign.name} onSaved={triggerToast} onOpenEditor={(variantId) => setEditorState({ angleId: angle.id, variantId })} onOpenAngleEditor={() => setEditorState({ angleId: angle.id, variantId: null })} onCropSaved={(variantId, newCrop, newRevision) => {
             setCampaign((prev) => {
               if (!prev) return prev
               return {
@@ -196,7 +198,7 @@ function CampaignDetailContent() {
                 : angle.variants
               let currentRev = campaign.revision
               for (const v of targetVariants) {
-                const result = await editImage("school-of-skill", campaign.id, currentRev, v.id, v.fingerprint, creativeKey, newCrop)
+                const result = await editImage(tenant, campaign.id, currentRev, v.id, v.fingerprint, creativeKey, newCrop)
                 currentRev = result.revision
               }
               setCampaign((prev) => {
@@ -228,8 +230,9 @@ function CampaignDetailContent() {
   )
 }
 
-function AngleGroup({ angle, campaignId, campaignRevision, campaignName, onSaved, onOpenEditor, onOpenAngleEditor, onCropSaved }: {
+function AngleGroup({ angle, tenant, campaignId, campaignRevision, campaignName, onSaved, onOpenEditor, onOpenAngleEditor, onCropSaved }: {
   angle: Angle
+  tenant: string
   campaignId: string
   campaignRevision: number
   campaignName: string
@@ -272,15 +275,16 @@ function AngleGroup({ angle, campaignId, campaignRevision, campaignName, onSaved
 
       <div className="ads-variants">
         {angle.variants.map((variant) => (
-          <AdCard key={variant.id} variant={variant} campaignId={campaignId} campaignRevision={campaignRevision} campaignName={campaignName} angleName={angle.name} sharedCreativeUrl={angle.shared_creative_url} sharedCreativeId={angle.shared_creative_id} onSaved={onSaved} onCropSaved={(newCrop, newRevision) => onCropSaved(variant.id, newCrop, newRevision)} onOpenEditor={() => onOpenEditor(variant.id)} />
+          <AdCard key={variant.id} variant={variant} tenant={tenant} campaignId={campaignId} campaignRevision={campaignRevision} campaignName={campaignName} angleName={angle.name} sharedCreativeUrl={angle.shared_creative_url} sharedCreativeId={angle.shared_creative_id} onSaved={onSaved} onCropSaved={(newCrop, newRevision) => onCropSaved(variant.id, newCrop, newRevision)} onOpenEditor={() => onOpenEditor(variant.id)} />
         ))}
       </div>
     </div>
   )
 }
 
-function AdCard({ variant, campaignId, campaignRevision, campaignName, angleName, sharedCreativeUrl, sharedCreativeId, onSaved, onCropSaved, onOpenEditor }: {
+function AdCard({ variant, tenant, campaignId, campaignRevision, campaignName, angleName, sharedCreativeUrl, sharedCreativeId, onSaved, onCropSaved, onOpenEditor }: {
   variant: CopyVariant
+  tenant: string
   campaignId: string
   campaignRevision: number
   campaignName: string
@@ -309,7 +313,7 @@ function AdCard({ variant, campaignId, campaignRevision, campaignName, angleName
     setCropSaving(true)
     setCropError("")
     try {
-      const result = await editImage("school-of-skill", campaignId, campaignRevision, variant.id, variant.fingerprint, variant.creative_key || variant.id, newCrop)
+      const result = await editImage(tenant, campaignId, campaignRevision, variant.id, variant.fingerprint, variant.creative_key || variant.id, newCrop)
       onCropSaved(newCrop, result.revision)
     } catch (err) {
       setCropError(err instanceof Error ? err.message : "Failed to save crop")
