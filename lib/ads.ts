@@ -180,8 +180,8 @@ type ApiResponse = {
 
 // ---- API fetch ----
 
-async function fetchPortal(tenant: string = DEFAULT_TENANT): Promise<ApiResponse> {
-  const code = getAccessCode()
+async function fetchPortal(tenant: string = DEFAULT_TENANT, accessCode?: string): Promise<ApiResponse> {
+  const code = accessCode || getAccessCode()
   if (!code) throw new Error("Access code required")
   const res = await fetch(`${API_BASE}/index.php?tenant=${encodeURIComponent(tenant)}`, {
     headers: { Authorization: `Bearer ${code}` },
@@ -365,8 +365,8 @@ export async function getWorkspaces(): Promise<Workspace[]> {
   return [{ slug: data.tenant.slug, name: data.tenant.name }]
 }
 
-export async function getCampaigns(workspace: string = DEFAULT_TENANT): Promise<Campaign[]> {
-  const data = await fetchPortal(workspace)
+export async function getCampaigns(workspace: string = DEFAULT_TENANT, accessCode?: string): Promise<Campaign[]> {
+  const data = await fetchPortal(workspace, accessCode)
   const campaigns = data.campaigns || []
   return campaigns.map((c) => {
     try {
@@ -541,9 +541,10 @@ export async function submitDecision(
   fingerprint: string,
   status: ReviewStatus,
   comment: string = "",
-  reviewer: string = "Reviewer"
+  reviewer: string = "Reviewer",
+  accessCode?: string
 ): Promise<ReviewDecision> {
-  const code = getAccessCode()
+  const code = accessCode || getAccessCode()
   if (!code) throw new Error("Access code required")
   const res = await fetch(`${API_BASE}/index.php?tenant=${encodeURIComponent(workspace)}&action=portal`, {
     method: "POST",
