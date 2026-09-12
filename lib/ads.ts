@@ -26,6 +26,8 @@ export function clearAccessCode() {
 
 export type AdStatus = "draft" | "in_review" | "approved" | "ready" | "active" | "learning"
 
+export type ReviewStatus = "awaiting_review" | "approved" | "changes_requested" | "rejected"
+
 export type CopyVariant = {
   id: string
   type: "short" | "medium" | "long"
@@ -34,6 +36,10 @@ export type CopyVariant = {
   description: string
   cta: string
   approval_status: AdStatus
+  review_status: ReviewStatus
+  review_comment: string
+  reviewer: string
+  reviewed_at: string
   comment_count: number
   fingerprint: string
   creative_key: string
@@ -42,6 +48,7 @@ export type CopyVariant = {
   destination_url: string
   placement: string
   ratio: string
+  crop: { x: number; y: number }
 }
 
 export type Angle = {
@@ -207,6 +214,11 @@ function mapAdStatus(decision: ReviewDecision | null): AdStatus {
   return "draft"
 }
 
+function mapReviewStatus(decision: ReviewDecision | null): ReviewStatus {
+  if (!decision) return "awaiting_review"
+  return decision.status
+}
+
 function mapConceptStatus(decision: ReviewDecision | null): AdStatus {
   if (!decision) return "draft"
   if (decision.status === "approved") return "approved"
@@ -246,6 +258,10 @@ function mapApiToCampaign(apiCampaign: ApiCampaign, data: ApiResponse): Campaign
         description: ad.description || "",
         cta: ad.cta || "LEARN_MORE",
         approval_status: mapAdStatus(adDecision),
+        review_status: mapReviewStatus(adDecision),
+        review_comment: adDecision?.comment || "",
+        reviewer: adDecision?.reviewer || "",
+        reviewed_at: adDecision?.created_at || "",
         comment_count: adDecision?.comment ? 1 : 0,
         fingerprint: ad.fingerprint || "",
         creative_key: ad.creative_key || "",
@@ -254,6 +270,7 @@ function mapApiToCampaign(apiCampaign: ApiCampaign, data: ApiResponse): Campaign
         destination_url: ad.destination_url || "",
         placement: ad.placement || "facebook_feed",
         ratio: ad.ratio || "1:1",
+        crop: ad.crop || { x: 50, y: 50 },
       }
     })
 
@@ -316,6 +333,11 @@ function padVariants(variants: CopyVariant[]): CopyVariant[] {
         destination_url: "",
         placement: "facebook_feed",
         ratio: "1:1",
+        review_status: "awaiting_review",
+        review_comment: "",
+        reviewer: "",
+        reviewed_at: "",
+        crop: { x: 50, y: 50 },
       })
     }
   }
@@ -389,4 +411,56 @@ export function statusClass(status: AdStatus): string {
     learning: "ads-status-learning",
   }
   return classes[status] || "ads-status-draft"
+}
+
+export function reviewStatusLabel(status: ReviewStatus): string {
+  const labels: Record<ReviewStatus, string> = {
+    awaiting_review: "Awaiting feedback",
+    approved: "Approved",
+    changes_requested: "Changes requested",
+    rejected: "Rejected",
+  }
+  return labels[status] || status
+}
+
+export function reviewStatusClass(status: ReviewStatus): string {
+  const classes: Record<ReviewStatus, string> = {
+    awaiting_review: "ads-status-awaiting",
+    approved: "ads-status-approved",
+    changes_requested: "ads-status-changes",
+    rejected: "ads-status-rejected",
+  }
+  return classes[status] || "ads-status-awaiting"
+}
+
+export async function submitDecision(
+  workspace: string,
+  campaignId: string,
+  campaignRevision: number,
+  targetType: "concept" | "ad",
+  targetId: string,
+  fingerprint: string,
+  status: ReviewStatus,
+  comment: string = "",
+  reviewer: string = "Reviewer"
+): Promise<ReviewDecision> {
+  const code = getAccessCode()
+  if (!code) throw new Error("Access code required")
+  const res = await fetch(`${API_BASE}/index.php?tenant=${encodeURIComponent(workspace)}&action=portal`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${code}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      campaign_id: campaignId,
+      campaign_revision: campaignRevision,
+      target_type: targetType,
+      target_id: targetId,
+      fingerprint,
+      status,
+      comment,
+      reviewer,
+    }),
+  })
+  const data = await res.json().catch(() => ({}))
+  if (!res.ok) throw new Error(data.error || "Failed to save decision")
+  return data.decision || data
 }
