@@ -15,3 +15,28 @@ Read and follow these repository sources before acting:
 4. `operators/skills/sorted-ad-review/references/campaign-contract.md` when creating or revising campaigns
 
 The Sorted Ads workspace at `sortmydigital.site/ads/` is the sole interface. Never build or style a separate client-specific portal. Client accounts are tenants within the single portal, not separate deployments.
+
+## Onboarding a new account
+
+To add a new client account to the Sorted Ads workspace, update exactly two files:
+
+1. **Account selector** — `app/ads/components/TenantContext.tsx`
+   - Add the new tenant to the `KNOWN_TENANTS` array:
+     ```ts
+     { slug: "client-slug", name: "Client Name" },
+     ```
+   - The slug must match the tenant slug registered in the central database.
+
+2. **Review password** — `app/review/page.tsx`
+   - Add the new tenant to the `TENANT_PASSWORDS` map:
+     ```ts
+     const TENANT_PASSWORDS: Record<string, string> = {
+       "school-of-skill": "schoolofskill",
+       "edgbaston-tuition": "edgbastontuition",
+       "client-slug": "clientpassword",
+     }
+     ```
+   - This is the password clients enter to access their shared review link.
+   - Share it out-of-band with the client (email, phone, etc.).
+
+No other files need to change. The account selector, campaign loading, asset loading, and review page all read the tenant from context or URL and scope automatically.

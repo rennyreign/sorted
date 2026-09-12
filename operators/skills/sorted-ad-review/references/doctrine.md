@@ -34,7 +34,7 @@ Run one multi-tenant Sorted Ads application backed by a central database. All ac
 
 The internal workspace URL is `sortmydigital.site/ads/`. Sorted operators use this to manage campaigns, edit images, adjust crops, upload assets, and share preview links.
 
-The client review URL is `sortmydigital.site/review?campaign=<campaign-id>`. Clients receive this link with a simple password gate — no login, no account, no friction. The password is tenant-specific and shared out-of-band by Sorted.
+The client review URL is `sortmydigital.site/review?tenant=<tenant-slug>&campaign=<campaign-id>`. Clients receive this link with a simple password gate — no login, no account, no friction. The password is tenant-specific and shared out-of-band by Sorted.
 
 Keep application state in the central database, not on a server filesystem.
 
@@ -47,6 +47,31 @@ The selected account persists in the URL and/or local storage so operators can b
 - Account name (e.g., "School of Skill", "Edgbaston Tuition")
 - Tenant slug as a subtle subtitle
 - Current selection highlighted
+
+## Onboarding a new account
+
+To add a new client account to the Sorted Ads workspace, update exactly two files:
+
+1. **Account selector** — `app/ads/components/TenantContext.tsx`
+   - Add the new tenant to the `KNOWN_TENANTS` array:
+     ```ts
+     { slug: "client-slug", name: "Client Name" },
+     ```
+   - The slug must match the tenant slug registered in the central database.
+
+2. **Review password** — `app/review/page.tsx`
+   - Add the new tenant to the `TENANT_PASSWORDS` map:
+     ```ts
+     const TENANT_PASSWORDS: Record<string, string> = {
+       "school-of-skill": "schoolofskill",
+       "edgbaston-tuition": "edgbastontuition",
+       "client-slug": "clientpassword",
+     }
+     ```
+   - This is the password clients enter to access their shared review link.
+   - Share it out-of-band with the client (email, phone, etc.).
+
+No other files need to change. The account selector, campaign loading, asset loading, and review page all read the tenant from context or URL and scope automatically.
 
 ## Creation flow
 
