@@ -197,11 +197,11 @@ async function fetchPortal(tenant: string = DEFAULT_TENANT): Promise<ApiResponse
 
 function resolveAssetUrl(creativeKey: string, assets: ApiAsset[]): string {
   if (!creativeKey) return ""
-  for (const asset of assets) {
-    if (asset.url && creativeKey === asset.creative_key) return asset.url
-    if (asset.url && creativeKey.includes(asset.url.split("/").pop() || "")) return asset.url
-  }
-  return ""
+  const match = assets.find((a) => a.creative_key === creativeKey)
+  if (match) return match.url
+  const filename = creativeKey.split("/").pop()
+  const fallback = assets.find((a) => a.creative_key.split("/").pop() === filename)
+  return fallback?.url || ""
 }
 
 // ---- Decision lookup ----
@@ -239,9 +239,11 @@ function mapConceptStatus(decision: ReviewDecision | null): AdStatus {
 }
 
 function mapCampaignStatus(campaign: ApiCampaign, decisions: ReviewDecision[]): AdStatus {
-  const campaignDecisions = decisions.filter((d) => d.campaign_id === campaign.id)
+  const concepts = campaign.concepts || []
+  if (concepts.length === 0) return "draft"
+  const campaignDecisions = (decisions || []).filter((d) => d.campaign_id === campaign.id)
   if (campaignDecisions.length === 0) return "draft"
-  const allApproved = campaign.concepts.every((concept) => {
+  const allApproved = concepts.every((concept) => {
     const dec = decisionForConcept(decisions, campaign.id, concept.id)
     return dec?.status === "approved"
   })
@@ -252,14 +254,16 @@ function mapCampaignStatus(campaign: ApiCampaign, decisions: ReviewDecision[]): 
 }
 
 function mapApiToCampaign(apiCampaign: ApiCampaign, data: ApiResponse): Campaign {
+  const decisions = data.decisions || []
+  const assets = data.assets || []
   const angles: Angle[] = (apiCampaign.concepts || []).map((concept, i) => {
-    const conceptDecision = decisionForConcept(data.decisions, apiCampaign.id, concept.id)
+    const conceptDecision = decisionForConcept(decisions, apiCampaign.id, concept.id)
     const ads = concept.ads || []
     const firstAd = ads[0] || ({} as ApiAd)
-    const creativeUrl = resolveAssetUrl(firstAd.creative_key || "", data.assets)
+    const creativeUrl = resolveAssetUrl(firstAd.creative_key || "", assets)
 
     const variants: CopyVariant[] = ads.map((ad, vi) => {
-      const adDecision = decisionForAd(data.decisions, apiCampaign.id, ad.id)
+      const adDecision = decisionForAd(decisions, apiCampaign.id, ad.id)
       return {
         id: ad.id,
         type: vi === 0 ? "short" : vi === 1 ? "medium" : "long",
@@ -275,7 +279,7 @@ function mapApiToCampaign(apiCampaign: ApiCampaign, data: ApiResponse): Campaign
         comment_count: adDecision?.comment ? 1 : 0,
         fingerprint: ad.fingerprint || "",
         creative_key: ad.creative_key || "",
-        creative_url: resolveAssetUrl(ad.creative_key || "", data.assets),
+        creative_url: resolveAssetUrl(ad.creative_key || "", assets),
         creative_alt: ad.creative_alt || "",
         destination_url: ad.destination_url || "",
         placement: ad.placement || "facebook_feed",
@@ -307,14 +311,14 @@ function mapApiToCampaign(apiCampaign: ApiCampaign, data: ApiResponse): Campaign
   return {
     id: apiCampaign.id,
     name: apiCampaign.name,
-    status: mapCampaignStatus(apiCampaign, data.decisions),
+    status: mapCampaignStatus(apiCampaign, decisions),
     goal: apiCampaign.objective || "",
     audience: apiCampaign.audience || angles[0]?.audience || "",
     channel: apiCampaign.platform || "meta",
     start_date: apiCampaign.start_date || null,
     end_date: apiCampaign.end_date || null,
     approval_progress: totalAngles > 0 ? Math.round((approvedAngles / totalAngles) * 100) : 0,
-    comment_count: data.decisions.filter((d) => d.campaign_id === apiCampaign.id && d.comment).length,
+    comment_count: decisions.filter((d) => d.campaign_id === apiCampaign.id && d.comment).length,
     angles,
     cover_image: angles[0]?.shared_creative_url || "",
     revision: apiCampaign.revision,
@@ -363,7 +367,30 @@ export async function getWorkspaces(): Promise<Workspace[]> {
 
 export async function getCampaigns(workspace: string = DEFAULT_TENANT): Promise<Campaign[]> {
   const data = await fetchPortal(workspace)
-  return (data.campaigns || []).map((c) => mapApiToCampaign(c, data))
+  const campaigns = data.campaigns || []
+  return campaigns.map((c) => {
+    try {
+      return mapApiToCampaign(c, data)
+    } catch (e) {
+      console.error("Failed to map campaign", c?.id, e)
+      return {
+        id: c.id || "unknown",
+        name: c.name || "Unknown campaign",
+        status: "draft" as AdStatus,
+        goal: c.objective || "",
+        audience: "",
+        channel: c.platform || "meta",
+        start_date: null,
+        end_date: null,
+        approval_progress: 0,
+        comment_count: 0,
+        angles: [],
+        cover_image: "",
+        revision: c.revision || 0,
+        updated_at: "",
+      }
+    }
+  })
 }
 
 export async function getCampaign(workspace: string, campaignId: string): Promise<Campaign | null> {
@@ -375,12 +402,12 @@ export async function getCampaign(workspace: string, campaignId: string): Promis
 
 export async function getAssets(workspace: string = DEFAULT_TENANT): Promise<Asset[]> {
   const data = await fetchPortal(workspace)
-  const assets: Asset[] = []
-  for (const item of data.assets || []) {
-    const isVideo = item.media_type === "video" || item.kind === "video"
-    assets.push({
-      id: item.creative_key || item.url.split("/").pop() || `asset-${assets.length}`,
-      name: item.name || item.url.split("/").pop() || "Untitled",
+  return (data.assets || []).map((item) => {
+    const isVideo = item.kind === "video"
+    const filename = item.creative_key.split("/").pop() || item.name
+    return {
+      id: item.creative_key,
+      name: item.name || filename,
       media_type: isVideo ? "video" : "image",
       url: item.url,
       thumbnail: item.url,
@@ -388,11 +415,10 @@ export async function getAssets(workspace: string = DEFAULT_TENANT): Promise<Ass
       height: item.height || 0,
       aspect_ratio: item.width && item.height ? `${item.width}:${item.height}` : "1:1",
       file_size: item.file_size ? `${(item.file_size / 1024 / 1024).toFixed(1)} MB` : "—",
-      usage: [],
+      usage: item.collection ? [item.collection] : [],
       created_at: item.created_at || "",
-    })
-  }
-  return assets
+    }
+  })
 }
 
 // ---- Helpers ----
