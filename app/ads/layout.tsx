@@ -1,5 +1,4 @@
-import { Sidebar } from "./components/Sidebar"
-import { Topbar } from "./components/Topbar"
+import { TopNav } from "./components/TopNav"
 import "./ads.css"
 
 export const metadata = {
@@ -11,15 +10,10 @@ export const metadata = {
 export default function AdsLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="ads-app">
-      <Sidebar />
-      <div className="ads-main">
-        <Topbar />
+      <TopNav />
+      <main className="ads-main">
         {children}
-        <footer className="ads-footer">
-          <span className="brand">Sorted.</span>
-          <span>Small businesses. A more sorted future.</span>
-        </footer>
-      </div>
+      </main>
     </div>
   )
 }

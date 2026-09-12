@@ -116,7 +116,7 @@ export default function PublishingPage() {
         ))}
       </div>
 
-      <div style={{ display: "flex", gap: 32, alignItems: "flex-start" }}>
+      <div>
         <div style={{ flex: 1, minWidth: 0 }}>
           {step === "Select ads" && (
             <>
@@ -234,9 +234,9 @@ export default function PublishingPage() {
           )}
         </div>
 
-        {/* Right summary */}
-        <div style={{ width: 280, flexShrink: 0 }}>
-          <div className="ads-rail-card">
+        {/* Inline summary */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginTop: 24 }}>
+          <div className="ads-rail-card" style={{ margin: 0 }}>
             <h3>Summary</h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 10, fontSize: 14 }}>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -257,11 +257,11 @@ export default function PublishingPage() {
               </div>
             </div>
           </div>
-          <div className="ads-rail-card">
+          <div className="ads-rail-card" style={{ margin: 0 }}>
             <h3>Channels</h3>
             <div style={{ fontSize: 15 }}>Facebook · Instagram</div>
           </div>
-          <div className="ads-rail-card">
+          <div className="ads-rail-card" style={{ margin: 0 }}>
             <h3>Ad account</h3>
             <div style={{ fontSize: 14, color: "var(--ads-text-muted)" }}>School of Skill Meta Business</div>
           </div>
