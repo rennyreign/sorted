@@ -144,7 +144,7 @@ function ClientReviewContent() {
     setAds((prev) => prev.map((a) => (a.id === ad.id ? { ...a, review_status: status, comment: comment || a.comment } : a)))
     setShowComment(null)
     setCommentText("")
-    showToast(status === "approved" ? "Approved" : status === "changes_requested" ? "Changes requested" : "Rejected")
+    showToast(status === "approved" ? "Approved" : status === "changes_requested" ? "Revision requested" : "Rejected")
     try {
       await submitDecision(tenantSlug, ad.campaign_id, ad.campaign_revision, "ad", ad.id, ad.fingerprint, status, comment, "Client")
     } catch (err) {
@@ -184,7 +184,7 @@ function ClientReviewContent() {
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <span style={{ fontSize: 14, color: "#646763" }}>{approvedCount} of {ads.length} approved</span>
-          {changesCount > 0 && <span style={{ fontSize: 14, color: "#8A6A25" }}>· {changesCount} changes</span>}
+          {changesCount > 0 && <span style={{ fontSize: 14, color: "#8A6A25" }}>· {changesCount} to revise</span>}
           {rejectedCount > 0 && <span style={{ fontSize: 14, color: "#B33A3A" }}>· {rejectedCount} rejected</span>}
         </div>
       </header>
@@ -324,7 +324,7 @@ function ReviewCard({ ad, onDecision, showComment, setShowComment, commentText, 
             opacity: saving ? 0.6 : 1,
           }}
         >
-          <MessageSquare size={16} /> Request change
+          <MessageSquare size={16} /> Revise
         </button>
         <button
           onClick={() => onDecision(ad, "rejected")}
@@ -349,7 +349,7 @@ function ReviewCard({ ad, onDecision, showComment, setShowComment, commentText, 
           <textarea
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
-            placeholder="What would you like changed?"
+            placeholder="What needs revising?"
             style={{ width: "100%", minHeight: 80, padding: 10, borderRadius: 10, border: "1px solid #DDE0DA", fontSize: 14, fontFamily: "inherit", resize: "vertical" }}
             autoFocus
           />
