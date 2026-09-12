@@ -30,6 +30,11 @@ const TENANT_PASSWORDS: Record<string, string> = {
   "edgbaston-tuition": "edgbastontuition",
 }
 
+const TENANT_ACCESS_CODES: Record<string, string> = {
+  "school-of-skill": "basketballskills80",
+  "edgbaston-tuition": "basketballskills80",
+}
+
 function ctaLabel(cta: string): string {
   const labels: Record<string, string> = {
     BOOK_NOW: "Book Now",
@@ -70,7 +75,8 @@ function ClientReviewContent() {
   const loadData = () => {
     setLoading(true)
     setError("")
-    getCampaigns(tenantSlug)
+    const accessCode = TENANT_ACCESS_CODES[tenantSlug] || TENANT_ACCESS_CODES["school-of-skill"]
+    getCampaigns(tenantSlug, accessCode)
       .then((campaigns) => {
         const campaign = campaigns.find((c) => c.id === campaignId) || campaigns[0]
         if (!campaign) throw new Error("Campaign not found")
@@ -146,7 +152,8 @@ function ClientReviewContent() {
     setCommentText("")
     showToast(status === "approved" ? "Approved" : status === "changes_requested" ? "Revision requested" : "Rejected")
     try {
-      await submitDecision(tenantSlug, ad.campaign_id, ad.campaign_revision, "ad", ad.id, ad.fingerprint, status, comment, "Client")
+      const accessCode = TENANT_ACCESS_CODES[tenantSlug] || TENANT_ACCESS_CODES["school-of-skill"]
+      await submitDecision(tenantSlug, ad.campaign_id, ad.campaign_revision, "ad", ad.id, ad.fingerprint, status, comment, "Client", accessCode)
     } catch (err) {
       // Decision saved locally even if API fails (offline-friendly)
     } finally {
