@@ -949,14 +949,12 @@
   position: fixed;
   inset: 0;
   z-index: 1000;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(11,11,10,0.5);
   backdrop-filter: blur(4px);
 }
-
-.ads-image-editor.open { display: flex; }
 
 .ads-image-editor-dialog {
   width: min(1120px, calc(100% - 32px));

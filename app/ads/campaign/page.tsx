@@ -385,7 +385,7 @@ function ImageEditorModal({ campaign, angle, variant, assets, onClose, onSave }:
   const ratio = variant.ratio || "1:1"
 
   return (
-    <div className="ads-image-editor open" onClick={onClose}>
+    <div className="ads-image-editor" onClick={onClose}>
       <div className="ads-image-editor-dialog" onClick={(e) => e.stopPropagation()}>
         <div className="ads-image-editor-header">
           <div>
