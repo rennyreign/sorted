@@ -1,21 +1,8 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { Upload, Search, X, Download, Copy, Trash2, Replace, Film, Image as ImageIcon, Filter } from "lucide-react"
-
-type Asset = {
-  id: string
-  name: string
-  media_type: "image" | "video"
-  url: string
-  thumbnail: string
-  width: number
-  height: number
-  aspect_ratio: string
-  file_size: string
-  usage: string[]
-  created_at: string
-}
+import { getAssets as fetchAssets, uploadAsset as uploadAssetApi, type Asset } from "@/lib/ads"
 
 const filterTabs = ["All assets", "Images", "Videos", "Deleted"] as const
 type FilterTab = (typeof filterTabs)[number]
@@ -23,21 +10,37 @@ type FilterTab = (typeof filterTabs)[number]
 export default function AssetsPage() {
   const [assets, setAssets] = useState<Asset[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
   const [tab, setTab] = useState<FilterTab>("All assets")
   const [search, setSearch] = useState("")
   const [selected, setSelected] = useState<Asset | null>(null)
+  const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState("")
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    // Placeholder data — will be wired to Supabase
-    const mockAssets: Asset[] = [
-      { id: "1", name: "Dijon action shot", media_type: "image", url: "", thumbnail: "", width: 1080, height: 1080, aspect_ratio: "1:1", file_size: "2.4 MB", usage: ["Youth Camp — Angle 1"], created_at: "2026-09-10" },
-      { id: "2", name: "Team huddle", media_type: "image", url: "", thumbnail: "", width: 1080, height: 1350, aspect_ratio: "4:5", file_size: "3.1 MB", usage: ["Recruitment Camp — Angle 2"], created_at: "2026-09-10" },
-      { id: "3", name: "Court close-up", media_type: "image", url: "", thumbnail: "", width: 1200, height: 628, aspect_ratio: "1.91:1", file_size: "1.8 MB", usage: [], created_at: "2026-09-09" },
-      { id: "4", name: "UCLA trip footage", media_type: "video", url: "", thumbnail: "", width: 1920, height: 1080, aspect_ratio: "16:9", file_size: "24 MB", usage: ["Youth Camp — Angle 3"], created_at: "2026-09-08" },
-    ]
-    setAssets(mockAssets)
-    setLoading(false)
+    fetchAssets("school-of-skill")
+      .then((data) => setAssets(data))
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false))
   }, [])
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    setUploadError("")
+    try {
+      const name = file.name.replace(/\.[^.]+$/, "")
+      const asset = await uploadAssetApi("school-of-skill", file, name)
+      setAssets((prev) => [asset, ...prev])
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : "Upload failed")
+    } finally {
+      setUploading(false)
+      if (fileInputRef.current) fileInputRef.current.value = ""
+    }
+  }
 
   const visible = assets.filter((a) => {
     if (tab === "Images") return a.media_type === "image"
@@ -47,6 +50,7 @@ export default function AssetsPage() {
   }).filter((a) => !search || a.name.toLowerCase().includes(search.toLowerCase()))
 
   if (loading) return <Loader label="Loading assets…" />
+  if (error) return <div className="ads-content"><div className="ads-empty"><h2>Couldn't load assets</h2><p>{error}</p></div></div>
 
   return (
     <div className="ads-content">
@@ -61,12 +65,19 @@ export default function AssetsPage() {
             <button className="ads-btn ads-btn-secondary">
               <Film size={18} strokeWidth={1.75} /> Generate with AI
             </button>
-            <button className="ads-btn ads-btn-primary">
-              <Upload size={18} strokeWidth={1.75} /> Upload assets
+            <input ref={fileInputRef} type="file" accept="image/webp" onChange={handleUpload} style={{ display: "none" }} />
+            <button className="ads-btn ads-btn-primary" onClick={() => fileInputRef.current?.click()} disabled={uploading}>
+              {uploading ? <><div className="ads-loader-spinner" style={{ width: 16, height: 16, borderWidth: 2 }} /> Uploading…</> : <><Upload size={18} strokeWidth={1.75} /> Upload assets</>}
             </button>
           </div>
         </div>
       </div>
+
+      {uploadError && (
+        <div style={{ background: "#FEF2F2", color: "#991B1B", padding: "12px 16px", borderRadius: 10, fontSize: 14, marginBottom: 16, border: "1px solid #FECACA" }}>
+          {uploadError}
+        </div>
+      )}
 
       <div className="ads-filters">
         <div className="ads-tabs">
@@ -105,18 +116,18 @@ export default function AssetsPage() {
                       width: "100%",
                       aspectRatio: "1",
                       borderRadius: "10px 10px 0 0",
-                      background: "linear-gradient(135deg, #F6F7F3 0%, #E9F3EE 100%)",
+                      background: asset.url ? `url(${asset.url}) center/cover` : "linear-gradient(135deg, #F6F7F3 0%, #E9F3EE 100%)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       position: "relative",
                     }}
                   >
-                    {asset.media_type === "video" ? (
+                    {!asset.url && (asset.media_type === "video" ? (
                       <Film size={32} strokeWidth={1} style={{ color: "var(--ads-text-subtle)" }} />
                     ) : (
                       <ImageIcon size={32} strokeWidth={1} style={{ color: "var(--ads-text-subtle)" }} />
-                    )}
+                    ))}
                   </div>
                   <div style={{ padding: "12px 14px" }}>
                     <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{asset.name}</div>
