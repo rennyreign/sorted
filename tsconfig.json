@@ -39,6 +39,7 @@
     "node_modules",
     "templates/**/*",
     "operators/**/*",
-    "apps/**/*"
+    "apps/**/*",
+    "supabase/**/*"
   ]
 }
