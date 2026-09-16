@@ -35,6 +35,11 @@ const TENANT_ACCESS_CODES: Record<string, string> = {
   "edgbaston-tuition": "basketballskills80",
 }
 
+const TENANT_DOMAINS: Record<string, string> = {
+  "school-of-skill": "schoolofskill.co.uk",
+  "edgbaston-tuition": "edgbastontuitioncentre.co.uk",
+}
+
 function ctaLabel(cta: string): string {
   const labels: Record<string, string> = {
     BOOK_NOW: "Book Now",
@@ -209,6 +214,7 @@ function ClientReviewContent() {
             commentText={commentText}
             setCommentText={setCommentText}
             saving={saving}
+            domain={TENANT_DOMAINS[tenantSlug] || TENANT_DOMAINS["school-of-skill"]}
           />
         ) : (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
@@ -222,6 +228,7 @@ function ClientReviewContent() {
                 commentText={commentText}
                 setCommentText={setCommentText}
                 saving={saving}
+                domain={TENANT_DOMAINS[tenantSlug] || TENANT_DOMAINS["school-of-skill"]}
               />
             ))}
           </div>
@@ -257,7 +264,7 @@ function ClientReviewContent() {
   )
 }
 
-function ReviewCard({ ad, onDecision, showComment, setShowComment, commentText, setCommentText, saving }: {
+function ReviewCard({ ad, onDecision, showComment, setShowComment, commentText, setCommentText, saving, domain }: {
   ad: ReviewAd
   onDecision: (ad: ReviewAd, status: ReviewStatus, comment?: string) => void
   showComment: boolean
@@ -265,6 +272,7 @@ function ReviewCard({ ad, onDecision, showComment, setShowComment, commentText, 
   commentText: string
   setCommentText: (v: string) => void
   saving: boolean
+  domain: string
 }) {
   const ratio = ad.ratio || "1:1"
   const aspectRatio = ratio.replace(":", "/")
@@ -291,7 +299,7 @@ function ReviewCard({ ad, onDecision, showComment, setShowComment, commentText, 
         )}
       </div>
       <div style={{ padding: "16px 20px", background: "#F6F7F3", borderBottom: "1px solid #E3E5DF" }}>
-        <div style={{ fontSize: 12, color: "#646763", textTransform: "uppercase" }}>schoolofskill.co.uk</div>
+        <div style={{ fontSize: 12, color: "#646763", textTransform: "uppercase" }}>{domain}</div>
         <div style={{ fontSize: 16, fontWeight: 700, margin: "4px 0" }}>{ad.headline}</div>
         <div style={{ fontSize: 13, color: "#646763" }}>{ad.description}</div>
         <div style={{ display: "inline-block", marginTop: 10, padding: "6px 12px", background: "#E2E4E7", borderRadius: 6, fontSize: 12, fontWeight: 600 }}>{ctaLabel(ad.cta)}</div>
@@ -376,7 +384,7 @@ function ReviewCard({ ad, onDecision, showComment, setShowComment, commentText, 
   )
 }
 
-function MobileReview({ ads, currentIndex, onPrev, onNext, onDecision, showComment, setShowComment, commentText, setCommentText, saving }: any) {
+function MobileReview({ ads, currentIndex, onPrev, onNext, onDecision, showComment, setShowComment, commentText, setCommentText, saving, domain }: any) {
   const ad = ads[currentIndex]
   return (
     <div>
@@ -385,7 +393,7 @@ function MobileReview({ ads, currentIndex, onPrev, onNext, onDecision, showComme
         <span style={{ fontSize: 14, color: "#646763" }}>{currentIndex + 1} of {ads.length}</span>
         <button onClick={onNext} disabled={currentIndex === ads.length - 1} style={{ width: 44, height: 44, borderRadius: 14, border: "1px solid #E3E5DF", background: "white", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", opacity: currentIndex === ads.length - 1 ? 0.4 : 1 }}><ChevronRight size={20} /></button>
       </div>
-      <ReviewCard ad={ad} onDecision={onDecision} showComment={showComment === ad.id} setShowComment={setShowComment} commentText={commentText} setCommentText={setCommentText} saving={saving} />
+      <ReviewCard ad={ad} onDecision={onDecision} showComment={showComment === ad.id} setShowComment={setShowComment} commentText={commentText} setCommentText={setCommentText} saving={saving} domain={domain} />
     </div>
   )
 }
