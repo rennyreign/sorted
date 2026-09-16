@@ -27,17 +27,17 @@ type ReviewAd = {
 
 const TENANT_PASSWORDS: Record<string, string> = {
   "school-of-skill": "schoolofskill",
-  "edgbaston-tuition": "edgbastontuition",
+  "edgbaston": "edgbastontuition",
 }
 
 const TENANT_ACCESS_CODES: Record<string, string> = {
   "school-of-skill": "basketballskills80",
-  "edgbaston-tuition": "basketballskills80",
+  "edgbaston": "basketballskills80",
 }
 
 const TENANT_DOMAINS: Record<string, string> = {
   "school-of-skill": "schoolofskill.co.uk",
-  "edgbaston-tuition": "edgbastontuitioncentre.co.uk",
+  "edgbaston": "edgbaston-tuition-centre.netlify.app",
 }
 
 function ctaLabel(cta: string): string {

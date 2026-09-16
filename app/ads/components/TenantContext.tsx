@@ -9,7 +9,7 @@ export type Tenant = {
 
 const KNOWN_TENANTS: Tenant[] = [
   { slug: "school-of-skill", name: "School of Skill" },
-  { slug: "edgbaston-tuition", name: "Edgbaston Tuition" },
+  { slug: "edgbaston", name: "Edgbaston Tuition Centre" },
 ]
 
 type TenantContextValue = {
