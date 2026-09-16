@@ -82,6 +82,10 @@ sorted/
 
 ---
 
+## Skill Triggers
+
+Every skill in this repo has natural-language trigger phrases. To see the full list at any time, say "what skills do I have" or "show me the skill triggers" — or read `.devin/skills/skill-triggers/SKILL.md` directly.
+
 ## Manufacturing Chain
 
 The Sorted site-build chain runs in two modes. See `doctrine/operator-chain.md` for the full state contract.
