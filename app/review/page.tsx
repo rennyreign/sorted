@@ -34,6 +34,8 @@ const DEV_PROSPECT_FIXTURE: ReviewProspect | null =
         review_slug: "superb-cleaning-services",
         mockup_url: null,
         mockup_urls: [],
+        website_exists: true,
+        lead_answers: null,
         business_modernisation_score: null,
         assessment_report: null,
         assessed_at: null,
@@ -84,7 +86,8 @@ export default function ReviewPage() {
           site_score, business_quality_score, opportunity_score,
           site_analysis, review_summary, site_weaknesses, outreach_angle,
           recommendation, revshare_potential, modernity_gap,
-          screenshot_url, analysed_at, crm_status, review_slug, mockup_url, mockup_urls
+          screenshot_url, analysed_at, crm_status, review_slug, mockup_url, mockup_urls,
+          website_exists
         `)
         .eq("review_slug", slug)
         .single()
@@ -118,6 +121,22 @@ export default function ReviewPage() {
         }
       } catch {
         // Ignore: assessment columns may not exist yet.
+      }
+
+      try {
+        const { data: answersData } = await supabase
+          .from("prospects")
+          .select("lead_answers")
+          .eq("review_slug", slug)
+          .single()
+        if (answersData) {
+          prospect = {
+            ...prospect,
+            lead_answers: (answersData as any).lead_answers ?? null,
+          }
+        }
+      } catch {
+        // Ignore: lead_answers column may not exist yet.
       }
 
       setProspect(prospect)
