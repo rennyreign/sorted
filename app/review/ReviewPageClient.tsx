@@ -1,5 +1,6 @@
 "use client"
 
+import type { FormEvent } from "react"
 import { useState } from "react"
 import { supabase } from "@/lib/supabase"
 
@@ -45,6 +46,8 @@ export type ReviewProspect = {
   review_slug: string | null
   mockup_url: string | null
   mockup_urls: string[] | null
+  website_exists: boolean | null
+  lead_answers: Record<string, string | null> | null
   business_modernisation_score: number | null
   assessment_report: ModernisationAssessmentReport | null
   assessed_at: string | null
@@ -266,6 +269,102 @@ function ModernisationAssessment({ report, score }: { report: ModernisationAsses
   )
 }
 
+const ANSWER_LABELS: [string, string][] = [
+  ["business", "Business type"],
+  ["currentSite", "Current website"],
+  ["goal", "Goal"],
+  ["style", "Style"],
+  ["timeline", "Timeline"],
+]
+
+// Shown when a lead has no existing website — there is nothing to analyse,
+// so we re-state the insight they gave us and let them add the missing
+// "about the business" line if the form never captured it.
+function InsightRecap({ prospect, slug }: { prospect: ReviewProspect; slug: string }) {
+  const answers = prospect.lead_answers ?? {}
+  const provided = ANSWER_LABELS.filter(([key]) => answers[key])
+  const [about, setAbout] = useState(answers.about ?? "")
+  const [draft, setDraft] = useState("")
+  const [state, setState] = useState<"idle" | "saving" | "error">("idle")
+
+  async function saveAbout(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const clean = draft.trim()
+    if (clean.length < 3 || state === "saving") return
+    setState("saving")
+    const { data, error } = await supabase.rpc("submit_lead_about", { p_slug: slug, p_about: clean })
+    if (error || data === false) {
+      setState("error")
+      return
+    }
+    setAbout(clean)
+    setState("idle")
+  }
+
+  return (
+    <div className="bg-white rounded-2xl border border-black/[0.08] p-6 sm:p-8">
+      <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">Starting from scratch</p>
+      <h2 className="font-sans font-extrabold text-[#0A0A0A] text-2xl sm:text-3xl tracking-tight mb-3">
+        We are designing your first website concept.
+      </h2>
+      <p className="text-[#737373] text-sm sm:text-base leading-relaxed max-w-[520px]">
+        There is no existing site to analyse, so we are building straight from what you told us in the mockup form.
+      </p>
+
+      {provided.length > 0 && (
+        <div className="mt-7">
+          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-3">What you told us</p>
+          <dl className="grid gap-2.5">
+            {provided.map(([key, label]) => (
+              <div key={key} className="flex items-baseline gap-3 rounded-xl bg-black/[0.03] px-4 py-3">
+                <dt className="w-32 shrink-0 font-mono text-[10px] uppercase tracking-[0.1em] text-[#A3A3A3]">{label}</dt>
+                <dd className="text-sm font-bold text-[#0A0A0A]">{answers[key]}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
+
+      {about ? (
+        <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3">
+          <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-emerald-700 mb-1">About the business</p>
+          <p className="text-sm text-[#0A0A0A] leading-relaxed">{about}</p>
+        </div>
+      ) : (
+        <form onSubmit={saveAbout} className="mt-7 rounded-xl border border-black/[0.08] p-4 sm:p-5">
+          <p className="font-sans font-bold text-[#0A0A0A] text-sm mb-1">One thing would help</p>
+          <p className="text-[#737373] text-sm mb-4">
+            In a line or two, what is the business or idea? This shapes the concept we design for you.
+          </p>
+          <textarea
+            value={draft}
+            onChange={(event) => setDraft(event.target.value)}
+            maxLength={500}
+            rows={3}
+            placeholder="e.g. A mobile dog-grooming van covering Solihull and South Birmingham"
+            className="w-full resize-none rounded-xl border border-black/[0.12] bg-white px-4 py-3 text-sm text-[#0A0A0A] outline-none transition-colors placeholder:text-[#C4C4C4] focus:border-black"
+          />
+          <div className="mt-3 flex items-center justify-between gap-4">
+            <span className="font-mono text-[10px] text-[#C4C4C4]">{draft.trim().length}/500</span>
+            <button
+              type="submit"
+              disabled={draft.trim().length < 3 || state === "saving"}
+              className="rounded-xl bg-[#0A0A0A] px-5 py-2.5 text-sm font-bold text-white transition-opacity disabled:opacity-40"
+            >
+              {state === "saving" ? "Saving…" : "Add it to my brief"}
+            </button>
+          </div>
+          {state === "error" && (
+            <p className="mt-3 text-sm text-red-600">Could not save that just now — please try again in a moment.</p>
+          )}
+        </form>
+      )}
+
+      <p className="mt-6 text-xs text-[#A3A3A3]">Your mockup is being prepared — check back soon.</p>
+    </div>
+  )
+}
+
 export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewProspect; slug: string }) {
   // Normalise: prefer mockup_urls array, fall back to single mockup_url
   const mockupScreens: string[] = (
@@ -483,6 +582,8 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
               </div>
             )}
           </>
+        ) : prospect.website_exists === false ? (
+          <InsightRecap prospect={prospect} slug={slug} />
         ) : (
           <div className="bg-black/[0.02] border border-black/[0.06] rounded-2xl p-12 text-center">
             <p className="font-sans font-bold text-[#0A0A0A] text-lg mb-2">Your review is being prepared</p>
