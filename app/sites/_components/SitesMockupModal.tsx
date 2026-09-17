@@ -7,45 +7,52 @@ import { supabase } from "@/lib/supabase"
 import { getAttribution } from "@/lib/attribution"
 import { trackEvent, TRACKING_EVENTS } from "@/lib/tracking"
 
-type StepKey = "business" | "currentSite" | "goal" | "style" | "timeline"
+type StepKey = "business" | "currentSite" | "goal" | "style" | "timeline" | "about"
 
 type Step = {
   key: StepKey
   kicker: string
   question: string
-  options: string[]
+  options?: string[]
+  placeholder?: string
 }
 
 const steps: Step[] = [
   {
     key: "business",
-    kicker: "Question 1 of 5",
+    kicker: "Question 1 of 6",
     question: "What kind of business needs the website?",
     options: ["Local service business", "Health or fitness", "Hospitality", "Professional service", "Retail or ecommerce", "Something else"],
   },
   {
     key: "currentSite",
-    kicker: "Question 2 of 5",
+    kicker: "Question 2 of 6",
     question: "What are you working with right now?",
     options: ["No website yet", "An old website", "A site I do not like", "A DIY website", "A website that does not bring enquiries"],
   },
   {
     key: "goal",
-    kicker: "Question 3 of 5",
+    kicker: "Question 3 of 6",
     question: "What should the new site help you do?",
     options: ["Get more enquiries", "Look more professional", "Take bookings", "Explain services clearly", "Show proof and reviews"],
   },
   {
     key: "style",
-    kicker: "Question 4 of 5",
+    kicker: "Question 4 of 6",
     question: "What should it feel like?",
     options: ["Premium and trusted", "Clean and simple", "Bold and direct", "Warm and local", "Modern but not flashy"],
   },
   {
     key: "timeline",
-    kicker: "Question 5 of 5",
+    kicker: "Question 5 of 6",
     question: "How soon would you like to see a mockup?",
     options: ["Today if possible", "Within 24 hours", "This week", "No rush, I am exploring"],
+  },
+  {
+    key: "about",
+    kicker: "Question 6 of 6",
+    question: "In a line or two, what is the business or idea?",
+    placeholder: "e.g. A family-run bakery in Leeds that wants to take orders online",
   },
 ]
 
@@ -181,7 +188,8 @@ function QuestionStep({ step, value, onChoose }: { step: Step; value?: string; o
       </div>
 
       <div className="relative z-10 grid gap-3 rounded-[20px] bg-[#fbfbfa] pb-[max(1rem,env(safe-area-inset-bottom))] sm:rounded-none sm:bg-transparent sm:pb-0">
-        {step.options.map((option) => (
+        {step.options ? (
+          step.options.map((option) => (
           <button
             type="button"
             key={option}
@@ -195,9 +203,45 @@ function QuestionStep({ step, value, onChoose }: { step: Step; value?: string; o
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" strokeWidth={3} />
             </span>
           </button>
-        ))}
+          ))
+        ) : (
+          <TextAnswer value={value ?? ""} placeholder={step.placeholder} onSubmit={onChoose} />
+        )}
       </div>
     </section>
+  )
+}
+
+function TextAnswer({ value, placeholder, onSubmit }: { value: string; placeholder?: string; onSubmit: (text: string) => void }) {
+  const [text, setText] = useState(value)
+  const canContinue = text.trim().length >= 3
+
+  return (
+    <div className="grid gap-4">
+      <textarea
+        value={text}
+        onChange={(event) => setText(event.target.value)}
+        maxLength={280}
+        rows={4}
+        placeholder={placeholder}
+        autoFocus
+        className="w-full resize-none rounded-[16px] border border-black/10 bg-white px-5 py-4 text-[17px] font-black tracking-[-0.02em] shadow-[0_14px_40px_rgba(0,0,0,0.035)] outline-none transition-colors placeholder:text-black/30 focus:border-black"
+      />
+      <div className="flex items-center justify-between gap-4">
+        <span className="text-[12px] font-bold text-black/40">
+          A sentence or two is plenty · {text.trim().length}/280
+        </span>
+        <button
+          type="button"
+          disabled={!canContinue}
+          onClick={() => onSubmit(text.trim())}
+          className="inline-flex h-12 items-center gap-3 rounded-full bg-[#070707] px-6 text-[12px] font-black text-white transition-all hover:-translate-y-0.5 disabled:opacity-30 disabled:hover:translate-y-0"
+        >
+          Continue
+          <ArrowRight className="size-4" strokeWidth={3} />
+        </button>
+      </div>
+    </div>
   )
 }
 
