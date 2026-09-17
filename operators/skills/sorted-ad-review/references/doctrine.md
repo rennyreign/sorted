@@ -34,7 +34,7 @@ Run one multi-tenant Sorted Ads application backed by a central database. All ac
 
 The internal workspace URL is `sortmydigital.site/ads/`. Sorted operators use this to manage campaigns, edit images, adjust crops, upload assets, and share preview links.
 
-The client review URL is `sortmydigital.site/review?tenant=<tenant-slug>&campaign=<campaign-id>`. Clients receive this link with a simple password gate — no login, no account, no friction. The password is tenant-specific and shared out-of-band by Sorted.
+The client review URL is `sortmydigital.site/ad-review/?tenant=<tenant-slug>&campaign=<campaign-id>`. Clients receive this link with a simple password gate — no login, no account, no friction. The password is tenant-specific and shared out-of-band by Sorted. Legacy `/review/?tenant=...` links redirect here automatically.
 
 Keep application state in the central database, not on a server filesystem.
 
