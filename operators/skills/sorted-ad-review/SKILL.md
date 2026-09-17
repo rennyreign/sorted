@@ -20,7 +20,7 @@ Do not redesign, reinterpret, simplify, reskin, or locally recreate the portal i
 - **Single portal:** `sortmydigital.site/ads/` serves all accounts
 - **Account selector:** dropdown in the top nav switches between tenant workspaces
 - **Internal workspace:** Sorted operators use the full `/ads/` interface with campaign management, image editing, crop controls, and asset uploads
-- **Client review:** clients receive shared preview links (e.g., `sortmydigital.site/review?tenant=school-of-skill&campaign=...`) with a simple password gate — no login or account required
+- **Client review:** clients receive shared preview links (e.g., `sortmydigital.site/ad-review/?tenant=school-of-skill&campaign=...`) with a simple password gate — no login or account required
 - **No client portals:** clients never log into the ads workspace; they only receive shared preview links
 
 ## Onboarding a new account
@@ -34,7 +34,7 @@ To add a new client account to the Sorted Ads workspace, update exactly two file
      ```
    - The slug must match the tenant slug registered in the central database.
 
-2. **Review password** — `app/review/page.tsx`
+2. **Review password** — `app/ad-review/page.tsx`
    - Add the new tenant to the `TENANT_PASSWORDS` map:
      ```ts
      const TENANT_PASSWORDS: Record<string, string> = {
