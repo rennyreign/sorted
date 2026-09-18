@@ -65,10 +65,10 @@ test('skill defines Edgbaston as the mandatory shared standard', async () => {
     read('../../../operators/skills/sorted-ad-review/references/interface-standard.md'),
     read('../../../operators/skills/sorted-ad-review/references/doctrine.md')
   ])
-  assert.match(entry, /There is one uniform Sorted Ad Review product/)
-  assert.match(skill, /Edgbaston Tuition Centre portal is the mandatory interface standard/)
+  assert.match(entry, /There is one Sorted Ads product/)
+  assert.match(skill, /is the sole interface/)
   assert.match(skill, /Never create a separate client-specific portal UI/)
   assert.match(standard, /Immutable design tokens/)
   assert.match(standard, /Detail dialog/)
-  assert.match(doctrine, /There is one Sorted Ad Review product/)
+  assert.match(doctrine, /There is one Sorted Ads product/)
 })
