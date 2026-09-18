@@ -89,7 +89,7 @@ function editCopy(string $slug, array $editor, array $headers): never {
     foreach ($campaign['concepts'] as &$concept) foreach ($concept['ads'] as &$ad) {
         if ($ad['id'] !== ($input['ad_id'] ?? '')) continue;
         $found = true;
-        if (!hash_equals($ad['fingerprint'], $input['fingerprint'] ?? '')) respond(['error' => 'This ad has changed. Refresh before saving.'], 409, $headers);
+        if (!hash_equals($ad['fingerprint'] ?? '', $input['fingerprint'] ?? '')) respond(['error' => 'This ad has changed. Refresh before saving.'], 409, $headers);
         foreach (['primary_text', 'headline', 'description'] as $field) {
             $value = trim($input[$field] ?? '');
             $limit = $field === 'primary_text' ? 2000 : ($field === 'headline' ? 40 : 60);
@@ -121,7 +121,7 @@ function editImage(string $slug, array $editor, array $headers, string $action):
     foreach ($campaign['concepts'] as &$concept) foreach ($concept['ads'] as &$ad) {
         if ($ad['id'] !== ($input['ad_id'] ?? '')) continue;
         $found = true;
-        if (!hash_equals($ad['fingerprint'], $input['fingerprint'] ?? '')) respond(['error' => 'This ad has changed. Refresh before saving.'], 409, $headers);
+        if (!hash_equals($ad['fingerprint'] ?? '', $input['fingerprint'] ?? '')) respond(['error' => 'This ad has changed. Refresh before saving.'], 409, $headers);
         if ($action === 'edit-image') {
             $assets = db('ad_review_assets?tenant_slug=eq.' . rawurlencode($slug) . '&creative_key=eq.' . rawurlencode($input['creative_key'] ?? ''));
             if (!$assets) respond(['error' => 'Choose an image from this client library.'], 422, $headers);
