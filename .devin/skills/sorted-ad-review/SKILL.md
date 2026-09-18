@@ -27,7 +27,7 @@ To add a new client account to the Sorted Ads workspace, update exactly two file
      ```
    - The slug must match the tenant slug registered in the central database.
 
-2. **Review password** — `app/review/page.tsx`
+2. **Review password** — `app/ad-review/page.tsx`
    - Add the new tenant to the `TENANT_PASSWORDS` map:
      ```ts
      const TENANT_PASSWORDS: Record<string, string> = {
@@ -36,6 +36,7 @@ To add a new client account to the Sorted Ads workspace, update exactly two file
        "client-slug": "clientpassword",
      }
      ```
+   - Also add the tenant to `TENANT_ACCESS_CODES` (API access code for loading campaigns) and `TENANT_DOMAINS` (public site domain shown on review links) in the same file.
    - This is the password clients enter to access their shared review link.
    - Share it out-of-band with the client (email, phone, etc.).
 
