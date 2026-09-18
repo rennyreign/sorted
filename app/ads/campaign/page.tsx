@@ -25,7 +25,7 @@ function ctaLabel(cta: string): string {
 
 const fieldLimits = {
   primary_text: 2000,
-  headline: 40,
+  headline: 50,
   description: 60,
 }
 

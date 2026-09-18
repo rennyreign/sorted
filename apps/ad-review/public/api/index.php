@@ -184,7 +184,7 @@ try {
         if (($input['target_type'] === 'concept') && $concept['id'] === ($input['target_id'] ?? '')) $target = $concept;
         foreach ($concept['ads'] as $ad) if (($input['target_type'] === 'ad') && $ad['id'] === ($input['target_id'] ?? '')) $target = $ad;
     }
-    if (!$target || !hash_equals($target['fingerprint'], $input['fingerprint'] ?? '')) respond(['error' => 'This item has changed. Refresh before reviewing it.'], 409, $headers);
+    if (!$target || !hash_equals($target['fingerprint'] ?? '', $input['fingerprint'] ?? '')) respond(['error' => 'This item has changed. Refresh before reviewing it.'], 409, $headers);
     $input['comment'] = $comment;
     $input['reviewer'] = $reviewer;
     respond(rpcResult(db('rpc/ad_review_save_decision', 'POST', ['p_tenant' => $slug, 'p_decision' => $input]), $headers), 201, $headers);
