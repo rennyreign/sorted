@@ -4,8 +4,8 @@ import { useEffect, useState, useCallback, Suspense } from "react"
 import { createPortal } from "react-dom"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
-import { Share, Send, ImagePlus, Pencil, MoreHorizontal, X, Globe, Search, SlidersHorizontal, Check } from "lucide-react"
-import { getCampaign, getCampaigns, getAssets, editImage, reviewStatusLabel, reviewStatusClass, statusLabel, statusClass, type Campaign, type Angle, type CopyVariant, type AdStatus, type ReviewStatus, type Asset } from "@/lib/ads"
+import { Share, Send, ImagePlus, Eye, EyeOff, Pencil, MoreHorizontal, X, Globe, Search, SlidersHorizontal, Check } from "lucide-react"
+import { getCampaign, getCampaigns, getAssets, editImage, setConceptVisibility, reviewStatusLabel, reviewStatusClass, statusLabel, statusClass, type Campaign, type Angle, type CopyVariant, type AdStatus, type ReviewStatus, type Asset } from "@/lib/ads"
 import { useTenant } from "../components/TenantContext"
 
 const variantLabels: Record<string, string> = {
@@ -171,7 +171,14 @@ function CampaignDetailContent() {
 
       <div className="ads-angle-list">
         {visibleAngles.map((angle) => (
-          <AngleGroup key={angle.id} angle={angle} tenant={tenant} campaignId={campaignId} campaignRevision={campaign.revision} campaignName={campaign.name} onSaved={triggerToast} onOpenEditor={(variantId) => setEditorState({ angleId: angle.id, variantId })} onOpenAngleEditor={() => setEditorState({ angleId: angle.id, variantId: null })} onCropSaved={(variantId, newCrop, newRevision) => {
+          <AngleGroup key={angle.id} angle={angle} tenant={tenant} campaignId={campaignId} campaignRevision={campaign.revision} campaignName={campaign.name} onSaved={triggerToast} onOpenEditor={(variantId) => setEditorState({ angleId: angle.id, variantId })} onOpenAngleEditor={() => setEditorState({ angleId: angle.id, variantId: null })} onToggleHidden={async () => {
+            await setConceptVisibility(tenant, campaignId, angle.id, !angle.hidden)
+            setCampaign((prev) => {
+              if (!prev) return prev
+              return { ...prev, angles: prev.angles.map((a) => a.id === angle.id ? { ...a, hidden: !a.hidden } : a) }
+            })
+            triggerToast()
+          }} onCropSaved={(variantId, newCrop, newRevision) => {
             setCampaign((prev) => {
               if (!prev) return prev
               return {
@@ -240,7 +247,7 @@ function CampaignDetailContent() {
   )
 }
 
-function AngleGroup({ angle, tenant, campaignId, campaignRevision, campaignName, onSaved, onOpenEditor, onOpenAngleEditor, onCropSaved }: {
+function AngleGroup({ angle, tenant, campaignId, campaignRevision, campaignName, onSaved, onOpenEditor, onOpenAngleEditor, onCropSaved, onToggleHidden }: {
   angle: Angle
   tenant: string
   campaignId: string
@@ -250,7 +257,10 @@ function AngleGroup({ angle, tenant, campaignId, campaignRevision, campaignName,
   onOpenEditor: (variantId: string) => void
   onOpenAngleEditor: () => void
   onCropSaved: (variantId: string, crop: { x: number; y: number }, revision: number) => void
+  onToggleHidden: () => Promise<void>
 }) {
+  const [toggling, setToggling] = useState(false)
+  const [toggleError, setToggleError] = useState("")
   const approvedCount = angle.variants.filter((v) => v.review_status === "approved").length
   const changesCount = angle.variants.filter((v) => v.review_status === "changes_requested").length
   const awaitingCount = angle.variants.filter((v) => v.review_status === "awaiting_review").length
@@ -259,17 +269,32 @@ function AngleGroup({ angle, tenant, campaignId, campaignRevision, campaignName,
   if (changesCount) statusParts.push(`${changesCount} changes`)
   if (awaitingCount) statusParts.push(`${awaitingCount} awaiting`)
 
+  const handleToggle = async () => {
+    setToggling(true)
+    setToggleError("")
+    try {
+      await onToggleHidden()
+    } catch (err) {
+      setToggleError(err instanceof Error ? err.message : "Failed to update")
+    } finally {
+      setToggling(false)
+    }
+  }
+
   return (
-    <div className="ads-angle">
+    <div className="ads-angle" style={angle.hidden ? { opacity: 0.5 } : undefined}>
       <div className="ads-angle-header">
         <span className="ads-angle-index">{String(angle.index).padStart(2, "0")}</span>
         <div className="ads-angle-info">
           <div className="ads-angle-name">{angle.name}</div>
-          <div className="ads-angle-tags">{angle.proposition && <span>{angle.proposition}</span>}</div>
+          <div className="ads-angle-tags">
+            {angle.hidden && <span>Hidden from client</span>}
+            {angle.proposition && <span>{angle.proposition}</span>}
+          </div>
         </div>
-        <div className="ads-angle-summary-counts">{statusParts.join(" · ") || "3 awaiting"}</div>
+        <div className="ads-angle-summary-counts">{toggleError || statusParts.join(" · ") || "3 awaiting"}</div>
         <div className="ads-angle-controls">
-          <button className="ads-angle-control-btn" aria-label="Edit angle"><Pencil size={15} strokeWidth={1.75} /></button>
+          <button className="ads-angle-control-btn" aria-label={angle.hidden ? "Show on client review" : "Hide from client review"} title={angle.hidden ? "Show on client review" : "Hide from client review"} onClick={handleToggle} disabled={toggling}>{angle.hidden ? <EyeOff size={15} strokeWidth={1.75} /> : <Eye size={15} strokeWidth={1.75} />}</button>
           <button className="ads-angle-control-btn" aria-label="More"><MoreHorizontal size={16} strokeWidth={1.75} /></button>
         </div>
       </div>

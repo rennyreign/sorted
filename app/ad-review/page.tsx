@@ -90,6 +90,7 @@ function ClientReviewContent() {
 
         const reviewAds: ReviewAd[] = []
         for (const angle of campaign.angles) {
+          if (angle.hidden) continue
           for (const variant of angle.variants) {
             if (variant.primary_text) {
               reviewAds.push({

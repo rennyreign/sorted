@@ -60,6 +60,7 @@ export type Angle = {
   audience: string
   tags: string[]
   status: AdStatus
+  hidden: boolean
   shared_creative_id: string
   shared_creative_url: string
   shared_creative_alt: string
@@ -174,6 +175,7 @@ type ApiResponse = {
   editor_name: string
   assets: ApiAsset[]
   image_locks: { campaign_id: string; ad_id: string; editor: string }[]
+  hidden_concepts: { campaign_id: string; concept_id: string }[]
   campaigns: ApiCampaign[]
   decisions: ReviewDecision[]
 }
@@ -256,6 +258,7 @@ function mapCampaignStatus(campaign: ApiCampaign, decisions: ReviewDecision[]): 
 function mapApiToCampaign(apiCampaign: ApiCampaign, data: ApiResponse): Campaign {
   const decisions = data.decisions || []
   const assets = data.assets || []
+  const hiddenConcepts = new Set((data.hidden_concepts || []).filter((h) => h.campaign_id === apiCampaign.id).map((h) => h.concept_id))
   const angles: Angle[] = (apiCampaign.concepts || []).map((concept, i) => {
     const conceptDecision = decisionForConcept(decisions, apiCampaign.id, concept.id)
     const ads = concept.ads || []
@@ -297,6 +300,7 @@ function mapApiToCampaign(apiCampaign: ApiCampaign, data: ApiResponse): Campaign
       audience: concept.audience || "",
       tags: [],
       status: mapConceptStatus(conceptDecision),
+      hidden: hiddenConcepts.has(concept.id),
       shared_creative_id: firstAd.creative_key || "",
       shared_creative_url: creativeUrl,
       shared_creative_alt: firstAd.creative_alt || "",
@@ -530,6 +534,23 @@ export async function editImage(
   const data = await res.json().catch(() => ({}))
   if (!res.ok) throw new Error(data.error || "Failed to update image")
   return { revision: data.campaign_revision ?? data.revision ?? campaignRevision + 1 }
+}
+
+export async function setConceptVisibility(
+  workspace: string,
+  campaignId: string,
+  conceptId: string,
+  hidden: boolean
+): Promise<void> {
+  const code = getAccessCode()
+  if (!code) throw new Error("Access code required")
+  const res = await fetch(`${API_BASE}/index.php?tenant=${encodeURIComponent(workspace)}&action=set-visibility`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${code}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ campaign_id: campaignId, concept_id: conceptId, hidden }),
+  })
+  const data = await res.json().catch(() => ({}))
+  if (!res.ok) throw new Error(data.error || "Failed to update visibility")
 }
 
 export async function submitDecision(

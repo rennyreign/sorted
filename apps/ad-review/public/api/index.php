@@ -152,6 +152,23 @@ try {
         if ($action === 'edit-copy') editCopy($slug, $editor, $headers);
         editImage($slug, $editor, $headers, $action);
     }
+    if ($action === 'set-visibility') {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') respond(['error' => 'Method not allowed.'], 405, $headers);
+        $input = requestBody();
+        $campaignId = $input['campaign_id'] ?? '';
+        $conceptId = $input['concept_id'] ?? '';
+        if (!preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $campaignId) || !preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $conceptId) || !is_bool($input['hidden'] ?? null)) respond(['error' => 'Invalid visibility request.'], 422, $headers);
+        $rows = db('ad_review_campaigns?tenant_slug=eq.' . rawurlencode($slug) . '&campaign_id=eq.' . rawurlencode($campaignId) . '&order=revision.desc&limit=1&select=package');
+        $exists = false;
+        foreach (($rows[0]['package']['campaign']['concepts'] ?? []) as $concept) if (($concept['id'] ?? '') === $conceptId) $exists = true;
+        if (!$exists) respond(['error' => 'Concept not found.'], 404, $headers);
+        if ($input['hidden']) {
+            db('ad_review_hidden_concepts', 'POST', ['tenant_slug' => $slug, 'campaign_id' => $campaignId, 'concept_id' => $conceptId, 'hidden_by' => $editor['name']], ['Prefer: resolution=merge-duplicates,return=minimal']);
+        } else {
+            db('ad_review_hidden_concepts?tenant_slug=eq.' . rawurlencode($slug) . '&campaign_id=eq.' . rawurlencode($campaignId) . '&concept_id=eq.' . rawurlencode($conceptId), 'DELETE', null, ['Prefer: return=minimal']);
+        }
+        respond(['ok' => true], 200, $headers);
+    }
     if ($action === 'history') {
         if ($_SERVER['REQUEST_METHOD'] !== 'GET') respond(['error' => 'Method not allowed.'], 405, $headers);
         $rows = db('ad_review_campaigns?tenant_slug=eq.' . rawurlencode($slug) . '&campaign_id=eq.' . rawurlencode($_GET['campaign_id'] ?? '') . '&order=revision.desc&select=revision,package,provenance,created_at');
@@ -167,8 +184,9 @@ try {
         foreach ($rows as $row) if (!isset($campaigns[$row['campaign_id']])) $campaigns[$row['campaign_id']] = $row['package']['campaign'];
         $decisions = db('ad_review_decisions?tenant_slug=eq.' . rawurlencode($slug) . '&select=id,campaign_id,campaign_revision,target_type,target_id,fingerprint,status,comment,reviewer,created_at&order=created_at.asc');
         $locks = db('ad_review_image_locks?tenant_slug=eq.' . rawurlencode($slug) . '&select=campaign_id,ad_id,editor');
+        $hidden = db('ad_review_hidden_concepts?tenant_slug=eq.' . rawurlencode($slug) . '&select=campaign_id,concept_id');
         $assets = tenantAssets($slug);
-        respond(['tenant' => ['slug' => $tenant['slug'], 'name' => $tenant['name']], 'role' => 'editor', 'editor_name' => $editor['name'], 'assets' => assetUrls($assets), 'image_locks' => $locks, 'campaigns' => array_values($campaigns), 'decisions' => $decisions], 200, $headers);
+        respond(['tenant' => ['slug' => $tenant['slug'], 'name' => $tenant['name']], 'role' => 'editor', 'editor_name' => $editor['name'], 'assets' => assetUrls($assets), 'image_locks' => $locks, 'hidden_concepts' => $hidden, 'campaigns' => array_values($campaigns), 'decisions' => $decisions], 200, $headers);
     }
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') respond(['error' => 'Method not allowed.'], 405, $headers);
     $input = requestBody();
