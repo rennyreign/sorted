@@ -76,6 +76,15 @@ async function api(method, body, action = 'portal', query = {}) {
   return data
 }
 
+async function boardData() {
+  const data = await api('GET')
+  const hidden = new Set((data.hidden_concepts || []).map(h => `${h.campaign_id}/${h.concept_id}`))
+  if (hidden.size) for (const campaign of data.campaigns || []) {
+    campaign.concepts = (campaign.concepts || []).filter(concept => !hidden.has(`${campaign.id}/${concept.id}`))
+  }
+  return data
+}
+
 async function signIn(event) {
   event.preventDefault()
   const form = new FormData(event.currentTarget)
@@ -84,7 +93,7 @@ async function signIn(event) {
   state.error = ''
   showLoader('Signing in…')
   try {
-    state.data = await api('GET')
+    state.data = await boardData()
     state.campaign = state.data.campaigns.length === 1 ? state.data.campaigns[0].id : null
     sessionStorage.setItem(`ad-review-token:${tenant}`, state.token)
     sessionStorage.setItem(`ad-review-reviewer:${tenant}`, state.reviewer)
@@ -101,7 +110,7 @@ async function load() {
   if (!state.token || !state.reviewer) return render()
   showLoader('Opening Ad Review…')
   try {
-    state.data = await api('GET')
+    state.data = await boardData()
     state.campaign = state.data.campaigns.length === 1 ? state.data.campaigns[0].id : null
   } catch (error) {
     state.data = null
@@ -117,7 +126,7 @@ async function refresh() {
   state.message = ''
   showLoader('Refreshing board…')
   try {
-    state.data = await api('GET')
+    state.data = await boardData()
     state.message = 'Board is up to date.'
   } catch (error) {
     state.error = error.message
