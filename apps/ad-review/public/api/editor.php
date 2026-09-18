@@ -92,7 +92,7 @@ function editCopy(string $slug, array $editor, array $headers): never {
         if (!hash_equals($ad['fingerprint'] ?? '', $input['fingerprint'] ?? '')) respond(['error' => 'This ad has changed. Refresh before saving.'], 409, $headers);
         foreach (['primary_text', 'headline', 'description'] as $field) {
             $value = trim($input[$field] ?? '');
-            $limit = $field === 'primary_text' ? 2000 : ($field === 'headline' ? 40 : 60);
+            $limit = $field === 'primary_text' ? 2000 : ($field === 'headline' ? 50 : 60);
             if (!$value || strlen($value) > $limit) respond(['error' => ucfirst($field) . ' must be between 1 and ' . $limit . ' characters.'], 422, $headers);
             $ad[$field] = $value;
         }
