@@ -99,6 +99,22 @@ This is the master reference for every skill in the Sorted repository and the na
 
 ---
 
+## Analytics & Tracking
+
+### Apply the standard website tracking profile
+**Skill:** `website-tracking-profile` — `.devin/skills/website-tracking-profile/SKILL.md`
+**Say:**
+- "apply the analytics protocol"
+- "add GTM and GA4 tracking"
+- "add conversion tracking"
+- "track CTA, phone and form conversions"
+- "generate the GTM import"
+- "add the website tracking profile"
+
+The canonical GTM import contains **0 tags, 2 triggers, and 21 variables**. Tags are created manually in GTM because tag JSON schemas are version-sensitive.
+
+---
+
 ## Sorted Ads
 
 ### Provision, configure, or QA the ads workspace
