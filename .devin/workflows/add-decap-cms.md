@@ -744,6 +744,7 @@ In local mode:
 - [ ] Site builds clean with `npm run build` (regenerates `studio-content.json`)
 - [ ] Factory reset script created and handoff SHA tagged
 - [ ] Netlify Identity set to Invite Only
+- [ ] Production `/.netlify/identity/settings` returns `"disable_signup": true` — do not trust the dashboard toggle until this verifies
 - [ ] Identity token redirect present in `app/layout.tsx` (`afterInteractive` Script)
 - [ ] `#invite_token=`, `#confirmation_token=`, `#recovery_token=` on any non-`/cms/` URL redirect to `/cms/`
 - [ ] Branded email templates pasted into Identity → Emails (all four)

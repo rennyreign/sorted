@@ -22,6 +22,15 @@ Netlify dashboard → **Site → Identity → Registration preferences** → set
 
 Do this before sending the client anything. Never leave a site on Open registration.
 
+Verify the live setting after saving:
+
+```bash
+curl -s https://[client-domain]/.netlify/identity/settings
+```
+
+The response must contain `"disable_signup": true`. The dashboard control is not accepted as
+complete until the production endpoint confirms it.
+
 ### 2. Enable Git Gateway
 Netlify dashboard → **Site → Identity → Services → Git Gateway** → Enable.
 

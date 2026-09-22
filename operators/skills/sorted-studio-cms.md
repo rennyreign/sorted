@@ -114,6 +114,7 @@ Run a complete QA loop before closing:
 - Upload an image — thumbnail updates, path populates
 
 **Auth path:**
+- Production `/.netlify/identity/settings` reports `disable_signup: true` (Invite Only)
 - Root layout carries the Identity token redirect (`afterInteractive` Script) — a URL like
   `https://site/#invite_token=x` on any non-`/cms/` path forwards to `/cms/` preserving the hash
 - Invite/recovery links land in the Studio where the widget consumes the token — never on a
