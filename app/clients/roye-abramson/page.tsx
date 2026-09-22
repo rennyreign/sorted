@@ -2,9 +2,14 @@
 
 import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
+import { getLatestAgreement, recordAgreement } from "@/lib/agreements"
 
 const AUTH_KEY = "roye_abramson_auth"
 const AUTH_EXPIRY_DAYS = 30
+const SIGN_SLUG = "roye-abramson"
+const DOC_TYPE = "agreement"
+const PAGE_PATH = "/clients/roye-abramson"
+const CLIENT_NAME = "Roye Abramson"
 
 export default function RoyeAbramsonAgreement() {
   const [password, setPassword] = useState("")
@@ -20,6 +25,16 @@ export default function RoyeAbramsonAgreement() {
   const [signedAt, setSignedAt] = useState<string | null>(null)
 
   useEffect(() => { setMounted(true) }, [])
+
+  useEffect(() => {
+    getLatestAgreement(SIGN_SLUG).then((a) => {
+      if (a) {
+        setIsSigned(true)
+        setSignerName(a.signer_name)
+        setSignedAt(a.signed_at)
+      }
+    })
+  }, [])
 
   // Check localStorage on mount
   useEffect(() => {
@@ -79,6 +94,7 @@ export default function RoyeAbramsonAgreement() {
       setIsSigned(true)
       setSignedAt(now)
       saveAuth({ signerName: signerName.trim(), signedAt: now })
+      recordAgreement({ slug: SIGN_SLUG, docType: DOC_TYPE, pagePath: PAGE_PATH, clientName: CLIENT_NAME, signerName: signerName.trim() })
       setShowAgreement(false)
     }
   }

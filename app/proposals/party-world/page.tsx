@@ -3,9 +3,14 @@
 import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import type { Metadata } from "next"
+import { getLatestAgreement, recordAgreement } from "@/lib/agreements"
 
 const AUTH_KEY = "partyworld_auth"
 const AUTH_EXPIRY_DAYS = 30
+const SIGN_SLUG = "party-world"
+const DOC_TYPE = "proposal"
+const PAGE_PATH = "/proposals/party-world"
+const CLIENT_NAME = "Party World"
 
 export default function PartyWorldProposal() {
   const [password, setPassword] = useState("")
@@ -21,6 +26,16 @@ export default function PartyWorldProposal() {
   const [signedAt, setSignedAt] = useState<string | null>(null)
 
   useEffect(() => { setMounted(true) }, [])
+
+  useEffect(() => {
+    getLatestAgreement(SIGN_SLUG).then((a) => {
+      if (a) {
+        setIsSigned(true)
+        setSignerName(a.signer_name)
+        setSignedAt(new Date(a.signed_at).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }))
+      }
+    })
+  }, [])
 
   // Check localStorage on mount
   useEffect(() => {
@@ -414,6 +429,7 @@ export default function PartyWorldProposal() {
                     setIsSigned(true)
                     setShowAgreement(false)
                     setSignedAt(new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }))
+                    recordAgreement({ slug: SIGN_SLUG, docType: DOC_TYPE, pagePath: PAGE_PATH, clientName: CLIENT_NAME, signerName: signerName.trim() })
                   }}
                   className="flex-1 bg-[#0A0A0A] text-[#FAFAFA] font-semibold text-sm rounded-lg px-4 py-3 hover:bg-[#2a2a2a] transition-colors"
                 >

@@ -2,6 +2,12 @@
 
 import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
+import { getLatestAgreement, recordAgreement } from "@/lib/agreements"
+
+const SIGN_SLUG = "warwickshire-str"
+const DOC_TYPE = "delivery"
+const PAGE_PATH = "/clients/warwickshire-str"
+const CLIENT_NAME = "Warwickshire Short Stays"
 
 export default function WarwickshireQuote() {
   const [mounted, setMounted] = useState(false)
@@ -13,12 +19,23 @@ export default function WarwickshireQuote() {
 
   useEffect(() => { setMounted(true) }, [])
 
+  useEffect(() => {
+    getLatestAgreement(SIGN_SLUG).then((a) => {
+      if (a) {
+        setIsSigned(true)
+        setSignerName(a.signer_name)
+        setSignedAt(a.signed_at)
+      }
+    })
+  }, [])
+
   const handleSignatureSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (signerName.trim()) {
       const now = new Date().toISOString()
       setIsSigned(true)
       setSignedAt(now)
+      recordAgreement({ slug: SIGN_SLUG, docType: DOC_TYPE, pagePath: PAGE_PATH, clientName: CLIENT_NAME, signerName: signerName.trim() })
       setShowAgreement(false)
     }
   }

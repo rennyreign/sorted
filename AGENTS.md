@@ -233,6 +233,14 @@ Pattern: `app/proposals/[client-slug]/page.tsx`
 
 Pre-delivery pages shown to prospects before Nod 1. Same password-protected pattern as client pages. Used to present the mockup and brief before any payment commitment.
 
+## Client Directory & Agreements
+
+**Convention:** `/proposals/[slug]` = pre-sale documents (proposal, mockup reveal). `/clients/[slug]` = post-sale documents (quote, agreement, delivery summary, invoice). Keep this split when adding new pages.
+
+**Directory:** Every client-facing page is registered in `lib/clientDirectory.ts` — add an entry there whenever you create a proposal, quote, agreement, delivery, or invoice page. The operator dashboard (`/operators/prospect-finder` → **Clients** tab) renders the registry with copy-able URLs, page passwords, live signature status, and CRM status.
+
+**Signatures:** Client "Review & Accept" signatures are persisted to the Supabase `agreements` table via `lib/agreements.ts` (`recordAgreement` on sign, `getLatestAgreement` to rehydrate on load). Any new signable page must wire both calls — see `app/clients/savannah-villegas/page.tsx` for the pattern.
+
 ---
 
 ## Delivery Checklist
