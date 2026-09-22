@@ -1201,7 +1201,8 @@
       editorNote: qs("editor-note"),
       publishNote: qs("publish-note"),
       authOverlay: qs("auth-overlay"),
-      loginButton: qs("login-button")
+      loginButton: qs("login-button"),
+      authError: qs("auth-error")
     };
 
     if (isLocal()) {
@@ -1234,9 +1235,14 @@
     }
 
     window.netlifyIdentity.on("login", onLogin);
+    window.netlifyIdentity.on("signup", onLogin);
     window.netlifyIdentity.on("error", function (error) {
       console.error("Identity error:", error);
       setStatus("Sign-in error. Please try again.", "error");
+      if (els.authError) {
+        els.authError.textContent = "Sign-in is unavailable right now. Please try again.";
+        els.authError.hidden = false;
+      }
     });
   }
 
