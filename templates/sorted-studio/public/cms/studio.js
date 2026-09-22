@@ -1202,7 +1202,9 @@
       publishNote: qs("publish-note"),
       authOverlay: qs("auth-overlay"),
       loginButton: qs("login-button"),
-      authError: qs("auth-error")
+      authLoading: qs("auth-loading"),
+      authError: qs("auth-error"),
+      logoutButton: qs("logout-button")
     };
 
     if (isLocal()) {
@@ -1226,25 +1228,67 @@
       }
     }, 0);
 
-    function onLogin() {
-      if (els.authOverlay) els.authOverlay.style.display = "none";
+    var authDone = false;
+
+    function onLogin(user) {
+      authDone = true;
+      if (els.authOverlay) els.authOverlay.classList.remove("is-visible");
       startApp();
+      if (els.logoutButton) els.logoutButton.hidden = false;
+      if (user && user.email) showToast("Signed in as " + user.email, "success");
     }
 
-    if (window.netlifyIdentity.currentUser()) {
-      onLogin();
+    // Show the gate in a neutral "checking" state while Identity resolves —
+    // prevents a flash of the sign-in form for returning sessions.
+    if (els.authOverlay) els.authOverlay.classList.add("is-visible");
+    if (els.authLoading) els.authLoading.hidden = false;
+    if (els.loginButton) els.loginButton.hidden = true;
+
+    var existingUser = window.netlifyIdentity.currentUser();
+    if (existingUser) {
+      onLogin(existingUser);
       return;
     }
 
-    if (els.authOverlay) els.authOverlay.style.display = "flex";
     if (els.loginButton) {
       els.loginButton.addEventListener("click", function () {
         window.netlifyIdentity.open("login");
       });
     }
+    if (els.logoutButton) {
+      els.logoutButton.addEventListener("click", function () {
+        window.netlifyIdentity.logout();
+      });
+    }
 
+    function showSignIn() {
+      if (els.authLoading) els.authLoading.hidden = true;
+      if (els.loginButton) els.loginButton.hidden = false;
+    }
+
+    window.netlifyIdentity.on("init", function (user) {
+      if (authDone) return;
+      if (user) {
+        onLogin(user);
+        return;
+      }
+      authDone = true;
+      showSignIn();
+    });
+
+    // If init never resolves (Identity unreachable), don't trap the user on
+    // "Checking sign-in…" — reveal the button so the widget can retry on click.
+    setTimeout(function () {
+      if (!authDone) {
+        authDone = true;
+        showSignIn();
+      }
+    }, 4000);
     window.netlifyIdentity.on("login", onLogin);
     window.netlifyIdentity.on("signup", onLogin);
+    window.netlifyIdentity.on("logout", function () {
+      window.location.reload();
+    });
     window.netlifyIdentity.on("error", function (error) {
       console.error("Identity error:", error);
       setStatus("Sign-in error. Please try again.", "error");

@@ -8,12 +8,13 @@
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-  <div id="auth-overlay" class="auth-overlay" style="display:none;">
+  <div id="auth-overlay" class="auth-overlay">
     <div class="auth-card">
       <span class="auth-mark">__CLIENT_INITIAL__</span>
       <h1>__CLIENT_NAME__</h1>
       <p>Sign in to edit and publish site content.</p>
-      <button id="login-button" class="primary-button" type="button">Sign in</button>
+      <button id="login-button" class="primary-button" type="button" hidden>Sign in</button>
+      <p class="auth-loading" id="auth-loading">Checking sign-in…</p>
       <p class="auth-error" id="auth-error" role="alert" hidden></p>
     </div>
   </div>
@@ -33,6 +34,7 @@
           <button class="icon-button" id="mobile-preview" type="button" aria-label="Mobile preview">▯</button>
           <a class="ghost-button" id="open-preview" href="/" target="_blank" rel="noreferrer">∞ Preview</a>
           <button class="primary-button" id="save-section" type="button">Save draft</button>
+          <button class="ghost-button" id="logout-button" type="button" hidden>Sign out</button>
         </div>
       </header>
 

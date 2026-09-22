@@ -753,6 +753,17 @@ a {
   align-items: center;
   justify-content: center;
   background: var(--studio-bg);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+}
+
+.auth-overlay.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.25s ease;
 }
 
 .auth-card {
@@ -795,6 +806,12 @@ a {
 .auth-card .primary-button {
   width: 100%;
   justify-content: center;
+}
+
+.auth-loading {
+  margin: 16px 0 0;
+  font-size: 13px;
+  color: var(--studio-soft);
 }
 
 .auth-error {
