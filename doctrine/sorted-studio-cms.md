@@ -112,7 +112,9 @@ all handled by canonical `studio.js`/`studio.css` plus the layout redirect:
    `#netlify-identity-widget` to `z-index: 9000`.
 3. **Stale-token error loop.** The widget leaves the token in the URL hash; every refresh
    re-verifies the consumed/expired token and opens an error modal. Fix: `studio.js` strips
-   the hash via `history.replaceState` after `init()` captures it.
+   the hash via `history.replaceState` only after `login`, `signup`, or widget `close`.
+   Never strip on a zero-delay timer after `init()` — recovery/invite handling is asynchronous,
+   so early removal turns valid reset links into the generic sign-in modal.
 
 Additionally: bind both `login` and `signup` events (invite acceptance fires `signup`), and
 use `afterInteractive` for the layout redirect script — `beforeInteractive` emits a raw
