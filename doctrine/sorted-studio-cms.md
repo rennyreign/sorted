@@ -79,6 +79,9 @@ The Studio interface is a three-column workspace inside a single-page app. No ro
 - **Desktop/mobile toggle:** Desktop shows full-width iframe; mobile wraps iframe in 390px rounded frame
 - **Preview iframe:** Loads the live site URL from the section's `previewPath`
 - **Preview patch:** After save, Studio patches the iframe DOM in-place for instant feedback before full reload
+- **Live patching is diff-based, not original-based.** `applyPreviewPatch` must diff `state.previewContent` (the snapshot of what the iframe DOM currently shows) against `state.content`, then update `previewContent` to match. Never diff `originalContent` → `content`: after the first keystroke the original string no longer exists in the DOM, so every subsequent patch silently no-ops and the preview appears frozen. Reset `previewContent` to `originalContent` whenever the iframe reloads (fresh page renders original content).
+- **Text-node replacement must tolerate whitespace differences.** The DOM may collapse or re-break whitespace vs the JSON string. Match on normalized text, but replace via exact `indexOf` first, then a whitespace-flexible regex (`oldText.split(" ").join("\\s+")`) as fallback.
+- **Never index-diff arrays of different lengths.** Add/remove shifts indices; per-index string patching then writes wrong values into wrong nodes (e.g. `[A,B,C]→[B,C]` yields `B,C,C`). Skip patching that field until the preview reloads — stale is better than corrupt.
 
 ### Top bar
 

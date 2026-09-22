@@ -6,6 +6,7 @@
     sectionId: "homepage-hero",
     content: {},
     originalContent: {},
+    previewContent: null,
     dirty: false,
     saving: false,
     viewport: "desktop",
@@ -582,6 +583,7 @@
     var section = getSection();
     var path = section.previewPath || getPage().path || "/";
     var url = path;
+    state.previewContent = cloneJson(state.originalContent);
     els.preview.src = url;
     els.previewUrl.value = window.location.origin + path;
     els.openPreview.href = path;
@@ -591,6 +593,10 @@
 
   function normalizeText(value) {
     return String(value == null ? "" : value).replace(/\s+/g, " ").trim();
+  }
+
+  function escapeRegExp(value) {
+    return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 
   function patchTextNode(doc, oldValue, newValue) {
@@ -609,9 +615,17 @@
     });
 
     var node = walker.nextNode();
-    if (node) {
-      node.nodeValue = node.nodeValue.replace(oldValue, newValue);
-      if (node.nodeValue === oldValue) node.nodeValue = newValue;
+    if (!node) return;
+
+    var text = node.nodeValue;
+    if (text.indexOf(oldValue) >= 0) {
+      node.nodeValue = text.replace(oldValue, newValue);
+      return;
+    }
+    var pattern = oldText.split(" ").map(escapeRegExp).join("\\s+");
+    var match = new RegExp(pattern).exec(text);
+    if (match) {
+      node.nodeValue = text.slice(0, match.index) + newValue + text.slice(match.index + match[0].length);
     }
   }
 
@@ -672,6 +686,7 @@
 
   function patchStructuredStrings(doc, oldValue, newValue) {
     if (Array.isArray(oldValue) && Array.isArray(newValue)) {
+      if (oldValue.length !== newValue.length) return;
       newValue.forEach(function (newItem, index) {
         patchStructuredStrings(doc, oldValue[index], newItem);
       });
@@ -697,9 +712,10 @@
     }
     if (!doc || !doc.body) return;
 
+    var previous = state.previewContent || state.originalContent;
     var section = getSection();
     (section.fields || []).forEach(function (field) {
-      var oldValue = state.originalContent[field.name];
+      var oldValue = previous[field.name];
       var newValue = state.content[field.name];
       if (Array.isArray(newValue) || (newValue && typeof newValue === "object")) {
         patchStructuredStrings(doc, oldValue, newValue);
@@ -714,6 +730,7 @@
       patchTextNode(doc, oldValue, newValue);
       patchLinks(doc, field.name, oldValue, newValue);
     });
+    state.previewContent = cloneJson(state.content);
   }
 
   function renderChrome() {
