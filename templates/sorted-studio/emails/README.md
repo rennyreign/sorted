@@ -1,7 +1,9 @@
 # Sorted Identity Email Templates
 
 Branded replacements for the four Netlify Identity transactional emails. Paste each file's
-contents into the matching template slot in the Netlify dashboard:
+contents into the matching template slot in the Netlify dashboard. The templates reference
+`{{ .SiteURL }}/cms/sorted-logo.png`, so install `public/cms/sorted-logo.png` with the Studio
+assets before applying them:
 
 **Site → Identity → Emails → [Invitation / Confirmation / Password recovery / Email change]**
 

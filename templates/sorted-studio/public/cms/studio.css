@@ -57,6 +57,14 @@ a {
   color: #cfe900;
 }
 
+img.studio-wordmark {
+  display: block;
+  width: 112px;
+  height: 38px;
+  object-fit: contain;
+}
+
+
 .panel,
 .preview-toolbar,
 .preview-frame-shell {
@@ -777,16 +785,11 @@ a {
 }
 
 .auth-mark {
-  display: grid;
+  display: block;
   width: 64px;
   height: 64px;
-  place-items: center;
+  object-fit: contain;
   margin: 0 auto 24px;
-  border-radius: 50%;
-  background: var(--studio-text);
-  color: #fff;
-  font-size: 24px;
-  font-weight: 800;
 }
 
 .auth-card h1 {
