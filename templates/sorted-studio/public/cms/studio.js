@@ -550,7 +550,7 @@
     }
 
     if (field.type === "image") {
-      return '<div class="field"><label>' + escapeHtml(field.label) + '</label>' + renderFieldHint(field) +
+      return '<div class="field">' + renderFieldHint(field) +
         renderMediaControl({ label: field.label, field: field.name, value: value }) + '</div>';
     }
 
@@ -568,8 +568,10 @@
               '</div>';
           }
           var title = item.title || item.name || item.step || "Item " + (index + 1);
-          var details = summaryFields.map(function (key) { return item[key]; }).filter(Boolean).join(" · ");
-          return '<div class="list-card"><strong>' + escapeHtml(title) + '</strong><small>' + escapeHtml(details) + '</small>' +
+          var details = summaryFields.map(function (key) { return item[key]; }).filter(function (value) {
+            return Boolean(value) && String(value) !== String(title);
+          }).join(" · ");
+          return '<div class="list-card"><strong>' + escapeHtml(title) + '</strong>' + (details ? '<small>' + escapeHtml(details) + '</small>' : '') +
             '<div class="nested-grid">' +
             keys.map(function (key) { return renderListControl(field, index, key, item[key]); }).join("") +
             '</div></div>';
