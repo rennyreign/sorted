@@ -14,6 +14,9 @@
   };
 
   var els = {};
+  var previewNodes = {};
+  var previewObserver = null;
+  var resyncTimer = null;
 
   function qs(id) {
     return document.getElementById(id);
@@ -583,12 +586,80 @@
     var section = getSection();
     var path = section.previewPath || getPage().path || "/";
     var url = path;
+    previewNodes = {};
     state.previewContent = cloneJson(state.originalContent);
     els.preview.src = url;
     els.previewUrl.value = window.location.origin + path;
     els.openPreview.href = path;
     els.openPreviewToolbar.href = path;
-    els.preview.addEventListener("load", applyPreviewPatch, { once: true });
+    els.preview.addEventListener("load", onPreviewLoad, { once: true });
+  }
+
+  function onPreviewLoad() {
+    watchPreviewDom();
+    applyPreviewPatch();
+    setTimeout(resyncPreview, 900);
+    setTimeout(resyncPreview, 2400);
+  }
+
+  function watchPreviewDom() {
+    if (previewObserver) previewObserver.disconnect();
+    try {
+      var doc = els.preview.contentDocument;
+      if (!doc || !doc.body) return;
+      previewObserver = new MutationObserver(function () {
+        if (resyncTimer) clearTimeout(resyncTimer);
+        resyncTimer = setTimeout(resyncPreview, 350);
+      });
+      previewObserver.observe(doc.body, { characterData: true, childList: true, subtree: true });
+    } catch (error) {}
+  }
+
+  function collectStrings(value, out) {
+    out = out || [];
+    if (typeof value === "string" && value) out.push(value);
+    else if (Array.isArray(value)) value.forEach(function (item) { collectStrings(item, out); });
+    else if (value && typeof value === "object") Object.keys(value).forEach(function (key) { collectStrings(value[key], out); });
+    return out;
+  }
+
+  function domContainsText(doc, text) {
+    var needle = normalizeText(text);
+    if (!needle) return true;
+    var walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (node) {
+        var parent = node.parentElement;
+        if (!parent || ["SCRIPT", "STYLE", "NOSCRIPT"].indexOf(parent.tagName) >= 0) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        return normalizeText(node.nodeValue).indexOf(needle) >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+      }
+    });
+    return !!walker.nextNode();
+  }
+
+  function resyncPreview() {
+    var doc;
+    try {
+      doc = els.preview.contentDocument;
+    } catch (error) {
+      return;
+    }
+    if (!doc || !doc.body) return;
+
+    var assumed = state.previewContent || state.originalContent;
+    var baseline = cloneJson(assumed);
+    var section = getSection();
+    (section.fields || []).forEach(function (field) {
+      var current = baseline[field.name];
+      var stale = collectStrings(current).some(function (text) {
+        return !domContainsText(doc, text);
+      });
+      if (stale) baseline[field.name] = state.originalContent[field.name];
+    });
+    previewNodes = {};
+    state.previewContent = baseline;
+    applyPreviewPatch();
   }
 
   function normalizeText(value) {
@@ -599,33 +670,48 @@
     return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 
-  function patchTextNode(doc, oldValue, newValue) {
+  function patchTextNode(doc, oldValue, newValue, cacheKey) {
     var oldText = normalizeText(oldValue);
     var newText = normalizeText(newValue);
     if (!oldText || oldText === newText) return;
 
-    var walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, {
-      acceptNode: function (node) {
-        var parent = node.parentElement;
-        if (!parent || ["SCRIPT", "STYLE", "NOSCRIPT"].indexOf(parent.tagName) >= 0) {
-          return NodeFilter.FILTER_REJECT;
-        }
-        return normalizeText(node.nodeValue).indexOf(oldText) >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+    function replaceIn(node) {
+      var text = node.nodeValue;
+      if (text.indexOf(oldValue) >= 0) {
+        node.nodeValue = text.replace(oldValue, newValue);
+        return true;
       }
-    });
+      var pattern = oldText.split(" ").map(escapeRegExp).join("\\s+");
+      var match = new RegExp(pattern).exec(text);
+      if (match) {
+        node.nodeValue = text.slice(0, match.index) + newValue + text.slice(match.index + match[0].length);
+        return true;
+      }
+      return false;
+    }
 
-    var node = walker.nextNode();
-    if (!node) return;
-
-    var text = node.nodeValue;
-    if (text.indexOf(oldValue) >= 0) {
-      node.nodeValue = text.replace(oldValue, newValue);
+    var cached = cacheKey ? previewNodes[cacheKey] : null;
+    if (cached && cached.isConnected && normalizeText(cached.nodeValue).indexOf(oldText) >= 0 && replaceIn(cached)) {
       return;
     }
-    var pattern = oldText.split(" ").map(escapeRegExp).join("\\s+");
-    var match = new RegExp(pattern).exec(text);
-    if (match) {
-      node.nodeValue = text.slice(0, match.index) + newValue + text.slice(match.index + match[0].length);
+
+    function makeWalker(exact) {
+      return doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, {
+        acceptNode: function (node) {
+          var parent = node.parentElement;
+          if (!parent || ["SCRIPT", "STYLE", "NOSCRIPT"].indexOf(parent.tagName) >= 0) {
+            return NodeFilter.FILTER_REJECT;
+          }
+          var normalized = normalizeText(node.nodeValue);
+          var found = exact ? normalized === oldText : normalized.indexOf(oldText) >= 0;
+          return found ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+        }
+      });
+    }
+
+    var node = makeWalker(true).nextNode() || makeWalker(false).nextNode();
+    if (node && replaceIn(node) && cacheKey) {
+      previewNodes[cacheKey] = node;
     }
   }
 
@@ -684,22 +770,22 @@
     });
   }
 
-  function patchStructuredStrings(doc, oldValue, newValue) {
+  function patchStructuredStrings(doc, oldValue, newValue, cacheKey) {
     if (Array.isArray(oldValue) && Array.isArray(newValue)) {
       if (oldValue.length !== newValue.length) return;
       newValue.forEach(function (newItem, index) {
-        patchStructuredStrings(doc, oldValue[index], newItem);
+        patchStructuredStrings(doc, oldValue[index], newItem, cacheKey + "." + index);
       });
       return;
     }
     if (oldValue && newValue && typeof oldValue === "object" && typeof newValue === "object") {
       Object.keys(newValue).forEach(function (key) {
-        patchStructuredStrings(doc, oldValue[key], newValue[key]);
+        patchStructuredStrings(doc, oldValue[key], newValue[key], cacheKey + "." + key);
       });
       return;
     }
     if (typeof oldValue === "string" && typeof newValue === "string") {
-      patchTextNode(doc, oldValue, newValue);
+      patchTextNode(doc, oldValue, newValue, cacheKey);
     }
   }
 
@@ -718,7 +804,7 @@
       var oldValue = previous[field.name];
       var newValue = state.content[field.name];
       if (Array.isArray(newValue) || (newValue && typeof newValue === "object")) {
-        patchStructuredStrings(doc, oldValue, newValue);
+        patchStructuredStrings(doc, oldValue, newValue, field.name);
         return;
       }
 
@@ -727,7 +813,7 @@
         return;
       }
 
-      patchTextNode(doc, oldValue, newValue);
+      patchTextNode(doc, oldValue, newValue, field.name);
       patchLinks(doc, field.name, oldValue, newValue);
     });
     state.previewContent = cloneJson(state.content);
@@ -1124,7 +1210,14 @@
     });
 
     els.refreshPreview.addEventListener("click", function () {
-      updatePreview();
+      previewNodes = {};
+      state.previewContent = cloneJson(state.originalContent);
+      els.preview.addEventListener("load", onPreviewLoad, { once: true });
+      try {
+        els.preview.contentWindow.location.reload();
+      } catch (error) {
+        updatePreview();
+      }
     });
 
     els.desktopPreview.addEventListener("click", function () {
