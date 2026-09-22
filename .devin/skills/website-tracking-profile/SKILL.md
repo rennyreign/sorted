@@ -139,9 +139,9 @@ Create tags in the GTM UI because tag JSON is version-sensitive.
 - Tag type: **Google tag**
 - Tag ID: `{{GA4 Measurement ID}}`
 - Configuration parameter: `send_page_view` = `false`
-- Trigger: **All Pages** (or Initialization — All Pages if the current GTM UI recommends it)
+- Trigger: **Initialization - All Pages** only. Do not also attach "All Pages" — the Google tag must load before the event tag fires, and dual triggers are redundant.
 
-Disabling `send_page_view` matters because the website sends its own `page_view` events.
+Disabling `send_page_view` matters because the website sends its own `page_view` events — including on SPA route changes, which a native Google-tag pageview would miss.
 
 ### 2. GA4 Event tag
 
@@ -153,7 +153,17 @@ Disabling `send_page_view` matters because the website sends its own `page_view`
 
 Map all 20 parameters. GTM omits values not present on a particular event.
 
+A "Cannot detect if the Google tag is in your container" warning on the Measurement ID field is cosmetic — GTM cannot statically resolve `{{variables}}`. It resolves at runtime; verify the constant's value instead.
+
 Preview with Tag Assistant before publishing. Verify at minimum: `page_view`, `cta_click`, `phone_click`, `scroll_50`, and one confirmed conversion event.
+
+## Post-import verification — learned from four production containers
+
+1. **Check the constant value.** Open `GA4 Measurement ID` under Variables and confirm it equals the target property's `G-` ID. A stale/mistyped value silently routes every event to the wrong property (observed in production — reports look dead while hits flow elsewhere).
+2. **Check the published version for legacy tags.** Importing merges; it does not clean. Old tags can keep firing bad event names (observed: a tag sending `page view` with a space — GA4 never counts it as a pageview, so Pages and screens shows Views = 0 while other events still record). Inspect the latest published version and remove/repair legacy tags.
+3. **Publish.** Saved is not live. The most common fleet failure was a fully configured workspace left unpublished (24–25 pending changes). After **Submit → Publish**, confirm `Workspace Changes: 0`.
+4. **Verify on the wire.** Load the live site (devtools Network, or a headless browser). Confirm `/g/collect` requests carry `en=page_view` — and `en=scroll_50` after scrolling — with `tid=` equal to the correct measurement ID. `en=gtm.js`/`gtm.init_consent` reaching GA4 means the event tag is on a load-type trigger (All Pages/Initialization) instead of the custom event trigger — fix the trigger.
+5. **GA4-side lag.** The Admin → Events list can take 24–48h to show new event names. DebugView/Realtime is the live check.
 
 ## GA4 setup
 
@@ -174,5 +184,8 @@ After GTM is verified and published:
 - Booking completion uses a real success callback/page.
 - GTM script and noscript iframe use the correct container ID.
 - Import JSON passes the canonical validator and imports as **0 tags, 2 triggers, 21 variables**.
-- Manual Google tag has `send_page_view=false`.
+- `GA4 Measurement ID` constant holds the correct `G-` ID for the target property.
+- Manual Google tag has `send_page_view=false` and fires on Initialization - All Pages only.
 - Tag Assistant confirms events before GTM publication.
+- Workspace is published (`Workspace Changes: 0`); saved-but-unpublished tags do not fire for live traffic.
+- Wire check: `en=page_view` reaches the correct `tid`; no `gtm.*` event names are forwarded to GA4.
