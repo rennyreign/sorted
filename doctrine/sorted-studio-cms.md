@@ -126,6 +126,14 @@ Additionally: bind both `login` and `signup` events (invite acceptance fires `si
 use `afterInteractive` for the layout redirect script — `beforeInteractive` emits a raw
 `<script>` into React's render tree and throws if hydration falls back to client render.
 
+**Bind all auth controls and Identity listeners before checking `currentUser()`.** Returning
+sessions resolve synchronously. An early `onLogin(existingUser); return;` before event binding
+leaves the visible Sign out button inert and omits the `logout` listener. Register Sign in,
+Sign out, `init`, `login`, `signup`, `close`, `logout`, and `error` handlers first; only then
+call `onLogin(existingUser)`. Guard `startApp()` so overlapping `init`/`login` callbacks cannot
+initialise and bind the Studio twice. Sign out must disable itself, show `Signing out...`, call
+`netlifyIdentity.logout()`, reload on the `logout` event, and visibly recover on rejection.
+
 ---
 
 ## Design System
@@ -261,11 +269,12 @@ Studio operates in two modes depending on environment. This is detected automati
 ### Production mode (any other hostname)
 
 - **Save button label:** "Publish"
-- **Save mechanism:** Git Gateway — `GET` existing file SHA, then `PUT` new content via `/.netlify/git/github/contents/` with Netlify Identity JWT
+- **Save mechanism:** Git Gateway using Decap's Git Data transaction — `GET /branches/:branch` for the head SHA → `POST /git/blobs` → `POST /git/trees` with `base_tree` → `POST /git/commits` with the head as parent → `PATCH /git/refs/heads/:branch` with `force: false`. Every request uses the refreshed Netlify Identity JWT.
+- **Never publish through `PUT /.netlify/git/github/contents/:path`.** GitHub's direct Contents API supports this, but Netlify Git Gateway rejects `PUT` at the edge with `405 Method not allowed`. The blob/tree/commit/ref transaction is the proven Decap write path and preserves non-force conflict protection.
 - **Auth required:** Auth overlay shows until Netlify Identity login completes
 - **Status note:** "Publishing commits to Git. Netlify rebuilds the live site in about 60 seconds."
 - **Editor note:** "Editing live site content. Click Publish to commit changes to Git and trigger a Netlify deploy."
-- **Image uploads:** Files converted to base64, uploaded via Git Gateway PUT to `public/uploads/`
+- **Image uploads:** Files converted to base64 and committed to `public/uploads/` through the same Git Data transaction
 
 ### Preview patching
 

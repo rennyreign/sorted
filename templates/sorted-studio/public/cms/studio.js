@@ -9,6 +9,7 @@
     previewContent: null,
     dirty: false,
     saving: false,
+    started: false,
     viewport: "desktop",
     expandedProperties: new Set()
   };
@@ -125,32 +126,59 @@
     });
   }
 
-  function gitGatewayPutFile(repoPath, raw, message, branch, sha) {
-    var body = {
-      message: message || "chore: update content",
-      content: toBase64(raw),
-      branch: branch || "main"
-    };
-    if (sha) body.sha = sha;
-    return gitGatewayRequest(
-      "PUT",
-      gitGatewayContentsUrl(repoPath),
-      body
-    );
+  function gitGatewayWriteFile(repoPath, base64Content, message, branch) {
+    var branchName = branch || "main";
+    var headSha;
+    var blobSha;
+    var treeSha;
+
+    return gitGatewayRequest("GET", "/.netlify/git/github/branches/" + encodeURIComponent(branchName))
+      .then(function (branchData) {
+        headSha = branchData && branchData.commit && branchData.commit.sha;
+        if (!headSha) throw new Error("Could not read the current branch head");
+        return gitGatewayRequest("POST", "/.netlify/git/github/git/blobs", {
+          content: base64Content,
+          encoding: "base64"
+        });
+      })
+      .then(function (blob) {
+        blobSha = blob && blob.sha;
+        if (!blobSha) throw new Error("Could not create the content blob");
+        return gitGatewayRequest("POST", "/.netlify/git/github/git/trees", {
+          base_tree: headSha,
+          tree: [{
+            path: cleanPath(repoPath),
+            mode: "100644",
+            type: "blob",
+            sha: blobSha
+          }]
+        });
+      })
+      .then(function (tree) {
+        treeSha = tree && tree.sha;
+        if (!treeSha) throw new Error("Could not create the content tree");
+        return gitGatewayRequest("POST", "/.netlify/git/github/git/commits", {
+          message: message || "chore: update content",
+          tree: treeSha,
+          parents: [headSha]
+        });
+      })
+      .then(function (commit) {
+        if (!commit || !commit.sha) throw new Error("Could not create the content commit");
+        return gitGatewayRequest(
+          "PATCH",
+          "/.netlify/git/github/git/refs/heads/" + encodeURIComponent(branchName),
+          { sha: commit.sha, force: false }
+        );
+      });
   }
 
-  function gitGatewayPutMedia(repoPath, base64Content, message, branch, sha) {
-    var body = {
-      message: message || "chore: upload media",
-      content: base64Content,
-      branch: branch || "main"
-    };
-    if (sha) body.sha = sha;
-    return gitGatewayRequest(
-      "PUT",
-      gitGatewayContentsUrl(repoPath),
-      body
-    );
+  function gitGatewayPutFile(repoPath, raw, message, branch) {
+    return gitGatewayWriteFile(repoPath, toBase64(raw), message, branch);
+  }
+
+  function gitGatewayPutMedia(repoPath, base64Content, message, branch) {
+    return gitGatewayWriteFile(repoPath, base64Content, message, branch);
   }
 
   function setStatus(message, tone) {
@@ -931,11 +959,7 @@
       }).then(onSuccess).catch(onError);
     }
 
-    return gitGatewayGetFile(repoPath, "main")
-      .catch(function () { return null; })
-      .then(function (existing) {
-        return gitGatewayPutFile(repoPath, raw, "chore: update " + section.title, "main", existing && existing.sha);
-      })
+    return gitGatewayPutFile(repoPath, raw, "chore: update " + section.title, "main")
       .then(onSuccess)
       .catch(onError);
   }
@@ -1048,11 +1072,7 @@
           });
         }
         console.log("[Studio] Uploading via Git Gateway");
-        return gitGatewayGetFile(uploadPath, "main")
-          .catch(function () { return null; })
-          .then(function (existing) {
-            return gitGatewayPutMedia(uploadPath, content, "chore: upload CMS image", "main", existing && existing.sha);
-          });
+        return gitGatewayPutMedia(uploadPath, content, "chore: upload CMS image", "main");
       })
       .then(applyUpload)
       .catch(function (error) {
@@ -1250,6 +1270,8 @@
   }
 
   function startApp() {
+    if (state.started) return;
+    state.started = true;
     Promise.all([
       fetch("/cms/studio-manifest.json", { cache: "no-store" }).then(function (response) { return response.json(); }),
       fetch("/cms/studio-content.json", { cache: "no-store" })
@@ -1352,12 +1374,6 @@
     if (els.authLoading) els.authLoading.hidden = false;
     if (els.loginButton) els.loginButton.hidden = true;
 
-    var existingUser = window.netlifyIdentity.currentUser();
-    if (existingUser) {
-      onLogin(existingUser);
-      return;
-    }
-
     if (els.loginButton) {
       els.loginButton.addEventListener("click", function () {
         window.netlifyIdentity.open("login");
@@ -1365,7 +1381,14 @@
     }
     if (els.logoutButton) {
       els.logoutButton.addEventListener("click", function () {
-        window.netlifyIdentity.logout();
+        els.logoutButton.disabled = true;
+        els.logoutButton.textContent = "Signing out...";
+        Promise.resolve(window.netlifyIdentity.logout()).catch(function (error) {
+          console.error("Identity logout error:", error);
+          els.logoutButton.disabled = false;
+          els.logoutButton.textContent = "Sign out";
+          showToast("Sign out failed. Please try again.", "error");
+        });
       });
     }
 
@@ -1406,6 +1429,9 @@
         els.authError.hidden = false;
       }
     });
+
+    var existingUser = window.netlifyIdentity.currentUser();
+    if (existingUser) onLogin(existingUser);
   }
 
   if (document.readyState === "loading") {
