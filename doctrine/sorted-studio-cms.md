@@ -96,6 +96,27 @@ The Studio interface is a three-column workspace inside a single-page app. No ro
 - Site initial mark (64px circle) + site name + "Sign in to edit and publish site content." + Sign in button
 - Triggers Netlify Identity login widget
 - Hidden automatically when user is already authenticated
+- Identity errors surface inside the auth card (`#auth-error`), not only the hidden status bar
+
+#### Auth path requirements (non-negotiable)
+
+Netlify Identity has three failure modes that every Studio install must neutralise —
+all handled by canonical `studio.js`/`studio.css` plus the layout redirect:
+
+1. **Dead invite landing.** Identity emails link to the site root (`/#invite_token=…`) where
+   no widget runs — nothing consumes the token. Fix: the root-layout token redirect
+   (workflow Step 9) forwards token hashes to `/cms/`, and the branded email templates
+   deep-link to `/cms/` directly.
+2. **Modal behind overlay.** The widget's modal is a fixed iframe at `z-index: 99`, below the
+   auth overlay (200) — Sign in appears to do nothing. Fix: `studio.css` forces
+   `#netlify-identity-widget` to `z-index: 9000`.
+3. **Stale-token error loop.** The widget leaves the token in the URL hash; every refresh
+   re-verifies the consumed/expired token and opens an error modal. Fix: `studio.js` strips
+   the hash via `history.replaceState` after `init()` captures it.
+
+Additionally: bind both `login` and `signup` events (invite acceptance fires `signup`), and
+use `afterInteractive` for the layout redirect script — `beforeInteractive` emits a raw
+`<script>` into React's render tree and throws if hydration falls back to client render.
 
 ---
 

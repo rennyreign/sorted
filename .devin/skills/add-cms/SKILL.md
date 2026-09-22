@@ -39,6 +39,7 @@ Run the full QA loop from the operator skill before considering the task complet
 
 - Three-column layout loads with Sorted wordmark + green dot
 - Auth overlay appears on production, hidden on localhost
+- Auth path hardened: layout token redirect (`afterInteractive`), widget iframe above overlay, consumed token hashes stripped — see `doctrine/sorted-studio-cms.md` "Auth path requirements"
 - Every page tab and section opens with editable fields
 - List/property editors support add/remove and nested editing
 - Save draft writes JSON locally; Publish commits to Git
