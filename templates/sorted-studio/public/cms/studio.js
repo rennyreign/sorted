@@ -1217,6 +1217,15 @@
 
     window.netlifyIdentity.init();
 
+    // The widget leaves the identity token in the URL hash after init() captures
+    // it. On refresh it tries to re-verify the consumed/expired token and opens
+    // an error modal ("error verifying your account"). Strip it once captured.
+    setTimeout(function () {
+      if (/#(invite_token|confirmation_token|recovery_token|email_change_token|access_token|refresh_token|expires_in|token_type)=/.test(window.location.hash)) {
+        history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
+    }, 0);
+
     function onLogin() {
       if (els.authOverlay) els.authOverlay.style.display = "none";
       startApp();
