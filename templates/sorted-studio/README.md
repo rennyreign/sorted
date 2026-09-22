@@ -2,7 +2,7 @@
 
 Canonical client-facing CMS shell for SortedUpdates.
 
-**Current version:** `0.4.0`  
+**Current version:** `0.5.0`  
 **Reference implementation:** `warwickshire-str`
 
 ## What's in this template
@@ -15,8 +15,9 @@ Canonical client-facing CMS shell for SortedUpdates.
 | `public/cms/studio-manifest.example.json` | Example manifest with placeholder tokens |
 | `public/cms/decap.html` | Stock Decap fallback for Sorted only — not linked from Studio |
 | `scripts/build-studio-content.mjs` | Snapshot generator — reads manifest + content files, writes `studio-content.json` |
+| `emails/` | Sorted-branded Netlify Identity email templates (invitation, confirmation, recovery, email change) — links deep-link to `/cms/` |
 
-## Key features in v0.4.0
+## Key features in v0.5.0
 
 - **Three-column workspace:** page nav (300px) | editor (460px) | live preview (min 520px)
 - **Auth overlay:** full-screen login card with site identity, shown on production only
@@ -51,6 +52,8 @@ npm run studio:upgrade -- --target ../client-repo --slug client-slug --dry-run
 - Client `package.json` is patched so `npm run build` regenerates `studio-content.json` before `next build`.
 - `studio.css` and `studio.js` are canonical product files — copy them, do not hand-write them.
 - The manifest is the single source of truth — if a field is not in the manifest, it is not in the Studio UI.
+- The client site's root layout must carry the Identity token redirect (`add-decap-cms.md` Step 9) — invite emails otherwise land on a dead homepage.
+- `emails/` templates are pasted into Netlify dashboard → Identity → Emails by hand — they are not copied into the client repo.
 
 ## Placeholder tokens
 

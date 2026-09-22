@@ -646,17 +646,62 @@ See `doctrine/factory-reset.md` for the full reset standard.
 
 ---
 
-## Step 9 — Netlify Identity — client access
+## Step 9 — Identity token redirect — REQUIRED
+
+Netlify Identity emails (invite, confirmation, recovery, email change) link to the **site root**
+with a token hash: `https://site.com/#invite_token=...`. No widget runs on the root page, so the
+token is never consumed and the invitee lands on the homepage with nothing happening — the
+single most common client complaint with Decap onboarding.
+
+Add this redirect to the root layout (`app/layout.tsx`) inside `<body>`, before other scripts:
+
+```tsx
+<Script id="netlify-identity-token-redirect" strategy="afterInteractive">
+  {`
+    (function () {
+      var hash = window.location.hash || "";
+      var isIdentityToken = /#(invite_token|confirmation_token|recovery_token|email_change_token)=/.test(hash);
+      var isCms = window.location.pathname.indexOf("/cms") === 0;
+
+      if (isIdentityToken && !isCms) {
+        window.location.replace("/cms/" + hash);
+      }
+    })();
+  `}
+</Script>
+```
+
+Rules:
+
+- Use `afterInteractive`, not `beforeInteractive` — `beforeInteractive` emits a raw `<script>`
+  element into React's render tree, which throws a console error if hydration ever falls back
+  to client rendering (e.g. browser extensions mutating `<html>` before hydration).
+- The hash check must not collide with in-page anchors — only redirect on the four Identity
+  token names. If the site uses `#` fragment routing (e.g. `#1`–`#12` slide nav), keep the regex
+  exact as written.
+- This is belt-and-suspenders with the branded email templates (Step 10), which deep-link to
+  `/cms/` directly. Ship both — the redirect also catches default-template emails and any token
+  a user pastes onto the root URL.
+
+---
+
+## Step 10 — Netlify Identity — client access
 
 1. Netlify → Identity → Registration → **Invite Only** (do this before sending client anything)
-2. Identity → Invite users → client email
-3. Client receives invite, sets password, logs in
+2. **Branded emails** — paste the four templates from `templates/sorted-studio/emails/` into
+   Identity → Emails (Invitation, Confirmation, Password recovery, Email change). Each template
+   links to `{{ .SiteURL }}/cms/#<type>_token={{ .Token }}` so the invitee lands directly in the
+   Studio instead of the homepage. See `templates/sorted-studio/emails/README.md`.
+   - Resend note: Netlify Identity sends auth emails through its own mailer — Resend/custom
+     SMTP is not supported for these. Branding is applied via the templates, not the transport.
+3. Identity → Invite users → client email
+4. Client receives branded invite → clicks through to `/cms/` → sets password → Studio opens
 
 See `doctrine/client-onboarding.md` for the full onboarding standard and handoff message template.
 
 ---
 
-## Step 10 — Test locally
+## Step 11 — Test locally
 
 Two terminals required:
 
@@ -678,7 +723,7 @@ In local mode:
 
 ---
 
-## Step 11 — Verify checklist
+## Step 12 — Verify checklist
 
 - [ ] `/cms/` loads three-column Studio layout with Sorted wordmark + green dot in topbar
 - [ ] Site initial mark and site name appear in topbar
@@ -699,6 +744,9 @@ In local mode:
 - [ ] Site builds clean with `npm run build` (regenerates `studio-content.json`)
 - [ ] Factory reset script created and handoff SHA tagged
 - [ ] Netlify Identity set to Invite Only
+- [ ] Identity token redirect present in `app/layout.tsx` (`afterInteractive` Script)
+- [ ] `#invite_token=`, `#confirmation_token=`, `#recovery_token=` on any non-`/cms/` URL redirect to `/cms/`
+- [ ] Branded email templates pasted into Identity → Emails (all four)
 - [ ] Client invited and confirmed login
 
 ---

@@ -113,6 +113,13 @@ Run a complete QA loop before closing:
 - If property-list exists: collapse/expand cards, edit nested fields (gallery, amenities, reviews), add/remove properties
 - Upload an image — thumbnail updates, path populates
 
+**Auth path:**
+- Root layout carries the Identity token redirect (`afterInteractive` Script) — a URL like
+  `https://site/#invite_token=x` on any non-`/cms/` path forwards to `/cms/` preserving the hash
+- Invite/recovery links land in the Studio where the widget consumes the token — never on a
+  dead homepage
+- Branded email templates (`templates/sorted-studio/emails/`) pasted into Identity → Emails
+
 **Save:**
 - Local: "Save draft" writes JSON through `npm run cms` — verify file changed on disk
 - Production: "Publish" commits to Git via Git Gateway — verify commit appears in repo

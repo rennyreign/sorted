@@ -27,17 +27,30 @@ Netlify dashboard → **Site → Identity → Services → Git Gateway** → Ena
 
 Required for the CMS to commit content changes to GitHub.
 
-### 3. Invite the client
+### 3. Apply branded email templates
+Netlify dashboard → **Site → Identity → Emails** → paste the four templates from
+`templates/sorted-studio/emails/` (Invitation, Confirmation, Password recovery, Email change).
+
+Default Netlify emails link to the site root where nothing consumes the token — the invitee
+lands on the homepage and sees nothing. The Sorted templates link directly to `/cms/` so the
+widget consumes the token and the setup modal opens immediately. The layout token redirect
+(`add-decap-cms.md` Step 9) is the fallback for any token that still lands elsewhere.
+
+Note: Netlify Identity sends these through its own mailer — Resend/custom SMTP is not
+supported for auth emails. Branding is done via the templates.
+
+### 4. Invite the client
 Netlify dashboard → **Site → Identity → Invite users** → enter client email.
 
-Client receives an email with a magic link. They click it, set a password, and are in.
+Client receives a Sorted-branded email with a magic link to `/cms/`. They click it, set a
+password, and are in.
 
-### 4. Send the client their CMS URL
+### 5. Send the client their CMS URL
 Format: `https://[site-name].netlify.app/cms/`
 
 Include in the handoff message alongside the tutorial video link.
 
-### 5. Confirm they can log in
+### 6. Confirm they can log in
 Ask the client to confirm they can access the CMS before closing the delivery.
 
 ---
