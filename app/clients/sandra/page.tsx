@@ -2,9 +2,14 @@
 
 import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
+import { getLatestAgreement, recordAgreement } from "@/lib/agreements"
 
 const AUTH_KEY = "sandra_auth"
 const AUTH_EXPIRY_DAYS = 30
+const SIGN_SLUG = "sandra"
+const DOC_TYPE = "delivery"
+const PAGE_PATH = "/clients/sandra"
+const CLIENT_NAME = "Sandra"
 
 export default function SandraQuote() {
   const [password, setPassword] = useState("")
@@ -19,6 +24,16 @@ export default function SandraQuote() {
   const [signedAt, setSignedAt] = useState<string | null>(null)
 
   useEffect(() => { setMounted(true) }, [])
+
+  useEffect(() => {
+    getLatestAgreement(SIGN_SLUG).then((a) => {
+      if (a) {
+        setIsSigned(true)
+        setSignerName(a.signer_name)
+        setSignedAt(a.signed_at)
+      }
+    })
+  }, [])
 
   useEffect(() => {
     const stored = localStorage.getItem(AUTH_KEY)
@@ -64,6 +79,7 @@ export default function SandraQuote() {
       setIsSigned(true)
       setSignedAt(now)
       saveAuth({ signerName: signerName.trim(), signedAt: now })
+      recordAgreement({ slug: SIGN_SLUG, docType: DOC_TYPE, pagePath: PAGE_PATH, clientName: CLIENT_NAME, signerName: signerName.trim() })
       setShowAgreement(false)
     }
   }

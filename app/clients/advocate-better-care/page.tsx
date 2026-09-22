@@ -2,12 +2,15 @@
 
 import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
+import { getLatestAgreement, recordAgreement } from "@/lib/agreements"
 
 const AUTH_KEY = "abc_auth"
 const AUTH_EXPIRY_DAYS = 30
 const QUOTE_AMOUNT = 750
 const CLIENT_SLUG = "advocate-better-care"
 const CLIENT_NAME = "Advocate Better Care"
+const DOC_TYPE = "quote"
+const PAGE_PATH = "/clients/advocate-better-care"
 const EDGE_FUNCTION_URL = "https://qweevancxedkkfxysnzq.supabase.co/functions/v1/quote-counter-offer"
 const COUNTER_SECRET = process.env.NEXT_PUBLIC_QUOTE_COUNTER_SECRET ?? ""
 
@@ -45,6 +48,16 @@ export default function AdvocateBetterCareQuote() {
   const [pendingAmount, setPendingAmount] = useState<number | null>(null)
 
   useEffect(() => { setMounted(true) }, [])
+
+  useEffect(() => {
+    getLatestAgreement(CLIENT_SLUG).then((a) => {
+      if (a) {
+        setIsSigned(true)
+        setSignerName(a.signer_name)
+        setSignedAt(a.signed_at)
+      }
+    })
+  }, [])
 
   useEffect(() => {
     const stored = localStorage.getItem(AUTH_KEY)
@@ -114,6 +127,7 @@ export default function AdvocateBetterCareQuote() {
       setIsSigned(true)
       setSignedAt(now)
       saveAuth({ signerName: signerName.trim(), signedAt: now, agreed: agreedAmount ?? QUOTE_AMOUNT })
+      recordAgreement({ slug: CLIENT_SLUG, docType: DOC_TYPE, pagePath: PAGE_PATH, clientName: CLIENT_NAME, signerName: signerName.trim() })
       setShowAgreement(false)
     }
   }
