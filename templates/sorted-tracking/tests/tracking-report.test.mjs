@@ -100,6 +100,46 @@ test("503 missing credentials only after auth", async () => {
   assert.equal(res.statusCode, 503)
 })
 
+test("credential loader is not called before auth", async () => {
+  let called = false
+  const h = createHandler({
+    loadGa4Config: async () => {
+      called = true
+      return { propertyId: "123456789", serviceAccountJson: "{}" }
+    },
+    runReport: makeRunReport(base),
+    config: CONFIG,
+  })
+  const res = await h(get(), {})
+  assert.equal(res.statusCode, 401)
+  assert.equal(called, false)
+})
+
+test("credential loader failure and incomplete values return 503", async () => {
+  for (const loadGa4Config of [
+    async () => { throw new Error("store unavailable") },
+    async () => ({ propertyId: "not-numeric", serviceAccountJson: "{}" }),
+    async () => ({ propertyId: "123456789", serviceAccountJson: "" }),
+  ]) {
+    const res = await createHandler({ loadGa4Config, runReport: makeRunReport(base), config: CONFIG })(get(), AUTH_CTX)
+    assert.equal(res.statusCode, 503)
+    assert.equal(JSON.parse(res.body).error, "not_configured")
+  }
+})
+
+test("Blob-loaded credentials drive the fixed GA4 requests", async () => {
+  const captured = []
+  const h = createHandler({
+    loadGa4Config: async () => ({ propertyId: "987654321", serviceAccountJson: '{"client_email":"blob@example"}' }),
+    runReport: makeRunReport(base, captured),
+    config: CONFIG,
+  })
+  const res = await h(get(7), AUTH_CTX)
+  assert.equal(res.statusCode, 200)
+  assert.equal(captured.length, 6)
+  assert.ok(captured.every((req) => req.property === "properties/987654321"))
+})
+
 test("days validation: only 7, 30, 90 allowed, default 30", async () => {
   for (const bad of ["1", "14", "0", "abc", "365"]) {
     const res = await handlerWith(base)(get(bad), AUTH_CTX)
