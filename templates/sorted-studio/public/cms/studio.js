@@ -1106,6 +1106,10 @@
   }
 
   function bindEvents() {
+    if (els.tourButton) {
+      els.tourButton.addEventListener("click", startTour);
+    }
+
     els.pageTabs.addEventListener("click", function (event) {
       var button = event.target.closest("[data-page]");
       if (button) setPage(button.getAttribute("data-page"));
@@ -1285,7 +1289,7 @@
         state.studioContent = results[1].content || {};
         updateChromeForMode();
         bindEvents();
-        return loadSection(getSection());
+        return loadSection(getSection()).then(function () { maybeStartTour(); });
       })
       .catch(function (error) {
         document.body.innerHTML = '<main style="padding:32px;font-family:system-ui"><h1>Sorted Studio could not load</h1><p>' + escapeHtml(error.message) + '</p><p>Refresh the page, or ask Sorted to check the CMS setup.</p></main>';
@@ -1313,8 +1317,133 @@
     }
   }
 
+  // ── First-run guide ───────────────────────────────────────────────────────
+  // Spotlight tour of the Studio, shown once per browser (localStorage) and
+  // replayable any time via the ? button in the topbar.
+  var tourSeenKey = "sorted-studio-tour-seen";
+
+  function tourSteps() {
+    var local = isLocal();
+    return [
+      {
+        target: "page-tabs",
+        title: "Pages & sections",
+        body: "Every editable part of your site lives here. Pick a page, then choose a section."
+      },
+      {
+        target: "editor-form",
+        title: "Edit the content",
+        body: "Type in the fields — the preview updates as you type. Nothing goes live until you publish."
+      },
+      {
+        target: "site-preview",
+        title: "Live preview",
+        body: "This is your real website. Every change appears here instantly, before anyone else sees it."
+      },
+      {
+        target: "save-section",
+        title: local ? "Save your draft" : "Publish",
+        body: local
+          ? "Save draft writes your changes to the local content file. Sorted handles publishing."
+          : "Publish saves your changes and rebuilds the live site. It takes about a minute."
+      },
+      {
+        target: "tour-button",
+        title: "You're all set",
+        body: "Replay this guide any time with the ? button." + (local ? "" : " Sign out when you're finished.")
+      }
+    ];
+  }
+
+  function startTour() {
+    var steps = tourSteps().filter(function (step) { return qs(step.target); });
+    if (!steps.length) return;
+    var index = 0;
+
+    var backdrop = document.createElement("div");
+    backdrop.className = "tour-backdrop";
+    var spot = document.createElement("div");
+    spot.className = "tour-spot";
+    var tip = document.createElement("div");
+    tip.className = "tour-tip";
+    tip.setAttribute("role", "dialog");
+    backdrop.appendChild(spot);
+    backdrop.appendChild(tip);
+    document.body.appendChild(backdrop);
+
+    function finish() {
+      try { localStorage.setItem(tourSeenKey, "1"); } catch (e) {}
+      window.removeEventListener("resize", place);
+      document.removeEventListener("keydown", onKey, true);
+      backdrop.remove();
+    }
+
+    function onKey(event) {
+      if (event.key === "Escape") {
+        event.stopPropagation();
+        finish();
+      }
+    }
+
+    function place() {
+      var el = qs(steps[index].target);
+      if (!el) return;
+      el.scrollIntoView({ block: "center" });
+      var r = el.getBoundingClientRect();
+      var pad = 8;
+      spot.style.top = (r.top - pad) + "px";
+      spot.style.left = (r.left - pad) + "px";
+      spot.style.width = (r.width + pad * 2) + "px";
+      spot.style.height = (r.height + pad * 2) + "px";
+      var tipW = 300;
+      tip.style.width = tipW + "px";
+      var x = Math.min(Math.max(16, r.left), Math.max(16, window.innerWidth - tipW - 16));
+      var tipH = tip.offsetHeight || 170;
+      var y = r.bottom + 16 + tipH < window.innerHeight - 16
+        ? r.bottom + 16
+        : Math.max(16, r.top - tipH - 16);
+      tip.style.left = x + "px";
+      tip.style.top = y + "px";
+    }
+
+    function render() {
+      var step = steps[index];
+      tip.innerHTML =
+        '<p class="tour-step">' + (index + 1) + " / " + steps.length + "</p>" +
+        "<h3>" + escapeHtml(step.title) + "</h3>" +
+        "<p>" + escapeHtml(step.body) + "</p>" +
+        '<div class="tour-actions">' +
+        '<button type="button" class="ghost-button" data-tour="skip">Skip</button>' +
+        (index > 0 ? '<button type="button" class="ghost-button" data-tour="back">Back</button>' : "") +
+        '<button type="button" class="primary-button" data-tour="next">' +
+        (index === steps.length - 1 ? "Done" : "Next") + "</button>" +
+        "</div>";
+      place();
+    }
+
+    tip.addEventListener("click", function (event) {
+      var action = event.target.getAttribute("data-tour");
+      if (action === "skip") finish();
+      if (action === "back" && index > 0) { index -= 1; render(); }
+      if (action === "next") {
+        index += 1;
+        if (index >= steps.length) { finish(); return; }
+        render();
+      }
+    });
+    window.addEventListener("resize", place);
+    document.addEventListener("keydown", onKey, true);
+    render();
+  }
+
+  function maybeStartTour() {
+    try { if (localStorage.getItem(tourSeenKey)) return; } catch (e) {}
+    setTimeout(startTour, 800);
+  }
+
   function init() {
     els = {
+      tourButton: qs("tour-button"),
       topSiteName: qs("top-site-name"),
       pageTabs: qs("page-tabs"),
       sectionList: qs("section-list"),
