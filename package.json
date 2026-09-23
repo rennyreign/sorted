@@ -8,7 +8,9 @@
     "start": "next start",
     "studio:upgrade": "node scripts/upgrade-sorted-studio.mjs",
     "ad-review:install": "node scripts/install-sorted-ad-review.mjs",
-    "lint": "next lint"
+    "lint": "next lint",
+    "tracking:install": "node scripts/install-sorted-tracking.mjs",
+    "tracking:test": "node --test templates/sorted-tracking/tests/tracking-report.test.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.1",

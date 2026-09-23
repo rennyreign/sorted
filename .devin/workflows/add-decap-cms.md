@@ -723,7 +723,72 @@ In local mode:
 
 ---
 
-## Step 12 — Verify checklist
+## Step 12 — Sorted Tracking (bundled client report)
+
+Every CMS'd client also gets the invite-only `/tracking/` report — a private GA4
+dashboard that reuses the same Netlify Identity instance as the CMS. Install it
+from the sorted repo on the same feature branch:
+
+```bash
+# From the sorted repo
+node scripts/install-sorted-tracking.mjs \
+  --target ../<client-repo> \
+  --client-name "<Client Name>" \
+  --events booking_completed
+```
+
+`--events` is required and must list the client's confirmed browser-reported
+success event names — e.g. `booking_completed` fired from the site's own
+success signal (SoS: Stripe success redirect; Advocate: Cal `bookingSuccessful`
+callback). It is browser-reported, NOT a server-verified paid transaction —
+never a guess, and never derived from pageviews/phone/CTA events.
+
+This copies the canonical bundle from `templates/sorted-tracking/`:
+- `app/tracking/` — public static page; the login gate is cosmetic only
+- `netlify/functions/tracking-report.cjs` — legacy Lambda handler that requires
+  `context.clientContext.user` (Netlify-verified Identity JWT) before any GA4 work
+- `netlify/functions/tracking-config.json` — nonsecret per-client config
+  (client name + confirmed event names; never derived from traffic). The
+  installer refuses to overwrite an existing config unless `--force-config`.
+- `tests/tracking-report.test.mjs` — run with `node --test`
+- pins `@google-analytics/data@6.1.0` exact (v7.x needs Node ≥22; client
+  Netlify builds run Node 20 — do not change Node config to work around this)
+
+If the target repo uses pnpm (pnpm-lock.yaml, no package-lock.json), Netlify's
+default zisi function bundler cannot resolve its non-hoisted node_modules.
+`netlify.toml` must contain exactly:
+
+```toml
+[functions]
+  node_bundler = "nft"
+```
+
+The installer fails with this instruction when the setting is missing — do not
+install past it.
+
+Report semantics (fixed — do not improvise):
+- Distinct visitors = `totalUsers` over the whole period, never a sum of daily users
+- Recorded bookings = `eventCount` filtered to the configured event names
+- Visitor conversion rate = unique converted users / distinct visitors (null when
+  there are no visitors); `eventCount / users` is NOT a conversion rate
+- Channel table shows sessions only — never labelled as visitors
+- `rowCount` above fetched rows fails with 502 partial-data on any report
+- GA4 `subjectToThresholding`, `dataLossFromOtherRow` and `samplingMetadatas`
+  are surfaced as distinct caveats, not silently dropped
+- Displayed date range uses the GA4 property timezone from response metadata,
+  or the neutral label "last N complete days ending yesterday (GA4 property
+  timezone)" when the timezone is unavailable
+
+Then, in Netlify (values are secrets — never commit them):
+- `GA4_PROPERTY_ID` — numeric GA4 property id
+- `GA4_SERVICE_ACCOUNT_JSON` — service account JSON string
+
+Do not overwrite or weaken any existing dashboards already on the site (e.g.
+SoS `/performance/`); `/tracking/` is additive.
+
+---
+
+## Step 13 — Verify checklist
 
 - [ ] `/cms/` loads three-column Studio layout with Sorted wordmark + green dot in topbar
 - [ ] Site initial mark and site name appear in topbar
@@ -749,6 +814,9 @@ In local mode:
 - [ ] `#invite_token=`, `#confirmation_token=`, `#recovery_token=` on any non-`/cms/` URL redirect to `/cms/`
 - [ ] Branded email templates pasted into Identity → Emails (all four)
 - [ ] Client invited and confirmed login
+- [ ] Sorted Tracking installed (`/tracking/` renders sign-in gate; function returns 401 unauthenticated)
+- [ ] `GA4_PROPERTY_ID` + `GA4_SERVICE_ACCOUNT_JSON` set in Netlify env (not committed)
+- [ ] `tests/tracking-report.test.mjs` passes with `node --test`
 
 ---
 

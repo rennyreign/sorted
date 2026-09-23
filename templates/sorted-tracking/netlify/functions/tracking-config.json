@@ -1,0 +1,4 @@
+{
+  "clientName": "Client Name",
+  "eventNames": ["booking_completed"]
+}
