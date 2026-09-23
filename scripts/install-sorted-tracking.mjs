@@ -16,6 +16,7 @@ Installs Sorted Tracking v1 into a client site:
   app/tracking/page.tsx, tracking.css, fixture.ts
   netlify/functions/tracking-report.cjs + tracking-config.json
   pins @google-analytics/data@6.1.0 (exact) unless --skip-deps
+  adds @netlify/blobs@10.7.13 if the target does not already provide it
 
 --events is REQUIRED and must list the client's confirmed browser-reported
 success event names (e.g. booking_completed from the site's booking-success
@@ -116,9 +117,10 @@ if (!flag('skip-deps')) {
   const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'))
   pkg.dependencies = pkg.dependencies || {}
   pkg.dependencies['@google-analytics/data'] = '6.1.0'
+  pkg.dependencies['@netlify/blobs'] = pkg.dependencies['@netlify/blobs'] || '10.7.13'
   pkg.dependencies = Object.fromEntries(Object.entries(pkg.dependencies).sort(([a], [b]) => a.localeCompare(b)))
   if (dryRun) {
-    console.log(`[dry-run] would pin @google-analytics/data@6.1.0 in package.json and run ${usePnpm ? 'pnpm install' : 'npm install'}`)
+    console.log(`[dry-run] would pin @google-analytics/data@6.1.0 and ensure @netlify/blobs in package.json, then run ${usePnpm ? 'pnpm install' : 'npm install'}`)
   } else {
     writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n')
     execFileSync(usePnpm ? 'pnpm' : 'npm', ['install'], { cwd: target, stdio: 'inherit' })
@@ -129,7 +131,9 @@ console.log(`${dryRun ? '[dry-run] ' : ''}Sorted Tracking v1 installed:`)
 for (const f of written) console.log(`  ${f}`)
 console.log(`
 Next steps (manual):
-  1. Set GA4_PROPERTY_ID and GA4_SERVICE_ACCOUNT_JSON in Netlify env (never commit).
+  1. Configure GA4 credentials server-side (never commit):
+     - Small sites: GA4_PROPERTY_ID + GA4_SERVICE_ACCOUNT_JSON env vars, or
+     - Large env footprint: store property_id + credentials in Netlify Blobs store ga4-config.
   2. Verify the site uses the same invite-only Netlify Identity instance as /cms/.
   3. Run tests: node --test tests/tracking-report.test.mjs
   4. Build: npm run build (or pnpm build)

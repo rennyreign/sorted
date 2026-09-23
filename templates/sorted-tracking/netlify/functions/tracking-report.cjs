@@ -3,6 +3,8 @@
 // Env (server-side secrets, never committed):
 //   GA4_PROPERTY_ID          numeric GA4 property id
 //   GA4_SERVICE_ACCOUNT_JSON service account JSON string
+// Blob fallback (avoids AWS's 4KB function env limit):
+//   ga4-config/property_id, ga4-config/credentials
 // Nonsecret per-client config: tracking-config.json next to this file.
 
 const ALLOWED_DAYS = new Set([7, 30, 90])
@@ -144,20 +146,30 @@ function createHandler(deps) {
       return json(401, { error: "unauthorized" })
     }
 
-    const propertyId = deps.env.GA4_PROPERTY_ID || ""
-    const serviceAccountJson = deps.env.GA4_SERVICE_ACCOUNT_JSON || ""
-    if (!/^[0-9]+$/.test(propertyId) || !serviceAccountJson) return json(503, { error: "not_configured" })
-
     const daysParam = event.queryStringParameters && event.queryStringParameters.days
     const days = daysParam === undefined || daysParam === "" ? 30 : Number(daysParam)
     if (!ALLOWED_DAYS.has(days)) return json(400, { error: "invalid_days" })
+
+    const loadGa4Config = deps.loadGa4Config || (async () => ({
+      propertyId: deps.env && deps.env.GA4_PROPERTY_ID,
+      serviceAccountJson: deps.env && deps.env.GA4_SERVICE_ACCOUNT_JSON,
+    }))
+    let ga4Config
+    try {
+      ga4Config = await loadGa4Config()
+    } catch {
+      return json(503, { error: "not_configured" })
+    }
+    const propertyId = ga4Config.propertyId || ""
+    const serviceAccountJson = ga4Config.serviceAccountJson || ""
+    if (!/^[0-9]+$/.test(propertyId) || !serviceAccountJson) return json(503, { error: "not_configured" })
 
     const requests = buildRequests(days, deps.config.eventNames)
     let responses
     try {
       const keys = Object.keys(requests)
       const results = await Promise.all(
-        keys.map((k) => deps.runReport(Object.assign({ property: `properties/${propertyId}` }, requests[k])))
+        keys.map((k) => deps.runReport(Object.assign({ property: `properties/${propertyId}` }, requests[k]), serviceAccountJson))
       )
       responses = {}
       keys.forEach((k, i) => {
@@ -268,14 +280,31 @@ function createHandler(deps) {
 }
 
 let gaClient = null
-const lazyRunReport = (request) => {
+const lazyRunReport = (request, serviceAccountJson) => {
   if (!gaClient) {
     const { BetaAnalyticsDataClient } = require("@google-analytics/data")
-    gaClient = new BetaAnalyticsDataClient({
-      credentials: JSON.parse(process.env.GA4_SERVICE_ACCOUNT_JSON || ""),
-    })
+    gaClient = new BetaAnalyticsDataClient({ credentials: JSON.parse(serviceAccountJson) })
   }
   return gaClient.runReport(request)
+}
+
+async function loadGa4Config() {
+  const envPropertyId = process.env.GA4_PROPERTY_ID || ""
+  const envServiceAccountJson = process.env.GA4_SERVICE_ACCOUNT_JSON || ""
+  if (/^[0-9]+$/.test(envPropertyId) && envServiceAccountJson) {
+    return { propertyId: envPropertyId, serviceAccountJson: envServiceAccountJson }
+  }
+
+  const { getStore } = require("@netlify/blobs")
+  const store = getStore("ga4-config")
+  const [blobPropertyId, blobCredentials] = await Promise.all([
+    store.get("property_id"),
+    store.get("credentials"),
+  ])
+  return {
+    propertyId: envPropertyId || blobPropertyId || "",
+    serviceAccountJson: envServiceAccountJson || blobCredentials || "",
+  }
 }
 
 // Auth and method checks run before config/client initialisation so missing
@@ -294,7 +323,7 @@ exports.handler = async function (event, context) {
   } catch {
     return json(503, { error: "not_configured" })
   }
-  return createHandler({ env: process.env, runReport: lazyRunReport, config })(event, context)
+  return createHandler({ loadGa4Config, runReport: lazyRunReport, config })(event, context)
 }
 
 exports.createHandler = createHandler

@@ -779,9 +779,9 @@ Report semantics (fixed — do not improvise):
   or the neutral label "last N complete days ending yesterday (GA4 property
   timezone)" when the timezone is unavailable
 
-Then, in Netlify (values are secrets — never commit them):
-- `GA4_PROPERTY_ID` — numeric GA4 property id
-- `GA4_SERVICE_ACCOUNT_JSON` — service account JSON string
+Then, in Netlify (values are secrets — never commit them), use one credential path:
+- Small env footprint: `GA4_PROPERTY_ID` + `GA4_SERVICE_ACCOUNT_JSON` env vars
+- Large env footprint: Netlify Blobs store `ga4-config` with `property_id` and `credentials` keys
 
 Do not overwrite or weaken any existing dashboards already on the site (e.g.
 SoS `/performance/`); `/tracking/` is additive.
@@ -815,7 +815,7 @@ SoS `/performance/`); `/tracking/` is additive.
 - [ ] Branded email templates pasted into Identity → Emails (all four)
 - [ ] Client invited and confirmed login
 - [ ] Sorted Tracking installed (`/tracking/` renders sign-in gate; function returns 401 unauthenticated)
-- [ ] `GA4_PROPERTY_ID` + `GA4_SERVICE_ACCOUNT_JSON` set in Netlify env (not committed)
+- [ ] GA4 configured via env vars or `ga4-config` Blobs store (not committed)
 - [ ] `tests/tracking-report.test.mjs` passes with `node --test`
 
 ---
