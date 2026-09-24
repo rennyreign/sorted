@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react"
 import { supabase } from "@/lib/supabase"
 import { CLIENTS, docSignSlug, type ClientDoc, type ClientRecord, type ClientDocType } from "@/lib/clientDirectory"
 import { getAllAgreements, type Agreement } from "@/lib/agreements"
+import { getAllClientProgress, setClientProgress } from "@/lib/progress"
 
 type ProspectMatch = {
   crm_status: string
@@ -41,6 +42,7 @@ function formatDate(iso: string): string {
 export default function ClientDirectory() {
   const [agreements, setAgreements] = useState<Agreement[]>([])
   const [prospects, setProspects] = useState<Record<string, ProspectMatch>>({})
+  const [progress, setProgress] = useState<Record<string, number>>({})
   const [loading, setLoading] = useState(true)
   const [query, setQuery] = useState("")
   const [filter, setFilter] = useState<Filter>("all")
@@ -48,8 +50,9 @@ export default function ClientDirectory() {
 
   useEffect(() => {
     async function load() {
-      const [agreementsData, { data: prospectData }] = await Promise.all([
+      const [agreementsData, progressData, { data: prospectData }] = await Promise.all([
         getAllAgreements(),
+        getAllClientProgress(),
         supabase
           .from("prospects")
           .select("name, crm_status, review_slug")
@@ -57,6 +60,7 @@ export default function ClientDirectory() {
       ])
 
       setAgreements(agreementsData)
+      setProgress(progressData)
 
       const map: Record<string, ProspectMatch> = {}
       for (const p of prospectData ?? []) {
@@ -108,6 +112,11 @@ export default function ClientDirectory() {
       }
     })
   }, [query, filter, latestBySlug, prospects])
+
+  async function updateProgress(slug: string, step: number) {
+    setProgress((p) => ({ ...p, [slug]: step }))
+    await setClientProgress(slug, step)
+  }
 
   async function copyPath(path: string) {
     const url = `https://sortmydigital.site${path}`
@@ -194,6 +203,8 @@ export default function ClientDirectory() {
             latestBySlug={latestBySlug}
             copied={copied}
             onCopy={copyPath}
+            step={progress[client.slug] ?? null}
+            onStepChange={(s) => updateProgress(client.slug, s)}
           />
         ))}
         {filtered.length === 0 && (
@@ -204,18 +215,24 @@ export default function ClientDirectory() {
   )
 }
 
+const STAGE_LABELS = ["Site seen", "Quote", "Deposit", "Polish", "Launch"]
+
 function ClientCard({
   client,
   prospect,
   latestBySlug,
   copied,
   onCopy,
+  step,
+  onStepChange,
 }: {
   client: ClientRecord
   prospect: ProspectMatch | null
   latestBySlug: Map<string, Agreement>
   copied: string | null
   onCopy: (path: string) => void
+  step: number | null
+  onStepChange: (step: number) => void
 }) {
   const docs = [...client.docs].sort(
     (a, b) => DOC_TYPE_ORDER.indexOf(a.type) - DOC_TYPE_ORDER.indexOf(b.type)
@@ -277,6 +294,33 @@ function ClientCard({
             </div>
           </div>
         )}
+
+        {/* Timeline stage — drives the progress steps on the client page */}
+        <div className="flex items-center justify-between gap-3 px-6 py-3 border-t border-black/[0.06]">
+          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-[#A3A3A3] w-20 shrink-0">
+            Stage
+          </span>
+          <div className="flex flex-wrap gap-1.5 justify-end">
+            {STAGE_LABELS.map((label, i) => {
+              const n = i + 1
+              const active = step === n
+              return (
+                <button
+                  key={n}
+                  onClick={() => onStepChange(n)}
+                  title={`Set stage: ${label}`}
+                  className={`text-[11px] font-medium px-2 py-1 rounded transition-colors ${
+                    active
+                      ? "bg-[#0A0A0A] text-[#FAFAFA]"
+                      : "text-[#737373] hover:text-[#0A0A0A] border border-black/[0.08]"
+                  }`}
+                >
+                  {n} {label}
+                </button>
+              )
+            })}
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -170,9 +170,39 @@ Preview with Tag Assistant before publishing. Verify at minimum: `page_view`, `c
 After GTM is verified and published:
 
 1. Check Realtime and DebugView.
-2. Mark key events as appropriate: `booking_completed`, `thank_you_view`, `form_submit`, `phone_click`, `whatsapp_click`; optionally `email_click`.
-3. Register useful event-scoped custom dimensions: `conversion_name`, `conversion_type`, `coach_name`, `form_name`, `form_type`, `cta_text`, `cta_location`, `key_page_type`, `embed_name`, `embed_type`, `destination`.
-4. Disable overlapping Enhanced Measurement features only after custom tracking is live: Page views, Form interactions, Scrolls, Outbound clicks, and File downloads.
+2. Send GA4 recommended event names alongside our custom names for conversion events (see "GA4 recommended event mapping" below).
+3. Mark key events as appropriate: `booking_completed`, `thank_you_view`, `form_submit`, `phone_click`, `whatsapp_click`, `generate_lead`; optionally `email_click`.
+4. Register useful event-scoped custom dimensions: `conversion_name`, `conversion_type`, `coach_name`, `form_name`, `form_type`, `cta_text`, `cta_location`, `key_page_type`, `embed_name`, `embed_type`, `destination`.
+5. Disable overlapping Enhanced Measurement features only after custom tracking is live: Page views, Form interactions, Scrolls, Outbound clicks, and File downloads.
+
+## GA4 recommended event mapping
+
+Our custom event names are not part of GA4's recommended event taxonomy, so they do not populate GA4's predefined lead-funnel UI (e.g. the Lead acquisition report). Key events work with any name — but the native "leads" reports only recognise `generate_lead`, `qualify_lead`, `working_lead`, `disqualify_lead`, `close_convert_lead`, `close_unconvert_lead`.
+
+The standard fix is a **dual-send in GTM** — website code is untouched:
+
+1. Create one additional tag per recommended event name (do not add it to the import JSON — tags are version-sensitive).
+2. Tag type: **Google Analytics: GA4 Event**, same `{{GA4 Measurement ID}}`.
+3. Event name: the GA4 recommended name (e.g. `generate_lead`).
+4. Trigger: a Custom Event trigger matching only the equivalent Sorted event(s) — create a new trigger with a regex like `^(form_submit|booking_completed|thank_you_view|phone_click|whatsapp_click)$` for `generate_lead`, rather than reusing the catch-all Sorted trigger.
+5. Pass through the same DLV parameters where relevant (`form_name`, `cta_location`, `key_page_type`, `destination`).
+
+Default mapping:
+
+| Sorted event | GA4 recommended event |
+|---|---|
+| `form_submit` | `generate_lead` |
+| `booking_completed` | `generate_lead` |
+| `thank_you_view` | `generate_lead` |
+| `phone_click` | `generate_lead` |
+| `whatsapp_click` | `generate_lead` |
+| `email_click` | `generate_lead` (optional — high intent but often non-converting) |
+| `download_click` | `select_content` (optional, when downloads are a conversion signal) |
+
+Notes:
+- `generate_lead` should fire once per conversion action — avoid double-firing where `form_submit` and `thank_you_view` represent the same submission. Prefer `thank_you_view` when a success page exists, or accept both and deduplicate in reporting.
+- Mark `generate_lead` as a key event in GA4 alongside our custom conversion events.
+- Do not mark both the custom name and the recommended name as key events for the same funnel if it inflates your key-event totals in client reports — pick one canonical key event per conversion, or accept the dual count consciously.
 
 ## Quality checks
 
