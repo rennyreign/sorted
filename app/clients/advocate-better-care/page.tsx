@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import { getLatestAgreement, recordAgreement } from "@/lib/agreements"
-import { getClientProgress } from "@/lib/progress"
+import { getClientProgress, type ClientProgress } from "@/lib/progress"
 
 const AUTH_KEY = "abc_auth"
 const AUTH_EXPIRY_DAYS = 30
@@ -38,6 +38,7 @@ export default function AdvocateBetterCareQuote() {
   const [isSigned, setIsSigned] = useState(false)
   const [signedAt, setSignedAt] = useState<string | null>(null)
   const [manualStep, setManualStep] = useState<number | null>(null)
+  const [progress, setProgress] = useState<ClientProgress | null>(null)
 
   // Counter-offer state
   const [agreedAmount, setAgreedAmount] = useState<number | null>(null)
@@ -59,7 +60,10 @@ export default function AdvocateBetterCareQuote() {
         setSignedAt(a.signed_at)
       }
     })
-    getClientProgress(CLIENT_SLUG).then(setManualStep)
+    getClientProgress(CLIENT_SLUG).then((p) => {
+      setProgress(p)
+      setManualStep(p?.step ?? null)
+    })
   }, [])
 
   useEffect(() => {
@@ -304,7 +308,9 @@ export default function AdvocateBetterCareQuote() {
   // Automatic progress: signature/accepted quote -> step 3. Manual override via
   // client_progress table (operator Clients tab) advances steps 3-5.
   const quoteAgreed = isSigned || (agreedAmount !== null && counterStatus === "accepted")
-  const currentStep = Math.max(quoteAgreed ? 3 : 2, manualStep ?? 1)
+  const depositPaid = progress?.deposit_amount != null && progress.deposit_amount > 0
+  const autoStep = depositPaid ? 4 : quoteAgreed ? 3 : 2
+  const currentStep = Math.max(autoStep, manualStep ?? 1)
 
   const steps = [
     {
@@ -481,7 +487,11 @@ export default function AdvocateBetterCareQuote() {
               <div className="flex gap-4 items-center">
                 <span className="text-[#A3A3A3] w-40 shrink-0">Deposit (50%)</span>
                 <span className="text-[#0A0A0A] font-semibold font-mono">£{depositAmount}</span>
-                <span className="text-[#A3A3A3] text-xs">due now to complete the build</span>
+                {depositPaid ? (
+                  <span className="text-green-700 text-xs font-medium">Paid{progress?.deposit_paid_at ? ` · ${formatDate(progress.deposit_paid_at)}` : ""}</span>
+                ) : (
+                  <span className="text-[#A3A3A3] text-xs">due now to complete the build</span>
+                )}
               </div>
               <div className="flex gap-4 items-center">
                 <span className="text-[#A3A3A3] w-40 shrink-0">Balance (50%)</span>
@@ -491,6 +501,9 @@ export default function AdvocateBetterCareQuote() {
               <div className="border-t border-black/[0.06] pt-3 flex gap-4 items-center">
                 <span className="text-[#525252] w-40 shrink-0 font-medium">Total</span>
                 <span className="text-[#0A0A0A] font-bold font-mono text-base">£{displayAmount}</span>
+                {depositPaid && (
+                  <span className="text-[#525252] text-xs">£{displayAmount - (progress?.deposit_amount ?? 0)} remaining</span>
+                )}
               </div>
             </div>
           </div>
@@ -667,7 +680,9 @@ export default function AdvocateBetterCareQuote() {
                     </div>
                   </div>
                   <p className="text-green-800 text-sm mt-3 leading-relaxed">
-                    Next step: send the £{depositAmount}&nbsp;deposit to the account details above. Once it lands, I&rsquo;ll polish the site and prepare for launch.
+                    {depositPaid
+                      ? <>Deposit received — £{progress?.deposit_amount} paid. Remaining balance of £{displayAmount - (progress?.deposit_amount ?? 0)} is due on launch.</>
+                      : <>Next step: send the £{depositAmount}&nbsp;deposit to the account details above. Once it lands, I&rsquo;ll polish the site and prepare for launch.</>}
                   </p>
                 </div>
               )}
@@ -687,7 +702,9 @@ export default function AdvocateBetterCareQuote() {
                 </div>
               </div>
               <p className="text-green-800 text-sm mt-3 leading-relaxed">
-                Next step: send the £{depositAmount}&nbsp;deposit to the account details above. Once it lands, I&rsquo;ll polish the site and prepare for launch.
+                {depositPaid
+                  ? <>Deposit received — £{progress?.deposit_amount} paid. Remaining balance of £{displayAmount - (progress?.deposit_amount ?? 0)} is due on launch.</>
+                  : <>Next step: send the £{depositAmount}&nbsp;deposit to the account details above. Once it lands, I&rsquo;ll polish the site and prepare for launch.</>}
               </p>
             </div>
           ) : counterPhase === "warning" && pendingAmount ? (
