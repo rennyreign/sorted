@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import { getLatestAgreement, recordAgreement } from "@/lib/agreements"
+import { getClientProgress } from "@/lib/progress"
 
 const AUTH_KEY = "abc_auth"
 const AUTH_EXPIRY_DAYS = 30
@@ -36,6 +37,7 @@ export default function AdvocateBetterCareQuote() {
   const [showAgreement, setShowAgreement] = useState(false)
   const [isSigned, setIsSigned] = useState(false)
   const [signedAt, setSignedAt] = useState<string | null>(null)
+  const [manualStep, setManualStep] = useState<number | null>(null)
 
   // Counter-offer state
   const [agreedAmount, setAgreedAmount] = useState<number | null>(null)
@@ -57,6 +59,7 @@ export default function AdvocateBetterCareQuote() {
         setSignedAt(a.signed_at)
       }
     })
+    getClientProgress(CLIENT_SLUG).then(setManualStep)
   }, [])
 
   useEffect(() => {
@@ -297,29 +300,27 @@ export default function AdvocateBetterCareQuote() {
     )
   }
 
-  // Step state: 1 = seen site (always done), 2 = agree quote, 3 = deposit, 4 = polish, 5 = launch
+  // Step state: 1 = seen site, 2 = agree quote, 3 = deposit, 4 = polish, 5 = launch
+  // Automatic progress: signature/accepted quote -> step 3. Manual override via
+  // client_progress table (operator Clients tab) advances steps 3-5.
   const quoteAgreed = isSigned || (agreedAmount !== null && counterStatus === "accepted")
-  const currentStep = quoteAgreed ? 3 : 2
+  const currentStep = Math.max(quoteAgreed ? 3 : 2, manualStep ?? 1)
 
   const steps = [
     {
       num: "01",
       title: "You see and decide if you like the website",
       body: "The site has been built and is ready for you to review. You've seen it, and you like it.",
-      done: true,
     },
     {
       num: "02",
       title: "We agree on a quote",
       body: "Review the quote below. Accept it as-is, or propose a different amount if the price doesn't work for you.",
-      done: quoteAgreed,
-      current: !quoteAgreed,
     },
     {
       num: "03",
       title: "We take a 50% deposit",
       body: `A deposit of £${depositAmount} secures your slot. On receipt, all remaining parts of the site are polished and prepared for launch.`,
-      current: quoteAgreed,
     },
     {
       num: "04",
@@ -331,7 +332,11 @@ export default function AdvocateBetterCareQuote() {
       title: "We launch your site",
       body: "Your site goes live, bundled with Sorted Updates (edit your own content) and Sorted Tracking (see your visitors and conversions).",
     },
-  ]
+  ].map((step, i) => ({
+    ...step,
+    done: i + 1 < currentStep || (i + 1 === 5 && currentStep > 5),
+    current: i + 1 === currentStep,
+  }))
 
   return (
     <>
