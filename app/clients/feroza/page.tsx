@@ -12,7 +12,6 @@ const CLIENT_SLUG = "feroza"
 const CLIENT_NAME = "Team Feroza"
 const DOC_TYPE = "quote"
 const PAGE_PATH = "/clients/feroza"
-const SITE_URL = "https://team-feroza.netlify.app"
 
 export default function FerozaQuote() {
   const [password, setPassword] = useState("")
@@ -310,19 +309,6 @@ export default function FerozaQuote() {
                   <p className={`text-base leading-relaxed ${step.current ? "text-[#525252]" : step.done ? "text-[#737373]" : "text-[#A3A3A3]"}`}>
                     {step.body}
                   </p>
-                  {step.num === "01" && (
-                    <a
-                      href={SITE_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 mt-2 text-sm font-medium text-[#0A0A0A] hover:text-[#525252] transition-colors"
-                    >
-                      View your site
-                      <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="opacity-60">
-                        <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </a>
-                  )}
                   {step.current && (
                     <span className="inline-block mt-2 font-mono text-[10px] uppercase tracking-[0.12em] text-[#0A0A0A] bg-[#cfe900] px-2 py-0.5 rounded-full font-bold">
                       You are here
