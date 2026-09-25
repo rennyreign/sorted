@@ -83,6 +83,20 @@ export const CLIENTS: ClientRecord[] = [
     ],
   },
   {
+    slug: "feroza",
+    name: "Team Feroza",
+    liveUrl: "https://team-feroza.netlify.app",
+    docs: [
+      {
+        type: "quote",
+        label: "Quote + Agreement",
+        path: "/clients/feroza",
+        password: "feroza2026",
+        signable: true,
+      },
+    ],
+  },
+  {
     slug: "gb-halesowen",
     name: "Gracie Barra Halesowen",
     docs: [
