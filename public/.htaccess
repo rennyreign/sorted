@@ -7,3 +7,7 @@ RewriteRule ^review/([^/]+)/next/?$ /review-next/index.html [L,NC]
 # Rewrite /review/* to /review/index.html (review page SPA shell)
 # The client-side code reads the slug from window.location.pathname
 RewriteRule ^review/(.+)/?$ /review/index.html [L,NC]
+
+# Rewrite /workspace/:slug/* to /workspace/index.html (workspace SPA shell)
+# The client-side code reads slug + route from window.location.pathname
+RewriteRule ^workspace/(.+)/?$ /workspace/index.html [L,NC]
