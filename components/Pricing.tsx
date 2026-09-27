@@ -41,9 +41,9 @@ export default function Pricing() {
             <div className="space-y-6 text-[#A3A3A3] text-lg leading-relaxed mb-12">
               <p>
                 We don&apos;t estimate. We demonstrate. In 24 hours, you&apos;ll have 
-                a working mockup of your site to click through. Then we discuss 
-                price based on what you actually see and what makes sense for 
-                your situation.
+                a working mockup of your site to click through. If you want it 
+                completed, it&apos;s one fixed price — £3,000 — covering everything 
+                through launch.
               </p>
             </div>
 

@@ -6,7 +6,7 @@ import { MockupButton } from "../sites/_components/SitesMockupModal"
 
 export const metadata: Metadata = {
   title: "Pricing | Sorted",
-  description: "Sorted builds your website first. You inspect it before we agree a simple fixed price to finish and launch it.",
+  description: "One complete website. One fixed price: £3,000. We create your new homepage before you commit — £3,000 covers strategy, design, copy, development, CMS, analytics and launch.",
   alternates: {
     canonical: "/pricing",
   },
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const purchaseSteps = [
   [Pencil, "We build it", "We manufacture a website for your business before asking you to spend anything."],
   [Eye, "You inspect it", "See the actual website, not a proposal, moodboard, or imagined future deliverable."],
-  [CircleDollarSign, "We agree a fixed price", "If you want it, we give you one clear price to finish the required setup and launch it."],
+  [CircleDollarSign, "One fixed price", "If you want it completed, £3,000 covers everything required to finish and launch it."],
   [Rocket, "You acquire and launch", "Payment completes the exchange. We prepare the content layer, quality-check it, and take it live."],
 ] as const
 
@@ -28,7 +28,7 @@ export default function PricingPage() {
           <SitesTitle title={<>Built first<br />Priced second</>} marker={<>That&apos;s the Sorted way</>} />
           <Underline className="mt-2 w-[280px]" />
           <p className="mt-7 max-w-[490px] text-[17px] font-semibold leading-[1.55] tracking-[-0.03em]">
-            We don&apos;t quote an imaginary website. We build yours first. If you want it, we agree a simple fixed price to finish what&apos;s required and get it live.
+            We don&apos;t quote an imaginary website. We create your new homepage first — live, responsive and with content. If you want us to complete it, the price is £3,000. Fixed.
           </p>
           <ul className="mt-8 flex flex-wrap gap-6 text-[13px] font-black">
             {["No deposit", "No obligation", "No awkward sales process"].map((item) => (
@@ -51,6 +51,33 @@ export default function PricingPage() {
           />
           <div className="absolute bottom-4 left-4 rounded-[12px] bg-[#dfff00] px-4 py-3 shadow-[0_18px_44px_rgba(0,0,0,0.14)] sm:bottom-6 sm:left-6 sm:rounded-[14px] sm:px-5 sm:py-4">
             <p className="[font-family:var(--font-sites-marker)] text-[1.25rem] uppercase leading-[0.95] sm:text-[1.55rem]">See the website.<br />Then talk price.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
+        <div className="grid gap-10 rounded-[20px] bg-[#070707] p-8 text-white sm:p-10 lg:grid-cols-[0.46fr_0.54fr] lg:items-center">
+          <div>
+            <p className="text-[12px] font-black uppercase tracking-[0.12em] text-white/50">The price</p>
+            <h2 className="mt-4 text-[clamp(2.2rem,4.2vw,3.8rem)] font-black leading-[0.98] tracking-[-0.045em]">One complete website.<br />One fixed price.</h2>
+            <p className="mt-6 [font-family:var(--font-sites-highlight)] text-[clamp(4.6rem,9vw,8.4rem)] leading-[0.85] text-[#dfff00]">£3,000</p>
+          </div>
+          <div>
+            <p className="text-[16px] font-semibold leading-[1.55] tracking-[-0.02em] text-white/90">
+              We create your new homepage before you commit — live, responsive and with content.
+            </p>
+            <p className="mt-5 text-[14px] font-semibold leading-[1.55] text-white/72">
+              If you want us to complete it, £3,000 covers everything required to take it live:
+            </p>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+              {["Strategy", "Design", "Copy", "Development", "Content management system", "Analytics", "Launch"].map((item) => (
+                <li key={item} className="flex items-center gap-3 text-[13px] font-bold">
+                  <Check className="size-4 shrink-0 rounded-full bg-[#dfff00] p-0.5 text-black" strokeWidth={3.5} />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 text-[13px] font-semibold leading-[1.5] text-white/60">Without the usual agency ambiguity.</p>
           </div>
         </div>
       </section>
@@ -107,8 +134,8 @@ export default function PricingPage() {
       <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
         <div className="grid gap-8 rounded-[18px] bg-[#dfff00] p-8 lg:grid-cols-[0.44fr_0.36fr_0.2fr] lg:items-center">
           <div>
-            <h2 className="text-[30px] font-black tracking-[-0.04em]">If price is the only thing stopping you, talk to us.</h2>
-            <p className="mt-5 max-w-[420px] text-[14px] font-semibold leading-[1.5]">Our preference is simple: good websites should go live. We will always be direct about what is required to make that happen properly.</p>
+            <h2 className="text-[30px] font-black tracking-[-0.04em]">£3,000 is the price. Not a starting point.</h2>
+            <p className="mt-5 max-w-[420px] text-[14px] font-semibold leading-[1.5]">No tiers, no extras menu, no invoice creep. The same complete website, at the same fixed price, for every business.</p>
           </div>
           <div className="border-black/20 lg:border-l lg:pl-8">
             <p className="text-[13px] font-black">What you can expect</p>
@@ -127,8 +154,8 @@ export default function PricingPage() {
         <h2 className="text-[34px] font-black tracking-[-0.035em]">Frequently asked</h2>
         <div className="mt-6 grid gap-5 md:grid-cols-3">
           {[
-            ["Why is there no price menu?", "We build the website first, then give you one clear fixed price for the site we have built and the final work required to launch it."],
-            ["What happens after I Nod?", "We agree the fixed price. Once you acquire the website, we complete content setup, quality assurance and launch."],
+            ["Is £3,000 the whole price?", "Yes. One complete website, one fixed price. It covers strategy, design, copy, development, the content management system, analytics and launch."],
+            ["What happens after I approve?", "You have seen the homepage and the price is already known. £3,000 completes the site — content setup, quality assurance and launch."],
             ["Can I keep the site up to date?", "Yes. You can update everyday content such as text, images, services, prices and contact details. We look after the design and build standard so the site stays consistent."],
           ].map(([question, answer]) => (
             <article key={question} className="border-l border-black/10 pl-6">

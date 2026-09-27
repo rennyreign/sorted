@@ -1,9 +1,10 @@
 import type { Metadata } from "next"
-import { Activity, ArrowRight, Calendar, Check, Edit3, Eye, Rocket, Sparkles } from "lucide-react"
+import { ArrowRight, Check, Edit3, Eye, Rocket } from "lucide-react"
 import { MockupButton } from "../sites/_components/SitesMockupModal"
 import { SitesFooter, SitesHeader, SitesPage, Underline } from "../sites/_components/SitesPrimitives"
 import { ExamplesGallery } from "./ExamplesGallery"
 import { ExamplesCaseStudyRail } from "./ExamplesCaseStudyRail"
+import { BeforeAfterVideoPlaceholder } from "./BeforeAfterVideoPlaceholder"
 import { fetchExamples } from "./data"
 
 // Note: with NEXT_BUILD_STATIC=true the page is fully static. This revalidate
@@ -22,18 +23,12 @@ export const metadata: Metadata = {
 const processSteps = [
   [Edit3, "We build a mockup", "A free, custom design made for your business."],
   [Eye, "You review it", "See exactly what you are getting."],
-  [Check, "You approve", "Love it? You agree a fixed price."],
+  [Check, "You approve", "Love it? £3,000 completes it."],
   [Rocket, "We build & launch", "We build your website and get you live."],
 ] as const
 
 export default async function ExamplesPage() {
   const { mockups, metrics: exampleMetrics } = await fetchExamples()
-
-  const metrics = [
-    [Activity, String(exampleMetrics.total), "Mockups created this month"],
-    [Sparkles, `+${exampleMetrics.today}`, "New mockups today"],
-    [Calendar, exampleMetrics.lastCreatedAgo, "Last mockup generated"],
-  ] as const
 
   return (
     <SitesPage>
@@ -66,28 +61,7 @@ export default async function ExamplesPage() {
           </div>
         </div>
 
-        <aside className="rounded-[16px] border border-black/10 bg-white p-6 shadow-[0_24px_70px_rgba(0,0,0,0.08)] sm:p-8 lg:translate-y-4">
-          <div className="grid gap-5 sm:grid-cols-3 sm:gap-0">
-            {metrics.map(([Icon, value, label], index) => (
-              <div key={label} className={`grid grid-cols-[24px_1fr] gap-3 sm:block ${index > 0 ? "sm:border-l sm:border-black/10 sm:pl-8" : ""}`}>
-                <Icon className="mt-1 size-5 sm:mb-3 sm:mt-0" strokeWidth={2.4} />
-                <div>
-                  <p className="text-[27px] font-black leading-none tracking-[-0.04em]">{value}</p>
-                  <p className="mt-2 max-w-[120px] text-[13px] font-semibold leading-[1.35] text-black/62">{label}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8 border-t border-black/10 pt-6">
-            <p className="grid grid-cols-[10px_1fr] gap-3 text-[14px] font-black tracking-[-0.02em]">
-              <span className="mt-1.5 size-2 rounded-full bg-[#dfff00]" />
-              <span>
-                Our factory never stops.
-                <span className="mt-1 block font-semibold text-black/64">New designs added every day.</span>
-              </span>
-            </p>
-          </div>
-        </aside>
+        <BeforeAfterVideoPlaceholder className="lg:translate-y-4" />
       </section>
 
       <section id="live-websites" className="mx-auto max-w-[1220px] scroll-mt-28 border-t border-black/10 px-5 py-7 sm:px-8">

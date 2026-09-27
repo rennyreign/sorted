@@ -7,7 +7,7 @@ import { exampleCaseStudies } from "./examples/_caseStudies"
 
 export const metadata: Metadata = {
   title: "Sorted | Your new website, Sorted",
-  description: "Sorted builds free website mockups first, then prices the build once you have seen what you are getting.",
+  description: "We create your new homepage before you commit — live, responsive and with content. One complete website, one fixed price: £3,000.",
   alternates: {
     canonical: "/",
   },
@@ -131,6 +131,33 @@ export default function SortedSitesHome() {
             </div>
           </article>
         ))}
+      </section>
+
+      <section className="mx-auto max-w-[1220px] px-5 py-12 sm:px-8">
+        <div className="grid gap-10 rounded-[20px] bg-[#f7f1e8] p-8 sm:p-10 lg:grid-cols-[0.5fr_0.5fr] lg:items-center">
+          <div>
+            <p className="text-[12px] font-black text-black/45">Pricing</p>
+            <h2 className="mt-3 text-[clamp(2.3rem,4.4vw,3.9rem)] font-black leading-[0.98] tracking-[-0.045em]">
+              One complete website.<br />One fixed price.
+            </h2>
+            <div className="mt-5 flex items-end gap-5">
+              <p className="text-[clamp(3.4rem,6vw,5.6rem)] font-black leading-[0.9] tracking-[-0.055em]">£3,000</p>
+              <Underline className="mb-4 w-24" />
+            </div>
+          </div>
+          <div className="border-black/10 lg:border-l lg:pl-10">
+            <p className="text-[16px] font-semibold leading-[1.55] tracking-[-0.02em]">
+              We create your new homepage before you commit — live, responsive and with content.
+            </p>
+            <p className="mt-5 text-[14px] font-semibold leading-[1.6] text-black/68">
+              If you want us to complete it, £3,000 covers the strategy, design, copy, development, content management system, analytics and launch — without the usual agency ambiguity.
+            </p>
+            <div className="mt-7 flex flex-wrap items-center gap-5">
+              <MockupButton variant="primary" />
+              <a href="/pricing" className="text-[12px] font-black underline underline-offset-4 transition-colors hover:text-black/60">What £3,000 covers</a>
+            </div>
+          </div>
+        </div>
       </section>
 
       <HomeBottom />
