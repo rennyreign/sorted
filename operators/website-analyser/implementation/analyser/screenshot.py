@@ -19,12 +19,17 @@ logger = logging.getLogger("website-analyser.screenshot")
 SCREENSHOTONE_BASE = "https://api.screenshotone.com/take"
 VIEWPORT_WIDTH = 1280
 VIEWPORT_HEIGHT = 900
+MOBILE_VIEWPORT_WIDTH = 390
+MOBILE_VIEWPORT_HEIGHT = 844
 CAPTURE_TIMEOUT = 30
 
 
-def capture(url: str) -> bytes:
+def capture(url: str, mobile: bool = False) -> bytes:
     """
-    Capture a full-page screenshot of the given URL.
+    Capture an above-the-fold screenshot of the given URL.
+
+    mobile=True captures at 390px width so the vision model scores the
+    actual mobile experience instead of guessing from a desktop layout.
 
     Returns PNG bytes. Raises RuntimeError if all capture methods fail.
     """
@@ -32,23 +37,23 @@ def capture(url: str) -> bytes:
 
     if api_key:
         try:
-            return _capture_screenshotone(url, api_key)
+            return _capture_screenshotone(url, api_key, mobile=mobile)
         except Exception as exc:
             logger.warning("Screenshotone failed (%s) — trying playwright fallback.", exc)
 
     try:
-        return _capture_playwright(url)
+        return _capture_playwright(url, mobile=mobile)
     except Exception as exc:
         raise RuntimeError(f"All screenshot methods failed for {url}: {exc}") from exc
 
 
-def _capture_screenshotone(url: str, api_key: str) -> bytes:
+def _capture_screenshotone(url: str, api_key: str, mobile: bool = False) -> bytes:
     """Capture via Screenshotone REST API."""
     params = {
         "access_key": api_key,
         "url": url,
-        "viewport_width": VIEWPORT_WIDTH,
-        "viewport_height": VIEWPORT_HEIGHT,
+        "viewport_width": MOBILE_VIEWPORT_WIDTH if mobile else VIEWPORT_WIDTH,
+        "viewport_height": MOBILE_VIEWPORT_HEIGHT if mobile else VIEWPORT_HEIGHT,
         "full_page": "false",               # above-the-fold — what a visitor first sees
         "format": "png",
         "image_quality": 80,
@@ -94,7 +99,7 @@ def _capture_screenshotone(url: str, api_key: str) -> bytes:
     return response.content
 
 
-def _capture_playwright(url: str) -> bytes:
+def _capture_playwright(url: str, mobile: bool = False) -> bytes:
     """Fallback: headless Chromium via playwright."""
     try:
         from playwright.sync_api import sync_playwright
@@ -104,13 +109,20 @@ def _capture_playwright(url: str) -> bytes:
         )
 
     logger.info("Playwright: capturing %s (slower than Screenshotone)", url)
+    viewport = {
+        "width": MOBILE_VIEWPORT_WIDTH if mobile else VIEWPORT_WIDTH,
+        "height": MOBILE_VIEWPORT_HEIGHT if mobile else VIEWPORT_HEIGHT,
+    }
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         try:
-            page = browser.new_page(viewport={"width": VIEWPORT_WIDTH, "height": VIEWPORT_HEIGHT})
-            page.goto(url, wait_until="networkidle", timeout=CAPTURE_TIMEOUT * 1000)
-            time.sleep(2)
+            page = browser.new_page(viewport=viewport, is_mobile=mobile, ignore_https_errors=True)
+            # domcontentloaded is far more tolerant than networkidle for slow
+            # legacy sites — a 30s networkidle timeout fails on any page with
+            # long-polling, chat widgets, or slow third-party assets.
+            page.goto(url, wait_until="domcontentloaded", timeout=CAPTURE_TIMEOUT * 1000)
+            time.sleep(3)
             png_bytes = page.screenshot(type="png", full_page=False)
             logger.debug("Playwright: captured %d bytes for %s", len(png_bytes), url)
             return png_bytes

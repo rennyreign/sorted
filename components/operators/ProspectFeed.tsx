@@ -15,6 +15,7 @@ type FilterState = {
   crmStatus: "all" | CrmStatus
   enriched: "all" | "owner" | "owner_email" | "not_enriched"
   source: "all" | "google_maps" | "companies_house"
+  viable: "all" | "qualified" | "not_qualified" | "unchecked"
 }
 
 export default function ProspectFeed() {
@@ -32,6 +33,7 @@ export default function ProspectFeed() {
     crmStatus: "all",
     enriched: "all",
     source: "all",
+    viable: "all",
   })
 
   useEffect(() => {
@@ -95,6 +97,9 @@ export default function ProspectFeed() {
       if (filters.enriched === "not_enriched" && p.owner_name) return false
       if (filters.source === "google_maps" && (p.source !== "google_maps" || p.source_company_number != null)) return false
       if (filters.source === "companies_house" && !(p.source === "companies_house" || p.source_company_number != null)) return false
+      if (filters.viable === "qualified" && p.qualified_lead !== true) return false
+      if (filters.viable === "not_qualified" && p.qualified_lead !== false) return false
+      if (filters.viable === "unchecked" && p.qualified_lead != null) return false
       return true
     })
   }, [prospects, filters])
@@ -186,9 +191,15 @@ export default function ProspectFeed() {
               <option value="google_maps">Google Maps</option>
               <option value="companies_house">Companies House</option>
             </select>
-            {(filters.category !== "All" || filters.city !== "All" || filters.qualification !== "all" || filters.analysed !== "all" || filters.mockup !== "all" || filters.reviewPage !== "all" || filters.crmStatus !== "all" || filters.enriched !== "all" || filters.source !== "all") && (
+            <select value={filters.viable} onChange={(e) => update("viable", e.target.value as FilterState["viable"])} className={selectClass}>
+              <option value="all">Any viability</option>
+              <option value="qualified">Qualified leads</option>
+              <option value="not_qualified">Not qualified</option>
+              <option value="unchecked">Not yet checked</option>
+            </select>
+            {(filters.category !== "All" || filters.city !== "All" || filters.qualification !== "all" || filters.analysed !== "all" || filters.mockup !== "all" || filters.reviewPage !== "all" || filters.crmStatus !== "all" || filters.enriched !== "all" || filters.source !== "all" || filters.viable !== "all") && (
               <button
-                onClick={() => setFilters({ search: filters.search, category: "All", city: "All", qualification: "all", analysed: "all", mockup: "all", reviewPage: "all", crmStatus: "all", enriched: "all", source: "all" })}
+                onClick={() => setFilters({ search: filters.search, category: "All", city: "All", qualification: "all", analysed: "all", mockup: "all", reviewPage: "all", crmStatus: "all", enriched: "all", source: "all", viable: "all" })}
                 className="text-xs text-[#A3A3A3] hover:text-[#525252] transition-colors"
               >
                 Clear filters
@@ -277,8 +288,11 @@ function ProspectRow({
       {/* Name */}
       <td className="px-3 py-3 max-w-[200px]">
         <div className="flex items-center gap-2">
+          {p.qualified_lead === true && (
+            <div className="w-1.5 h-1.5 rounded-full bg-[#0A0A0A] ring-2 ring-[#0A0A0A]/20 shrink-0" title="Qualified lead — poor site, viable business, fast payback" />
+          )}
           {p.qualified && (
-            <div className="w-1.5 h-1.5 rounded-full bg-[#0A0A0A] shrink-0" />
+            <div className="w-1.5 h-1.5 rounded-full bg-[#0A0A0A] shrink-0" title="Has website + email" />
           )}
           {p.owner_name && (
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" title="Companies House enriched" />
@@ -303,7 +317,7 @@ function ProspectRow({
 
       {/* Score */}
       <td className="px-3 py-3 whitespace-nowrap">
-        <ScoreBadge score={p.site_score} />
+        <ScoreBadge score={p.prospect_score ?? p.site_score} />
       </td>
 
       {/* Website */}
@@ -429,10 +443,10 @@ function ScoreBadge({ score }: { score: number | null }) {
     )
   }
 
-  // Low score = high opportunity. Green for low, amber for mid, grey for high.
+  // prospect_score: HIGH = strong prospect. Green high, amber mid, grey low.
   const color =
-    score <= 3 ? "bg-[#D1FAE5] text-[#065F46] border-[#A7F3D0]" :
-    score <= 6 ? "bg-[#FEF3C7] text-[#92400E] border-[#FDE68A]" :
+    score >= 7 ? "bg-[#D1FAE5] text-[#065F46] border-[#A7F3D0]" :
+    score >= 5 ? "bg-[#FEF3C7] text-[#92400E] border-[#FDE68A]" :
     "bg-black/[0.03] text-[#737373] border-black/[0.08]"
 
   return (
@@ -448,7 +462,7 @@ function AnalysisPanel({ prospect: p, onClose, onCrmChange }: {
   onClose: () => void
   onCrmChange: (id: number, status: string) => void
 }) {
-  const hasAnalysis = p.site_score != null
+  const hasAnalysis = p.analysed_at != null || p.site_score != null
   const [crmStatus, setCrmStatus] = useState<CrmStatus>(p.crm_status ?? "new")
   const [crmSaving, setCrmSaving] = useState(false)
 
@@ -554,10 +568,20 @@ function AnalysisPanel({ prospect: p, onClose, onCrmChange }: {
       <div className="flex-1 px-6 py-6 space-y-6">
 
         {/* Scores */}
-        {hasAnalysis && p.site_score != null && p.site_score !== -1 && (
+        {hasAnalysis && (
           <div>
-            {/* Recommendation badge */}
-            {p.recommendation && (
+            {/* Qualification badge */}
+            {p.qualified_lead != null ? (
+              <div className="mb-4">
+                <span className={`inline-block border rounded-lg px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] font-semibold ${
+                  p.qualified_lead
+                    ? "bg-[#D1FAE5] text-[#065F46] border-[#A7F3D0]"
+                    : "bg-black/[0.03] text-[#737373] border-black/[0.08]"
+                }`}>
+                  {p.qualified_lead ? "Qualified lead" : "Not qualified"}
+                </span>
+              </div>
+            ) : p.recommendation && (
               <div className="mb-4">
                 <span className={`inline-block border rounded-lg px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] font-semibold ${
                   p.recommendation === "pursue"
@@ -572,41 +596,100 @@ function AnalysisPanel({ prospect: p, onClose, onCrmChange }: {
             )}
 
             {/* Prospect score */}
-            <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-2">Prospect Score</p>
-            <div className="flex items-end gap-2 mb-4">
-              <span className={`font-sans font-extrabold text-5xl tracking-tight ${
-                p.site_score >= 8 ? "text-[#059669]" :
-                p.site_score >= 6 ? "text-[#D97706]" :
-                "text-[#737373]"
-              }`}>
-                {p.site_score}
-              </span>
-              <span className="text-[#A3A3A3] text-lg mb-1">/10</span>
-            </div>
+            {(p.prospect_score ?? p.site_score) != null && (p.prospect_score ?? p.site_score) !== -1 && (
+              <>
+                <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-2">Prospect Score</p>
+                <div className="flex items-end gap-2 mb-4">
+                  <span className={`font-sans font-extrabold text-5xl tracking-tight ${
+                    (p.prospect_score ?? p.site_score)! >= 7 ? "text-[#059669]" :
+                    (p.prospect_score ?? p.site_score)! >= 5 ? "text-[#D97706]" :
+                    "text-[#737373]"
+                  }`}>
+                    {p.prospect_score ?? p.site_score}
+                  </span>
+                  <span className="text-[#A3A3A3] text-lg mb-1">/10</span>
+                </div>
+              </>
+            )}
 
             {/* Sub-scores */}
             <div className="grid grid-cols-2 gap-2">
               <div className="bg-white border border-black/[0.08] rounded-lg px-3 py-2.5">
-                <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-1">Business Quality</p>
-                <p className="font-sans font-bold text-[#0A0A0A] text-xl">{p.business_quality_score}<span className="text-[#C4C4C4] text-sm font-normal">/10</span></p>
+                <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-1">Site Quality</p>
+                <p className="font-sans font-bold text-[#0A0A0A] text-xl">{p.site_score ?? "—"}<span className="text-[#C4C4C4] text-sm font-normal">/10</span></p>
+                <p className="font-mono text-[9px] text-[#C4C4C4] mt-0.5">low = weak site</p>
               </div>
               <div className="bg-white border border-black/[0.08] rounded-lg px-3 py-2.5">
                 <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-1">Opportunity</p>
-                <p className="font-sans font-bold text-[#0A0A0A] text-xl">{p.opportunity_score}<span className="text-[#C4C4C4] text-sm font-normal">/10</span></p>
+                <p className="font-sans font-bold text-[#0A0A0A] text-xl">{p.opportunity_score ?? "—"}<span className="text-[#C4C4C4] text-sm font-normal">/10</span></p>
+                <p className="font-mono text-[9px] text-[#C4C4C4] mt-0.5">high = big gap</p>
+              </div>
+              <div className="bg-white border border-black/[0.08] rounded-lg px-3 py-2.5">
+                <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-1">Business</p>
+                <p className="font-sans font-bold text-[#0A0A0A] text-xl">{p.business_quality_score ?? "—"}<span className="text-[#C4C4C4] text-sm font-normal">/10</span></p>
+                <p className="font-mono text-[9px] text-[#C4C4C4] mt-0.5">high = viable</p>
+              </div>
+              <div className="bg-white border border-black/[0.08] rounded-lg px-3 py-2.5">
+                <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-1">Payback</p>
+                <p className="font-sans font-bold text-[#0A0A0A] text-xl">
+                  {p.payback_jobs != null ? `~${p.payback_jobs}` : "—"}
+                  <span className="text-[#C4C4C4] text-sm font-normal">{p.payback_jobs === 1 ? " job" : " jobs"}</span>
+                </p>
+                {p.service_price_point != null && (
+                  <p className="font-mono text-[9px] text-[#C4C4C4] mt-0.5">~£{Number(p.service_price_point).toLocaleString()}/job</p>
+                )}
               </div>
             </div>
+          </div>
+        )}
 
-            {/* Rev-share potential */}
-            {p.revshare_potential && (
-              <div className="mt-2 flex items-center gap-2">
-                <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#A3A3A3]">Rev-share potential</span>
-                <span className={`font-mono text-[10px] uppercase tracking-[0.1em] font-semibold ${
-                  p.revshare_potential === "high" ? "text-[#059669]" :
-                  p.revshare_potential === "medium" ? "text-[#D97706]" :
-                  "text-[#A3A3A3]"
-                }`}>{p.revshare_potential}</span>
-              </div>
-            )}
+        {/* Viability — tech + Companies House + gate reasons */}
+        {(p.site_platform || p.ch_status || (p.qualification_reasons && p.qualification_reasons.length > 0)) && (
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-2">Viability</p>
+            <div className="bg-white border border-black/[0.08] rounded-lg px-4 py-3 space-y-2">
+              {p.site_platform && (
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#A3A3A3]">Platform</span>
+                  <span className="font-mono text-[11px] text-[#0A0A0A] font-medium">
+                    {p.site_platform}{p.site_built_estimate ? ` · ${p.site_built_estimate}` : ""}
+                  </span>
+                </div>
+              )}
+              {p.ch_status && (
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#A3A3A3]">Companies House</span>
+                  <span className={`font-mono text-[11px] font-medium ${p.ch_status === "active" ? "text-emerald-700" : "text-[#737373]"}`}>
+                    {p.ch_status}{p.ch_match_confidence ? ` (${p.ch_match_confidence})` : ""}
+                  </span>
+                </div>
+              )}
+              {p.ch_accounts_type && (
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#A3A3A3]">Last accounts</span>
+                  <span className="font-mono text-[11px] text-[#525252]">
+                    {p.ch_accounts_type}{p.ch_accounts_last_date ? ` · ${p.ch_accounts_last_date}` : ""}
+                  </span>
+                </div>
+              )}
+              {p.source_company_number && (
+                <a
+                  href={`https://find-and-update.company-information.service.gov.uk/company/${p.source_company_number}/filing-history`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-[11px] text-blue-600 hover:underline font-medium pt-1"
+                >
+                  View filings on Companies House ↗
+                </a>
+              )}
+              {p.qualification_reasons && p.qualification_reasons.length > 0 && (
+                <ul className="pt-2 border-t border-black/[0.06] space-y-1">
+                  {p.qualification_reasons.map((r, i) => (
+                    <li key={i} className="text-[11px] text-[#737373] leading-snug">· {r}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
         )}
 
@@ -614,17 +697,20 @@ function AnalysisPanel({ prospect: p, onClose, onCrmChange }: {
         {p.review_slug && (
           <div className="flex items-center justify-between bg-white border border-black/[0.08] rounded-xl px-4 py-3">
             <div className="min-w-0">
-              <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-0.5">Review page</p>
-              <p className="font-mono text-[11px] text-[#525252] truncate">sortmydigital.site/review/{p.review_slug}</p>
+              <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-0.5">Workspace</p>
+              <p className="font-mono text-[11px] text-[#525252] truncate">sortmydigital.site/workspace/{p.review_slug}</p>
             </div>
-            <a
-              href={`/review?slug=${p.review_slug}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="shrink-0 ml-3 text-[11px] font-medium text-blue-600 hover:underline"
-            >
-              Preview ↗
-            </a>
+            <div className="shrink-0 ml-3 flex items-center gap-3">
+              <CopyCell value={`https://sortmydigital.site/workspace/?slug=${p.review_slug}`} />
+              <a
+                href={`/workspace/?slug=${p.review_slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[11px] font-medium text-blue-600 hover:underline"
+              >
+                Preview ↗
+              </a>
+            </div>
           </div>
         )}
 

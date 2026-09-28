@@ -14,7 +14,7 @@
 
 ## 2. Business Outcome
 
-This operator takes a prospect's website URL, captures a screenshot, sends it to a vision model, and produces a structured site quality score + write-up. Results are written back to the `prospects` table. Renaldo can then review scored prospects in the dashboard and cherry-pick who to contact — with the angle already written.
+This operator takes a prospect's website URL and runs the full viability pipeline: technology profile → desktop + mobile screenshots → vision analysis → Companies House check → qualification gate. It produces a `qualified_lead` verdict with an audit trail, plus all the copy needed for the review page and outreach. Renaldo reviews the **Qualified leads** filter in the dashboard and copies the workspace link — that's the whole job.
 
 ---
 
@@ -53,27 +53,31 @@ Devin → site build
 | Input | Source |
 |---|---|
 | Prospect website URLs | Supabase `prospects` table |
-| `OPENAI_API_KEY` | `.env` |
+| `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` | `.env` (whichever `ANALYSER_MODEL` targets) |
 | `SUPABASE_URL` | `.env` |
 | `SUPABASE_SERVICE_KEY` | `.env` |
-| `SCREENSHOT_API_KEY` | `.env` (Screenshotone) |
+| `SCREENSHOT_API_KEY` | `.env` (Screenshotone — desktop + mobile captures) |
+| `COMPANIES_HOUSE_API_KEY` | `.env` (free — viability check; gate falls back to Maps signals without it) |
 
 ---
 
 ## 6. Scoring Model
 
-Six dimensions, each scored 0–2. Total out of 12, normalised to 1–10.
+Five opportunity dimensions scored 0–2 by the vision model from desktop + mobile screenshots; all arithmetic is computed in `analyser/qualify.py` (the model never calculates scores).
 
-Low score = high opportunity for Sorted. A score of 3/10 is a better lead than 8/10.
+| Dimension | Measures |
+|---|---|
+| `visual_modernity` | Built in the last 2–3 years? |
+| `mobile_experience` | Scored from the actual 390px screenshot |
+| `desire_creation` | Does it create desire, not just inform? |
+| `content_structure` | Does content guide to conversion? |
+| `trust_and_credibility` | Real proof the business is legitimate |
 
-| Dimension | Measures | 0 | 1 | 2 |
-|---|---|---|---|---|
-| `design_quality` | Does it look credible and current? | Pre-2015 / broken layout | Functional but generic | Clean, modern, intentional |
-| `primary_cta` | Can you find what to do in 5 seconds? | No CTA | CTA buried or weak | Obvious, above fold |
-| `mobile_readiness` | Does it work on a phone? | Completely broken | Partially works | Fully responsive |
-| `content_quality` | Is the copy useful and real? | Empty / lorem ipsum | Thin but present | Real, specific, credible |
-| `trust_signals` | Reviews, photos, credentials, awards | None | One or two | Multiple strong |
-| `contact_clarity` | Phone/email/address findable? | Not findable | Present but not prominent | Immediately obvious |
+`opportunity_score = sum(dims)` · `site_score = 10 − opportunity` · `prospect_score = opp×0.6 + biz×0.4` · `payback_jobs = ceil(3000 / service_price_point)`
+
+`qualified_lead` = opportunity ≥ 7 AND (Companies House verified OR Maps rating ≥4 + ≥20 reviews) AND payback ≤ 25 jobs AND not a modern custom build. A dead/parked site counts as maximum opportunity.
+
+Full doctrine: `doctrine/scoring-for-modernization.md`.
 
 ---
 
@@ -81,21 +85,27 @@ Low score = high opportunity for Sorted. A score of 3/10 is a better lead than 8
 
 | Column | Type | Description |
 |---|---|---|
-| `site_score` | integer 1–10 | Overall opportunity score |
-| `site_analysis` | text | 2–3 sentence write-up of the site's current state |
-| `site_weaknesses` | jsonb | Array of specific problem strings |
-| `outreach_angle` | text | One-sentence hook for the cold outreach email |
-| `screenshot_url` | text | URL/path of the captured screenshot |
-| `analysed_at` | timestamptz | When analysis was run |
+| `site_score` | numeric 0–10 | Site quality (low = bad site = good prospect) |
+| `opportunity_score` | int 0–10 | Modernity gap (high = big gap) |
+| `business_quality_score` | int 1–10 | Commercial viability |
+| `prospect_score` | numeric 0–10 | Blended score |
+| `service_price_point` / `payback_jobs` | numeric / int | Typical job value + jobs to pay back £3k |
+| `site_platform` / `site_built_estimate` / `tech_stack` | text / text / jsonb | Technology profile |
+| `ch_status` / `ch_accounts_type` / `ch_accounts_last_date` / `ch_match_confidence` | text/date/text | Companies House verification |
+| `qualified_lead` / `qualification_reasons` | bool / jsonb | Gate verdict + audit trail |
+| `site_analysis` / `site_weaknesses` / `review_summary` / `outreach_angle` | text/jsonb | Copy for review page + outreach |
+| `analysed_at` | timestamptz | When analysis ran |
 
 ---
 
 ## 8. Decision Logic
 
-- Only analyse prospects where `website_exists = true` and `site_score IS NULL`
+- Only analyse prospects where `website_exists = true` and `analysed_at IS NULL`
 - Skip records already analysed (idempotent — safe to re-run)
 - If screenshot capture fails, log and skip — do not write partial results
 - If vision API call fails, log and skip — do not write partial results
+- Companies House check degrades gracefully — missing API key or no confident match falls back to Maps signals (rating ≥4.0, ≥20 reviews)
+- Records without `place_id` (CH-sourced prospects) are matched by row `id`
 
 ---
 
@@ -111,7 +121,7 @@ make dry-run          # Fetch and screenshot, no DB writes
 
 ## 10. Model
 
-**GPT-4o mini** with vision. Chosen for cost efficiency (~$0.003 per analysis). Quality is sufficient for judging local business site problems. Uses the same `OPENAI_API_KEY` as the asset-generator operator.
+**Claude Haiku 4.5** by default (`ANALYSER_MODEL` env var); OpenAI vision models also supported. ~$0.004 per analysis with two screenshots.
 
 ---
 

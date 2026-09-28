@@ -25,7 +25,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+from analyser.companies_house import check as check_companies_house
+from analyser.qualify import qualify
 from analyser.screenshot import capture as capture_screenshot
+from analyser.tech import profile as profile_tech
 from analyser.vision import analyse as analyse_vision
 from storage.supabase import count_analysed, fetch_unanalysed, write_analysis
 
@@ -56,51 +59,160 @@ def analyse_one(
     category: str = "local business",
     location: str = "UK",
     place_id: str | None = None,
+    prospect: dict | None = None,
     dry_run: bool = False,
+    skip_ch: bool = False,
 ) -> dict | None:
     """
-    Analyse a single website URL. Returns the analysis dict or None on failure.
+    Run the full viability pipeline for one website:
+      tech profile → desktop+mobile screenshots → vision analysis
+      → Companies House check → qualification gate → store
+
+    Returns the merged record dict, or None on failure.
     """
     logger.info("Analysing: %s (%s — %s)", url, name, category)
+    prospect = prospect or {}
 
-    # 1. Screenshot
+    # 1. Technology profile — platform, stack, build-age signals
+    tech = profile_tech(url)
+    if not tech.get("fetch_ok"):
+        logger.warning("No HTML fetched for %s — tech profile empty, continuing.", url)
+
+    # 2. Screenshots — desktop first, mobile for evidence-based mobile score
     try:
-        screenshot_bytes = capture_screenshot(url)
+        desktop_bytes = capture_screenshot(url)
     except Exception as exc:
-        logger.error("Screenshot failed for %s: %s", url, exc)
+        logger.error("Desktop screenshot failed for %s: %s", url, exc)
+        # If the site itself is also unreachable, this is a site-down
+        # opportunity — still write a record so it becomes a lead instead
+        # of being retried forever.
+        if tech.get("site_down"):
+            return _site_down_record(url, name, tech, prospect, place_id, dry_run)
         return None
+    try:
+        mobile_bytes = capture_screenshot(url, mobile=True)
+    except Exception as exc:
+        logger.warning("Mobile screenshot failed for %s (%s) — scoring desktop only.", url, exc)
+        mobile_bytes = None
 
-    # 2. Vision analysis
+    # 3. Vision analysis — model proposes dimensions and signals
     try:
         analysis = analyse_vision(
-            screenshot_bytes=screenshot_bytes,
+            screenshot_bytes=desktop_bytes,
+            mobile_bytes=mobile_bytes,
             business_name=name,
             category=category,
             location=location,
             website_url=url,
+            site_platform=tech.get("site_platform"),
+            site_age_signals=tech.get("site_age_signal"),
         )
     except Exception as exc:
         logger.error("Vision analysis failed for %s: %s", url, exc)
         return None
 
-    # 3. Store (unless dry-run or no place_id)
-    if not dry_run and place_id:
-        success = write_analysis(place_id=place_id, analysis=analysis)
-        if success:
-            logger.info(
-                "Stored: %s — prospect score %s/10 (biz: %s, opp: %s) | %s",
-                name,
-                analysis.get("prospect_score"),
-                analysis.get("business_quality_score"),
-                analysis.get("opportunity_score"),
-                analysis.get("recommendation"),
+    # 4. Companies House viability — skipped gracefully if no API key
+    if skip_ch:
+        ch = {"ch_verified": False}
+    else:
+        try:
+            ch = check_companies_house(
+                name=name,
+                postcode=prospect.get("postcode"),
+                company_number=prospect.get("source_company_number"),
             )
-        else:
-            logger.error("Failed to store analysis for %s (%s)", name, place_id)
-    elif dry_run:
-        logger.info("[DRY RUN] Would store analysis for %s — score %s/10", name, analysis.get("site_score"))
+        except EnvironmentError as exc:
+            logger.warning("Companies House check unavailable: %s", exc)
+            ch = {"ch_verified": False}
 
-    return analysis
+    # 5. Qualification gate — all arithmetic happens here
+    scores = qualify(analysis=analysis, tech=tech, ch=ch, prospect=prospect)
+
+    record = {
+        **analysis,
+        **scores,
+        "tech_stack": tech.get("tech_stack"),
+        "site_platform": tech.get("site_platform"),
+        "site_age_signal": tech.get("site_age_signal"),
+        "site_built_estimate": tech.get("site_built_estimate"),
+        "source_company_number": ch.get("source_company_number"),
+        "source_url": ch.get("source_url"),
+        "ch_status": ch.get("ch_status"),
+        "ch_incorporated_date": ch.get("ch_incorporated_date"),
+        "ch_accounts_type": ch.get("ch_accounts_type"),
+        "ch_accounts_last_date": ch.get("ch_accounts_last_date"),
+        "ch_match_confidence": ch.get("ch_match_confidence"),
+    }
+
+    logger.info(
+        "Result: %s — site %s/10, opp %s/10, biz %s/10, prospect %s | "
+        "platform=%s built=%s | payback=%s jobs | qualified=%s",
+        name,
+        record.get("site_score"), record.get("opportunity_score"),
+        record.get("business_quality_score"), record.get("prospect_score"),
+        record.get("site_platform"), record.get("site_built_estimate"),
+        record.get("payback_jobs"), record.get("qualified_lead"),
+    )
+
+    # 6. Store (unless dry-run). Rows without a place_id (Companies
+    # House-sourced prospects) are matched by primary key instead.
+    row_id = prospect.get("id")
+    if not dry_run and (place_id or row_id):
+        success = write_analysis(place_id=place_id, record=record, row_id=row_id)
+        if not success:
+            logger.error("Failed to store analysis for %s (%s)", name, place_id or row_id)
+    elif dry_run:
+        logger.info("[DRY RUN] Would store analysis for %s", name)
+
+    return record
+
+
+def _site_down_record(
+    url: str,
+    name: str,
+    tech: dict,
+    prospect: dict,
+    place_id: str | None,
+    dry_run: bool,
+) -> dict:
+    """Build and store a minimal record for an unreachable site."""
+    analysis = {
+        "opportunity_dimensions": {k: -1 for k in (
+            "visual_modernity", "mobile_experience", "desire_creation",
+            "content_structure", "trust_and_credibility")},
+        "business_quality_score": None,
+        "service_price_point": None,
+        "site_analysis": f"The website at {url} is unreachable — it returns an error or does not respond. The business has no working web presence.",
+        "review_summary": "Your website isn't currently reachable — customers searching for you hit a dead end instead of finding your business. A working site that shows your services and makes it easy to get in touch would turn that lost traffic into enquiries.",
+        "outreach_angle": "We noticed your website isn't loading at all — we can have a working site live quickly.",
+        "site_weaknesses": ["Website unreachable or returning an error"],
+    }
+    try:
+        ch = check_companies_house(
+            name=name,
+            postcode=prospect.get("postcode"),
+            company_number=prospect.get("source_company_number"),
+        )
+    except EnvironmentError:
+        ch = {"ch_verified": False}
+
+    scores = qualify(analysis=analysis, tech=tech, ch=ch, prospect=prospect)
+    record = {**analysis, **scores,
+              "site_platform": tech.get("site_platform"),
+              "source_company_number": ch.get("source_company_number"),
+              "source_url": ch.get("source_url"),
+              "ch_status": ch.get("ch_status"),
+              "ch_incorporated_date": ch.get("ch_incorporated_date"),
+              "ch_accounts_type": ch.get("ch_accounts_type"),
+              "ch_accounts_last_date": ch.get("ch_accounts_last_date"),
+              "ch_match_confidence": ch.get("ch_match_confidence")}
+
+    logger.info("Site-down record: %s — qualified=%s", name, record.get("qualified_lead"))
+
+    row_id = prospect.get("id")
+    if not dry_run and (place_id or row_id):
+        write_analysis(place_id=place_id, record=record, row_id=row_id)
+    return record
 
 
 # ---------------------------------------------------------------------------
@@ -108,7 +220,7 @@ def analyse_one(
 # ---------------------------------------------------------------------------
 
 
-def run(dry_run: bool = False, limit: int = 200) -> None:
+def run(dry_run: bool = False, limit: int = 200, skip_ch: bool = False) -> None:
     run_id = str(uuid.uuid4())[:8]
     started_at = datetime.now(timezone.utc)
 
@@ -135,6 +247,7 @@ def run(dry_run: bool = False, limit: int = 200) -> None:
     total_success = 0
     total_failed = 0
     total_skipped = 0
+    total_qualified = 0
 
     for prospect in prospects:
         url = prospect.get("website")
@@ -154,11 +267,15 @@ def run(dry_run: bool = False, limit: int = 200) -> None:
             category=category,
             location=location,
             place_id=place_id,
+            prospect=prospect,
             dry_run=dry_run,
+            skip_ch=skip_ch,
         )
 
         if result is not None:
             total_success += 1
+            if result.get("qualified_lead"):
+                total_qualified += 1
         else:
             total_failed += 1
 
@@ -171,6 +288,7 @@ def run(dry_run: bool = False, limit: int = 200) -> None:
     logger.info("=" * 60)
     logger.info("RUN COMPLETE — %s", run_id)
     logger.info("  Prospects analysed: %d", total_success)
+    logger.info("  Qualified leads:    %d", total_qualified)
     logger.info("  Failed:             %d", total_failed)
     logger.info("  Skipped:            %d", total_skipped)
     logger.info("  Duration:           %.1fs", duration)
@@ -231,6 +349,11 @@ def main() -> None:
         default=200,
         help="Maximum number of prospects to analyse per run (default: 200)",
     )
+    parser.add_argument(
+        "--no-ch",
+        action="store_true",
+        help="Skip the Companies House viability check",
+    )
     args = parser.parse_args()
 
     try:
@@ -250,7 +373,7 @@ def main() -> None:
                 logger.error("Analysis failed for %s", args.url)
                 sys.exit(1)
         else:
-            run(dry_run=args.dry_run, limit=args.limit)
+            run(dry_run=args.dry_run, limit=args.limit, skip_ch=args.no_ch)
 
     except PermissionError as exc:
         logger.critical("AUTH ERROR: %s", exc)
