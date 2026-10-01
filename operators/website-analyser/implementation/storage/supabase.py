@@ -123,6 +123,12 @@ def write_analysis(place_id: str | None, record: dict[str, Any], row_id: int | N
         "ch_accounts_type":         record.get("ch_accounts_type"),
         "ch_accounts_last_date":    record.get("ch_accounts_last_date"),
         "ch_match_confidence":      record.get("ch_match_confidence"),
+        # Owner / associated people (from CH officers + PSCs)
+        "owner_name":               record.get("owner_name"),
+        "owner_role":               record.get("owner_role"),
+        "owner_source":             record.get("owner_source"),
+        "owner_identified_at":      now if record.get("owner_name") else None,
+        "associated_names":         record.get("associated_names"),
         # Gate
         "qualified_lead":           record.get("qualified_lead"),
         "qualification_reasons":    record.get("qualification_reasons"),

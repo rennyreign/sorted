@@ -142,6 +142,10 @@ def analyse_one(
         "ch_accounts_type": ch.get("ch_accounts_type"),
         "ch_accounts_last_date": ch.get("ch_accounts_last_date"),
         "ch_match_confidence": ch.get("ch_match_confidence"),
+        "owner_name": ch.get("owner_name"),
+        "owner_role": ch.get("owner_role"),
+        "owner_source": ch.get("owner_source"),
+        "associated_names": ch.get("associated_names"),
     }
 
     logger.info(
@@ -205,7 +209,11 @@ def _site_down_record(
               "ch_incorporated_date": ch.get("ch_incorporated_date"),
               "ch_accounts_type": ch.get("ch_accounts_type"),
               "ch_accounts_last_date": ch.get("ch_accounts_last_date"),
-              "ch_match_confidence": ch.get("ch_match_confidence")}
+              "ch_match_confidence": ch.get("ch_match_confidence"),
+              "owner_name": ch.get("owner_name"),
+              "owner_role": ch.get("owner_role"),
+              "owner_source": ch.get("owner_source"),
+              "associated_names": ch.get("associated_names")}
 
     logger.info("Site-down record: %s — qualified=%s", name, record.get("qualified_lead"))
 

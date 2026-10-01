@@ -125,6 +125,62 @@ def _find_company(name: str, postcode: str | None) -> dict | None:
     return best
 
 
+_honorifics = re.compile(r"^(mr|mrs|ms|miss|dr|sir|dame|lord|lady)\.?\s+", re.IGNORECASE)
+
+
+def _person_name(raw: str) -> str:
+    """
+    CH officer names arrive as 'SURNAME, Forename Middle' (usually caps),
+    sometimes with an honorific. Normalise to 'Forename Surname' title
+    case for display + enrichment. Corporate officers (no comma, all
+    caps) are title-cased as-is.
+    """
+    raw = _honorifics.sub("", raw.strip())
+    if "," in raw:
+        surname, _, forename = raw.partition(",")
+        parts = forename.split() + [surname]
+        return " ".join(parts).title()
+    return raw.title() if raw.isupper() else raw
+
+
+def _fetch_people(company_number: str) -> list[dict]:
+    """
+    Fetch active officers + persons with significant control.
+
+    Returns a list of {"name", "role"} dicts — resigned officers and
+    ceased PSCs are excluded. Directors come first, then other officer
+    roles, then PSCs not already listed.
+    """
+    people: list[dict] = []
+
+    officers = _get(
+        f"/company/{company_number}/officers",
+        params={"items_per_page": 35},
+    ) or {}
+    for o in officers.get("items") or []:
+        if o.get("resigned_on"):
+            continue
+        name = _person_name(o.get("name") or "")
+        if name:
+            people.append({
+                "name": name,
+                "role": (o.get("officer_role") or "officer").replace("-", " "),
+            })
+
+    pscs = _get(
+        f"/company/{company_number}/persons-with-significant-control",
+        params={"items_per_page": 10},
+    ) or {}
+    for p in pscs.get("items") or []:
+        if p.get("ceased_on"):
+            continue
+        name = _person_name(p.get("name") or "")
+        if name and not any(name.lower() == x["name"].lower() for x in people):
+            people.append({"name": name, "role": "person with significant control"})
+
+    return people
+
+
 def _last_accounts(filing_history: dict | None) -> tuple[str | None, str | None]:
     """Extract (date, accounts_type) of the most recent accounts filing."""
     items = (filing_history or {}).get("items") or []
@@ -172,6 +228,10 @@ def check(
         "source_company_number": None,
         "source_url": None,
         "ch_verified": False,
+        "owner_name": None,
+        "owner_role": None,
+        "owner_source": None,
+        "associated_names": None,
     }
 
     if company_number:
@@ -201,6 +261,21 @@ def check(
     last_date, acc_type = _last_accounts(filings)
     result["ch_accounts_last_date"] = last_date
     result["ch_accounts_type"] = acc_type
+
+    # Officers + PSCs — the people behind the business. Best-guess owner is
+    # the first active director; everyone else lands in associated_names.
+    people = _fetch_people(company_number)
+    owner = next(
+        (p for p in people if "director" in p["role"] or "member" in p["role"]),
+        people[0] if people else None,
+    )
+    if owner:
+        result["owner_name"] = owner["name"]
+        result["owner_role"] = owner["role"]
+        result["owner_source"] = "companies_house"
+    associated = [p for p in people if p is not owner]
+    if associated:
+        result["associated_names"] = associated
 
     # Verified = confident name match on an active company that has traded
     # long enough to have filed something (or is young but active).
