@@ -21,10 +21,10 @@ export interface PriceResult {
 
 const pricing: Record<JobType, { price: number; deliveryDays: number; includes: string[]; label: string }> = {
   "website": {
-    price: 149,
+    price: 3000,
     deliveryDays: 2,
-    label: "business website",
-    includes: ["Up to 5 pages", "Mobile responsive", "Contact form", "Hosted and live"],
+    label: "complete business website",
+    includes: ["Strategy", "Design", "Copy", "Development", "Content management system", "Analytics", "Launch"],
   },
   "landing-page": {
     price: 99,

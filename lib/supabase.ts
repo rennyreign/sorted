@@ -68,17 +68,36 @@ export type Prospect = {
   first_seen_at: string
   updated_at: string
   // Website Analyser columns
-  site_score: number | null           // combined prospect score (0–10)
+  site_score: number | null           // site QUALITY score 0–10 (low = bad site = good prospect)
+  prospect_score: number | null       // blended opportunity score 0–10 (high = good prospect)
   business_quality_score: number | null
   opportunity_score: number | null
   site_analysis: string | null
   site_weaknesses: string[] | null
   outreach_angle: string | null
-  recommendation: string | null       // pursue | consider | deprioritise
-  revshare_potential: string | null   // high | medium | low
+  recommendation: string | null       // pursue | consider | deprioritise (legacy)
+  revshare_potential: string | null   // high | medium | low (legacy)
   modernity_gap: string | null
   screenshot_url: string | null
+  mobile_screenshot_url: string | null
   analysed_at: string | null
+  // Technology profile
+  tech_stack: Record<string, unknown> | null
+  site_platform: string | null        // wix | wordpress | squarespace | ...
+  site_age_signal: Record<string, unknown> | null
+  site_built_estimate: string | null  // e.g. "pre-2016", "2019 or earlier"
+  // Price point / payback
+  service_price_point: number | null  // GBP, typical single job value
+  payback_jobs: number | null         // jobs needed to recover £3,000
+  // Companies House viability
+  ch_status: string | null
+  ch_incorporated_date: string | null
+  ch_accounts_type: string | null     // micro | small | abridged | full | dormant
+  ch_accounts_last_date: string | null
+  ch_match_confidence: string | null  // high | medium | low
+  // Qualification gate
+  qualified_lead: boolean | null
+  qualification_reasons: string[] | null
   // CRM columns
   crm_status: CrmStatus
   review_slug: string | null

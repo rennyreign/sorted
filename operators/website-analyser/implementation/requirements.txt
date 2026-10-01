@@ -1,4 +1,10 @@
 requests>=2.31.0
 python-dotenv>=1.0.0
+# Technology fingerprinting — free open-source Wappalyzer fingerprint DB.
+# Optional: the custom signature layer in analyser/tech.py runs without it.
+python-Wappalyzer>=0.3.0
+beautifulsoup4>=4.12.0
+# pkg_resources was removed in setuptools 81 — python-Wappalyzer requires it
+setuptools<81
 # playwright is optional — only needed if SCREENSHOT_API_KEY is not set
 # Install with: pip install playwright && playwright install chromium

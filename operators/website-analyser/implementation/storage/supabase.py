@@ -51,9 +51,9 @@ def fetch_unanalysed(limit: int = 200) -> list[dict]:
     url = f"{base_url}/rest/v1/{TABLE}"
 
     params = {
-        "select": "place_id,name,category,city,website,search_location",
+        "select": "id,place_id,name,category,city,website,postcode,rating,review_count,search_location,source_company_number",
         "website_exists": "eq.true",
-        "site_score": "is.null",
+        "analysed_at": "is.null",
         "order": "first_seen_at.desc",
         "limit": str(limit),
     }
@@ -78,9 +78,14 @@ def fetch_unanalysed(limit: int = 200) -> list[dict]:
     return data
 
 
-def write_analysis(place_id: str, analysis: dict[str, Any]) -> bool:
+def write_analysis(place_id: str | None, record: dict[str, Any], row_id: int | None = None) -> bool:
     """
-    Write analysis results back to the prospect row identified by place_id.
+    Write the full analysis record back to the prospect row. Identified by
+    place_id where present; falls back to the row's primary key `id`
+    (Companies House-sourced prospects have no place_id).
+
+    `record` is the merged output of vision + tech profile + Companies
+    House check + the qualification gate (built in main.py).
 
     Returns True on success, False on error.
     """
@@ -91,24 +96,60 @@ def write_analysis(place_id: str, analysis: dict[str, Any]) -> bool:
     now = datetime.now(timezone.utc).isoformat()
 
     update_data = {
-        "site_score":               analysis.get("prospect_score"),
-        "business_quality_score":   analysis.get("business_quality_score"),
-        "opportunity_score":        analysis.get("opportunity_score"),
-        "site_analysis":            analysis.get("site_analysis"),
-        "review_summary":           analysis.get("review_summary"),
-        "site_weaknesses":          analysis.get("site_weaknesses", []),
-        "outreach_angle":           analysis.get("outreach_angle"),
-        "recommendation":           analysis.get("recommendation"),
-        "revshare_potential":       analysis.get("revshare_potential"),
-        "modernity_gap":            analysis.get("modernity_gap"),
-        "screenshot_url":           analysis.get("screenshot_url"),
+        # Scores — site_score is site QUALITY (low = bad site = good prospect)
+        "site_score":               record.get("site_score"),
+        "business_quality_score":   record.get("business_quality_score"),
+        "opportunity_score":        record.get("opportunity_score"),
+        "prospect_score":           record.get("prospect_score"),
+        # Copy
+        "site_analysis":            record.get("site_analysis"),
+        "review_summary":           record.get("review_summary"),
+        "site_weaknesses":          record.get("site_weaknesses", []),
+        "outreach_angle":           record.get("outreach_angle"),
+        "modernity_gap":            record.get("modernity_gap"),
+        # Tech profile
+        "tech_stack":               record.get("tech_stack"),
+        "site_platform":            record.get("site_platform"),
+        "site_age_signal":          record.get("site_age_signal"),
+        "site_built_estimate":      record.get("site_built_estimate"),
+        # Price point / payback
+        "service_price_point":      record.get("service_price_point"),
+        "payback_jobs":             record.get("payback_jobs"),
+        # Companies House
+        "source_company_number":    record.get("source_company_number"),
+        "source_url":               record.get("source_url"),
+        "ch_status":                record.get("ch_status"),
+        "ch_incorporated_date":     record.get("ch_incorporated_date"),
+        "ch_accounts_type":         record.get("ch_accounts_type"),
+        "ch_accounts_last_date":    record.get("ch_accounts_last_date"),
+        "ch_match_confidence":      record.get("ch_match_confidence"),
+        # Owner / associated people (from CH officers + PSCs)
+        "owner_name":               record.get("owner_name"),
+        "owner_role":               record.get("owner_role"),
+        "owner_source":             record.get("owner_source"),
+        "owner_identified_at":      now if record.get("owner_name") else None,
+        "associated_names":         record.get("associated_names"),
+        # Gate
+        "qualified_lead":           record.get("qualified_lead"),
+        "qualification_reasons":    record.get("qualification_reasons"),
         "analysed_at":              now,
     }
 
-    # Remove None values — don't overwrite with null
-    update_data = {k: v for k, v in update_data.items() if v is not None}
+    # Remove None values — don't overwrite with null.
+    # Exception: qualified_lead False must still be written.
+    update_data = {
+        k: v for k, v in update_data.items()
+        if v is not None or k == "qualified_lead"
+    }
 
-    params = {"place_id": f"eq.{place_id}"}
+    if place_id:
+        params = {"place_id": f"eq.{place_id}"}
+    elif row_id is not None:
+        params = {"id": f"eq.{row_id}"}
+    else:
+        logger.error("write_analysis called with neither place_id nor row_id.")
+        return False
+    row_ref = place_id or f"id:{row_id}"
 
     try:
         response = requests.patch(
@@ -119,7 +160,7 @@ def write_analysis(place_id: str, analysis: dict[str, Any]) -> bool:
             timeout=15,
         )
     except requests.exceptions.RequestException as exc:
-        logger.error("Supabase write failed for %s: %s", place_id, exc)
+        logger.error("Supabase write failed for %s: %s", row_ref, exc)
         return False
 
     if response.status_code == 401:
@@ -130,7 +171,7 @@ def write_analysis(place_id: str, analysis: dict[str, Any]) -> bool:
     if not response.ok:
         logger.error(
             "Supabase write error for %s — HTTP %d: %s",
-            place_id, response.status_code, response.text[:300],
+            row_ref, response.status_code, response.text[:300],
         )
         return False
 

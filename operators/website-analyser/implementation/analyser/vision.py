@@ -1,10 +1,11 @@
 """
-Website Analyser — GPT-4o mini vision call.
+Website Analyser — vision call.
 
-Sends a base64-encoded screenshot to the OpenAI vision API and returns
-the parsed analysis result as a dict.
+Sends desktop (+ optional mobile) screenshots to a vision model and returns
+the parsed analysis dict. The model proposes dimension scores and business
+signals only — all arithmetic lives in analyser/qualify.py.
 
-Model: gpt-4o-mini — vision-capable, ~$0.003 per analysis.
+Model: ANALYSER_MODEL env var. Supports Anthropic and OpenAI vision models.
 """
 
 import base64
@@ -40,21 +41,27 @@ def analyse(
     category: str,
     location: str,
     website_url: str,
+    mobile_bytes: bytes | None = None,
+    site_platform: str | None = None,
+    site_age_signals: dict | None = None,
 ) -> dict:
     """
-    Send screenshot to GPT-4o mini vision and return parsed analysis dict.
+    Send screenshot(s) to the vision model and return parsed analysis dict.
 
     Raises RuntimeError if the API call fails after one retry.
     Raises ValueError if the response JSON cannot be parsed.
     """
     model = MODEL
-    b64_image = base64.b64encode(screenshot_bytes).decode("utf-8")
+    b64_desktop = base64.b64encode(screenshot_bytes).decode("utf-8")
+    b64_mobile = base64.b64encode(mobile_bytes).decode("utf-8") if mobile_bytes else None
 
     user_text = USER_PROMPT.format(
         business_name=business_name,
         category=category,
         location=location or "UK",
         website_url=website_url,
+        site_platform=site_platform or "unknown",
+        site_age_signals=json.dumps(site_age_signals or {}),
     )
 
     if model in ANTHROPIC_MODELS:
@@ -62,30 +69,25 @@ def analyse(
         if not anthropic_key:
             raise EnvironmentError("ANTHROPIC_API_KEY is not set — check your .env file.")
         logger.info("Using Anthropic model: %s", model)
-        result = _call_anthropic(model, b64_image, user_text, anthropic_key)
+        result = _call_anthropic(model, b64_desktop, b64_mobile, user_text, anthropic_key)
     else:
         openai_key = os.getenv("OPENAI_API_KEY")
         if not openai_key:
             raise EnvironmentError("OPENAI_API_KEY is not set — check your .env file.")
         logger.info("Using OpenAI model: %s", model)
+        content: list[dict] = [{"type": "text", "text": user_text}]
+        for b64 in (b64_desktop, b64_mobile):
+            if b64:
+                content.append({
+                    "type": "image_url",
+                    "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "low"},
+                })
         payload = {
             "model": model,
             "max_tokens": MAX_TOKENS,
             "messages": [
                 {"role": "system", "content": SYSTEM_PROMPT},
-                {
-                    "role": "user",
-                    "content": [
-                        {"type": "text", "text": user_text},
-                        {
-                            "type": "image_url",
-                            "image_url": {
-                                "url": f"data:image/png;base64,{b64_image}",
-                                "detail": "low",
-                            },
-                        },
-                    ],
-                },
+                {"role": "user", "content": content},
             ],
         }
         result = _call_openai(payload, openai_key)
@@ -121,28 +123,22 @@ def _call_openai(payload: dict, api_key: str) -> dict:
     raise RuntimeError("OpenAI: all retry attempts failed.")
 
 
-def _call_anthropic(model: str, b64_image: str, user_text: str, api_key: str) -> dict:
+def _call_anthropic(model: str, b64_desktop: str, b64_mobile: str | None, user_text: str, api_key: str) -> dict:
     """Make the API call to Anthropic Messages API with one retry on rate limit."""
+    content: list[dict] = []
+    for b64 in (b64_desktop, b64_mobile):
+        if b64:
+            content.append({
+                "type": "image",
+                "source": {"type": "base64", "media_type": "image/png", "data": b64},
+            })
+    content.append({"type": "text", "text": user_text})
+
     payload = {
         "model": model,
         "max_tokens": MAX_TOKENS,
         "system": SYSTEM_PROMPT,
-        "messages": [
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "image",
-                        "source": {
-                            "type": "base64",
-                            "media_type": "image/png",
-                            "data": b64_image,
-                        },
-                    },
-                    {"type": "text", "text": user_text},
-                ],
-            }
-        ],
+        "messages": [{"role": "user", "content": content}],
     }
 
     data = json.dumps(payload).encode("utf-8")
@@ -180,15 +176,12 @@ def _parse_response(response: dict, website_url: str) -> dict:
     try:
         content = response["choices"][0]["message"]["content"].strip()
     except (KeyError, IndexError) as exc:
-        raise RuntimeError(f"OpenAI: unexpected response structure: {response}") from exc
+        raise RuntimeError(f"Vision model: unexpected response structure: {response}") from exc
 
     # Strip accidental markdown fences
     if content.startswith("```"):
         lines = content.splitlines()
-        content = "\n".join(
-            line for line in lines
-            if not line.startswith("```")
-        ).strip()
+        content = "\n".join(line for line in lines if not line.startswith("```")).strip()
 
     try:
         result = json.loads(content)
@@ -197,58 +190,39 @@ def _parse_response(response: dict, website_url: str) -> dict:
             f"Vision model returned non-JSON for {website_url}: {content[:300]}"
         ) from exc
 
-    # Validate required fields
-    required = {"prospect_score", "business_quality_score", "opportunity_score", "site_analysis", "outreach_angle"}
+    # Validate required fields — scores are computed in qualify.py, not here
+    required = {"opportunity_dimensions", "business_quality_score", "service_price_point", "site_analysis", "outreach_angle"}
     missing = required - set(result.keys())
     if missing:
         raise ValueError(
             f"Vision model response missing fields {missing} for {website_url}"
         )
 
-    # Clamp scores to valid ranges
-    for field in ("business_quality_score", "opportunity_score"):
-        val = result.get(field)
-        if isinstance(val, (int, float)):
-            result[field] = max(-1, min(10, int(val)))
-
-    # Recalculate opportunity_score from dimensions to prevent model arithmetic errors
-    dims = result.get("opportunity_dimensions") or {}
-    dim_values = [dims.get(k, 0) for k in ("visual_modernity", "mobile_experience", "desire_creation", "content_structure", "trust_and_credibility")]
-    if any(isinstance(v, (int, float)) for v in dim_values):
-        recalculated_opp = max(1, round((sum(dim_values) / 10) * 10))
-        if result.get("opportunity_score") != recalculated_opp:
-            logger.debug("Correcting opportunity_score from %s to %s (dimensions sum: %s)", result.get("opportunity_score"), recalculated_opp, sum(dim_values))
-            result["opportunity_score"] = recalculated_opp
-
-    # Recalculate prospect_score from the two sub-scores
+    # Clamp business_quality_score to a sane range
     biz = result.get("business_quality_score")
-    opp = result.get("opportunity_score")
-    if isinstance(biz, (int, float)) and isinstance(opp, (int, float)):
-        recalculated_prospect = round((float(biz) * 0.6) + (float(opp) * 0.4), 1)
-        if result.get("prospect_score") != recalculated_prospect:
-            logger.debug("Correcting prospect_score from %s to %s", result.get("prospect_score"), recalculated_prospect)
-            result["prospect_score"] = recalculated_prospect
+    if isinstance(biz, (int, float)):
+        result["business_quality_score"] = max(-1, min(10, int(biz)))
 
-    # Enforce recommendation based on recalculated prospect_score
-    ps = result.get("prospect_score")
-    if isinstance(ps, (int, float)):
-        if ps >= 8.0:
-            result["recommendation"] = "pursue"
-        elif ps >= 6.0:
-            result["recommendation"] = "consider"
+    # Clamp each dimension to -1..2
+    dims = result.get("opportunity_dimensions") or {}
+    for k in ("visual_modernity", "mobile_experience", "desire_creation", "content_structure", "trust_and_credibility"):
+        v = dims.get(k)
+        if isinstance(v, (int, float)):
+            dims[k] = max(-1, min(2, int(v)))
         else:
-            result["recommendation"] = "deprioritise"
+            dims[k] = 1  # missing dimension → neutral default
+    result["opportunity_dimensions"] = dims
 
     # Ensure weaknesses is a list
     if not isinstance(result.get("site_weaknesses"), list):
         result["site_weaknesses"] = []
 
     logger.info(
-        "Analysis complete: %s — prospect score %s/10 (biz: %s, opp: %s) | %s",
+        "Analysis complete: %s — biz %s/10, dims %s, price £%s | %s",
         website_url,
-        result.get("prospect_score"),
         result.get("business_quality_score"),
-        result.get("opportunity_score"),
+        dims,
+        result.get("service_price_point"),
         result.get("outreach_angle", "")[:80],
     )
 

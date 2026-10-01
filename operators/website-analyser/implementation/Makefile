@@ -23,6 +23,7 @@ print('OPENAI_API_KEY:', 'set' if openai else 'MISSING'); \
 print('SUPABASE_URL:', supa_url if supa_url else 'MISSING'); \
 print('SUPABASE_SERVICE_KEY:', 'set' if supa_key else 'MISSING'); \
 print('SCREENSHOT_API_KEY:', 'set' if os.getenv('SCREENSHOT_API_KEY') else 'not set (playwright fallback will be used)'); \
+print('COMPANIES_HOUSE_API_KEY:', 'set' if os.getenv('COMPANIES_HOUSE_API_KEY') else 'not set (Maps signals will be used for viability)'); \
 missing = [k for k, v in [('OPENAI_API_KEY', openai), ('SUPABASE_URL', supa_url), ('SUPABASE_SERVICE_KEY', supa_key)] if not v]; \
 exit(1) if missing else print('Required credentials present.')"
 

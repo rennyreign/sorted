@@ -542,7 +542,7 @@ const MODULE_CONTENT: Record<ModuleId, React.ReactNode> = {
         />
         <FaqItem
           question="How much do the websites cost?"
-          answer="Don't guess. Let Sorted recommend the correct package based on the business's needs. Prices start from £195."
+          answer="One complete website, one fixed price: £3,000. If a business asks, that is the answer — Sorted handles the rest of the conversation."
         />
         <FaqItem
           question="Do customers have to buy?"

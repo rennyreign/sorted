@@ -3,48 +3,40 @@
 import { useState, useEffect, useRef } from "react"
 import { supabase } from "@/lib/supabase"
 
-// Budget thresholds
-const FLOOR = 250
-const TARGET = 500
+// The build is one fixed price — £3,000. The question below only shapes
+// how the payment is structured, not what the site costs.
+const HALF = 1500
+const FULL = 3000
 
 function getBudgetResponse(value: number): {
-  tone: "below-floor" | "stretch" | "good" | "great"
+  tone: "below-floor" | "stretch" | "good"
   heading: string
   body: string
   showBooking: boolean
   callOptional: boolean
 } {
-  if (value < FLOOR) {
+  if (value < HALF) {
     return {
       tone: "below-floor",
       heading: "We can work with that.",
-      body: `Every site we build is the same full build. The budget just determines how we structure the payment. Our minimum is £${FLOOR}, and we can split that across two payments if it helps. Book a call below and we will walk you through it. No pressure.`,
+      body: `Every site we build is the same complete build — one fixed price of £${FULL.toLocaleString()}. If splitting it across payments helps, book a call below and we will walk you through the options. No pressure.`,
       showBooking: true,
       callOptional: false,
     }
   }
-  if (value < TARGET) {
+  if (value < FULL) {
     return {
       tone: "stretch",
       heading: "That works.",
-      body: "You will get the exact same site regardless of where your budget sits. The build is the build. Book a call below and we can confirm the details and talk through payment.",
+      body: "That covers a first payment comfortably. The site is £3,000 fixed — we can structure the balance as a second payment. Book a call below and we will confirm the details.",
       showBooking: true,
       callOptional: false,
     }
   }
-  if (value <= 1000) {
-    return {
-      tone: "good",
-      heading: "Perfect.",
-      body: "That covers the full build comfortably. Same site, same quality, same handoff as every client we work with. A call is not required — book one below if you would like to talk it through, or reply by email and we will get started.",
-      showBooking: true,
-      callOptional: true,
-    }
-  }
   return {
-    tone: "great",
-    heading: "Great.",
-    body: "That gives us plenty of room to get started immediately. A call is entirely optional — book one below if useful, or reply by email and we will get moving on the build.",
+    tone: "good",
+    heading: "Perfect.",
+    body: "That covers the full build. A call is not required — book one below if you would like to talk it through, or reply by email and we will get started.",
     showBooking: true,
     callOptional: true,
   }
@@ -179,7 +171,7 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
           {[
             { n: "1", title: "You see the finished site first", body: "We build it, you review it. No commitment until you have seen it." },
             { n: "2", title: "You edit your own content", body: "Every site ships with a simple editor. Change your text, photos, and details yourself. No web designer needed." },
-            { n: "3", title: "No upfront payment", body: "You approve the site, then we agree a price. Simple." },
+            { n: "3", title: "One fixed price", body: "You approve the site first. Then it's £3,000 — complete, no ambiguity." },
           ].map(({ n, title, body }) => (
             <div key={n} className="bg-white border border-black/[0.08] rounded-xl p-5 flex gap-4">
               <span className="w-7 h-7 rounded-full bg-[#0A0A0A] text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
@@ -195,10 +187,10 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
 
         {/* Budget */}
         <div className="bg-white border border-black/[0.08] rounded-2xl p-8">
-          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">One quick question</p>
-          <h2 className="font-sans font-bold text-[#0A0A0A] text-xl mb-2">What budget do you have in mind?</h2>
+          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">One fixed price</p>
+          <h2 className="font-sans font-bold text-[#0A0A0A] text-xl mb-2">One complete website — £3,000.</h2>
           <p className="text-sm text-[#737373] mb-6 leading-relaxed">
-            Be honest. There is no wrong answer. Everyone gets the same full build. This just helps us talk about payment in a way that works for you.
+            £3,000 covers the strategy, design, copy, development, content management system, analytics and launch — the same complete build for every business. If spreading it across two payments would help, tell us what you could start with below.
           </p>
 
           {!submitted ? (
@@ -210,7 +202,7 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
                   inputMode="numeric"
                   value={budgetRaw}
                   onChange={handleBudgetChange}
-                  placeholder="e.g. 500"
+                  placeholder="e.g. 1500"
                   className="w-full pl-8 pr-4 py-3 border border-black/[0.12] rounded-xl font-mono text-sm text-[#0A0A0A] bg-white focus:outline-none focus:ring-2 focus:ring-black/10 placeholder:text-[#C4C4C4]"
                 />
               </div>
@@ -269,7 +261,7 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
               <div className="mt-6 pt-6 border-t border-black/[0.06] text-center">
                 <p className="text-sm text-[#737373] mb-3">Prefer to skip the call?</p>
                 <a
-                  href={`mailto:hello@sortmydigital.site?subject=${encodeURIComponent(`Ready to proceed — ${prospectName}`)}&body=${encodeURIComponent(`Hi,\n\nMy budget of £${budgetValue ?? ""} covers the full build. I'd like to skip the call and get started.\n\nReview link: https://sortmydigital.site/review-next/?slug=${slug}\n\nThanks,`)}`}
+                  href={`mailto:hello@sortmydigital.site?subject=${encodeURIComponent(`Ready to proceed — ${prospectName}`)}&body=${encodeURIComponent(`Hi,\n\nI've seen the £3,000 fixed price and I'm ready to proceed. I'd like to skip the call and get started.\n\nReview link: https://sortmydigital.site/review-next/?slug=${slug}\n\nThanks,`)}`}
                   className="inline-block bg-white border border-black/[0.12] text-[#0A0A0A] font-bold text-sm px-6 py-3 rounded-xl hover:bg-black/[0.02] transition-colors"
                 >
                   Email us to get started →

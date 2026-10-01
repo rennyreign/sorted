@@ -157,8 +157,8 @@ export function AffiliatesFooter({ variant = "default" }: { variant?: "default" 
           title="Sorted Sites"
           links={[
             ["Our product", "/"],
-            ["Pricing", "/sites/pricing"],
-            ["Examples", "/sites/examples"],
+            ["Pricing", "/pricing"],
+            ["Examples", "/examples"],
           ]}
         />
         <div>

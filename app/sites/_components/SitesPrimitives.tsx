@@ -113,7 +113,7 @@ export function Underline({ pink = false, className = "" }: { pink?: boolean; cl
 export function FeatureBar() {
   const items = [
     [Clock3, "Fast", "Get your mockup in 24 hours"],
-    [Zap, "Affordable", "Websites from £495"],
+    [Zap, "Fixed price", "One price. Everything included."],
     [ShieldCheck, "No risk", "Free mockup. No obligation."],
     [Check, "All included", "Design, build, hosting & CMS"],
     [Edit3, "Easy to update", "Update text and images yourself"],
