@@ -35,13 +35,13 @@ export default function LogoExport() {
     img.src = url;
   };
 
-  const sLogoBlack = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="70" font-weight="900" fill="#0A0A0A" text-anchor="middle">S.</text></svg>`;
+  const sLogoBlack = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="70" font-weight="900" letter-spacing="-3.15" text-anchor="middle"><tspan fill="#070707">S</tspan><tspan fill="#CFE900">.</tspan></text></svg>`;
   
-  const sLogoWhite = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="70" font-weight="900" fill="#FFFFFF" text-anchor="middle">S.</text></svg>`;
+  const sLogoWhite = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="70" font-weight="900" letter-spacing="-3.15" text-anchor="middle"><tspan fill="#FFFFFF">S</tspan><tspan fill="#DFFF00">.</tspan></text></svg>`;
   
-  const fullLogoBlack = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40"><text x="0" y="32" font-family="system-ui,-apple-system,sans-serif" font-size="32" font-weight="800" fill="#0A0A0A" letter-spacing="-0.02em">Sorted.</text></svg>`;
+  const fullLogoBlack = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 44"><text x="2" y="35" font-family="system-ui,-apple-system,sans-serif" font-size="36" font-weight="900" letter-spacing="-1.62"><tspan fill="#070707">Sorted</tspan><tspan fill="#CFE900">.</tspan></text></svg>`;
   
-  const fullLogoWhite = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40"><text x="0" y="32" font-family="system-ui,-apple-system,sans-serif" font-size="32" font-weight="800" fill="#FFFFFF" letter-spacing="-0.02em">Sorted.</text></svg>`;
+  const fullLogoWhite = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 44"><text x="2" y="35" font-family="system-ui,-apple-system,sans-serif" font-size="36" font-weight="900" letter-spacing="-1.62"><tspan fill="#FFFFFF">Sorted</tspan><tspan fill="#DFFF00">.</tspan></text></svg>`;
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] p-10 font-sans">
@@ -93,7 +93,7 @@ export default function LogoExport() {
       </div>
 
       {/* Full Logo Section */}
-      <h2 className="text-sm font-semibold text-gray-500 mb-4">Full Logo (sorted.)</h2>
+      <h2 className="text-sm font-semibold text-gray-500 mb-4">Full Logo (Sorted.)</h2>
       <div className="grid grid-cols-3 gap-6">
         {/* White */}
         <div>
