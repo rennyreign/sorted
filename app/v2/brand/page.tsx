@@ -1,456 +1,215 @@
 import type { Metadata } from "next"
+import type { ReactNode } from "react"
 import Link from "next/link"
 import localFont from "next/font/local"
 import {
   ArrowDownToLine,
   ArrowRight,
   Check,
-  CheckCircle2,
   Clock3,
-  Copy,
+  Code2,
+  Edit3,
+  Eye,
   FileText,
-  Grid3X3,
   Layers3,
-  MessageCircle,
+  Mail,
   MonitorSmartphone,
-  Palette,
   ShieldCheck,
-  Star,
-  Type,
+  Sparkles,
   Workflow,
+  Zap,
 } from "lucide-react"
-import { RoutineFinderButton } from "../_components/RoutineFinder"
 
 const marker = localFont({
   src: "../../../public/fonts/cc-ask-for-mercy.ttf",
-  variable: "--font-v2-marker",
+  variable: "--font-brand-marker",
   display: "swap",
 })
 
-const highlight = localFont({
+const opsHighlight = localFont({
   src: "../../../public/fonts/Sans-Andreas-Bold-Demo.ttf",
-  variable: "--font-v2-highlight",
+  variable: "--font-brand-ops-highlight",
   display: "swap",
 })
 
-const bakeshop = localFont({
+const sitesScript = localFont({
+  src: "../../../public/fonts/Fave-ScriptPro.ttf",
+  variable: "--font-brand-sites-script",
+  display: "swap",
+})
+
+const productLabel = localFont({
   src: "../../../public/fonts/Bakeshop-Regular.ttf",
-  variable: "--font-v2-bakeshop",
+  variable: "--font-brand-product-label",
   display: "swap",
 })
 
 export const metadata: Metadata = {
-  title: "Sorted Brand System",
-  description: "The unified brand system for Sorted, SortedUpdates, dashboards, reports, proposals, and client delivery.",
+  title: "Brand system | Sorted",
+  description: "The brand architecture, identity, interface language, and downloadable assets for Sorted, Sorted Sites, and Sorted Ops.",
+  alternates: { canonical: "/brand" },
 }
 
-const logoAssets = [
-  {
-    title: "Sorted Ops Wordmark",
-    description: "Use on Sorted Ops surfaces, pitch decks, headers, and anywhere the operational improvement offer is represented.",
-    preview: "/brand/sorted-ops-wordmark-light.png",
-    files: [
-      { label: "White", file: "/brand/sorted-ops-wordmark-light.png" },
-      { label: "Black", file: "/brand/sorted-ops-wordmark-dark.png" },
-      { label: "Transparent", file: "/brand/sorted-ops-wordmark-transparent.png" },
-    ],
-    dark: false,
-  },
-  {
-    title: "Sorted Sites Wordmark",
-    description: "Use on Sorted Sites surfaces, website headers, and anywhere the website offer is represented.",
-    preview: "/brand/sorted-sites-wordmark-light.png",
-    files: [
-      { label: "White", file: "/brand/sorted-sites-wordmark-light.png" },
-      { label: "Black", file: "/brand/sorted-sites-wordmark-dark.png" },
-      { label: "Transparent", file: "/brand/sorted-sites-wordmark-transparent.png" },
-    ],
-    dark: false,
-  },
-  {
-    title: "Compact Mark",
-    description: "Use for favicons, app icons, dashboard shortcuts, loading states, and small brand stamps.",
-    preview: "/brand/sorted-mark.svg",
-    files: [{ label: "SVG", file: "/brand/sorted-mark.svg" }],
-    dark: true,
-  },
-  {
-    title: "Compact Mark Light",
-    description: "Use where the compact mark sits inside a light UI card or neutral admin surface.",
-    preview: "/brand/sorted-mark-light.svg",
-    files: [{ label: "SVG", file: "/brand/sorted-mark-light.svg" }],
-    dark: false,
-  },
-]
+const downloads = [
+  ["Sorted Ops · light", "/brand/sorted-ops-wordmark-light.png", "PNG"],
+  ["Sorted Ops · dark", "/brand/sorted-ops-wordmark-dark.png", "PNG"],
+  ["Sorted Ops · transparent", "/brand/sorted-ops-wordmark-transparent.png", "PNG"],
+  ["Sorted Sites · light", "/brand/sorted-sites-wordmark-light.png", "PNG"],
+  ["Sorted Sites · dark", "/brand/sorted-sites-wordmark-dark.png", "PNG"],
+  ["Sorted Sites · transparent", "/brand/sorted-sites-wordmark-transparent.png", "PNG"],
+  ["Compact mark · dark", "/brand/sorted-mark.svg", "SVG"],
+  ["Compact mark · light", "/brand/sorted-mark-light.svg", "SVG"],
+  ["Brand token card", "/brand/sorted-brand-token-card.svg", "SVG"],
+] as const
 
-const palette = [
-  { name: "Ink", token: "--ink", hex: "#070707", usage: "Text, dark sections, primary buttons, dashboard sidebars" },
-  { name: "Paper", token: "--paper", hex: "#fbfbfa", usage: "Main page background and calm content surfaces" },
-  { name: "Acid", token: "--acid", hex: "#dfff00", usage: "Brand dot, CTAs, proof numbers, active states, underlines" },
-  { name: "Card", token: "--card", hex: "#ffffff", usage: "Cards, fields, report panels, proposal containers" },
-  { name: "Warm Board", token: "--warm-board", hex: "#f7efe3", usage: "Operational explainers and capacity panels" },
-  { name: "Line", token: "--line", hex: "#e8e5dd", usage: "Borders, rules, quiet separators, inactive rails" },
-  { name: "Rose Mark", token: "--rose-mark", hex: "#ff73d2", usage: "Small doodles and secondary emphasis only" },
-  { name: "Proof Green", token: "--proof-green", hex: "#00a64b", usage: "Positive deltas, recovered value, completed status" },
-]
-
-const ecosystem = [
-  {
-    icon: Layers3,
-    title: "Sorted.",
-    copy: "The master brand. Use this name and logo across public marketing, diagnostics, proposals, reports, and client delivery.",
-  },
-  {
-    icon: Workflow,
-    title: "SortedUpdates",
-    copy: "The client CMS and update layer. It sits under the Sorted brand, not as a separate visual identity.",
-  },
-  {
-    icon: MonitorSmartphone,
-    title: "Client Sites",
-    copy: "Every client site may have its own local flavour, but the handoff, CMS, reset layer, and reporting stay visibly Sorted.",
-  },
-  {
-    icon: FileText,
-    title: "Reports",
-    copy: "Results dashboards, example reports, and delivery pages use the same proof-first interface language.",
-  },
-]
-
-const typeRows = [
-  {
-    name: "Display",
-    sample: "Your business has gaps.",
-    className: "text-[clamp(3.1rem,7vw,6.8rem)] font-black leading-[0.9] tracking-[-0.05em]",
-    rule: "Use once per page. Short, direct, and useful.",
-  },
-  {
-    name: "Highlight",
-    sample: "We close them.",
-    className: "[font-family:var(--font-v2-highlight)] text-[clamp(3rem,6vw,5.6rem)] font-normal leading-[0.86] tracking-[-0.02em] text-[#cfe900]",
-    rule: "Use for one emotional emphasis line, never as paragraph text.",
-  },
-  {
-    name: "Section",
-    sample: "WHAT CHANGES.",
-    className: "[font-family:var(--font-v2-marker)] text-[clamp(1.9rem,3.1vw,2.8rem)] font-normal leading-[1.08]",
-    rule: "Use for short uppercase section titles with an acid underline.",
-  },
-  {
-    name: "Body",
-    sample: "We find the gaps that leak revenue, hurt trust, and leave money on the table, install the systems that close them, and show you exactly how much you get back.",
-    className: "max-w-[58ch] text-[15px] font-semibold leading-[1.55] tracking-[-0.025em]",
-    rule: "Plain English. Concrete business language. No jargon.",
-  },
-]
-
-const components = [
-  "Black pill CTA with acid hover or active support",
-  "Acid marker underline for emphasis",
-  "White cards with soft borders and restrained shadows",
-  "Black proof bands for measured outcomes",
-  "Warm operational panels for process explanation",
-  "Round icon stamps, never decorative blobs",
-  "Dashboard metrics with clear before and after states",
-  "Client notes with real owner imagery and grounded copy",
-]
-
-const layouts = [
-  ["Container", "Use a 1240px max-width with 20px mobile padding and 32px tablet or desktop padding."],
-  ["Cards", "Use 14-18px radius. Borders first, shadows second. Do not place cards inside other cards."],
-  ["Density", "Marketing pages can breathe. Dashboards should be dense but readable, with clear row rhythm."],
-  ["Responsive", "Every grid collapses to one column on mobile. Key CTAs stay at least 44px tall."],
-  ["Images", "Use real people, real work, dashboards, products, or generated bitmap scenes with a specific purpose."],
-  ["Motion", "Use fast hover feedback, small lifts, and subtle reveal timing. Avoid theatrical motion."],
-]
-
-const voice = [
-  ["Say", "time returned, missed calls, reviews recovered, revenue found, customers followed up"],
-  ["Avoid", "seamless, transform, unlock potential, AI-powered platform, operational excellence"],
-  ["Promise", "Make lost work visible, remove it, and show what changed."],
-]
+const colours = [
+  { name: "Ink", hex: "#070707", role: "Type, dark bands, primary action", className: "bg-[#070707] text-white" },
+  { name: "Paper", hex: "#FBFBFA", role: "Default page canvas", className: "bg-[#fbfbfa] text-black" },
+  { name: "Acid", hex: "#DFFF00", role: "Brand punctuation and action", className: "bg-[#dfff00] text-black" },
+  { name: "Warm board", hex: "#F7F1E8", role: "Explanation and process", className: "bg-[#f7f1e8] text-black" },
+  { name: "Line", hex: "#E8E5DD", role: "Quiet structure and separators", className: "bg-[#e8e5dd] text-black" },
+  { name: "Proof green", hex: "#00A64B", role: "Verified positive change only", className: "bg-[#00a64b] text-white" },
+] as const
 
 export default function SortedBrandPage() {
   return (
-    <main className={`${marker.variable} ${highlight.variable} ${bakeshop.variable} min-h-screen bg-[#fbfbfa] text-[#070707]`}>
-      <BrandHeader />
+    <main className={`${marker.variable} ${opsHighlight.variable} ${sitesScript.variable} ${productLabel.variable} min-h-screen overflow-hidden bg-[#fbfbfa] text-[#070707]`}>
+      <Header />
       <Hero />
-      <Ecosystem />
-      <LogoSystem />
-      <PaletteSystem />
-      <TypographySystem />
-      <ComponentSystem />
-      <LayoutRules />
-      <VoiceSystem />
-      <DownloadStrip />
+      <PrinciplesBand />
+      <Architecture />
+      <Identity />
+      <ColourSystem />
+      <Typography />
+      <InterfaceLanguage />
+      <Voice />
+      <Downloads />
       <Footer />
     </main>
   )
 }
 
-function BrandHeader() {
+function Header() {
   return (
-    <header className="mx-auto flex w-full max-w-[1240px] items-center justify-between gap-4 px-5 py-5 sm:px-8">
-      <Link href="/v2" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.02em] sm:text-[40px]">
-        Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-v2-bakeshop)] translate-y-[-0.06em] text-[#cfe900]">ops</span>
-      </Link>
-      <nav className="hidden items-center gap-7 text-[12px] font-extrabold tracking-[-0.02em] lg:flex">
-        <a className="inline-flex min-h-11 items-center px-2" href="#logos">Logos</a>
-        <a className="inline-flex min-h-11 items-center px-2" href="#colors">Colors</a>
-        <a className="inline-flex min-h-11 items-center px-2" href="#type">Typography</a>
-        <a className="inline-flex min-h-11 items-center px-2" href="#components">Components</a>
-        <a className="inline-flex min-h-11 items-center px-2" href="#downloads">Downloads</a>
-      </nav>
-      <Link
-        href="/v2"
-        className="inline-flex h-11 shrink-0 items-center gap-3 rounded-full bg-[#070707] px-5 text-[11px] font-extrabold text-white shadow-[0_14px_30px_rgba(0,0,0,0.16)]"
-      >
-        View Site
-        <ArrowRight className="size-3.5" strokeWidth={3} />
-      </Link>
+    <header className="border-b border-black/5 bg-[#fbfbfa]/92 px-5 backdrop-blur-xl sm:px-8">
+      <div className="mx-auto flex min-h-[76px] max-w-[1220px] items-center justify-between gap-5">
+        <Link href="/" aria-label="Sorted home" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
+          Sorted<span className="text-[#cfe900]">.</span>
+        </Link>
+        <nav aria-label="Brand page sections" className="hidden items-center gap-7 text-[12px] font-extrabold md:flex">
+          <a className="transition-opacity hover:opacity-55" href="#architecture">Architecture</a>
+          <a className="transition-opacity hover:opacity-55" href="#identity">Identity</a>
+          <a className="transition-opacity hover:opacity-55" href="#interface">Interface</a>
+          <a className="transition-opacity hover:opacity-55" href="#voice">Voice</a>
+        </nav>
+        <a href="#downloads" className="inline-flex h-11 shrink-0 items-center gap-3 rounded-full bg-[#070707] px-5 text-[11px] font-black text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#dfff00]/70">
+          Brand assets <ArrowDownToLine className="size-4" strokeWidth={2.8} />
+        </a>
+      </div>
     </header>
   )
 }
 
 function Hero() {
   return (
-    <section className="mx-auto grid max-w-[1240px] gap-8 px-5 pb-12 pt-8 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+    <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-12 pt-12 sm:px-8 lg:grid-cols-[0.94fr_1.06fr] lg:items-center lg:pb-16 lg:pt-16">
       <div>
-        <h1 className="max-w-[800px] text-[clamp(4.1rem,9vw,8.4rem)] font-black leading-[0.88] tracking-[-0.06em]">
-          One brand.
-          <br />
-          Every surface.
+        <p className="mb-5 text-[12px] font-black text-black/45">The Sorted brand system</p>
+        <h1 className="max-w-[650px] text-[clamp(4rem,7.8vw,7.4rem)] font-black leading-[0.87] tracking-[-0.06em] text-balance">
+          One company.<br />Two clear offers.
         </h1>
-        <div className="relative mt-5 inline-block">
-          <p className="[font-family:var(--font-v2-highlight)] text-[clamp(3rem,6.3vw,6rem)] leading-[0.88] tracking-[-0.02em] text-[#cfe900]">
-            SORTED MEANS DONE.
-          </p>
-          <span className="absolute -bottom-3 left-0 h-4 w-full rounded-full bg-[#dfff00]" />
+        <span className="mt-7 block h-[7px] w-[72%] max-w-[390px] rounded-full bg-[#dfff00]" />
+        <p className="mt-7 max-w-[560px] text-[17px] font-semibold leading-[1.58] tracking-[-0.025em] text-black/72">
+          Sorted is the parent brand. Sorted Sites builds better websites. Sorted Ops improves how businesses work. The family feels related without making the offers look interchangeable.
+        </p>
+      </div>
+
+      <div className="relative rounded-[22px] bg-[#070707] p-5 text-white shadow-[0_28px_70px_rgba(18,14,10,0.18)] sm:p-7">
+        <div className="rounded-[16px] border border-white/15 px-6 py-7 sm:px-8">
+          <p className="text-[11px] font-black uppercase tracking-[0.08em] text-white/48">Parent brand</p>
+          <p className="mt-3 text-[clamp(3rem,5vw,5rem)] font-black leading-none tracking-[-0.06em]">Sorted<span className="text-[#dfff00]">.</span></p>
+          <p className="mt-4 max-w-[440px] text-[13px] font-semibold leading-[1.5] text-white/65">The promise behind every offer: clear work, finished properly, with proof of what changed.</p>
+        </div>
+        <div className="relative grid gap-3 pt-8 sm:grid-cols-2">
+          <span className="absolute left-1/2 top-0 hidden h-8 w-px bg-white/20 sm:block" />
+          <span className="absolute left-1/4 right-1/4 top-8 hidden h-px bg-white/20 sm:block" />
+          <OfferLockup kind="sites" />
+          <OfferLockup kind="ops" />
         </div>
       </div>
-      <div className="rounded-[22px] bg-[#070707] p-7 text-white shadow-[0_24px_70px_rgba(0,0,0,0.18)]">
-        <p className="[font-family:var(--font-v2-marker)] text-[2rem] leading-[1.05]">THE BRAND IDEA.</p>
-        <p className="mt-5 text-[28px] font-black leading-[1.02] tracking-[-0.06em]">
-          Sorted makes hidden business drag visible, removable, and measurable.
-        </p>
-        <p className="mt-5 text-[14px] font-semibold leading-[1.55] text-white/75">
-          The same identity now covers the public site, diagnostics, dashboards, proposals, client delivery pages, operator tools, and SortedUpdates.
-        </p>
-      </div>
     </section>
   )
 }
 
-function Ecosystem() {
+function OfferLockup({ kind }: { kind: "sites" | "ops" }) {
+  const sites = kind === "sites"
   return (
-    <section className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8">
-      <SectionTitle title="Brand Architecture" />
-      <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-        {ecosystem.map((item) => {
-          const Icon = item.icon
-          return (
-            <article key={item.title} className="rounded-[16px] border border-black/10 bg-white p-6 shadow-[0_14px_40px_rgba(0,0,0,0.035)]">
-              <span className="grid size-12 place-items-center rounded-full bg-[#dfff00]">
-                <Icon className="size-5" strokeWidth={2.6} />
-              </span>
-              <h2 className="mt-6 text-[20px] font-black tracking-[-0.02em]">{item.title}</h2>
-              <p className="mt-3 text-[13px] font-semibold leading-[1.5] text-black/62">{item.copy}</p>
-            </article>
-          )
-        })}
-      </div>
-      <div className="mt-5 rounded-[16px] border border-black/10 bg-[#f7efe3] p-6">
-        <p className="text-[13px] font-extrabold uppercase tracking-[0.03em]">Consolidation rule</p>
-        <p className="mt-2 max-w-[86ch] text-[15px] font-bold leading-[1.5] tracking-[-0.025em] text-black/70">
-          Do not create separate logo systems for Sorted.sites, SortedUpdates, dashboards, reports, or client portals. Use Sorted. as the master brand, then label each product surface in plain text.
-        </p>
-      </div>
-    </section>
-  )
-}
-
-function LogoSystem() {
-  return (
-    <section id="logos" className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8">
-      <SectionTitle title="Logo System" />
-      <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-        {logoAssets.map((asset) => (
-          <LogoCard key={asset.title} asset={asset} />
-        ))}
-      </div>
-      <div className="mt-6 grid gap-5 lg:grid-cols-3">
-        {[
-          ["Clear space", "Keep at least one dot-width of clear space around the wordmark. More is better in dashboards and proposal headers."],
-          ["Minimum size", "Wordmark should not render below 96px wide. Use the compact mark for anything smaller."],
-          ["Period", "The acid period is part of the identity. Do not remove it, recolor it randomly, or replace it with a generic full stop."],
-        ].map(([title, copy]) => (
-          <article key={title} className="rounded-[14px] border border-black/10 bg-white p-5">
-            <p className="[font-family:var(--font-v2-marker)] text-[1.5rem] leading-none">{title}</p>
-            <p className="mt-3 text-[13px] font-semibold leading-[1.45] text-black/62">{copy}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function LogoCard({ asset }: { asset: (typeof logoAssets)[number] }) {
-  return (
-    <article className={`rounded-[16px] border p-5 ${asset.dark ? "border-black bg-[#070707]" : "border-black/10 bg-white"}`}>
-      <div className="grid h-40 place-items-center rounded-[12px] bg-[#fbfbfa] p-5">
-        <img src={asset.preview} alt="" className="max-h-28 w-full max-w-[230px] object-contain" />
-      </div>
-      <h3 className={`mt-5 text-[15px] font-black tracking-[-0.035em] ${asset.dark ? "text-white" : "text-black"}`}>{asset.title}</h3>
-      <p className={`mt-2 min-h-16 text-[12px] font-semibold leading-[1.45] ${asset.dark ? "text-white/62" : "text-black/58"}`}>
-        {asset.description}
+    <Link href={sites ? "/sites" : "/ops"} className={`group relative rounded-[14px] p-6 transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#dfff00]/60 ${sites ? "bg-white text-black" : "border border-white/16 bg-white/[0.06] text-white"}`}>
+      <p className="text-[10px] font-black uppercase tracking-[0.08em] opacity-45">Focused offer</p>
+      <p className="mt-4 text-[32px] font-black leading-none tracking-[-0.05em]">
+        Sorted<span className="text-[#dfff00]">.</span><span className="[font-family:var(--font-brand-product-label)] font-normal tracking-normal text-[#cfe900]">{kind}</span>
       </p>
-      <div className="mt-5 grid gap-2">
-        {asset.files.map((file) => (
-          <a
-            key={file.file}
-            href={file.file}
-            download
-            className={`inline-flex h-11 items-center justify-center gap-2 rounded-full text-[12px] font-black ${
-              asset.dark ? "bg-[#dfff00] text-black" : "bg-[#070707] text-white"
-            }`}
-          >
-            <ArrowDownToLine className="size-4" strokeWidth={2.8} />
-            {file.label}
-          </a>
-        ))}
-      </div>
-    </article>
+      <p className="mt-5 text-[13px] font-semibold leading-[1.45] opacity-65">{sites ? "Websites that earn trust and enquiries." : "Systems that return time and capacity."}</p>
+      <span className="mt-5 inline-flex items-center gap-2 text-[11px] font-black">View offer <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" /></span>
+    </Link>
   )
 }
 
-function PaletteSystem() {
+function PrinciplesBand() {
+  const items = [
+    [Eye, "Obvious", "People should know what they are looking at."],
+    [ShieldCheck, "Trustworthy", "Proof before polish. Specifics before claims."],
+    [Zap, "Useful", "Every element helps someone decide or act."],
+    [Check, "Finished", "The brand should feel like the work is already handled."],
+  ] as const
+
   return (
-    <section id="colors" className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8">
-      <SectionTitle title="Color System" />
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {palette.map((color) => (
-          <article key={color.hex} className="overflow-hidden rounded-[14px] border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.035)]">
-            <div className="h-28" style={{ backgroundColor: color.hex }} />
-            <div className="p-5">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-[16px] font-black tracking-[-0.04em]">{color.name}</h3>
-                  <p className="mt-1 text-[11px] font-bold text-black/45">{color.token}</p>
-                </div>
-                <Copy className="size-4 text-black/35" />
-              </div>
-              <p className="mt-4 font-mono text-[12px] font-bold">{color.hex}</p>
-              <p className="mt-3 min-h-10 text-[12px] font-semibold leading-[1.35] text-black/60">{color.usage}</p>
+    <section className="mx-auto max-w-[1220px] px-5 pb-12 sm:px-8">
+      <div className="grid gap-5 rounded-[18px] bg-[#f7f1e8] px-6 py-6 md:grid-cols-4">
+        {items.map(([Icon, title, copy]) => (
+          <div key={title} className="grid grid-cols-[48px_1fr] gap-4 border-black/10 md:border-l md:pl-5 first:md:border-l-0 first:md:pl-0">
+            <span className="grid size-12 place-items-center rounded-full border-2 border-black bg-[#e7ff1e]">
+              <Icon className="size-6" strokeWidth={2.4} />
+            </span>
+            <div>
+              <p className="text-[11px] font-black uppercase">{title}</p>
+              <p className="mt-2 text-[12px] font-bold leading-[1.35] text-black/64">{copy}</p>
             </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function TypographySystem() {
-  return (
-    <section id="type" className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8">
-      <SectionTitle title="Typography" />
-      <div className="mt-8 divide-y divide-black/10 overflow-hidden rounded-[18px] border border-black/10 bg-white">
-        {typeRows.map((row) => (
-          <article key={row.name} className="grid gap-5 p-6 lg:grid-cols-[150px_1fr_260px] lg:items-center">
-            <p className="font-mono text-[12px] font-black uppercase text-black/45">{row.name}</p>
-            <p className={row.className}>{row.sample}</p>
-            <p className="text-[12px] font-semibold leading-[1.45] text-black/58">{row.rule}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function ComponentSystem() {
-  return (
-    <section id="components" className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8">
-      <SectionTitle title="Interface System" />
-      <div className="mt-8 grid gap-5 lg:grid-cols-[0.95fr_1.05fr]">
-        <div className="rounded-[18px] border border-black/10 bg-white p-6">
-          <p className="[font-family:var(--font-v2-marker)] text-[2rem] leading-none">BUTTONS, MARKS, PROOF.</p>
-          <div className="mt-7 flex flex-wrap gap-4">
-            <RoutineFinderButton label="Start the diagnostic" variant="primary" className="text-[12px]" />
-            <Link className="inline-flex h-12 items-center gap-3 rounded-full border border-black/20 px-5 text-[12px] font-black" href="/v2/results-dashboard">
-              View example dashboard <MonitorSmartphone className="size-4" strokeWidth={2.5} />
-            </Link>
           </div>
-          <ul className="mt-8 grid gap-3 text-[13px] font-bold sm:grid-cols-2">
-            {components.map((item) => (
-              <li key={item} className="flex gap-2">
-                <Check className="mt-0.5 size-4 shrink-0 text-[#b9d600]" strokeWidth={4} />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <CapacitySample />
-      </div>
-    </section>
-  )
-}
-
-function CapacitySample() {
-  const metrics = [
-    { icon: Clock3, value: "286", label: "Hours returned" },
-    { icon: MessageCircle, value: "417", label: "Enquiries handled" },
-    { icon: CheckCircle2, value: "100%", label: "Follow-up rate" },
-    { icon: Star, value: "214", label: "Reviews generated" },
-  ]
-
-  return (
-    <article className="rounded-[18px] bg-[#070707] p-7 text-white">
-      <p className="[font-family:var(--font-v2-marker)] text-[2rem] leading-none">RESULTS BAND.</p>
-      <div className="mt-7 grid grid-cols-2 rounded-[12px] border border-white/20 sm:grid-cols-4 sm:divide-x sm:divide-white/20">
-        {metrics.map((metric) => {
-          const Icon = metric.icon
-          return (
-            <div key={metric.label} className="px-4 py-6 text-center">
-              <Icon className="mx-auto size-7" />
-              <p className="mt-4 text-[34px] font-black tracking-[-0.06em] text-[#dfff00]">{metric.value}</p>
-              <p className="mx-auto mt-2 max-w-[96px] text-[8px] font-black uppercase leading-[1.25]">{metric.label}</p>
-            </div>
-          )
-        })}
-      </div>
-    </article>
-  )
-}
-
-function LayoutRules() {
-  return (
-    <section className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8">
-      <SectionTitle title="Layout Rules" />
-      <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {layouts.map(([title, copy]) => (
-          <article key={title} className="rounded-[14px] border border-black/10 bg-white p-6">
-            <p className="[font-family:var(--font-v2-marker)] text-[1.55rem] leading-none">{title}</p>
-            <p className="mt-4 text-[13px] font-semibold leading-[1.5] text-black/62">{copy}</p>
-          </article>
         ))}
       </div>
     </section>
   )
 }
 
-function VoiceSystem() {
+function Architecture() {
+  const surfaces = [
+    [Edit3, "SortedUpdates", "The editable content layer delivered with a Sorted Sites website."],
+    [MonitorSmartphone, "Client portals", "Approvals, quotes, delivery, and handoff inherit the relevant offer."],
+    [FileText, "Reports", "Evidence and outcomes use the Sorted Ops proof language."],
+    [Workflow, "Operator tools", "Internal systems stay quiet, legible, and unmistakably Sorted."],
+  ] as const
+
   return (
-    <section className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8">
-      <div className="rounded-[20px] bg-[#dfff00] p-8 lg:grid lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
-        <div>
-          <p className="[font-family:var(--font-v2-marker)] text-[clamp(2.6rem,5vw,4.6rem)] leading-[1.02]">SAY IT LIKE A BUSINESS OWNER WOULD.</p>
-          <div className="mt-4 h-[3px] w-64 max-w-full rounded-full bg-[#ff73d2]" />
+    <section id="architecture" className="mx-auto max-w-[1220px] px-5 py-12 sm:px-8">
+      <SectionLead number="01" title="Brand architecture" copy="Lead with the offer people are buying. Use the parent name when talking about the company, the shared standard, or the complete ecosystem." />
+
+      <div className="mt-10 grid gap-6 lg:grid-cols-[0.36fr_0.64fr]">
+        <div className="rounded-[20px] bg-[#dfff00] p-7 sm:p-8">
+          <p className="text-[11px] font-black uppercase tracking-[0.06em]">The rule</p>
+          <p className="mt-7 text-[clamp(2.3rem,4vw,4rem)] font-black leading-[0.94] tracking-[-0.055em]">One parent.<br />Two offers.<br />No blur.</p>
+          <p className="mt-8 text-[14px] font-bold leading-[1.55] text-black/70">Do not present Sorted Sites, Sorted Ops, or SortedUpdates as three equal businesses. Sites and Ops are offers. SortedUpdates is a named capability inside a website delivery.</p>
         </div>
-        <div className="mt-8 grid gap-4 lg:mt-0">
-          {voice.map(([label, copy]) => (
-            <div key={label} className="rounded-[12px] bg-white/70 p-5">
-              <p className="text-[12px] font-black uppercase tracking-[0.03em]">{label}</p>
-              <p className="mt-2 text-[15px] font-bold leading-[1.45] tracking-[-0.03em]">{copy}</p>
-            </div>
+        <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2">
+          {surfaces.map(([Icon, title, copy], index) => (
+            <article key={title} className="border-t border-black/12 pt-5">
+              <div className="flex items-start justify-between gap-5">
+                <Icon className="size-7" strokeWidth={2.2} />
+                <span className="font-mono text-[10px] font-bold text-black/35">0{index + 1}</span>
+              </div>
+              <h3 className="mt-6 text-[19px] font-black tracking-[-0.04em]">{title}</h3>
+              <p className="mt-3 max-w-[34ch] text-[13px] font-semibold leading-[1.5] text-black/62">{copy}</p>
+            </article>
           ))}
         </div>
       </div>
@@ -458,42 +217,183 @@ function VoiceSystem() {
   )
 }
 
-function DownloadStrip() {
+function Identity() {
   return (
-    <section id="downloads" className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8">
-      <div className="rounded-[20px] border border-black/10 bg-white p-6 sm:p-8">
-        <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
-          <div>
-            <h2 className="text-[clamp(2.4rem,4vw,4.2rem)] font-black leading-[0.95] tracking-[-0.06em]">Download the core brand assets.</h2>
-            <p className="mt-4 text-[14px] font-semibold leading-[1.55] text-black/62">
-              These assets are safe to use across the public website, dashboards, SortedUpdates, proposals, reports, and client handoff pages.
-            </p>
+    <section id="identity" className="mx-auto max-w-[1220px] px-5 py-12 sm:px-8">
+      <SectionLead number="02" title="Identity system" copy="The heavy wordmark and acid full stop hold the family together. Offer labels add character; they never compete with Sorted." />
+      <div className="mt-10 overflow-hidden rounded-[20px] border border-black/10 bg-white">
+        <IdentityRow label="Parent" note="Company-level communication" dark={false}>
+          <p className="text-[clamp(4rem,9vw,8rem)] font-black leading-none tracking-[-0.065em]">Sorted<span className="text-[#cfe900]">.</span></p>
+        </IdentityRow>
+        <IdentityRow label="Websites" note="Use for the website offer" dark={false} warm>
+          <p className="text-[clamp(3.3rem,7vw,6.5rem)] font-black leading-none tracking-[-0.06em]">Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-brand-product-label)] font-normal tracking-normal text-[#cfe900]">sites</span></p>
+        </IdentityRow>
+        <IdentityRow label="Operations" note="Use for operational improvement" dark>
+          <p className="text-[clamp(3.3rem,7vw,6.5rem)] font-black leading-none tracking-[-0.06em]">Sorted<span className="text-[#dfff00]">.</span><span className="[font-family:var(--font-brand-product-label)] font-normal tracking-normal text-[#dfff00]">ops</span></p>
+        </IdentityRow>
+      </div>
+
+      <div className="mt-6 grid gap-5 md:grid-cols-3">
+        <Rule title="Keep the period" copy="The acid full stop signals completion. It stays attached to Sorted in every primary lockup." />
+        <Rule title="Protect the hierarchy" copy="Sorted is always heavier and more prominent than the offer label that follows it." />
+        <Rule title="Use space generously" copy="Leave at least the height of the full stop clear around a wordmark. Never crowd it into a corner." />
+      </div>
+    </section>
+  )
+}
+
+function IdentityRow({ label, note, dark, warm = false, children }: { label: string; note: string; dark: boolean; warm?: boolean; children: ReactNode }) {
+  return (
+    <article className={`grid min-h-[230px] gap-8 border-b border-black/10 p-7 last:border-b-0 sm:p-9 lg:grid-cols-[170px_1fr] lg:items-center ${dark ? "bg-[#070707] text-white" : warm ? "bg-[#f7f1e8] text-black" : "bg-white text-black"}`}>
+      <div>
+        <p className={`text-[11px] font-black uppercase tracking-[0.06em] ${dark ? "text-white/45" : "text-black/40"}`}>{label}</p>
+        <p className={`mt-3 text-[12px] font-semibold leading-[1.45] ${dark ? "text-white/62" : "text-black/58"}`}>{note}</p>
+      </div>
+      <div className="min-w-0">{children}</div>
+    </article>
+  )
+}
+
+function ColourSystem() {
+  return (
+    <section className="mx-auto max-w-[1220px] px-5 py-12 sm:px-8">
+      <SectionLead number="03" title="Colour system" copy="Ink, paper, and acid do most of the work. Warm board explains. Green proves. Everything else should earn its place." />
+      <div className="mt-10 grid overflow-hidden rounded-[20px] border border-black/10 sm:grid-cols-2 lg:grid-cols-6">
+        {colours.map((colour) => (
+          <article key={colour.hex} className={`flex min-h-[230px] flex-col justify-end border-black/10 p-5 sm:border-r ${colour.className}`}>
+            <p className="text-[13px] font-black">{colour.name}</p>
+            <p className="mt-1 font-mono text-[10px] font-bold opacity-55">{colour.hex}</p>
+            <p className="mt-5 text-[11px] font-semibold leading-[1.4] opacity-62">{colour.role}</p>
+          </article>
+        ))}
+      </div>
+      <p className="mt-5 max-w-[750px] text-[12px] font-semibold leading-[1.55] text-black/52">Pink, blue, purple, and yellow may appear inside a specific client example or Ops problem illustration. They are supporting content colours, not competing brand accents.</p>
+    </section>
+  )
+}
+
+function Typography() {
+  return (
+    <section className="mx-auto max-w-[1220px] px-5 py-12 sm:px-8">
+      <SectionLead number="04" title="Typography" copy="A heavy system sans does the serious work. Handwritten faces are short, purposeful accents—not a default heading style." />
+      <div className="mt-10 grid gap-5 lg:grid-cols-[1.15fr_0.85fr]">
+        <div className="rounded-[20px] bg-[#070707] p-7 text-white sm:p-9">
+          <p className="text-[10px] font-black uppercase tracking-[0.08em] text-white/42">Primary voice · display</p>
+          <p className="mt-8 max-w-[760px] text-[clamp(3.2rem,7vw,6.6rem)] font-black leading-[0.88] tracking-[-0.06em] text-balance">Say the useful thing first.</p>
+          <p className="mt-8 max-w-[54ch] text-[15px] font-semibold leading-[1.6] text-white/68">Use compact headlines, sentence case, strong weight, and tight tracking. Body copy stays plain, specific, and comfortably readable.</p>
+        </div>
+        <div className="grid gap-5">
+          <article className="rounded-[20px] bg-[#f7f1e8] p-7 sm:p-8">
+            <p className="text-[10px] font-black uppercase tracking-[0.08em] text-black/40">Sorted Sites · expressive accent</p>
+            <p className="mt-6 [font-family:var(--font-brand-sites-script)] text-[clamp(4.5rem,8vw,7.2rem)] leading-[0.75] text-[#cfe900]">Sorted.</p>
+            <p className="mt-6 text-[12px] font-semibold leading-[1.5] text-black/58">Human, optimistic, and used for one decisive phrase.</p>
+          </article>
+          <article className="rounded-[20px] bg-[#dfff00] p-7 sm:p-8">
+            <p className="text-[10px] font-black uppercase tracking-[0.08em] text-black/45">Sorted Ops · marker accent</p>
+            <p className="mt-6 [font-family:var(--font-brand-ops-highlight)] text-[clamp(3rem,6vw,5.2rem)] leading-[0.84]">WE CLOSE THE GAPS.</p>
+            <p className="mt-6 text-[12px] font-semibold leading-[1.5] text-black/62">Direct, energetic, and reserved for the operational promise.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function InterfaceLanguage() {
+  const shared = [
+    [Layers3, "1220px frame", "20px mobile and 32px wide-screen gutters."],
+    [Sparkles, "Restrained surfaces", "Borders first, shadows only where depth explains hierarchy."],
+    [Clock3, "Fast feedback", "200ms transitions, clear hover, press, and focus states."],
+    [Code2, "Real structure", "Semantic sections, useful content, and no decorative dead weight."],
+  ] as const
+
+  return (
+    <section id="interface" className="mx-auto max-w-[1220px] px-5 py-12 sm:px-8">
+      <SectionLead number="05" title="Interface language" copy="The offers share spacing, typography, action styles, and proof-first structure. Their section composition changes to match what each offer sells." />
+      <div className="mt-10 grid gap-6 lg:grid-cols-[0.42fr_0.58fr]">
+        <div className="grid gap-0 overflow-hidden rounded-[20px] border border-black/10 bg-white sm:grid-cols-2 lg:grid-cols-1">
+          {shared.map(([Icon, title, copy]) => (
+            <article key={title} className="grid grid-cols-[44px_1fr] gap-4 border-b border-black/10 p-5 last:border-b-0">
+              <span className="grid size-11 place-items-center rounded-full bg-[#dfff00]"><Icon className="size-5" strokeWidth={2.4} /></span>
+              <div>
+                <h3 className="text-[14px] font-black tracking-[-0.03em]">{title}</h3>
+                <p className="mt-2 text-[12px] font-semibold leading-[1.45] text-black/58">{copy}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <InterfaceSample kind="sites" />
+          <InterfaceSample kind="ops" />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function InterfaceSample({ kind }: { kind: "sites" | "ops" }) {
+  const sites = kind === "sites"
+  return (
+    <article className={`overflow-hidden rounded-[20px] ${sites ? "bg-[#f7f1e8]" : "bg-[#070707] text-white"}`}>
+      <div className="p-6 sm:p-7">
+        <p className={`text-[10px] font-black uppercase tracking-[0.08em] ${sites ? "text-black/40" : "text-white/42"}`}>Sorted {kind}</p>
+        <h3 className="mt-5 text-[32px] font-black leading-[0.96] tracking-[-0.05em]">{sites ? "Show the outcome." : "Show what changed."}</h3>
+        <p className={`mt-4 text-[13px] font-semibold leading-[1.5] ${sites ? "text-black/62" : "text-white/62"}`}>{sites ? "Visual proof, trust, clear pricing, and one low-friction next step." : "Visible gaps, measurable recovery, operational proof, and one decisive next step."}</p>
+      </div>
+      {sites ? (
+        <div className="mx-6 mb-6 rotate-[-2deg] rounded-[12px] border border-black/10 bg-white p-5 shadow-[0_18px_45px_rgba(20,14,8,0.12)]">
+          <div className="grid grid-cols-[0.8fr_1.2fr] gap-4">
+            <div><span className="block h-2 w-16 rounded-full bg-black" /><span className="mt-3 block h-2 w-24 rounded-full bg-black/15" /><span className="mt-5 block h-7 w-20 rounded-full bg-[#dfff00]" /></div>
+            <div className="h-24 rounded-md bg-[#e8e5dd]" />
           </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {logoAssets.flatMap((asset) =>
-              asset.files.map((file) => (
-                <a
-                  key={file.file}
-                  href={file.file}
-                  download
-                  className="flex min-h-16 items-center justify-between gap-4 rounded-[12px] border border-black/10 bg-[#fbfbfa] px-5 text-[13px] font-black transition hover:border-black/25 hover:bg-[#dfff00]"
-                >
-                  <span>
-                    {asset.title} <span className="font-semibold text-black/50">({file.label})</span>
-                  </span>
-                  <ArrowDownToLine className="size-4 shrink-0" strokeWidth={2.8} />
-                </a>
-              ))
-            )}
-            <a
-              href="/brand/sorted-brand-token-card.svg"
-              download
-              className="flex min-h-16 items-center justify-between gap-4 rounded-[12px] border border-black/10 bg-[#fbfbfa] px-5 text-[13px] font-black transition hover:border-black/25 hover:bg-[#dfff00] sm:col-span-2"
-            >
-              Brand token card
-              <ArrowDownToLine className="size-4 shrink-0" strokeWidth={2.8} />
+        </div>
+      ) : (
+        <div className="mx-6 mb-6 grid grid-cols-2 gap-px overflow-hidden rounded-[12px] border border-white/16 bg-white/16">
+          {[["412", "Hours returned"], ["+31%", "Capacity gained"], ["9", "Gaps closed"], ["£18.4k", "Value created"]].map(([value, label]) => (
+            <div key={label} className="bg-[#070707] p-4"><p className="text-[25px] font-black tracking-[-0.05em] text-[#dfff00]">{value}</p><p className="mt-1 text-[8px] font-black uppercase text-white/55">{label}</p></div>
+          ))}
+        </div>
+      )}
+    </article>
+  )
+}
+
+function Voice() {
+  return (
+    <section id="voice" className="mx-auto max-w-[1220px] px-5 py-12 sm:px-8">
+      <div className="grid gap-9 rounded-[22px] bg-[#dfff00] p-7 sm:p-9 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
+        <div>
+          <p className="text-[11px] font-black uppercase tracking-[0.06em]">06 · Voice</p>
+          <p className="mt-7 text-[clamp(2.8rem,5vw,5rem)] font-black leading-[0.91] tracking-[-0.055em]">Sound like someone who gets things done.</p>
+          <span className="mt-6 block h-[5px] w-44 rounded-full bg-black" />
+        </div>
+        <div className="grid gap-3">
+          <VoiceRow label="Say" text="website, enquiries, missed calls, time returned, work removed, proof" />
+          <VoiceRow label="Avoid" text="ecosystem, seamless, transformation, next-generation, unlock potential" />
+          <VoiceRow label="Write" text="Short sentences. Plain English. Real numbers. Specific outcomes." />
+          <VoiceRow label="Promise" text="We show the work before asking for trust, then finish what was agreed." />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function Downloads() {
+  return (
+    <section id="downloads" className="mx-auto max-w-[1220px] px-5 pb-16 pt-12 sm:px-8">
+      <div className="grid gap-10 rounded-[22px] border border-black/10 bg-white p-7 shadow-[0_18px_55px_rgba(20,14,8,0.05)] sm:p-9 lg:grid-cols-[0.72fr_1.28fr]">
+        <div>
+          <p className="text-[11px] font-black text-black/42">Brand assets</p>
+          <h2 className="mt-5 text-[clamp(2.8rem,5vw,5rem)] font-black leading-[0.92] tracking-[-0.055em]">Take the right mark with you.</h2>
+          <p className="mt-6 max-w-[430px] text-[14px] font-semibold leading-[1.55] text-black/62">Choose the light artwork for pale surfaces and the dark artwork for black or very dark surfaces. Transparent files are best for flexible placement.</p>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {downloads.map(([label, file, format], index) => (
+            <a key={file} href={file} download className={`group flex min-h-16 items-center justify-between gap-4 rounded-[12px] border border-black/10 bg-[#fbfbfa] px-5 text-[12px] font-black transition-[border-color,background-color,transform] duration-200 hover:-translate-y-0.5 hover:border-black/25 hover:bg-[#dfff00] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#dfff00]/60 ${index === downloads.length - 1 ? "sm:col-span-2" : ""}`}>
+              <span>{label}<span className="ml-2 font-mono text-[9px] text-black/38 group-hover:text-black/55">{format}</span></span>
+              <ArrowDownToLine className="size-4 shrink-0" strokeWidth={2.7} />
             </a>
-          </div>
+          ))}
         </div>
       </div>
     </section>
@@ -502,27 +402,62 @@ function DownloadStrip() {
 
 function Footer() {
   return (
-    <footer className="mt-10 bg-[#070707] px-5 py-8 text-white sm:px-8">
-      <div className="mx-auto flex max-w-[1240px] flex-col gap-6 md:flex-row md:items-center md:justify-between">
+    <footer className="bg-[#070707] px-5 py-9 text-white sm:px-8">
+      <div className="mx-auto grid max-w-[1220px] gap-8 md:grid-cols-[1.2fr_0.8fr_0.8fr_1fr]">
         <div>
-          <p className="text-[28px] font-extrabold tracking-[-0.02em]">
-            Sorted<span className="text-[#dfff00]">.</span>
-          </p>
-          <p className="mt-1 text-[12px] font-semibold text-white/60">The united brand system for the entire Sorted ecosystem.</p>
+          <p className="text-[34px] font-black leading-none tracking-[-0.05em]">Sorted<span className="text-[#dfff00]">.</span></p>
+          <p className="mt-4 max-w-[220px] text-[13px] font-semibold leading-[1.45] text-white/68">Business modernisation, split into two offers people can understand.</p>
+          <p className="mt-7 text-[10px] font-medium text-white/40">© 2026 Sorted · A trading name of ADX Engine Ltd</p>
         </div>
-        <Link href="/v2" className="inline-flex h-11 items-center gap-3 rounded-full bg-[#dfff00] px-5 text-[12px] font-black text-black">
-          Back to Sorted <ArrowRight className="size-4" strokeWidth={3} />
-        </Link>
+        <FooterLinks title="Sorted Sites" links={[["Website offer", "/sites"], ["Examples", "/examples"], ["Pricing", "/pricing"]]} />
+        <FooterLinks title="Sorted Ops" links={[["Operations offer", "/ops"], ["How it works", "/ops/how-it-works"], ["Results", "/ops/results"]]} />
+        <div>
+          <p className="mb-4 text-[12px] font-black">Need the right version?</p>
+          <a href="mailto:hello@sortmydigital.site" className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#dfff00] px-5 text-[12px] font-black text-black transition-transform duration-200 hover:-translate-y-0.5"><Mail className="size-4" /> Ask Sorted</a>
+        </div>
       </div>
     </footer>
   )
 }
 
-function SectionTitle({ title }: { title: string }) {
+function SectionLead({ number, title, copy }: { number: string; title: string; copy: string }) {
   return (
-    <div className="relative inline-block">
-      <h2 className="[font-family:var(--font-v2-marker)] text-[clamp(2rem,3.4vw,3rem)] font-normal leading-[1.05]">{title}</h2>
-      <span className="absolute -bottom-2 left-0 h-[7px] w-[78%] rounded-full bg-[#dfff00]" />
+    <div className="grid gap-5 lg:grid-cols-[0.3fr_0.7fr] lg:items-end">
+      <div>
+        <p className="font-mono text-[10px] font-bold text-black/38">{number}</p>
+        <h2 className="mt-3 text-[clamp(2.6rem,4.8vw,4.8rem)] font-black leading-[0.94] tracking-[-0.055em]">{title}</h2>
+        <span className="mt-5 block h-[5px] w-32 rounded-full bg-[#dfff00]" />
+      </div>
+      <p className="max-w-[680px] text-[16px] font-semibold leading-[1.58] tracking-[-0.025em] text-black/65 lg:justify-self-end">{copy}</p>
+    </div>
+  )
+}
+
+function Rule({ title, copy }: { title: string; copy: string }) {
+  return (
+    <article className="border-t border-black/12 pt-5">
+      <p className="text-[15px] font-black tracking-[-0.03em]">{title}</p>
+      <p className="mt-3 text-[12px] font-semibold leading-[1.5] text-black/58">{copy}</p>
+    </article>
+  )
+}
+
+function VoiceRow({ label, text }: { label: string; text: string }) {
+  return (
+    <div className="grid gap-2 rounded-[12px] bg-white/78 p-5 sm:grid-cols-[80px_1fr] sm:items-start">
+      <p className="text-[10px] font-black uppercase tracking-[0.06em] text-black/45">{label}</p>
+      <p className="text-[14px] font-bold leading-[1.45] tracking-[-0.025em]">{text}</p>
+    </div>
+  )
+}
+
+function FooterLinks({ title, links }: { title: string; links: readonly (readonly [string, string])[] }) {
+  return (
+    <div>
+      <p className="mb-4 text-[12px] font-black">{title}</p>
+      <ul className="space-y-2 text-[12px] font-semibold text-white/68">
+        {links.map(([label, href]) => <li key={href}><Link href={href} className="inline-flex min-h-8 items-center transition-colors hover:text-[#dfff00]">{label}</Link></li>)}
+      </ul>
     </div>
   )
 }
