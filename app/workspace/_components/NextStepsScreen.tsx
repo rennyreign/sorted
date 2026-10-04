@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { ArrowRight, BarChart3, Calendar, CreditCard, MessageCircle, Monitor, Settings } from "lucide-react"
-import { DepositPaymentDialog, QuestionDrawer } from "./Dialogs"
+import { DepositPaymentDialog, NotInterestedDialog, QuestionDrawer } from "./Dialogs"
 import { WorkspaceFooter } from "./WorkspaceShell"
 import { workspaceEvent, type Workspace, type WorkspaceRoute } from "@/lib/workspace"
 
@@ -41,6 +41,8 @@ export function NextStepsScreen({
   const [questionOpen, setQuestionOpen] = useState(false)
   const [paymentOpen, setPaymentOpen] = useState(false)
   const [paying, setPaying] = useState(false)
+  const [declineOpen, setDeclineOpen] = useState(false)
+  const [declined, setDeclined] = useState(false)
 
   const { offer, links } = workspace
 
@@ -84,6 +86,22 @@ export function NextStepsScreen({
 
   function openBooking() {
     workspaceEvent(workspace, "call_booking_opened")
+  }
+
+  if (declined) {
+    return (
+      <div className="mx-auto grid min-h-[60vh] max-w-[560px] place-items-center px-5 py-16 text-center">
+        <div>
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#73736D]">Sorted</p>
+          <h1 className="mt-3 text-[34px] font-extrabold leading-[1.05] tracking-[-0.04em] sm:text-[44px]">
+            Thanks for your time.
+          </h1>
+          <p className="mt-4 text-[15px] font-medium leading-[1.55] text-[#73736D]">
+            You&apos;ve been removed from our records and there&apos;ll be no further engagement from us. If anything changes, you know where to find us.
+          </p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -217,6 +235,18 @@ export function NextStepsScreen({
               </a>
             ) : null}
           </div>
+          <p className="mt-5 text-center">
+            <button
+              type="button"
+              onClick={() => {
+                workspaceEvent(workspace, "not_interested_opened")
+                setDeclineOpen(true)
+              }}
+              className="cursor-pointer text-[12px] font-semibold text-[#A3A3A3] underline-offset-4 transition-colors hover:text-[#73736D] hover:underline"
+            >
+              Not interested?
+            </button>
+          </p>
         </section>
       </div>
 
@@ -229,6 +259,12 @@ export function NextStepsScreen({
         onClose={() => setPaymentOpen(false)}
         onPayByCard={payByCard}
         paying={paying}
+      />
+      <NotInterestedDialog
+        workspace={workspace}
+        open={declineOpen}
+        onClose={() => setDeclineOpen(false)}
+        onDeclined={() => setDeclined(true)}
       />
     </>
   )

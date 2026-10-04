@@ -130,8 +130,10 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       total: 1500,
       deposit: 750,
       balance: 750,
-      // No stripePaymentUrl yet — a dedicated £750 Payment Link is needed.
-      // Until then, card checkout shows "coming soon" and bank transfer works.
+      // Explicitly clear the inherited shared £1,500 Payment Link — Murray
+      // Martin's deposit is £750, so a dedicated link is needed first. Until
+      // then card checkout shows "coming soon" and bank transfer works.
+      stripePaymentUrl: undefined,
       bankTransferEnabled: true,
     },
   },
@@ -377,4 +379,17 @@ export function workspaceEvent(ws: Workspace, event: string, payload: Record<str
       referrer: typeof document !== "undefined" ? document.referrer || null : null,
     })
     .then(() => undefined, () => undefined)
+}
+
+// ─── Decline / opt-out ────────────────────────────────────────────────────────
+// "Not interested" on the Next Steps screen marks the backing prospect `lost`
+// via a SECURITY DEFINER RPC — the static site cannot use API routes, and anon
+// has no direct UPDATE grant on prospects. The RPC ignores prospects already
+// in paid/build/quote so paying clients can't self-demote.
+
+export async function markWorkspaceNotInterested(ws: Workspace): Promise<boolean> {
+  workspaceEvent(ws, "not_interested_confirmed")
+  const { data, error } = await supabase.rpc("mark_workspace_not_interested", { p_slug: ws.slug })
+  if (error) return false
+  return Boolean(data)
 }
