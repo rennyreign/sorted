@@ -1,10 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ArrowRight, BarChart3, Calendar, CreditCard, MessageCircle, Monitor, Settings } from "lucide-react"
-import { BankTransferDialog, QuestionDrawer } from "./Dialogs"
+import { DepositPaymentDialog, QuestionDrawer } from "./Dialogs"
 import { WorkspaceFooter } from "./WorkspaceShell"
-import { depositFallbackMailto, workspaceEvent, type Workspace, type WorkspaceRoute } from "@/lib/workspace"
+import { workspaceEvent, type Workspace, type WorkspaceRoute } from "@/lib/workspace"
 
 const INCLUDED = [
   {
@@ -25,7 +25,6 @@ const INCLUDED = [
 ]
 
 const STEPS = [
-  { number: 1, title: "Pay the deposit", body: "Pay £1,500 to confirm and we'll get started." },
   { number: 2, title: "We complete the site", body: "We build, connect and test your full website." },
   { number: 3, title: "Approve and launch", body: "You review the finished site, then we launch it live." },
 ]
@@ -40,23 +39,42 @@ export function NextStepsScreen({
   onNavigate: (route: WorkspaceRoute) => void
 }) {
   const [questionOpen, setQuestionOpen] = useState(false)
-  const [bankOpen, setBankOpen] = useState(false)
+  const [paymentOpen, setPaymentOpen] = useState(false)
   const [paying, setPaying] = useState(false)
 
   const { offer, links } = workspace
-  const depositHref = offer.stripePaymentUrl ?? depositFallbackMailto(workspace)
-  const externalPayment = Boolean(offer.stripePaymentUrl)
+
+  const steps = [
+    { number: 1, title: "Pay the deposit", body: `Pay £${offer.deposit.toLocaleString()} to confirm and we'll get started.` },
+    ...STEPS,
+  ]
+
+  useEffect(() => {
+    if (depositReturned) workspaceEvent(workspace, "deposit_returned")
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [depositReturned])
 
   function startDeposit() {
-    if (paying) return
-    setPaying(true)
-    workspaceEvent(workspace, "deposit_started")
-    window.location.href = depositHref
+    workspaceEvent(workspace, "payment_method_selection_opened")
+    setPaymentOpen(true)
   }
 
-  function openBankTransfer() {
-    workspaceEvent(workspace, "bank_transfer_requested")
-    setBankOpen(true)
+  function payByCard() {
+    if (!offer.stripePaymentUrl || paying) return
+    setPaying(true)
+    workspaceEvent(workspace, "deposit_started", { payment_method: "card" })
+    // Stripe's redirect is fixed — hand the slug over via localStorage so the
+    // /workspace/paid confirmation screen can link back into this workspace.
+    try {
+      window.localStorage.setItem("workspace_return_slug", workspace.slug)
+    } catch {
+      // non-critical — paid screen falls back to email instructions
+    }
+    const url = new URL(offer.stripePaymentUrl)
+    // One shared Payment Link — tag the checkout session with the workspace
+    // slug so payments are attributable per prospect in Stripe.
+    url.searchParams.set("client_reference_id", workspace.slug)
+    window.location.assign(url.toString())
   }
 
   function openQuestion() {
@@ -74,7 +92,7 @@ export function NextStepsScreen({
         {/* Returned from payment — confirm state, not a verified payment */}
         {depositReturned ? (
           <div className="mb-8 rounded-[12px] border border-[#00A64B]/25 bg-[#00A64B]/[0.06] p-5">
-            <p className="text-[15px] font-extrabold text-[#0A7A3D]">Deposit received — we&apos;re confirming it now.</p>
+            <p className="text-[15px] font-extrabold text-[#0A7A3D]">Deposit received. We&apos;re confirming it now.</p>
             <p className="mt-1.5 text-[13px] font-medium leading-[1.5] text-[#0A7A3D]/80">
               Once confirmed, this workspace becomes your project hub and we&apos;ll start the full build. You&apos;ll hear from us shortly.
             </p>
@@ -107,10 +125,10 @@ export function NextStepsScreen({
             type="button"
             onClick={startDeposit}
             disabled={paying}
-            className="inline-flex h-[54px] w-full items-center justify-center gap-3 rounded-[10px] bg-[#DFFF00] text-[15px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px focus:outline-2 focus:outline-offset-4 focus:outline-[#DFFF00] active:translate-y-0 disabled:opacity-45 disabled:hover:translate-y-0 sm:h-[72px] sm:text-[19px]"
+            className="inline-flex h-[54px] w-full items-center justify-center gap-3 rounded-[10px] bg-[#DFFF00] text-[15px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00] active:translate-y-0 disabled:opacity-45 disabled:hover:translate-y-0 sm:h-[72px] sm:text-[19px]"
           >
             <CreditCard className="size-5" strokeWidth={2.4} />
-            {paying ? "Processing…" : externalPayment ? "Pay deposit" : "Pay £1,500 deposit"}
+            {paying ? "Opening checkout…" : `Pay £${offer.deposit.toLocaleString()} deposit`}
             <ArrowRight className="size-4" strokeWidth={2.8} />
           </button>
         </section>
@@ -138,9 +156,9 @@ export function NextStepsScreen({
         <section className="py-8 sm:py-9">
           <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#73736D]">How it works</p>
           <ol className="mt-6 grid gap-0 sm:grid-cols-3 sm:gap-7">
-            {STEPS.map((step, i) => (
+            {steps.map((step, i) => (
               <li key={step.number} className="relative grid grid-cols-[50px_1fr] gap-4 py-4 sm:block sm:py-0">
-                {i < STEPS.length - 1 ? (
+                {i < steps.length - 1 ? (
                   <span
                     aria-hidden
                     className="absolute left-[23px] top-12 h-[calc(100%-56px)] w-px border-l border-dashed border-[#CFCFC6] sm:left-0 sm:top-[23px] sm:h-px sm:w-[calc(100%-50px)] sm:border-l-0 sm:border-t"
@@ -165,7 +183,7 @@ export function NextStepsScreen({
             Let&apos;s get your website live.
           </h2>
           <p className="mt-4 max-w-[520px] text-[15px] font-medium leading-[1.55] text-[#73736D]">
-            Pay your £1,500 deposit today and we&apos;ll complete, connect and launch your website for £3,000.
+            Pay your £{offer.deposit.toLocaleString()} deposit today and we&apos;ll complete, connect and launch your website for £{offer.total.toLocaleString()}.
           </p>
           <div className="mt-6 grid gap-3 sm:grid-cols-[1.2fr_1fr_1fr]">
             <button
@@ -175,7 +193,7 @@ export function NextStepsScreen({
               className="inline-flex h-[50px] items-center justify-center gap-3 rounded-[9px] bg-[#DFFF00] px-5 text-[13px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px active:translate-y-0 disabled:opacity-45 sm:h-[54px]"
             >
               <CreditCard className="size-4.5" strokeWidth={2.4} />
-              {paying ? "Processing…" : "Pay £1,500 deposit"}
+              {paying ? "Opening checkout…" : `Pay £${offer.deposit.toLocaleString()} deposit`}
               <ArrowRight className="size-4" strokeWidth={2.8} />
             </button>
             <button
@@ -199,22 +217,19 @@ export function NextStepsScreen({
               </a>
             ) : null}
           </div>
-          {offer.bankTransferEnabled ? (
-            <button
-              type="button"
-              onClick={openBankTransfer}
-              className="mt-5 text-[13px] font-bold text-[#070707] underline underline-offset-4 transition-colors hover:text-[#070707]/60"
-            >
-              Prefer bank transfer?
-            </button>
-          ) : null}
         </section>
       </div>
 
       <WorkspaceFooter workspace={workspace} onNavigate={onNavigate} />
 
       <QuestionDrawer workspace={workspace} open={questionOpen} onClose={() => setQuestionOpen(false)} />
-      <BankTransferDialog workspace={workspace} open={bankOpen} onClose={() => setBankOpen(false)} />
+      <DepositPaymentDialog
+        workspace={workspace}
+        open={paymentOpen}
+        onClose={() => setPaymentOpen(false)}
+        onPayByCard={payByCard}
+        paying={paying}
+      />
     </>
   )
 }

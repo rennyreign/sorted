@@ -37,6 +37,8 @@ export type Workspace = {
     previewUrl?: string
     /** Still image of the homepage direction — used when no previewUrl exists yet. */
     previewImageUrl?: string
+    /** Direct video file URL of a talking-head explanation, rendered as a floating bubble over the preview. */
+    walkthroughVideoUrl?: string
     liveUrl?: string
     cmsUrl?: string
     trackingUrl?: string
@@ -65,6 +67,9 @@ export const WORKSPACE_DEFAULTS = {
     total: 3000,
     deposit: 1500,
     balance: 1500,
+    // One shared Stripe Payment Link — each checkout is tagged with the
+    // workspace slug via client_reference_id (set in NextStepsScreen).
+    stripePaymentUrl: "https://buy.stripe.com/28E7sKbyo1SZ3QOgn8dwc00",
     bankTransferEnabled: true,
   },
   links: {
@@ -78,15 +83,6 @@ export const BANK_DETAILS = {
   bank: "NatWest",
   sortCode: "52-30-02",
   accountNumber: "30189489",
-}
-
-/** Fallback deposit link when a workspace has no Stripe URL configured. */
-export function depositFallbackMailto(ws: Workspace) {
-  return `mailto:${ws.links.questionEmail}?subject=${encodeURIComponent(
-    `Deposit payment — ${ws.business.name}`
-  )}&body=${encodeURIComponent(
-    `Hi,\n\nI'd like to pay the £1,500 deposit for ${ws.business.name}.\nWorkspace: ${ws.slug}\n\nThanks,`
-  )}`
 }
 
 // ─── Per-workspace configuration ──────────────────────────────────────────────
@@ -103,6 +99,42 @@ type WorkspaceOverride = {
 }
 
 const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
+  "murray-martin": {
+    review: {
+      headline: "30 years of critical power expertise, finally presented like it.",
+      summary:
+        "We've rebuilt your homepage to put your UPS, battery and cooling services front and centre — with your real accreditations, your Google reviews and a faster path for every enquiry.",
+      observations: [
+        {
+          title: "Expertise front and centre",
+          explanation:
+            "Your three core services — Battery Services, UPS, and Cooling & InRow — now open the page with clear explanations and a direct enquiry path on each.",
+        },
+        {
+          title: "Real trust signals",
+          explanation:
+            "Schneider Electric, APC, SafeContractor and F-Gas accreditations are now impossible to miss, and your Google reviews sit right where new customers look for proof.",
+        },
+        {
+          title: "Faster callbacks",
+          explanation:
+            "A Request a Callback option sits in the header of every page, so facilities managers and business owners can reach your engineers in seconds.",
+        },
+      ],
+    },
+    website: {
+      previewUrl: "https://murraymartin-services.netlify.app",
+      status: "review",
+    },
+    offer: {
+      total: 1500,
+      deposit: 750,
+      balance: 750,
+      // No stripePaymentUrl yet — a dedicated £750 Payment Link is needed.
+      // Until then, card checkout shows "coming soon" and bank transfer works.
+      bankTransferEnabled: true,
+    },
+  },
   "imperial-nail-studio": {
     review: {
       headline: "Your business is stronger than your website makes it look.",
@@ -122,10 +154,44 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
         {
           title: "Build recognisable trust",
           explanation:
-            "We've added real proof through your work, reviews and a more professional design — so new clients feel confident booking with you.",
+            "We've added real proof through your work, reviews and a more professional design, so new clients feel confident booking with you.",
         },
       ],
     },
+  },
+}
+
+const LOCAL_DEMO_WORKSPACES: Record<string, Workspace> = {
+  "nexus-accounting": {
+    slug: "nexus-accounting",
+    state: "prospect",
+    business: { name: "Nexus Accounting" },
+    review: {
+      headline: "A clearer homepage for Nexus Accounting.",
+      summary:
+        "This working example puts Nexus Accounting’s audiences, fixed-fee offer and consultation action up front.",
+      observations: [
+        {
+          title: "Name the audiences",
+          explanation: "The homepage makes clear Nexus works with contractors, freelancers and small businesses.",
+        },
+        {
+          title: "Put the offer upfront",
+          explanation: "The fixed-fee accounting offer and monthly starting price appear in the first screen.",
+        },
+        {
+          title: "Make consultation easy to find",
+          explanation: "The free consultation action appears in both the navigation and the homepage hero.",
+        },
+      ],
+    },
+    website: {
+      previewUrl: "http://localhost:3001/",
+      previewImageUrl: "/nexus-accounting-homepage-preview.webp",
+      status: "preview",
+    },
+    offer: { ...WORKSPACE_DEFAULTS.offer },
+    links: { ...WORKSPACE_DEFAULTS.links },
   },
 }
 
@@ -141,6 +207,7 @@ type ProspectRow = {
   site_weaknesses: string[] | null
   mockup_url: string | null
   mockup_urls: string[] | null
+  walkthrough_video_url: string | null
   screenshot_url: string | null
   crm_status: string | null
 }
@@ -184,10 +251,14 @@ function merge(ws: Workspace, o: WorkspaceOverride | undefined): Workspace {
 }
 
 export async function getWorkspace(slug: string): Promise<Workspace | null> {
+  if (process.env.NODE_ENV === "development" && LOCAL_DEMO_WORKSPACES[slug]) {
+    return LOCAL_DEMO_WORKSPACES[slug]
+  }
+
   const { data, error } = await supabase
     .from("prospects")
     .select(
-      "id, name, website, owner_name, review_summary, site_analysis, site_weaknesses, mockup_url, mockup_urls, screenshot_url, crm_status"
+      "id, name, website, owner_name, review_summary, site_analysis, site_weaknesses, mockup_url, mockup_urls, walkthrough_video_url, screenshot_url, crm_status"
     )
     .eq("review_slug", slug)
     .maybeSingle()
@@ -208,11 +279,12 @@ export async function getWorkspace(slug: string): Promise<Workspace | null> {
       headline: "Your business is stronger than your website makes it look.",
       summary:
         p.review_summary ??
-        `We've prepared a new homepage direction for ${p.name} — built around the substance already inside the business.`,
+        `We've prepared a new homepage direction for ${p.name}, built around the substance already inside the business.`,
       observations: deriveObservations(p),
     },
     website: {
       previewImageUrl: p.mockup_urls?.[0] ?? p.mockup_url ?? undefined,
+      walkthroughVideoUrl: p.walkthrough_video_url ?? undefined,
       status: "preview",
     },
     offer: { ...WORKSPACE_DEFAULTS.offer },
@@ -268,12 +340,41 @@ export function defaultRouteFor(state: WorkspaceState): WorkspaceRoute {
 }
 
 // ─── Events ───────────────────────────────────────────────────────────────────
+// Every event is pushed to the dataLayer (GTM/GA4) AND inserted into the
+// Supabase workspace_events table, so per-prospect activity is queryable for
+// follow-up. Inserts are fire-and-forget — never block the UI on analytics.
+
+function workspaceSessionId(): string | undefined {
+  if (typeof window === "undefined") return undefined
+  try {
+    let id = window.sessionStorage.getItem("workspace_session_id")
+    if (!id) {
+      id = crypto.randomUUID()
+      window.sessionStorage.setItem("workspace_session_id", id)
+    }
+    return id
+  } catch {
+    return undefined
+  }
+}
 
 export function workspaceEvent(ws: Workspace, event: string, payload: Record<string, string | number | boolean | null | undefined> = {}) {
-  trackEvent(event, {
+  const context = {
     workspace_slug: ws.slug,
     business_name: ws.business.name,
     lifecycle_state: ws.state,
     ...payload,
-  })
+  }
+  trackEvent(event, context)
+
+  void supabase
+    .from("workspace_events")
+    .insert({
+      workspace_slug: ws.slug,
+      event,
+      payload: context,
+      session_id: workspaceSessionId(),
+      referrer: typeof document !== "undefined" ? document.referrer || null : null,
+    })
+    .then(() => undefined, () => undefined)
 }
