@@ -10,7 +10,7 @@ export function BeforeAfterVideo({ className = "" }: BeforeAfterVideoProps) {
     >
       <video
         className="absolute inset-0 h-full w-full object-cover"
-        src="/examples/school-of-skill-landscape-4k.mp4"
+        src="https://sortedstorage.s3.amazonaws.com/school-of-skill-landscape-4k.mp4"
         poster="/examples/thumbnail-overlay.png"
         preload="metadata"
         controls
