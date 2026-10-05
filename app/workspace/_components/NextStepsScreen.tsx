@@ -235,6 +235,19 @@ export function NextStepsScreen({
               </a>
             ) : null}
           </div>
+          {links.phone ? (
+            <p className="mt-4 text-center text-[12px] font-medium text-[#73736D]">
+              Prefer a quick chat?{" "}
+              <a
+                href={`tel:${links.phone}`}
+                onClick={() => workspaceEvent(workspace, "contact_clicked", { channel: "phone" })}
+                className="font-bold text-[#070707] underline underline-offset-4"
+              >
+                Ring or text us on {links.phoneDisplay ?? links.phone}
+              </a>{" "}
+              — no need to book.
+            </p>
+          ) : null}
           <p className="mt-5 text-center">
             <button
               type="button"
@@ -242,7 +255,7 @@ export function NextStepsScreen({
                 workspaceEvent(workspace, "not_interested_opened")
                 setDeclineOpen(true)
               }}
-              className="cursor-pointer text-[12px] font-semibold text-[#A3A3A3] underline-offset-4 transition-colors hover:text-[#73736D] hover:underline"
+              className="cursor-pointer text-[12px] font-semibold text-[#B91C1C] underline-offset-4 transition-colors hover:text-[#991B1B] hover:underline"
             >
               Not interested?
             </button>

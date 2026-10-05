@@ -116,7 +116,10 @@ def qualify(
     price_point = analysis.get("service_price_point")
     price_source = "model"
     if not price_point or price_point <= 0:
-        price_point = _category_price_fallback(prospect.get("category"))
+        intake_cat = prospect.get("intake_category")
+        price_point = _category_price_fallback(
+            intake_cat if intake_cat and intake_cat != "other" else prospect.get("category")
+        )
         price_source = "category_fallback" if price_point else "none"
     payback_jobs = compute_payback_jobs(price_point)
 

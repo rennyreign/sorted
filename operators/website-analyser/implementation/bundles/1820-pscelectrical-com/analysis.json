@@ -1,0 +1,24 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 1,
+    "mobile_experience": 2,
+    "desire_creation": 1,
+    "content_structure": 2,
+    "trust_and_credibility": 2
+  },
+  "business_quality_score": 8,
+  "business_quality_reasoning": "Established firm trading over 22 years, filing full accounts, covering domestic, commercial and industrial work with 133 Google reviews at 4.7 and a 9.93/10 rating displayed from 526 reviews. Offers finance on larger jobs, indicating meaningful project values.",
+  "service_price_point": 400,
+  "price_point_reasoning": "Mix of small electrical jobs plus rewires, solar installs and EV chargers shown on site, with finance offered - midpoint estimate across that range.",
+  "modernity_gap": "The site is a working WPBakery WordPress template that converts reasonably well, but the design, typography and layout feel several years behind current standards.",
+  "site_weaknesses": [
+    "Dated WPBakery template look with heavy hero overlay and cluttered header",
+    "Copy has typos and inconsistencies ('Customer rating', mixed branding) that undercut an otherwise credible business",
+    "Services presented as a generic icon grid with no pricing guidance or job examples",
+    "No real project photography beyond the van hero - misses the chance to show workmanship"
+  ],
+  "site_analysis": "PSC has the bones of a good site: postcode quote form, review score, services grid and a real team photo in the hero. But the WPBakery template look, typos in the copy and generic stock-style presentation make a 22-year, 526-review business look cheaper than it is.",
+  "review_summary": "Your site works and the postcode quote box is a smart touch, but it looks a few years old and small things like typos and a cluttered layout chip away at the trust your 526 reviews have earned. A cleaner, more modern site would make visitors as confident in your website as your customers already are in your work.",
+  "outreach_angle": "You've earned 526 reviews and a 9.93 rating, but the website showing that off still looks like a 2018 template - worth a quick look at what it could be.",
+  "business_type": "electrical contractor"
+}

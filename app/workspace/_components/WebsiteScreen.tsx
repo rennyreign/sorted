@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { ArrowRight, Expand, MessageCircle, Minimize2, Monitor, Smartphone } from "lucide-react"
+import { useEffect, useState } from "react"
+import { ArrowLeft, ArrowRight, MessageCircle, Monitor, Smartphone } from "lucide-react"
 import { workspaceEvent, type Workspace } from "@/lib/workspace"
 import WalkthroughBubble from "./WalkthroughBubble"
 
@@ -13,15 +13,11 @@ export function WebsiteScreen({
   onAskQuestion,
 }: {
   workspace: Workspace
-  onNavigate: (route: "next-steps") => void
+  onNavigate: (route: "review" | "next-steps") => void
   onAskQuestion: () => void
 }) {
   const [viewport, setViewport] = useState<Viewport>("desktop")
   const [loaded, setLoaded] = useState(false)
-  const [isFullScreen, setIsFullScreen] = useState(false)
-  const fullScreenRef = useRef<HTMLDivElement>(null)
-  const enterFullScreenRef = useRef<HTMLButtonElement>(null)
-  const exitFullScreenRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 639px)")
@@ -31,48 +27,17 @@ export function WebsiteScreen({
     return () => media.removeEventListener("change", updateViewport)
   }, [])
 
-  useEffect(() => {
-    if (!isFullScreen) return
-
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = "hidden"
-    exitFullScreenRef.current?.focus()
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        workspaceEvent(workspace, "homepage_fullscreen_closed")
-        setIsFullScreen(false)
-        return
-      }
-      if (event.key !== "Tab") return
-
-      const focusable = Array.from(
-        fullScreenRef.current?.querySelectorAll<HTMLElement>(
-          'button:not(:disabled), a[href], iframe, [tabindex]:not([tabindex="-1"])'
-        ) ?? []
-      ).filter((element) => element.getClientRects().length > 0)
-      const first = focusable[0]
-      const last = focusable[focusable.length - 1]
-      if (!first || !last) return
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault()
-        last.focus()
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault()
-        first.focus()
-      }
-    }
-
-    window.addEventListener("keydown", onKeyDown)
-    return () => {
-      window.removeEventListener("keydown", onKeyDown)
-      document.body.style.overflow = previousOverflow
-      enterFullScreenRef.current?.focus()
-    }
-  }, [isFullScreen, workspace])
-
-  const { previewUrl, previewImageUrl } = workspace.website
-  const hasPreview = Boolean(previewUrl || previewImageUrl)
+  const { previewUrl, previewImageUrl, previewVersions, defaultPreviewVersion } = workspace.website
+  const versions = previewVersions ?? []
+  const showVersionPicker = versions.length > 1
+  const [selectedVersion, setSelectedVersion] = useState(() => {
+    const d = defaultPreviewVersion
+    return d && versions.some((v) => v.id === d) ? d : (versions[0]?.id ?? null)
+  })
+  const currentPreviewUrl = versions.length > 0
+    ? (versions.find((v) => v.id === selectedVersion)?.previewUrl ?? previewUrl)
+    : previewUrl
+  const hasPreview = Boolean(currentPreviewUrl || previewImageUrl)
 
   const switchViewport = (v: Viewport) => {
     if (v === viewport) return
@@ -90,14 +55,13 @@ export function WebsiteScreen({
     onNavigate("next-steps")
   }
 
-  const enterFullScreen = () => {
-    workspaceEvent(workspace, "homepage_fullscreen_opened")
-    setIsFullScreen(true)
-  }
+  const backToReview = () => onNavigate("review")
 
-  const exitFullScreen = () => {
-    workspaceEvent(workspace, "homepage_fullscreen_closed")
-    setIsFullScreen(false)
+  const selectVersion = (id: string) => {
+    if (id === selectedVersion) return
+    setLoaded(false)
+    setSelectedVersion(id)
+    workspaceEvent(workspace, "website_version_changed", { version: id })
   }
 
   const viewportToggle = (
@@ -124,172 +88,152 @@ export function WebsiteScreen({
     </div>
   )
 
-  return (
-    <div
-      ref={isFullScreen ? fullScreenRef : undefined}
-      role={isFullScreen ? "dialog" : undefined}
-      aria-modal={isFullScreen ? true : undefined}
-      aria-label={isFullScreen ? `Full-screen homepage preview for ${workspace.business.name}` : undefined}
-      className={
-        isFullScreen
-          ? "fixed inset-0 z-50 flex flex-col bg-[#F7F7F3] p-3 sm:p-5"
-          : "mx-auto max-w-[1240px] px-3 pb-10 pt-3 sm:px-6 sm:pt-5 lg:px-8"
-      }
-    >
-      {isFullScreen ? (
-        <div className="mb-3 flex shrink-0 flex-wrap items-center gap-3 rounded-[12px] bg-[#070707] p-3.5 sm:h-[58px] sm:flex-nowrap sm:px-5 sm:py-0">
-          <button
-            ref={exitFullScreenRef}
-            type="button"
-            onClick={exitFullScreen}
-            className="inline-flex min-h-11 shrink-0 items-center gap-2.5 text-[12px] font-black text-white focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00]"
-          >
-            <Minimize2 className="size-4" strokeWidth={2.4} />
-            Return to workspace
-          </button>
-          <p className="hidden min-w-0 flex-1 truncate text-center text-[11px] font-bold uppercase tracking-[0.14em] text-white/55 lg:block">
-            Private working homepage · {workspace.business.name}
-          </p>
-          <div className="grid w-full grid-cols-2 items-center gap-2 sm:ml-auto sm:flex sm:w-auto sm:gap-3">
-            <button
-              type="button"
-              onClick={askQuestion}
-              className="inline-flex min-h-11 items-center justify-center gap-2 text-[11px] font-bold text-white/85 transition-colors hover:text-white focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00] sm:text-[12px]"
-            >
-              <MessageCircle className="size-4 shrink-0" strokeWidth={2.2} />
-              Ask a question
-            </button>
-            <button
-              type="button"
-              onClick={completeSite}
-              className="inline-flex h-11 min-w-0 items-center justify-center gap-1 rounded-[9px] bg-[#DFFF00] px-2 text-[10px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:h-[42px] sm:gap-2 sm:px-5 sm:text-[12px]"
-            >
-              <span className="sm:hidden">Complete · £{workspace.offer.total.toLocaleString()}</span>
-              <span className="hidden sm:inline">Complete this site · £{workspace.offer.total.toLocaleString()}</span>
-              <ArrowRight className="size-4 shrink-0" strokeWidth={2.8} />
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div className="sticky top-[100px] z-30 mb-3 grid grid-cols-1 gap-3 rounded-[12px] bg-[#070707] p-3.5 sm:mb-4 sm:h-[58px] sm:grid-cols-[1fr_auto_auto] sm:items-center sm:gap-5 sm:px-5 sm:py-0 lg:top-[76px]">
-          <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/70">Private working homepage</p>
-          <p className="hidden text-[12px] font-semibold text-white/50 sm:block">Built for {workspace.business.name}</p>
-          <div className="flex items-center justify-between gap-3 sm:justify-end">
-            <button
-              type="button"
-              onClick={askQuestion}
-              className="inline-flex min-h-11 items-center gap-2.5 text-[12px] font-bold text-white/85 transition-colors hover:text-white focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00]"
-            >
-              <MessageCircle className="size-4" strokeWidth={2.2} />
-              Ask a question
-            </button>
-            <button
-              type="button"
-              onClick={completeSite}
-              className="inline-flex h-11 flex-1 items-center justify-center gap-2.5 rounded-[9px] bg-[#DFFF00] px-5 text-[12px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-0 sm:h-[42px] sm:flex-none"
-            >
-              Complete this site · £{workspace.offer.total.toLocaleString()} <ArrowRight className="size-4" strokeWidth={2.8} />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Preview frame */}
+  const versionPicker = showVersionPicker ? (
+    <>
+      {/* Segmented control — tablet/desktop */}
       <div
-        className={`overflow-hidden rounded-[14px] border border-[#E8E5DD] bg-white shadow-[0_14px_45px_rgba(7,7,7,0.08)] ${
-          isFullScreen ? "flex min-h-0 flex-1 flex-col" : ""
-        }`}
+        className="hidden h-8 shrink-0 items-center rounded-full bg-white/10 p-[3px] sm:flex"
+        role="group"
+        aria-label="Website version"
       >
-        <div className="flex h-11 shrink-0 items-center justify-between border-b border-[#E8E5DD] px-4">
-          <div className="hidden items-center gap-1.5 sm:flex" aria-hidden>
-            <span className="size-[9px] rounded-full bg-[#FF5F57]" />
-            <span className="size-[9px] rounded-full bg-[#FEBC2E]" />
-            <span className="size-[9px] rounded-full bg-[#28C840]" />
-          </div>
-          <span className="text-[11px] font-semibold text-[#73736D] sm:hidden">Your new homepage</span>
-          <div className="ml-auto flex items-center gap-2">
-            {viewportToggle}
-            {!isFullScreen ? (
-              <button
-                ref={enterFullScreenRef}
-                type="button"
-                onClick={enterFullScreen}
-                className="inline-flex h-11 items-center gap-2 rounded-full border border-[#E8E5DD] px-3 text-[11px] font-bold text-[#070707] transition-colors hover:bg-[#F1F1EC] focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#070707]"
-                aria-label="View homepage full screen"
-              >
-                <Expand className="size-3.5" strokeWidth={2.2} />
-                <span className="hidden sm:inline">Full screen</span>
-              </button>
-            ) : null}
-          </div>
-        </div>
+        {versions.map((v) => (
+          <button
+            key={v.id}
+            type="button"
+            aria-pressed={selectedVersion === v.id}
+            onClick={() => selectVersion(v.id)}
+            className={`inline-flex h-[26px] items-center rounded-full px-3 text-[11px] font-bold transition-colors focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DFFF00] ${
+              selectedVersion === v.id ? "bg-[#DFFF00] text-[#070707]" : "text-white/60 hover:text-white"
+            }`}
+          >
+            {v.label}
+          </button>
+        ))}
+      </div>
+      {/* Compact select — narrow mobile */}
+      <select
+        aria-label="Website version"
+        value={selectedVersion ?? ""}
+        onChange={(e) => selectVersion(e.target.value)}
+        className="h-9 shrink-0 rounded-md border-0 bg-white/10 px-1.5 text-[11px] font-bold text-white focus:outline-none focus-visible:outline-2 focus-visible:outline-[#DFFF00] sm:hidden"
+      >
+        {versions.map((v) => (
+          <option key={v.id} value={v.id} className="text-[#070707]">
+            {v.label}
+          </option>
+        ))}
+      </select>
+    </>
+  ) : null
 
-        <div
-          className={`relative bg-[#F7F7F3] ${
-            isFullScreen ? "min-h-0 flex-1" : "h-[calc(100dvh-240px)] min-h-[400px] sm:h-[calc(100dvh-206px)] sm:min-h-[680px]"
-          }`}
+  return (
+    <div className="flex h-[100dvh] min-h-0 w-full flex-col bg-[#F7F7F3]">
+      {/* Action bar — single row pinned to viewport top */}
+      <div className="flex h-14 shrink-0 flex-nowrap items-center gap-1.5 bg-[#070707] px-2 sm:h-16 sm:gap-4 sm:px-5">
+        <button
+          type="button"
+          onClick={backToReview}
+          className="inline-flex min-h-11 shrink-0 items-center gap-1.5 text-[12px] font-black text-white transition-colors hover:text-white/80 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00]"
         >
-          {!hasPreview ? (
-            <div className="grid h-full place-items-center px-6 text-center">
-              <div>
-                <p className="text-[15px] font-bold text-[#070707]">Your preview is temporarily unavailable.</p>
-                <p className="mt-2 text-[13px] font-medium text-[#73736D]">Ask Sorted to restore it and we&apos;ll get it back quickly.</p>
-                <button
-                  type="button"
-                  onClick={askQuestion}
-                  className="mt-5 inline-flex h-11 items-center gap-2.5 rounded-full bg-[#070707] px-5 text-[12px] font-black text-white"
-                >
-                  <MessageCircle className="size-4" strokeWidth={2.2} /> Ask a question
-                </button>
-              </div>
-            </div>
-          ) : previewUrl ? (
-            <div
-              className={`relative mx-auto h-full bg-white transition-[width] duration-200 ease-out ${
-                viewport === "mobile" ? "w-full max-w-[390px] shadow-[0_0_0_1px_#E8E5DD] sm:w-[390px]" : "w-full"
-              }`}
-            >
-              {!loaded ? (
-                <div className="absolute inset-0 grid animate-pulse place-items-center gap-4 px-8">
-                  <div className="w-full max-w-[560px] space-y-4">
-                    <span className="block h-6 w-1/3 rounded bg-[#F1F1EC]" />
-                    <span className="block h-12 w-4/5 rounded bg-[#F1F1EC]" />
-                    <span className="block h-3 w-full rounded bg-[#F1F1EC]" />
-                    <span className="block h-3 w-5/6 rounded bg-[#F1F1EC]" />
-                    <p className="pt-2 text-center text-[12px] font-bold text-[#A3A3A3]">Loading your homepage…</p>
-                  </div>
-                </div>
-              ) : null}
-              <iframe
-                src={previewUrl}
-                title={`Working homepage preview for ${workspace.business.name}`}
-                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-                onLoad={() => setLoaded(true)}
-                className={`h-full w-full border-0 ${loaded ? "block" : "invisible"}`}
-              />
-            </div>
-          ) : (
-            <div
-              className={`mx-auto h-full overflow-auto bg-white transition-[width] duration-200 ease-out ${
-                viewport === "mobile" ? "w-full max-w-[390px] shadow-[0_0_0_1px_#E8E5DD] sm:w-[390px]" : "w-full"
-              }`}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={previewImageUrl}
-                alt={`Working homepage design for ${workspace.business.name}`}
-                className="w-full"
-              />
-            </div>
-          )}
-          {hasPreview && workspace.website.walkthroughVideoUrl ? (
-            <WalkthroughBubble
-              src={workspace.website.walkthroughVideoUrl}
-              speakerName="Renaldo"
-              onEvent={(e, p) => workspaceEvent(workspace, e, p)}
-            />
-          ) : null}
+          <ArrowLeft className="size-4" strokeWidth={2.4} />
+          Back to Review
+        </button>
+        {versionPicker}
+        <p className="hidden min-w-0 flex-1 truncate text-center text-[11px] font-bold uppercase tracking-[0.14em] text-white/55 lg:block">
+          Private working website · {workspace.business.name}
+        </p>
+        <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
+          <button
+            type="button"
+            onClick={askQuestion}
+            aria-label="Ask a question"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 text-[12px] font-bold text-white/85 transition-colors hover:text-white focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00]"
+          >
+            <MessageCircle className="size-4 shrink-0" strokeWidth={2.2} />
+            <span className="hidden sm:inline">Ask a question</span>
+          </button>
+          <button
+            type="button"
+            onClick={completeSite}
+            aria-label="See next steps"
+            className="inline-flex h-11 min-w-0 items-center justify-center gap-1.5 rounded-[9px] bg-[#DFFF00] px-3 text-[11px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-0 min-[400px]:h-[42px] min-[400px]:gap-2 min-[400px]:px-5 min-[400px]:text-[12px]"
+          >
+            <span className="hidden min-[400px]:inline sm:hidden">Next steps</span>
+            <span className="hidden sm:inline">See next steps</span>
+            <ArrowRight className="size-4 shrink-0" strokeWidth={2.8} />
+          </button>
         </div>
+      </div>
+
+      {/* Preview toolbar */}
+      <div className="flex h-11 shrink-0 items-center justify-between border-b border-[#E8E5DD] bg-white px-4">
+        <span className="text-[11px] font-semibold text-[#73736D]">Your new website</span>
+        {viewportToggle}
+      </div>
+
+      {/* Preview fills remaining viewport */}
+      <div className="relative min-h-0 flex-1 bg-[#F7F7F3]">
+        {!hasPreview ? (
+          <div className="grid h-full place-items-center px-6 text-center">
+            <div>
+              <p className="text-[15px] font-bold text-[#070707]">Your preview is temporarily unavailable.</p>
+              <p className="mt-2 text-[13px] font-medium text-[#73736D]">Ask Sorted to restore it and we&apos;ll get it back quickly.</p>
+              <button
+                type="button"
+                onClick={askQuestion}
+                className="mt-5 inline-flex h-11 items-center gap-2.5 rounded-full bg-[#070707] px-5 text-[12px] font-black text-white"
+              >
+                <MessageCircle className="size-4" strokeWidth={2.2} /> Ask a question
+              </button>
+            </div>
+          </div>
+        ) : currentPreviewUrl ? (
+          <div
+            className={`relative mx-auto h-full bg-white transition-[width] duration-200 ease-out ${
+              viewport === "mobile" ? "w-full max-w-[390px] shadow-[0_0_0_1px_#E8E5DD] sm:w-[390px]" : "w-full"
+            }`}
+          >
+            {!loaded ? (
+              <div className="absolute inset-0 grid animate-pulse place-items-center gap-4 px-8">
+                <div className="w-full max-w-[560px] space-y-4">
+                  <span className="block h-6 w-1/3 rounded bg-[#F1F1EC]" />
+                  <span className="block h-12 w-4/5 rounded bg-[#F1F1EC]" />
+                  <span className="block h-3 w-full rounded bg-[#F1F1EC]" />
+                  <span className="block h-3 w-5/6 rounded bg-[#F1F1EC]" />
+                  <p className="pt-2 text-center text-[12px] font-bold text-[#A3A3A3]">Loading your website…</p>
+                </div>
+              </div>
+            ) : null}
+            <iframe
+              key={currentPreviewUrl}
+              src={currentPreviewUrl}
+              title={`Working website preview for ${workspace.business.name}`}
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+              onLoad={() => setLoaded(true)}
+              className={`h-full w-full border-0 ${loaded ? "block" : "invisible"}`}
+            />
+          </div>
+        ) : (
+          <div
+            className={`mx-auto h-full overflow-auto bg-white transition-[width] duration-200 ease-out ${
+              viewport === "mobile" ? "w-full max-w-[390px] shadow-[0_0_0_1px_#E8E5DD] sm:w-[390px]" : "w-full"
+            }`}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={previewImageUrl}
+              alt={`Working website design for ${workspace.business.name}`}
+              className="w-full"
+            />
+          </div>
+        )}
+        {hasPreview && workspace.website.walkthroughVideoUrl ? (
+          <WalkthroughBubble
+            src={workspace.website.walkthroughVideoUrl}
+            speakerName="Renaldo"
+            onEvent={(e, p) => workspaceEvent(workspace, e, p)}
+          />
+        ) : null}
       </div>
     </div>
   )

@@ -80,11 +80,14 @@ function makeInvoice(num, clientId, status, currency, issue, due, taxRate, items
   return id;
 }
 
-makeInvoice("INV-2026-0001", client, "sent", "EUR", "2026-06-02", "2026-06-16", 0, [
+const inv1 = makeInvoice("INV-2026-0001", client, "sent", "EUR", "2026-06-02", "2026-06-16", 0, [
   ["Store design", "project", 1, 1200],
   ["Shopify development", "hours", 24, 45],
   ["Product catalogue setup", "units", 60, 3.5],
 ]);
+db.prepare(
+  "INSERT INTO payments (invoice_id,amount,paid_at,method,note) VALUES (?,?,?,?,?)",
+).run(Number(inv1), 1200, "2026-06-20", "bank_transfer", "Deposit");
 makeInvoice("INV-2026-0002", client2, "paid", "USD", "2026-05-10", "2026-05-24", 0, [
   ["Website refresh", "project", 1, 2500],
   ["Copywriting", "hours", 8, 60],

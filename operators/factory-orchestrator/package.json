@@ -1,0 +1,19 @@
+{
+  "name": "@sorted/factory-orchestrator",
+  "version": "0.1.0",
+  "description": "Build state orchestrator for the Sorted website manufacturing line",
+  "type": "module",
+  "bin": {
+    "factory": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "cli": "node --loader ts-node/esm src/cli.ts"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.0.0"
+  }
+}

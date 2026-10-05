@@ -106,6 +106,7 @@ Apply the gate, emit the full record:
 
 ## Rules
 
+- Organise observed opportunities under the four pillars of `doctrine/sorted-value-model.md` (Trust, Enquiries, Customers, Operations). Retain evidence for every observation; mark checks `?` when unverifiable rather than scoring them zero. Public outreach assessments usually cover Trust and parts of Ease, Actions and Resources only.
 - Score the opportunity, not functional completeness.
 - Default dimensions to 1 when evidence is thin — charitable assumptions are not allowed.
 - A parked domain or error page: all dimensions -1, note it in `site_analysis`.

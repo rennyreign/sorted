@@ -1,0 +1,25 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 1,
+    "mobile_experience": 1,
+    "desire_creation": 1,
+    "content_structure": 1,
+    "trust_and_credibility": 1
+  },
+  "business_quality_score": 5,
+  "business_quality_reasoning": "Epic Cleaning has traded since 2022 with a 5.0 Google rating, but only 6 reviews and micro-entity accounts suggest a small operation. The site claims 'over four years' and lists residential, commercial and event cleaning, so there is a real service mix even if scale looks modest.",
+  "service_price_point": 100,
+  "price_point_reasoning": "No prices shown; a typical London domestic or small commercial clean runs £80-£150 per visit.",
+  "modernity_gap": "A roughly 2020-era WordPress template with gradient buttons, stock photos and a copyright footer stuck at 2020 — it works, but it looks a generation behind current standards.",
+  "site_weaknesses": [
+    "Copyright 2020 footer and dated gradient styling signal an unmaintained site before a visitor reads a word",
+    "Stock photography throughout — nothing shows the actual team, vans or real cleans",
+    "Single generic testimonial ('Samantha R.') instead of embedded Google reviews, despite a 5.0 rating",
+    "No pricing, no booking flow and no service areas — the only action is a contact form at the bottom",
+    "Mobile version stacks the desktop layout awkwardly with small tap targets"
+  ],
+  "site_analysis": "This is a textbook dated WordPress site: gradient CTAs, stock photos, a 'Why Choose Us' icon grid and one lone testimonial. The structure exists but nothing on the page builds real trust or makes booking easy — no prices, no reviews feed, no named people. It is functional enough not to embarrass, but it will not convince a comparison-shopping London homeowner.",
+  "review_summary": "Your site has not really been touched since 2020 and it shows — the styling, the stock photos and the single testimonial all make the business look quieter than it is. You have a 5.0 rating that the website barely mentions. Showing your real reviews and making it easy to get a price would turn visits into booked cleans.",
+  "outreach_angle": "You hold a 5.0 Google rating, but the site still shows a 2020 footer and one generic testimonial — your best proof is invisible to visitors.",
+  "business_type": "domestic and commercial cleaning service"
+}

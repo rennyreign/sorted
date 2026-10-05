@@ -1,5 +1,10 @@
 # AGENTS.md — Sorted Client Site
 
+## Stage 1 Internal-Page Links
+
+Before building or resuming a pre-approval client site, read `/Users/renaldoedmondson/Projects/sorted/operators/skills/stage-1-direction-confirmation.md`. Implement its shared direction-confirmation pages and consistent internal routes during Op 4, before Op 5/5b. This is an intentional review state, not a finished internal page or client approval.
+
+
 This repo was scaffolded from the Sorted client-site template. It is a Stage 1 build task.
 
 **Your job:** Build the static site from the mockup and brief in `client/`. No CMS. No JSON content wiring. Just a clean, fast, well-built site the client can approve.

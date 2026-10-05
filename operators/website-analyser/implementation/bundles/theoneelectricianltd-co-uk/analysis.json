@@ -1,0 +1,26 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 1,
+    "mobile_experience": 1,
+    "desire_creation": 1,
+    "content_structure": 1,
+    "trust_and_credibility": 1
+  },
+  "business_quality_score": 7,
+  "business_quality_reasoning": "Active Ltd since 2021, 4.9 stars across 72 Google reviews, claims 10+ years in the electrical industry with Napit, Part P and Trust Mark accreditations, and handles both domestic and commercial work across London — a real, established business with high-value jobs.",
+  "service_price_point": 600,
+  "price_point_reasoning": "Typical electrician call-outs run £80-150 for minor work, but the site lists EV chargers, full/part rewiring and EICR safety checks which sit in the £300-2,000 range; £600 is a fair midpoint job value.",
+  "modernity_gap": "The site is a functional but dated template — red block sections, wavy edges, cramped mid-page copy — roughly 5-8 years behind current standards for trades sites.",
+  "site_weaknesses": [
+    "Services listed as a dense bullet column with 'and more…' — no detail pages or pricing guidance per job type",
+    "Accreditations (Napit, Part P, Trust Mark) are buried as body text, not presented as visual trust badges",
+    "Only a single Google review is shown despite 72 reviews — most of the proof is invisible",
+    "Generic 'Welcome to…' copy takes up the largest content block without answering what a customer should do next",
+    "Gallery and Testimonials exist only as nav links — no visual proof of work on the homepage",
+    "No booking or quote form — conversion relies on a phone number and Gmail address in the header"
+  ],
+  "site_analysis": "The business has real substance — accreditations, a decade of experience, strong Google reviews — but the template presents none of it convincingly. Services are compressed into a bullet list, proof is thin (one review shown of 72), and the only paths to contact are a phone number and a personal Gmail address. It functions, but it undersells a genuinely credible operation.",
+  "review_summary": "Your site covers the basics — your services, contact details and some background — but it hides the strongest parts of your business. Your Napit and Part P accreditations sit in a paragraph of text, and only one of your 72 Google reviews is visible. A clearer layout that leads with your credentials, shows your reviews properly and gives each service room would turn more of your visitors into calls.",
+  "outreach_angle": "You've got Napit, Part P and Trust Mark accreditations and 72 Google reviews — but none of that is visible above the fold on your site, which is where most people decide whether to call.",
+  "business_type": "electrician"
+}

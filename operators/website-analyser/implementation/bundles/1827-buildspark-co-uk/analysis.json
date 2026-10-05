@@ -1,0 +1,24 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 2,
+    "mobile_experience": 1,
+    "desire_creation": 1,
+    "content_structure": 2,
+    "trust_and_credibility": 2
+  },
+  "business_quality_score": 6,
+  "business_quality_reasoning": "Young company (incorporated 2021) filing micro accounts, but with a perfect 5.0 rating across 63 Google reviews and a clear NAPIT-approved positioning across south west London. Real commercial model covering emergency call-outs, EICRs, fire alarms and rewiring.",
+  "service_price_point": 350,
+  "price_point_reasoning": "EICRs, consumer unit upgrades, fire alarm installs and emergency repairs on site suggest a midpoint job value in the low hundreds.",
+  "modernity_gap": "This is a recently built, fairly modern site - the gap is mainly mobile polish and depth of proof rather than visual age.",
+  "site_weaknesses": [
+    "Mobile capture shows the navigation menu sprawled open across the whole fold with lowercase inconsistent page names like 'landlord-electrician-london'",
+    "Lots of text-heavy service blocks - competent but dense, few photos of actual work",
+    "Testimonials are plain cards with no reviewer photos or review platform source",
+    "No pricing hints or instant quote flow despite transparent pricing claims"
+  ],
+  "site_analysis": "Buildspark's desktop site is one of the better local electrician builds - dark theme, NAPIT badge, structured services, area pages and reviews. The weak point is the mobile experience where the menu dumps a long list of inconsistently named pages across the fold, and the site relies on text where photos of real work would sell harder.",
+  "review_summary": "Your website already looks more modern than most electricians in your area, and the NAPIT badge and reviews work well for you. The main thing letting it down is the mobile view, where visitors land on a long messy menu instead of your services, and there are few photos of your actual work. Tidying those up would turn more of your mobile visitors into calls.",
+  "outreach_angle": "Your desktop site is solid, but on a phone the menu spills a long list of half-formatted page names across the screen - that is where your emergency call-out customers are.",
+  "business_type": "electrician and fire alarm specialist"
+}

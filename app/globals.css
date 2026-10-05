@@ -40,12 +40,22 @@
 }
 
 .page-enter {
-  animation: page-enter 0.55s cubic-bezier(0.32, 0.72, 0, 1) both;
+  animation: page-enter 0.55s cubic-bezier(0.32, 0.72, 0, 1);
+  /* No fill mode: a retained translateY(0) transform would make every
+     fixed-position descendant (dialogs, overlays) position against the
+     document instead of the viewport. */
 }
 
 .page-enter:has(.sorted-sites-shell) {
   animation: none;
   transform: none;
+}
+
+/* Interactive affordance — browsers default buttons to the arrow cursor. */
+button:not(:disabled),
+a[href],
+[role="button"] {
+  cursor: pointer;
 }
 
 @keyframes progress-grow {

@@ -2,7 +2,13 @@
 
 **Status:** Active doctrine
 **Parent:** Sorted Operating Model
-**Purpose:** Define the state that flows between every step in the Sorted chain, from prospect discovery through to a paid client. The chain runs identically whether executed by an orchestration agent or by discrete stateless operators.
+**Purpose:** Define the state that flows between every step in the Sorted chain, from prospect discovery through to a paid client. The operator contract stays stable across local harness execution and future autonomous runtimes.
+
+## Operator identity and runtime
+
+An **operator** is a durable operational capability: its inputs, evidence rules, decisions, outputs, state transitions, and quality gate. A **skill** is the current harness-driven execution form of that operator. At scale, the same operator may run autonomously through an external model or API, but that is a runtime change rather than a new capability.
+
+Local skills and harnesses are the default while Sorted perfects the operating model. Independent external agents are introduced for throughput and concurrency only when the contract is proven. They must consume and produce the same artifacts and must not silently change decision rules.
 
 ---
 
@@ -86,17 +92,22 @@ Examples:
 - `abc-plumbing-services`
 - `warwick-dental-practice`
 
-The slug is used as the URL path for the prospect's review page: `sortmydigital.site/review/[slug]`
+The slug is used as the URL path for the prospect's review page: `sortmydigital.site/workspace/[slug]`
 
 Skill: `operators/skills/website-analyser.md`
 
 ---
 
-### Step 3: Operator Review (always manual)
+### Step 3: Prospect Research and Scouting Decision
 
-The operator reviews the scored prospect list in the dashboard Prospects tab. Prospects are sorted by `prospect_score` descending. The operator reads the analysis panel for each candidate, decides who to approach, and clicks "Add to outreach" to move them into the CRM pipeline at `outreached` stage.
+The operator reviews qualified candidates in Finder. Companies House status, dates, overdue state, officers, SIC codes, filing links and supported iXBRL facts are populated before review. The human adds only the judgement those facts cannot supply: Scout, Watch or Pass, with one concise reason.
 
-This step is always manual. No automation moves a prospect into the pipeline. The operator makes that decision.
+This is currently executed as the local `prospect-research` skill because commercial judgment is the point of the step. No score automatically promotes a prospect. A `priority` decision is the gate into mockup/build preparation; `watch` preserves a credible lead; `pass` records why Sorted should not pursue it.
+
+**Output:** machine evidence on the prospect record, a reviewed scouting decision in `prospect_workflow`, and an optional local `dossier.json` / `build-brief.md` handoff.
+
+Skill: `operators/skills/prospect-research.md`
+Harness: `operators/prospect-finder/implementation/research_harness.py`
 
 ---
 
@@ -107,7 +118,7 @@ The operator sends a cold email to the prospect manually. The `outreach_angle` f
 The email includes a link to the prospect's review page:
 
 ```
-sortmydigital.site/review/[slug]
+sortmydigital.site/workspace/[slug]
 ```
 
 The review page is already live at the time of outreach. The prospect can click the link immediately.
@@ -116,7 +127,7 @@ The review page is already live at the time of outreach. The prospect can click 
 
 ### Step 5: Review Page
 
-Lives at `sortmydigital.site/review/[slug]`.
+Lives at `sortmydigital.site/workspace/[slug]`.
 
 The review page is a static SPA shell. The slug is read from the URL. Data is fetched client-side from Supabase using the slug as the lookup key.
 
@@ -150,12 +161,12 @@ The build chain begins after the prospect responds and Nod 1 is obtained.
 
 The build chain has two runtime modes. The doctrine, state shape, and output quality are identical in both. Only the runtime differs.
 
-**Mode 1 — Orchestration Agent (default)**
+**Mode 1 — Local harness + skill (default)**
 
-An orchestration agent (Devin) runs the full chain in a single session. It loads the doctrine, executes each step using its native capabilities, and calls external APIs (vision models, image generation) only when a capability is needed that it does not hold natively.
+The active coding harness runs the operator skill in a single session. It loads doctrine, uses local tools and artifacts, and calls external APIs only for capabilities that genuinely require them.
 
 ```
-Agent session
+Harness session
   |-- reads doctrine + skills
   |-- Step 1: calls vision API -> writes deconstruction.json
   |-- Step 2: calls image gen API -> writes assets/ + manifest.json
@@ -163,9 +174,9 @@ Agent session
   `-- hands off output repo
 ```
 
-When to use: any single-client build. Default mode. Fast, cheap, low coordination overhead.
+When to use: single-client work and curated batches. This is the default while the operating contract is being refined.
 
-**Mode 2 — Operator Pipeline (scale)**
+**Mode 2 — Autonomous operator runtime (scale)**
 
 Each step runs as a discrete stateless process. Steps consume a defined input artifact and produce a defined output artifact. Steps can run in parallel when inputs are independent. The pipeline is orchestrated by a job queue, not an agent.
 
@@ -176,7 +187,7 @@ Job queue
   `-- dispatch: deconstruction.json + manifest.json + assets/ -> frontend-builder -> site repo
 ```
 
-When to use: multiple concurrent builds. Automated pipelines. Runs without a human in the loop.
+When to use: proven steps that need concurrent throughput. Human decision gates remain explicit unless evidence shows they can be delegated safely.
 
 ---
 
@@ -351,7 +362,7 @@ new -> outreached -> responded -> mockup_revealed -> build -> quote -> paid -> l
 
 Clicking a card on the kanban board opens a drawer. The drawer shows:
 
-- Review page link (`sortmydigital.site/review/[slug]`)
+- Review page link (`sortmydigital.site/workspace/[slug]`)
 - Mockup URL input field (paste URL, save to push to Supabase and display on the review page)
 - Advance stage button
 - Mark lost button
@@ -367,17 +378,9 @@ The dashboard Pipeline tab displays a metrics bar:
 
 ---
 
-## Skill vs Operator
+## Skill and operator relationship
 
-|  | Skill | Operator |
-|---|---|---|
-| What it is | Markdown doctrine loaded by the orchestration agent | Standalone Node.js / Python process |
-| Runtime | Agent session | Job queue / CLI |
-| State | Files on disk, read/written by the agent | Files on disk, read/written by the process |
-| When to use | Single build, agent in the loop | Scale, automation, no agent |
-| Source of truth | `operators/skills/<name>.md` | `operators/<name>/implementation/` |
-
-Both execute the same doctrine. The skill is the fast path. The operator is the scale path.
+The skill and an eventual autonomous service are two runtimes of the same operator. The skill file is the current operational specification; implementation code provides deterministic capture, validation, and persistence. Scale runtimes follow that contract rather than inventing a parallel workflow.
 
 ---
 
@@ -401,9 +404,9 @@ When adding a new step to the chain:
 |---|---|---|
 | Prospect Finder | `operators/prospect-finder/` | Active |
 | Website Analyser | `operators/skills/website-analyser.md` | Active |
-| Operator Review | Manual | Always manual |
+| Prospect Research | `operators/skills/prospect-research.md` + local harness | Active |
 | Cold Email Outreach | Manual | Always manual |
-| Review Page | `sortmydigital.site/review/[slug]` | Active |
+| Review Page | `sortmydigital.site/workspace/[slug]` | Active |
 
 ### Build Chain
 

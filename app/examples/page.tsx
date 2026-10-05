@@ -4,7 +4,7 @@ import { MockupButton } from "../sites/_components/SitesMockupModal"
 import { SitesFooter, SitesHeader, SitesPage, Underline } from "../sites/_components/SitesPrimitives"
 import { ExamplesGallery } from "./ExamplesGallery"
 import { ExamplesCaseStudyRail } from "./ExamplesCaseStudyRail"
-import { BeforeAfterVideoPlaceholder } from "./BeforeAfterVideoPlaceholder"
+import { BeforeAfterVideo } from "./BeforeAfterVideo"
 import { fetchExamples } from "./data"
 
 // Note: with NEXT_BUILD_STATIC=true the page is fully static. This revalidate
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const processSteps = [
   [Edit3, "We build a mockup", "A free, custom design made for your business."],
   [Eye, "You review it", "See exactly what you are getting."],
-  [Check, "You approve", "Love it? £3,000 completes it."],
+  [Check, "You approve", "Love it? One fixed price completes it."],
   [Rocket, "We build & launch", "We build your website and get you live."],
 ] as const
 
@@ -41,7 +41,7 @@ export default async function ExamplesPage() {
             <br />
             Real results
           </h1>
-          <div className="mt-2 max-w-[430px] [font-family:var(--font-sites-highlight)] text-[clamp(3.35rem,6.2vw,6.6rem)] font-normal leading-[0.74] tracking-[-0.02em] text-[#cfea00]">
+          <div className="mt-2 max-w-[430px] [font-family:var(--font-sites-fave-script)] text-[clamp(4.3rem,7vw,7.4rem)] font-normal leading-[0.72] tracking-[0] text-[#cfea00]">
             Built first.
             <br />
             Priced second.
@@ -61,7 +61,7 @@ export default async function ExamplesPage() {
           </div>
         </div>
 
-        <BeforeAfterVideoPlaceholder className="lg:translate-y-4" />
+        <BeforeAfterVideo className="lg:translate-y-4" />
       </section>
 
       <section id="live-websites" className="mx-auto max-w-[1220px] scroll-mt-28 border-t border-black/10 px-5 py-7 sm:px-8">

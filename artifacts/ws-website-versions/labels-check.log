@@ -1,0 +1,5 @@
+desktop {"labels":["Version 1","Version 2"],"pressed":["true","false"],"src":"http://localhost:3999/"}
+375 {"centers":[28],"n":4,"sel":"v2","selW":89,"barOver":false,"pageOver":false}
+320 {"centers":[28],"n":4,"sel":"v2","selW":89,"barOver":true,"pageOver":false}
+320 {"centers":[28],"n":4,"barOver":false,"pageOver":false,"right":314}
+375 {"centers":[28],"n":4,"barOver":false,"pageOver":false,"right":367}

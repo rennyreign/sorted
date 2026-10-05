@@ -30,7 +30,13 @@ from analyser.qualify import qualify
 from analyser.screenshot import capture as capture_screenshot
 from analyser.tech import profile as profile_tech
 from analyser.vision import analyse as analyse_vision
-from storage.supabase import count_analysed, fetch_unanalysed, write_analysis
+from storage.supabase import (
+    count_analysed,
+    fetch_ch_candidates,
+    fetch_unanalysed,
+    write_analysis,
+    write_ch_enrichment,
+)
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -78,9 +84,12 @@ def analyse_one(
     if not tech.get("fetch_ok"):
         logger.warning("No HTML fetched for %s — tech profile empty, continuing.", url)
 
-    # 2. Screenshots — desktop first, mobile for evidence-based mobile score
+    # 2. Screenshots — full-page desktop so the model sees below-the-fold
+    # content (testimonials, services, accreditations); mobile stays
+    # above-the-fold for an evidence-based mobile score.
     try:
-        desktop_bytes = capture_screenshot(url)
+        desktop_bytes = capture_screenshot(url, full_page=True)
+        logger.info("Desktop capture mode: full_page for %s", url)
     except Exception as exc:
         logger.error("Desktop screenshot failed for %s: %s", url, exc)
         # If the site itself is also unreachable, this is a site-down
@@ -91,6 +100,7 @@ def analyse_one(
         return None
     try:
         mobile_bytes = capture_screenshot(url, mobile=True)
+        logger.info("Mobile capture mode: above-the-fold for %s", url)
     except Exception as exc:
         logger.warning("Mobile screenshot failed for %s (%s) — scoring desktop only.", url, exc)
         mobile_bytes = None
@@ -142,6 +152,23 @@ def analyse_one(
         "ch_accounts_type": ch.get("ch_accounts_type"),
         "ch_accounts_last_date": ch.get("ch_accounts_last_date"),
         "ch_match_confidence": ch.get("ch_match_confidence"),
+        "ch_accounts_period_end": ch.get("ch_accounts_period_end"),
+        "ch_accounts_due_date": ch.get("ch_accounts_due_date"),
+        "ch_accounts_overdue": ch.get("ch_accounts_overdue"),
+        "ch_confirmation_due_date": ch.get("ch_confirmation_due_date"),
+        "ch_confirmation_overdue": ch.get("ch_confirmation_overdue"),
+        "ch_filing_url": ch.get("ch_filing_url"),
+        "ch_filing_document_url": ch.get("ch_filing_document_url"),
+        "ch_turnover": ch.get("ch_turnover"),
+        "ch_net_assets": ch.get("ch_net_assets"),
+        "ch_cash": ch.get("ch_cash"),
+        "ch_current_assets": ch.get("ch_current_assets"),
+        "ch_liabilities": ch.get("ch_liabilities"),
+        "ch_employees": ch.get("ch_employees"),
+        "ch_financial_facts": ch.get("ch_financial_facts"),
+        "ch_data_updated_at": ch.get("ch_data_updated_at"),
+        "source_incorporation_date": ch.get("source_incorporation_date"),
+        "source_sic_codes": ch.get("source_sic_codes"),
         "owner_name": ch.get("owner_name"),
         "owner_role": ch.get("owner_role"),
         "owner_source": ch.get("owner_source"),
@@ -201,19 +228,12 @@ def _site_down_record(
         ch = {"ch_verified": False}
 
     scores = qualify(analysis=analysis, tech=tech, ch=ch, prospect=prospect)
-    record = {**analysis, **scores,
-              "site_platform": tech.get("site_platform"),
-              "source_company_number": ch.get("source_company_number"),
-              "source_url": ch.get("source_url"),
-              "ch_status": ch.get("ch_status"),
-              "ch_incorporated_date": ch.get("ch_incorporated_date"),
-              "ch_accounts_type": ch.get("ch_accounts_type"),
-              "ch_accounts_last_date": ch.get("ch_accounts_last_date"),
-              "ch_match_confidence": ch.get("ch_match_confidence"),
-              "owner_name": ch.get("owner_name"),
-              "owner_role": ch.get("owner_role"),
-              "owner_source": ch.get("owner_source"),
-              "associated_names": ch.get("associated_names")}
+    record = {
+        **analysis,
+        **scores,
+        **ch,
+        "site_platform": tech.get("site_platform"),
+    }
 
     logger.info("Site-down record: %s — qualified=%s", name, record.get("qualified_lead"))
 
@@ -228,7 +248,7 @@ def _site_down_record(
 # ---------------------------------------------------------------------------
 
 
-def run(dry_run: bool = False, limit: int = 200, skip_ch: bool = False) -> None:
+def run(dry_run: bool = False, limit: int = 200, skip_ch: bool = False, reanalyse: bool = False, maps_only: bool = False) -> None:
     run_id = str(uuid.uuid4())[:8]
     started_at = datetime.now(timezone.utc)
 
@@ -239,18 +259,18 @@ def run(dry_run: bool = False, limit: int = 200, skip_ch: bool = False) -> None:
         logger.info("DRY RUN — no database writes will occur")
     logger.info("=" * 60)
 
-    # Fetch unanalysed prospects
+    # Fetch prospects
     try:
-        prospects = fetch_unanalysed(limit=limit)
+        prospects = fetch_unanalysed(limit=limit, reanalyse=reanalyse, maps_only=maps_only)
     except Exception as exc:
         logger.critical("Failed to fetch prospects: %s", exc)
         sys.exit(1)
 
     if not prospects:
-        logger.info("No unanalysed prospects found — nothing to do.")
+        logger.info("No prospects found — nothing to do.")
         return
 
-    logger.info("Analysing %d prospects.", len(prospects))
+    logger.info("Analysing %d prospects%s.", len(prospects), " (re-analysis)" if reanalyse else "")
 
     total_success = 0
     total_failed = 0
@@ -313,6 +333,33 @@ def run(dry_run: bool = False, limit: int = 200, skip_ch: bool = False) -> None:
         sys.exit(1)
 
 
+def run_ch_refresh(dry_run: bool = False, limit: int = 25, row_id: int | None = None) -> None:
+    """Refresh Companies House facts without screenshots, vision or rescoring."""
+    prospects = fetch_ch_candidates(limit=limit, row_id=row_id)
+    if not prospects:
+        logger.info("No matched prospects need a Companies House refresh.")
+        return
+    succeeded = 0
+    for prospect in prospects:
+        record = check_companies_house(
+            name=prospect.get("name") or "Unknown",
+            postcode=prospect.get("postcode"),
+            company_number=prospect.get("source_company_number"),
+        )
+        if dry_run:
+            logger.info(
+                "[DRY RUN] id:%s — accounts=%s net_assets=%s turnover=%s",
+                prospect["id"], record.get("ch_accounts_type"),
+                record.get("ch_net_assets"), record.get("ch_turnover"),
+            )
+            succeeded += 1
+        elif write_ch_enrichment(prospect["id"], record):
+            succeeded += 1
+    logger.info("Companies House refresh complete: %d/%d records.", succeeded, len(prospects))
+    if succeeded != len(prospects):
+        sys.exit(1)
+
+
 # ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
@@ -358,14 +405,40 @@ def main() -> None:
         help="Maximum number of prospects to analyse per run (default: 200)",
     )
     parser.add_argument(
+        "--reanalyse",
+        action="store_true",
+        help="Fetch website-backed prospects even when analysed_at is already set",
+    )
+    parser.add_argument(
+        "--maps-only",
+        action="store_true",
+        help="Restrict the batch to Google Maps place IDs",
+    )
+    parser.add_argument(
         "--no-ch",
         action="store_true",
         help="Skip the Companies House viability check",
     )
+    parser.add_argument(
+        "--ch-only",
+        action="store_true",
+        help="Refresh Companies House facts only; no screenshots, model calls or rescoring",
+    )
+    parser.add_argument(
+        "--id",
+        type=int,
+        default=None,
+        help="Prospect row id (used with --ch-only)",
+    )
     args = parser.parse_args()
 
     try:
-        if args.url:
+        if args.ch_only:
+            # The general analyser defaults to 200, but a CH refresh performs
+            # several API reads per record. Keep its implicit local batch small.
+            ch_limit = 25 if args.limit == 200 else args.limit
+            run_ch_refresh(dry_run=args.dry_run, limit=ch_limit, row_id=args.id)
+        elif args.url:
             # Ad-hoc single URL mode — print result to stdout
             result = analyse_one(
                 url=args.url,
@@ -381,7 +454,13 @@ def main() -> None:
                 logger.error("Analysis failed for %s", args.url)
                 sys.exit(1)
         else:
-            run(dry_run=args.dry_run, limit=args.limit, skip_ch=args.no_ch)
+            run(
+                dry_run=args.dry_run,
+                limit=args.limit,
+                skip_ch=args.no_ch,
+                reanalyse=args.reanalyse,
+                maps_only=args.maps_only,
+            )
 
     except PermissionError as exc:
         logger.critical("AUTH ERROR: %s", exc)

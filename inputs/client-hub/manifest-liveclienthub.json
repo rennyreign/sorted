@@ -1,0 +1,202 @@
+{
+  "format": "sorted-design-ir",
+  "manifest_version": "1.0.0",
+  "screen": {
+    "id": "live-client-hub",
+    "name": "Client Workspace Overview",
+    "lifecycle_stage": "live-client",
+    "route_pattern": "/workspace/:workspaceSlug/overview",
+    "purpose": "Provide one permanent, low-friction home for visiting, managing, measuring and getting help with the finished website.",
+    "primary_outcome": "Client reaches the correct website tool quickly",
+    "secondary_outcomes": ["Support request", "Review submission"]
+  },
+  "tokens": {
+    "color": {"ink": "#070707", "paper": "#F7F7F3", "card": "#FFFFFF", "acid": "#DFFF00", "warm_board": "#F7F2E8", "line": "#E8E5DD", "muted_text": "#73736D", "proof_green": "#00A64B"},
+    "typography": {
+      "display": "Existing Sorted grotesk display family",
+      "body": "Existing Sorted sans-serif family",
+      "hero_desktop_px": 58,
+      "hero_mobile_px": 40,
+      "card_heading_px": 24,
+      "body_px": 15
+    },
+    "layout": {"max_width_px": 1240, "page_gutter_desktop_px": 32, "page_gutter_mobile_px": 20, "grid_gap_px": 16, "section_gap_px": 48, "card_radius_px": 14}
+  },
+  "workspace_shell": {
+    "header": {
+      "left": ["Sorted wordmark", "FOR {businessName}"],
+      "navigation": [
+        {"label": "Overview", "route": "overview", "active": true},
+        {"label": "Website", "route": "website", "active": false},
+        {"label": "Updates", "route": "updates", "active": false},
+        {"label": "Tracking", "route": "tracking", "active": false},
+        {"label": "Documents", "route": "documents", "active": false},
+        {"label": "Help", "route": "help", "active": false}
+      ],
+      "right_action": {"label": "Visit your website", "href": "{liveSiteUrl}", "style": "black-filled", "icon": "arrow-right"},
+      "active_indicator": "3px acid underline"
+    },
+    "authentication": "Authenticated session or passwordless magic link; do not rely on an unlisted URL after sensitive tools are enabled"
+  },
+  "data_contract": {
+    "required": ["businessName", "workspaceSlug", "liveSiteUrl", "cmsUrl", "trackingUrl", "documentsUrl", "supportAction", "bookingUrl"],
+    "optional": ["googleReviewUrl", "reviewRequestVideoUrl", "siteStatus", "lastPublishedAt"],
+    "defaults": {"siteStatus": "live"}
+  },
+  "sections": [
+    {
+      "id": "workspace-hero",
+      "type": "split-black-status-panel",
+      "left": {
+        "eyebrow": "YOUR WEBSITE",
+        "headline": "Everything about your website, in one place.",
+        "body": "This is your permanent link to the tools and documents for your website—editing, reporting, paperwork and help."
+      },
+      "right": {
+        "status": {"label": "LIVE", "color": "acid", "condition": "siteStatus === 'live'"},
+        "body": "Your {businessName} website is live and available for customers to visit.",
+        "action": {"label": "Visit your website", "href": "{liveSiteUrl}", "style": "white-filled", "icon": "arrow-right"}
+      }
+    },
+    {
+      "id": "workspace-actions",
+      "type": "two-by-two-action-grid",
+      "items": [
+        {"title": "Visit your website", "description": "See your live website exactly as your customers see it.", "href": "{liveSiteUrl}", "icon": "link", "event": "live_site_opened"},
+        {"title": "Make updates", "description": "Change text, images and business details through Sorted Updates.", "href": "{cmsUrl}", "icon": "pencil", "event": "cms_opened"},
+        {"title": "View tracking", "description": "See visits, enquiries and the pages helping customers take action.", "href": "{trackingUrl}", "icon": "bar-chart-3", "event": "tracking_opened"},
+        {"title": "Documents", "description": "Find your quote, agreement, invoices and important website information.", "href": "{documentsUrl}", "icon": "file-text", "event": "documents_opened"}
+      ],
+      "card_pattern": "Large white cards with thin border, acid circular icon, black square arrow action",
+      "mobile_pattern": "single-column cards"
+    },
+    {
+      "id": "support-band",
+      "type": "warm-board-support-band",
+      "headline": "Questions? Just ask.",
+      "body": "If anything does not work, or you are not sure where to start, we’ll point you in the right direction.",
+      "actions": [
+        {"label": "Message Sorted", "action": "{supportAction}", "style": "black-filled", "icon": "message-circle"},
+        {"label": "Book a call", "href": "{bookingUrl}", "style": "outline", "icon": "calendar"}
+      ]
+    },
+    {
+      "id": "review-request",
+      "type": "quiet-inline-request",
+      "visibility": "Only render when googleReviewUrl exists and review has not already been recorded",
+      "headline": "Happy with how it went?",
+      "body": "Leave a quick Google review. It helps other small businesses find us.",
+      "action": {"label": "Leave a Google review", "href": "{googleReviewUrl}", "style": "acid-filled"},
+      "constraints": ["Secondary to website management", "Do not autoplay video", "Hide permanently after client dismisses or completes"]
+    }
+  ],
+  "lifecycle_mapping": {
+    "prospect_to_client": {
+      "preserved": ["workspaceSlug", "businessName", "workspace shell identity"],
+      "archived": ["Your Review", "Next Steps"],
+      "replaced_navigation": ["Overview", "Website", "Updates", "Tracking", "Documents", "Help"]
+    },
+    "project_state_before_launch": "Use Project, Website, Details, Documents and Help navigation until siteStatus becomes live",
+    "live_state": "Activate the navigation in this manifest"
+  },
+  "interactions": {
+    "events": ["client_hub_viewed", "live_site_opened", "cms_opened", "tracking_opened", "documents_opened", "support_started", "call_booking_opened", "review_opened"],
+    "external_links": "Open management tools in a new tab while preserving the hub",
+    "support_pattern": "Message first; call remains optional"
+  },
+  "responsive": {
+    "breakpoints_px": {"mobile": 640, "tablet": 900, "desktop": 1200},
+    "rules": [
+      "Header tabs become a horizontally scrollable row on tablet and mobile",
+      "Hero splits on desktop and stacks on mobile",
+      "Action grid changes from two columns to one below 760px",
+      "Buttons retain minimum 44px interaction targets",
+      "No horizontal overflow beyond the deliberate navigation row"
+    ]
+  },
+  "footer": {
+    "left": "Sorted.",
+    "right_links": ["hello@sortmydigital.site", "Back to {businessDomain}"]
+  },
+  "non_visual_build_spec": {
+    "reference_canvas": {"width_px": 1536, "height_px": 1024, "density": 1},
+    "component_tree": [
+      "AuthenticatedWorkspaceLayout",
+      "  WorkspaceHeader",
+      "    BrandLockup",
+      "    ClientTabs",
+      "    VisitWebsiteButton",
+      "  main",
+      "    LiveStatusHero",
+      "    WorkspaceActionGrid",
+      "      WorkspaceActionCard[]",
+      "    SupportBand",
+      "    ReviewRequestRow",
+      "  WorkspaceFooter"
+    ],
+    "desktop_geometry": {
+      "header": {"height_px": 76, "padding_inline_px": 32, "border_bottom": "1px solid #E8E5DD"},
+      "header_inner": {"max_width_px": 1240, "margin": "0 auto", "display": "grid", "grid_template_columns": "auto 1fr auto", "gap_px": 36, "align_items": "center"},
+      "navigation": {"display": "flex", "justify_content": "center", "gap_px": 30},
+      "visit_button": {"height_px": 44, "padding_inline_px": 22},
+      "main": {"max_width_px": 1240, "margin": "0 auto", "padding": "28px 0 36px"},
+      "hero": {"min_height_px": 280, "display": "grid", "grid_template_columns": "65% 35%", "background": "#070707", "border_radius_px": 14, "overflow": "hidden", "margin_bottom_px": 22},
+      "hero_left": {"padding": "38px 52px"},
+      "hero_right": {"padding": "40px 44px", "border_left": "1px solid rgba(255,255,255,0.16)", "display": "flex", "flex_direction": "column", "justify_content": "center"},
+      "hero_headline": {"font_size_px": 58, "line_height": 0.98, "max_width_px": 700, "color": "#FFFFFF"},
+      "hero_body": {"max_width_px": 620, "font_size_px": 16, "line_height": 1.55, "color": "rgba(255,255,255,0.72)", "margin_top_px": 20},
+      "live_status": {"display": "flex", "align_items": "center", "gap_px": 10, "font_size_px": 12, "letter_spacing_em": 0.12},
+      "live_dot": {"diameter_px": 14, "background": "#DFFF00"},
+      "action_grid": {"display": "grid", "grid_template_columns": "repeat(2, minmax(0, 1fr))", "gap_px": 16, "margin_bottom_px": 20},
+      "action_card": {"min_height_px": 144, "display": "grid", "grid_template_columns": "64px 1fr 48px", "gap_px": 18, "align_items": "center", "padding": "26px 28px", "background": "#FFFFFF", "border": "1px solid #E8E5DD", "border_radius_px": 12},
+      "action_icon": {"diameter_px": 52, "background": "#DFFF00"},
+      "action_button": {"width_px": 44, "height_px": 44, "background": "#070707", "color": "#FFFFFF", "border_radius_px": 8},
+      "support_band": {"min_height_px": 136, "display": "grid", "grid_template_columns": "1fr auto", "gap_px": 32, "align_items": "center", "padding": "28px", "background": "#F7F2E8", "border_radius_px": 12, "margin_bottom_px": 12},
+      "support_actions": {"display": "flex", "gap_px": 12},
+      "review_row": {"min_height_px": 84, "display": "grid", "grid_template_columns": "1fr auto", "align_items": "center", "padding": "12px 28px", "border_bottom": "1px solid #E8E5DD"},
+      "footer": {"min_height_px": 62, "display": "flex", "justify_content": "space-between", "align_items": "center"}
+    },
+    "tablet_geometry": {
+      "range_px": "641-960",
+      "main_padding": "24px",
+      "header_navigation": "scrollable tab row beneath brand/action row",
+      "hero_grid": "60% 40%",
+      "action_card": {"grid_template_columns": "52px 1fr 44px", "padding": "22px"}
+    },
+    "mobile_geometry": {
+      "main_padding": "18px 20px 32px",
+      "hero": {"display": "flex", "flex_direction": "column", "min_height": "auto"},
+      "hero_left": {"padding": "30px 24px"},
+      "hero_right": {"padding": "24px", "border_left": "none", "border_top": "1px solid rgba(255,255,255,0.16)"},
+      "hero_headline": {"font_size_px": 40},
+      "action_grid": {"grid_template_columns": "1fr", "gap_px": 12},
+      "action_card": {"grid_template_columns": "48px 1fr 44px", "min_height_px": 128, "padding": "20px", "gap_px": 14},
+      "support_band": {"grid_template_columns": "1fr", "padding": "24px 20px"},
+      "support_actions": {"display": "grid", "grid_template_columns": "1fr", "width": "100%"},
+      "review_row": {"grid_template_columns": "1fr", "gap_px": 14, "padding": "20px 0"},
+      "review_action": {"width": "100%"},
+      "footer": {"display": "grid", "gap_px": 12, "padding": "20px 0"}
+    },
+    "interaction_states": {
+      "action_card": {"hover": "border darkens to #CFCFC6 and arrow translates 2px right", "focus_within": "2px #070707 outline with 3px offset", "active": "no scale animation"},
+      "external_tool_link": "opens a new tab and records its named event",
+      "review_request": "can be dismissed; persist dismissal in client workspace state",
+      "session_expired": "redirect to magic-link sign-in with return route"
+    },
+    "empty_and_error_states": {
+      "missing_tool_url": "Disable that action card, label it Available soon, and notify Sorted in application logs; never render a broken link.",
+      "site_not_live": "Replace LIVE with IN PROGRESS and route primary website action to the latest preview.",
+      "unauthenticated": "Render no private content before authentication completes."
+    },
+    "implementation_order": ["Create authenticated shell", "Bind lifecycle navigation", "Build live hero", "Build action grid", "Add external tool links", "Build support band", "Build review request", "Add events", "Test authentication and missing-link states"],
+    "do_not_infer": ["Do not create analytics charts on Overview", "Do not add a left sidebar", "Do not expose credentials", "Do not make the Google review request dominant", "Do not add product upsell cards in phase 1"]
+  },
+  "acceptance_criteria": [
+    "The client can reach each primary tool in one click from Overview",
+    "The hub feels like the same product first encountered during prospecting",
+    "Sensitive tools require authenticated access",
+    "No invented analytics metrics appear on Overview",
+    "Support is available without dominating the page",
+    "The review request remains secondary and dismissible"
+  ]
+}

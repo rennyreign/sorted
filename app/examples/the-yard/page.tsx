@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { ArrowLeft, CalendarDays, Star, TrendingUp, UserPlus } from "lucide-react"
 import { DarkCta, SitesFooter, SitesHeader, SitesPage, Underline } from "../../sites/_components/SitesPrimitives"
 import { ExampleHeroPreview } from "./ExampleHeroPreview"
+import { BeforeAfterVideo } from "../BeforeAfterVideo"
 
 export const metadata: Metadata = {
   title: "The Yard Training Club | Sorted Example",
@@ -22,7 +23,7 @@ export default function TheYardExamplePage() {
           </a>
           <p className="mb-5 text-[12px] font-black uppercase text-black/45">Health & Fitness</p>
           <h1 className="max-w-[520px] text-[clamp(3.8rem,6vw,6.2rem)] font-black leading-[0.9] tracking-[-0.045em]">The Yard<br />Training Club</h1>
-          <p className="mt-3 [font-family:var(--font-sites-highlight)] text-[clamp(3.1rem,5vw,5.6rem)] leading-[0.88] tracking-[-0.02em] text-[#d4ea00]">Built first. Priced second.</p>
+          <p className="mt-3 [font-family:var(--font-sites-fave-script)] text-[clamp(3.8rem,5.6vw,6.2rem)] leading-[0.8] tracking-[0] text-[#d4ea00]">Built first. Priced second.</p>
           <Underline className="mt-2 w-[220px]" />
           <p className="mt-7 max-w-[430px] text-[17px] font-semibold leading-[1.5] tracking-[-0.03em]">
             A private personal training studio in Manchester looking for a website that matched the quality of their coaching.
@@ -34,6 +35,17 @@ export default function TheYardExamplePage() {
         </div>
         <div>
           <ExampleHeroPreview />
+        </div>
+      </section>
+
+      <section className="border-y border-black/10 bg-white px-5 py-12 sm:px-8 sm:py-16">
+        <div className="mx-auto grid max-w-[1220px] gap-8 lg:grid-cols-[0.32fr_0.68fr] lg:items-center">
+          <div>
+            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-black/45">Before &amp; after</p>
+            <h2 className="mt-4 max-w-[300px] text-[clamp(2.4rem,4vw,4.2rem)] font-black leading-[0.92] tracking-[-0.055em]">See the transformation.</h2>
+            <p className="mt-5 max-w-[310px] text-[15px] font-semibold leading-[1.5] text-black/64">A full walkthrough of the website before and after the Sorted treatment is coming soon.</p>
+          </div>
+          <BeforeAfterVideo />
         </div>
       </section>
 

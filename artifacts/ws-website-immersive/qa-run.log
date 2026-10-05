@@ -1,0 +1,13 @@
+PASS actionbar-top-1440 {"x":0,"y":0,"w":1440,"h":64}
+PASS no-workspace-header-1440 
+PASS no-hscroll-1440 
+PASS iframe-fullwidth-1440 {"w":1440}
+PASS mobile-sim-390 iframe=390
+PASS actionbar-top-375 {"x":0,"y":0,"w":375,"h":56}
+PASS no-workspace-header-375 
+PASS no-hscroll-375 
+PASS mobile-single-row {"tops":[6],"count":3}
+PASS back-to-review-nav {"url":"/workspace/nexus-accounting/review","header":true,"hscroll":false}
+PASS complete-next-steps /workspace/nexus-accounting/next-steps
+PASS question-drawer 
+OVERALL PASS

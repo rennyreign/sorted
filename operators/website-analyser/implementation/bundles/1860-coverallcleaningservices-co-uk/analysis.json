@@ -1,0 +1,25 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 1,
+    "mobile_experience": 2,
+    "desire_creation": 1,
+    "content_structure": 0,
+    "trust_and_credibility": 0
+  },
+  "business_quality_score": 4,
+  "business_quality_reasoning": "Coverall is a very young company (incorporated July 2024) with only 7 Google reviews, so it is trading but unproven. The 4.9 rating and a London-wide cleaning offer show a real commercial intent, but the thin web presence suggests early-stage revenue.",
+  "service_price_point": 50,
+  "price_point_reasoning": "Window and domestic cleaning jobs in London typically run £30-£80 per visit; no prices are shown on the site so the category midpoint is used.",
+  "modernity_gap": "The design language is recent (Webflow, 2024 copyright), but the page is essentially a single hero and contact button with no services, proof or content beneath it — it reads like an unfinished site rather than a dated one.",
+  "site_weaknesses": [
+    "The entire homepage is a hero image, one paragraph and a Contact Us button — no services, prices, areas covered or process are explained",
+    "No reviews, testimonials, accreditations or team photos — nothing proves this is a real, trusted business",
+    "Only one CTA (Contact Us) with no phone number, quote form or booking option visible on the page",
+    "Below the hero the desktop capture is essentially empty dark imagery — sections either missing or failing to render",
+    "No content for Google to rank beyond a single sentence, so the site is invisible for local search terms"
+  ],
+  "site_analysis": "The site looks like a half-finished Webflow build: a moody hero with 'Cleaning Services Across London' and a contact button, then effectively nothing. There are no service descriptions, no pricing, no reviews and no proof the business exists — a visitor has no reason to trust it or any information to act on. For a company chasing London cleaning work, the site converts almost nobody because there is nothing to convert with.",
+  "review_summary": "Your website looks smart at the top, but there is almost nothing behind it — no list of what you clean, no prices, no reviews and no photos of your work. A customer landing here has to take a leap of faith to contact you, and most will not. Adding your services, a few real reviews and a clear way to get a quote would turn this page into something that actually wins you jobs.",
+  "outreach_angle": "Your homepage promises 'cleaning services across London' but never says what you actually clean — visitors have to guess before they can enquire.",
+  "business_type": "window and general cleaning service"
+}

@@ -95,6 +95,21 @@ export type Prospect = {
   ch_accounts_type: string | null     // micro | small | abridged | full | dormant
   ch_accounts_last_date: string | null
   ch_match_confidence: string | null  // high | medium | low
+  ch_accounts_period_end: string | null
+  ch_accounts_due_date: string | null
+  ch_accounts_overdue: boolean | null
+  ch_confirmation_due_date: string | null
+  ch_confirmation_overdue: boolean | null
+  ch_filing_url: string | null
+  ch_filing_document_url: string | null
+  ch_turnover: number | null
+  ch_net_assets: number | null
+  ch_cash: number | null
+  ch_current_assets: number | null
+  ch_liabilities: number | null
+  ch_employees: number | null
+  ch_financial_facts: Record<string, { current: number; previous: number | null; period_end: string | null; unit: string | null; source_tag: string }> | null
+  ch_data_updated_at: string | null
   // Qualification gate
   qualified_lead: boolean | null
   qualification_reasons: string[] | null
@@ -108,6 +123,7 @@ export type Prospect = {
   budget_indicated: number | null
   notes: string | null
   mockup_urls: string[] | null
+  walkthrough_video_url: string | null
   // Outreach operator fields
   outreach_status: OutreachStatus | null
   outreach_campaign_id: string | null
@@ -124,6 +140,10 @@ export type Prospect = {
   email_clicked_at: string | null
   email_open_count: number
   email_click_count: number
+  // Intake signals (Google Maps only — cheap sorting hint, not a site score)
+  intake_category: string | null
+  intake_priority: number | null
+  intake_signals: Record<string, unknown> | null
   // Owner / Companies House enrichment
   owner_name: string | null
   owner_role: string | null
@@ -136,4 +156,5 @@ export type Prospect = {
   owner_enriched_at: string | null
   owner_email_status: string | null    // valid | risky | invalid | unverified | not_found
   owner_email_verified_at: string | null
+  associated_names: Array<{ name: string; role?: string }> | null
 }

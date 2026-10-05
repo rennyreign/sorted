@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, Star } from "lucide-react"
 import { DarkCta, SitesFooter, SitesHeader, SitesPage, Underline } from "../../sites/_components/SitesPrimitives"
 import { exampleCaseStudies, getExampleCaseStudy } from "../_caseStudies"
 import { CaseStudyHeroPreview } from "./CaseStudyHeroPreview"
+import { BeforeAfterVideo } from "../BeforeAfterVideo"
 
 type PageProps = {
   params: Promise<{ slug: string }>
@@ -49,12 +50,23 @@ export default async function ExampleCaseStudyPage({ params }: PageProps) {
           </a>
           <p className="mb-5 text-[12px] font-black uppercase text-black/45">{caseStudy.category}</p>
           <h1 className="max-w-[560px] text-[clamp(3.35rem,5.8vw,6rem)] font-black leading-[0.9] tracking-[-0.055em]">{caseStudy.business}</h1>
-          <p className="mt-4 [font-family:var(--font-sites-highlight)] text-[clamp(2.7rem,4.8vw,5rem)] leading-[0.88] tracking-[-0.02em] text-[#d4ea00]">{caseStudy.title}</p>
+          <p className="mt-4 [font-family:var(--font-sites-fave-script)] text-[clamp(3.4rem,5.2vw,5.6rem)] leading-[0.8] tracking-[0] text-[#d4ea00]">{caseStudy.title}</p>
           <Underline className="mt-3 w-[240px]" />
           <p className="mt-7 max-w-[440px] text-[17px] font-semibold leading-[1.5] tracking-[-0.03em]">{caseStudy.description}</p>
         </div>
 
         <CaseStudyHeroPreview business={caseStudy.business} screenshots={caseStudy.screenshots} liveUrl={caseStudy.liveUrl} />
+      </section>
+
+      <section className="border-y border-black/10 bg-white px-5 py-12 sm:px-8 sm:py-16">
+        <div className="mx-auto grid max-w-[1220px] gap-8 lg:grid-cols-[0.32fr_0.68fr] lg:items-center">
+          <div>
+            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-black/45">Before &amp; after</p>
+            <h2 className="mt-4 max-w-[300px] text-[clamp(2.4rem,4vw,4.2rem)] font-black leading-[0.92] tracking-[-0.055em]">See the transformation.</h2>
+            <p className="mt-5 max-w-[310px] text-[15px] font-semibold leading-[1.5] text-black/64">A full walkthrough of the website before and after the Sorted treatment is coming soon.</p>
+          </div>
+          <BeforeAfterVideo />
+        </div>
       </section>
 
       <section className="mx-auto grid max-w-[1220px] gap-10 border-t border-black/10 px-5 py-12 sm:px-8 lg:grid-cols-[0.35fr_0.65fr]">

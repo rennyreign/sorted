@@ -10,10 +10,10 @@ pulls the signals that answer "is this a real, trading, viable business?":
   - accounts type from filing history (micro / small / full / dormant)
   - date of last accounts filing + whether accounts are overdue
 
-Deliberately NOT automated: reading turnover figures out of filed accounts.
-Most target businesses file micro-entity accounts that don't disclose
-turnover, and parsing iXBRL/PDFs is fragile. The dashboard links straight
-to the CH filing page so a human can eyeball revenue on shortlisted leads.
+Where the latest filing is available as iXBRL, a conservative parser extracts
+only explicit numeric facts such as net assets, current assets, employee count
+and turnover when it is genuinely disclosed. Missing facts stay missing: cash,
+assets or micro-entity thresholds are never presented as revenue.
 
 Docs: https://developer-specs.company-information.service.gov.uk/
 Auth: HTTP Basic, API key as username, blank password.
@@ -24,6 +24,8 @@ import logging
 import os
 import re
 import time
+import xml.etree.ElementTree as ET
+from datetime import datetime, timezone
 from difflib import SequenceMatcher
 from typing import Any
 
@@ -32,6 +34,7 @@ import requests
 logger = logging.getLogger("website-analyser.companies_house")
 
 CH_BASE_URL = "https://api.company-information.service.gov.uk"
+CH_DOCUMENT_URL = "https://document-api.company-information.service.gov.uk"
 CH_TIMEOUT = 20
 REQUEST_GAP_SECONDS = 0.4
 
@@ -181,8 +184,8 @@ def _fetch_people(company_number: str) -> list[dict]:
     return people
 
 
-def _last_accounts(filing_history: dict | None) -> tuple[str | None, str | None]:
-    """Extract (date, accounts_type) of the most recent accounts filing."""
+def _latest_accounts(filing_history: dict | None) -> tuple[str | None, str | None, dict | None]:
+    """Extract filing date, accounts type and item for the latest accounts."""
     items = (filing_history or {}).get("items") or []
     for item in items:
         if item.get("category") == "accounts":
@@ -200,8 +203,153 @@ def _last_accounts(filing_history: dict | None) -> tuple[str | None, str | None]
                 kind = "full"
             else:
                 kind = acc_type or "accounts"
-            return item.get("date"), kind
-    return None, None
+            return item.get("date"), kind, item
+    return None, None, None
+
+
+def _absolute_document_url(value: str | None) -> str | None:
+    if not value:
+        return None
+    if value.startswith("http://") or value.startswith("https://"):
+        return value
+    return f"{CH_DOCUMENT_URL}{value}"
+
+
+def _document_json(url: str) -> dict | None:
+    time.sleep(REQUEST_GAP_SECONDS)
+    try:
+        response = requests.get(url, auth=_auth(), timeout=CH_TIMEOUT)
+    except requests.exceptions.RequestException as exc:
+        logger.warning("Companies House document metadata failed: %s", exc)
+        return None
+    if not response.ok:
+        logger.warning("Companies House document metadata HTTP %d", response.status_code)
+        return None
+    try:
+        return response.json()
+    except ValueError:
+        return None
+
+
+def _document_content(metadata_url: str, content_type: str) -> bytes | None:
+    time.sleep(REQUEST_GAP_SECONDS)
+    try:
+        response = requests.get(
+            f"{metadata_url}/content",
+            headers={"Accept": content_type},
+            auth=_auth(),
+            timeout=CH_TIMEOUT,
+        )
+    except requests.exceptions.RequestException as exc:
+        logger.warning("Companies House document download failed: %s", exc)
+        return None
+    if not response.ok:
+        logger.warning("Companies House document download HTTP %d", response.status_code)
+        return None
+    return response.content
+
+
+_FACT_ALIASES = {
+    "turnover": {"Turnover", "TurnoverRevenue", "Revenue"},
+    "net_assets": {"NetAssetsLiabilities"},
+    "cash": {"CashBankOnHand", "CashAndCashEquivalents"},
+    "current_assets": {"CurrentAssets"},
+    "liabilities": {"Liabilities", "TotalLiabilities"},
+    "employees": {"AverageNumberEmployeesDuringPeriod"},
+    "equity": {"Equity"},
+    "net_current_assets": {"NetCurrentAssetsLiabilities"},
+}
+
+
+def _fact_number(raw: str, scale: str | None, sign: str | None) -> int | float | None:
+    value = raw.strip().replace(",", "").replace("£", "")
+    if not value or value in {"-", "—"}:
+        return None
+    negative = value.startswith("(") and value.endswith(")")
+    if negative:
+        value = value[1:-1]
+    try:
+        number = float(value)
+        number *= 10 ** int(scale or "0")
+        if negative or sign == "-":
+            number = -number
+        return int(number) if number.is_integer() else number
+    except (ValueError, OverflowError):
+        return None
+
+
+def _context_dates(root: ET.Element) -> dict[str, str]:
+    dates: dict[str, str] = {}
+    for element in root.iter():
+        if not element.tag.endswith("context"):
+            continue
+        context_id = element.attrib.get("id")
+        values = [
+            (child.text or "").strip()
+            for child in element.iter()
+            if child.tag.endswith("instant") or child.tag.endswith("endDate")
+        ]
+        if context_id and values:
+            dates[context_id] = max(values)
+    return dates
+
+
+def _extract_ixbrl(content: bytes, period_end: str | None) -> dict[str, Any] | None:
+    """Extract a conservative set of explicit numeric facts from iXBRL."""
+    try:
+        root = ET.fromstring(content)
+    except ET.ParseError as exc:
+        logger.warning("Companies House iXBRL parse failed: %s", exc)
+        return None
+
+    contexts = _context_dates(root)
+    candidates: dict[str, list[dict[str, Any]]] = {key: [] for key in _FACT_ALIASES}
+    for element in root.iter():
+        if not element.tag.endswith("nonFraction"):
+            continue
+        qualified_name = element.attrib.get("name") or ""
+        local_name = qualified_name.split(":")[-1]
+        fact_key = next((key for key, aliases in _FACT_ALIASES.items() if local_name in aliases), None)
+        if fact_key is None:
+            continue
+        number = _fact_number("".join(element.itertext()), element.attrib.get("scale"), element.attrib.get("sign"))
+        if number is None:
+            continue
+        context_ref = element.attrib.get("contextRef") or ""
+        candidates[fact_key].append({
+            "value": number,
+            "period_end": contexts.get(context_ref),
+            "unit": element.attrib.get("unitRef"),
+            "source_tag": qualified_name,
+        })
+
+    facts: dict[str, Any] = {}
+    for key, rows in candidates.items():
+        if not rows:
+            continue
+        rows.sort(key=lambda row: row.get("period_end") or "", reverse=True)
+        current = next((row for row in rows if not period_end or row.get("period_end") == period_end), rows[0])
+        previous = next((row for row in rows if row.get("period_end") and row.get("period_end") != current.get("period_end")), None)
+        facts[key] = {
+            "current": current["value"],
+            "previous": previous["value"] if previous else None,
+            "period_end": current.get("period_end"),
+            "unit": current.get("unit"),
+            "source_tag": current.get("source_tag"),
+        }
+    return facts or None
+
+
+def _filing_facts(item: dict | None, period_end: str | None) -> tuple[str | None, dict | None]:
+    metadata_url = _absolute_document_url(((item or {}).get("links") or {}).get("document_metadata"))
+    if not metadata_url:
+        return None, None
+    metadata = _document_json(metadata_url) or {}
+    resources = metadata.get("resources") or {}
+    if "application/xhtml+xml" not in resources:
+        return metadata_url, None
+    content = _document_content(metadata_url, "application/xhtml+xml")
+    return metadata_url, _extract_ixbrl(content, period_end) if content else None
 
 
 def check(
@@ -225,6 +373,21 @@ def check(
         "ch_incorporated_date": None,
         "ch_accounts_type": None,
         "ch_accounts_last_date": None,
+        "ch_accounts_period_end": None,
+        "ch_accounts_due_date": None,
+        "ch_accounts_overdue": None,
+        "ch_confirmation_due_date": None,
+        "ch_confirmation_overdue": None,
+        "ch_filing_url": None,
+        "ch_filing_document_url": None,
+        "ch_turnover": None,
+        "ch_net_assets": None,
+        "ch_cash": None,
+        "ch_current_assets": None,
+        "ch_liabilities": None,
+        "ch_employees": None,
+        "ch_financial_facts": None,
+        "ch_data_updated_at": None,
         "source_company_number": None,
         "source_url": None,
         "ch_verified": False,
@@ -253,14 +416,39 @@ def check(
     profile = _get(f"/company/{company_number}") or {}
     result["ch_status"] = profile.get("company_status")
     result["ch_incorporated_date"] = profile.get("date_of_creation")
+    result["source_incorporation_date"] = profile.get("date_of_creation")
+    result["source_sic_codes"] = profile.get("sic_codes")
+    accounts = profile.get("accounts") or {}
+    last_accounts = accounts.get("last_accounts") or {}
+    next_accounts = accounts.get("next_accounts") or {}
+    confirmation = profile.get("confirmation_statement") or {}
+    result["ch_accounts_period_end"] = last_accounts.get("period_end_on") or last_accounts.get("made_up_to")
+    result["ch_accounts_due_date"] = next_accounts.get("due_on") or accounts.get("next_due")
+    result["ch_accounts_overdue"] = next_accounts.get("overdue", accounts.get("overdue"))
+    result["ch_confirmation_due_date"] = confirmation.get("next_due")
+    result["ch_confirmation_overdue"] = confirmation.get("overdue")
 
     filings = _get(
         f"/company/{company_number}/filing-history",
         params={"category": "accounts", "items_per_page": 5},
     )
-    last_date, acc_type = _last_accounts(filings)
+    last_date, acc_type, filing_item = _latest_accounts(filings)
     result["ch_accounts_last_date"] = last_date
-    result["ch_accounts_type"] = acc_type
+    result["ch_accounts_type"] = last_accounts.get("type") or acc_type
+    filing_self = ((filing_item or {}).get("links") or {}).get("self")
+    if filing_self:
+        result["ch_filing_url"] = f"https://find-and-update.company-information.service.gov.uk{filing_self}"
+    metadata_url, facts = _filing_facts(filing_item, result["ch_accounts_period_end"])
+    result["ch_filing_document_url"] = metadata_url
+    result["ch_financial_facts"] = facts
+    if facts:
+        result["ch_turnover"] = (facts.get("turnover") or {}).get("current")
+        result["ch_net_assets"] = (facts.get("net_assets") or {}).get("current")
+        result["ch_cash"] = (facts.get("cash") or {}).get("current")
+        result["ch_current_assets"] = (facts.get("current_assets") or {}).get("current")
+        result["ch_liabilities"] = (facts.get("liabilities") or {}).get("current")
+        result["ch_employees"] = (facts.get("employees") or {}).get("current")
+    result["ch_data_updated_at"] = datetime.now(timezone.utc).isoformat()
 
     # Officers + PSCs — the people behind the business. Best-guess owner is
     # the first active director; everyone else lands in associated_names.

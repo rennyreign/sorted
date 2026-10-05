@@ -1,0 +1,26 @@
+QA log — ws-review-snapshot
+===========================
+
+Snapshot generation
+- Source: http://localhost:3999 (Murray Martin v2 build, live)
+- playwright-core + chrome-headless-shell @ 1440x800 viewport, top 800px captured
+- Converted to webp q82 via sharp (createRequire from /Users/renaldoedmondson/Projects/murraymartin)
+- Output: public/murray-martin-homepage-preview.webp (1440x800, ~89KB)
+
+Visual verification (Supabase stubbed — prospects SELECT returns fixture row,
+workspace_events INSERT + rpc stubbed, no real DB writes)
+Route: /workspace?slug=murray-martin&route=review
+
+1440px viewport:
+  h1 width: 1076px  (> 720px previous clamp) PASS
+  preview img present + visible + loaded     PASS
+  scrollWidth 1440 == clientWidth 1440       PASS (no horizontal overflow)
+  screenshot: artifacts/ws-review-snapshot/review-1440.png
+
+375px viewport:
+  h1 width: 335px                            PASS
+  preview img present + visible              PASS
+  scrollWidth 375 == clientWidth 375         PASS
+  screenshot: artifacts/ws-review-snapshot/review-375.png
+
+Build: npm run build — exit 0, clean (artifacts/ws-review-snapshot/build.log)

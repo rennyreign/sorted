@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { supabase } from "@/lib/supabase"
+import { WORKSPACE_DEFAULTS } from "@/lib/workspace"
 
 // The build is one fixed price — £3,000. The question below only shapes
 // how the payment is structured, not what the site costs.
@@ -247,6 +248,11 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
             <h2 className="font-sans font-bold text-[#0A0A0A] text-xl mb-2">Book a 15-minute chat</h2>
             <p className="text-sm text-[#737373] mb-6 leading-relaxed">
               15 minutes. We confirm the brief, answer your questions, and get the build started. No hard sell.
+              Or skip the booking —{" "}
+              <a href={`tel:${WORKSPACE_DEFAULTS.links.phone}`} className="font-bold text-[#0A0A0A] underline underline-offset-4">
+                give us a ring or text on {WORKSPACE_DEFAULTS.links.phoneDisplay}
+              </a>
+              .
             </p>
             <div className="rounded-xl overflow-hidden border border-black/[0.06]" style={{ height: 700 }}>
               <iframe

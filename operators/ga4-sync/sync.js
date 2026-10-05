@@ -86,15 +86,17 @@ async function run() {
     const websiteSessions = parseInt(sessionResponse.rows?.[0]?.metricValues?.[0]?.value ?? "0", 10)
     console.log(`  Website sessions: ${websiteSessions}`)
 
-    // ── 2. Mockup page views + unique mockup visitors (/review/* paths) ───────
+    // ── 2. Mockup page views + unique mockup visitors (/workspace/* + legacy /review/*) ──
     const [mockupResponse] = await analyticsDataClient.runReport({
       property: GA4_PROPERTY_ID,
       dateRanges: [{ startDate, endDate }],
       dimensions: [{ name: "pagePath" }],
       dimensionFilter: {
-        filter: {
-          fieldName: "pagePath",
-          stringFilter: { matchType: "BEGINS_WITH", value: "/review/" },
+        orGroup: {
+          expressions: [
+            { filter: { fieldName: "pagePath", stringFilter: { matchType: "BEGINS_WITH", value: "/workspace/" } } },
+            { filter: { fieldName: "pagePath", stringFilter: { matchType: "BEGINS_WITH", value: "/review/" } } },
+          ],
         },
       },
       metrics: [

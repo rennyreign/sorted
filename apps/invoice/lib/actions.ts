@@ -9,6 +9,8 @@ import {
   deleteBankAccount,
   deleteClient,
   deleteInvoice,
+  deletePayment,
+  recordPayment,
   saveSettings,
   updateBankAccount,
   updateClient,
@@ -17,7 +19,7 @@ import {
   type InvoiceInput,
   type LineItemInput,
 } from "./data";
-import { LINE_ITEM_UNITS, INVOICE_STATUSES } from "./types";
+import { LINE_ITEM_UNITS, INVOICE_STATUSES, PAYMENT_METHODS } from "./types";
 import { CURRENCY_CODES } from "./currencies";
 
 function str(form: FormData, key: string): string {
@@ -189,4 +191,31 @@ export async function deleteInvoiceAction(form: FormData): Promise<void> {
   deleteInvoice(num(form, "id"));
   revalidatePath("/");
   redirect("/");
+}
+
+// ---------- Payments ----------
+
+export async function recordPaymentAction(form: FormData): Promise<void> {
+  const invoiceId = num(form, "invoice_id");
+  const amount = num(form, "amount");
+  if (!invoiceId) throw new Error("An invoice is required");
+  if (amount <= 0) throw new Error("Payment amount must be greater than zero");
+  const paidAt = str(form, "paid_at") || new Date().toISOString().slice(0, 10);
+  const method = str(form, "method");
+  recordPayment({
+    invoice_id: invoiceId,
+    amount,
+    paid_at: paidAt,
+    method: PAYMENT_METHODS.includes(method as never) ? method : "other",
+    note: str(form, "note"),
+  });
+  revalidatePath("/");
+  revalidatePath(`/invoices/${invoiceId}`);
+}
+
+export async function deletePaymentAction(form: FormData): Promise<void> {
+  const invoiceId = num(form, "invoice_id");
+  deletePayment(num(form, "id"));
+  revalidatePath("/");
+  revalidatePath(`/invoices/${invoiceId}`);
 }

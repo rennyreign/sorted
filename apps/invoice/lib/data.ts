@@ -9,6 +9,7 @@ import type {
   Invoice,
   InvoiceWithClient,
   LineItem,
+  Payment,
 } from "./types";
 
 // ---------- Settings ----------
@@ -165,7 +166,21 @@ export function clientHasInvoices(id: number): boolean {
 
 // ---------- Invoices ----------
 
-export function getInvoices(): (InvoiceWithClient & { total: number })[] {
+function getPaidMap(): Map<number, number> {
+  const db = getDb();
+  const rows = db
+    .prepare(
+      "SELECT invoice_id, SUM(amount) AS paid FROM payments GROUP BY invoice_id",
+    )
+    .all() as { invoice_id: number; paid: number }[];
+  return new Map(rows.map((r) => [r.invoice_id, r.paid]));
+}
+
+export function getInvoices(): (InvoiceWithClient & {
+  total: number;
+  amountPaid: number;
+  balance: number;
+})[] {
   const db = getDb();
   const invoices = db
     .prepare(
@@ -175,27 +190,31 @@ export function getInvoices(): (InvoiceWithClient & { total: number })[] {
        ORDER BY i.issue_date DESC, i.id DESC`,
     )
     .all() as InvoiceWithClient[];
+  const paidMap = getPaidMap();
 
   return invoices.map((inv) => {
     const items = getLineItems(inv.id);
     const { total } = computeTotals(items, inv.tax_rate);
-    return { ...inv, total };
+    const amountPaid = paidMap.get(inv.id) ?? 0;
+    return { ...inv, total, amountPaid, balance: total - amountPaid };
   });
 }
 
 export function getInvoicesForClient(
   clientId: number,
-): (Invoice & { total: number })[] {
+): (Invoice & { total: number; amountPaid: number; balance: number })[] {
   const db = getDb();
   const invoices = db
     .prepare(
       "SELECT * FROM invoices WHERE client_id = ? ORDER BY issue_date DESC, id DESC",
     )
     .all(clientId) as Invoice[];
+  const paidMap = getPaidMap();
   return invoices.map((inv) => {
     const items = getLineItems(inv.id);
     const { total } = computeTotals(items, inv.tax_rate);
-    return { ...inv, total };
+    const amountPaid = paidMap.get(inv.id) ?? 0;
+    return { ...inv, total, amountPaid, balance: total - amountPaid };
   });
 }
 
@@ -228,7 +247,73 @@ export function getFullInvoice(id: number): FullInvoice | null {
     : null;
   const company = getSettings();
   const totals = computeTotals(items, invoice.tax_rate);
-  return { invoice, client, items, bankAccount, company, totals };
+  const payments = getPayments(id);
+  const amountPaid = payments.reduce((sum, p) => sum + p.amount, 0);
+  const balance = totals.total - amountPaid;
+  return {
+    invoice,
+    client,
+    items,
+    bankAccount,
+    company,
+    totals,
+    payments,
+    amountPaid,
+    balance,
+  };
+}
+
+// ---------- Payments ----------
+
+export function getPayments(invoiceId: number): Payment[] {
+  const db = getDb();
+  return db
+    .prepare(
+      "SELECT * FROM payments WHERE invoice_id = ? ORDER BY paid_at, id",
+    )
+    .all(invoiceId) as Payment[];
+}
+
+function syncPaymentStatus(invoiceId: number): void {
+  const invoice = getInvoice(invoiceId);
+  if (!invoice) return;
+  const { total } = computeTotals(getLineItems(invoiceId), invoice.tax_rate);
+  const paid = getPayments(invoiceId).reduce((sum, p) => sum + p.amount, 0);
+  if (total > 0 && paid >= total && invoice.status !== "paid") {
+    updateInvoiceStatus(invoiceId, "paid");
+  } else if (paid < total && invoice.status === "paid") {
+    updateInvoiceStatus(invoiceId, "sent");
+  }
+}
+
+export type PaymentInput = {
+  invoice_id: number;
+  amount: number;
+  paid_at: string;
+  method: string;
+  note: string;
+};
+
+export function recordPayment(input: PaymentInput): number {
+  const db = getDb();
+  const result = db
+    .prepare(
+      `INSERT INTO payments (invoice_id, amount, paid_at, method, note)
+       VALUES (@invoice_id, @amount, @paid_at, @method, @note)`,
+    )
+    .run(input);
+  syncPaymentStatus(input.invoice_id);
+  return Number(result.lastInsertRowid);
+}
+
+export function deletePayment(id: number): void {
+  const db = getDb();
+  const payment = db
+    .prepare("SELECT invoice_id FROM payments WHERE id = ?")
+    .get(id) as { invoice_id: number } | undefined;
+  if (!payment) return;
+  db.prepare("DELETE FROM payments WHERE id = ?").run(id);
+  syncPaymentStatus(payment.invoice_id);
 }
 
 export type LineItemInput = {
@@ -379,7 +464,7 @@ export function getDashboardStats(): DashboardStats {
     if (inv.status === "paid") paidCount += 1;
     if (inv.status === "draft") draftCount += 1;
     if (inv.status === "sent" || inv.status === "overdue") {
-      outstanding += inv.total;
+      outstanding += Math.max(inv.balance, 0);
     }
   }
   return {

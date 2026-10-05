@@ -81,7 +81,18 @@ export function QuestionDrawer({
           >
             Send question <ArrowRight className="size-4" strokeWidth={2.8} />
           </a>
-          <p className="mt-3 text-center text-[11px] font-medium text-[#A3A3A3]">Opens your email app, addressed to {workspace.links.questionEmail}.</p>
+          <p className="mt-3 text-center text-[11px] font-medium text-[#A3A3A3]">
+            Opens your email app, addressed to {workspace.links.questionEmail}.
+            {workspace.links.phone ? (
+              <>
+                {" "}Or{" "}
+                <a href={`tel:${workspace.links.phone}`} className="font-bold text-[#73736D] underline underline-offset-4">
+                  ring or text us on {workspace.links.phoneDisplay ?? workspace.links.phone}
+                </a>
+                .
+              </>
+            ) : null}
+          </p>
         </div>
       </div>
     </div>

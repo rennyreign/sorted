@@ -1,0 +1,25 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 1,
+    "mobile_experience": 2,
+    "desire_creation": 1,
+    "content_structure": 2,
+    "trust_and_credibility": 2
+  },
+  "business_quality_score": 3,
+  "business_quality_reasoning": "Bairstow Eves is a Countrywide national chain — the Rainham page is a locked corporate branch template the local office cannot commission a rebuild for, and the matched Companies House entity is dissolved. Real commercial operation (64 reviews, Feefo 4.6/5) but not a reachable buyer.",
+  "service_price_point": 4500,
+  "price_point_reasoning": "Estate agency fees of roughly 1-1.5% on Rainham sale prices around £300-425k (shown in the site's own market table) put one completed sale near £4,500 in commission.",
+  "modernity_gap": "A competent corporate branch template with local data, team photos and a Feefo rating — only moderately behind current standards and not locally owned.",
+  "site_weaknesses": [
+    "A 'Book a valuation' modal fires immediately over the hero — intrusive before the visitor has seen anything",
+    "Hero headline is partially obscured by signage and the valuation popup on mobile",
+    "Dense About paragraph is one long justified text block — hard to scan, boilerplate corporate copy",
+    "Local data table is strong but presented as a wall of numbers with red/green cells rather than visual hierarchy",
+    "No visible Google reviews despite 64 on the listing — only the Feefo score is surfaced"
+  ],
+  "site_analysis": "This is a chain branch page on the Countrywide platform: functional, mobile-friendly, and actually stronger than most — it shows market data, named team members and a Feefo rating. The intrusive instant valuation popup and dense corporate copy are the main friction points. Regardless of quality, a national franchise branch is not a realistic buyer for a bespoke rebuild.",
+  "review_summary": "Your Rainham page already does more than most — it shows local market data, your team and a strong Feefo rating. The main problem is that a valuation form pops up and covers the page before a visitor has seen any of it, and the about section is a long block of corporate text. Letting people see your team and reviews first would make that form work much harder for you.",
+  "outreach_angle": "Your Rainham page hits visitors with a valuation form before they have seen your team or your 4.6/5 Feefo rating — the strongest trust signals on the page are hidden behind a popup.",
+  "business_type": "estate agency branch (national chain)"
+}

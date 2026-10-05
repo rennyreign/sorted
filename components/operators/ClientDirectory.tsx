@@ -284,13 +284,13 @@ function ClientCard({
           />
         ))}
 
-        {/* Review page (from prospect match) */}
+        {/* Workspace (from prospect match) */}
         {prospect?.review_slug && (
           <DocRow
-            doc={{ type: "proposal", label: "Review Page", path: `/review/${prospect.review_slug}` }}
+            doc={{ type: "proposal", label: "Workspace", path: `/workspace/${prospect.review_slug}` }}
             agreement={null}
-            copied={copied === `/review/${prospect.review_slug}`}
-            onCopy={() => onCopy(`/review/${prospect.review_slug}`)}
+            copied={copied === `/workspace/${prospect.review_slug}`}
+            onCopy={() => onCopy(`/workspace/${prospect.review_slug}`)}
             suppressSignature
           />
         )}

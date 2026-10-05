@@ -101,7 +101,7 @@ export function SitesTitle({ kicker, title, marker, className = "" }: { kicker?:
     <div className={className}>
       {kicker ? <p className="mb-5 text-[12px] font-black text-black/45">{kicker}</p> : null}
       <h1 className="text-[clamp(3.4rem,6.4vw,6.8rem)] font-black leading-[0.92] tracking-[-0.045em]">{title}</h1>
-      {marker ? <div className="mt-1 [font-family:var(--font-sites-highlight)] text-[clamp(3.2rem,6vw,6.4rem)] font-normal leading-[0.88] tracking-[-0.02em] text-[#d4ea00]">{marker}</div> : null}
+      {marker ? <div className="mt-1 [font-family:var(--font-sites-fave-script)] text-[clamp(4.5rem,7.5vw,7.8rem)] font-normal leading-[0.78] tracking-[0] text-[#d4ea00]">{marker}</div> : null}
     </div>
   )
 }

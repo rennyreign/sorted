@@ -26,7 +26,7 @@ load_dotenv()
 
 from config import MAX_RESULTS_PER_QUERY, OPERATOR_NAME, OPERATOR_VERSION, SEARCH_QUERIES
 from scraper.apify import search_google_maps
-from scraper.filters import qualify_records
+from scraper.filters import merge_records, qualify_records
 from storage.supabase import count_prospects, upsert_prospects
 
 # ---------------------------------------------------------------------------
@@ -96,6 +96,11 @@ def run(dry_run: bool = False, single_query: str | None = None, location_overrid
     total_stored = 0
     total_errors = 0
 
+    # Records accumulate keyed by place_id across ALL query batches before any
+    # write — the same place surfacing under two categories merges into one row.
+    by_place_id: dict[str, dict] = {}
+    place_order: list[str] = []
+
     for query in queries:
         category = query["category"]
         location = query["location"]
@@ -126,21 +131,31 @@ def run(dry_run: bool = False, single_query: str | None = None, location_overrid
             logger.info("No qualifying records for '%s' in '%s'.", category, location)
             continue
 
-        # 3. Store
+        # 3. Accumulate — merge cross-query place_id duplicates, preserving the
+        # first record's provenance; the actual write happens once below.
+        for record in qualified:
+            pid = record["place_id"]
+            if pid in by_place_id:
+                by_place_id[pid] = merge_records(by_place_id[pid], record)
+            else:
+                by_place_id[pid] = record
+                place_order.append(pid)
+
+    # ---------------------------------------------------------------------------
+    # Store — a single deduplicated write set for the whole run
+    # ---------------------------------------------------------------------------
+
+    all_records = [by_place_id[pid] for pid in place_order]
+
+    if all_records:
         if dry_run:
-            logger.info(
-                "[DRY RUN] Would write %d records for '%s' in '%s'.",
-                len(qualified), category, location,
-            )
-            total_stored += len(qualified)
+            logger.info("[DRY RUN] Would write %d records.", len(all_records))
+            total_stored += len(all_records)
         else:
-            stored, errors = upsert_prospects(qualified)
+            stored, errors = upsert_prospects(all_records)
             total_stored += stored
             total_errors += errors
-            logger.info(
-                "Stored %d records for '%s' in '%s' (%d errors).",
-                stored, category, location, errors,
-            )
+            logger.info("Stored %d records (%d errors).", stored, errors)
 
     # ---------------------------------------------------------------------------
     # Summary

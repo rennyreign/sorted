@@ -145,6 +145,11 @@ export default async function ClientDetailPage({
                   </td>
                   <td className="px-5 py-3.5 text-right font-mono text-sm font-medium text-[#0A0A0A] tabular-nums">
                     {formatMoney(inv.total, inv.currency)}
+                    {inv.amountPaid > 0 && inv.balance > 0 && (
+                      <span className="mt-0.5 block text-[11px] font-normal text-[#A3A3A3]">
+                        {formatMoney(inv.balance, inv.currency)} due
+                      </span>
+                    )}
                   </td>
                 </tr>
               ))}

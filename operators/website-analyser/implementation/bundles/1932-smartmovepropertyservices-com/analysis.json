@@ -1,0 +1,26 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 1,
+    "mobile_experience": 1,
+    "desire_creation": 1,
+    "content_structure": 1,
+    "trust_and_credibility": 1
+  },
+  "business_quality_score": 6,
+  "business_quality_reasoning": "Independent estate and letting agent in Rainham claiming 20+ years of industry experience, CH-active Ltd (incorporated 2024), listing properties on Rightmove and Zoopla — a real operation with high-value transactions, though only 22 Google reviews at 3.9 stars and a very young Ltd entity temper the score.",
+  "service_price_point": 4500,
+  "price_point_reasoning": "Sales and lettings in Rainham — a single completed sale at typical ~1-1.5% fees on local prices around £300-400k is worth roughly £4,000-5,000.",
+  "modernity_gap": "A Squarespace template from around 2022 that already feels older — heavy black blocks, lime accents, micro-caps body text and no property listings or people anywhere on the homepage.",
+  "site_weaknesses": [
+    "A shopping cart icon showing '0' sits in the header — an ecommerce leftover that looks broken on an estate agency site",
+    "Hero is a giant thin-caps slogan over flat black — no photography of property, the team or the area",
+    "Body copy is set in tiny all-caps justified text that is genuinely hard to read",
+    "Homepage shows zero property listings — the entire point of an agent's site is missing",
+    "Only one written testimonial shown; no Google rating, review count or named team members",
+    "Stock flat-lay imagery (plants, desks) throughout — nothing local or human"
+  ],
+  "site_analysis": "This is a dated Squarespace template that fails on the basics for an estate agent: no listings on the homepage, no team, no properties, and a stray ecommerce cart in the header. The credibility assets that do exist — Rightmove, Zoopla, Property Ombudsman, DPS logos — are stacked as logos mid-page without context, and the tiny all-caps body text makes even the welcome copy hard work to read.",
+  "review_summary": "Your site has good bones — your Rightmove, Zoopla and Ombudsman memberships are all there — but it is working against you. There are no properties on your homepage, no faces, a shopping cart icon that should not be there, and the text is so small and cramped that most visitors will not read it. For an agent with 20 years of experience, the site is underselling you badly, and fixing it would turn more of your traffic into valuation bookings.",
+  "outreach_angle": "Your homepage has a shopping cart showing '0' in the header and not a single property listing — for an estate agent, that is the first thing a seller notices.",
+  "business_type": "independent estate and letting agent"
+}

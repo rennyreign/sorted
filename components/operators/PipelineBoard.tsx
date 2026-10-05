@@ -3,6 +3,11 @@
 import { useState, useEffect, useRef, useMemo } from "react"
 import { supabase } from "@/lib/supabase"
 import type { CrmStatus, OutreachStatus, OutreachMode } from "@/lib/supabase"
+import { fetchWorkflows, finderAction } from "@/lib/operatorDb"
+import type { ProspectWorkflow } from "@/lib/finderModel"
+import ProspectResearch from "./ProspectResearch"
+import ProspectActivity from "./ProspectActivity"
+import AddProspectForm from "./AddProspectForm"
 
 type PipelineProspect = {
   id: number
@@ -17,6 +22,7 @@ type PipelineProspect = {
   phone: string | null
   mockup_url: string | null
   mockup_urls: string[] | null
+  walkthrough_video_url: string | null
   crm_status: CrmStatus
   status: string | null
   contacted_at: string | null
@@ -30,17 +36,52 @@ type PipelineProspect = {
   outreach_last_error: string | null
   // Owner / Companies House enrichment
   owner_name: string | null
+  owner_role: string | null
   owner_email: string | null
+  owner_email_status: string | null
   owner_email_source: string | null
   owner_email_confidence: number | null
   owner_source: string | null
   owner_identified_at: string | null
   owner_enriched_at: string | null
+  source_company_number: string | null
+  source_url: string | null
+  ch_status: string | null
+  ch_accounts_type: string | null
+  ch_accounts_last_date: string | null
+  ch_incorporated_date: string | null
+  ch_match_confidence: string | null
+  prospect_score: number | null
+  business_quality_score: number | null
+  opportunity_score: number | null
+  qualification_reasons: string[] | null
+  source_sic_codes: string[] | null
+  ch_accounts_period_end: string | null
+  ch_accounts_due_date: string | null
+  ch_accounts_overdue: boolean | null
+  ch_confirmation_due_date: string | null
+  ch_confirmation_overdue: boolean | null
+  ch_filing_url: string | null
+  ch_turnover: number | null
+  ch_net_assets: number | null
+  ch_cash: number | null
+  ch_current_assets: number | null
+  ch_liabilities: number | null
+  ch_employees: number | null
+  ch_financial_facts: Record<string, { current: number; previous: number | null; period_end: string | null; unit: string | null; source_tag: string }> | null
+  ch_data_updated_at: string | null
+  associated_names: Array<{ name: string; role?: string }> | null
+  // Activity timeline milestones
+  first_seen_at: string | null
+  mockup_created_at: string | null
+  email_opened_at: string | null
+  email_replied_at: string | null
 }
 
 const STAGES: { key: CrmStatus; label: string; color: string; dropColor: string; dot: string }[] = [
   { key: "new",             label: "New",             color: "bg-[#F5F5F5] border-black/[0.06]",  dropColor: "bg-black/[0.04] border-black/20",       dot: "bg-[#D4D4D4]" },
   { key: "outreached",      label: "Outreached",      color: "bg-blue-50 border-blue-100",         dropColor: "bg-blue-100 border-blue-300",            dot: "bg-blue-400" },
+  { key: "responded",       label: "Responded",       color: "bg-violet-50 border-violet-100",     dropColor: "bg-violet-100 border-violet-300",        dot: "bg-violet-400" },
   { key: "mockup_revealed", label: "Mockup Revealed", color: "bg-amber-50 border-amber-100",       dropColor: "bg-amber-100 border-amber-300",          dot: "bg-amber-400" },
   { key: "build",           label: "Build",           color: "bg-orange-50 border-orange-100",     dropColor: "bg-orange-100 border-orange-300",        dot: "bg-orange-400" },
   { key: "quote",           label: "Quote",           color: "bg-emerald-50 border-emerald-100",   dropColor: "bg-emerald-100 border-emerald-300",      dot: "bg-emerald-400" },
@@ -51,7 +92,8 @@ const STAGES: { key: CrmStatus; label: string; color: string; dropColor: string;
 
 const NEXT_STAGE: Partial<Record<CrmStatus, CrmStatus>> = {
   new:             "outreached",
-  outreached:      "mockup_revealed",
+  outreached:      "responded",
+  responded:       "mockup_revealed",
   mockup_revealed: "build",
   build:           "quote",
   quote:           "paid",
@@ -59,7 +101,8 @@ const NEXT_STAGE: Partial<Record<CrmStatus, CrmStatus>> = {
 
 const PREV_STAGE: Partial<Record<CrmStatus, CrmStatus>> = {
   outreached:      "new",
-  mockup_revealed: "outreached",
+  responded:       "outreached",
+  mockup_revealed: "responded",
   build:           "mockup_revealed",
   quote:           "build",
   paid:            "quote",
@@ -83,15 +126,13 @@ function timeAgo(iso: string | null) {
   return `${days}d ago`
 }
 
-const EMPTY_FORM = { name: "", website: "", email: "", category: "", city: "" }
-
 type DraftState = "idle" | "generating" | "ready" | "sending" | "sent" | "error"
 type NoteState = "idle" | "saving" | "saved"
 type EmailDraft = { subject: string; body: string }
 
 function generateDraft(p: PipelineProspect): EmailDraft {
   const reviewUrl = p.review_slug
-    ? `https://sortmydigital.site/review/${p.review_slug}`
+    ? `https://sortmydigital.site/workspace/${p.review_slug}`
     : null
 
   const subject = `We built something for you`
@@ -116,18 +157,25 @@ function generateDraft(p: PipelineProspect): EmailDraft {
   return { subject, body }
 }
 
-const PROSPECT_FIELDS = "id, place_id, name, city, category, site_score, review_slug, website, email, phone, mockup_url, mockup_urls, crm_status, status, contacted_at, mockup_revealed_at, status_updated_at, notes, site_weaknesses, outreach_status, outreach_sent_at, outreach_attempt_count, outreach_last_error, owner_name, owner_email, owner_email_source, owner_email_confidence, owner_source, owner_identified_at, owner_enriched_at"
+const PROSPECT_FIELDS = "id, place_id, name, city, category, site_score, first_seen_at, mockup_created_at, email_opened_at, email_replied_at, prospect_score, business_quality_score, opportunity_score, qualification_reasons, review_slug, website, email, phone, mockup_url, mockup_urls, walkthrough_video_url, crm_status, status, contacted_at, mockup_revealed_at, status_updated_at, notes, site_weaknesses, outreach_status, outreach_sent_at, outreach_attempt_count, outreach_last_error, owner_name, owner_role, owner_email, owner_email_status, owner_email_source, owner_email_confidence, owner_source, owner_identified_at, owner_enriched_at, associated_names, source_company_number, source_sic_codes, source_url, ch_status, ch_accounts_type, ch_accounts_last_date, ch_accounts_period_end, ch_accounts_due_date, ch_accounts_overdue, ch_confirmation_due_date, ch_confirmation_overdue, ch_filing_url, ch_turnover, ch_net_assets, ch_cash, ch_current_assets, ch_liabilities, ch_employees, ch_financial_facts, ch_data_updated_at, ch_incorporated_date, ch_match_confidence"
 
 export default function PipelineBoard() {
   const [prospects, setProspects] = useState<PipelineProspect[]>([])
   const [loading, setLoading] = useState(true)
   const [selected, setSelected] = useState<PipelineProspect | null>(null)
   const [mockupInput, setMockupInput] = useState("")
+  const [videoInput, setVideoInput] = useState("")
   const [saving, setSaving] = useState(false)
+  const [workflows, setWorkflows] = useState<Map<number, ProspectWorkflow>>(new Map())
+  const [intakeUnavailable, setIntakeUnavailable] = useState(false)
+  const [showAddToPipeline, setShowAddToPipeline] = useState(false)
+  const [pipeSearch, setPipeSearch] = useState("")
+  const [pipeResults, setPipeResults] = useState<PipelineProspect[]>([])
+  const [pipeSearching, setPipeSearching] = useState(false)
+  const [pipeAdded, setPipeAdded] = useState<Set<string>>(new Set())
+  const [pipeErrors, setPipeErrors] = useState<Record<string, string>>({})
+  const [actionError, setActionError] = useState<string | null>(null)
   const [showAddForm, setShowAddForm] = useState(false)
-  const [addForm, setAddForm] = useState(EMPTY_FORM)
-  const [addSaving, setAddSaving] = useState(false)
-  const [addError, setAddError] = useState<string | null>(null)
   const [search, setSearch] = useState("")
   const [cityFilter, setCityFilter] = useState<string>("All")
   const [mockupFilter, setMockupFilter] = useState<"all" | "ready" | "none">("all")
@@ -136,7 +184,8 @@ export default function PipelineBoard() {
   const [enrichedFilter, setEnrichedFilter] = useState<"all" | "owner" | "owner_email" | "not_enriched">("all")
 
   // Outreach state (merged from OutreachPanel)
-  const [drawerTab, setDrawerTab] = useState<"details" | "outreach">("details")
+  const [drawerTab, setDrawerTab] = useState<"details" | "research" | "outreach" | "activity">("details")
+  const [activityRevision, setActivityRevision] = useState(0)
   const [draft, setDraft] = useState<EmailDraft | null>(null)
   const [draftState, setDraftState] = useState<DraftState>("idle")
   const [gmailConnected, setGmailConnected] = useState<boolean | null>(null)
@@ -197,6 +246,24 @@ export default function PipelineBoard() {
     setSaving(false)
   }
 
+  async function saveWalkthroughVideo(prospect: PipelineProspect) {
+    const url = videoInput.trim()
+    if (!url) return
+    setSaving(true)
+    await supabase.from("prospects").update({ walkthrough_video_url: url }).eq("place_id", prospect.place_id)
+    setProspects(prev => prev.map(p => p.place_id === prospect.place_id ? { ...p, walkthrough_video_url: url } : p))
+    if (selected?.place_id === prospect.place_id) setSelected(s => s ? { ...s, walkthrough_video_url: url } : s)
+    setSaving(false)
+  }
+
+  async function removeWalkthroughVideo(prospect: PipelineProspect) {
+    setSaving(true)
+    await supabase.from("prospects").update({ walkthrough_video_url: null }).eq("place_id", prospect.place_id)
+    setProspects(prev => prev.map(p => p.place_id === prospect.place_id ? { ...p, walkthrough_video_url: null } : p))
+    if (selected?.place_id === prospect.place_id) setSelected(s => s ? { ...s, walkthrough_video_url: null } : s)
+    setSaving(false)
+  }
+
   // Drag state
   const draggingId = useRef<string | null>(null)
   const [dragOver, setDragOver] = useState<CrmStatus | null>(null)
@@ -252,13 +319,33 @@ export default function PipelineBoard() {
       .order("status_updated_at", { ascending: false })
       .limit(500)
 
-    // New/incoming: include NULL crm_status and unscored prospects so mockups never disappear.
-    const { data: newData } = await supabase
-      .from("prospects")
-      .select(PROSPECT_FIELDS)
-      .or("crm_status.eq.new,crm_status.is.null")
-      .order("site_score", { ascending: false, nullsFirst: false })
-      .limit(1000)
+    // New = deliberately shortlisted prospects at stage new. prospect_workflow
+    // is the intake gate — if the table is missing the column stays empty.
+    let wf: Map<number, ProspectWorkflow>
+    try {
+      wf = await fetchWorkflows()
+      setWorkflows(wf)
+      setIntakeUnavailable(false)
+    } catch {
+      wf = new Map()
+      setWorkflows(wf)
+      setIntakeUnavailable(true)
+    }
+    const shortlistedIds = [...wf.values()]
+      .filter((w) => w.shortlisted_at)
+      .map((w) => w.prospect_id)
+
+    const newRows: PipelineProspect[] = []
+    for (let i = 0; i < shortlistedIds.length; i += 200) {
+      const { data } = await supabase
+        .from("prospects")
+        .select(PROSPECT_FIELDS)
+        .in("id", shortlistedIds.slice(i, i + 200))
+        .or("crm_status.eq.new,crm_status.is.null")
+        .order("site_score", { ascending: false, nullsFirst: false })
+      newRows.push(...((data ?? []) as PipelineProspect[]))
+    }
+    const newData = newRows
 
     // Eliminated: lost + N/A — fetched so counters persist on refresh.
     const { data: eliminatedData } = await supabase
@@ -284,6 +371,19 @@ export default function PipelineBoard() {
   }
 
   async function updateStatus(prospect: PipelineProspect, newStatus: CrmStatus) {
+    // Moving a card back to New only sticks if it's shortlisted — the New
+    // column is gated on prospect_workflow, so shortlist first.
+    if (newStatus === "new" && !workflows.get(prospect.id)?.shortlisted_at) {
+      try {
+        const w = await finderAction(prospect.id, "shortlist")
+        setWorkflows(prev => new Map(prev).set(w.prospect_id, w))
+      } catch (e) {
+        if (!(e instanceof Error && /already shortlisted/i.test(e.message))) {
+          setActionError(e instanceof Error ? e.message : "Could not add prospect to pipeline")
+          return
+        }
+      }
+    }
     // Optimistic update
     setProspects(prev => prev.map(p =>
       p.place_id === prospect.place_id ? { ...p, crm_status: newStatus } : p
@@ -298,42 +398,73 @@ export default function PipelineBoard() {
     setSaving(false)
   }
 
-  async function addProspect() {
-    if (!addForm.name.trim()) { setAddError("Name is required."); return }
-    setAddSaving(true)
-    setAddError(null)
-    // Use a timestamp-based place_id for manual entries
-    const place_id = `manual_${Date.now()}`
-    const { data, error } = await supabase
-      .from("prospects")
-      .insert({
-        place_id,
-        name: addForm.name.trim(),
-        website: addForm.website.trim() || null,
-        email: addForm.email.trim() || null,
-        category: addForm.category.trim() || null,
-        city: addForm.city.trim() || null,
-        website_exists: !!addForm.website.trim(),
-        email_exists: !!addForm.email.trim(),
-        crm_status: "new",
-      })
-      .select(PROSPECT_FIELDS)
-      .single()
-    if (error) {
-      setAddError("Failed to add prospect. Try again.")
-      setAddSaving(false)
-      return
+  function onProspectAdded(record: { id: number } & Record<string, unknown>, workflow: ProspectWorkflow | null) {
+    if (workflow) setWorkflows(prev => new Map(prev).set(workflow.prospect_id, workflow))
+    setProspects(prev => [record as PipelineProspect, ...prev])
+  }
+
+  // Debounced search for "Add to pipeline"
+  useEffect(() => {
+    if (!showAddToPipeline) return
+    const q = pipeSearch.replace(/[%,()]/g, "").trim()
+    if (q.length < 2) { setPipeResults([]); setPipeSearching(false); return }
+    setPipeSearching(true)
+    const t = setTimeout(async () => {
+      const { data } = await supabase
+        .from("prospects")
+        .select(PROSPECT_FIELDS)
+        .or(`name.ilike.%${q}%,city.ilike.%${q}%,category.ilike.%${q}%`)
+        .order("site_score", { ascending: false, nullsFirst: false })
+        .limit(12)
+      setPipeResults((data ?? []) as PipelineProspect[])
+      setPipeSearching(false)
+    }, 250)
+    return () => clearTimeout(t)
+  }, [pipeSearch, showAddToPipeline])
+
+  async function addToPipeline(p: PipelineProspect) {
+    setPipeErrors(prev => ({ ...prev, [p.place_id]: "" }))
+    try {
+      const w = await finderAction(p.id, "shortlist")
+      setWorkflows(prev => new Map(prev).set(w.prospect_id, w))
+    } catch (e) {
+      if (!(e instanceof Error && /already shortlisted/i.test(e.message))) {
+        setPipeErrors(prev => ({ ...prev, [p.place_id]: e instanceof Error ? e.message : "Could not add" }))
+        return
+      }
     }
-    setProspects(prev => [data as PipelineProspect, ...prev])
-    setAddForm(EMPTY_FORM)
-    setShowAddForm(false)
-    setAddSaving(false)
+    const status = (p.crm_status ?? "new") as CrmStatus
+    if (!prospects.some(x => x.place_id === p.place_id)) {
+      setProspects(prev => [{ ...p, crm_status: status }, ...prev])
+    }
+    // A lost/na record re-added returns to New explicitly.
+    if (status === "lost" || status === "na") await updateStatus(p, "new")
+    setPipeAdded(prev => new Set(prev).add(p.place_id))
+  }
+
+  async function removeFromPipeline(p: PipelineProspect) {
+    setSaving(true)
+    setActionError(null)
+    try {
+      const w = await finderAction(p.id, "unshortlist")
+      setWorkflows(prev => new Map(prev).set(w.prospect_id, w))
+    } catch (e) {
+      if (!(e instanceof Error && /not shortlisted/i.test(e.message))) {
+        setActionError(e instanceof Error ? e.message : "Could not remove from pipeline")
+        setSaving(false)
+        return
+      }
+    }
+    setProspects(prev => prev.filter(x => x.place_id !== p.place_id))
+    setSelected(null)
+    setSaving(false)
   }
 
   // ── Outreach handlers (merged from OutreachPanel) ──────────────
   function selectProspect(p: PipelineProspect) {
     setSelected(p)
     setMockupInput("")
+    setVideoInput(p.walkthrough_video_url ?? "")
     setDrawerTab("details")
     setDraft(null)
     setDraftState("idle")
@@ -341,6 +472,7 @@ export default function PipelineBoard() {
     setEditedBody("")
     setNoteText(p.notes ?? "")
     setNoteState("idle")
+    setActionError(null)
   }
 
   async function handleNoteSave() {
@@ -487,13 +619,14 @@ export default function PipelineBoard() {
     })
   }, [prospects, search, cityFilter, mockupFilter, reviewPageFilter, stageFilter, enrichedFilter])
 
-  const allByStage = (stage: CrmStatus) => prospects.filter(p => p.crm_status === stage || (stage === "outreached" && p.crm_status === "responded"))
+  const allByStage = (stage: CrmStatus) => prospects.filter(p => p.crm_status === stage)
   const allCounts = Object.fromEntries(STAGES.map(s => [s.key, allByStage(s.key).length])) as Record<CrmStatus, number>
   const totalActive = STAGES.filter(s => s.key !== "lost" && s.key !== "na").reduce((sum, s) => sum + allCounts[s.key], 0)
-  const revealRate = allCounts.outreached > 0 ? Math.round((allCounts.mockup_revealed / allCounts.outreached) * 100) : null
+  const preReveal = allCounts.outreached + allCounts.responded
+  const revealRate = preReveal > 0 ? Math.round((allCounts.mockup_revealed / preReveal) * 100) : null
   const convertRate = allCounts.mockup_revealed > 0 ? Math.round((allCounts.build / allCounts.mockup_revealed) * 100) : null
 
-  const byStage = (stage: CrmStatus) => filteredProspects.filter(p => p.crm_status === stage || (stage === "outreached" && p.crm_status === "responded"))
+  const byStage = (stage: CrmStatus) => filteredProspects.filter(p => p.crm_status === stage)
 
   if (loading) {
     return (
@@ -547,13 +680,83 @@ export default function PipelineBoard() {
             {outreachMode === "PAUSED" ? "▶ Resume outreach" : "⏸ Pause outreach"}
           </button>
           <button
-            onClick={() => { setShowAddForm(v => !v); setAddForm(EMPTY_FORM); setAddError(null) }}
+            onClick={() => { setShowAddToPipeline(v => !v); setPipeSearch(""); setPipeResults([]); setPipeErrors({}) }}
+            className="text-xs font-medium px-3 py-1.5 rounded-lg border border-black/[0.12] text-[#0A0A0A] hover:bg-black/[0.04] transition-colors"
+          >
+            + Add to pipeline
+          </button>
+          <button
+            onClick={() => setShowAddForm(v => !v)}
             className="text-xs font-medium px-3 py-1.5 rounded-lg bg-[#0A0A0A] text-white hover:bg-[#1A1A1A] transition-colors"
           >
-            + Add prospect
+            + New record
           </button>
         </div>
       </div>
+
+      {intakeUnavailable && (
+        <div className="border-b border-black/[0.06] bg-white px-6 sm:px-10 py-1.5 shrink-0">
+          <p className="font-mono text-[10px] text-red-600">
+            Pipeline intake unavailable — prospect_workflow table missing
+          </p>
+        </div>
+      )}
+
+      {/* Add existing prospect to pipeline */}
+      {showAddToPipeline && (
+        <div className="border-b border-black/[0.06] bg-[#FAFAFA] px-6 sm:px-10 py-5 shrink-0">
+          <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-3">Add existing prospect</p>
+          <input
+            autoFocus
+            value={pipeSearch}
+            onChange={e => setPipeSearch(e.target.value)}
+            placeholder="Search by business, city or category…"
+            className="w-full max-w-md bg-white border border-black/[0.1] rounded-lg px-3 py-2 text-sm text-[#0A0A0A] placeholder:text-[#C4C4C4] focus:outline-none focus:ring-1 focus:ring-black/20"
+          />
+          <div className="mt-3 space-y-1.5">
+            {pipeSearching && <p className="font-mono text-[10px] text-[#A3A3A3]">Searching…</p>}
+            {!pipeSearching && pipeSearch.replace(/[%,()]/g, "").trim().length >= 2 && pipeResults.length === 0 && (
+              <p className="font-mono text-[10px] text-[#A3A3A3]">No matches</p>
+            )}
+            {pipeResults.map(p => {
+              const onBoard = prospects.some(x => x.place_id === p.place_id)
+              const stageLabel = STAGES.find(st => st.key === (p.crm_status ?? "new"))?.label ?? (p.crm_status ?? "new")
+              const added = pipeAdded.has(p.place_id)
+              return (
+                <div key={p.place_id} className="flex items-center gap-3 bg-white border border-black/[0.06] rounded-lg px-3 py-2">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-[#0A0A0A] truncate">{p.name}</p>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#A3A3A3] truncate">
+                      {[p.category, p.city].filter(Boolean).join(" · ") || "—"}
+                    </p>
+                  </div>
+                  {p.site_score != null && (
+                    <span className="font-mono text-xs text-[#525252] tabular-nums shrink-0">{p.site_score}/10</span>
+                  )}
+                  {added ? (
+                    <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#737373] shrink-0">Added ✓</span>
+                  ) : onBoard ? (
+                    <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#A3A3A3] shrink-0">
+                      In pipeline · {stageLabel}
+                    </span>
+                  ) : (
+                    <button
+                      onClick={() => addToPipeline(p)}
+                      disabled={saving}
+                      className="shrink-0 px-3 py-1.5 bg-[#0A0A0A] text-white text-xs font-medium rounded-lg disabled:opacity-40 hover:bg-[#1A1A1A] transition-colors"
+                    >
+                      Add →
+                    </button>
+                  )}
+                  {pipeErrors[p.place_id] && (
+                    <span className="text-[11px] text-red-600 shrink-0">{pipeErrors[p.place_id]}</span>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Filters bar */}
       <div className="border-b border-black/[0.06] bg-[#FAFAFA] px-6 sm:px-10 py-3 flex flex-wrap items-center gap-3 shrink-0">
@@ -597,6 +800,7 @@ export default function PipelineBoard() {
           <option value="all">All stages</option>
           <option value="new">New</option>
           <option value="outreached">Outreached</option>
+          <option value="responded">Responded</option>
           <option value="mockup_revealed">Mockup Revealed</option>
           <option value="build">Build</option>
           <option value="quote">Quote</option>
@@ -627,76 +831,10 @@ export default function PipelineBoard() {
         </span>
       </div>
 
-      {/* Add prospect form */}
+      {/* Add CRM record form */}
       {showAddForm && (
         <div className="border-b border-black/[0.06] bg-[#FAFAFA] px-6 sm:px-10 py-5 shrink-0">
-          <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-3">New prospect</p>
-          <div className="flex flex-wrap gap-3 items-end">
-            <div className="flex flex-col gap-1">
-              <label className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#A3A3A3]">Name *</label>
-              <input
-                value={addForm.name}
-                onChange={e => setAddForm(f => ({ ...f, name: e.target.value }))}
-                onKeyDown={e => e.key === "Enter" && addProspect()}
-                placeholder="Business name"
-                className="bg-white border border-black/[0.1] rounded-lg px-3 py-2 text-sm text-[#0A0A0A] placeholder:text-[#C4C4C4] focus:outline-none focus:ring-1 focus:ring-black/20 w-48"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#A3A3A3]">Website</label>
-              <input
-                value={addForm.website}
-                onChange={e => setAddForm(f => ({ ...f, website: e.target.value }))}
-                onKeyDown={e => e.key === "Enter" && addProspect()}
-                placeholder="https://..."
-                className="bg-white border border-black/[0.1] rounded-lg px-3 py-2 text-sm text-[#0A0A0A] placeholder:text-[#C4C4C4] focus:outline-none focus:ring-1 focus:ring-black/20 w-48"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#A3A3A3]">Email</label>
-              <input
-                value={addForm.email}
-                onChange={e => setAddForm(f => ({ ...f, email: e.target.value }))}
-                onKeyDown={e => e.key === "Enter" && addProspect()}
-                placeholder="contact@..."
-                className="bg-white border border-black/[0.1] rounded-lg px-3 py-2 text-sm text-[#0A0A0A] placeholder:text-[#C4C4C4] focus:outline-none focus:ring-1 focus:ring-black/20 w-44"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#A3A3A3]">Category</label>
-              <input
-                value={addForm.category}
-                onChange={e => setAddForm(f => ({ ...f, category: e.target.value }))}
-                onKeyDown={e => e.key === "Enter" && addProspect()}
-                placeholder="e.g. Plumber"
-                className="bg-white border border-black/[0.1] rounded-lg px-3 py-2 text-sm text-[#0A0A0A] placeholder:text-[#C4C4C4] focus:outline-none focus:ring-1 focus:ring-black/20 w-36"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#A3A3A3]">City</label>
-              <input
-                value={addForm.city}
-                onChange={e => setAddForm(f => ({ ...f, city: e.target.value }))}
-                onKeyDown={e => e.key === "Enter" && addProspect()}
-                placeholder="e.g. Birmingham"
-                className="bg-white border border-black/[0.1] rounded-lg px-3 py-2 text-sm text-[#0A0A0A] placeholder:text-[#C4C4C4] focus:outline-none focus:ring-1 focus:ring-black/20 w-36"
-              />
-            </div>
-            <button
-              onClick={addProspect}
-              disabled={addSaving || !addForm.name.trim()}
-              className="px-4 py-2 bg-[#0A0A0A] text-white text-xs font-medium rounded-lg disabled:opacity-40 hover:bg-[#1A1A1A] transition-colors"
-            >
-              {addSaving ? "Adding…" : "Add"}
-            </button>
-            <button
-              onClick={() => setShowAddForm(false)}
-              className="px-3 py-2 text-[#A3A3A3] text-xs hover:text-[#525252] transition-colors"
-            >
-              Cancel
-            </button>
-          </div>
-          {addError && <p className="mt-2 text-xs text-red-600">{addError}</p>}
+          <AddProspectForm onAdded={onProspectAdded} onClose={() => setShowAddForm(false)} />
         </div>
       )}
 
@@ -847,12 +985,28 @@ export default function PipelineBoard() {
                   Details
                 </button>
                 <button
+                  onClick={() => setDrawerTab("research")}
+                  className={`text-[11px] font-medium px-3 py-1.5 rounded-md transition-colors ${
+                    drawerTab === "research" ? "bg-[#0A0A0A] text-[#FAFAFA]" : "text-[#525252] hover:text-[#0A0A0A] hover:bg-black/[0.05]"
+                  }`}
+                >
+                  Research
+                </button>
+                <button
                   onClick={() => setDrawerTab("outreach")}
                   className={`text-[11px] font-medium px-3 py-1.5 rounded-md transition-colors ${
                     drawerTab === "outreach" ? "bg-[#0A0A0A] text-[#FAFAFA]" : "text-[#525252] hover:text-[#0A0A0A] hover:bg-black/[0.05]"
                   }`}
                 >
                   Outreach
+                </button>
+                <button
+                  onClick={() => setDrawerTab("activity")}
+                  className={`text-[11px] font-medium px-3 py-1.5 rounded-md transition-colors ${
+                    drawerTab === "activity" ? "bg-[#0A0A0A] text-[#FAFAFA]" : "text-[#525252] hover:text-[#0A0A0A] hover:bg-black/[0.05]"
+                  }`}
+                >
+                  Activity
                 </button>
               </div>
               <button
@@ -881,12 +1035,12 @@ export default function PipelineBoard() {
                   )}
                   {s.review_slug && (
                     <a
-                      href={`/review?slug=${s.review_slug}`}
+                      href={`/workspace/?slug=${s.review_slug}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="mt-1 ml-2 inline-block font-mono text-[11px] text-blue-600 hover:underline"
                     >
-                      /review/{s.review_slug} ↗
+                      /workspace/{s.review_slug} ↗
                     </a>
                   )}
                   {s.mockup_revealed_at && (
@@ -1026,6 +1180,50 @@ export default function PipelineBoard() {
                     </button>
                   </div>
 
+                  {/* Talking-head video */}
+                  <div className="mt-4">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#A3A3A3] mb-2">Talking-head video</p>
+                    {s.walkthrough_video_url && (
+                      <div className="flex items-center gap-2 bg-[#FAFAFA] border border-black/[0.06] rounded-lg px-3 py-1.5 mb-2">
+                        <a
+                          href={s.walkthrough_video_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 text-left text-xs font-mono text-[#525252] truncate hover:text-[#0A0A0A] transition-colors"
+                        >
+                          {s.walkthrough_video_url.replace(/^https?:\/\//, "").slice(0, 48)}…
+                        </a>
+                        <button
+                          onClick={() => removeWalkthroughVideo(s)}
+                          disabled={saving}
+                          className="shrink-0 text-[#C4C4C4] hover:text-red-500 transition-colors text-xs leading-none"
+                          title="Remove"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    )}
+                    <div className="flex gap-2">
+                      <input
+                        value={videoInput}
+                        onChange={e => setVideoInput(e.target.value)}
+                        onKeyDown={e => { if (e.key === "Enter") saveWalkthroughVideo(s) }}
+                        placeholder="https://… direct video URL"
+                        className="flex-1 bg-[#FAFAFA] border border-black/[0.08] rounded-lg px-3 py-2 text-sm font-mono text-[#0A0A0A] placeholder:text-[#C4C4C4] focus:outline-none focus:ring-1 focus:ring-black/20 min-w-0"
+                      />
+                      <button
+                        onClick={() => saveWalkthroughVideo(s)}
+                        disabled={saving || !videoInput.trim()}
+                        className="px-3 py-2 bg-[#0A0A0A] text-white text-xs font-medium rounded-lg disabled:opacity-40 transition-opacity hover:bg-[#1A1A1A]"
+                      >
+                        Save
+                      </button>
+                    </div>
+                    <p className="mt-1.5 text-[11px] text-[#A3A3A3] leading-relaxed">
+                      Paste a direct .mp4/.webm link (e.g. a public Supabase storage URL). Shown as a circular bubble on the client&apos;s workspace website tab.
+                    </p>
+                  </div>
+
                   {/* Notes */}
                   <div className="mt-4">
                     <div className="flex items-center justify-between mb-1.5">
@@ -1085,6 +1283,18 @@ export default function PipelineBoard() {
                       </button>
                     )}
                   </div>
+                  {s.crm_status === "new" && (
+                    <button
+                      onClick={() => removeFromPipeline(s)}
+                      disabled={saving}
+                      className="mt-2 text-[11px] text-[#A3A3A3] hover:text-red-600 transition-colors"
+                    >
+                      Remove from pipeline
+                    </button>
+                  )}
+                  {actionError && (
+                    <p className="mt-2 text-[11px] text-red-600">{actionError}</p>
+                  )}
                 </div>
 
                 {/* Outreach operator status */}
@@ -1125,6 +1335,34 @@ export default function PipelineBoard() {
                     </div>
                   </div>
                 )}
+              </div>
+            )}
+
+            {drawerTab === "research" && (
+              <div className="px-6 sm:px-10 pb-6">
+                <div className="max-w-[980px]">
+                  <ProspectResearch
+                    prospect={s}
+                    workflow={workflows.get(s.id)}
+                    canWrite={!intakeUnavailable}
+                    onWorkflowChange={(workflow) => setWorkflows((rows) => new Map(rows).set(workflow.prospect_id, workflow))}
+                    onActivityChange={() => setActivityRevision((n) => n + 1)}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Activity tab */}
+            {drawerTab === "activity" && (
+              <div className="px-6 sm:px-10 pb-6">
+                <div className="max-w-[680px]">
+                  <ProspectActivity
+                    prospect={s}
+                    canWrite={!intakeUnavailable}
+                    refreshKey={activityRevision}
+                    onWorkflowChange={(workflow) => setWorkflows((rows) => new Map(rows).set(workflow.prospect_id, workflow))}
+                  />
+                </div>
               </div>
             )}
 

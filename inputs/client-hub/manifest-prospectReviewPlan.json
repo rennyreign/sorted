@@ -1,0 +1,240 @@
+{
+  "format": "sorted-design-ir",
+  "manifest_version": "1.0.0",
+  "screen": {
+    "id": "prospect-review",
+    "name": "Your Review",
+    "lifecycle_stage": "prospect",
+    "route_pattern": "/workspace/:workspaceSlug/review",
+    "purpose": "Explain why Sorted selected the business, frame the commercial gap without insulting the existing site, and move the prospect into the working homepage.",
+    "primary_outcome": "Prospect opens the working homepage",
+    "secondary_outcome": "Prospect understands the fixed completion price"
+  },
+  "brand": {
+    "name": "Sorted",
+    "tone": ["useful", "human", "measured", "commercially direct"],
+    "visual_principles": [
+      "Large editorial headlines with tight line-height",
+      "White document-like surfaces with generous negative space",
+      "Black panels for decisive moments",
+      "Acid is reserved for progress, active state and primary action",
+      "Thin dividers instead of excessive cards",
+      "No dashboard clutter or decorative gradients"
+    ]
+  },
+  "tokens": {
+    "color": {
+      "ink": "#070707",
+      "paper": "#F7F7F3",
+      "card": "#FFFFFF",
+      "acid": "#DFFF00",
+      "warm_board": "#F7F2E8",
+      "line": "#E8E5DD",
+      "muted_text": "#73736D",
+      "proof_green": "#00A64B"
+    },
+    "typography": {
+      "display": "Use the existing Sorted grotesk display family; fallback: Arial Black, Arial, sans-serif",
+      "body": "Use the existing Sorted sans-serif family; fallback: Inter, Arial, sans-serif",
+      "display_weight": 700,
+      "body_weight": 400,
+      "eyebrow": {"size_px": 11, "letter_spacing_em": 0.16, "transform": "uppercase"},
+      "hero_desktop": {"size_px": 64, "line_height": 0.96, "letter_spacing_em": -0.055},
+      "hero_mobile": {"size_px": 42, "line_height": 0.98, "letter_spacing_em": -0.045},
+      "section_heading": {"size_px": 34, "line_height": 1.0, "letter_spacing_em": -0.04},
+      "body_large": {"size_px": 18, "line_height": 1.5},
+      "body": {"size_px": 15, "line_height": 1.6}
+    },
+    "layout": {
+      "max_width_px": 1240,
+      "page_gutter_desktop_px": 32,
+      "page_gutter_mobile_px": 20,
+      "section_gap_desktop_px": 72,
+      "section_gap_mobile_px": 44,
+      "card_radius_px": 14,
+      "button_radius_px": 999,
+      "border_width_px": 1
+    },
+    "motion": {
+      "duration_ms": 180,
+      "easing": "ease-out",
+      "rules": ["Small hover lift only", "No looping animation", "Respect prefers-reduced-motion"]
+    }
+  },
+  "workspace_shell": {
+    "header": {
+      "position": "sticky",
+      "height_desktop_px": 76,
+      "background": "paper with bottom border",
+      "left": ["Sorted wordmark", "FOR {businessName}"],
+      "center_navigation": [
+        {"label": "Your Review", "route": "review", "active": true},
+        {"label": "Your New Site", "route": "website", "active": false},
+        {"label": "Next Steps", "route": "next-steps", "active": false}
+      ],
+      "right": {"label": "PRIVATE WORKSPACE", "icon": "lock"},
+      "active_indicator": "3px acid underline"
+    },
+    "mobile_navigation": {
+      "pattern": "horizontally scrollable tab row below compact brand row",
+      "minimum_target_px": 44,
+      "keep_all_three_tabs_visible_or_scrollable": true
+    }
+  },
+  "data_contract": {
+    "required": [
+      "businessName",
+      "workspaceSlug",
+      "previewUrl",
+      "previewImageUrl",
+      "completionPrice",
+      "depositAmount",
+      "reviewHeadline",
+      "reviewSummary",
+      "observations"
+    ],
+    "defaults": {
+      "completionPrice": 3000,
+      "currency": "GBP",
+      "depositAmount": 1500,
+      "reviewHeadline": "Your business is stronger than your website makes it look."
+    },
+    "observations_shape": {
+      "min_items": 3,
+      "max_items": 4,
+      "fields": ["title", "explanation"]
+    }
+  },
+  "sections": [
+    {
+      "id": "review-introduction",
+      "type": "editorial-hero",
+      "eyebrow": "PREPARED FOR {businessName}",
+      "headline": "{reviewHeadline}",
+      "body": "{reviewSummary}",
+      "constraints": ["Maximum headline width 820px", "Maximum body width 640px", "Do not call the full website complete"]
+    },
+    {
+      "id": "homepage-reveal",
+      "type": "split-black-feature-panel",
+      "layout": "44% copy / 56% preview on desktop; stacked on mobile",
+      "copy": {
+        "headline": "We rebuilt your homepage.",
+        "body": "A clearer direction, built around the substance already inside your business.",
+        "primary_action": {"label": "Explore your new homepage", "href": "{previewUrl}", "style": "acid-filled", "icon": "arrow-right"}
+      },
+      "preview": {
+        "source": "{previewImageUrl}",
+        "alt": "Working homepage created for {businessName}",
+        "presentation": "browser-like image crop without fake address bar",
+        "click_action": "same as primary action"
+      }
+    },
+    {
+      "id": "review-observations",
+      "type": "numbered-editorial-list",
+      "heading": "Why we rebuilt it",
+      "items": "{observations}",
+      "desktop_columns": ["number:64px", "title:33%", "explanation:auto"],
+      "mobile_pattern": "number above title and explanation",
+      "constraints": ["Use evidence-based language", "Never shame the current provider", "No synthetic score unless a defensible rubric exists"]
+    },
+    {
+      "id": "fixed-price-band",
+      "type": "warm-board-action-band",
+      "icon": "tag",
+      "headline": "Complete website · £3,000 fixed",
+      "body": "Your complete website, built and launched for one fixed price.",
+      "action": {"label": "See next steps", "route": "next-steps", "style": "black-filled"}
+    }
+  ],
+  "interactions": {
+    "primary_cta": "Open the working homepage in the same workspace route or a full-screen preview view",
+    "preview_tracking_events": ["workspace_review_viewed", "homepage_preview_opened", "next_steps_opened"],
+    "link_behavior": "Preserve workspace token/session across all transitions",
+    "access": "Unlisted signed prospect link; no sensitive client data on this state"
+  },
+  "responsive": {
+    "breakpoints_px": {"mobile": 640, "tablet": 900, "desktop": 1200},
+    "rules": [
+      "Hero headline scales without exceeding six lines on 320px width",
+      "Homepage reveal stacks copy above preview",
+      "Fixed-price band stacks action below copy",
+      "No horizontal overflow except the deliberate mobile tab row"
+    ]
+  },
+  "content_rules": {
+    "say": ["homepage", "working direction", "complete website", "fixed price"],
+    "avoid": ["free mockup", "AI-generated", "audit score", "full website is ready", "limited-time pressure"]
+  },
+  "non_visual_build_spec": {
+    "reference_canvas": {"width_px": 1536, "height_px": 1024, "density": 1},
+    "component_tree": [
+      "WorkspaceLayout",
+      "  WorkspaceHeader",
+      "    BrandLockup",
+      "    ProspectTabs",
+      "    PrivacyLabel",
+      "  main",
+      "    ReviewHero",
+      "    HomepageRevealPanel",
+      "      RevealCopy",
+      "      HomepagePreviewImage",
+      "    ObservationList",
+      "      ObservationRow[]",
+      "    FixedPriceBand"
+    ],
+    "desktop_geometry": {
+      "header": {"width": "100%", "height_px": 76, "padding_inline_px": 32, "border_bottom": "1px solid #E8E5DD"},
+      "header_inner": {"max_width_px": 1140, "margin": "0 auto", "display": "grid", "grid_template_columns": "1fr auto 1fr", "align_items": "center"},
+      "main": {"max_width_px": 1140, "margin": "0 auto", "padding": "44px 0 48px"},
+      "hero": {"max_width_px": 760, "margin_bottom_px": 18},
+      "hero_eyebrow_margin_bottom_px": 14,
+      "hero_headline": {"max_width_px": 720, "margin_bottom_px": 12},
+      "hero_body": {"max_width_px": 610, "margin_bottom_px": 18},
+      "reveal_panel": {"width": "100%", "min_height_px": 304, "display": "grid", "grid_template_columns": "44% 56%", "background": "#070707", "border_radius_px": 14, "overflow": "hidden", "margin_bottom_px": 28},
+      "reveal_copy": {"padding": "38px 42px", "display": "flex", "flex_direction": "column", "justify_content": "center"},
+      "reveal_heading": {"font_size_px": 44, "line_height": 0.98, "color": "#FFFFFF", "max_width_px": 360},
+      "reveal_body": {"font_size_px": 16, "line_height": 1.5, "color": "rgba(255,255,255,0.72)", "max_width_px": 390, "margin_top_px": 16},
+      "reveal_button": {"height_px": 48, "padding_inline_px": 24, "margin_top_px": 20, "align_self": "flex-start"},
+      "preview_image": {"width": "100%", "height": "100%", "object_fit": "cover", "object_position": "top left"},
+      "observations_heading_margin_bottom_px": 12,
+      "observation_row": {"display": "grid", "grid_template_columns": "64px 33% 1fr", "gap_px": 16, "align_items": "center", "min_height_px": 66, "border_top": "1px solid #E8E5DD"},
+      "observation_number": {"width_px": 34, "height_px": 34, "shape": "circle", "background": "#F1F1EC"},
+      "fixed_price_band": {"display": "grid", "grid_template_columns": "56px 1fr auto", "align_items": "center", "gap_px": 20, "min_height_px": 82, "padding": "16px 20px", "margin_top_px": 18, "background": "#F7F2E8", "border_radius_px": 12}
+    },
+    "tablet_geometry": {
+      "range_px": "641-900",
+      "main_padding": "36px 24px",
+      "reveal_panel_grid": "42% 58%",
+      "reveal_copy_padding": "30px",
+      "observation_row_grid": "52px 36% 1fr"
+    },
+    "mobile_geometry": {
+      "range_px": "320-640",
+      "header_height": "auto",
+      "main_padding": "28px 20px 40px",
+      "reveal_panel": {"display": "flex", "flex_direction": "column", "min_height": "auto"},
+      "reveal_copy": {"order": 1, "padding": "28px 24px"},
+      "preview_image": {"order": 2, "aspect_ratio": "16 / 10", "height": "auto"},
+      "observation_row": {"display": "grid", "grid_template_columns": "42px 1fr", "padding": "18px 0"},
+      "observation_explanation": {"grid_column": "2", "margin_top_px": 6},
+      "fixed_price_band": {"display": "grid", "grid_template_columns": "44px 1fr", "padding": "18px"},
+      "fixed_price_action": {"grid_column": "1 / -1", "width": "100%", "margin_top_px": 12}
+    },
+    "interaction_states": {
+      "buttons": {"hover": "translateY(-1px) and subtle shadow", "active": "translateY(0)", "focus": "2px #070707 outline with 3px offset", "disabled": "opacity 0.45 and no transform"},
+      "tabs": {"hover": "text opacity 0.72", "active": "full opacity plus acid underline", "focus": "visible keyboard outline"},
+      "preview_image": {"hover": "no zoom; cursor indicates link"}
+    },
+    "implementation_order": ["Create shared shell", "Bind workspace data", "Build hero", "Build reveal panel", "Build observations", "Build fixed-price band", "Add events", "Test responsive states"],
+    "do_not_infer": ["Do not add a numeric website score", "Do not add testimonial cards", "Do not add a sidebar", "Do not invent icons beyond the tag and arrow actions", "Do not add copy beyond the configured fields"]
+  },
+  "acceptance_criteria": [
+    "The working homepage is visually dominant above the first long explanation section",
+    "The exact £3,000 price is visible without opening Next Steps",
+    "The page clearly states that only the homepage has been built",
+    "The prospect can reach the working homepage in one click",
+    "The visual system matches the shared Sorted workspace shell"
+  ]
+}

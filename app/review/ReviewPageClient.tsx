@@ -3,6 +3,7 @@
 import type { FormEvent } from "react"
 import { useState } from "react"
 import { supabase } from "@/lib/supabase"
+import { WORKSPACE_DEFAULTS } from "@/lib/workspace"
 
 type AssessmentCategory = {
   score: number
@@ -623,6 +624,12 @@ export default function ReviewPageClient({ prospect, slug }: { prospect: ReviewP
             >
               Show me the full website →
             </a>
+            <p className="mt-6 text-white/40 text-xs">
+              Questions?{" "}
+              <a href={`tel:${WORKSPACE_DEFAULTS.links.phone}`} className="font-bold text-white/70 underline underline-offset-4 hover:text-white">
+                Give us a ring or text on {WORKSPACE_DEFAULTS.links.phoneDisplay}
+              </a>
+            </p>
           </div>
         </div>
         ) : null}

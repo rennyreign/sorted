@@ -19,6 +19,12 @@ export type WorkspaceObservation = {
   explanation: string
 }
 
+export type WorkspacePreviewVersion = {
+  id: string
+  label: string
+  previewUrl: string
+}
+
 export type Workspace = {
   slug: string
   state: WorkspaceState
@@ -37,6 +43,10 @@ export type Workspace = {
     previewUrl?: string
     /** Still image of the homepage direction — used when no previewUrl exists yet. */
     previewImageUrl?: string
+    /** Optional list of selectable preview builds shown as a version picker in the preview action bar. */
+    previewVersions?: WorkspacePreviewVersion[]
+    /** Version id shown by default; falls back to the first entry when unset/invalid. */
+    defaultPreviewVersion?: string
     /** Direct video file URL of a talking-head explanation, rendered as a floating bubble over the preview. */
     walkthroughVideoUrl?: string
     liveUrl?: string
@@ -56,6 +66,10 @@ export type Workspace = {
   links: {
     bookingUrl?: string
     questionEmail: string
+    /** E.164 phone for tel:/sms: links. */
+    phone?: string
+    /** Human-readable form shown in copy, e.g. "07386 468085". */
+    phoneDisplay?: string
     documentsUrl?: string
     googleReviewUrl?: string
   }
@@ -75,6 +89,8 @@ export const WORKSPACE_DEFAULTS = {
   links: {
     bookingUrl: "https://cal.com/sortmydigital/15min",
     questionEmail: "hello@sortmydigital.site",
+    phone: "+447386468085",
+    phoneDisplay: "07386 468085",
   },
 }
 
@@ -101,29 +117,50 @@ type WorkspaceOverride = {
 const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
   "murray-martin": {
     review: {
-      headline: "30 years of critical power expertise, finally presented like it.",
+      headline: "Three decades of trust, now turning into enquiries.",
       summary:
-        "We've rebuilt your homepage to put your UPS, battery and cooling services front and centre — with your real accreditations, your Google reviews and a faster path for every enquiry.",
+        "Murray Martin has traded since 1995 on a strong balance sheet and a hard-won reputation. Your new website puts that strength in front of every visitor — so trust becomes enquiries, and enquiries become customers.",
       observations: [
         {
-          title: "Expertise front and centre",
+          title: "Reputation made visible",
           explanation:
-            "Your three core services — Battery Services, UPS, and Cooling & InRow — now open the page with clear explanations and a direct enquiry path on each.",
+            "A new customer sees three decades of trading the moment they arrive — before they've read a word about services, they already know you're established.",
         },
         {
-          title: "Real trust signals",
+          title: "Proof where buyers look",
           explanation:
-            "Schneider Electric, APC, SafeContractor and F-Gas accreditations are now impossible to miss, and your Google reviews sit right where new customers look for proof.",
+            "Your Schneider Electric, APC, SafeContractor and F-Gas credentials, and a real testimonial from DuPont, sit exactly where a careful buyer checks before calling.",
         },
         {
-          title: "Faster callbacks",
+          title: "Trust that turns into enquiries",
           explanation:
-            "A Request a Callback option sits in the header of every page, so facilities managers and business owners can reach your engineers in seconds.",
+            "Every page ends at an easy way to reach your engineers — request a callback, phone or email — so the confidence you've just earned has somewhere to go.",
         },
       ],
     },
     website: {
-      previewUrl: "https://murraymartin-services.netlify.app",
+      // Development previews: v1 is the immutable earlier deploy, v2 is the
+      // local build. In production only the existing hosted URL is shown —
+      // versioned previews stay unpublished until preview deploy is approved.
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3999"
+          : "https://murraymartin-services.netlify.app",
+      previewImageUrl: "/murray-martin-homepage-preview.webp",
+      ...(process.env.NODE_ENV === "development"
+        ? {
+            previewVersions: [
+              { id: "v2", label: "Version 1", previewUrl: "http://localhost:3999" },
+              {
+                id: "v1",
+                label: "Version 2",
+                previewUrl:
+                  "https://6ac1b6191377cbff651147fb--murraymartin-services.netlify.app",
+              },
+            ],
+            defaultPreviewVersion: "v2",
+          }
+        : {}),
       status: "review",
     },
     offer: {

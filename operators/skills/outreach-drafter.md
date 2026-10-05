@@ -28,7 +28,7 @@ Sorted's approach is "we show, we don't sell." The email must:
 
 1. **Reference something specific** — a real problem they'll recognise. Not a generic pitch.
 2. **Lead with the work done** — if a mockup exists, "we've already redesigned your homepage" is the hook
-3. **Frame the business pain as enquiry leakage** — more of the people who already find them should be taking the next step.
+3. **Follow the value-model structure** (see `doctrine/sorted-value-model.md`): observed substance → observed gap → useful improvement → invitation. Pick ONE confirmed gap and translate it into a customer consequence; do not send a speculative diagnosis of their whole business. Typical angle is enquiry leakage — more of the people who already find them should be taking the next step.
 4. **Be short** — 4–6 sentences maximum. Local business owners don't read long emails.
 5. **Sound human** — like it was written by a person who actually looked at their site, not a mail merge
 6. **Have one clear ask** — "want to see it?" or "can I send it over?" — not a pitch deck

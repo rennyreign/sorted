@@ -41,7 +41,7 @@ FROM_EMAIL = os.environ.get("FROM_EMAIL", "renaldo@sortmydigital.site")
 FROM_NAME = os.environ.get("FROM_NAME", "Renaldo")
 DRY_RUN = os.environ.get("DRY_RUN", "false").lower() == "true"
 
-REVIEW_BASE_URL = "https://sortmydigital.site/review"
+REVIEW_BASE_URL = "https://sortmydigital.site/workspace"
 RESEND_API_ENDPOINT = "https://api.resend.com/emails"
 
 # ─── Supabase helpers ─────────────────────────────────────────────────────────

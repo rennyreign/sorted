@@ -1,0 +1,25 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 1,
+    "mobile_experience": 2,
+    "desire_creation": 1,
+    "content_structure": 1,
+    "trust_and_credibility": 1
+  },
+  "business_quality_score": 7,
+  "business_quality_reasoning": "161 Google reviews at 5.0 indicates a busy, established electrician operation with real demand. No Companies House match was found, so the entity is unverified, but the review volume and multi-area site structure show a going concern.",
+  "service_price_point": 200,
+  "price_point_reasoning": "Emergency and domestic electrical work (rewires, consumer units, fault-finding) typically bills £150-£300 per job; no prices shown.",
+  "modernity_gap": "A functional Elementor landing page rather than a full site — serviceable layout but thin, with a broken map embed and no proof elements on the page.",
+  "site_weaknesses": [
+    "The Google Maps embed fails with 'Coordinates of this location not found' — a broken element left visible mid-page",
+    "This is a thin SEO service-area page: one paragraph, a bullet list and a phone number, with nothing that builds trust",
+    "161 five-star Google reviews are not shown on the page — a 'Reviews' nav link makes visitors leave the funnel to find them",
+    "No pricing guidance, response-time promise or named engineer — the page offers urgency but no reassurance",
+    "Single CTA is a phone call; no form, quote request or WhatsApp option beyond a floating icon"
+  ],
+  "site_analysis": "The captured page is a thin location landing page: hero image, one bullet list of services, a phone CTA and a visibly broken map. It is competent enough on mobile and the navigation hints at a fuller site, but nothing on this page converts — no reviews, accreditations or pricing. For a business with 161 five-star reviews, the page wastes its strongest sales asset.",
+  "review_summary": "The page we found is a bare-bones area page: a photo, a list of services and a phone number, plus a map box that shows an error message instead of your location. Your 161 five-star reviews do not appear anywhere on it. Putting your reviews and credentials directly on the page would give people a reason to call you instead of the next electrician on Google.",
+  "outreach_angle": "Your Dulwich page shows a broken map error and none of your 161 five-star reviews — the page undersells you badly.",
+  "business_type": "emergency electrician (multi-area London)"
+}

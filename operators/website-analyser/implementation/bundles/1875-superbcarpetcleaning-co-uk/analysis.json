@@ -1,0 +1,25 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 0,
+    "mobile_experience": 0,
+    "desire_creation": 1,
+    "content_structure": 1,
+    "trust_and_credibility": 2
+  },
+  "business_quality_score": 7,
+  "business_quality_reasoning": "315 Google reviews at 5.0 is exceptional demand proof for a carpet cleaner, and the site shows IICRC certification plus embedded Google and Facebook review feeds. The company itself was incorporated in late 2025 (likely a re-registration of an established sole-trader operation), but the visible trading history is strong.",
+  "service_price_point": 80,
+  "price_point_reasoning": "Carpet and upholstery cleaning jobs typically run £50-£120 per room/item; the site advertises discount offers rather than a price list.",
+  "modernity_gap": "The site looks like a pre-2016 WordPress build — cluttered small-font layout, dated theme chrome and a mobile view that fails to render content at all.",
+  "site_weaknesses": [
+    "On mobile the page fails to load past the logo and a spinner — most local searches happen on phones, so mobile visitors see nothing",
+    "Dense, cluttered layout with tiny text and dated all-caps headings makes the content hard to scan",
+    "The strongest asset — 304 Google reviews — is buried mid-page in an old-style widget rather than leading the page",
+    "No clear quote form or pricing — contact is a phone number and email in a banner strip",
+    "Discount-led messaging ('10% off', 'loyal client program') cheapens a genuinely well-reviewed service"
+  ],
+  "site_analysis": "Underneath a dated and cluttered WordPress theme sits genuinely strong material: 304 five-star Google reviews, Facebook reviews, IICRC certification and years of testimonials. But the site looks a decade old, the mobile capture shows nothing but a loading spinner, and the best trust signals are buried halfway down. A business this well-reviewed is losing mobile customers entirely and underselling itself to desktop visitors.",
+  "review_summary": "You have something most cleaners would kill for — over 300 five-star Google reviews — but your website hides it. On a phone the page does not even load properly, and most of your customers will be searching on their phone. A clean, mobile-friendly site that leads with your reviews would let your reputation do the selling.",
+  "outreach_angle": "You have 304 five-star Google reviews, but your mobile site does not load past the logo — your best asset is invisible where customers look.",
+  "business_type": "carpet and upholstery cleaning service"
+}

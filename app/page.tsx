@@ -3,17 +3,21 @@ import Image from "next/image"
 import { ArrowRight, Check, Clock3, Edit3, Eye, Phone, ShieldCheck, Star, Zap } from "lucide-react"
 import { FeatureBar, Logo, SitesHeader, SitesPage, SitesTitle, Underline } from "./sites/_components/SitesPrimitives"
 import { MockupButton } from "./sites/_components/SitesMockupModal"
+import { GoogleReviews } from "./sites/_components/GoogleReviews"
 import { exampleCaseStudies } from "./examples/_caseStudies"
+import { getGoogleReviews } from "@/lib/googleReviews"
 
 export const metadata: Metadata = {
   title: "Sorted | Your new website, Sorted",
-  description: "We create your new homepage before you commit — live, responsive and with content. One complete website, one fixed price: £3,000.",
+  description: "We create your new homepage before you commit. It is live, responsive and filled with content. One complete website, one fixed price.",
   alternates: {
     canonical: "/",
   },
 }
 
-export default function SortedSitesHome() {
+export default async function SortedSitesHome() {
+  const googleReviews = await getGoogleReviews()
+
   return (
     <SitesPage>
       <SitesHeader />
@@ -67,12 +71,11 @@ export default function SortedSitesHome() {
             [Eye, "We design your site", "We create a custom mockup tailored to your business. You review it."],
             [Check, "You decide", "Happy with the mockup? Approve it and we get to work."],
             [Zap, "We build & launch", "We build, connect everything and launch your new website."],
-          ].map(([Icon, title, copy], index) => {
+          ].map(([Icon, title, copy]) => {
             const RealIcon = Icon as typeof Edit3
             return (
               <article key={title as string} className="relative border-black/10 md:border-l md:pl-8 first:md:border-l-0">
-                <span className="grid size-10 place-items-center rounded-full bg-[#070707] text-[13px] font-black text-white sm:size-11 sm:text-[14px]">{index + 1}</span>
-                <span className="mt-5 grid size-11 place-items-center rounded-full bg-[#dfff00] sm:mt-7 sm:size-12">
+                <span className="grid size-11 place-items-center rounded-full bg-[#dfff00] sm:size-12">
                   <RealIcon className="size-6" strokeWidth={2.4} />
                 </span>
                 <h3 className="mt-4 text-[15px] font-black tracking-[-0.04em] sm:mt-5 sm:text-[16px]">{title as string}</h3>
@@ -147,31 +150,25 @@ export default function SortedSitesHome() {
           </div>
           <div className="border-black/10 lg:border-l lg:pl-10">
             <p className="text-[16px] font-semibold leading-[1.55] tracking-[-0.02em]">
-              We create your new homepage before you commit — live, responsive and with content.
+              We create your new homepage before you commit. It is live, responsive and filled with content.
             </p>
             <p className="mt-5 text-[14px] font-semibold leading-[1.6] text-black/68">
-              If you want us to complete it, £3,000 covers the strategy, design, copy, development, content management system, analytics and launch — without the usual agency ambiguity.
+              If you want us to complete it, one fixed price covers the strategy, design, copy, development, content management system, analytics and launch, without the usual agency ambiguity.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-5">
               <MockupButton variant="primary" />
-              <a href="/pricing" className="text-[12px] font-black underline underline-offset-4 transition-colors hover:text-black/60">What £3,000 covers</a>
+              <a href="/pricing" className="text-[12px] font-black underline underline-offset-4 transition-colors hover:text-black/60">What the price covers</a>
             </div>
           </div>
         </div>
       </section>
 
-      <HomeBottom />
+      <HomeBottom googleReviews={googleReviews} />
     </SitesPage>
   )
 }
 
-function HomeBottom() {
-  const testimonials = [
-    ["The mockup was spot on. They nailed our brand and goals. We went live within a week.", "Stuart Gwilt", "Gracie Barra"],
-    ["Incredible service. Fast, professional and the results speak for themselves.", "Savannah Villegas", "Freelancer"],
-    ["No sales pitch, just great work. Exactly what we needed.", "Michael Edmeads", "Bodysharp"],
-  ]
-
+function HomeBottom({ googleReviews }: { googleReviews: Awaited<ReturnType<typeof getGoogleReviews>> }) {
   return (
     <section className="bg-[#070707] px-5 pb-8 pt-12 text-white sm:px-8">
       <div className="mx-auto max-w-[1220px]">
@@ -199,21 +196,7 @@ function HomeBottom() {
             </div>
           </div>
 
-          <div>
-            <div className="rounded-[15px] bg-white/[0.055] p-7 shadow-[0_22px_55px_rgba(0,0,0,0.22)] ring-1 ring-white/8">
-              <p className="mb-6 text-[15px] font-black">What business owners say</p>
-              <div className="grid gap-6 md:grid-cols-3">
-                {testimonials.map(([quote, name, business]) => (
-                  <blockquote key={name} className="border-white/15 md:border-l md:pl-6 first:md:border-l-0 first:md:pl-0">
-                    <p className="text-[#dfff00]">★★★★★</p>
-                    <p className="mt-3 text-[13px] font-semibold leading-[1.5] text-white/82">"{quote}"</p>
-                    <p className="mt-5 text-[12px] font-black">{name}</p>
-                    <p className="mt-1 text-[12px] font-semibold text-white/55">{business}</p>
-                  </blockquote>
-                ))}
-              </div>
-            </div>
-          </div>
+          <GoogleReviews data={googleReviews} />
         </div>
 
         <div className="mt-10 grid gap-5 rounded-[12px] bg-white px-6 py-5 text-black shadow-[0_18px_44px_rgba(0,0,0,0.22)] lg:grid-cols-[0.3fr_0.3fr_0.12fr_0.28fr] lg:items-center">

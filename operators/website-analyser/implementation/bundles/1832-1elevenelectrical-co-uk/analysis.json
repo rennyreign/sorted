@@ -1,0 +1,26 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 1,
+    "mobile_experience": 1,
+    "desire_creation": 1,
+    "content_structure": 0,
+    "trust_and_credibility": 0
+  },
+  "business_quality_score": 6,
+  "business_quality_reasoning": "New Ltd (incorporated January 2024) but already holds 4.7 stars across 69 Google reviews and is positioned in high-value work — designer lighting, solar and battery storage installs. Early-stage but operating in lucrative job categories.",
+  "service_price_point": 6000,
+  "price_point_reasoning": "The site leads with designer lighting projects and solar & battery storage installations, which typically run £5,000-10,000 per job; £6,000 is a fair midpoint.",
+  "modernity_gap": "The site aspires to a premium dark aesthetic but the desktop homepage barely renders — a broken YouTube embed ('Sign in to confirm you're not a bot') and large empty stretches where content should be — so it currently delivers neither modernity nor basic reliability.",
+  "site_weaknesses": [
+    "Desktop homepage is mostly blank — large sections fail to render, leaving the page feeling empty and broken",
+    "The embedded YouTube video fails with a 'Sign in to confirm you're not a bot' error, dead centre on the page",
+    "No phone number, contact details, reviews or accreditations visible anywhere on the captured homepage",
+    "The mobile hero's only CTA is 'Continue' — a visitor cannot call, enquire or navigate from it",
+    "High-value services (lighting design, solar, battery storage) get a single hero line each with no explanation, pricing guidance or proof",
+    "Heavy reliance on animation/JS means the site is fragile — if it fails to load, there is almost nothing there"
+  ],
+  "site_analysis": "The brand direction is ambitious — dark, editorial styling aimed at premium lighting and solar work — but the execution is failing: most of the desktop homepage renders as blank space, and the one embedded video shows a bot-check error instead of content. Crucially, nothing on the captured page proves the business exists: no contact details, no reviews, no accreditations. For a company selling £5k+ installs, that is a serious conversion problem.",
+  "review_summary": "Your website is aiming for a premium look, which suits the kind of work you do, but right now it is not delivering: most of the homepage appears blank on desktop and the embedded video shows an error instead of playing. Worse, nowhere on the page can a visitor find your phone number, your reviews or proof that you are qualified. For jobs worth thousands of pounds, customers need to trust you before they call — and today the site gives them nothing to hold onto.",
+  "outreach_angle": "Your homepage is selling £5,000+ solar and lighting installs, but on desktop the page loads mostly blank with a dead YouTube embed — the first impression does not match the size of the jobs you're chasing.",
+  "business_type": "electrician / solar & lighting installer"
+}

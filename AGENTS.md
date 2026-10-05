@@ -36,6 +36,16 @@ Full model: `doctrine/sorted-operating-model.md`
 
 ---
 
+## The Sorted Value Model
+
+**Sorted makes a business easier to trust, easier to contact, easier to buy from, and easier to run.** Four pillars — **Trust, Enquiries, Customers, Operations** — describe the customer value Sorted creates; the Four Engines describe how Sorted produces it. The website opens the relationship; the pillars guide how we improve the business.
+
+Canonical doctrine: `doctrine/sorted-value-model.md` — twelve checks, scoring heuristic, outreach structure, objection handling, and the reusable assessment record.
+
+**Agent rule:** every significant recommendation must name the value it creates, the gap it addresses, and how improvement will be observed.
+
+---
+
 ## Repo Structure
 
 ```
@@ -233,6 +243,20 @@ Pattern: `app/proposals/[client-slug]/page.tsx`
 
 Pre-delivery pages shown to prospects before Nod 1. Same password-protected pattern as client pages. Used to present the mockup and brief before any payment commitment.
 
+---
+
+## Client Workspace
+
+Pattern: `/workspace?slug=<client-slug>` (dev) → `sortmydigital.site/workspace/<client-slug>` (prod). Backed by a `prospects` row + `WORKSPACE_OVERRIDES` in `lib/workspace.ts`.
+
+Full standards live in `operators/skills/start-build.md` (Workspace review / website preview / Next Steps sections). Core rules:
+
+- **Review copy is benefit-led** — trust (reputation, brand, proof) → enquiries → customers, grounded in the client's real fundamentals. No web-design jargon; say "site", not "homepage".
+- **The black reveal card always carries a real screenshot** of the built site (`website.previewImageUrl`, optimised webp in `public/`).
+- **Website preview is full-bleed** with a single black action bar; forward CTAs read "See next steps" — never put a price on a navigation button.
+- **Offer amounts render from `workspace.offer`** — never hardcoded; always set `stripePaymentUrl` explicitly per client (omitting it inherits the shared link and charges the wrong amount).
+- **"Not interested"** red link on Next Steps → confirm dialog → `mark_workspace_not_interested` RPC flips `crm_status='lost'`.
+
 ## Client Directory & Agreements
 
 **Convention:** `/proposals/[slug]` = pre-sale documents (proposal, mockup reveal). `/clients/[slug]` = post-sale documents (quote, agreement, delivery summary, invoice). Keep this split when adding new pages.
@@ -260,6 +284,7 @@ Before closing any client delivery:
 
 ## Key Doctrine
 
+- `doctrine/sorted-value-model.md` — four-pillar value model (Trust, Enquiries, Customers, Operations), scoring heuristic, outreach discipline
 - `doctrine/sorted-operating-model.md` — Four Nods, manufacturing model, dual execution modes
 - `doctrine/operator-chain.md` — chain state contract, artifact schemas, skill vs operator
 - `doctrine/all-content-is-editable.md` — every visible element must be CMS-editable
@@ -291,3 +316,13 @@ npm run dev       # Next.js dev server
 npm run build     # Production build
 npm run cms       # Decap local proxy (run alongside dev for CMS editing)
 ```
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

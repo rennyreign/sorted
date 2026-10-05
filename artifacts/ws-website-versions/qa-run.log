@@ -1,0 +1,15 @@
+PASS default-v2 http://localhost:3999/
+PASS picker-v1-v2 [{"t":"V1","pressed":"false"},{"t":"V2","pressed":"true"}]
+PASS active-no-reload 
+PASS switch-v1-src https://6ac1b6191377cbff651147fb--murraymartin-services.netlify.app/
+PASS v1-loaded frame=cross-origin(intercepted)
+PASS viewport-preserved 390->390
+PASS single-row-375 [28] n=4
+PASS controls-375 "Complete this site · £1,500"
+PASS no-overflow-375 
+PASS single-row-320 [28] n=4
+PASS controls-320 "Complete this site · £1,500"
+PASS no-overflow-320 
+PASS keyboard-switch 
+PASS no-picker-no-versions {"picker":false,"iframe":"http://localhost:3001/"}
+OVERALL PASS

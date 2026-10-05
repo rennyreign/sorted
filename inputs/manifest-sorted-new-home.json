@@ -1,0 +1,570 @@
+```json
+{
+  "design_ir_version": "1.0",
+  "project": {
+    "name": "Sorted",
+    "page": "Primary Brand Homepage",
+    "purpose": "Position Sorted as the digital partner that handles the digital work small and local businesses know needs doing but rarely get around to.",
+    "positioning": {
+      "primary_message": "We sort the digital stuff your business never gets around to.",
+      "supporting_message": "Websites. Booking. Payments. Follow-up. Automations. Reporting. Sorted.",
+      "category_explanation": "Sorted takes care of the digital jobs businesses know need doing without requiring them to hire a team or coordinate multiple suppliers.",
+      "relationship_to_sorted_sites": "Sorted Sites should become a distinct product/service within the broader Sorted brand rather than defining the parent company."
+    },
+    "conversion_goal": "Get the visitor to start a conversation or request a free digital audit.",
+    "target_audience": [
+      "small business owners",
+      "local business owners",
+      "founder-led businesses",
+      "growing service businesses",
+      "businesses with fragmented digital systems",
+      "businesses with a backlog of digital improvements"
+    ]
+  },
+  "design_direction": {
+    "overall_feel": [
+      "bold",
+      "modern",
+      "friendly",
+      "confident",
+      "commercial",
+      "high-trust",
+      "non-corporate",
+      "local-business focused",
+      "premium without feeling expensive or inaccessible"
+    ],
+    "visual_principle": "Avoid a long white agency homepage. Alternate white, warm cream, dark forest, acid-lime, pale-blue and image-led zones so the page feels editorial and varied.",
+    "content_principle": "Say less. Use large statements, strong visual demonstrations and short supporting copy rather than dense explanatory sections.",
+    "avoid": [
+      "generic SaaS dashboard aesthetic dominating the page",
+      "enterprise digital-transformation language",
+      "large grids of small equal-weight service cards",
+      "over-explaining what Sorted is",
+      "agency buzzwords",
+      "technology-first messaging",
+      "continuous white background",
+      "generic stock-office photography",
+      "overly polished corporate people",
+      "excessive gradients",
+      "tiny typography",
+      "dense paragraphs"
+    ]
+  },
+  "design_tokens": {
+    "colors": {
+      "ink": "#111111",
+      "ink_soft": "#252525",
+      "white": "#FFFFFF",
+      "warm_white": "#FAF8F2",
+      "cream": "#F5F0E5",
+      "lime": "#D9FF00",
+      "lime_dark": "#AECF00",
+      "forest": "#082D27",
+      "forest_deep": "#041F1B",
+      "pale_blue": "#DCECF7",
+      "pale_yellow": "#F5F5B4",
+      "border": "#DDDCD7",
+      "muted_text": "#666660",
+      "success_green": "#19A65A"
+    },
+    "typography": {
+      "primary_font_style": "heavy modern grotesk sans-serif",
+      "recommended_fonts": [
+        "Arial Black",
+        "Inter Tight",
+        "Helvetica Neue",
+        "Söhne",
+        "Manrope"
+      ],
+      "headline_weight": 800,
+      "subheadline_weight": 700,
+      "body_weight": 400,
+      "button_weight": 700,
+      "headline_tracking": "-0.045em",
+      "body_tracking": "-0.01em"
+    },
+    "radii": {
+      "small": "10px",
+      "medium": "18px",
+      "large": "28px",
+      "xl": "40px",
+      "pill": "999px"
+    },
+    "spacing": {
+      "page_max_width": "1440px",
+      "desktop_gutter": "56px",
+      "tablet_gutter": "32px",
+      "mobile_gutter": "20px",
+      "section_y_desktop": "88px",
+      "section_y_mobile": "56px",
+      "grid_gap": "20px"
+    },
+    "shadows": {
+      "card": "0 10px 35px rgba(0,0,0,0.08)",
+      "floating_ui": "0 14px 40px rgba(0,0,0,0.16)",
+      "button": "0 10px 24px rgba(0,0,0,0.12)"
+    }
+  },
+  "global_layout": {
+    "background": "#FAF8F2",
+    "desktop_width_behavior": "full-width sections with centered inner container",
+    "content_width": "min(1440px, calc(100vw - 112px))",
+    "mobile_behavior": "single-column stacking with service showcase cards becoming horizontal-scroll or full-width stacked cards",
+    "section_transition_rule": "Each major section should visually contrast with the previous one using background tone, photography or dark surface."
+  },
+  "header": {
+    "height": "88px",
+    "background": "#FAF8F2",
+    "layout": "logo left, centered navigation, CTA right",
+    "logo": {
+      "text": "Sorted.",
+      "style": "black bold wordmark with small lime square/dot accent after the period",
+      "font_size": "34px"
+    },
+    "navigation": [
+      "What we do",
+      "Results",
+      "Pricing",
+      "About"
+    ],
+    "cta": {
+      "label": "Get started",
+      "style": "black pill button with white text and right arrow",
+      "height": "48px"
+    },
+    "mobile": {
+      "show_logo": true,
+      "hide_desktop_nav": true,
+      "show_menu_button": true
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "split_hero",
+      "background": "#FAF8F2",
+      "min_height": "720px",
+      "layout": {
+        "desktop": "54% copy / 46% image",
+        "vertical_alignment": "center",
+        "gap": "48px"
+      },
+      "left": {
+        "eyebrow": {
+          "text": "LESS TO WORRY ABOUT. MORE TO GROW.",
+          "style": "uppercase, 12px, semibold, 0.16em tracking"
+        },
+        "headline": {
+          "lines": [
+            "We sort the",
+            "digital stuff",
+            "your business",
+            "never gets",
+            "around to."
+          ],
+          "font_size_desktop": "74px",
+          "font_size_mobile": "50px",
+          "line_height": 0.94,
+          "highlight": {
+            "text": "never gets around to.",
+            "color": "#AECF00"
+          }
+        },
+        "supporting_copy": {
+          "text": "Websites. Booking. Payments. Follow-up. Automations. Reporting. Sorted.",
+          "max_width": "560px",
+          "font_size": "20px",
+          "line_height": 1.45
+        },
+        "actions": [
+          {
+            "label": "Get a free audit",
+            "type": "primary",
+            "style": "dark forest pill with white text",
+            "icon": "arrow-right"
+          },
+          {
+            "label": "Watch how it works",
+            "type": "secondary",
+            "style": "white outlined pill",
+            "icon": "play"
+          }
+        ],
+        "micro_proof": [
+          "No obligation",
+          "No jargon",
+          "Real results"
+        ]
+      },
+      "right": {
+        "image_container": {
+          "shape": "organic asymmetric rounded mask",
+          "border_radius": "42% 8% 28% 42% / 18% 12% 28% 42%",
+          "overflow": "hidden",
+          "min_height": "620px"
+        },
+        "primary_image": {
+          "asset_id": "hero_local_business_owner",
+          "placement": "fills entire right image mask",
+          "prompt": "Editorial commercial photograph of a confident male small-business owner in his early 30s standing inside his independent cafe or workshop, black apron and black cap, warm natural interior light, candid expression looking slightly off-camera, premium but authentic local-business atmosphere, shallow depth of field, tactile real environment, cinematic realism, no logos, no text, no laptop, not corporate, no generic stock-photo posing, vertical composition with space around upper-right and left edges for UI overlays."
+        },
+        "floating_ui": [
+          {
+            "position": "top-right",
+            "label": "New enquiries",
+            "value": "+43%",
+            "icon": "bar-chart"
+          },
+          {
+            "position": "center-right",
+            "label": "Bookings",
+            "value": "+27%",
+            "icon": "calendar"
+          },
+          {
+            "position": "lower-right",
+            "label": "Revenue",
+            "value": "+31%",
+            "icon": "chart-up"
+          }
+        ],
+        "annotation": {
+          "text": "FOCUS ON WHAT YOU DO BEST. WE'LL SORT THE REST.",
+          "style": "white handwritten uppercase",
+          "position": "left-center over dark part of photo",
+          "arrow": "hand-drawn curved arrow toward subject"
+        },
+        "sticky_note": {
+          "text": "REAL BUSINESSES. REAL GROWTH.",
+          "background": "#D9FF00",
+          "rotation": "-7deg",
+          "position": "lower-right"
+        }
+      }
+    },
+    {
+      "id": "category_statement",
+      "type": "dark_feature_banner",
+      "background": "#082D27",
+      "foreground": "#FFFFFF",
+      "border_radius": "28px",
+      "layout": "two-column",
+      "left": {
+        "eyebrow": "YOUR COMPLETE DIGITAL PARTNER",
+        "headline": "Everything your business needs online.",
+        "headline_size": "58px"
+      },
+      "divider": {
+        "orientation": "vertical",
+        "color": "#D9FF00"
+      },
+      "right": {
+        "copy": "A complete digital partner for small and local businesses. We set it up, connect it, and keep it running — so you can focus on what you do best.",
+        "cta": {
+          "label": "See all services",
+          "background": "#D9FF00",
+          "foreground": "#111111"
+        },
+        "micro_visual": {
+          "type": "three overlapping customer avatars",
+          "annotation": "TRUSTED BY GROWING BUSINESSES",
+          "arrow_style": "hand-drawn lime"
+        }
+      }
+    },
+    {
+      "id": "service_showcase",
+      "type": "four_large_visual_cards",
+      "instruction": "Do not create a dense 8-card service grid. Use four oversized cards, each functioning as a visual mini-story. These cards should feel approximately 310-330px wide and 540-600px tall on desktop.",
+      "cards": [
+        {
+          "title": "Websites",
+          "background": "#F5F5B4",
+          "icon": "monitor",
+          "description": "Modern, high-performing websites that bring in business.",
+          "visual_type": "website screenshot mockup",
+          "visual": {
+            "asset_id": "site_mockup_example",
+            "prompt": "Premium desktop website mockup for a local private healthcare or wellness business displayed inside a clean browser frame. Dark charcoal and cream design, strong typography, professional local-business photography, premium conversion-focused landing page, realistic website UI, no visible external brand names, no illegible placeholder text, frontal composition."
+          },
+          "annotation": "LOOK LIKE THE BUSINESS YOU ARE.",
+          "annotation_position": "bottom"
+        },
+        {
+          "title": "Booking systems",
+          "background": "#082D27",
+          "foreground": "#FFFFFF",
+          "icon_bg": "#D9FF00",
+          "description": "Let customers book, pay and manage appointments with ease.",
+          "visual_type": "smartphone booking UI",
+          "visual": {
+            "asset_id": "booking_phone",
+            "prompt": "Photorealistic modern black smartphone shown front-on with a clean appointment-booking interface on screen. White interface with calendar, available time slots, booking confirmation button, premium SaaS-level UI but simple enough for a local service business. Isolated clean product rendering, no logos."
+          },
+          "annotation": "LESS ADMIN. MORE CUSTOMERS."
+        },
+        {
+          "title": "Automations",
+          "background": "#F5F0E5",
+          "icon": "zap",
+          "description": "Follow-ups, reminders and workflows that save you time.",
+          "visual_type": "stacked workflow UI",
+          "visual": {
+            "asset_id": "automation_workflow_ui",
+            "prompt": "Minimal clean workflow automation interface composed of four stacked horizontal action cards: New enquiry received, Send confirmation email, Add to CRM, Send follow-up after 24 hours. White cards, tiny green status circles and monochrome icons, modern UI, isolated on warm neutral background, crisp vector-like interface."
+          },
+          "annotation": "WORKS WHILE YOU DON'T."
+        },
+        {
+          "title": "Reporting",
+          "background": "#DCECF7",
+          "icon": "chart-up",
+          "description": "Clear data so you can see what's working.",
+          "visual_type": "performance dashboard graph",
+          "visual": {
+            "asset_id": "reporting_graph",
+            "prompt": "Minimal analytics dashboard card for a small business, white surface, heading Website enquiries, large metric 127, green +43%, clean ascending line chart with one highlighted point, premium modern interface, no brand logos, no complex dashboard chrome."
+          },
+          "annotation": "REAL DATA. REAL DECISIONS."
+        }
+      ]
+    },
+    {
+      "id": "logo_strip",
+      "type": "trust_logo_row",
+      "background": "#FAF8F2",
+      "padding_y": "54px",
+      "logos": [
+        "Warwickshire Short Stays",
+        "Palace Barn & Cottage",
+        "BodySharp Fitness",
+        "School of Skill",
+        "Gracie Barra Halesowen"
+      ],
+      "style": "monochrome black logos, evenly spaced, visually normalized to equal optical weight",
+      "instruction": "Use actual available logos if assets exist. Otherwise use neutral wordmarks rather than fabricating complex logos."
+    },
+    {
+      "id": "proof",
+      "type": "editorial_testimonial_and_metrics",
+      "background": "#FFFFFF",
+      "layout": "40% image / 60% evidence",
+      "left": {
+        "image": {
+          "asset_id": "testimonial_business_owner",
+          "prompt": "Editorial portrait of a female independent hospitality business owner in her late 30s standing inside a premium countryside cafe, boutique accommodation or hospitality venue. She wears a simple dark work apron, natural expression, candid side profile, warm window light, elegant but authentic local-business setting, cinematic photographic quality, no corporate posing, no visible logos, horizontal composition."
+        },
+        "overlay_quote": "I FINALLY FEEL IN CONTROL OF OUR ONLINE PRESENCE.",
+        "quote_style": "large handwritten white uppercase",
+        "attribution": "Local business owner"
+      },
+      "right": {
+        "headline": "Real businesses. Real results.",
+        "metrics": [
+          {
+            "value": "3x",
+            "label": "more enquiries"
+          },
+          {
+            "value": "40%",
+            "label": "more bookings"
+          },
+          {
+            "value": "5★",
+            "label": "average rating"
+          }
+        ],
+        "testimonial_card": {
+          "quote": "Sorted took care of everything — our new website, booking system and follow-ups. It's saved us so much time and brought in more customers.",
+          "attribution": "Customer testimonial",
+          "style": "warm cream rounded card"
+        },
+        "carousel_controls": true
+      }
+    },
+    {
+      "id": "final_cta",
+      "type": "horizontal_conversion_banner",
+      "background": "#DCECF7",
+      "border_radius": "28px",
+      "layout": "headline left, process middle, CTA right",
+      "headline": {
+        "text": "Ready to get your digital sorted?",
+        "font_size": "44px",
+        "underline": {
+          "style": "hand-drawn lime stroke"
+        }
+      },
+      "steps": [
+        {
+          "icon": "clock",
+          "label": "Free audit"
+        },
+        {
+          "icon": "file-text",
+          "label": "Clear plan"
+        },
+        {
+          "icon": "send",
+          "label": "Get results"
+        }
+      ],
+      "cta": {
+        "label": "Get started",
+        "style": "black pill with white text"
+      }
+    }
+  ],
+  "footer": {
+    "background": "#082D27",
+    "foreground": "#FFFFFF",
+    "padding_top": "64px",
+    "padding_bottom": "48px",
+    "columns": [
+      {
+        "type": "brand",
+        "logo": "Sorted.",
+        "tagline": "Sorting the digital stuff for brighter local businesses."
+      },
+      {
+        "title": "Services",
+        "links": [
+          "Websites",
+          "Booking systems",
+          "Automations",
+          "Reporting",
+          "Support"
+        ]
+      },
+      {
+        "title": "Company",
+        "links": [
+          "About us",
+          "Our process",
+          "Results",
+          "Pricing",
+          "Contact"
+        ]
+      },
+      {
+        "title": "Let's talk",
+        "cta": "Book a call",
+        "socials": [
+          "Instagram",
+          "LinkedIn",
+          "YouTube"
+        ]
+      }
+    ],
+    "handwritten_note": {
+      "text": "SMALL BUSINESSES. BIG POSSIBILITIES.",
+      "color": "#FFFFFF",
+      "underline": "#D9FF00"
+    }
+  },
+  "interaction_design": {
+    "buttons": {
+      "hover": "slight translateY(-2px), arrow moves 4px right, subtle shadow increase",
+      "duration": "180ms"
+    },
+    "service_cards": {
+      "hover": "scale 1.015, slight lift, visual element subtly enlarges",
+      "duration": "260ms",
+      "easing": "ease-out"
+    },
+    "floating_ui": {
+      "entrance": "soft fade + translateY(12px)",
+      "stagger": "100ms"
+    },
+    "handwritten_annotations": {
+      "behavior": "static on load; optional subtle draw-in effect if implementation allows"
+    }
+  },
+  "responsive_rules": {
+    "breakpoints": {
+      "mobile": "<768px",
+      "tablet": "768px-1099px",
+      "desktop": ">=1100px"
+    },
+    "hero_mobile": {
+      "layout": "copy first, image second",
+      "headline_size": "48-52px",
+      "image_height": "470px",
+      "floating_ui": "retain only 2 metric cards to reduce clutter"
+    },
+    "category_statement_mobile": {
+      "layout": "single column",
+      "hide_vertical_divider": true
+    },
+    "service_showcase_mobile": {
+      "layout": "single-column cards",
+      "card_height": "auto",
+      "minimum_visual_height": "320px"
+    },
+    "proof_mobile": {
+      "layout": "image first, metrics and quote below"
+    },
+    "final_cta_mobile": {
+      "layout": "stacked",
+      "steps": "horizontal three-item mini-row where width permits"
+    }
+  },
+  "copy_rules": {
+    "tone": [
+      "plain English",
+      "short",
+      "confident",
+      "useful",
+      "not overly salesy"
+    ],
+    "preferred_vocabulary": [
+      "sort",
+      "business",
+      "digital",
+      "customers",
+      "bookings",
+      "enquiries",
+      "time",
+      "results",
+      "work",
+      "get done"
+    ],
+    "avoid_vocabulary": [
+      "digital transformation",
+      "digital infrastructure",
+      "ecosystem",
+      "synergy",
+      "omnichannel",
+      "end-to-end transformation",
+      "MarTech stack",
+      "AI-powered transformation",
+      "enterprise-grade",
+      "solutions provider"
+    ]
+  },
+  "implementation_notes": {
+    "priority": "The build should closely reproduce the visual rhythm of the reference mockup rather than simply reproducing its text content.",
+    "important": [
+      "The hero must feel extremely bold and editorial.",
+      "Do not make the page predominantly white.",
+      "The four service categories should be large showcase panels, not small information cards.",
+      "Photography should communicate real owner-operated businesses.",
+      "Use the lime accent sparingly so it feels distinctive rather than fluorescent everywhere.",
+      "The page should visually communicate relief: Sorted takes digital work off the owner's plate.",
+      "Avoid explaining the technology behind Sorted on the homepage.",
+      "Sorted Sites should be represented as one service/product, not the parent proposition."
+    ],
+    "asset_strategy": {
+      "generated_images": [
+        "hero_local_business_owner",
+        "testimonial_business_owner",
+        "site_mockup_example",
+        "booking_phone",
+        "automation_workflow_ui",
+        "reporting_graph"
+      ],
+      "client_assets": "Use real Sorted client logos, case studies and screenshots wherever available instead of recreating them."
+    }
+  }
+}
+```

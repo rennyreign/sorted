@@ -24,7 +24,7 @@ function HelpCard({ workspace }: { workspace: Workspace }) {
       </span>
       <h2 className="mt-5 text-[17px] font-extrabold tracking-[-0.02em]">Need help?</h2>
       <p className="mt-2 flex-1 text-[13px] font-medium leading-[1.55] text-[#73736D]">
-        Questions about the build, the price or what happens next — ask us directly.
+        Questions about the build, the price or what happens next? Ask us directly.
       </p>
       <a
         href={`mailto:${workspace.links.questionEmail}`}
@@ -86,13 +86,13 @@ export function ProjectScreen({
           We&apos;re building your website.
         </h1>
         <p className="mt-4 max-w-[560px] text-[17px] font-medium leading-[1.5] text-[#73736D] sm:text-[19px]">
-          Your deposit is in. Now we&apos;re completing the full site — this workspace stays as your home for the project.
+          Your deposit is in. Now we&apos;re completing the full site, and this workspace stays as your home for the project.
         </p>
       </section>
 
       <div className="mt-9 max-w-[860px] rounded-[12px] bg-[#F7F2E8] px-6 py-5 sm:px-8">
         <p className="text-[14px] font-bold text-[#070707]">
-          Everything is confirmed — you&apos;ll hear from us soon. If anything feels urgent, contact Sorted directly.
+          Everything is confirmed. You&apos;ll hear from us soon, and if anything feels urgent, contact Sorted directly.
         </p>
       </div>
 
@@ -103,7 +103,7 @@ export function ProjectScreen({
           </span>
           <h2 className="mt-5 text-[17px] font-extrabold tracking-[-0.02em]">Getting ready</h2>
           <p className="mt-2 flex-1 text-[13px] font-medium leading-[1.55] text-[#73736D]">
-            {domain ? `${domain} — site in preparation.` : "Your website is being prepared."} We&apos;ll share the live link here when it&apos;s ready for review.
+            {domain ? `${domain} - site in preparation.` : "Your website is being prepared."} We&apos;ll share the live link here when it&apos;s ready for review.
           </p>
         </article>
         <article className="flex flex-col rounded-[12px] border border-[#E8E5DD] bg-white p-6">

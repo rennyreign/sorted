@@ -361,7 +361,7 @@ class OutreachTests(unittest.TestCase):
             prospect,
         )
         self.assertEqual(subject, "We built something for you")
-        self.assertIn("https://sortmydigital.site/review/test-business", body)
+        self.assertIn("https://sortmydigital.site/workspace/test-business", body)
         self.assertNotIn("{{review_url}}", body)
 
     # ── Bonus: error classification ───────────────────────────────────────────

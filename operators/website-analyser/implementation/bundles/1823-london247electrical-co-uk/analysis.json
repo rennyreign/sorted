@@ -1,0 +1,23 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": -1,
+    "mobile_experience": -1,
+    "desire_creation": -1,
+    "content_structure": -1,
+    "trust_and_credibility": -1
+  },
+  "business_quality_score": 5,
+  "business_quality_reasoning": "Active limited company incorporated in 2010 with recent abridged accounts filed, so this is a real established trading business, not a shell. However the website URL on its Google listing leads to a 404 error page, which suggests neglected digital upkeep and possibly declining attention to the business.",
+  "service_price_point": 250,
+  "price_point_reasoning": "No prices visible (site returns a 404); estimate based on typical London electrician call-out and small-job values.",
+  "modernity_gap": "The site does not load at all - visitors reach a Page not found error, so the business effectively has no working website.",
+  "site_weaknesses": [
+    "Stored website URL returns a 404 Page not found error",
+    "No homepage content, services, reviews or contact details reachable",
+    "Any Google traffic clicking the website link hits a dead end"
+  ],
+  "site_analysis": "The captured URL shows a Page not found error page on both desktop and mobile, so no content, services or trust signals are reachable. For a 24/7 emergency electrician this is the worst possible outcome: every click from Google lands on a dead page and the enquiry is lost immediately.",
+  "review_summary": "Your website link currently takes people to a Page not found error, so anyone trying to check you out or get in touch hits a dead end. For a business offering 24/7 emergency call-outs, that means real, urgent enquiries are being lost every day. Getting a working site back up would immediately turn those lost clicks back into phone calls.",
+  "outreach_angle": "Your Google listing's website link lands on a Page not found error - happy to show you what a simple working site would recover.",
+  "business_type": "emergency electrician"
+}

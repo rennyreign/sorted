@@ -1,0 +1,26 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 1,
+    "mobile_experience": 1,
+    "desire_creation": 1,
+    "content_structure": 1,
+    "trust_and_credibility": 1
+  },
+  "business_quality_score": 8,
+  "business_quality_reasoning": "Trading since 1983 as AMP Electric Contractors Ltd, 5.0 stars across 24 reviews, OZEV-approved EV charge point installer under a government scheme, covering commercial and domestic work with 24/7 emergency call-outs. A long-established, high-trust operation with higher-value job types.",
+  "service_price_point": 800,
+  "price_point_reasoning": "Services include EV charge point installations (typically £800-1,500), full/partial rewires and safety certification; £800 is a reasonable midpoint job value.",
+  "modernity_gap": "A dark, letter-spaced GoDaddy builder site with a 2020 copyright and an announcement popup blocking the entire page on load — looks and behaves like a site untouched for 5+ years.",
+  "site_weaknesses": [
+    "A full-screen 'Announcement' popup about EV charging blocks the homepage on both desktop and mobile before a visitor sees anything",
+    "Services are presented as a centred bold bullet list with no imagery, detail or pricing guidance",
+    "No reviews or testimonials shown anywhere despite a 5.0 Google rating",
+    "Accreditation badges (NICEIC, Part P, OZEV) are reduced to tiny icons at the very bottom of the page",
+    "Letter-spaced uppercase text and the heavy dark theme make the copy hard to scan",
+    "Contact form is generic with an 'Attach Files' option but no service selection or quote framing"
+  ],
+  "site_analysis": "The business has real depth — decades of trading, OZEV approval for EV charger installs, emergency call-outs — but the site actively gets in its own way: a popup covers the whole homepage on arrival, and the content behind it is a plain services list with no proof, no reviews and no personality. A visitor has to work hard to discover why they should call.",
+  "review_summary": "Your business has credentials most competitors would envy — OZEV approval, NICEIC registration and 24-hour emergency cover — but your website hides nearly all of it. Visitors are greeted by a popup announcement before they can even see your page, and there is not a single review on the site despite your 5-star Google rating. Clearing these obstacles would let your reputation do the selling.",
+  "outreach_angle": "You've been trading since 1983 and you're OZEV-approved for EV chargers, but the first thing a visitor sees on your site is a popup covering the whole page — the site is hiding your strongest selling points.",
+  "business_type": "electrician"
+}

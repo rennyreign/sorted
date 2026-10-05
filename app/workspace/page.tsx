@@ -1,10 +1,10 @@
 "use client"
 
 import { useCallback, useEffect, useState } from "react"
-import { trackEvent } from "@/lib/tracking"
 import {
   defaultRouteFor,
   getWorkspace,
+  workspaceEvent,
   type Workspace,
   type WorkspaceRoute,
   type WorkspaceState,
@@ -16,23 +16,26 @@ import { NextStepsScreen } from "./_components/NextStepsScreen"
 import { DetailsScreen, ProjectScreen } from "./_components/ProjectScreen"
 import { DocumentsScreen, HelpScreen, OverviewScreen } from "./_components/LiveScreens"
 import { QuestionDrawer } from "./_components/Dialogs"
+import { PaidScreen } from "./_components/PaidScreen"
 
 // A single static page served at /workspace/
 // Hostinger .htaccess rewrites /workspace/* → /workspace/index.html
 // Slug and route are read from window.location at runtime.
 // Dev fallback: /workspace?slug=imperial-nail-studio&route=review
 
-function parseLocation(): { slug: string | null; route: WorkspaceRoute | null; depositReturned: boolean } {
+function parseLocation(): { slug: string | null; route: WorkspaceRoute | null; depositReturned: boolean; paid: boolean } {
   const path = window.location.pathname.replace(/\/+$/, "")
   const parts = path.split("/").filter(Boolean)
-  // /workspace/:slug/:route
-  const slug = parts[0] === "workspace" ? parts[1] ?? null : null
-  const route = parts[0] === "workspace" ? (parts[2] as WorkspaceRoute | undefined) ?? null : null
+  // /workspace/:slug/:route — "paid" is a reserved path: the Stripe redirect target
   const params = new URLSearchParams(window.location.search)
+  const paid = (parts[0] === "workspace" && parts[1] === "paid") || params.get("paid") === "1"
+  const slug = parts[0] === "workspace" && !paid ? parts[1] ?? null : null
+  const route = parts[0] === "workspace" && !paid ? (parts[2] as WorkspaceRoute | undefined) ?? null : null
   return {
     slug: slug ?? params.get("slug"),
     route: route ?? (params.get("route") as WorkspaceRoute | null),
     depositReturned: params.get("deposit") === "returned" || params.get("deposit") === "success",
+    paid,
   }
 }
 
@@ -54,6 +57,7 @@ export default function WorkspacePage() {
   const [workspace, setWorkspace] = useState<Workspace | null>(null)
   const [route, setRoute] = useState<WorkspaceRoute>("review")
   const [depositReturned, setDepositReturned] = useState(false)
+  const [paid, setPaid] = useState(false)
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
   const [questionOpen, setQuestionOpen] = useState(false)
@@ -64,14 +68,20 @@ export default function WorkspacePage() {
       window.history.pushState({}, "", workspacePath(workspace.slug, next))
       setRoute(next)
       window.scrollTo({ top: 0 })
-      trackEvent("workspace_view", { workspace_slug: workspace.slug, route: next, workspace_state: workspace.state })
+      workspaceEvent(workspace, "workspace_view", { route: next })
     },
     [workspace]
   )
 
   useEffect(() => {
-    const { slug, route: initialRoute, depositReturned: returned } = parseLocation()
+    const { slug, route: initialRoute, depositReturned: returned, paid: isPaid } = parseLocation()
     setDepositReturned(returned)
+
+    if (isPaid) {
+      setPaid(true)
+      setLoading(false)
+      return
+    }
 
     if (!slug) {
       setLoading(false)
@@ -94,7 +104,7 @@ export default function WorkspacePage() {
       if (initialRoute !== resolved) {
         window.history.replaceState({}, "", workspacePath(ws.slug, resolved))
       }
-      trackEvent("workspace_view", { workspace_slug: ws.slug, route: resolved, workspace_state: ws.state })
+      workspaceEvent(ws, "workspace_view", { route: resolved })
       setLoading(false)
     }
 
@@ -121,6 +131,10 @@ export default function WorkspacePage() {
     )
   }
 
+  if (paid) {
+    return <PaidScreen />
+  }
+
   if (notFound || !workspace) {
     return (
       <div className="grid min-h-screen place-items-center bg-[#F7F7F3]">
@@ -144,7 +158,7 @@ export default function WorkspacePage() {
       ) : null}
       {route === "project" ? <ProjectScreen workspace={workspace} onNavigate={navigate} /> : null}
       {route === "details" ? <DetailsScreen workspace={workspace} /> : null}
-      {route === "overview" ? <OverviewScreen workspace={workspace} onNavigate={navigate} /> : null}
+      {route === "overview" ? <OverviewScreen workspace={workspace} /> : null}
       {route === "documents" ? <DocumentsScreen workspace={workspace} /> : null}
       {route === "help" ? <HelpScreen workspace={workspace} /> : null}
 

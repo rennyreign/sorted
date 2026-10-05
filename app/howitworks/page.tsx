@@ -50,7 +50,7 @@ function HeroSection() {
           <br />
           <span className="inline-block">
             Then you{" "}
-            <span className="[font-family:var(--font-sites-highlight)] text-[#d4ea00]">decide</span>
+            <span className="inline-block [font-family:var(--font-sites-fave-script)] text-[1.2em] font-normal leading-[0.7] tracking-[0] text-[#d4ea00]">decide</span>
           </span>
         </h1>
         <p className="mt-6 max-w-[470px] text-[17px] font-semibold leading-[1.55] tracking-[-0.02em] text-black/75">

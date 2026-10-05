@@ -38,19 +38,25 @@ These are **acquisition artifacts**, not products. Their purpose is to earn trus
 
 ---
 
-## The Three Outcome Frameworks
+## The Value Model (Four Pillars)
 
-Every Sorted solution maps to one of three business outcomes:
+Canonical doctrine: `doctrine/sorted-value-model.md` (v1.0, 5 Oct 2026).
 
-| Trust | Enquiries | Customers |
-|---|---|---|
-| Websites | Forms | Offers |
-| Branding | CRM | Referrals |
-| Photography | Booking systems | Reactivation |
-| Reviews | Follow-up | Retention |
-| Social proof | AI reception | Marketing automation |
+**Sorted makes a business easier to trust, easier to contact, easier to buy from, and easier to run.** Four pillars describe customer value:
 
-The homepage introduces this framework as "what modern businesses need to compete online," not as a services upsell.
+| Trust | Enquiries | Customers | Operations |
+|---|---|---|---|
+| Reputation | Ease | Actions | Data |
+| Brand | Responsiveness | Engagement | Context |
+| Proof | Helpfulness | Resources | Flow |
+
+- The pillars form a reinforcing loop: Trust → Enquiries → Customers → Operations → stronger trust.
+- Four questions. Twelve checks (scored 0/1/2/?/N-A). One costly gap to fix next.
+- **Agent rule:** every significant recommendation must name the value it creates, the gap it addresses, and how improvement will be observed.
+- The pillars are a diagnostic heuristic — never turn unknown into zero, and keep the four pillar scores visible rather than hiding a broken pathway behind a total.
+- The Four Engines (how Sorted produces/distributes value) remain a separate model — don't conflate the two.
+
+The older three-outcome framing (Trust / Enquiries / Customers) is subsumed by the first three pillars; Operations is the fourth pillar covering delivery reliability.
 
 ---
 
@@ -164,6 +170,7 @@ Skills are the fast path. Operators are the scale path. Same doctrine, same arti
 
 ## Source Documents
 
+- `doctrine/sorted-value-model.md` — four-pillar value model, twelve-check scoring heuristic, outreach and objection discipline
 - `doctrine/Sorted-doctrine-update 22.06.2026.md` — latest overview and 13 operating principles (refreshed, concise)
 - `plan/Sorted Website Repositioning Brief.md` — homepage and strategic repositioning brief
 - `doctrine/sorted-operating-model.md` — Four Nods, manufacturing model, CMS timing
