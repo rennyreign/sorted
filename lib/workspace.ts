@@ -174,6 +174,35 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       bankTransferEnabled: true,
     },
   },
+  "kelly-electrics-female-electricians-ltd": {
+    review: {
+      headline: "A trusted name, now winning work online.",
+      summary:
+        "Kelly Electrics has built something genuinely rare — an award-nominated, fully qualified team that customers already trust. Your new site puts that reputation in front of every visitor, so the trust you've earned turns into enquiries.",
+      observations: [
+        {
+          title: "Reputation made visible",
+          explanation:
+            "Your Electric Awards nomination, NICEIC registration and Part P credentials sit where a careful customer looks first — before they've read a word, they already know you're the real thing.",
+        },
+        {
+          title: "Proof where buyers look",
+          explanation:
+            "Real Google reviews from local customers run through the site, so the trust you've built household by household is doing the talking for you.",
+        },
+        {
+          title: "Trust that turns into enquiries",
+          explanation:
+            "Every page ends at an easy way to reach your team — request a quote, phone or email — so the confidence a visitor has just gained has somewhere to go.",
+        },
+      ],
+    },
+    website: {
+      previewUrl: "https://kelly-electrics.netlify.app",
+      previewImageUrl: "/kelly-electrics-homepage-preview.webp",
+      status: "review",
+    },
+  },
   "imperial-nail-studio": {
     review: {
       headline: "Your business is stronger than your website makes it look.",
