@@ -310,7 +310,7 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
           .single()
 
         if (lead?.review_slug && typeof window !== "undefined") {
-          reviewUrl = `${window.location.origin}/review/?slug=${lead.review_slug}`
+          reviewUrl = `${window.location.origin}/workspace/?slug=${lead.review_slug}`
         }
       }
 

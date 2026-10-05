@@ -127,12 +127,11 @@ export function ExamplesGallery({ mockups, totalCount }: { mockups: MockupExampl
                         <Maximize2 className="size-4" strokeWidth={2.4} />
                       </span>
                     </button>
-                    <div className="grid min-h-[66px] grid-cols-[1fr_auto] gap-2 p-3">
+                    <div className="min-h-[66px] p-3">
                       <div>
                         <h3 className="text-[12px] font-black leading-tight tracking-[-0.025em]">{mockup.title}</h3>
                         {mockup.location ? <p className="mt-1 text-[11px] font-semibold leading-none text-black/52">{mockup.location}</p> : null}
                       </div>
-                      <span className="self-end whitespace-nowrap text-[10px] font-bold text-black/50">{formatFactoryTime(mockup.createdAt)}</span>
                     </div>
                   </article>
                 ))}
@@ -212,18 +211,4 @@ function seededShuffle<T>(items: T[], seed: number) {
   }
 
   return result
-}
-
-function formatFactoryTime(value: string) {
-  const createdAt = new Date(value)
-  const now = new Date()
-  const createdDay = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", day: "2-digit", month: "2-digit", year: "numeric" }).format(createdAt)
-  const today = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", day: "2-digit", month: "2-digit", year: "numeric" }).format(now)
-  const yesterday = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(now.getTime() - 86400000))
-  const time = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", minute: "2-digit", hour12: false }).format(createdAt)
-
-  if (createdDay === today) return `Today ${time}`
-  if (createdDay === yesterday) return `Yesterday ${time}`
-
-  return new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", day: "numeric", month: "short" }).format(createdAt)
 }

@@ -1,0 +1,26 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 1,
+    "mobile_experience": 2,
+    "desire_creation": 1,
+    "content_structure": 1,
+    "trust_and_credibility": 2
+  },
+  "business_quality_score": 7,
+  "business_quality_reasoning": "CH-active since 2019, a perfect 5.0 across 147 Google reviews, a named four-person team with real photos, branded vans and a gallery of actual jobs across South East London and Kent — an established local service business, though job values are small.",
+  "service_price_point": 45,
+  "price_point_reasoning": "Domestic window cleaning typically runs £15-30 per visit and gutter clearing £80-150; recurring rounds put a realistic single-job midpoint around £45.",
+  "modernity_gap": "A functional but generic template — condensed all-caps headings over dark photo overlays — roughly 5-7 years behind, though the content itself is unusually genuine.",
+  "site_weaknesses": [
+    "Everything is set in condensed all-caps type over dark blue image overlays — hard to read and dated in feel",
+    "No online quote form or booking — the only conversion path is calling a mobile number",
+    "Facebook reviews shown are screenshots-style quotes without a linked rating or count",
+    "The services section is just a photo grid — no per-service descriptions, pricing guidance or detail",
+    "Areas covered is a long flat list of postcodes rather than a map or prioritised towns",
+    "No Google reviews surfaced despite 147 five-star ratings on the listing"
+  ],
+  "site_analysis": "This site has rare genuine assets for a trade business — named team members with real photos, branded vans, a gallery of actual jobs and real reviews — but it is dressed in a dated, heavy template where every heading is condensed caps over a dark overlay. There is no quote form, no pricing guidance and no structured service content, so the strong proof does less work than it should.",
+  "review_summary": "Your site already has what most cleaning businesses lack — real photos of your team, your vans and your actual work. What holds it back is the presentation: heavy dark overlays and cramped capital text make it feel older than it is, there is no quote form so every enquiry depends on a phone call, and none of your 147 five-star Google reviews are shown. A cleaner, brighter design with a proper quote form would convert more of the trust you have clearly earned.",
+  "outreach_angle": "You have photos of your whole team and 147 five-star reviews, but your site hides the reviews and offers no way to get a quote without calling — happy to show you what it could look like.",
+  "business_type": "window and gutter cleaning service"
+}

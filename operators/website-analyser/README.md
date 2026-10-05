@@ -5,7 +5,7 @@ Sorted's acquisition analysis + qualification operator. Takes unanalysed prospec
 1. **Tech profile** — fetches homepage HTML/headers, fingerprints the platform (Wix/WordPress/Squarespace/custom) via signature rules + `python-Wappalyzer`, and estimates build age from copyright year, generator meta and library versions
 2. **Screenshots** — desktop (1280px) + mobile (390px) via ScreenshotOne (Playwright fallback)
 3. **Vision analysis** — dimension scores, business signals, price-point estimate, `review_summary`, `outreach_angle`
-4. **Companies House** — name+postcode match → status, incorporation date, accounts type and last filing date
+4. **Companies House** — name+postcode match → profile, officers/PSCs, filing state and conservative iXBRL fact extraction
 5. **Qualification gate** — all arithmetic in `analyser/qualify.py` → `qualified_lead` boolean + `qualification_reasons[]`
 
 ## What It Removes
@@ -21,7 +21,8 @@ Per prospect row (full list in `supabase/migrations/20260928180000_prospect_viab
 - `prospect_score` — blended `opportunity×0.6 + business×0.4`
 - `service_price_point` + `payback_jobs` — affordability vs the £3,000 price
 - `site_platform`, `site_built_estimate`, `tech_stack` — what it was built on and roughly when
-- `ch_status`, `ch_accounts_type`, `ch_accounts_last_date`, `ch_match_confidence`, `source_company_number`
+- `ch_status`, accounts/confirmation dates and overdue flags, SIC codes, officers, filing links and match confidence
+- explicit iXBRL facts when disclosed: turnover, net assets, current assets, cash, liabilities and employee count, including prior-period values in `ch_financial_facts`
 - `qualified_lead` + `qualification_reasons` — the gate verdict with audit trail
 - `site_analysis`, `site_weaknesses`, `review_summary`, `outreach_angle` — copy for the review page and outreach
 
@@ -55,6 +56,8 @@ make run                                   # Analyse all prospects where analyse
 make analyse URL=https://example.com       # Single URL, prints full record JSON, no DB write
 make dry-run                               # No DB writes
 ./venv/bin/python main.py --no-ch          # Skip the Companies House step
+./venv/bin/python main.py --ch-only --id 1826 --dry-run  # Preview one CH refresh
+./venv/bin/python main.py --ch-only --limit 25            # Refresh qualified matches, no model calls
 ```
 
 Safe to re-run — only unanalysed prospects are processed.
@@ -63,9 +66,9 @@ Safe to re-run — only unanalysed prospects are processed.
 
 ~$0.004/analysis (Claude Haiku vision, two screenshots). ScreenshotOne $17/mo covers ~1,000 prospects at 2 captures each. Companies House API is free.
 
-## Human step (by design)
+## Disclosure boundary
 
-Actual turnover isn't automated — most targets file micro-entity accounts that hide revenue. The dashboard links each qualified lead straight to its CH filing-history page; eyeballing revenue on the filtered shortlist is ~30s per lead.
+The analyser extracts only numeric facts explicitly present in Companies House iXBRL. Most current micro-entity filings omit turnover and profit-and-loss information, so those values remain “not publicly disclosed.” It never infers revenue from assets, cash, reserves, company-size thresholds or narrative accounting policies.
 
 ---
 

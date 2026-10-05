@@ -48,6 +48,31 @@ export type LineItemUnit = "project" | "hours" | "units";
 
 export const LINE_ITEM_UNITS: LineItemUnit[] = ["project", "hours", "units"];
 
+export type PaymentMethod =
+  | "bank_transfer"
+  | "card"
+  | "cash"
+  | "paypal"
+  | "other";
+
+export const PAYMENT_METHODS: PaymentMethod[] = [
+  "bank_transfer",
+  "card",
+  "cash",
+  "paypal",
+  "other",
+];
+
+export type Payment = {
+  id: number;
+  invoice_id: number;
+  amount: number;
+  paid_at: string;
+  method: string;
+  note: string;
+  created_at: string;
+};
+
 export type LineItem = {
   id: number;
   invoice_id: number;
@@ -90,4 +115,7 @@ export type FullInvoice = {
   bankAccount: BankAccount | null;
   company: CompanySettings;
   totals: InvoiceTotals;
+  payments: Payment[];
+  amountPaid: number;
+  balance: number;
 };

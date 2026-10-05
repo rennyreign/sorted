@@ -1,0 +1,25 @@
+{
+  "manifest_type": "design_ir_patch",
+  "patch_id": "global-shell-topnav-pivot",
+  "applies_to": "all internal Sorted Ads screens",
+  "priority": "highest",
+  "supersedes_rules": [
+    "persistent left sidebar",
+    "persistent right contextual rail"
+  ],
+  "changes": {
+    "navigation": {
+      "from": "left sidebar",
+      "to": "sticky top navigation"
+    },
+    "secondary_information": {
+      "from": "persistent right rail",
+      "to": "inline metadata, compact summaries, modal/drawer/popover on demand"
+    },
+    "content_canvas": {
+      "from": "narrow center column constrained by two rails",
+      "to": "wide centered canvas optimized for three-column Facebook-like ad cards"
+    }
+  },
+  "canonical_reference": "Latest top-navigation campaign mockup with no left or right sidebar."
+}

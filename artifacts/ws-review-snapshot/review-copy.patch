@@ -1,0 +1,262 @@
+diff --git a/lib/workspace.ts b/lib/workspace.ts
+index e7702a15..e7b9a2a6 100644
+--- a/lib/workspace.ts
++++ b/lib/workspace.ts
+@@ -19,6 +19,12 @@ export type WorkspaceObservation = {
+   explanation: string
+ }
+ 
++export type WorkspacePreviewVersion = {
++  id: string
++  label: string
++  previewUrl: string
++}
++
+ export type Workspace = {
+   slug: string
+   state: WorkspaceState
+@@ -37,6 +43,10 @@ export type Workspace = {
+     previewUrl?: string
+     /** Still image of the homepage direction — used when no previewUrl exists yet. */
+     previewImageUrl?: string
++    /** Optional list of selectable preview builds shown as a version picker in the preview action bar. */
++    previewVersions?: WorkspacePreviewVersion[]
++    /** Version id shown by default; falls back to the first entry when unset/invalid. */
++    defaultPreviewVersion?: string
+     /** Direct video file URL of a talking-head explanation, rendered as a floating bubble over the preview. */
+     walkthroughVideoUrl?: string
+     liveUrl?: string
+@@ -101,29 +111,50 @@ type WorkspaceOverride = {
+ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
+   "murray-martin": {
+     review: {
+-      headline: "30 years of critical power expertise, finally presented like it.",
++      headline: "Three decades of trust, now turning into enquiries.",
+       summary:
+-        "We've rebuilt your homepage to put your UPS, battery and cooling services front and centre — with your real accreditations, your Google reviews and a faster path for every enquiry.",
++        "Murray Martin has traded since 1995 on a strong balance sheet and a hard-won reputation. Your new website puts that strength in front of every visitor — so trust becomes enquiries, and enquiries become customers.",
+       observations: [
+         {
+-          title: "Expertise front and centre",
++          title: "Reputation made visible",
+           explanation:
+-            "Your three core services — Battery Services, UPS, and Cooling & InRow — now open the page with clear explanations and a direct enquiry path on each.",
++            "A new customer sees three decades of trading the moment they arrive — before they've read a word about services, they already know you're established.",
+         },
+         {
+-          title: "Real trust signals",
++          title: "Proof where buyers look",
+           explanation:
+-            "Schneider Electric, APC, SafeContractor and F-Gas accreditations are now impossible to miss, and your Google reviews sit right where new customers look for proof.",
++            "Your Schneider Electric, APC, SafeContractor and F-Gas credentials, and a real testimonial from DuPont, sit exactly where a careful buyer checks before calling.",
+         },
+         {
+-          title: "Faster callbacks",
++          title: "Trust that turns into enquiries",
+           explanation:
+-            "A Request a Callback option sits in the header of every page, so facilities managers and business owners can reach your engineers in seconds.",
++            "Every page ends at an easy way to reach your engineers — request a callback, phone or email — so the confidence you've just earned has somewhere to go.",
+         },
+       ],
+     },
+     website: {
+-      previewUrl: "https://murraymartin-services.netlify.app",
++      // Development previews: v1 is the immutable earlier deploy, v2 is the
++      // local build. In production only the existing hosted URL is shown —
++      // versioned previews stay unpublished until preview deploy is approved.
++      previewUrl:
++        process.env.NODE_ENV === "development"
++          ? "http://localhost:3999"
++          : "https://murraymartin-services.netlify.app",
++      previewImageUrl: "/murray-martin-homepage-preview.webp",
++      ...(process.env.NODE_ENV === "development"
++        ? {
++            previewVersions: [
++              { id: "v2", label: "Version 1", previewUrl: "http://localhost:3999" },
++              {
++                id: "v1",
++                label: "Version 2",
++                previewUrl:
++                  "https://6ac1b6191377cbff651147fb--murraymartin-services.netlify.app",
++              },
++            ],
++            defaultPreviewVersion: "v2",
++          }
++        : {}),
+       status: "review",
+     },
+     offer: {
+diff --git a/operators/skills/start-build.md b/operators/skills/start-build.md
+new file mode 100644
+index 00000000..d04ea973
+--- /dev/null
++++ b/operators/skills/start-build.md
+@@ -0,0 +1,168 @@
++# Skill: start-build
++
++## Stage 1 Internal-Page Links
++
++Before building or resuming a pre-approval client site, read `operators/skills/stage-1-direction-confirmation.md` (from the Sorted repo root). Implement its shared direction-confirmation pages and consistent internal routes during Op 4, before Op 5/5b. This is an intentional review state, not a finished internal page or client approval.
++
++
++**Type:** Entry point skill — read this first before any website build
++**Trigger:** User asks to build a website, start a new site, manufacture a site, or run the manufacturing line
++**Output:** A scaffolded project folder with factory job initialised
++
++---
++
++## What this skill is
++
++This is the **single entry point** for starting a new Sorted website build. If you're asking "how do I begin a new site?" — you're in the right place.
++
++It creates a sibling project folder (not inside sorted), scaffolds the Next.js site from the client-site template, copies the mockup and manifest, and initialises the factory job.
++
++## Prerequisites
++
++Before starting, you need:
++
++1. **An approved mockup image** (`.png`, `.jpg`, or `.webp`)
++2. **An image manifest JSON** — the combined deconstruction + asset manifest that describes every section, asset, copy element, and design token
++3. **A client slug** — lowercase, hyphenated (e.g., `lrt-plumbing`, `chillika`)
++
++If any are missing, stop and ask.
++
++## How to start a build
++
++### Single command
++
++```bash
++/Users/renaldoedmondson/Projects/sorted/operators/factory-orchestrator/scripts/start-build.sh \
++  <client-slug> \
++  <mockup-path> \
++  <manifest-path>
++```
++
++**Example:**
++
++```bash
++/Users/renaldoedmondson/Projects/sorted/operators/factory-orchestrator/scripts/start-build.sh \
++  lrt-plumbing \
++  ~/Downloads/lrt-mockup.png \
++  ~/Downloads/lrt-manifest.json
++```
++
++This will:
++1. Create `/Users/renaldoedmondson/Projects/<client-slug>/` (sibling to sorted)
++2. Scaffold the Next.js site from `sorted/templates/client-site/`
++3. Copy mockup + manifest into `input/`
++4. Initialise the factory job (creates `state/build-state.json`)
++5. Print the next steps
++
++### What gets created
++
++```
++/Users/renaldoedmondson/Projects/<client-slug>/
++  app/              ← Next.js app directory (from template)
++  components/       ← React components (from template)
++  public/           ← Static assets (from template)
++  client/           ← Client brief + assets (from template)
++  scripts/          ← Build scripts (from template)
++  input/
++    approved-mockup.png    ← Your mockup
++    image-manifest.json    ← Your manifest
++  state/
++    build-state.json       ← Factory job state (tracks operator progress)
++  artifacts/        ← (created as operators run)
++  package.json
++  next.config.mjs
++  tsconfig.json
++  ...
++```
++
++The project folder is its own git repo — not part of sorted. This is intentional for deployment, feature branching, and clean separation.
++
++## After starting: the operator sequence
++
++Once the build is initialised, run operators in sequence. The factory orchestrator tells you what's next:
++
++```bash
++node /Users/renaldoedmondson/Projects/sorted/operators/factory-orchestrator/dist/cli.js resume <build-dir>
++```
++
++### The 17 operators
++
++| # | Operator | Execution | Vision model? |
++|---|---|---|---|
++| 0 | Build Init | harness | No |
++| 1 | Mockup Regions | harness | No |
++| 2 | Asset Reconstruction | standalone | No |
++| 3 | Asset Registry | standalone | No |
++| 4 | Frontend Build | harness | No |
++| 5 | Visual QA (automated) | harness | No |
++| **5b** | **Human Vision QA** | **harness** | **YES — switch model** |
++| 6 | Pixel Correction | harness | No |
++| 7 | UI Systemisation | harness | No |
++| 8 | Design System | harness | No |
++| 9 | Core Build QA | harness | No |
++| 10+ | Internal pages, CMS, etc. | harness | No |
++
++### The vision QA gate (Op 5b)
++
++After the automated visual QA (Op 5) passes structural checks, there is a **human vision QA gate** (Op 5b). This step requires actually looking at the rendered site and comparing it to the mockup — something a text-only model cannot do.
++
++**When you reach Op 5b:**
++
++1. **Switch to a vision-capable model** (the user initiates this switch)
++2. Start the dev server: `cd <build-dir> && npx serve out -p 3999`
++3. Open http://localhost:3999 in a browser
++4. Compare the rendered site to the mockup at `input/approved-mockup.png`
++5. Check screenshots at `artifacts/regions/screenshots/`
++6. If the site is accurate → mark as `passed` or `skipped`
++7. If issues are found → mark as `failed` with notes, then run Op 6 (pixel correction)
++
++**Skip if:** the automated visual QA found zero issues and you're confident the build is accurate. Mark as `skipped` and proceed to Op 7.
++
++### Resuming a build
++
++If a session is interrupted, any future session can resume:
++
++```bash
++node /Users/renaldoedmondson/Projects/sorted/operators/factory-orchestrator/dist/cli.js resume <build-dir>
++```
++
++This reads `build-state.json` and tells you which operator to run next. All artifacts are durable on disk — nothing is lost between sessions.
++
++## Workspace review screen
++
++The workspace review page (`/workspace?slug=<client-slug>&route=review`) is where the client first sees the build. Two non-negotiables:
++
++1. **The black "We rebuilt your homepage." reveal card must always carry a real screenshot snapshot** of the built homepage — `workspace.website.previewImageUrl`, generated at the build/preview step (screenshot the live preview at desktop width, save an optimised webp to `sorted/public/`). Never ship the reveal with an empty right side.
++2. **The editorial hero copy (eyebrow / headline / summary) runs full container width** — no narrower max-width clamps on the section, h1, or summary paragraph.
++
++### Review copy is benefit-led, never technical
++
++The review write-up (`review.headline`, `review.summary`, `review.observations[]` in `WORKSPACE_OVERRIDES`) sells the business outcome, not the build. Rules:
++
++1. **Lead with business benefit, never technical/design analysis.** The client is reading why this earns them money, not what changed on the page.
++2. **Frame everything through the chain: trust (reputation, brand, proof) → enquiries → customers.** Each observation should map to a step in that chain — roughly: reputation made visible → proof where buyers look → trust converting into enquiries.
++3. **Ground each review in that client's real fundamentals** — trading history, longevity, reserves, standing. The message is "your business is stronger than its current digital presence lets it show." Use real figures as framing, not published numbers (write "three decades of trading" or "a strong balance sheet", never a literal reserves figure).
++4. **Ban web-design vocabulary in client-facing copy.** No "homepage redesign", "layout", "CTA", "mockup", "design direction". Plain English, second person, respectful and direct. Headline ~6-9 words; summary 1-2 sentences; each observation a short title + 1-2 sentence explanation.
++5. **Keep observations honest to what's actually built** — name the real proof on the site (credentials, testimonials, ways to get in touch), not aspirations.
++
++### Workspace review checklist
++
++- [ ] Real screenshot snapshot generated from the built site and saved to `sorted/public/` as optimised webp (`previewImageUrl`)
++- [ ] Hero copy (eyebrow / headline / summary) renders full container width — no max-width clamps
++- [ ] Review copy is benefit-led: trust → enquiries → customers, grounded in the client's real fundamentals
++- [ ] No web-design jargon anywhere in the client-facing copy
++- [ ] Page verified at desktop and mobile widths with Supabase stubbed — no real DB writes, snapshots saved to `sorted/artifacts/`
++
++## Key principles
++
++1. **Sibling folder, not inside sorted.** Each site is its own project at `/Users/renaldoedmondson/Projects/<client-slug>/`.
++2. **The manifest is the source of truth.** Every section, asset, colour, and copy element comes from the manifest.
++3. **Assets are generated, not extracted.** Flux-2-Flex is the default image generation model. No mockup extraction.
++4. **The vision QA gate is human-in-the-loop.** The harness can't auto-switch to a vision model. The user initiates that switch.
++5. **State is resumable.** `build-state.json` tracks everything. Any session can pick up where the last one left off.
++
++## Doctrine references
++
++- `operators/skills/manufacturing-line.md` — full operator chain documentation
++- `operators/skills/op-02-asset-reconstruction.md` — asset generation details
++- `templates/client-site/AGENTS.md` — site template conventions

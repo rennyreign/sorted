@@ -33,7 +33,7 @@ SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
 RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 FROM_EMAIL = os.environ.get("FROM_EMAIL", "hello@sortmydigital.site")
 FROM_NAME = os.environ.get("FROM_NAME", "Sorted")
-REVIEW_BASE_URL = os.environ.get("REVIEW_BASE_URL", "https://sortmydigital.site/review/")
+REVIEW_BASE_URL = os.environ.get("REVIEW_BASE_URL", "https://sortmydigital.site/workspace/")
 OPERATOR_EMAIL = os.environ.get("OPERATOR_EMAIL", "hello@sortmydigital.site")
 RESEND_API_ENDPOINT = "https://api.resend.com/emails"
 

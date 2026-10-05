@@ -1,0 +1,642 @@
+{
+  "project": {
+    "name": "Sorted",
+    "page": "Homepage",
+    "purpose": "Primary parent-brand homepage for Sorted, a digital business partner serving small and local businesses.",
+    "primary_goal": "Route visitors quickly into either Sorted Sites or Sorted Ads while preserving the broader positioning of Sorted as the company that handles the digital side of a local business.",
+    "audience": [
+      "small business owners",
+      "local business owners",
+      "founders",
+      "owner-operators",
+      "service businesses",
+      "hospitality businesses",
+      "fitness businesses",
+      "education businesses",
+      "local professional services"
+    ],
+    "brand_positioning": "We sort the digital side of local businesses.",
+    "brand_architecture": {
+      "parent_brand": "Sorted",
+      "primary_public_products": [
+        "Sorted Sites",
+        "Sorted Ads"
+      ],
+      "secondary_capabilities_not_positioned_as_top_level_products": [
+        "booking systems",
+        "payments",
+        "CRM",
+        "follow-up automation",
+        "reviews",
+        "tracking",
+        "reporting",
+        "analytics",
+        "content",
+        "customer journeys",
+        "operational automation"
+      ]
+    }
+  },
+
+  "design_direction": {
+    "summary": "Friendly, modern, commercially credible design for local businesses. Clean editorial layout with strong typography, rounded cards, subtle softness, hand-drawn annotations, dark green surfaces, off-white backgrounds, and bright lime accents.",
+    "desired_impression": [
+      "simple",
+      "clear",
+      "approachable",
+      "capable",
+      "modern",
+      "local-business friendly",
+      "commercial",
+      "not corporate",
+      "not startup-tech",
+      "not agency-fluffy"
+    ],
+    "avoid": [
+      "generic SaaS visuals",
+      "enterprise dashboard aesthetics",
+      "heavy gradients",
+      "glassmorphism",
+      "overly futuristic UI",
+      "abstract AI graphics",
+      "too many service categories",
+      "dense navigation",
+      "tiny text",
+      "excessive decorative motion"
+    ]
+  },
+
+  "layout_system": {
+    "page_max_width": "1440px",
+    "content_max_width": "1320px",
+    "desktop_side_padding": "48px",
+    "tablet_side_padding": "28px",
+    "mobile_side_padding": "20px",
+    "section_vertical_spacing": {
+      "desktop": "88px",
+      "tablet": "64px",
+      "mobile": "48px"
+    },
+    "grid": {
+      "desktop_columns": 12,
+      "gap": "24px"
+    },
+    "border_radius": {
+      "small": "12px",
+      "medium": "20px",
+      "large": "32px",
+      "pill": "999px"
+    }
+  },
+
+  "color_system": {
+    "background_primary": "#F8F7F2",
+    "background_secondary": "#FFFFFF",
+    "background_dark": "#08251F",
+    "background_dark_alt": "#0A2E27",
+    "background_warm_card": "#F7F3DD",
+    "background_blue_card": "#EAF4FA",
+    "text_primary": "#081614",
+    "text_secondary": "#4F5B58",
+    "text_on_dark": "#FFFFFF",
+    "lime_primary": "#D8FF18",
+    "lime_dark": "#96B400",
+    "border_light": "#E4E6E1",
+    "muted_beige": "#F3F0E8",
+    "success": "#18A55B"
+  },
+
+  "typography": {
+    "font_style": "Modern grotesk / geometric sans serif. Heavy bold display face with compact letter spacing.",
+    "display": {
+      "desktop_size": "72px",
+      "tablet_size": "56px",
+      "mobile_size": "42px",
+      "weight": 800,
+      "line_height": 0.95,
+      "letter_spacing": "-0.04em"
+    },
+    "h2": {
+      "desktop_size": "48px",
+      "mobile_size": "36px",
+      "weight": 800,
+      "line_height": 1.0,
+      "letter_spacing": "-0.03em"
+    },
+    "h3": {
+      "desktop_size": "34px",
+      "mobile_size": "28px",
+      "weight": 800,
+      "line_height": 1.05
+    },
+    "body_large": {
+      "size": "20px",
+      "line_height": 1.45
+    },
+    "body": {
+      "size": "17px",
+      "line_height": 1.5
+    },
+    "small": {
+      "size": "14px",
+      "line_height": 1.4
+    },
+    "eyebrow": {
+      "size": "13px",
+      "weight": 700,
+      "letter_spacing": "0.14em",
+      "text_transform": "uppercase"
+    },
+    "handwritten_annotation_style": {
+      "appearance": "casual marker/chalk handwritten text",
+      "weight": 600,
+      "use": "sparingly for playful annotations and directional notes"
+    }
+  },
+
+  "navigation": {
+    "position": "top",
+    "height": "84px",
+    "background": "transparent/off-white",
+    "layout": "logo left, navigation centered/right, CTA far right",
+    "logo": {
+      "text": "Sorted.",
+      "style": "bold black wordmark with lime dot"
+    },
+    "links": [
+      {
+        "label": "Sites",
+        "href": "/sites"
+      },
+      {
+        "label": "Ads",
+        "href": "/ads"
+      },
+      {
+        "label": "Work",
+        "href": "/work"
+      },
+      {
+        "label": "About",
+        "href": "/about"
+      }
+    ],
+    "cta": {
+      "label": "Get Sorted",
+      "href": "/contact",
+      "style": "dark pill button with white text and arrow"
+    },
+    "mobile": {
+      "behaviour": "collapse links into menu icon",
+      "retain_logo": true,
+      "retain_primary_cta": false
+    }
+  },
+
+  "sections": [
+    {
+      "id": "hero",
+      "type": "split_hero",
+      "background": "#F8F7F2",
+      "height": "approximately 680px desktop",
+      "layout": {
+        "desktop": "left copy 48%, right image 52%",
+        "mobile": "stacked, copy first, image second"
+      },
+      "left_content": {
+        "eyebrow": "FOR LOCAL BUSINESSES",
+        "headline": {
+          "text": "We sort the digital side of your business.",
+          "line_breaks_desktop": [
+            "We sort the",
+            "digital side of",
+            "your business."
+          ],
+          "highlight": {
+            "text": "your business.",
+            "color": "#96B400"
+          }
+        },
+        "subheadline": "Better websites. Smarter advertising. More customers.",
+        "body": "We help local businesses get found, look better and turn more enquiries into real customers — without the tech headaches.",
+        "primary_cta": {
+          "label": "I need a better website",
+          "href": "/sites",
+          "style": "dark filled pill"
+        },
+        "secondary_cta": {
+          "label": "I want more customers",
+          "href": "/ads",
+          "style": "light outlined pill"
+        },
+        "trust_points": [
+          "Local business specialists",
+          "Fast turnaround",
+          "Real results"
+        ]
+      },
+      "right_visual": {
+        "type": "photography",
+        "subject": "confident local small-business owner inside their real business environment",
+        "example": "restaurant, cafe, workshop, studio or independent shop owner",
+        "crop": "portrait-oriented upper-body composition",
+        "container_shape": "large custom rounded organic rectangle with curved left edge",
+        "overlay_elements": [
+          {
+            "type": "handwritten_note",
+            "text": "LOCAL BUSINESSES. REAL GROWTH.",
+            "position": "upper-right"
+          },
+          {
+            "type": "testimonial_card",
+            "position": "lower-right",
+            "text": "“Sorted rebuilt our website and got us more bookings within a month.”",
+            "attribution": "— Tom, The Yard Kitchen"
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "primary-offers",
+      "type": "two_column_product_cards",
+      "layout": {
+        "desktop": "two equal-width cards",
+        "mobile": "stacked"
+      },
+      "cards": [
+        {
+          "product": "Sorted Sites",
+          "background": "#F7F3DD",
+          "icon": "desktop monitor inside lime circle",
+          "headline": "Sorted Sites",
+          "description": "Websites built to make your business look as good as it is in real life.",
+          "benefits": [
+            "Modern, high-converting websites",
+            "Booking & payment integration",
+            "Mobile optimised",
+            "Built fast, without the faff"
+          ],
+          "visual": {
+            "type": "laptop mockup",
+            "content": "premium local business website shown on screen"
+          },
+          "annotation": "A WEBSITE THAT WORKS HARDER.",
+          "cta": {
+            "label": "Explore Sorted Sites",
+            "href": "/sites"
+          }
+        },
+        {
+          "product": "Sorted Ads",
+          "background": "#EAF4FA",
+          "icon": "megaphone inside lime circle",
+          "headline": "Sorted Ads",
+          "description": "Advertising that brings more of the right customers to your business.",
+          "benefits": [
+            "Facebook & Instagram ads",
+            "Google ads",
+            "Ad creative & copy",
+            "Landing pages",
+            "Tracking & reporting",
+            "Ongoing optimisation"
+          ],
+          "visual": {
+            "type": "smartphone mockup",
+            "content": "social ad shown inside a Facebook/Instagram-style feed"
+          },
+          "annotation": "MORE ENQUIRIES. REAL CUSTOMERS.",
+          "cta": {
+            "label": "Explore Sorted Ads",
+            "href": "/ads"
+          }
+        }
+      ]
+    },
+
+    {
+      "id": "results",
+      "type": "results_showcase",
+      "eyebrow": "REAL BUSINESSES. REAL RESULTS.",
+      "heading": "Local businesses. Real growth.",
+      "body": "We’ve helped gyms, schools, trades, clinics, cafés and more attract more customers, streamline their operations and grow.",
+      "cta": {
+        "label": "See our work",
+        "href": "/work"
+      },
+      "results_cards": [
+        {
+          "image": "fitness business / gym",
+          "metric": "+187%",
+          "label": "more enquiries",
+          "business": "BodySharp Fitness"
+        },
+        {
+          "image": "restaurant / food business",
+          "metric": "3x",
+          "label": "more bookings",
+          "business": "The Yard Kitchen"
+        },
+        {
+          "image": "education / tuition business",
+          "metric": "+62%",
+          "label": "more sign ups",
+          "business": "Edgbaston Tuition"
+        }
+      ],
+      "layout": {
+        "desktop": "intro block left, three metric cards right",
+        "mobile": "stacked intro followed by horizontal-scroll or stacked cards"
+      }
+    },
+
+    {
+      "id": "client-logos",
+      "type": "logo_strip",
+      "label": "TRUSTED BY BUSINESSES ACROSS WARWICKSHIRE AND BEYOND",
+      "logos": [
+        "BodySharp Fitness",
+        "The Yard Kitchen",
+        "School of Skill",
+        "Edgbaston Tuition Centre",
+        "GB Halesowen"
+      ],
+      "style": "monochrome black/dark logos on white/off-white background",
+      "spacing": "large even horizontal spacing"
+    },
+
+    {
+      "id": "process",
+      "type": "four_step_process",
+      "background": "#F3F0E8",
+      "heading": "A simple way to get started.",
+      "annotation": "STRAIGHTFORWARD. NO TECH HEADACHES.",
+      "steps": [
+        {
+          "number": 1,
+          "title": "Tell us about your business",
+          "description": "Quick chat or short form."
+        },
+        {
+          "number": 2,
+          "title": "We show you what’s possible",
+          "description": "Website mockup or ad plan."
+        },
+        {
+          "number": 3,
+          "title": "You give the nod",
+          "description": "Approve and we get to work."
+        },
+        {
+          "number": 4,
+          "title": "More customers and real results",
+          "description": "Ongoing support as you grow."
+        }
+      ],
+      "visual_rules": {
+        "number_style": "lime circular badge",
+        "arrows_between_steps": true,
+        "desktop_layout": "horizontal four-step row",
+        "mobile_layout": "vertical timeline"
+      }
+    },
+
+    {
+      "id": "final-cta",
+      "type": "dark_cta_banner",
+      "background": "#08251F",
+      "heading": "Ready to get sorted?",
+      "body": "Let’s talk about your website, your advertising or whatever’s holding your business back.",
+      "cta": {
+        "label": "Get in touch",
+        "href": "/contact",
+        "style": "lime pill button"
+      },
+      "social_proof": {
+        "type": "small circular team/avatar group",
+        "label": "A local team that gets local businesses."
+      },
+      "layout": "headline left, CTA center, social proof right"
+    }
+  ],
+
+  "footer": {
+    "background": "#08251F",
+    "text_color": "#FFFFFF",
+    "layout": {
+      "desktop": "four columns",
+      "mobile": "stacked"
+    },
+    "brand_column": {
+      "logo": "Sorted.",
+      "tagline": "We sort the digital side of local businesses."
+    },
+    "services_column": {
+      "heading": "Services",
+      "links": [
+        {
+          "label": "Sorted Sites",
+          "href": "/sites"
+        },
+        {
+          "label": "Sorted Ads",
+          "href": "/ads"
+        }
+      ]
+    },
+    "company_column": {
+      "heading": "Company",
+      "links": [
+        {
+          "label": "About",
+          "href": "/about"
+        },
+        {
+          "label": "Our work",
+          "href": "/work"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact"
+        }
+      ]
+    },
+    "contact_column": {
+      "heading": "Let’s talk",
+      "primary_cta": "Book a call",
+      "social_icons": [
+        "LinkedIn",
+        "Instagram"
+      ]
+    },
+    "handwritten_annotation": "LOCAL BUSINESSES. BRIGHTER FUTURES.",
+    "legal_links": [
+      "Privacy",
+      "Terms",
+      "Cookies"
+    ],
+    "copyright": "© 2026 Sorted. All rights reserved."
+  },
+
+  "components": {
+    "button_primary_dark": {
+      "height": "52px",
+      "padding_horizontal": "24px",
+      "background": "#08251F",
+      "text": "#FFFFFF",
+      "border_radius": "999px",
+      "icon": "arrow-right"
+    },
+    "button_primary_lime": {
+      "height": "52px",
+      "padding_horizontal": "28px",
+      "background": "#D8FF18",
+      "text": "#081614",
+      "border_radius": "999px",
+      "icon": "arrow-right"
+    },
+    "button_outline": {
+      "height": "52px",
+      "padding_horizontal": "24px",
+      "background": "transparent",
+      "border": "1px solid #A9B0AD",
+      "text": "#081614",
+      "border_radius": "999px"
+    },
+    "check_item": {
+      "icon": "small lime circle with dark checkmark",
+      "gap": "10px"
+    },
+    "metric_card": {
+      "background": "#FFFFFF",
+      "border_radius": "16px",
+      "overflow": "hidden",
+      "image_ratio": "4:3",
+      "metric_weight": 800,
+      "metric_size": "32px"
+    }
+  },
+
+  "interaction": {
+    "buttons": {
+      "hover": "slight upward movement, subtle shadow increase, arrow shifts 3-4px right",
+      "duration": "180ms"
+    },
+    "product_cards": {
+      "hover": "very subtle lift and shadow; no dramatic animation"
+    },
+    "navigation": {
+      "sticky": false
+    },
+    "motion_rule": "Motion should support clarity and polish. Avoid large animated sequences."
+  },
+
+  "responsive_rules": {
+    "desktop": {
+      "breakpoint": ">= 1100px",
+      "hero_layout": "split",
+      "offer_cards": "two columns",
+      "results": "intro plus three cards",
+      "process": "four horizontal steps"
+    },
+    "tablet": {
+      "breakpoint": "768px-1099px",
+      "hero_layout": "split with reduced typography",
+      "offer_cards": "two columns where possible",
+      "results": "two-column wrap",
+      "process": "two-by-two grid"
+    },
+    "mobile": {
+      "breakpoint": "< 768px",
+      "hero_layout": "single column",
+      "hero_image_position": "below CTA buttons",
+      "headline_size": "42px",
+      "offer_cards": "single column",
+      "results": "stack",
+      "process": "vertical",
+      "final_cta": "stack content",
+      "footer": "stack columns",
+      "buttons": "full-width where appropriate"
+    }
+  },
+
+  "content_rules": {
+    "language": [
+      "plain English",
+      "local business language",
+      "commercially useful",
+      "short sentences",
+      "minimal jargon",
+      "specific outcomes"
+    ],
+    "preferred_terms": [
+      "customers",
+      "enquiries",
+      "bookings",
+      "website",
+      "advertising",
+      "local business",
+      "get found",
+      "look better",
+      "more customers",
+      "get sorted"
+    ],
+    "avoid_terms": [
+      "digital transformation",
+      "end-to-end",
+      "ecosystem",
+      "omnichannel",
+      "growth stack",
+      "MarTech",
+      "workflow orchestration",
+      "AI-powered solutions",
+      "holistic strategy"
+    ]
+  },
+
+  "strategic_rules": {
+    "primary_rule": "The page must remain simple enough that a local business owner understands the proposition in under 10 seconds.",
+    "public_products_only": [
+      "Sorted Sites",
+      "Sorted Ads"
+    ],
+    "do_not_create_top_level_cards_for": [
+      "automation",
+      "analytics",
+      "CRM",
+      "reporting",
+      "booking systems",
+      "payments",
+      "reviews",
+      "tracking"
+    ],
+    "supporting_capabilities_rule": "Supporting systems may be mentioned inside Sites or Ads, but never positioned as equal public product categories on this page.",
+    "navigation_rule": "Do not add a Services dropdown or additional top-level service taxonomy.",
+    "homepage_role": "The homepage is both the Sorted brand statement and the route-selection page. Do not create an additional selector page."
+  },
+
+  "implementation_notes_for_non_vision_model": {
+    "priority_order": [
+      "Preserve the hierarchy: Sorted parent brand > Sites and Ads",
+      "Keep hero extremely simple",
+      "Make Sites and Ads cards visually dominant immediately after hero",
+      "Use large typography and generous whitespace",
+      "Keep local-business photography human and credible",
+      "Use lime only as a high-attention accent",
+      "Use dark green for strong CTA/footer surfaces",
+      "Use handwritten annotations sparingly",
+      "Do not add extra services to the primary product grid"
+    ],
+    "critical_visual_identity": [
+      "off-white canvas",
+      "dark green",
+      "lime accents",
+      "oversized black typography",
+      "rounded panels",
+      "real local-business photography",
+      "handwritten annotations",
+      "simple arrows",
+      "clean commercial cards"
+    ]
+  }
+}

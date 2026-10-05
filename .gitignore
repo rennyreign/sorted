@@ -24,3 +24,9 @@ marketing/01-screencast.mp4
 marketing/01-talking-head.mp4
 # Private Ad Review editor/reviewer/ingestion credentials.
 .ad-review/
+
+# Vercel CLI local state
+.vercel
+
+# Google service account credentials — never commit
+tracking/sortedServiceAccount.json

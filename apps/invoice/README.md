@@ -14,7 +14,8 @@ Create invoices, keep a log of everything you've raised, track manual payment st
 - **Multiple currencies** — pick the billing currency per invoice.
 - **Bank details** — store multiple bank accounts, choose which to show per invoice.
 - **Company name** — toggle whether your company name appears on each invoice.
-- **Manual payment statuses** — `draft`, `sent`, `paid`, `overdue`, `cancelled`. Set by hand; nothing is automated.
+- **Payment tracking** — record payments (partial or full) against any invoice with date, method, and note. The remaining balance shows on the invoice, the PDF, and the invoice log.
+- **Payment statuses** — `draft`, `sent`, `paid`, `overdue`, `cancelled`. Set by hand; an invoice is auto-marked `paid` when recorded payments cover the total (and reverts to `sent` if a payment is removed leaving a balance).
 - **PDF export** — one click opens the browser print dialog on a print-optimised invoice; save as PDF.
 
 ## Stack
@@ -51,6 +52,7 @@ npm run lint     # eslint
 - `bank_accounts` — label, bank name, account name/number, IBAN, SWIFT, routing, currency.
 - `invoices` — number, client, status, currency, issue/due dates, tax rate, notes, chosen bank account, show-company-name flag.
 - `line_items` — description, unit (`project` / `hours` / `units`), quantity, unit price.
+- `payments` — amount, paid-at date, method (`bank_transfer` / `card` / `cash` / `paypal` / `other`), note.
 
 Invoice numbers auto-increment per year: `INV-2026-0001`.
 

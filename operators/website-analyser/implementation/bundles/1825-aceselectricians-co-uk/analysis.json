@@ -1,0 +1,26 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 1,
+    "mobile_experience": 1,
+    "desire_creation": 1,
+    "content_structure": 1,
+    "trust_and_credibility": 2
+  },
+  "business_quality_score": 7,
+  "business_quality_reasoning": "Active Ltd since 2009, 4.9 stars across 73 Google reviews, covers domestic and commercial electrical work with 24-hour customer service and fault helplines, and lists TrustMark, City & Guilds and 18th Edition accreditations. An established, credentialed business with steady demand.",
+  "service_price_point": 400,
+  "price_point_reasoning": "The site lists rewiring, PAT testing, diagnostics and garden lighting alongside emergency work; a typical single job for this mix lands around £300-500, so £400 is a fair midpoint.",
+  "modernity_gap": "The site is a dated WordPress template (WordPress 5.9, 2023 copyright, still running a 'Covid-19 Message' button) with cramped typography and grey block sections — roughly 4-6 years behind current standards for trades sites.",
+  "site_weaknesses": [
+    "A 'Covid-19 Message' button still sits in the hero — signals the site has not been touched in years",
+    "Hero has no clear primary CTA for getting a quote — 'Call us for a chat' undersells the offer",
+    "Services use stock-style imagery with generic 'Read More' links and no pricing or detail guidance",
+    "The accreditation badge strip and Checkatrade review widget are genuine strengths but presented in a dated, low-contrast layout",
+    "Mobile view stacks awkwardly with a cookie banner covering the accreditation logos",
+    "Enquiry path relies on phone/email links — no quote or booking form above the fold"
+  ],
+  "site_analysis": "The business underneath is strong — a decade and a half trading, proper accreditations, real Checkatrade reviews embedded on the page — but the presentation is a generic WordPress template that still carries a Covid-19 alert in the hero. Services are generic cards with stock imagery, and there is no clear conversion path beyond 'call us'. It works, but it undersells the business at every step.",
+  "review_summary": "Your site covers the essentials and shows your accreditations and reviews, but it looks like it has not been updated in years — there is still a Covid-19 notice button in the header. Customers comparing you with newer-looking competitors may never get far enough to see your 4.9-star rating and certifications. A clean, modern rebuild that leads with your credentials would turn more visitors into calls.",
+  "outreach_angle": "Your homepage still has a 'Covid-19 Message' button front and centre — for a business with TrustMark and City & Guilds credentials and a 4.9 rating, the site is telling a much older story than the one you've earned.",
+  "business_type": "electrician"
+}

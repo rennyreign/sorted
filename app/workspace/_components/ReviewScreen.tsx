@@ -18,25 +18,25 @@ export function ReviewScreen({
   const { headline, summary, observations } = workspace.review
 
   return (
-    <div className="mx-auto max-w-[1140px] px-5 pb-16 pt-8 sm:px-8 sm:pt-11">
+    <div className="mx-auto max-w-[1140px] px-5 pb-16 pt-7 sm:px-8 sm:pt-11">
       {/* Editorial hero */}
-      <section className="mb-8 max-w-[760px] sm:mb-10">
+      <section className="mb-[18px]">
         <p className="mb-3.5 text-[11px] font-bold uppercase tracking-[0.16em] text-[#73736D]">
           Prepared for {workspace.business.name}
         </p>
-        <h1 className="max-w-[720px] text-[clamp(2.6rem,5.4vw,4rem)] font-extrabold leading-[0.97] tracking-[-0.05em]">
+        <h1 className="text-[clamp(2.6rem,5.4vw,4rem)] font-extrabold leading-[0.97] tracking-[-0.05em]">
           {headline}
         </h1>
-        <p className="mt-4 max-w-[610px] text-[16px] font-medium leading-[1.55] text-[#73736D] sm:text-[18px]">
+        <p className="mt-4 text-[16px] font-medium leading-[1.55] text-[#73736D] sm:text-[18px]">
           {summary}
         </p>
       </section>
 
       {/* Homepage reveal */}
-      <section className="mb-10 overflow-hidden rounded-[14px] bg-[#070707] lg:grid lg:min-h-[340px] lg:grid-cols-[44%_56%]">
+      <section className="mb-7 overflow-hidden rounded-[14px] bg-[#070707] lg:grid lg:h-[340px] lg:grid-cols-[44%_56%]">
         <div className="flex flex-col justify-center px-6 py-8 sm:px-10 sm:py-10">
           <h2 className="max-w-[380px] text-[34px] font-extrabold leading-[0.98] tracking-[-0.04em] text-white sm:text-[44px]">
-            We rebuilt your homepage.
+            We rebuilt your site.
           </h2>
           <p className="mt-4 max-w-[390px] text-[15px] font-medium leading-[1.5] text-white/70 sm:text-[16px]">
             A clearer direction, built around the substance already inside your business.
@@ -44,23 +44,23 @@ export function ReviewScreen({
           <button
             type="button"
             onClick={openPreview}
-            className="mt-6 inline-flex h-12 w-fit items-center gap-3 rounded-full bg-[#DFFF00] px-6 text-[13px] font-black text-[#070707] shadow-[0_14px_34px_rgba(223,255,0,0.18)] transition-transform duration-150 hover:-translate-y-px focus:outline-2 focus:outline-offset-4 focus:outline-[#DFFF00] active:translate-y-0"
+            className="mt-6 inline-flex h-12 w-fit items-center gap-3 rounded-full bg-[#DFFF00] px-6 text-[13px] font-black text-[#070707] shadow-[0_14px_34px_rgba(223,255,0,0.18)] transition-transform duration-150 hover:-translate-y-px focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00] active:translate-y-0"
           >
-            Explore your new homepage <ArrowRight className="size-4" strokeWidth={2.8} />
+            Explore your new site <ArrowRight className="size-4" strokeWidth={2.8} />
           </button>
         </div>
         {workspace.website.previewImageUrl ? (
           <button
             type="button"
             onClick={openPreview}
-            aria-label={`Open the working homepage for ${workspace.business.name}`}
-            className="block cursor-pointer p-3 sm:p-4 lg:p-5"
+            aria-label={`Open the working site for ${workspace.business.name}`}
+            className="relative block aspect-[16/10] cursor-pointer overflow-hidden p-3 sm:p-4 lg:h-full lg:aspect-auto lg:p-5"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={workspace.website.previewImageUrl}
-              alt={`Working homepage created for ${workspace.business.name}`}
-              className="aspect-[16/10] w-full rounded-[10px] object-cover object-top lg:aspect-auto lg:h-full"
+              alt={`Working site created for ${workspace.business.name}`}
+              className="h-full w-full rounded-[10px] object-cover object-top"
             />
           </button>
         ) : null}
@@ -68,7 +68,7 @@ export function ReviewScreen({
 
       {/* Observations */}
       {observations.length > 0 ? (
-        <section className="mb-10">
+        <section className="mb-[18px]">
           <h2 className="text-[28px] font-extrabold tracking-[-0.04em] sm:text-[34px]">Why we rebuilt it</h2>
           <span className="mt-3 block h-[4px] w-14 rounded-full bg-[#DFFF00]" />
           <ol className="mt-6">
@@ -96,9 +96,9 @@ export function ReviewScreen({
           <Tag className="size-5 sm:size-6" strokeWidth={2.2} />
         </span>
         <div>
-          <h2 className="text-[19px] font-extrabold tracking-[-0.03em] sm:text-[22px]">Complete website · £3,000 fixed</h2>
+          <h2 className="text-[19px] font-extrabold tracking-[-0.03em] sm:text-[22px]">Complete website · £{workspace.offer.total.toLocaleString()} fixed</h2>
           <p className="mt-1 max-w-[480px] text-[13px] font-semibold leading-[1.45] text-[#73736D] sm:text-[14px]">
-            Your complete website, built and launched for one fixed price. No surprises.
+            Your complete website, built and launched for one fixed price.
           </p>
         </div>
         <button
@@ -107,7 +107,7 @@ export function ReviewScreen({
             workspaceEvent(workspace, "next_steps_opened")
             onNavigate("next-steps")
           }}
-          className="col-span-2 inline-flex h-12 w-full items-center justify-center gap-3 rounded-full bg-[#070707] px-6 text-[13px] font-black text-white transition-transform duration-150 hover:-translate-y-px focus:outline-2 focus:outline-offset-4 focus:outline-[#070707] active:translate-y-0 sm:col-span-1 sm:w-auto"
+          className="col-span-2 inline-flex h-12 w-full items-center justify-center gap-3 rounded-full bg-[#070707] px-6 text-[13px] font-black text-white transition-transform duration-150 hover:-translate-y-px focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#070707] active:translate-y-0 sm:col-span-1 sm:w-auto"
         >
           See next steps <ArrowRight className="size-4" strokeWidth={2.8} />
         </button>

@@ -1,0 +1,162 @@
+
+> sorted@0.1.0 build
+> next build
+
+▲ Next.js 16.3.5 (Turbopack)
+- Environments: .env.local
+✓ Running next.config.mjs took 6ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1133ms
+  Running TypeScript ...
+  Finished TypeScript in 1270ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/130) ...
+  Generating static pages using 7 workers (32/130) 
+  Generating static pages using 7 workers (64/130) 
+  Generating static pages using 7 workers (97/130) 
+✓ Generating static pages using 7 workers (130/130) in 513ms
+  Finalizing page optimization ...
+
+Route (app)                                   Revalidate  Expire
+┌ ○ /
+├ ○ /_not-found
+├ ○ /about
+├ ○ /ad-review
+├ ○ /ads
+├ ○ /ads/assets
+├ ○ /ads/campaign
+├ ○ /ads/publishing
+├ ○ /ads/results
+├ ○ /ads/settings
+├ ƒ /api/costs/pipeline
+├ ƒ /api/costs/suppliers
+├ ƒ /api/examples/sync
+├ ƒ /api/examples/sync-storage
+├ ƒ /api/gmail/auth
+├ ƒ /api/gmail/callback
+├ ƒ /api/gmail/draft
+├ ƒ /api/gmail/status
+├ ƒ /api/operators/affiliates
+├ ƒ /api/operators/affiliates/referrals
+├ ƒ /api/operators/affiliates/referrals/[id]
+├ ƒ /api/operators/notify
+├ ƒ /api/operators/status
+├ ƒ /api/operators/trigger
+├ ƒ /api/outreach/pause
+├ ƒ /api/outreach/resume
+├ ƒ /api/outreach/retry
+├ ƒ /api/outreach/status
+├ ƒ /api/price
+├ ƒ /api/review/build
+├ ƒ /api/review/reveal
+├ ƒ /api/review/upload-mockup
+├ ƒ /api/sorted-updates/approval
+├ ƒ /api/sorted-updates/chat
+├ ƒ /api/sorted-updates/history
+├ ƒ /api/sorted-updates/reset
+├ ƒ /api/updates
+├ ○ /brand
+├ ○ /brand-switchboard
+├ ○ /clients/advocate-better-care
+├ ○ /clients/bodysharp
+├ ○ /clients/feroza
+├ ○ /clients/gb-halesowen
+├ ○ /clients/gbhalesowen
+├ ○ /clients/raffles-malaysian-restaurant
+├ ○ /clients/roye-abramson
+├ ○ /clients/roye-abramson/checklist
+├ ○ /clients/sandra
+├ ○ /clients/savannah-villegas
+├ ○ /clients/warwickshire-str
+├ ○ /examples                                         1d      1y
+├   /examples/[slug]
+│ ├ ● /examples/warwickshire-short-stays
+│ ├ ● /examples/palace-barn-cottage
+│ ├ ● /examples/bodysharp-fitness
+│ └ ● [+2 more paths]
+├ ○ /examples/the-yard
+├ ○ /howitworks
+├ ○ /logo-export
+├ ○ /operators/costs
+├ ○ /operators/prospect-finder
+├ ○ /operators/scorecard
+├ ○ /ops
+├ ○ /ops/about
+├ ○ /ops/brand
+├ ○ /ops/case-studies/glow-dental
+├ ○ /ops/how-it-works
+├ ○ /ops/industries/dental-practices
+├ ○ /ops/pricing
+├ ○ /ops/problems-we-solve
+├ ○ /ops/problems/nobody-owns-it
+├ ○ /ops/problems/we-lose-customers
+├ ○ /ops/problems/we-miss-opportunities
+├ ○ /ops/problems/we-waste-time
+├ ○ /ops/results
+├ ○ /ops/results-dashboard
+├ ○ /ops/results/action-hero-marketing
+├ ○ /ops/results/bisk-education
+├ ○ /ops/results/bodysharp
+├ ○ /ops/results/glow-dental
+├ ○ /ops/results/gracie-barra-halesowen
+├ ○ /ops/reviews/glow-dental
+├ ○ /ops/systems/enquiry-follow-up
+├ ○ /partners
+├ ○ /partners/apply
+├ ○ /partners/dashboard
+├ ○ /partners/enterprise
+├ ○ /partners/enterprise-deck
+├ ○ /partners/forgot-password
+├ ○ /partners/login
+├ ○ /partners/reset-password
+├ ○ /partners/selling-sorted
+├ ○ /partners/what-you-earn
+├ ○ /pricing
+├ ○ /proposals/edgbaston-tuition-centre
+├ ○ /proposals/party-world
+├ ○ /proposals/party-world/checklist
+├ ○ /proposals/raffles-restaurant
+├ ○ /proposals/roye
+├ ○ /proposals/school-of-skill
+├ ○ /proposals/sebastian-md
+├ ○ /proposals/shropshire-tents
+├ ○ /review
+├ ○ /review-next
+├ ○ /sorted
+├ ○ /sorted-os
+├ ○ /sorted-updates
+├ ○ /sorted/chat
+├ ƒ /sorted/history
+├ ○ /sorted/preview
+├ ○ /sorted/reset
+├ ○ /updates
+├ ○ /v2
+├ ○ /v2/about
+├ ○ /v2/brand
+├ ○ /v2/case-studies/glow-dental
+├ ○ /v2/how-it-works
+├ ○ /v2/industries/dental-practices
+├ ○ /v2/pricing
+├ ○ /v2/problems-we-solve
+├ ○ /v2/problems/nobody-owns-it
+├ ○ /v2/problems/we-lose-customers
+├ ○ /v2/problems/we-miss-opportunities
+├ ○ /v2/problems/we-waste-time
+├ ○ /v2/results
+├ ○ /v2/results-dashboard
+├ ○ /v2/results/action-hero-marketing
+├ ○ /v2/results/bisk-education
+├ ○ /v2/results/bodysharp
+├ ○ /v2/results/glow-dental
+├ ○ /v2/results/gracie-barra-halesowen
+├ ○ /v2/reviews/glow-dental
+├ ○ /v2/systems/enquiry-follow-up
+├ ○ /website-updates
+└ ○ /workspace
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

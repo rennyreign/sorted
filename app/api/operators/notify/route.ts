@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { sendEmail } from "@/lib/resend"
 
 const OPERATOR_EMAIL = process.env.OPERATOR_EMAIL ?? "hello@sortmydigital.site"
-const REVIEW_BASE_URL = "https://sortmydigital.site/review/"
+const REVIEW_BASE_URL = "https://sortmydigital.site/workspace/"
 
 type WebsiteLeadPayload = {
   type: "website_lead"

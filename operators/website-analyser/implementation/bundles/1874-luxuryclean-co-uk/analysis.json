@@ -1,0 +1,26 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 1,
+    "mobile_experience": 1,
+    "desire_creation": 1,
+    "content_structure": 1,
+    "trust_and_credibility": 2
+  },
+  "business_quality_score": 7,
+  "business_quality_reasoning": "CH-active Ltd since 2019, a perfect 5.0 across 170 Google reviews, claims 1,200+ projects and 10+ years, and shows Nike, Chelsea and Sony Music as commercial clients — an established cleaning and restoration company with both residential and contract revenue.",
+  "service_price_point": 350,
+  "price_point_reasoning": "Carpet cleaning jobs run £80-150 while wood floor restoration and commercial contracts reach £500-1,500+; £350 is a fair midpoint per job across their service mix.",
+  "modernity_gap": "A cluttered WordPress template estimated at 2015-era — clashing navy, yellow and blue blocks, cramped text and floating call buttons — roughly 8-10 years behind current standards despite rich content.",
+  "site_weaknesses": [
+    "Design is visually chaotic — competing navy, yellow and blue sections with no consistent palette or spacing rhythm",
+    "Two floating call/quote buttons overlap content on mobile and block the text",
+    "Big-name client logos (Nike, Chelsea, Sony Music) are dropped in with no captions or context about the work done",
+    "No before/after gallery on the homepage despite restoration being the core service",
+    "Copy is dense paragraph walls — 'Why Choose Us' is a text dump rather than scannable benefits",
+    "No visible Google reviews or rating widget despite a 5.0 score across 170 reviews"
+  ],
+  "site_analysis": "Luxury Clean has genuinely strong material — major commercial clients, 1,200+ projects, named services and an appointment form — but it is wrapped in a dated, chaotic WordPress template where everything shouts at once. Floating call buttons cover the text on mobile, client logos appear without context, and none of the 170 five-star Google reviews are shown. The substance is there; the presentation buries it.",
+  "review_summary": "Your business has impressive proof — Nike, Chelsea and Sony Music as clients, over a thousand projects and a five-star Google rating — but your site does not show any of it properly. The design is cluttered, the buttons cover your text on phones, and none of your 170 reviews appear on the page. A cleaner layout that leads with your client list, your reviews and before-and-after photos would match the quality of the work you actually do.",
+  "outreach_angle": "You list Nike, Chelsea and Sony Music as clients but there is not a single review or before-and-after photo on your homepage — the proof of your best work is invisible.",
+  "business_type": "carpet and floor cleaning / restoration company"
+}

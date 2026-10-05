@@ -1,0 +1,25 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 1,
+    "mobile_experience": 1,
+    "desire_creation": 1,
+    "content_structure": 1,
+    "trust_and_credibility": 1
+  },
+  "business_quality_score": 6,
+  "business_quality_reasoning": "Trading since 2021 (and claiming industry experience back to 2004), NICEIC registered, with 81 Google reviews at 5.0 and a 24/7 emergency service model. Micro accounts keep it modest, but this is a genuine busy local firm.",
+  "service_price_point": 250,
+  "price_point_reasoning": "Standard domestic and commercial electrician services plus emergency call-outs; typical single-job value for this category in London.",
+  "modernity_gap": "A cluttered Elementor template with stock photography and widget overload - it works, but looks and feels like a generic theme rather than a 5-star firm.",
+  "site_weaknesses": [
+    "Busy, generic Elementor template with heavy red/black theme and stock photos",
+    "Floating WhatsApp/call widgets and review pop-ups crowd every view",
+    "Headline says 'Full range of electrical services' - no location, specialism or reason to choose them",
+    "Reviews widget floats over content rather than proof being built into the page",
+    "Hero text mentions compliance and regulations before it mentions the customer"
+  ],
+  "site_analysis": "Ohmatic's site is a typical Elementor build: stock photo hero, generic 'full range of services' headline, and widgets (WhatsApp, call, review pop-up) competing for attention on every screen. A 5.0-rated, NICEIC-approved firm deserves better than a template that makes it look interchangeable with every other electrician in London.",
+  "review_summary": "Your 81 five-star reviews and NICEIC approval are real strengths, but your website buries them under a busy template, stock photos and pop-up widgets. Visitors cannot quickly see where you work, what you are best at, or why to pick you over the next electrician on Google. A cleaner site built around your reviews would convert more of the people already finding you.",
+  "outreach_angle": "81 reviews at a perfect 5.0 and NICEIC approved, but your homepage still leads with a stock photo and the words 'full range of electrical services' - you have earned a better first impression than that.",
+  "business_type": "domestic and commercial electrician"
+}

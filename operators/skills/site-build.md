@@ -1,5 +1,10 @@
 # Skill: site-build
 
+## Stage 1 Internal-Page Links
+
+Before building or resuming a pre-approval client site, read `operators/skills/stage-1-direction-confirmation.md` (from the Sorted repo root). Implement its shared direction-confirmation pages and consistent internal routes during Op 4, before Op 5/5b. This is an intentional review state, not a finished internal page or client approval.
+
+
 **Type:** Orchestration skill  
 **Trigger:** User provides a mockup image and asks to build a client site  
 **Chain:** Runs all three sub-skills in sequence: mockup-deconstructor → asset-generator → frontend-builder  
@@ -84,6 +89,7 @@ Run through these before calling the build complete:
 - [ ] Phone / email / address placed correctly in the contact section and footer
 - [ ] Mobile-safe — no horizontal scroll at 375px viewport
 - [ ] Primary CTA is obvious within 5 seconds
+- [ ] Advertised internal-page links resolve to real routes using the shared direction-confirmation page until client approval; legal/utility and genuine conversion actions remain functional.
 
 ---
 

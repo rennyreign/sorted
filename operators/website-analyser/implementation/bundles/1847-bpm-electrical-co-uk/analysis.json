@@ -1,0 +1,25 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 2,
+    "mobile_experience": 1,
+    "desire_creation": 1,
+    "content_structure": 2,
+    "trust_and_credibility": 2
+  },
+  "business_quality_score": 6,
+  "business_quality_reasoning": "BPM Electrical has traded since 2015 with full accounts filed — an established, stable electrician rather than a startup. Only 8 Google reviews though, and the emergency call-out positioning suggests job-value rather than contract-scale revenue.",
+  "service_price_point": 200,
+  "price_point_reasoning": "Emergency call-outs plus domestic work (rewires, consumer units, lighting) suggest a typical job value around £150-£300.",
+  "modernity_gap": "The underlying site is genuinely modern — dark theme, clear typography, structured service sections — but an aggressive emergency-callout interstitial blocks and re-appears over the content, wrecking the experience.",
+  "site_weaknesses": [
+    "A 'Need an emergency electrician?' modal gates the whole page and appears repeatedly as you scroll — visitors cannot browse without dismissing it",
+    "The interstitial dominates the mobile view too, covering the hero entirely",
+    "Only 8 Google reviews are earned but none are displayed on the site",
+    "NICEIC accreditation is mentioned in small text but not presented as a proper credibility block with logos or certificate detail",
+    "No pricing guidance, response-time promise detail or named engineer — the page sells urgency but not trust"
+  ],
+  "site_analysis": "This is the rare prospect with a modern site: dark, sharp design with well-organised sections covering emergency work, rewiring, lighting, consumer units and commercial. The big flaw is a full-screen emergency interstitial that blocks the content and repeats down the page — the site's own best material is hidden behind a popup. Fixing the gate and adding real reviews would lift conversion without a rebuild.",
+  "review_summary": "Your site actually looks sharp, but a 'Need an emergency electrician?' popup covers the whole page and keeps coming back as visitors scroll — people have to fight it just to see what you offer. Your NICEIC accreditation and reviews barely get a look in. Letting the content breathe would do more for you than the popup does.",
+  "outreach_angle": "Your site hides a genuinely good design behind an emergency-callout popup that reappears down the whole page — visitors never see your best content.",
+  "business_type": "electrician (emergency call-out and domestic/commercial)"
+}

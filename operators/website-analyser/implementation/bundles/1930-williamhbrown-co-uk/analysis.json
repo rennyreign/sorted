@@ -1,0 +1,25 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 1,
+    "mobile_experience": 2,
+    "desire_creation": 1,
+    "content_structure": 2,
+    "trust_and_credibility": 1
+  },
+  "business_quality_score": 3,
+  "business_quality_reasoning": "William H Brown is a national franchise network — the Rainham branch page sits on a locked corporate template the local office almost certainly cannot replace or commission independently, and the CH record (05753384) maps to a micro-entity franchisee. Commercially real (143 reviews, established branch) but not a buyer for a bespoke rebuild.",
+  "service_price_point": 5000,
+  "price_point_reasoning": "Estate agency fees run roughly 1-1.5% of sale price; the site itself quotes an average Rainham property value of £425,800, so a single completed sale is worth around £4,000-6,000 in commission.",
+  "modernity_gap": "A serviceable corporate franchise template — it functions and renders on mobile, but it is generic group branding with empty sections and no local personality.",
+  "site_weaknesses": [
+    "The 'meet the team' section renders as an empty heading — no staff photos or bios build local trust",
+    "Hero is a generic blue-sky banner rather than real photography of the branch or the area it serves",
+    "Property search filters dominate the page over anything that sells the Rainham team specifically",
+    "Testimonials and reviews are absent despite 143 Google reviews on the listing",
+    "Contact options are branch-generic call/email buttons with no named person to reach"
+  ],
+  "site_analysis": "This is a corporate franchise branch page, not a local business website — the layout is competent and mobile-friendly but entirely interchangeable with any other William H Brown office. The 'meet the team' block renders empty, there are no reviews or real local imagery, and nothing differentiates the Rainham branch from the national brand. A rebuild opportunity is limited because a franchisee rarely controls its own web presence.",
+  "review_summary": "Your branch page does the basics — opening times, contact buttons and a property search — but nothing on it shows the people behind your office. The meet-the-team section is empty and there is not a single review or local photo to set you apart from every other William H Brown branch. Showing your team, your reviews and your patch would make sellers far more likely to pick up the phone to you.",
+  "outreach_angle": "Your Rainham page has an empty 'meet the team' section and no reviews — for a branch with 143 Google reviews, the site is hiding your best selling point.",
+  "business_type": "estate agency branch (national franchise)"
+}

@@ -1,0 +1,75 @@
+{
+  "pass": true,
+  "results": [
+    {
+      "n": "default-v2",
+      "p": true,
+      "d": "http://localhost:3999/"
+    },
+    {
+      "n": "picker-v1-v2",
+      "p": true,
+      "d": "[{\"t\":\"V1\",\"pressed\":\"false\"},{\"t\":\"V2\",\"pressed\":\"true\"}]"
+    },
+    {
+      "n": "active-no-reload",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "switch-v1-src",
+      "p": true,
+      "d": "https://6ac1b6191377cbff651147fb--murraymartin-services.netlify.app/"
+    },
+    {
+      "n": "v1-loaded",
+      "p": true,
+      "d": "frame=cross-origin(intercepted)"
+    },
+    {
+      "n": "viewport-preserved",
+      "p": true,
+      "d": "390->390"
+    },
+    {
+      "n": "single-row-375",
+      "p": true,
+      "d": "[28] n=4"
+    },
+    {
+      "n": "controls-375",
+      "p": true,
+      "d": "\"Complete this site · £1,500\""
+    },
+    {
+      "n": "no-overflow-375",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "single-row-320",
+      "p": true,
+      "d": "[28] n=4"
+    },
+    {
+      "n": "controls-320",
+      "p": true,
+      "d": "\"Complete this site · £1,500\""
+    },
+    {
+      "n": "no-overflow-320",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "keyboard-switch",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "no-picker-no-versions",
+      "p": true,
+      "d": "{\"picker\":false,\"iframe\":\"http://localhost:3001/\"}"
+    }
+  ]
+}

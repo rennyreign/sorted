@@ -66,8 +66,19 @@ function init(database: Database.Database): void {
       position INTEGER NOT NULL DEFAULT 0
     );
 
+    CREATE TABLE IF NOT EXISTS payments (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      invoice_id INTEGER NOT NULL REFERENCES invoices(id) ON DELETE CASCADE,
+      amount REAL NOT NULL DEFAULT 0,
+      paid_at TEXT NOT NULL,
+      method TEXT NOT NULL DEFAULT '',
+      note TEXT NOT NULL DEFAULT '',
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
     CREATE INDEX IF NOT EXISTS idx_invoices_client ON invoices(client_id);
     CREATE INDEX IF NOT EXISTS idx_line_items_invoice ON line_items(invoice_id);
+    CREATE INDEX IF NOT EXISTS idx_payments_invoice ON payments(invoice_id);
   `);
 
   const bankColumns = database

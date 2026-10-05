@@ -1,4 +1,9 @@
-import type { InvoiceStatus, LineItem, InvoiceTotals } from "./types";
+import type {
+  InvoiceStatus,
+  LineItem,
+  InvoiceTotals,
+  PaymentMethod,
+} from "./types";
 
 export function computeTotals(items: LineItem[], taxRate: number): InvoiceTotals {
   const subtotal = items.reduce(
@@ -41,6 +46,21 @@ export const STATUS_LABELS: Record<InvoiceStatus, string> = {
   overdue: "Overdue",
   cancelled: "Cancelled",
 };
+
+export const PAYMENT_METHOD_LABELS: Record<PaymentMethod, string> = {
+  bank_transfer: "Bank transfer",
+  card: "Card",
+  cash: "Cash",
+  paypal: "PayPal",
+  other: "Other",
+};
+
+export function paymentMethodLabel(method: string): string {
+  return (
+    PAYMENT_METHOD_LABELS[method as PaymentMethod] ??
+    (method ? method : "Other")
+  );
+}
 
 // Monochrome-friendly status treatments (design system has no accent colour).
 export const STATUS_STYLES: Record<InvoiceStatus, string> = {

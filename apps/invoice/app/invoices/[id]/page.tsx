@@ -6,6 +6,7 @@ import { getFullInvoice } from "@/lib/data";
 import { formatMoney, getCurrency } from "@/lib/currencies";
 import { formatDate, STATUS_LABELS } from "@/lib/format";
 import InvoiceActions from "@/components/InvoiceActions";
+import PaymentsSection from "@/components/PaymentsSection";
 
 export const dynamic = "force-dynamic";
 
@@ -18,7 +19,17 @@ export default async function InvoiceViewPage({
   const data = getFullInvoice(Number(id));
   if (!data) notFound();
 
-  const { invoice, client, items, bankAccount, company, totals } = data;
+  const {
+    invoice,
+    client,
+    items,
+    bankAccount,
+    company,
+    totals,
+    payments,
+    amountPaid,
+    balance,
+  } = data;
   const currency = getCurrency(invoice.currency);
 
   const bankRows: [string, string, string?][] = bankAccount
@@ -217,6 +228,22 @@ export default async function InvoiceViewPage({
                 {formatMoney(totals.total, invoice.currency)}
               </span>
             </div>
+            {amountPaid > 0 && (
+              <>
+                <div className="flex justify-between text-[#737373]">
+                  <span>Paid to date</span>
+                  <span className="font-mono tabular-nums">
+                    −{formatMoney(amountPaid, invoice.currency)}
+                  </span>
+                </div>
+                <div className="flex justify-between border-t border-black/[0.12] pt-2 font-semibold text-[#0A0A0A]">
+                  <span>Balance due</span>
+                  <span className="font-mono tabular-nums">
+                    {formatMoney(Math.max(balance, 0), invoice.currency)}
+                  </span>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
@@ -258,6 +285,15 @@ export default async function InvoiceViewPage({
           </div>
         )}
       </article>
+
+      <PaymentsSection
+        invoiceId={invoice.id}
+        currency={invoice.currency}
+        payments={payments}
+        amountPaid={amountPaid}
+        balance={balance}
+        total={totals.total}
+      />
     </div>
   );
 }

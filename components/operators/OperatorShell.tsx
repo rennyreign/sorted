@@ -4,18 +4,17 @@ import { useState, useEffect } from "react"
 import { isAuthenticated, logout } from "@/lib/operatorAuth"
 import OperatorLogin from "./OperatorLogin"
 import OperatorOverview from "./OperatorOverview"
-import ProspectFeed from "./ProspectFeed"
+import Finder from "./Finder"
 import PipelineBoard from "./PipelineBoard"
-import ProspectPulse from "./ProspectPulse"
 import CostDashboard from "./CostDashboard"
 import AffiliateAdmin from "./AffiliateAdmin"
 import ClientDirectory from "./ClientDirectory"
 import Scorecard from "./Scorecard"
 
-type View = "login" | "overview" | "feed" | "pipeline" | "pulse" | "costs" | "affiliates" | "clients" | "scorecard"
+type View = "login" | "overview" | "feed" | "pipeline" | "costs" | "affiliates" | "clients" | "scorecard"
 
 const VIEW_KEY = "sorted_operator_view"
-const VALID_VIEWS: View[] = ["overview", "feed", "pipeline", "pulse", "costs", "affiliates", "clients", "scorecard"]
+const VALID_VIEWS: View[] = ["overview", "feed", "pipeline", "costs", "affiliates", "clients", "scorecard"]
 
 export default function OperatorShell({
   initialView = "overview",
@@ -64,13 +63,10 @@ export default function OperatorShell({
             Overview
           </NavTab>
           <NavTab active={view === "feed"} onClick={() => navigate("feed")}>
-            Prospects
+            Finder
           </NavTab>
           <NavTab active={view === "pipeline"} onClick={() => navigate("pipeline")}>
             Pipeline
-          </NavTab>
-          <NavTab active={view === "pulse"} onClick={() => navigate("pulse")}>
-            Pulse
           </NavTab>
           <NavTab active={view === "costs"} onClick={() => navigate("costs")}>
             Costs
@@ -80,9 +76,6 @@ export default function OperatorShell({
           </NavTab>
           <NavTab active={view === "clients"} onClick={() => navigate("clients")}>
             Clients
-          </NavTab>
-          <NavTab active={view === "scorecard"} onClick={() => navigate("scorecard")}>
-            Scorecard
           </NavTab>
           <div className="w-px h-4 bg-black/[0.08] mx-2" />
           <button
@@ -95,9 +88,8 @@ export default function OperatorShell({
       </header>
 
       {view === "overview" && <OperatorOverview onViewProspects={() => navigate("feed")} />}
-      {view === "feed" && <ProspectFeed />}
+      {view === "feed" && <Finder onOpenPipeline={() => navigate("pipeline")} />}
       {view === "pipeline" && <PipelineBoard />}
-      {view === "pulse" && <ProspectPulse />}
       {view === "costs" && <CostDashboard />}
       {view === "affiliates" && <AffiliateAdmin />}
       {view === "clients" && <ClientDirectory />}

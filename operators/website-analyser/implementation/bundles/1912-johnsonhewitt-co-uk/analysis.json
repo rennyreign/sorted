@@ -1,0 +1,25 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 2,
+    "mobile_experience": 2,
+    "desire_creation": 1,
+    "content_structure": 2,
+    "trust_and_credibility": 2
+  },
+  "business_quality_score": 7,
+  "business_quality_reasoning": "Independent South Croydon estate agency established 2003, CH-active Ltd since 2013, 4.4 stars across 76 Google reviews, sales and lettings revenue with high-value transactions — a real, durable business that could afford a rebuild.",
+  "service_price_point": 4500,
+  "price_point_reasoning": "Estate agency commission of roughly 1-1.5% on South Croydon sale prices around £300-450k puts a single completed sale near £4,500.",
+  "modernity_gap": "Little to no gap — this is a professionally built, recent-looking estate agency site (Property Webmasters template) with a working mobile layout.",
+  "site_weaknesses": [
+    "Featured Properties shows a single listing card on desktop — a wide empty rail wastes the highest-value section",
+    "Dusty pink and charcoal palette feels heavy and dated in tone even though the layout is modern",
+    "Testimonial carousel shows one review at a time with no Google rating or review count surfaced",
+    "News section leads with an office-move announcement — internally focused rather than seller-focused",
+    "No team photos or named people visible on the homepage to reinforce the 'independent, personal' claim"
+  ],
+  "site_analysis": "This is a decent, modern estate agency site: strong hero imagery, working property search, testimonials, news and clear CTAs on both desktop and mobile. Its weaknesses are polish-level, not structural — a half-empty featured listings rail, one-review testimonial display and no visible people behind the 'independent' positioning. There is limited upside in a rebuild.",
+  "review_summary": "Your site is already one of the better independent agent sites — it works well on mobile, the search is front and centre, and you show real testimonials. The gaps are smaller: your featured properties section shows just one listing with a lot of empty space, your reviews are shown one at a time rather than as an overall rating, and there are no photos of your team to back up the personal service message.",
+  "outreach_angle": "Your featured properties rail on the homepage shows just one listing with a big empty gap beside it — worth a look at why the rest of your stock isn't displaying.",
+  "business_type": "independent estate agent"
+}

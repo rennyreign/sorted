@@ -1,0 +1,25 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 1,
+    "mobile_experience": 1,
+    "desire_creation": 1,
+    "content_structure": 1,
+    "trust_and_credibility": 2
+  },
+  "business_quality_score": 6,
+  "business_quality_reasoning": "Established since 2015 with 80 Google reviews at 4.9, a company number and VAT number displayed, and real project photos including higher-end garden lighting work. Micro accounts suggest a small operation, but the work shown is premium residential.",
+  "service_price_point": 500,
+  "price_point_reasoning": "The gallery emphasis on garden lighting design and installations suggests project work worth several hundred pounds per job rather than small call-outs.",
+  "modernity_gap": "A serviceable Squarespace build with nice photos, but it reads like a brochure from several years ago with almost no conversion structure.",
+  "site_weaknesses": [
+    "Phone number doubling as the hero headline - no clear statement of what services are offered or where",
+    "No quote form, service pages summary or clear next step beyond a phone number and a Contact Us button",
+    "Mobile hero is a wall of text with no call-to-action visible above the fold",
+    "Copy written from the business's perspective ('Customer Satisfaction' section reads like terms and conditions, not a benefit)",
+    "Thin homepage - satisfaction blurb, gallery teaser and two testimonials, then done"
+  ],
+  "site_analysis": "Warner has genuinely good assets - real garden lighting photos, named testimonials and proper company credentials in the footer - but the Squarespace page underneath them is thin and unfocused. The hero headline is a phone number, there is no service breakdown or quote flow, and mobile visitors get text and a photo with nothing to act on.",
+  "review_summary": "You have beautiful project photos and genuinely lovely customer quotes, but your website does not do enough with them. Right now visitors see a phone number and a couple of pictures with no clear list of services or easy way to ask for a quote, so people who would happily pay for your lighting work may never get in touch. A clearer site would let your workmanship do the selling.",
+  "outreach_angle": "Your garden lighting photos are genuinely impressive - it is a shame the site around them gives visitors almost nothing to act on.",
+  "business_type": "electrician specialising in lighting installations"
+}

@@ -1,0 +1,25 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 0,
+    "mobile_experience": 1,
+    "desire_creation": 0,
+    "content_structure": 0,
+    "trust_and_credibility": 1
+  },
+  "business_quality_score": 6,
+  "business_quality_reasoning": "Stanley Electrical Services has traded since 2012 with micro accounts and 37 five-star Google reviews — a long-established family-run local electrician. Rates are published (£50/hr, £289/day), showing a clear commercial model.",
+  "service_price_point": 200,
+  "price_point_reasoning": "The listing itself publishes rates of £50/hr or £289/day, so a typical domestic job lands around £150-£250.",
+  "modernity_gap": "There is no website at all — only a third-party directory profile on hamuch.com with a masked phone number and stock photo, so the business is a full generation behind having any web presence.",
+  "site_weaknesses": [
+    "The business has no website of its own — its entire web presence is a directory profile on hamuch.com",
+    "The phone number is masked by the directory (0747950xxxx), so even the listing does not let customers call directly",
+    "A stock tradesman photo stands in for any real imagery of the business, team or work",
+    "No services detail beyond two rate rows — no rewiring, EV, certification or emergency information a customer would search for",
+    "Directory branding (HaMuch logos, 'Get a quote' funnel, footer links to competitors 'near London') means enquiries flow through a platform the business does not control"
+  ],
+  "site_analysis": "This is not the business's website — it is a HaMuch directory listing, and Stanley Electrical Services appears to have no site of its own. The listing shows the basics (name, Mitcham CR4, two rate rows at £50/hr and a short about paragraph) but masks the phone number, uses stock imagery and sits inside the directory's own branding and quote funnel. Every weakness points the same way: this business has no web presence it controls.",
+  "review_summary": "Right now your only shop window is a directory listing that hides your phone number, uses a stock photo and sits under someone else's brand next to links for other electricians. Twelve years of trading and 37 five-star reviews deserve better than that. Your own website would put your name, your number and your reviews in front of customers directly.",
+  "outreach_angle": "Your only web presence is a HaMuch listing that masks your phone number — customers cannot even call you without going through the directory.",
+  "business_type": "local electrician (family-run, no own website)"
+}

@@ -1,0 +1,204 @@
+{
+  "format": "sorted-design-ir",
+  "manifest_version": "1.0.0",
+  "screen": {
+    "id": "next-steps",
+    "name": "Next Steps",
+    "lifecycle_stage": "prospect-decision",
+    "route_pattern": "/workspace/:workspaceSlug/next-steps",
+    "purpose": "Convert an approved homepage direction into a paid build without forcing a sales call.",
+    "primary_outcome": "Deposit paid",
+    "secondary_outcomes": ["Question submitted", "Call booked", "Bank transfer initiated"]
+  },
+  "tokens": {
+    "color": {"ink": "#070707", "paper": "#F7F7F3", "card": "#FFFFFF", "acid": "#DFFF00", "warm_board": "#F7F2E8", "line": "#E8E5DD", "muted_text": "#73736D", "proof_green": "#00A64B"},
+    "typography": {
+      "display": "Existing Sorted grotesk display family",
+      "body": "Existing Sorted sans-serif family",
+      "hero_desktop_px": 72,
+      "hero_mobile_px": 44,
+      "price_desktop_px": 64,
+      "section_heading_px": 30
+    },
+    "layout": {"max_width_px": 1120, "page_gutter_desktop_px": 32, "page_gutter_mobile_px": 20, "section_gap_px": 56, "card_radius_px": 14, "button_radius_px": 10}
+  },
+  "workspace_shell": {
+    "header": {
+      "left": ["Sorted wordmark", "FOR {businessName}"],
+      "navigation": [
+        {"label": "Your Review", "route": "review", "active": false},
+        {"label": "Your New Site", "route": "website", "active": false},
+        {"label": "Next Steps", "route": "next-steps", "active": true}
+      ],
+      "right": "PRIVATE WORKSPACE",
+      "active_indicator": "3px acid underline"
+    }
+  },
+  "data_contract": {
+    "required": ["businessName", "workspaceSlug", "projectPrice", "depositAmount", "balanceAmount", "stripePaymentUrl", "bankTransferAction", "questionAction", "bookingUrl", "includedItems"],
+    "defaults": {"projectPrice": 3000, "depositAmount": 1500, "balanceAmount": 1500, "currency": "GBP"},
+    "included_items_default": [
+      {"title": "Complete website", "description": "The remaining pages, responsive build, copy, content and required customer journeys.", "icon": "monitor"},
+      {"title": "Sorted Updates", "description": "A simple editor for changing text, images and business details.", "icon": "settings"},
+      {"title": "Sorted Tracking", "description": "Analytics and conversion tracking configured for launch.", "icon": "bar-chart-3"}
+    ]
+  },
+  "sections": [
+    {
+      "id": "offer-introduction",
+      "type": "editorial-hero",
+      "eyebrow": "YOUR COMPLETION OFFER",
+      "headline": "Complete your website.",
+      "body": "You’ve seen the direction. We’ll build, connect and launch the rest."
+    },
+    {
+      "id": "price-and-deposit",
+      "type": "black-price-panel",
+      "layout": "price left, primary payment action right",
+      "price": "£3,000 fixed",
+      "payment_summary": "£1,500 deposit · £1,500 on launch",
+      "primary_action": {"label": "Pay deposit", "href": "{stripePaymentUrl}", "style": "acid-filled", "icon": "credit-card"},
+      "constraints": ["No from-pricing", "No counter-offer field", "No hidden add-on language"]
+    },
+    {
+      "id": "included",
+      "type": "three-column-feature-row",
+      "eyebrow": "WHAT’S INCLUDED",
+      "items": "{includedItems}",
+      "mobile_pattern": "single-column separated rows"
+    },
+    {
+      "id": "process",
+      "type": "three-step-timeline",
+      "eyebrow": "HOW IT WORKS",
+      "steps": [
+        {"number": 1, "title": "Pay the deposit", "body": "Pay £1,500 to confirm and we’ll get started."},
+        {"number": 2, "title": "We complete the site", "body": "We build, connect and test your full website."},
+        {"number": 3, "title": "Approve and launch", "body": "You review the finished site, then we launch it live."}
+      ]
+    },
+    {
+      "id": "decision-panel",
+      "type": "bordered-action-panel",
+      "eyebrow": "READY TO GET STARTED?",
+      "headline": "Let’s get your website live.",
+      "body": "Pay your £1,500 deposit today and we’ll complete, connect and launch your website for £3,000.",
+      "actions": [
+        {"label": "Pay £1,500 deposit", "href": "{stripePaymentUrl}", "style": "acid-filled", "icon": "credit-card"},
+        {"label": "Ask a question", "action": "{questionAction}", "style": "outline", "icon": "message-circle"},
+        {"label": "Book a call", "href": "{bookingUrl}", "style": "outline", "icon": "phone"}
+      ],
+      "tertiary_action": {"label": "Prefer bank transfer?", "action": "{bankTransferAction}", "presentation": "quiet text link; reveal bank instructions only after click"}
+    }
+  ],
+  "payment_states": {
+    "idle": "Standard offer and actions",
+    "processing": "Disable duplicate payment action and show Processing payment…",
+    "paid": {
+      "route_transition": "/workspace/:workspaceSlug/project",
+      "confirmation": "Deposit received. Your project is now underway.",
+      "next_action": "Complete onboarding"
+    },
+    "bank_transfer_pending": "Show reference, amount and confirmation instructions without marking the project paid",
+    "failed": "Show plain-English error and safe retry; never discard entered context"
+  },
+  "interactions": {
+    "events": ["next_steps_viewed", "deposit_started", "deposit_paid", "bank_transfer_requested", "question_started", "call_booking_opened"],
+    "payment_behavior": "Use hosted Stripe Checkout or secure Payment Element; never collect raw card data in application code",
+    "call_requirement": "Optional only"
+  },
+  "responsive": {
+    "breakpoints_px": {"mobile": 640, "tablet": 900},
+    "rules": [
+      "Price panel stacks price above action",
+      "Inclusions and timeline become single-column",
+      "Primary deposit action spans full width on mobile",
+      "Secondary actions remain visually subordinate but use 44px minimum targets"
+    ]
+  },
+  "footer": {
+    "left": "This page is for {businessName}, looked after by Sorted.",
+    "right_links": ["hello@sortmydigital.site", "Back to your new homepage"]
+  },
+  "non_visual_build_spec": {
+    "reference_canvas": {"width_px": 1024, "height_px": 1584, "density": 1},
+    "component_tree": [
+      "WorkspaceLayout",
+      "  WorkspaceHeader",
+      "  main.OfferDocument",
+      "    OfferHero",
+      "    PricePanel",
+      "    IncludedFeatureRow",
+      "    ProcessTimeline",
+      "    DecisionPanel",
+      "  WorkspaceFooter",
+      "  QuestionDrawer",
+      "  BankTransferDialog"
+    ],
+    "desktop_geometry": {
+      "header": {"height_px": 76, "border_bottom": "1px solid #E8E5DD"},
+      "main": {"max_width_px": 860, "margin": "0 auto", "padding": "52px 0 36px"},
+      "offer_hero": {"max_width_px": 650, "margin_bottom_px": 34},
+      "offer_eyebrow_margin_bottom_px": 14,
+      "offer_headline": {"font_size_px": 72, "line_height": 0.95, "max_width_px": 620, "margin_bottom_px": 14},
+      "offer_body": {"font_size_px": 21, "line_height": 1.35, "max_width_px": 560},
+      "price_panel": {"min_height_px": 188, "padding": "40px", "display": "grid", "grid_template_columns": "1fr 1px 290px", "gap_px": 38, "align_items": "center", "background": "#070707", "border_radius_px": 14, "margin_bottom_px": 44},
+      "price": {"font_size_px": 64, "line_height": 1.0, "color": "#FFFFFF", "white_space": "nowrap"},
+      "payment_summary": {"font_size_px": 24, "color": "rgba(255,255,255,0.72)", "margin_top_px": 14},
+      "price_divider": {"width_px": 1, "height_px": 94, "background": "rgba(255,255,255,0.18)"},
+      "price_action": {"height_px": 72, "width": "100%", "font_size_px": 20, "border_radius_px": 10},
+      "included_section": {"padding": "28px 0 36px", "border_top": "1px solid #E8E5DD", "border_bottom": "1px solid #E8E5DD"},
+      "included_grid": {"display": "grid", "grid_template_columns": "repeat(3, 1fr)", "gap_px": 0, "margin_top_px": 22},
+      "included_item": {"padding": "0 26px", "border_left": "1px solid #E8E5DD"},
+      "included_first_item": {"padding_left_px": 0, "border_left": "none"},
+      "included_icon": {"diameter_px": 48, "background": "#DFFF00", "margin_bottom_px": 16},
+      "timeline_section": {"padding": "30px 0 12px"},
+      "timeline_grid": {"display": "grid", "grid_template_columns": "repeat(3, 1fr)", "gap_px": 28, "margin_top_px": 22},
+      "timeline_connector": "1px dashed #CFCFC6 line centered through numbered circles; hide after final step",
+      "step_number": {"diameter_px": 46, "background": "#DFFF00", "margin_bottom_px": 16},
+      "decision_panel": {"margin_top_px": 34, "padding": "28px 32px", "border": "1px solid #E8E5DD", "border_radius_px": 14, "background": "#FFFFFF"},
+      "decision_actions": {"display": "grid", "grid_template_columns": "1.2fr 1fr 1fr", "gap_px": 14, "margin_top_px": 22},
+      "decision_button": {"height_px": 54, "border_radius_px": 9},
+      "footer": {"max_width_px": 860, "min_height_px": 72, "margin": "0 auto", "border_top": "1px solid #E8E5DD"}
+    },
+    "mobile_geometry": {
+      "main_padding": "32px 20px",
+      "offer_headline": {"font_size_px": 44, "line_height": 0.98},
+      "offer_body": {"font_size_px": 18},
+      "price_panel": {"display": "flex", "flex_direction": "column", "align_items": "stretch", "padding": "28px 24px", "gap_px": 22},
+      "price": {"font_size_px": 46, "white_space": "normal"},
+      "payment_summary": {"font_size_px": 18},
+      "price_divider": "hide",
+      "included_grid": {"display": "grid", "grid_template_columns": "1fr"},
+      "included_item": {"padding": "20px 0", "border_left": "none", "border_top": "1px solid #E8E5DD"},
+      "timeline_grid": {"display": "grid", "grid_template_columns": "1fr", "gap_px": 0},
+      "timeline_step": {"display": "grid", "grid_template_columns": "50px 1fr", "padding": "16px 0"},
+      "timeline_connector": "vertical 1px dashed line beneath numbered circle",
+      "decision_panel": {"padding": "24px 20px"},
+      "decision_actions": {"display": "grid", "grid_template_columns": "1fr", "gap_px": 10},
+      "decision_button": {"width": "100%", "height_px": 50}
+    },
+    "dialog_geometry": {
+      "question_drawer_desktop": {"width_px": 420, "position": "right"},
+      "question_drawer_mobile": {"width": "100%", "height": "100dvh"},
+      "bank_transfer_dialog_desktop": {"width_px": 520, "padding_px": 28},
+      "bank_transfer_dialog_mobile": {"width": "calc(100% - 32px)", "padding_px": 22}
+    },
+    "interaction_states": {
+      "deposit_button": {"idle": "Pay £1,500 deposit", "processing": "Processing… and disabled", "success": "Deposit received", "failure": "Try payment again"},
+      "bank_transfer": "Reveal details in a modal only after explicit selection",
+      "question": "Open contextual drawer without losing page position",
+      "booking": "Open configured booking URL in new tab"
+    },
+    "implementation_order": ["Build offer document", "Bind pricing data", "Build payment CTA", "Implement Stripe test flow", "Implement verified success transition", "Add question drawer", "Add bank-transfer dialog", "Add booking action", "Add events", "Test failure and duplicate-payment states"],
+    "do_not_infer": ["Do not add discount controls", "Do not show bank account details by default", "Do not add urgency countdowns", "Do not add testimonials or case studies", "Do not change the fixed price"]
+  },
+  "acceptance_criteria": [
+    "The full price, deposit and remaining balance are visible above the fold on desktop",
+    "The prospect can pay without booking a call",
+    "No automatic discount or counter-offer mechanism exists",
+    "Bank details are hidden until requested",
+    "Successful payment changes the workspace lifecycle state",
+    "All payment and support actions are measurable"
+  ]
+}

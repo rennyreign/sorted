@@ -1,0 +1,26 @@
+{
+  "opportunity_dimensions": {
+    "visual_modernity": 1,
+    "mobile_experience": 1,
+    "desire_creation": 1,
+    "content_structure": 1,
+    "trust_and_credibility": 2
+  },
+  "business_quality_score": 8,
+  "business_quality_reasoning": "Claims 18 years serving Croydon, 4.9 stars across 225 Google reviews, 24/7 emergency service across a wide South London coverage area, and handles domestic, commercial and industrial work. High-volume, well-reviewed operation with strong demand signals.",
+  "service_price_point": 400,
+  "price_point_reasoning": "24/7 emergency call-outs, domestic repairs and commercial installs; a typical single job lands around £200-600, so £400 is a fair midpoint.",
+  "modernity_gap": "A dense, text-heavy WordPress/Elementor site with walls of justified copy, a visible PHP deprecation error mid-page and a dated red-on-white layout — functionally complete but roughly 5-7 years behind current standards.",
+  "site_weaknesses": [
+    "A raw PHP 'Deprecated: trim()' error message is visible mid-page above the reviews section — instantly undermines credibility",
+    "Content is delivered as long, dense paragraphs and bullet lists — overwhelming to scan on any device",
+    "Hero offers only 'Call' — no quote or booking entry point until the bottom-of-page form",
+    "Strong proof (172 Google reviews embedded, City & Guilds, coverage map) is buried deep below repetitive service copy",
+    "Multiple near-identical red 'Request a Free Quote' buttons compete rather than guide",
+    "The enquiry form is functional but visually plain, with a long field list and no reassurance text"
+  ],
+  "site_analysis": "The business has excellent raw material — 225 Google reviews at 4.9, a live review carousel, accreditations and a clear service-area map — but the page is a wall of text with a literal PHP error printed above the testimonials. The structure exists (services, areas, reviews, form) yet everything is buried under repetitive copy, so the strongest assets never get a chance to persuade. Functionally sound, commercially sloppy.",
+  "review_summary": "Your reviews and coverage are genuinely impressive — over 170 Google reviews are embedded on the page — but the site around them is letting you down. There is a PHP error message displayed to every visitor, and your best proof is buried under long paragraphs of text most people will never read. A cleaner layout that leads with your reviews and makes getting a quote effortless would match the reputation you have already built.",
+  "outreach_angle": "You've got 172 Google reviews embedded on your homepage — but a PHP error message is printing right above them, which means every visitor sees broken code next to your best proof.",
+  "business_type": "emergency electrician"
+}

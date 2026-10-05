@@ -1,0 +1,30 @@
+{
+  "pass": true,
+  "results": [
+    {
+      "n": "v2-heading",
+      "p": true,
+      "d": "Critical powerand cooling solutionsyou can rely on"
+    },
+    {
+      "n": "v1-loaded",
+      "p": true,
+      "d": "marker=true iframe=true skelGone=true"
+    },
+    {
+      "n": "v2-restored",
+      "p": true,
+      "d": "Critical powerand cooling solutionsyou can rely on"
+    },
+    {
+      "n": "singleton-no-picker",
+      "p": true,
+      "d": "{\"picker\":false,\"src\":\"http://localhost:3999/\"}"
+    },
+    {
+      "n": "singleton-url",
+      "p": true,
+      "d": "http://localhost:3999/"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Prospect Finder Operator
 
-Sorted's acquisition operator. Searches Google Maps for UK small businesses, qualifies them by website and email presence, and writes structured prospect records to Supabase — without a human in the loop.
+Sorted's acquisition operator. It discovers UK small businesses, qualifies them by website and email presence, and writes structured prospect records to Supabase. Machine enrichment supplies the external evidence; human scouting adds only a decision and its reason before build work begins.
 
 ## What It Removes
 
@@ -8,7 +8,7 @@ Manual Google Maps research: searching categories, clicking listings, copying na
 
 ## What It Produces
 
-A `prospects` table in Supabase — one row per qualified business, deduped by Google place ID, with website, email, phone, address, category, and qualification status.
+A `prospects` table in Supabase — one row per qualified business, deduped by Google place ID, with Maps contact data, website analysis, Companies House profile/filing facts, people, and qualification status. The CRM layer adds the scouting decision and activity trail.
 
 ## Status
 
@@ -41,6 +41,17 @@ make run
 Runs all configured search queries from `config.py` and writes results to Supabase.
 Safe to re-run — upserts on `place_id`, no duplicates.
 
+## Research a candidate locally
+
+The Prospect Research skill is the local execution form of the research operator. It is intentionally human-guided and avoids external model calls.
+
+```bash
+cd implementation
+./venv/bin/python research_harness.py prepare --id 1826
+```
+
+See `operators/skills/prospect-research.md` for the evidence and decision contract.
+
 ## Configure
 
 Edit `config.py` to change:
@@ -55,8 +66,8 @@ Edit `config.py` to change:
 
 ---
 
-## The Operator Test
+## Runtime model
 
-> If the human must be present during execution, it is not an operator.
+An operator is the durable capability: defined inputs, evidence rules, decisions, outputs, and audit state. Today, skills and local harnesses execute that capability with human judgment where it matters. At scale, the same contract can be run by an autonomous service or external model without redesigning the operating model.
 
-Renaldo is not present when this runs. The output arrives in Supabase. That is the point.
+Discovery is safely automated. Scouting remains human-guided because the decision to invest build effort is commercially consequential.

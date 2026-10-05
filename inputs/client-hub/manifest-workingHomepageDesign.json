@@ -1,0 +1,165 @@
+{
+  "format": "sorted-design-ir",
+  "manifest_version": "1.0.0",
+  "screen": {
+    "id": "working-homepage",
+    "name": "Your New Site",
+    "lifecycle_stage": "prospect",
+    "route_pattern": "/workspace/:workspaceSlug/website",
+    "purpose": "Let the prospect experience the real responsive homepage while keeping questions, price and completion action accessible.",
+    "primary_outcome": "Prospect judges the actual work",
+    "secondary_outcome": "Prospect proceeds to the completion offer"
+  },
+  "tokens": {
+    "shell_colors": {"ink": "#070707", "paper": "#F7F7F3", "card": "#FFFFFF", "acid": "#DFFF00", "line": "#E8E5DD", "muted_text": "#73736D"},
+    "shell_typography": {
+      "display": "Existing Sorted grotesk display family",
+      "body": "Existing Sorted sans-serif family",
+      "toolbar_label_px": 11,
+      "body_px": 14
+    },
+    "layout": {"workspace_header_height_px": 76, "decision_bar_height_px": 64, "preview_radius_px": 14, "outer_gutter_px": 32},
+    "motion": {"duration_ms": 180, "easing": "ease-out", "respect_reduced_motion": true}
+  },
+  "workspace_shell": {
+    "header": {
+      "left": ["Sorted wordmark", "FOR {businessName}"],
+      "navigation": [
+        {"label": "Your Review", "route": "review", "active": false},
+        {"label": "Your New Site", "route": "website", "active": true},
+        {"label": "Next Steps", "route": "next-steps", "active": false}
+      ],
+      "active_indicator": "3px acid underline"
+    },
+    "preview_mode": "The client homepage is rendered in its own isolated origin or sandboxed frame so its styles cannot collide with the Sorted shell."
+  },
+  "data_contract": {
+    "required": ["businessName", "workspaceSlug", "previewUrl", "completionPrice", "questionAction", "nextStepsUrl"],
+    "defaults": {"completionPrice": 3000, "currency": "GBP", "viewportMode": "desktop"},
+    "preview_statuses": ["ready", "unavailable", "expired"]
+  },
+  "sections": [
+    {
+      "id": "decision-bar",
+      "type": "black-workspace-toolbar",
+      "position": "sticky below workspace header",
+      "left": {"eyebrow": "PRIVATE WORKING HOMEPAGE", "support": "Built for {businessName}"},
+      "right": [
+        {"label": "Ask a question", "action": "{questionAction}", "style": "text-on-black", "icon": "message-circle"},
+        {"label": "Complete this site · £3,000", "route": "next-steps", "style": "acid-filled", "icon": "arrow-right"}
+      ],
+      "constraints": ["Never cover the client homepage", "Collapse support text on small screens", "Price remains visible on desktop"]
+    },
+    {
+      "id": "viewport-controls",
+      "type": "segmented-control",
+      "options": [
+        {"label": "Desktop", "value": "desktop", "icon": "monitor"},
+        {"label": "Mobile", "value": "mobile", "icon": "smartphone"}
+      ],
+      "default": "desktop",
+      "behavior": "Resize only the preview canvas; do not reload the page unless required by the embedded implementation"
+    },
+    {
+      "id": "homepage-canvas",
+      "type": "live-site-preview",
+      "source": "{previewUrl}",
+      "desktop_width": "100%",
+      "mobile_width_px": 390,
+      "minimum_height_px": 780,
+      "presentation": "white canvas with subtle border and 14px radius; no blur or image-only substitute",
+      "loading_state": "Sorted skeleton with text: Loading your homepage…",
+      "error_state": "Your preview is temporarily unavailable. Ask Sorted to restore it.",
+      "accessibility_title": "Working homepage preview for {businessName}"
+    }
+  ],
+  "interactions": {
+    "events": ["homepage_preview_viewed", "homepage_viewport_changed", "prospect_question_started", "completion_offer_opened"],
+    "question_action": "Open a compact question drawer or preferred messaging channel without leaving the preview state",
+    "next_steps_action": "Navigate to the formal completion offer",
+    "keyboard": "Viewport controls and all actions must be reachable in natural tab order"
+  },
+  "security": {
+    "prospect_access": "Unlisted signed URL or workspace token",
+    "preview_embedding": "Use CSP/frame-ancestor rules compatible with the preview host, or proxy through an approved isolated preview origin",
+    "privacy": "Do not expose CMS, analytics or private documents before purchase"
+  },
+  "responsive": {
+    "breakpoints_px": {"mobile": 640, "tablet": 900},
+    "mobile_rules": [
+      "Workspace header uses a compact brand row and scrollable tabs",
+      "Decision bar becomes two rows",
+      "Primary completion action spans available width",
+      "Default to mobile preview mode on screens below 640px",
+      "Do not place a mobile preview inside an additional phone illustration"
+    ]
+  },
+  "content_rules": {
+    "shell_must_not_modify": "The client homepage's brand, typography, navigation or content",
+    "shell_language": "Brief, factual and non-salesy",
+    "price_format": "£3,000"
+  },
+  "non_visual_build_spec": {
+    "reference_canvas": {"width_px": 1024, "height_px": 1536, "density": 1, "note": "Reference is a tall capture; application viewport should use available browser height."},
+    "component_tree": [
+      "WorkspaceLayout",
+      "  WorkspaceHeader",
+      "  PreviewDecisionBar",
+      "  PreviewStage",
+      "    PreviewFrameHeader",
+      "      WindowDots",
+      "      ViewportToggle",
+      "    PreviewViewport",
+      "      iframe or isolated preview renderer"
+    ],
+    "desktop_geometry": {
+      "workspace_header": {"height_px": 72, "padding_inline_px": 40, "border_bottom": "1px solid #E8E5DD"},
+      "preview_stage": {"padding": "24px 40px 40px", "background": "#F7F7F3"},
+      "decision_bar": {"height_px": 58, "display": "grid", "grid_template_columns": "1fr 1fr auto", "align_items": "center", "gap_px": 20, "padding_inline_px": 20, "background": "#070707", "border_radius_px": 12, "margin_bottom_px": 12},
+      "decision_bar_actions": {"display": "flex", "gap_px": 10, "justify_content": "flex-end"},
+      "decision_primary_button": {"height_px": 42, "padding_inline_px": 20, "background": "#DFFF00", "color": "#070707", "border_radius_px": 9},
+      "preview_frame": {"width": "100%", "height": "calc(100dvh - 206px)", "min_height_px": 680, "background": "#FFFFFF", "border": "1px solid #E8E5DD", "border_radius_px": 14, "overflow": "hidden", "box_shadow": "0 14px 45px rgba(7,7,7,0.08)"},
+      "frame_header": {"height_px": 44, "display": "flex", "align_items": "center", "justify_content": "space-between", "padding": "0 14px", "background": "#FFFFFF", "border_bottom": "1px solid #E8E5DD"},
+      "window_dot": {"diameter_px": 9, "gap_px": 6},
+      "viewport_toggle": {"height_px": 32, "padding_px": 3, "background": "#F1F1EC", "border_radius_px": 999},
+      "viewport_option": {"height_px": 26, "padding_inline_px": 12, "active_background": "#070707", "active_color": "#FFFFFF"},
+      "desktop_preview": {"width": "100%", "height": "calc(100% - 44px)"},
+      "mobile_preview": {"width_px": 390, "height": "calc(100% - 44px)", "margin": "0 auto", "box_shadow": "0 0 0 1px #E8E5DD"}
+    },
+    "scrolling_contract": {
+      "preferred": "Workspace shell remains fixed/sticky; the live homepage scrolls inside PreviewViewport.",
+      "avoid": "Two uncontrolled page scrollbars with unclear focus.",
+      "keyboard": "When preview frame is focused, PageUp/PageDown and arrow keys operate the preview; Escape returns focus to workspace controls."
+    },
+    "mobile_geometry": {
+      "workspace_header": "compact brand row plus scrollable prospect tabs",
+      "preview_stage_padding": "12px",
+      "decision_bar": {"height": "auto", "display": "grid", "grid_template_columns": "1fr", "padding": "14px", "gap_px": 10},
+      "decision_support_text": "hide",
+      "decision_actions": {"display": "grid", "grid_template_columns": "1fr", "width": "100%"},
+      "preview_frame": {"height": "calc(100dvh - 240px)", "min_height_px": 520},
+      "window_dots": "hide",
+      "viewport_toggle": "hide and force mobile mode"
+    },
+    "preview_isolation_contract": {
+      "iframe_attributes": ["title", "sandbox with only required permissions", "loading=lazy where appropriate"],
+      "style_boundary": "No parent Tailwind reset or global CSS may affect preview document.",
+      "navigation": "Links within the homepage remain inside the preview only when a valid preview route exists; otherwise disable unfinished internal routes without visual breakage."
+    },
+    "interaction_states": {
+      "question_action": "opens right-side drawer at 420px desktop width and full-screen sheet on mobile",
+      "completion_action": "navigates to next-steps route preserving workspace identity",
+      "viewport_switch": "animate preview width over 180ms; no opacity fade",
+      "loading": "neutral skeleton blocks inside preview frame, never a spinner over the whole workspace"
+    },
+    "implementation_order": ["Create shell", "Create decision bar", "Implement isolated preview", "Add viewport control", "Add loading/error states", "Add question action", "Add analytics events", "Test iframe keyboard and mobile behavior"],
+    "do_not_infer": ["Do not recreate the prospect's homepage from this manifest", "Do not place the website in a decorative laptop or phone device", "Do not add performance metrics", "Do not add a floating chatbot in phase 1"]
+  },
+  "acceptance_criteria": [
+    "The homepage is live and scrollable rather than a static mockup",
+    "The prospect can switch between desktop and mobile presentation",
+    "The exact price and next action remain visible without interrupting exploration",
+    "The client site styles cannot leak into the Sorted shell",
+    "The experience works without requiring a call"
+  ]
+}

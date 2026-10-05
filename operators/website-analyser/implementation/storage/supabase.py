@@ -40,9 +40,11 @@ def _get_base_url() -> str:
     return url.rstrip("/")
 
 
-def fetch_unanalysed(limit: int = 200) -> list[dict]:
+def fetch_unanalysed(limit: int = 200, reanalyse: bool = False, maps_only: bool = False) -> list[dict]:
     """
-    Fetch prospects that have a website but no site_score yet.
+    Fetch prospects that have a website. By default only returns rows with no
+    prior analysis; reanalyse=True returns existing website rows for a fresh pass.
+    maps_only=True restricts to Google Maps place IDs.
 
     Returns list of dicts with: place_id, name, category, city, website.
     """
@@ -51,15 +53,23 @@ def fetch_unanalysed(limit: int = 200) -> list[dict]:
     url = f"{base_url}/rest/v1/{TABLE}"
 
     params = {
-        "select": "id,place_id,name,category,city,website,postcode,rating,review_count,search_location,source_company_number",
+        "select": "id,place_id,name,category,intake_category,intake_priority,city,website,postcode,rating,review_count,search_location,source_company_number",
         "website_exists": "eq.true",
-        "analysed_at": "is.null",
-        "order": "first_seen_at.desc",
+        "order": "intake_priority.desc.nullslast,first_seen_at.desc",
         "limit": str(limit),
     }
+    if not reanalyse:
+        params["analysed_at"] = "is.null"
+    if maps_only:
+        params["place_id"] = "like.ChIJ*"
 
     try:
         response = requests.get(url, headers=headers, params=params, timeout=15)
+        if not response.ok and "intake_" in response.text:
+            logger.warning("Intake columns unavailable — falling back to first_seen_at ordering.")
+            params["select"] = "id,place_id,name,category,city,website,postcode,rating,review_count,search_location,source_company_number"
+            params["order"] = "first_seen_at.desc"
+            response = requests.get(url, headers=headers, params=params, timeout=15)
     except requests.exceptions.RequestException as exc:
         raise RuntimeError(f"Supabase fetch failed: {exc}") from exc
 
@@ -74,8 +84,68 @@ def fetch_unanalysed(limit: int = 200) -> list[dict]:
         )
 
     data = response.json()
-    logger.info("Fetched %d unanalysed prospects from Supabase.", len(data))
+    logger.info("Fetched %d prospects from Supabase%s.", len(data), " for re-analysis" if reanalyse else "")
     return data
+
+
+def fetch_ch_candidates(limit: int = 25, row_id: int | None = None) -> list[dict]:
+    """Fetch matched prospects for a Companies-House-only refresh."""
+    params = {
+        "select": "id,place_id,name,postcode,source_company_number",
+        "source_company_number": "not.is.null",
+        "order": "prospect_score.desc.nullslast,id.asc",
+        "limit": str(limit),
+    }
+    if row_id is not None:
+        params["id"] = f"eq.{row_id}"
+    else:
+        params["qualified_lead"] = "eq.true"
+        params["ch_data_updated_at"] = "is.null"
+    response = requests.get(
+        f"{_get_base_url()}/rest/v1/{TABLE}",
+        headers=_get_headers(),
+        params=params,
+        timeout=15,
+    )
+    if response.status_code == 401:
+        raise PermissionError("Supabase authentication failed. Check SUPABASE_SERVICE_KEY.")
+    if not response.ok:
+        raise RuntimeError(f"Supabase CH fetch error — HTTP {response.status_code}: {response.text[:300]}")
+    return response.json()
+
+
+_CH_REFRESH_FIELDS = (
+    "source_company_number", "source_url", "source_incorporation_date", "source_sic_codes",
+    "ch_status", "ch_incorporated_date", "ch_accounts_type", "ch_accounts_last_date",
+    "ch_match_confidence", "ch_accounts_period_end", "ch_accounts_due_date",
+    "ch_accounts_overdue", "ch_confirmation_due_date", "ch_confirmation_overdue",
+    "ch_filing_url", "ch_filing_document_url", "ch_turnover", "ch_net_assets",
+    "ch_cash", "ch_current_assets", "ch_liabilities", "ch_employees",
+    "ch_financial_facts", "ch_data_updated_at",
+)
+
+
+def write_ch_enrichment(row_id: int, record: dict[str, Any]) -> bool:
+    """Write only machine-sourced CH fields; never touch scores or CRM state."""
+    update_data = {key: record.get(key) for key in _CH_REFRESH_FIELDS}
+    for key in ("owner_name", "owner_role", "owner_source", "associated_names"):
+        if record.get(key) is not None:
+            update_data[key] = record[key]
+    if record.get("owner_name"):
+        update_data["owner_identified_at"] = datetime.now(timezone.utc).isoformat()
+    response = requests.patch(
+        f"{_get_base_url()}/rest/v1/{TABLE}",
+        headers=_get_headers(include_prefer=True),
+        params={"id": f"eq.{row_id}"},
+        json=update_data,
+        timeout=15,
+    )
+    if response.status_code == 401:
+        raise PermissionError("Supabase authentication failed. Check SUPABASE_SERVICE_KEY.")
+    if not response.ok:
+        logger.error("Supabase CH write failed for id:%s — HTTP %d: %s", row_id, response.status_code, response.text[:300])
+        return False
+    return True
 
 
 def write_analysis(place_id: str | None, record: dict[str, Any], row_id: int | None = None) -> bool:
@@ -123,6 +193,23 @@ def write_analysis(place_id: str | None, record: dict[str, Any], row_id: int | N
         "ch_accounts_type":         record.get("ch_accounts_type"),
         "ch_accounts_last_date":    record.get("ch_accounts_last_date"),
         "ch_match_confidence":      record.get("ch_match_confidence"),
+        "ch_accounts_period_end":   record.get("ch_accounts_period_end"),
+        "ch_accounts_due_date":     record.get("ch_accounts_due_date"),
+        "ch_accounts_overdue":      record.get("ch_accounts_overdue"),
+        "ch_confirmation_due_date": record.get("ch_confirmation_due_date"),
+        "ch_confirmation_overdue":  record.get("ch_confirmation_overdue"),
+        "ch_filing_url":            record.get("ch_filing_url"),
+        "ch_filing_document_url":   record.get("ch_filing_document_url"),
+        "ch_turnover":              record.get("ch_turnover"),
+        "ch_net_assets":            record.get("ch_net_assets"),
+        "ch_cash":                  record.get("ch_cash"),
+        "ch_current_assets":        record.get("ch_current_assets"),
+        "ch_liabilities":           record.get("ch_liabilities"),
+        "ch_employees":             record.get("ch_employees"),
+        "ch_financial_facts":       record.get("ch_financial_facts"),
+        "ch_data_updated_at":       record.get("ch_data_updated_at"),
+        "source_incorporation_date": record.get("source_incorporation_date"),
+        "source_sic_codes":          record.get("source_sic_codes"),
         # Owner / associated people (from CH officers + PSCs)
         "owner_name":               record.get("owner_name"),
         "owner_role":               record.get("owner_role"),

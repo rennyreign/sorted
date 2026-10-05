@@ -1,5 +1,8 @@
 # Skill: launch-qa
 
+Stage 1 direction-confirmation pages are preview-only: any advertised business route still rendering that state is a launch blocker. See `operators/skills/stage-1-direction-confirmation.md`.
+
+
 **Type:** Finalization / QA skill  
 **Trigger:** User asks to make a client site launch-ready, run final QA, verify production readiness, or move a site from `CMS_CONFIGURED` / `BUILD_COMPLETE` to `LAUNCH_READY`  
 **Output:** Launch QA report at `client/qa/launch-report.json` and `client/qa/launch-report.md`

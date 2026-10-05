@@ -1,0 +1,350 @@
+{
+  "manifest_type": "global_design_ir",
+  "product": "Sorted Ads",
+  "version": "v2-topnav",
+  "status": "canonical",
+  "supersedes": "01-global-design-ir.json",
+  "change_summary": [
+    "Remove the persistent left sidebar across all internal product screens.",
+    "Remove persistent right-side information rails from primary working screens.",
+    "Move global navigation into a compact top navigation bar.",
+    "Use the recovered horizontal space to create a wider, calmer central working canvas.",
+    "Prefer inline, contextual, collapsible, drawer or modal presentation for secondary information.",
+    "Campaign detail remains an infinite vertical canvas of angle groups and Facebook-like ad cards."
+  ],
+  "product_design_principle": {
+    "primary": "The shortest useful path wins.",
+    "secondary": "The working object should occupy the interface, not navigation or metadata chrome.",
+    "interface_rule": "Persistent UI should only remain visible if it is used frequently enough to justify permanent space."
+  },
+  "implementation_note": "This manifest is a global layout pivot. It overrides earlier shell/navigation/right-rail decisions while preserving the existing Sorted Ads product model, campaign hierarchy, testing rules, status semantics and overall Sorted visual language.",
+  "tokens": {
+    "color": {
+      "page_bg": "#FBFBF7",
+      "surface": "#FFFFFF",
+      "surface_soft": "#F6F7F3",
+      "surface_lime": "#F2F8DD",
+      "ink": "#0B0B0A",
+      "text_muted": "#646763",
+      "text_subtle": "#8A8D88",
+      "border": "#E3E5DF",
+      "border_strong": "#D6D9D2",
+      "green": "#003E32",
+      "green_hover": "#003227",
+      "green_soft": "#E9F3EE",
+      "lime": "#B7E315",
+      "yellow": "#F3C21C",
+      "yellow_soft": "#FFF4CE",
+      "red": "#E53D3D",
+      "red_soft": "#FDECEC"
+    },
+    "radius": {
+      "sm": 10,
+      "md": 14,
+      "lg": 18,
+      "xl": 24,
+      "pill": 999
+    },
+    "spacing_scale": [
+      4,
+      8,
+      12,
+      16,
+      20,
+      24,
+      32,
+      40,
+      48,
+      64,
+      80
+    ],
+    "typography": {
+      "font_family": "Use the same modern grotesk / sans family used by Sorted. Fallback: Inter, Arial, Helvetica, sans-serif.",
+      "display": {
+        "size": 56,
+        "line_height": 0.98,
+        "weight": 800,
+        "tracking": -0.04
+      },
+      "h1": {
+        "size": 46,
+        "line_height": 1.0,
+        "weight": 800,
+        "tracking": -0.035
+      },
+      "h2": {
+        "size": 28,
+        "line_height": 1.05,
+        "weight": 750,
+        "tracking": -0.02
+      },
+      "h3": {
+        "size": 20,
+        "line_height": 1.15,
+        "weight": 700
+      },
+      "body": {
+        "size": 16,
+        "line_height": 1.5,
+        "weight": 400
+      },
+      "small": {
+        "size": 14,
+        "line_height": 1.4,
+        "weight": 400
+      },
+      "label": {
+        "size": 13,
+        "line_height": 1.2,
+        "weight": 600
+      }
+    }
+  },
+  "global_shell": {
+    "navigation_model": "top_navigation_only",
+    "left_sidebar": {
+      "enabled": false,
+      "rule": "Do not reserve horizontal space for a persistent left rail."
+    },
+    "right_sidebar": {
+      "enabled": false,
+      "rule": "Do not reserve persistent horizontal space for campaign metadata, metrics or helper panels."
+    },
+    "top_navigation": {
+      "enabled": true,
+      "position": "sticky top",
+      "height": 64,
+      "background": "#FFFFFF",
+      "border_bottom": "1px solid #E3E5DF",
+      "content_max_width": 1480,
+      "padding_x": 32,
+      "layout": {
+        "left": [
+          "Sorted. logo",
+          "primary navigation"
+        ],
+        "center_or_flexible": [
+          "optional global search where useful"
+        ],
+        "right": [
+          "notifications",
+          "user avatar",
+          "user name or account menu"
+        ]
+      },
+      "primary_navigation": [
+        "Campaigns",
+        "Assets",
+        "Publishing",
+        "Results",
+        "Settings"
+      ],
+      "active_state": {
+        "text_color": "#003E32",
+        "indicator": "2px bottom border",
+        "avoid": "large filled tab background"
+      },
+      "workspace_selector": {
+        "placement": "below nav in page header or compactly near page title",
+        "style": "small pill/dropdown",
+        "rule": "Do not let workspace switching dominate the top navigation."
+      }
+    },
+    "main_canvas": {
+      "max_width": 1440,
+      "padding_x_desktop": 48,
+      "padding_y_desktop": 28,
+      "centered": true,
+      "rule": "Use the full recovered width for the content itself."
+    }
+  },
+  "information_architecture": {
+    "persistent_global_navigation": [
+      "Campaigns",
+      "Assets",
+      "Publishing",
+      "Results",
+      "Settings"
+    ],
+    "campaign_context_navigation": {
+      "default": "No separate persistent campaign sub-navigation.",
+      "rule": "Campaign-specific tasks should be reachable through obvious page actions and global nav, not another always-visible rail."
+    },
+    "secondary_information_strategy": {
+      "campaign_progress": "Display as compact inline summary near the page header, within filter/status rows, or on demand via lightweight popover.",
+      "campaign_details": "Display in an Edit Campaign modal/drawer opened from the header.",
+      "target_audience": "Show as compact metadata under campaign title; full detail in campaign settings modal/drawer.",
+      "channels": "Show as compact metadata under campaign title or within publish flow.",
+      "goal": "Show as one-line campaign description under title; full editable detail in campaign settings.",
+      "dates": "Show in campaign metadata line; edit through campaign settings.",
+      "help": "Use a small help/support item in top-nav account menu or unobtrusive floating help control; do not permanently reserve a card."
+    }
+  },
+  "campaign_detail_canonical_layout": {
+    "screen_role": "Primary working canvas for campaign editing, review and collaboration.",
+    "scroll_model": "infinite_vertical_scroll",
+    "header": {
+      "row_1": [
+        "workspace selector or compact workspace identity",
+        "campaign actions on right: overflow, Share, Publish campaign"
+      ],
+      "row_2": [
+        "campaign title",
+        "status"
+      ],
+      "row_3": [
+        "channel",
+        "audience",
+        "key date"
+      ],
+      "row_4": [
+        "campaign goal / short description"
+      ]
+    },
+    "filter_bar": {
+      "sticky_optional": true,
+      "items": [
+        "All",
+        "Needs review",
+        "Approved",
+        "Draft"
+      ],
+      "right_controls": [
+        "Search ads",
+        "Filter",
+        "optional sort"
+      ],
+      "rule": "Filters operate on the current campaign page; never route to separate pages."
+    },
+    "angle_group": {
+      "width": "full content width",
+      "layout": "three-column ad grid on desktop",
+      "header": [
+        "angle number",
+        "angle proposition",
+        "small pencil edit action",
+        "short angle explanation",
+        "optional tags",
+        "summary counts: approved / in review / draft",
+        "collapse control",
+        "overflow"
+      ],
+      "variants": [
+        "Short",
+        "Medium",
+        "Long"
+      ],
+      "testing_rule": "All three variants use the same underlying creative for valid copy-length testing.",
+      "card_style": "Facebook-like ad mimic rather than generic form editor.",
+      "height_rule": "Allow each ad card to grow naturally with its copy. The angle section height is determined by the tallest ad card in that row.",
+      "next_angle": "Begins below the tallest card in the previous angle group."
+    },
+    "ad_card": {
+      "view_mode": {
+        "structure": [
+          "variant label + status",
+          "advertiser identity row",
+          "primary text",
+          "shared creative",
+          "headline",
+          "description",
+          "CTA",
+          "lightweight social/action mimic",
+          "edit pencil",
+          "overflow"
+        ],
+        "goal": "The normal state should visually resemble the platform ad enough that no separate preview page is needed."
+      },
+      "edit_mode": {
+        "trigger": "pencil icon on the individual Short / Medium / Long ad",
+        "behavior": "Switch this card in place into edit mode. Do not navigate and do not open a full-screen editor.",
+        "editable_fields": [
+          "Primary text",
+          "Headline",
+          "Description",
+          "CTA"
+        ],
+        "creative_edit": {
+          "trigger": "click or hover action on the creative while in edit mode",
+          "behavior": "Open asset picker overlay/drawer.",
+          "warning": "Changing the creative changes it for Short, Medium and Long because the creative belongs to the angle."
+        },
+        "save_model": "autosave preferred",
+        "fallback_actions": [
+          "Done",
+          "Cancel"
+        ],
+        "success_feedback": "small temporary saved toast, not a persistent panel"
+      },
+      "comments": {
+        "trigger": "Comment",
+        "behavior": "Expand inline below the card or use a lightweight drawer/popover.",
+        "rule": "Do not create an individual review page."
+      }
+    }
+  },
+  "screen_specific_global_overrides": {
+    "campaign_index": {
+      "layout": "wide centered card grid beneath top nav",
+      "right_rail": false
+    },
+    "assets": {
+      "layout": "wide asset grid",
+      "inspector_behavior": "temporary right drawer only when an asset is selected; it is not a persistent page rail",
+      "left_sidebar": false
+    },
+    "publishing": {
+      "layout": "wide centered publishing flow",
+      "summary": "Use an inline summary panel within the flow or collapsible review section, not a persistent right rail.",
+      "left_sidebar": false
+    },
+    "results": {
+      "layout": "wide dashboard grid",
+      "performance_metrics": "Place percentage metrics in a top or inline grid beside/under headline metrics instead of a persistent right column.",
+      "channel_breakdown": "Inline card/grid beneath or beside metrics where space allows.",
+      "left_sidebar": false,
+      "right_sidebar": false
+    },
+    "client_review": {
+      "global_top_nav": false,
+      "internal_navigation": false,
+      "rule": "Remain an intentionally stripped-down external review surface."
+    }
+  },
+  "responsive_behavior": {
+    "desktop": {
+      "min_width": 1200,
+      "angle_columns": 3,
+      "top_nav": "full"
+    },
+    "tablet": {
+      "angle_columns": 2,
+      "top_nav": "compact horizontal nav or overflow menu",
+      "campaign_actions": "remain visible"
+    },
+    "mobile": {
+      "angle_columns": 1,
+      "top_nav": "logo + compact menu + essential actions",
+      "variants": "Short, Medium and Long may stack vertically or use a segmented control while remaining on the same campaign page.",
+      "rule": "Do not restore a persistent sidebar at smaller widths."
+    }
+  },
+  "explicitly_remove": [
+    "Persistent left navigation sidebar",
+    "Persistent right campaign-progress rail",
+    "Persistent right campaign-details rail",
+    "Permanent help card occupying page width",
+    "Dedicated internal ad review screen",
+    "Dedicated Meta/Facebook preview screen",
+    "Route-level pages for individual copy variants",
+    "Route-level pages for approval-status filters"
+  ],
+  "do_not_reinterpret": [
+    "Removing the right rail does not mean removing campaign progress or metadata; move them into compact contextual locations.",
+    "Removing the left sidebar does not remove navigation; navigation moves to the top.",
+    "Facebook-like ad cards are the primary view and preview. Editing happens in place.",
+    "Short, Medium and Long remain separate copy variants under one angle.",
+    "Creative remains shared across all three copy-length variants.",
+    "Infinite vertical scrolling is intentional and preferred over compressing all angles into one viewport."
+  ]
+}

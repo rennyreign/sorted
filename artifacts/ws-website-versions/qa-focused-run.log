@@ -1,0 +1,6 @@
+PASS v2-heading Critical powerand cooling solutionsyou can rely on
+PASS v1-loaded marker=true iframe=true skelGone=true
+PASS v2-restored Critical powerand cooling solutionsyou can rely on
+PASS singleton-no-picker {"picker":false,"src":"http://localhost:3999/"}
+PASS singleton-url http://localhost:3999/
+OVERALL PASS

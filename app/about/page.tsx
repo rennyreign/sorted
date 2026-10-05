@@ -32,7 +32,7 @@ export default function AboutPage() {
             Stronger local<br />
             businesses build<br />
             a stronger<br />
-            <span className="inline-block [font-family:var(--font-sites-highlight)] font-normal leading-[0.88] tracking-[-0.02em] text-[#d4ea00]">economy</span>
+            <span className="inline-block [font-family:var(--font-sites-fave-script)] text-[1.45em] font-normal leading-[0.72] tracking-[0] text-[#d4ea00]">economy</span>
           </h1>
           <Underline className="mt-5 w-[min(320px,75vw)]" />
           <p className="mt-7 max-w-[540px] text-[17px] font-semibold leading-[1.55] tracking-[-0.03em] text-black/78">

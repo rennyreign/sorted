@@ -1,0 +1,230 @@
+--- /tmp/wsv-baseline/WebsiteScreen.tsx	2026-10-05 05:32:41
++++ app/workspace/_components/WebsiteScreen.tsx	2026-10-05 05:39:43
+@@ -27,8 +27,17 @@
+     return () => media.removeEventListener("change", updateViewport)
+   }, [])
+ 
+-  const { previewUrl, previewImageUrl } = workspace.website
+-  const hasPreview = Boolean(previewUrl || previewImageUrl)
++  const { previewUrl, previewImageUrl, previewVersions, defaultPreviewVersion } = workspace.website
++  const versions = previewVersions ?? []
++  const showVersionPicker = versions.length > 1
++  const [selectedVersion, setSelectedVersion] = useState(() => {
++    const d = defaultPreviewVersion
++    return d && versions.some((v) => v.id === d) ? d : (versions[0]?.id ?? null)
++  })
++  const currentPreviewUrl = versions.length > 0
++    ? (versions.find((v) => v.id === selectedVersion)?.previewUrl ?? previewUrl)
++    : previewUrl
++  const hasPreview = Boolean(currentPreviewUrl || previewImageUrl)
+ 
+   const switchViewport = (v: Viewport) => {
+     if (v === viewport) return
+@@ -48,6 +57,13 @@
+ 
+   const backToReview = () => onNavigate("review")
+ 
++  const selectVersion = (id: string) => {
++    if (id === selectedVersion) return
++    setLoaded(false)
++    setSelectedVersion(id)
++    workspaceEvent(workspace, "website_version_changed", { version: id })
++  }
++
+   const viewportToggle = (
+     <div className="hidden h-8 items-center rounded-full bg-[#F1F1EC] p-[3px] sm:flex" role="group" aria-label="Preview viewport">
+       {(
+@@ -72,20 +88,59 @@
+     </div>
+   )
+ 
++  const versionPicker = showVersionPicker ? (
++    <>
++      {/* Segmented control — tablet/desktop */}
++      <div
++        className="hidden h-8 shrink-0 items-center rounded-full bg-white/10 p-[3px] sm:flex"
++        role="group"
++        aria-label="Website version"
++      >
++        {versions.map((v) => (
++          <button
++            key={v.id}
++            type="button"
++            aria-pressed={selectedVersion === v.id}
++            onClick={() => selectVersion(v.id)}
++            className={`inline-flex h-[26px] items-center rounded-full px-3 text-[11px] font-bold transition-colors focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DFFF00] ${
++              selectedVersion === v.id ? "bg-[#DFFF00] text-[#070707]" : "text-white/60 hover:text-white"
++            }`}
++          >
++            {v.label}
++          </button>
++        ))}
++      </div>
++      {/* Compact select — narrow mobile */}
++      <select
++        aria-label="Website version"
++        value={selectedVersion ?? ""}
++        onChange={(e) => selectVersion(e.target.value)}
++        className="h-9 shrink-0 rounded-md border-0 bg-white/10 px-1.5 text-[11px] font-bold text-white focus:outline-none focus-visible:outline-2 focus-visible:outline-[#DFFF00] sm:hidden"
++      >
++        {versions.map((v) => (
++          <option key={v.id} value={v.id} className="text-[#070707]">
++            {v.label}
++          </option>
++        ))}
++      </select>
++    </>
++  ) : null
++
+   return (
+     <div className="flex h-[100dvh] min-h-0 w-full flex-col bg-[#F7F7F3]">
+       {/* Action bar — single row pinned to viewport top */}
+-      <div className="flex h-14 shrink-0 flex-nowrap items-center gap-2 bg-[#070707] px-3 sm:h-16 sm:gap-4 sm:px-5">
++      <div className="flex h-14 shrink-0 flex-nowrap items-center gap-1.5 bg-[#070707] px-2 sm:h-16 sm:gap-4 sm:px-5">
+         <button
+           type="button"
+           onClick={backToReview}
+-          className="inline-flex min-h-11 shrink-0 items-center gap-2 text-[12px] font-black text-white transition-colors hover:text-white/80 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00]"
++          className="inline-flex min-h-11 shrink-0 items-center gap-1.5 text-[12px] font-black text-white transition-colors hover:text-white/80 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00]"
+         >
+           <ArrowLeft className="size-4" strokeWidth={2.4} />
+           Back to Review
+         </button>
++        {versionPicker}
+         <p className="hidden min-w-0 flex-1 truncate text-center text-[11px] font-bold uppercase tracking-[0.14em] text-white/55 lg:block">
+-          Private working homepage · {workspace.business.name}
++          Private working website · {workspace.business.name}
+         </p>
+         <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
+           <button
+@@ -100,9 +155,10 @@
+           <button
+             type="button"
+             onClick={completeSite}
+-            className="inline-flex h-11 min-w-0 items-center justify-center gap-1.5 rounded-[9px] bg-[#DFFF00] px-3 text-[11px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-0 sm:h-[42px] sm:gap-2 sm:px-5 sm:text-[12px]"
++            aria-label={`Complete this site · £${workspace.offer.total.toLocaleString()}`}
++            className="inline-flex h-11 min-w-0 items-center justify-center gap-1.5 rounded-[9px] bg-[#DFFF00] px-3 text-[11px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-0 min-[400px]:h-[42px] min-[400px]:gap-2 min-[400px]:px-5 min-[400px]:text-[12px]"
+           >
+-            <span className="sm:hidden">Complete · £{workspace.offer.total.toLocaleString()}</span>
++            <span className="hidden min-[400px]:inline sm:hidden">Complete · £{workspace.offer.total.toLocaleString()}</span>
+             <span className="hidden sm:inline">Complete this site · £{workspace.offer.total.toLocaleString()}</span>
+             <ArrowRight className="size-4 shrink-0" strokeWidth={2.8} />
+           </button>
+@@ -111,7 +167,7 @@
+ 
+       {/* Preview toolbar */}
+       <div className="flex h-11 shrink-0 items-center justify-between border-b border-[#E8E5DD] bg-white px-4">
+-        <span className="text-[11px] font-semibold text-[#73736D]">Your new homepage</span>
++        <span className="text-[11px] font-semibold text-[#73736D]">Your new website</span>
+         {viewportToggle}
+       </div>
+ 
+@@ -131,7 +187,7 @@
+               </button>
+             </div>
+           </div>
+-        ) : previewUrl ? (
++        ) : currentPreviewUrl ? (
+           <div
+             className={`relative mx-auto h-full bg-white transition-[width] duration-200 ease-out ${
+               viewport === "mobile" ? "w-full max-w-[390px] shadow-[0_0_0_1px_#E8E5DD] sm:w-[390px]" : "w-full"
+@@ -144,13 +200,14 @@
+                   <span className="block h-12 w-4/5 rounded bg-[#F1F1EC]" />
+                   <span className="block h-3 w-full rounded bg-[#F1F1EC]" />
+                   <span className="block h-3 w-5/6 rounded bg-[#F1F1EC]" />
+-                  <p className="pt-2 text-center text-[12px] font-bold text-[#A3A3A3]">Loading your homepage…</p>
++                  <p className="pt-2 text-center text-[12px] font-bold text-[#A3A3A3]">Loading your website…</p>
+                 </div>
+               </div>
+             ) : null}
+             <iframe
+-              src={previewUrl}
+-              title={`Working homepage preview for ${workspace.business.name}`}
++              key={currentPreviewUrl}
++              src={currentPreviewUrl}
++              title={`Working website preview for ${workspace.business.name}`}
+               sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+               onLoad={() => setLoaded(true)}
+               className={`h-full w-full border-0 ${loaded ? "block" : "invisible"}`}
+@@ -165,7 +222,7 @@
+             {/* eslint-disable-next-line @next/next/no-img-element */}
+             <img
+               src={previewImageUrl}
+-              alt={`Working homepage design for ${workspace.business.name}`}
++              alt={`Working website design for ${workspace.business.name}`}
+               className="w-full"
+             />
+           </div>
+--- /tmp/wsv-baseline/workspace.ts	2026-10-05 05:32:34
++++ lib/workspace.ts	2026-10-05 05:39:11
+@@ -19,6 +19,12 @@
+   explanation: string
+ }
+ 
++export type WorkspacePreviewVersion = {
++  id: string
++  label: string
++  previewUrl: string
++}
++
+ export type Workspace = {
+   slug: string
+   state: WorkspaceState
+@@ -37,6 +43,10 @@
+     previewUrl?: string
+     /** Still image of the homepage direction — used when no previewUrl exists yet. */
+     previewImageUrl?: string
++    /** Optional list of selectable preview builds shown as a version picker in the preview action bar. */
++    previewVersions?: WorkspacePreviewVersion[]
++    /** Version id shown by default; falls back to the first entry when unset/invalid. */
++    defaultPreviewVersion?: string
+     /** Direct video file URL of a talking-head explanation, rendered as a floating bubble over the preview. */
+     walkthroughVideoUrl?: string
+     liveUrl?: string
+@@ -103,7 +113,7 @@
+     review: {
+       headline: "30 years of critical power expertise, finally presented like it.",
+       summary:
+-        "We've rebuilt your homepage to put your UPS, battery and cooling services front and centre — with your real accreditations, your Google reviews and a faster path for every enquiry.",
++        "We've rebuilt your homepage to put your UPS, battery and cooling services front and centre — with your partner logos, a real customer testimonial and a faster path for every enquiry.",
+       observations: [
+         {
+           title: "Expertise front and centre",
+@@ -113,7 +123,7 @@
+         {
+           title: "Real trust signals",
+           explanation:
+-            "Schneider Electric, APC, SafeContractor and F-Gas accreditations are now impossible to miss, and your Google reviews sit right where new customers look for proof.",
++            "Schneider Electric, APC, SafeContractor and F-Gas logos are now impossible to miss, and a real customer testimonial sits right where new customers look for proof.",
+         },
+         {
+           title: "Faster callbacks",
+@@ -123,7 +133,27 @@
+       ],
+     },
+     website: {
+-      previewUrl: "https://murraymartin-services.netlify.app",
++      // Development previews: v1 is the immutable earlier deploy, v2 is the
++      // local build. In production only the existing hosted URL is shown —
++      // versioned previews stay unpublished until preview deploy is approved.
++      previewUrl:
++        process.env.NODE_ENV === "development"
++          ? "http://localhost:3999"
++          : "https://murraymartin-services.netlify.app",
++      ...(process.env.NODE_ENV === "development"
++        ? {
++            previewVersions: [
++              { id: "v2", label: "Version 1", previewUrl: "http://localhost:3999" },
++              {
++                id: "v1",
++                label: "Version 2",
++                previewUrl:
++                  "https://6ac1b6191377cbff651147fb--murraymartin-services.netlify.app",
++              },
++            ],
++            defaultPreviewVersion: "v2",
++          }
++        : {}),
+       status: "review",
+     },
+     offer: {

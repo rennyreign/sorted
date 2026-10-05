@@ -1,5 +1,10 @@
 # Skill: frontend-builder
 
+## Stage 1 Internal-Page Links
+
+Before building or resuming a pre-approval client site, read `operators/skills/stage-1-direction-confirmation.md` (from the Sorted repo root). Implement its shared direction-confirmation pages and consistent internal routes during Op 4, before Op 5/5b. This is an intentional review state, not a finished internal page or client approval.
+
+
 **Type:** Step skill — Chain Step 3 of 3  
 **Trigger:** Loaded by `site-build` skill, or directly when user asks to build the frontend  
 **External API:** Claude (code generation) — `claude-sonnet-4-5` by default  
@@ -82,7 +87,7 @@ These are non-negotiable in every generated component:
 - **No new npm packages** — work within what `package.json` already has
 - **Server Components by default** — only `"use client"` when genuinely needed (useState, event handlers)
 - **`Viewport` export** — `themeColor` goes in `export const viewport: Viewport`, not in `metadata`
-- **Real copy** — no lorem ipsum, no placeholder text, no "Coming soon"
+- **Real copy** — no lorem ipsum or generic "Coming soon" pages. The explicit Stage 1 direction-confirmation state in `stage-1-direction-confirmation.md` is permitted until the client confirms the homepage direction.
 
 ---
 

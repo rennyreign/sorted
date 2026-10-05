@@ -1,0 +1,65 @@
+{
+  "pass": true,
+  "results": [
+    {
+      "n": "actionbar-top-1440",
+      "p": true,
+      "d": "{\"x\":0,\"y\":0,\"w\":1440,\"h\":64}"
+    },
+    {
+      "n": "no-workspace-header-1440",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "no-hscroll-1440",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "iframe-fullwidth-1440",
+      "p": true,
+      "d": "{\"w\":1440}"
+    },
+    {
+      "n": "mobile-sim-390",
+      "p": true,
+      "d": "iframe=390"
+    },
+    {
+      "n": "actionbar-top-375",
+      "p": true,
+      "d": "{\"x\":0,\"y\":0,\"w\":375,\"h\":56}"
+    },
+    {
+      "n": "no-workspace-header-375",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "no-hscroll-375",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "mobile-single-row",
+      "p": true,
+      "d": "{\"tops\":[6],\"count\":3}"
+    },
+    {
+      "n": "back-to-review-nav",
+      "p": true,
+      "d": "{\"url\":\"/workspace/nexus-accounting/review\",\"header\":true,\"hscroll\":false}"
+    },
+    {
+      "n": "complete-next-steps",
+      "p": true,
+      "d": "/workspace/nexus-accounting/next-steps"
+    },
+    {
+      "n": "question-drawer",
+      "p": true,
+      "d": ""
+    }
+  ]
+}

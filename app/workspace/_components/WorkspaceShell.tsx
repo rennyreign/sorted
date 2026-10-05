@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react"
 import { ArrowRight, Lock } from "lucide-react"
-import { tabsFor, type Workspace, type WorkspaceRoute } from "@/lib/workspace"
+import { defaultRouteFor, tabsFor, type Workspace, type WorkspaceRoute } from "@/lib/workspace"
 
 export function workspacePath(slug: string, route: WorkspaceRoute) {
   return `/workspace/${slug}/${route}`
@@ -14,10 +14,22 @@ function externalHref(ws: Workspace, key: "website" | "updates" | "tracking") {
   return ws.website.trackingUrl
 }
 
-function Wordmark() {
+function Wordmark({ href, onNavigate }: { href: string; onNavigate?: () => void }) {
   return (
-    <a href="/" className="text-[26px] font-black leading-none tracking-[-0.045em] text-[#070707] sm:text-[30px]">
-      Sorted<span className="text-[#cfe900]">.</span>
+    <a
+      href={href}
+      onClick={
+        onNavigate
+          ? (e) => {
+              e.preventDefault()
+              onNavigate()
+            }
+          : undefined
+      }
+      className="text-[26px] font-black leading-none tracking-[-0.045em] text-[#070707] sm:text-[30px]"
+      aria-label="Back to your workspace"
+    >
+      Sorted<span className="text-[#DFFF00]">.</span>
     </a>
   )
 }
@@ -47,7 +59,7 @@ function TabLink({
             }
           : undefined
       }
-      className={`relative inline-flex min-h-11 items-center whitespace-nowrap px-1 text-[13px] font-bold transition-opacity focus:outline-2 focus:outline-offset-4 focus:outline-[#070707] ${
+      className={`relative inline-flex min-h-11 items-center whitespace-nowrap px-1 text-[13px] font-bold transition-opacity focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#070707] focus-visible:rounded-sm ${
         active ? "text-[#070707]" : "text-[#070707]/55 hover:text-[#070707]/80"
       }`}
     >
@@ -70,6 +82,17 @@ export function WorkspaceShell({
 }) {
   const tabs = tabsFor(workspace.state)
   const liveUrl = workspace.website.liveUrl
+  const homeRoute = defaultRouteFor(workspace.state)
+  const goHome = () => onNavigate(homeRoute)
+
+  // Website route is an immersive full-viewport preview — no workspace header
+  if (route === "website") {
+    return (
+      <div className="flex h-[100dvh] flex-col overflow-hidden bg-[#F7F7F3] text-[#070707]">
+        <main className="flex min-h-0 flex-1 flex-col">{children}</main>
+      </div>
+    )
+  }
 
   const tabRow = (
     <nav aria-label="Workspace" className="flex items-center gap-6 overflow-x-auto sm:gap-8">
@@ -102,9 +125,9 @@ export function WorkspaceShell({
     <div className="flex min-h-screen flex-col bg-[#F7F7F3] text-[#070707]">
       <header className="sticky top-0 z-40 border-b border-[#E8E5DD] bg-[#F7F7F3]/95 backdrop-blur-sm">
         {/* Desktop / tablet header */}
-        <div className="mx-auto hidden h-[76px] max-w-[1240px] items-center gap-9 px-8 md:grid md:grid-cols-[1fr_auto_1fr]">
+        <div className="mx-auto hidden h-[76px] max-w-[1240px] items-center gap-9 px-8 lg:grid lg:grid-cols-[1fr_auto_1fr]">
           <div className="flex min-w-0 items-baseline gap-3">
-            <Wordmark />
+            <Wordmark href={workspacePath(workspace.slug, homeRoute)} onNavigate={goHome} />
             <p className="truncate text-[11px] font-bold uppercase tracking-[0.14em] text-[#73736D]">
               For {workspace.business.name}
             </p>
@@ -130,10 +153,10 @@ export function WorkspaceShell({
         </div>
 
         {/* Mobile: brand row + scrollable tabs */}
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <div className="flex h-14 items-center justify-between gap-4 px-5">
             <div className="flex min-w-0 items-baseline gap-2.5">
-              <Wordmark />
+              <Wordmark href={workspacePath(workspace.slug, homeRoute)} onNavigate={goHome} />
               <p className="truncate text-[10px] font-bold uppercase tracking-[0.14em] text-[#73736D]">
                 For {workspace.business.name}
               </p>
@@ -166,6 +189,11 @@ export function WorkspaceFooter({ workspace, onNavigate }: { workspace: Workspac
       <div className="mx-auto flex max-w-[860px] flex-col gap-3 px-5 py-6 text-[12px] font-semibold text-[#73736D] sm:flex-row sm:items-center sm:justify-between sm:px-8">
         <p>This page is for {workspace.business.name}, looked after by Sorted.</p>
         <div className="flex items-center gap-6">
+          {workspace.links.phone ? (
+            <a href={`tel:${workspace.links.phone}`} className="underline underline-offset-4 transition-colors hover:text-[#070707]">
+              Ring or text {workspace.links.phoneDisplay ?? workspace.links.phone}
+            </a>
+          ) : null}
           <a href={`mailto:${workspace.links.questionEmail}`} className="underline underline-offset-4 transition-colors hover:text-[#070707]">
             {workspace.links.questionEmail}
           </a>
@@ -178,7 +206,7 @@ export function WorkspaceFooter({ workspace, onNavigate }: { workspace: Workspac
               }}
               className="inline-flex items-center gap-1.5 underline underline-offset-4 transition-colors hover:text-[#070707]"
             >
-              Back to your new homepage <ArrowRight className="size-3.5" strokeWidth={2.6} />
+              Back to your new site <ArrowRight className="size-3.5" strokeWidth={2.6} />
             </a>
           ) : null}
         </div>

@@ -27,8 +27,8 @@ A site can have navigation, CTAs, a contact form and testimonials and still be a
 ## INPUTS
 
 You receive up to two screenshots of the same homepage:
-1. DESKTOP at 1280px
-2. MOBILE at 390px (when present — score mobile_experience from what you actually see)
+1. DESKTOP at 1280px — a FULL-PAGE capture, top to bottom. Assess the WHOLE page, not just the hero: testimonials, services, pricing, accreditations and footer content often live below the fold.
+2. MOBILE at 390px — above-the-fold only (when present — score mobile_experience from what you actually see)
 
 You are also given the business name, category, location, detected platform and build-age signals from the site's technology profile. Use them: a Wix site with a 2017 copyright footer is stronger evidence of a dated build than a visual impression alone.
 
@@ -109,6 +109,7 @@ Return ONLY a valid JSON object. No markdown, no code fences.
 ## Rules
 
 - Score the OPPORTUNITY, not functional completeness.
+- Score fairly for a small local business: a dated but working template site is a mid-range opportunity (mostly 1s), not a zero. Reserve 0s and -1s for genuinely broken, blank or absent content — and only when you've checked the full desktop capture, not just the hero.
 - Never give dimension 2s out of politeness — most local business sites are mostly 1s.
 - If the screenshot is a parked domain, error page or blank: set every dimension to -1 and explain in site_analysis.
 - The review_summary is shown to the business owner on their review page — write it for them, not for Sorted.
@@ -122,7 +123,7 @@ Location: {location}
 Website: {website_url}
 Detected platform: {site_platform}
 Build-age signals: {site_age_signals}
-Screenshot 1: DESKTOP (1280px)
-Screenshot 2 (if present): MOBILE (390px)
+Screenshot 1: DESKTOP (1280px) — FULL-PAGE, top to bottom
+Screenshot 2 (if present): MOBILE (390px) — above-the-fold
 
 Return only valid JSON — no markdown, no code fences, no explanation."""

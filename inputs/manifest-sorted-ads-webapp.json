@@ -1,0 +1,853 @@
+{
+  "product_model": {
+    "manifest_type": "product_model",
+    "product": "Sorted Ads",
+    "version": "v1",
+    "status": "canonical",
+    "design_intent": {
+      "primary_goal": "Make campaign creation, editing, client review, approval and publishing fast with as few drill-down screens as possible.",
+      "core_principle": "Prefer direct editing, inline states, drawers and overlays over dedicated drill-down pages.",
+      "workflow": [
+        "Campaigns",
+        "Campaign / Angles",
+        "Assets",
+        "Publishing",
+        "Results"
+      ],
+      "external_client_surface": "Share / Client Review"
+    },
+    "domain_model": {
+      "workspace": {
+        "has_many": [
+          "campaigns",
+          "assets",
+          "users"
+        ],
+        "example": "School of Skill"
+      },
+      "campaign": {
+        "has_many": [
+          "angles"
+        ],
+        "has_one": [
+          "campaign_goal",
+          "audience",
+          "date_range",
+          "channel_config"
+        ],
+        "attributes": [
+          "name",
+          "status",
+          "goal",
+          "audience",
+          "channel",
+          "start_date",
+          "end_date",
+          "approval_progress",
+          "comment_count"
+        ]
+      },
+      "angle": {
+        "definition": "A single advertising proposition or persuasion angle.",
+        "has_one": [
+          "shared_creative"
+        ],
+        "has_many": [
+          "copy_variants"
+        ],
+        "copy_variant_rule": "Exactly three copy-length variants: short, medium and long.",
+        "testing_rule": "The same creative must be used across short, medium and long copy variants so copy length remains the isolated variable.",
+        "attributes": [
+          "index",
+          "name",
+          "proposition",
+          "tags",
+          "status",
+          "shared_creative_id"
+        ]
+      },
+      "copy_variant": {
+        "allowed_types": [
+          "short",
+          "medium",
+          "long"
+        ],
+        "inherits_from_angle": [
+          "shared_creative"
+        ],
+        "attributes": [
+          "primary_text",
+          "headline",
+          "description",
+          "cta",
+          "approval_status",
+          "comment_count"
+        ]
+      },
+      "creative": {
+        "definition": "The visual asset assigned to an angle and shared by all three copy variants.",
+        "allowed_media": [
+          "image",
+          "video"
+        ],
+        "rendition_note": "Placement-specific crops or renditions are downstream publishing concerns, not separate ad concepts.",
+        "attributes": [
+          "filename",
+          "media_type",
+          "dimensions",
+          "aspect_ratio",
+          "file_size",
+          "usage"
+        ]
+      },
+      "approval_statuses": [
+        "draft",
+        "in_review",
+        "approved",
+        "ready",
+        "active",
+        "learning"
+      ],
+      "comment": {
+        "belongs_to": [
+          "campaign",
+          "angle",
+          "copy_variant"
+        ],
+        "purpose": "Lightweight client and internal collaboration."
+      }
+    },
+    "canonical_navigation": {
+      "internal_primary": [
+        "Campaigns",
+        "Assets",
+        "Publishing",
+        "Results",
+        "Settings"
+      ],
+      "campaign_context": [
+        "Angles",
+        "Assets",
+        "Publishing",
+        "Results"
+      ],
+      "do_not_create": [
+        "Individual internal ad review page",
+        "Separate page for short copy",
+        "Separate page for medium copy",
+        "Separate page for long copy",
+        "Meta/Facebook ad simulator page",
+        "Nested subpages for approved, needs-review or comments"
+      ]
+    },
+    "interaction_principles": [
+      "Campaign detail is the main editing surface.",
+      "Angles should be visible together on one vertically scrollable page.",
+      "Editing should happen inline or in lightweight expandable regions.",
+      "Status filters should filter the same page instead of routing to new pages.",
+      "Creative changes should use an overlay or drawer.",
+      "Comments should use inline expansion or a drawer.",
+      "Client review is a separate simplified external surface because it serves a different user and goal.",
+      "Publishing is a short guided flow, not a complex ads-manager clone.",
+      "Results should surface measurable performance, not narrative AI insights."
+    ],
+    "deprecated_patterns": [
+      {
+        "pattern": "individual_internal_review_page",
+        "reason": "Duplicates campaign-detail editing and adds unnecessary drill-down."
+      },
+      {
+        "pattern": "meta_ad_preview_simulator",
+        "reason": "Adds visual and interaction bloat without improving review decisions."
+      },
+      {
+        "pattern": "different_creative_per_copy_length",
+        "reason": "Breaks test comparability and creates multi-variant ambiguity."
+      },
+      {
+        "pattern": "tab_destinations_for_all_ads_needs_review_approved_comments",
+        "reason": "Use filters on the same campaign-detail surface instead of separate destinations."
+      }
+    ]
+  },
+  "global_design_ir": {
+    "manifest_type": "global_design_ir",
+    "product": "Sorted Ads",
+    "version": "v1",
+    "source_style": "Sorted brand translated into a calm client-workspace UI.",
+    "design_character": [
+      "Minimal",
+      "Editorial",
+      "Calm",
+      "High-contrast",
+      "Premium but practical",
+      "Low-chrome",
+      "Task-oriented"
+    ],
+    "implementation_note": "Numeric values are concrete implementation targets selected to recreate the visual language consistently, not measured claims from screenshots.",
+    "tokens": {
+      "color": {
+        "page_bg": "#FBFBF7",
+        "surface": "#FFFFFF",
+        "surface_soft": "#F6F7F3",
+        "surface_blue": "#EAF4FB",
+        "surface_lime": "#F2F8DD",
+        "ink": "#0B0B0A",
+        "text_muted": "#646763",
+        "text_subtle": "#8A8D88",
+        "border": "#E3E5DF",
+        "border_strong": "#D6D9D2",
+        "green": "#003E32",
+        "green_hover": "#003227",
+        "green_soft": "#E9F3EE",
+        "lime": "#B7E315",
+        "yellow": "#F3C21C",
+        "yellow_soft": "#FFF4CE",
+        "blue": "#2D7FEA",
+        "blue_soft": "#E9F2FD",
+        "red": "#E53D3D",
+        "red_soft": "#FDECEC"
+      },
+      "radius": {
+        "sm": 10,
+        "md": 14,
+        "lg": 18,
+        "xl": 24,
+        "pill": 999
+      },
+      "shadow": {
+        "default": "0 1px 2px rgba(0,0,0,0.04)",
+        "overlay": "0 18px 60px rgba(0,0,0,0.12)"
+      },
+      "spacing_scale": [
+        4,
+        8,
+        12,
+        16,
+        20,
+        24,
+        32,
+        40,
+        48,
+        64,
+        80
+      ],
+      "typography": {
+        "font_family": "Use the same grotesk / modern sans family already used by Sorted. If unavailable, use Inter, Arial, Helvetica, sans-serif.",
+        "display": {
+          "size": 56,
+          "line_height": 0.98,
+          "weight": 800,
+          "tracking": -0.04
+        },
+        "h1": {
+          "size": 46,
+          "line_height": 1.0,
+          "weight": 800,
+          "tracking": -0.035
+        },
+        "h2": {
+          "size": 28,
+          "line_height": 1.05,
+          "weight": 750,
+          "tracking": -0.02
+        },
+        "h3": {
+          "size": 20,
+          "line_height": 1.15,
+          "weight": 700
+        },
+        "body": {
+          "size": 16,
+          "line_height": 1.5,
+          "weight": 400
+        },
+        "small": {
+          "size": 14,
+          "line_height": 1.4,
+          "weight": 400
+        },
+        "label": {
+          "size": 13,
+          "line_height": 1.2,
+          "weight": 600,
+          "tracking": 0.01
+        }
+      }
+    },
+    "app_shell": {
+      "desktop": {
+        "min_width": 1280,
+        "sidebar_width": 258,
+        "topbar_height": 80,
+        "content_max_width": 1240,
+        "content_padding_x": 44,
+        "content_padding_y": 30
+      },
+      "sidebar": {
+        "background": "#FFFFFF",
+        "border_right": "1px solid #E3E5DF",
+        "logo_position": "top-left",
+        "nav_item_height": 52,
+        "nav_item_radius": 14,
+        "active_background": "soft lime-to-cream tint",
+        "active_icon_color": "#003E32",
+        "inactive_text_color": "#555853",
+        "support_card": "anchored near bottom, soft neutral panel with one secondary CTA"
+      },
+      "topbar": {
+        "workspace_selector": "left",
+        "notifications": "right",
+        "user_menu": "far right",
+        "background": "same as page",
+        "visual_weight": "quiet"
+      },
+      "footer": {
+        "background": "#003E32",
+        "foreground": "#FFFFFF",
+        "radius": 16,
+        "height": 64,
+        "left": "Sorted. + short product line",
+        "right": "Small businesses. A more sorted future.",
+        "usage": "Visible on internal desktop surfaces; omit on compact external review if it distracts."
+      }
+    },
+    "components": {
+      "button_primary": {
+        "height": 46,
+        "padding_x": 22,
+        "background": "#003E32",
+        "foreground": "#FFFFFF",
+        "radius": 14,
+        "font_weight": 650
+      },
+      "button_secondary": {
+        "height": 46,
+        "padding_x": 18,
+        "background": "#FFFFFF",
+        "foreground": "#10110F",
+        "border": "1px solid #E3E5DF",
+        "radius": 14
+      },
+      "icon_button": {
+        "size": 46,
+        "background": "#FFFFFF",
+        "border": "1px solid #E3E5DF",
+        "radius": 14
+      },
+      "card": {
+        "background": "#FFFFFF",
+        "border": "1px solid #E3E5DF",
+        "radius": 16,
+        "shadow": "0 1px 2px rgba(0,0,0,0.03)"
+      },
+      "status_pill": {
+        "height": 28,
+        "radius": 999,
+        "font_size": 13,
+        "draft": {
+          "dot": "#B9BDB6",
+          "bg": "#F3F4F1"
+        },
+        "in_review": {
+          "dot": "#F3C21C",
+          "bg": "#FFF7DD"
+        },
+        "approved": {
+          "dot": "#1B9A68",
+          "bg": "#EAF7F0"
+        },
+        "active": {
+          "dot": "#1B9A68",
+          "bg": "#EAF7F0"
+        },
+        "learning": {
+          "dot": "#F3C21C",
+          "bg": "#FFF7DD"
+        }
+      },
+      "tab_filter": {
+        "style": "text tabs with subtle bottom rule for active state",
+        "active_color": "#003E32",
+        "inactive_color": "#72756F",
+        "active_border": "2px solid #003E32"
+      },
+      "form_control": {
+        "height": 44,
+        "background": "#FFFFFF",
+        "border": "1px solid #DDE0DA",
+        "radius": 10,
+        "focus": "2px outer highlight using soft green"
+      },
+      "thumbnail": {
+        "radius": 8,
+        "object_fit": "cover"
+      },
+      "metric_card": {
+        "background": "#FFFFFF",
+        "border": "1px solid #E3E5DF",
+        "radius": 16,
+        "padding": 22
+      }
+    },
+    "layout_rules": [
+      "Use large page titles and restrained secondary copy.",
+      "Prefer one strong content column plus one narrow contextual rail when necessary.",
+      "Do not stack multiple nested card borders unless the child card is a true independent object.",
+      "Keep controls close to the object they affect.",
+      "Keep the campaign-detail page vertically continuous and scannable.",
+      "Use green for primary action and positive state, lime sparingly for brand emphasis, yellow for in-review state, red only for destructive or negative movement.",
+      "Avoid heavy gradients except subtle soft-info panels.",
+      "Avoid decorative illustration inside operational screens."
+    ],
+    "responsive": {
+      "tablet": "Collapse sidebar to icons or drawer. Stack right rail beneath primary content.",
+      "mobile": "Use a single content column. Preserve direct editing. Convert three-column copy variants to segmented tabs or accordion sections while keeping shared creative visible once.",
+      "external_review_mobile": "Prioritize one ad card at a time with swipe/next controls."
+    }
+  },
+  "screens": {
+    "02-campaign-index": {
+      "manifest_type": "screen_design_ir",
+      "screen_id": "campaign_index",
+      "route_pattern": "/campaigns",
+      "purpose": "See, create and open campaigns with one click.",
+      "page_header": {
+        "eyebrow": "workspace name",
+        "title": "Campaigns",
+        "subtitle": "Ads we're working on together.",
+        "primary_action": "+ New campaign"
+      },
+      "filters": {
+        "position": "below header",
+        "items": [
+          "All",
+          "Active",
+          "Draft",
+          "Completed"
+        ],
+        "search": "right aligned"
+      },
+      "layout": {
+        "type": "responsive card grid",
+        "desktop_columns": 2,
+        "gap": 20
+      },
+      "campaign_card": {
+        "media": {
+          "position": "top",
+          "aspect_ratio": "16:9",
+          "object_fit": "cover",
+          "full_bleed_within_card": true
+        },
+        "content_order": [
+          "campaign name",
+          "audience / age range / registration date",
+          "status pill",
+          "metric strip",
+          "last updated",
+          "overflow menu"
+        ],
+        "metric_strip": [
+          "angles",
+          "ads or variants",
+          "approved"
+        ],
+        "interaction": {
+          "primary": "Clicking the card opens campaign detail.",
+          "secondary": "Overflow menu handles duplicate, archive or delete.",
+          "no_extra_arrow_required": true
+        }
+      },
+      "empty_state": {
+        "message": "No campaigns yet.",
+        "action": "+ New campaign"
+      }
+    },
+    "03-campaign-detail-angles": {
+      "manifest_type": "screen_design_ir",
+      "screen_id": "campaign_detail_angles",
+      "route_pattern": "/campaigns/:campaignId",
+      "purpose": "Primary working surface for editing, reviewing and approving campaign ads with minimal drill-down.",
+      "canonical_rule": "This screen replaces both previous campaign-detail variants and the internal review page.",
+      "page_header": {
+        "breadcrumb": "Campaigns / {campaign name}",
+        "title": "campaign name",
+        "meta": [
+          "channel",
+          "audience",
+          "key date"
+        ],
+        "description": "campaign goal statement",
+        "actions": [
+          "Share",
+          "Publish"
+        ],
+        "overflow": "campaign-level secondary actions"
+      },
+      "filters": {
+        "type": "same-page filters only",
+        "items": [
+          "All",
+          "Needs review",
+          "Approved",
+          "Draft"
+        ],
+        "rule": "Do not route to separate subpages."
+      },
+      "layout": {
+        "type": "single continuous angle list",
+        "right_rail": "optional compact campaign progress/details rail on wide desktop only",
+        "angle_gap": 14
+      },
+      "angle_row": {
+        "default_state": "collapsed summary",
+        "summary_columns": [
+          "drag handle / index",
+          "shared creative thumbnail",
+          "angle proposition and tags",
+          "variant status summary",
+          "angle status",
+          "overflow"
+        ],
+        "summary_content": {
+          "variant_count": "always 3",
+          "status_example": "1 approved · 1 in review · 1 draft"
+        },
+        "expand_behavior": {
+          "trigger": "click row or edit chevron",
+          "result": "Expand inline on the same page.",
+          "must_not_route": true
+        },
+        "expanded_editor": {
+          "shared_creative": {
+            "display": "once above or beside variants",
+            "label": "Shared creative",
+            "note": "Used by Short, Medium and Long",
+            "actions": [
+              "Change creative"
+            ]
+          },
+          "copy_variants": {
+            "desktop_layout": "three equal columns",
+            "items": [
+              "Short",
+              "Medium",
+              "Long"
+            ],
+            "fields": [
+              "Primary text",
+              "Headline",
+              "Description",
+              "CTA"
+            ],
+            "creative_rule": "Do not provide separate creative selectors inside each variant.",
+            "preview_rule": "A lightweight structural ad card may repeat the same image in all three columns for comparison, but all three point to the same underlying shared asset."
+          },
+          "variant_actions": [
+            "Approve",
+            "Request changes / comment"
+          ],
+          "autosave": "preferred",
+          "save_button": "optional fallback if autosave is unavailable"
+        }
+      },
+      "right_rail": {
+        "show_on_desktop": true,
+        "sections": [
+          "Campaign progress",
+          "Key date",
+          "Target audience",
+          "Channels",
+          "Campaign goal"
+        ],
+        "rule": "Keep compact; never compete with the editor."
+      },
+      "collaboration": {
+        "comments": "Open inline beneath a variant or in a right-side drawer.",
+        "share": "Creates external client-review link.",
+        "client_approval_updates_status": true
+      }
+    },
+    "04-assets": {
+      "manifest_type": "screen_design_ir",
+      "screen_id": "assets",
+      "route_pattern": "/campaigns/:campaignId/assets",
+      "purpose": "Manage images and videos used by the current campaign.",
+      "header": {
+        "title": "Assets",
+        "subtitle": "Manage the creative used across your campaign.",
+        "actions": [
+          "Upload assets",
+          "Generate with AI"
+        ]
+      },
+      "filters": {
+        "tabs": [
+          "All assets",
+          "Images",
+          "Videos",
+          "Deleted"
+        ],
+        "search": true,
+        "filter_button": true
+      },
+      "layout": {
+        "content": "asset grid",
+        "desktop_grid_columns": 4,
+        "right_inspector": "opens only when an asset is selected"
+      },
+      "asset_card": {
+        "media": "square-ish or portrait thumbnail depending on source",
+        "overlay_controls": [
+          "select checkbox",
+          "overflow"
+        ],
+        "metadata": [
+          "filename",
+          "media type",
+          "aspect ratio",
+          "file size"
+        ],
+        "video": "show play icon and duration"
+      },
+      "inspector": {
+        "width": 320,
+        "content": [
+          "large preview",
+          "file details",
+          "usage references",
+          "replace",
+          "download",
+          "duplicate",
+          "delete"
+        ],
+        "usage_reference": "Show campaign angle(s) using the asset."
+      },
+      "interaction": {
+        "multi_select": "supported",
+        "replace_asset": "may preserve current angle assignment",
+        "delete": "destructive confirmation required",
+        "close_inspector": "X in upper-right"
+      }
+    },
+    "05-publishing": {
+      "manifest_type": "screen_design_ir",
+      "screen_id": "publishing",
+      "route_pattern": "/campaigns/:campaignId/publishing",
+      "purpose": "Select approved variants, configure schedule and publish with minimal friction.",
+      "header": {
+        "title": "Publishing",
+        "subtitle": "Get your approved ads live.",
+        "secondary_action": "Preview plan",
+        "primary_action": "Publish ads"
+      },
+      "stepper": {
+        "steps": [
+          "Select ads",
+          "Set schedule",
+          "Review & publish"
+        ],
+        "rule": "Prefer one page with progressive sections over route-per-step."
+      },
+      "select_ads": {
+        "title": "Select approved ads",
+        "rule": "Only approved or ready variants can be selected.",
+        "angle_row": {
+          "content": [
+            "checkbox",
+            "angle index",
+            "creative thumbnail",
+            "angle name",
+            "copy-length pills",
+            "ready status",
+            "overflow"
+          ],
+          "copy_length_selection": "User chooses the approved Short, Medium or Long variant for each angle.",
+          "shared_creative": "Inherited from the angle."
+        },
+        "select_all": true
+      },
+      "right_summary": {
+        "sections": [
+          "selected ad count",
+          "angles represented",
+          "campaign dates",
+          "channels",
+          "audience",
+          "schedule",
+          "budget",
+          "optimisation"
+        ]
+      },
+      "schedule": {
+        "fields": [
+          "start date",
+          "end date",
+          "run time",
+          "budget",
+          "optimisation"
+        ],
+        "edit_mode": "inline or modal"
+      },
+      "final_confirmation": {
+        "display": "compact review state on same page",
+        "requires": [
+          "selected ads",
+          "dates",
+          "budget or inherited budget",
+          "connected ad account"
+        ],
+        "primary_action": "Publish ads"
+      }
+    },
+    "06-results": {
+      "manifest_type": "screen_design_ir",
+      "screen_id": "results",
+      "route_pattern": "/campaigns/:campaignId/results",
+      "purpose": "Show measurable campaign performance and allow quick comparison by angle and copy length.",
+      "header": {
+        "title": "Results",
+        "subtitle": "Real performance. Clear decisions.",
+        "date_picker": "upper-right"
+      },
+      "top_metrics": [
+        {
+          "name": "Impressions",
+          "format": "integer",
+          "delta": true
+        },
+        {
+          "name": "Link clicks",
+          "format": "integer",
+          "delta": true
+        },
+        {
+          "name": "Registrations",
+          "format": "integer",
+          "delta": true
+        },
+        {
+          "name": "Cost per result",
+          "format": "currency",
+          "delta": true
+        }
+      ],
+      "chart": {
+        "title": "Registrations over time",
+        "type": "single-series line chart with subtle area fill",
+        "metric_selector": true,
+        "style": "thin dark-green line, light grid, no visual noise"
+      },
+      "right_metrics": {
+        "title": "Performance metrics",
+        "items": [
+          "Click through rate (CTR)",
+          "Conversion rate (click → registration)",
+          "Cost per click (CPC)",
+          "Cost per registration",
+          "Impression to registration rate",
+          "Total spend"
+        ],
+        "each_item": [
+          "current value",
+          "percentage change"
+        ],
+        "color_rule": "Green for favourable movement, red for unfavourable movement; cost decreases are favourable."
+      },
+      "channel_breakdown": {
+        "title": "Performance by channel",
+        "items": [
+          "Facebook",
+          "Instagram"
+        ],
+        "show": [
+          "share of registrations",
+          "rate",
+          "percentage change"
+        ]
+      },
+      "performance_table": {
+        "filters": [
+          "All angles",
+          "All copy lengths"
+        ],
+        "export": true,
+        "columns": [
+          "Ad",
+          "Angle",
+          "Copy",
+          "Impressions",
+          "Link clicks",
+          "Registrations",
+          "Cost per result",
+          "CTR",
+          "Conversion rate",
+          "Status"
+        ],
+        "row_thumbnail": true
+      },
+      "explicitly_exclude": [
+        "AI key insights panel",
+        "Narrative recommendations panel"
+      ]
+    },
+    "07-client-review": {
+      "manifest_type": "screen_design_ir",
+      "screen_id": "client_review",
+      "route_pattern": "/review/:shareToken",
+      "purpose": "Give clients a simple way to approve, request changes and comment.",
+      "audience": "external client",
+      "shell": {
+        "sidebar": false,
+        "internal_navigation": false,
+        "header": [
+          "Sorted.",
+          "campaign name",
+          "key date"
+        ],
+        "visual_density": "lower than internal app"
+      },
+      "layout": {
+        "type": "responsive review grid",
+        "desktop_columns": 3,
+        "mobile": "one card at a time"
+      },
+      "review_card": {
+        "content_order": [
+          "angle / variant label",
+          "primary copy",
+          "shared creative",
+          "headline",
+          "description",
+          "CTA",
+          "approve",
+          "request changes",
+          "comment"
+        ],
+        "actions": [
+          "Approve",
+          "Request changes",
+          "Add comment"
+        ],
+        "status_feedback": "Immediate visible state change after action."
+      },
+      "global_actions": {
+        "approve_all": true,
+        "comment_mode": "optional campaign-level comment"
+      },
+      "navigation": {
+        "desktop": "grid scroll",
+        "mobile": "previous / next",
+        "progress": "e.g. 3 of 12"
+      },
+      "rules": [
+        "Do not expose internal campaign settings.",
+        "Do not expose publishing controls.",
+        "Do not expose results unless intentionally shared later.",
+        "Keep copy and creative visually close so the client judges the ad as one object.",
+        "Feedback must flow back to the internal campaign-detail page."
+      ]
+    }
+  }
+}

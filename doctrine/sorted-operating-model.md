@@ -206,7 +206,7 @@ Before any site gets built, Sorted runs an acquisition chain that finds prospect
 1. The Prospect Finder scrapes Google Maps and produces a list of local businesses with their website URLs.
 2. The Website Analyser visits each site and produces a score and analysis.
 3. The operator reviews the scored list in the dashboard Prospects tab and clicks "Add to outreach" to move a prospect into the CRM at `outreached` stage.
-4. The operator sends a cold email manually. The email includes a link to the prospect's review page at `sortmydigital.site/review/[slug]`.
+4. The operator sends a cold email manually. The email includes a link to the prospect's review page at `sortmydigital.site/workspace/[slug]`.
 5. The prospect clicks the link, reads their review, and reveals the mockup.
 
 ### Scoring
@@ -221,7 +221,7 @@ Full scoring doctrine: `doctrine/scoring-for-modernization.md`
 
 ### The Review Page
 
-Lives at `sortmydigital.site/review/[slug]`. Static SPA shell. Data fetched client-side from Supabase.
+Lives at `sortmydigital.site/workspace/[slug]`. Static SPA shell. Data fetched client-side from Supabase.
 
 Shows:
 - Business name

@@ -1,0 +1,31 @@
+{
+  "name": "example-uploader",
+  "version": "0.1.0",
+  "description": "Sorted example uploader — takes built sites and mockups, enriches with AI-generated case studies, screenshots live sites, and publishes to the examples page",
+  "type": "module",
+  "scripts": {
+    "upload": "tsc --noEmit && tsc && node dist/cli.js",
+    "build": "tsc",
+    "lint": "tsc --noEmit",
+    "dev": "node --loader ts-node/esm src/cli.ts"
+  },
+  "bin": {
+    "example-uploader": "./dist/cli.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.33.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "dotenv": "^16.5.0",
+    "playwright": "^1.48.0",
+    "sharp": "^0.33.5",
+    "zod": "^3.25.42"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.29",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
