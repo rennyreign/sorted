@@ -62,6 +62,7 @@ export type Workspace = {
     /** Hosted Stripe Payment Link for the £1,500 deposit. */
     stripePaymentUrl?: string
     bankTransferEnabled: boolean
+    status?: "ready" | "pending"
   }
   links: {
     bookingUrl?: string
@@ -115,6 +116,45 @@ type WorkspaceOverride = {
 }
 
 const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
+  "amp-electrical": {
+    review: {
+      headline: "Your electrical expertise, easier to trust and contact.",
+      summary:
+        "Your London customers can now see what you do and how to reach you without getting past an announcement first. Clear services and direct contact options give that first impression somewhere useful to lead.",
+      observations: [
+        {
+          title: "Confidence from the first visit",
+          explanation:
+            "Customers see who you are, where you work and what you can help with straight away — without an announcement blocking the way.",
+        },
+        {
+          title: "Services customers can recognise",
+          explanation:
+            "Rewires, testing, EV charging, lighting and security are explained in plain English, helping homeowners and businesses find the work they need.",
+        },
+        {
+          title: "An easier next step",
+          explanation:
+            "Visitors can prepare a callback request to send by email, call you or open WhatsApp. Clear contact options make it easier to turn interest into a conversation.",
+        },
+      ],
+    },
+    website: {
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3999"
+          : undefined,
+      previewImageUrl: "/amp-electrical-homepage-preview.webp",
+      status: "review",
+    },
+    offer: {
+      total: 2000,
+      deposit: 1000,
+      balance: 1000,
+      stripePaymentUrl: undefined,
+      bankTransferEnabled: true,
+    },
+  },
   "murray-martin": {
     review: {
       headline: "Three decades of trust, now turning into enquiries.",
@@ -201,6 +241,86 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       previewUrl: "https://kelly-electrics.netlify.app",
       previewImageUrl: "/kelly-electrics-homepage-preview.webp",
       status: "review",
+    },
+  },
+  "seem-electrical-ltd": {
+    review: {
+      headline: "Your electrical expertise, easier to choose.",
+      summary:
+        "Customers can see the electrical work you offer across London and reach you by phone or email. A clearer first impression helps them decide whether you’re right for their job.",
+      observations: [
+        {
+          title: "Recognisable from the first visit",
+          explanation:
+            "Your own branding and clear service descriptions help customers understand who you are and what you do.",
+        },
+        {
+          title: "Find the right help",
+          explanation:
+            "Installations, rewires, testing, repairs, commercial electrics and air conditioning are easy to find, so customers can see whether you can help.",
+        },
+        {
+          title: "A direct route to an enquiry",
+          explanation:
+            "Phone and email are easy to reach. The quote request gathers useful project details; online sending still needs connecting before launch.",
+        },
+      ],
+    },
+    website: {
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:8160"
+          : undefined,
+      previewImageUrl: "/seem-electrical-homepage-preview.webp",
+      status: "review",
+    },
+    offer: {
+      status: "pending",
+      total: 0,
+      deposit: 0,
+      balance: 0,
+      stripePaymentUrl: undefined,
+      bankTransferEnabled: false,
+    },
+  },
+  "abcd-electrical": {
+    review: {
+      headline: "The local electrician, now easy to call.",
+      summary:
+        "ABCD Electrical already does the work Croydon homes and businesses need — from everyday jobs to urgent call-outs. Your new site makes that obvious at a glance and puts your phone number and quote request one tap away.",
+      observations: [
+        {
+          title: "Local and established from the first glance",
+          explanation:
+            "Visitors see Croydon coverage and 18 years of experience immediately — the reassurance a careful homeowner looks for before inviting an electrician in.",
+        },
+        {
+          title: "Real prices for real jobs",
+          explanation:
+            "Guide prices for small electrical jobs set expectations before anyone picks up the phone — so enquiries arrive better informed and easier to win.",
+        },
+        {
+          title: "Every page ends at a next step",
+          explanation:
+            "Call buttons, a free-quote request and emergency contact are always within reach, so interest has somewhere to go the moment it appears.",
+        },
+      ],
+    },
+    website: {
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:8150"
+          : undefined,
+      previewImageUrl: "/abcd-electrical-homepage-preview.webp",
+      status: "review",
+    },
+    offer: {
+      status: "pending",
+      total: 0,
+      deposit: 0,
+      balance: 0,
+      stripePaymentUrl: undefined,
+      bankTransferEnabled: false,
     },
   },
   "imperial-nail-studio": {
