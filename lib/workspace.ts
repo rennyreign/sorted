@@ -19,6 +19,14 @@ export type WorkspaceObservation = {
   explanation: string
 }
 
+export type WorkspaceRebuildReason = {
+  title: string
+  /** The business's real strength — the thing customers already value. */
+  strength?: string
+  /** How the old website failed to capitalise on it. */
+  gap: string
+}
+
 export type WorkspacePreviewVersion = {
   id: string
   label: string
@@ -36,6 +44,9 @@ export type Workspace = {
   review: {
     headline: string
     summary: string
+    /** Why we rebuilt it — strengths vs what the old site did with them. */
+    rebuildReasons: WorkspaceRebuildReason[]
+    /** What's improved — benefit-led observations about the new site. */
     observations: WorkspaceObservation[]
   }
   website: {
@@ -248,6 +259,26 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       headline: "Your electrical expertise, easier to choose.",
       summary:
         "Customers can see the electrical work you offer across London and reach you by phone or email. A clearer first impression helps them decide whether you’re right for their job.",
+      rebuildReasons: [
+        {
+          title: "Real experience, kept quiet",
+          strength:
+            "Two decades of domestic and commercial electrical work across London, with NAPIT approval behind it.",
+          gap: "A dated website that didn't show any of it — the experience customers rely on was invisible to anyone finding you online.",
+        },
+        {
+          title: "Happy customers, no proof",
+          strength:
+            "Customers who've had careful, reliable work done are happy to say so.",
+          gap: "No reviews on show, so new visitors had to take your quality on faith instead of seeing other people vouch for you.",
+        },
+        {
+          title: "Enquiries that fit your day",
+          strength:
+            "When customers reach you, the work gets done properly.",
+          gap: "Phone-only contact meant missed callers and mid-job interruptions — no quick way for customers to send a quote request when it suited them.",
+        },
+      ],
       observations: [
         {
           title: "Recognisable from the first visit",
@@ -359,6 +390,7 @@ const LOCAL_DEMO_WORKSPACES: Record<string, Workspace> = {
       headline: "A clearer homepage for Nexus Accounting.",
       summary:
         "This working example puts Nexus Accounting’s audiences, fixed-fee offer and consultation action up front.",
+      rebuildReasons: [],
       observations: [
         {
           title: "Name the audiences",
@@ -417,9 +449,9 @@ function titleFrom(text: string) {
   return title.length > 0 ? title.charAt(0).toUpperCase() + title.slice(1) : "What we found"
 }
 
-function deriveObservations(p: ProspectRow): WorkspaceObservation[] {
+function deriveRebuildReasons(p: ProspectRow): WorkspaceRebuildReason[] {
   const weaknesses = (p.site_weaknesses ?? []).filter(Boolean).slice(0, 4)
-  return weaknesses.map((w) => ({ title: titleFrom(w), explanation: w }))
+  return weaknesses.map((w) => ({ title: titleFrom(w), gap: w }))
 }
 
 function stateFromCrm(crm: string | null): WorkspaceState {
@@ -469,7 +501,8 @@ export async function getWorkspace(slug: string): Promise<Workspace | null> {
       summary:
         p.review_summary ??
         `We've prepared a new homepage direction for ${p.name}, built around the substance already inside the business.`,
-      observations: deriveObservations(p),
+      rebuildReasons: deriveRebuildReasons(p),
+      observations: [],
     },
     website: {
       previewImageUrl: p.mockup_urls?.[0] ?? p.mockup_url ?? undefined,

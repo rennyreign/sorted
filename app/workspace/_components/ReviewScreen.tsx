@@ -15,7 +15,8 @@ export function ReviewScreen({
     onNavigate("website")
   }
 
-  const { headline, summary, observations } = workspace.review
+  const { headline, summary, rebuildReasons, observations } = workspace.review
+  const showStrengths = rebuildReasons.some((r) => r.strength)
 
   return (
     <div className="mx-auto max-w-[1140px] px-5 pb-16 pt-7 sm:px-8 sm:pt-11">
@@ -63,10 +64,55 @@ export function ReviewScreen({
         ) : null}
       </section>
 
-      {/* Observations */}
-      {observations.length > 0 ? (
+      {/* Why we rebuilt it — strengths vs what the old site did with them */}
+      {rebuildReasons.length > 0 ? (
         <section className="mb-[18px]">
           <h2 className="text-[28px] font-extrabold tracking-[-0.04em] sm:text-[34px]">Why we rebuilt it</h2>
+          <span className="mt-3 block h-[4px] w-14 rounded-full bg-[#DFFF00]" />
+          {showStrengths ? (
+            <div className="mt-7 hidden grid-cols-[64px_minmax(0,26%)_1fr_1fr] gap-x-5 sm:grid">
+              <span />
+              <span />
+              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#73736D]">Your business</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#73736D]">Your old site</p>
+            </div>
+          ) : null}
+          <ol className={showStrengths ? "mt-3" : "mt-6"}>
+            {rebuildReasons.map((reason, i) => (
+              <li
+                key={reason.title}
+                className={`grid grid-cols-[42px_1fr] gap-x-4 border-t border-[#E8E5DD] py-5 first:border-t-0 sm:gap-x-5 sm:py-6 ${
+                  showStrengths ? "sm:grid-cols-[64px_minmax(0,26%)_1fr_1fr]" : "sm:grid-cols-[64px_minmax(0,33%)_1fr] sm:items-center"
+                }`}
+              >
+                <span className="grid size-[34px] place-items-center rounded-full bg-[#F1F1EC] text-[12px] font-black text-[#73736D]">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="text-[15px] font-extrabold tracking-[-0.01em] sm:text-[16px]">{reason.title}</h3>
+                {showStrengths ? (
+                  <>
+                    <p className="col-start-2 mt-2 text-[14px] font-medium leading-[1.55] text-[#070707] sm:col-start-3 sm:mt-0 sm:text-[15px]">
+                      {reason.strength}
+                    </p>
+                    <p className="col-start-2 mt-2 text-[14px] font-medium leading-[1.55] text-[#73736D] sm:col-start-4 sm:mt-0 sm:text-[15px]">
+                      {reason.gap}
+                    </p>
+                  </>
+                ) : (
+                  <p className="col-start-2 mt-2 max-w-[560px] text-[14px] font-medium leading-[1.55] text-[#73736D] sm:col-start-3 sm:mt-0 sm:text-[15px]">
+                    {reason.gap}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : null}
+
+      {/* What's improved — the new site's benefits */}
+      {observations.length > 0 ? (
+        <section className="mb-[18px]">
+          <h2 className="text-[28px] font-extrabold tracking-[-0.04em] sm:text-[34px]">What&apos;s improved</h2>
           <span className="mt-3 block h-[4px] w-14 rounded-full bg-[#DFFF00]" />
           <ol className="mt-6">
             {observations.map((obs, i) => (
