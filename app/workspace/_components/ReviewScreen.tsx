@@ -21,9 +21,6 @@ export function ReviewScreen({
     <div className="mx-auto max-w-[1140px] px-5 pb-16 pt-7 sm:px-8 sm:pt-11">
       {/* Editorial hero */}
       <section className="mb-[18px]">
-        <p className="mb-3.5 text-[11px] font-bold uppercase tracking-[0.16em] text-[#73736D]">
-          Prepared for {workspace.business.name}
-        </p>
         <h1 className="text-[clamp(2.6rem,5.4vw,4rem)] font-extrabold leading-[0.97] tracking-[-0.05em]">
           {headline}
         </h1>
@@ -96,10 +93,21 @@ export function ReviewScreen({
           <Tag className="size-5 sm:size-6" strokeWidth={2.2} />
         </span>
         <div>
-          <h2 className="text-[19px] font-extrabold tracking-[-0.03em] sm:text-[22px]">Complete website · £{workspace.offer.total.toLocaleString()} fixed</h2>
-          <p className="mt-1 max-w-[480px] text-[13px] font-semibold leading-[1.45] text-[#73736D] sm:text-[14px]">
-            Your complete website, built and launched for one fixed price.
-          </p>
+          {workspace.offer.status === "pending" ? (
+            <>
+              <h2 className="text-[19px] font-extrabold tracking-[-0.03em] sm:text-[22px]">Next steps for your site.</h2>
+              <p className="mt-1 max-w-[480px] text-[13px] font-semibold leading-[1.45] text-[#73736D] sm:text-[14px]">
+                We&apos;ll confirm the remaining work and pricing with you before any payment.
+              </p>
+            </>
+          ) : (
+            <>
+              <h2 className="text-[19px] font-extrabold tracking-[-0.03em] sm:text-[22px]">Complete website · £{workspace.offer.total.toLocaleString()} fixed</h2>
+              <p className="mt-1 max-w-[480px] text-[13px] font-semibold leading-[1.45] text-[#73736D] sm:text-[14px]">
+                Your complete website, built and launched for one fixed price.
+              </p>
+            </>
+          )}
         </div>
         <button
           type="button"

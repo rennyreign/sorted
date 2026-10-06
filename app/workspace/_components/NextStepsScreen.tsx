@@ -45,24 +45,28 @@ export function NextStepsScreen({
   const [declined, setDeclined] = useState(false)
 
   const { offer, links } = workspace
+  const offerPending = offer.status === "pending"
 
   const steps = [
-    { number: 1, title: "Pay the deposit", body: `Pay £${offer.deposit.toLocaleString()} to confirm and we'll get started.` },
+    offerPending
+      ? { number: 1, title: "Confirm scope and pricing", body: "Agree the remaining work and a written quote before any payment." }
+      : { number: 1, title: "Pay the deposit", body: `Pay £${offer.deposit.toLocaleString()} to confirm and we'll get started.` },
     ...STEPS,
   ]
 
   useEffect(() => {
-    if (depositReturned) workspaceEvent(workspace, "deposit_returned")
+    if (depositReturned && !offerPending) workspaceEvent(workspace, "deposit_returned")
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [depositReturned])
 
   function startDeposit() {
+    if (offerPending) return
     workspaceEvent(workspace, "payment_method_selection_opened")
     setPaymentOpen(true)
   }
 
   function payByCard() {
-    if (!offer.stripePaymentUrl || paying) return
+    if (offerPending || !offer.stripePaymentUrl || paying) return
     setPaying(true)
     workspaceEvent(workspace, "deposit_started", { payment_method: "card" })
     // Stripe's redirect is fixed — hand the slug over via localStorage so the
@@ -108,7 +112,7 @@ export function NextStepsScreen({
     <>
       <div className="mx-auto max-w-[860px] px-5 pb-9 pt-9 sm:px-8 sm:pt-13">
         {/* Returned from payment — confirm state, not a verified payment */}
-        {depositReturned ? (
+        {depositReturned && !offerPending ? (
           <div className="mb-8 rounded-[12px] border border-[#00A64B]/25 bg-[#00A64B]/[0.06] p-5">
             <p className="text-[15px] font-extrabold text-[#0A7A3D]">Deposit received. We&apos;re confirming it now.</p>
             <p className="mt-1.5 text-[13px] font-medium leading-[1.5] text-[#0A7A3D]/80">
@@ -119,7 +123,6 @@ export function NextStepsScreen({
 
         {/* Offer hero */}
         <section className="mb-9 max-w-[650px]">
-          <p className="mb-3.5 text-[11px] font-bold uppercase tracking-[0.16em] text-[#73736D]">Your completion offer</p>
           <h1 className="max-w-[620px] text-[clamp(2.75rem,6vw,4.5rem)] font-extrabold leading-[0.95] tracking-[-0.05em]">
             Complete your website.
           </h1>
@@ -131,29 +134,54 @@ export function NextStepsScreen({
         {/* Price panel */}
         <section className="mb-11 flex flex-col gap-6 rounded-[14px] bg-[#070707] p-7 sm:grid sm:min-h-[188px] sm:grid-cols-[1fr_1px_290px] sm:items-center sm:gap-9 sm:p-10">
           <div>
-            <p className="text-[46px] font-extrabold leading-none tracking-[-0.055em] text-white sm:text-[64px] sm:whitespace-nowrap">
-              £{offer.total.toLocaleString()} <span className="text-[0.55em] tracking-[-0.03em] text-white/85">fixed</span>
-            </p>
-            <p className="mt-3.5 text-[17px] font-semibold text-white/70 sm:text-[22px]">
-              £{offer.deposit.toLocaleString()} deposit · £{offer.balance.toLocaleString()} on launch
-            </p>
+            {offerPending ? (
+              <>
+                <p className="text-[46px] font-extrabold leading-none tracking-[-0.055em] text-white sm:text-[64px] sm:whitespace-nowrap">
+                  Quote pending
+                </p>
+                <p className="mt-3.5 text-[17px] font-semibold text-white/70 sm:text-[22px]">
+                  We&apos;ll confirm your scope, price and deposit before asking for payment.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="text-[46px] font-extrabold leading-none tracking-[-0.055em] text-white sm:text-[64px] sm:whitespace-nowrap">
+                  £{offer.total.toLocaleString()} <span className="text-[0.55em] tracking-[-0.03em] text-white/85">fixed</span>
+                </p>
+                <p className="mt-3.5 text-[17px] font-semibold text-white/70 sm:text-[22px]">
+                  £{offer.deposit.toLocaleString()} deposit · £{offer.balance.toLocaleString()} on launch
+                </p>
+              </>
+            )}
           </div>
           <div className="hidden h-24 w-px bg-white/20 sm:block" />
-          <button
-            type="button"
-            onClick={startDeposit}
-            disabled={paying}
-            className="inline-flex h-[54px] w-full items-center justify-center gap-3 rounded-[10px] bg-[#DFFF00] text-[15px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00] active:translate-y-0 disabled:opacity-45 disabled:hover:translate-y-0 sm:h-[72px] sm:text-[19px]"
-          >
-            <CreditCard className="size-5" strokeWidth={2.4} />
-            {paying ? "Opening checkout…" : `Pay £${offer.deposit.toLocaleString()} deposit`}
-            <ArrowRight className="size-4" strokeWidth={2.8} />
-          </button>
+          {offerPending ? (
+            <button
+              type="button"
+              onClick={openQuestion}
+              className="inline-flex h-[54px] w-full items-center justify-center gap-3 rounded-[10px] bg-[#DFFF00] text-[15px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00] active:translate-y-0 sm:h-[72px] sm:text-[19px]"
+            >
+              <MessageCircle className="size-5" strokeWidth={2.4} />
+              Discuss the next steps
+              <ArrowRight className="size-4" strokeWidth={2.8} />
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={startDeposit}
+              disabled={paying}
+              className="inline-flex h-[54px] w-full items-center justify-center gap-3 rounded-[10px] bg-[#DFFF00] text-[15px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00] active:translate-y-0 disabled:opacity-45 disabled:hover:translate-y-0 sm:h-[72px] sm:text-[19px]"
+            >
+              <CreditCard className="size-5" strokeWidth={2.4} />
+              {paying ? "Opening checkout…" : `Pay £${offer.deposit.toLocaleString()} deposit`}
+              <ArrowRight className="size-4" strokeWidth={2.8} />
+            </button>
+          )}
         </section>
 
         {/* What's included */}
         <section className="border-y border-[#E8E5DD] py-8 sm:py-9">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#73736D]">What&apos;s included</p>
+          <h2 className="text-base font-bold tracking-tight">What&apos;s included</h2>
           <div className="mt-6 grid gap-0 sm:grid-cols-3">
             {INCLUDED.map(({ icon: Icon, title, description }, i) => (
               <article
@@ -172,7 +200,7 @@ export function NextStepsScreen({
 
         {/* How it works */}
         <section className="py-8 sm:py-9">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#73736D]">How it works</p>
+          <h2 className="text-base font-bold tracking-tight">How it works</h2>
           <ol className="mt-6 grid gap-0 sm:grid-cols-3 sm:gap-7">
             {steps.map((step, i) => (
               <li key={step.number} className="relative grid grid-cols-[50px_1fr] gap-4 py-4 sm:block sm:py-0">
@@ -196,24 +224,27 @@ export function NextStepsScreen({
 
         {/* Decision panel */}
         <section className="mt-2 rounded-[14px] border border-[#E8E5DD] bg-white p-6 sm:p-8">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#73736D]">Ready to get started?</p>
-          <h2 className="mt-3 text-[30px] font-extrabold leading-[1] tracking-[-0.045em] sm:text-[40px]">
+          <h2 className="text-[30px] font-extrabold leading-[1] tracking-[-0.045em] sm:text-[40px]">
             Let&apos;s get your website live.
           </h2>
           <p className="mt-4 max-w-[520px] text-[15px] font-medium leading-[1.55] text-[#73736D]">
-            Pay your £{offer.deposit.toLocaleString()} deposit today and we&apos;ll complete, connect and launch your website for £{offer.total.toLocaleString()}.
+            {offerPending
+              ? "Let's confirm what remains to be done and agree your quote before any payment."
+              : <>Pay your £{offer.deposit.toLocaleString()} deposit today and we&apos;ll complete, connect and launch your website for £{offer.total.toLocaleString()}.</>}
           </p>
-          <div className="mt-6 grid gap-3 sm:grid-cols-[1.2fr_1fr_1fr]">
-            <button
-              type="button"
-              onClick={startDeposit}
-              disabled={paying}
-              className="inline-flex h-[50px] items-center justify-center gap-3 rounded-[9px] bg-[#DFFF00] px-5 text-[13px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px active:translate-y-0 disabled:opacity-45 sm:h-[54px]"
-            >
-              <CreditCard className="size-4.5" strokeWidth={2.4} />
-              {paying ? "Opening checkout…" : `Pay £${offer.deposit.toLocaleString()} deposit`}
-              <ArrowRight className="size-4" strokeWidth={2.8} />
-            </button>
+          <div className={`mt-6 grid gap-3 ${offerPending ? "sm:grid-cols-2" : "sm:grid-cols-[1.2fr_1fr_1fr]"}`}>
+            {offerPending ? null : (
+              <button
+                type="button"
+                onClick={startDeposit}
+                disabled={paying}
+                className="inline-flex h-[50px] items-center justify-center gap-3 rounded-[9px] bg-[#DFFF00] px-5 text-[13px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px active:translate-y-0 disabled:opacity-45 sm:h-[54px]"
+              >
+                <CreditCard className="size-4.5" strokeWidth={2.4} />
+                {paying ? "Opening checkout…" : `Pay £${offer.deposit.toLocaleString()} deposit`}
+                <ArrowRight className="size-4" strokeWidth={2.8} />
+              </button>
+            )}
             <button
               type="button"
               onClick={openQuestion}
@@ -266,13 +297,15 @@ export function NextStepsScreen({
       <WorkspaceFooter workspace={workspace} onNavigate={onNavigate} />
 
       <QuestionDrawer workspace={workspace} open={questionOpen} onClose={() => setQuestionOpen(false)} />
-      <DepositPaymentDialog
-        workspace={workspace}
-        open={paymentOpen}
-        onClose={() => setPaymentOpen(false)}
-        onPayByCard={payByCard}
-        paying={paying}
-      />
+      {offerPending ? null : (
+        <DepositPaymentDialog
+          workspace={workspace}
+          open={paymentOpen}
+          onClose={() => setPaymentOpen(false)}
+          onPayByCard={payByCard}
+          paying={paying}
+        />
+      )}
       <NotInterestedDialog
         workspace={workspace}
         open={declineOpen}

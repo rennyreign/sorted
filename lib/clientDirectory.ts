@@ -216,6 +216,20 @@ export const CLIENTS: ClientRecord[] = [
     ],
   },
   {
+    slug: "seem-electrical-ltd",
+    name: "SEEM Electrical Ltd",
+    prospectName: "Seem electrical Ltd",
+    notes:
+      "Site review ready. Client direction approval and quote pending; online enquiries still need connecting.",
+    docs: [
+      {
+        type: "proposal",
+        label: "Client review workspace",
+        path: "/workspace/seem-electrical-ltd/review",
+      },
+    ],
+  },
+  {
     slug: "sebastian-md",
     name: "Sebastian MD",
     docs: [
