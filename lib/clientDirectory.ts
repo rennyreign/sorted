@@ -220,7 +220,7 @@ export const CLIENTS: ClientRecord[] = [
     name: "SEEM Electrical Ltd",
     prospectName: "Seem electrical Ltd",
     notes:
-      "Site review ready. Client direction approval and quote pending; online enquiries still need connecting.",
+      "£2,000 fixed offer; £1,000 deposit and £1,000 on launch. Client design approval pending; online enquiries still need connecting.",
     docs: [
       {
         type: "proposal",

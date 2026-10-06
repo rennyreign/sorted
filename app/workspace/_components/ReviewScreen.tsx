@@ -34,10 +34,10 @@ export function ReviewScreen({
       <section className="mb-7 overflow-hidden rounded-[14px] bg-[#070707] lg:grid lg:h-[340px] lg:grid-cols-[44%_56%]">
         <div className="flex flex-col justify-center px-6 py-8 sm:px-10 sm:py-10">
           <h2 className="max-w-[380px] text-[34px] font-extrabold leading-[0.98] tracking-[-0.04em] text-white sm:text-[44px]">
-            We rebuilt your site.
+            {workspace.review.revealTitle ?? "We rebuilt your site."}
           </h2>
           <p className="mt-4 max-w-[390px] text-[15px] font-medium leading-[1.5] text-white/70 sm:text-[16px]">
-            A clearer direction, built around the substance already inside your business.
+            {workspace.review.revealBody ?? "A clearer direction, built around the substance already inside your business."}
           </p>
           <button
             type="button"
@@ -67,14 +67,14 @@ export function ReviewScreen({
       {/* Why we rebuilt it — strengths vs what the old site did with them */}
       {rebuildReasons.length > 0 ? (
         <section className="mb-[18px]">
-          <h2 className="text-[28px] font-extrabold tracking-[-0.04em] sm:text-[34px]">Why we rebuilt it</h2>
+          <h2 className="text-[28px] font-extrabold tracking-[-0.04em] sm:text-[34px]">{workspace.review.reasonsHeading ?? "Why we rebuilt it"}</h2>
           <span className="mt-3 block h-[4px] w-14 rounded-full bg-[#DFFF00]" />
           {showStrengths ? (
             <div className="mt-7 hidden grid-cols-[64px_minmax(0,26%)_1fr_1fr] gap-x-5 sm:grid">
               <span />
               <span />
               <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#73736D]">Your business</p>
-              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#73736D]">Your old site</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#73736D]">{workspace.review.gapColumnLabel ?? "Your old site"}</p>
             </div>
           ) : null}
           <ol className={showStrengths ? "mt-3" : "mt-6"}>

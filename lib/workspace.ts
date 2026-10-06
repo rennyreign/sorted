@@ -44,6 +44,14 @@ export type Workspace = {
   review: {
     headline: string
     summary: string
+    /** Reveal card heading — defaults to "We rebuilt your site."; use "We built your site." when the business had no website. */
+    revealTitle?: string
+    /** Reveal card supporting line. */
+    revealBody?: string
+    /** Section heading over the reasons — defaults to "Why we rebuilt it"; use "Why we built it" when there was no website. */
+    reasonsHeading?: string
+    /** Column header over the gap text — defaults to "Your old site"; use e.g. "Your Facebook page" when there was no website. */
+    gapColumnLabel?: string
     /** Why we rebuilt it — strengths vs what the old site did with them. */
     rebuildReasons: WorkspaceRebuildReason[]
     /** What's improved — benefit-led observations about the new site. */
@@ -256,27 +264,32 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
   },
   "seem-electrical-ltd": {
     review: {
-      headline: "Your electrical expertise, easier to choose.",
+      headline: "Your electrical expertise, finally easy to find.",
       summary:
-        "Customers can see the electrical work you offer across London and reach you by phone or email. A clearer first impression helps them decide whether you’re right for their job.",
+        "Until now, finding SEEM online meant a Facebook page — no site, no proof, no easy way to ask for a quote. Your new site puts your work, credentials and contact options where customers actually look.",
+      revealTitle: "We built your site.",
+      revealBody:
+        "Your first real website — built around the substance already inside your business.",
+      reasonsHeading: "Why we built it",
+      gapColumnLabel: "Your Facebook page",
       rebuildReasons: [
         {
           title: "Real experience, kept quiet",
           strength:
             "Two decades of domestic and commercial electrical work across London, with NAPIT approval behind it.",
-          gap: "A dated website that didn't show any of it — the experience customers rely on was invisible to anyone finding you online.",
+          gap: "None of it showed online — a Facebook page alone can't carry twenty years of experience to someone searching for an electrician.",
         },
         {
           title: "Happy customers, no proof",
           strength:
             "Customers who've had careful, reliable work done are happy to say so.",
-          gap: "No reviews on show, so new visitors had to take your quality on faith instead of seeing other people vouch for you.",
+          gap: "No website and no reviews on show, so new customers had to take your quality on faith instead of seeing other people vouch for you.",
         },
         {
           title: "Enquiries that fit your day",
           strength:
             "When customers reach you, the work gets done properly.",
-          gap: "Phone-only contact meant missed callers and mid-job interruptions — no quick way for customers to send a quote request when it suited them.",
+          gap: "Phone calls and Facebook messages meant missed callers and mid-job interruptions — no quick way for customers to send a quote request when it suited them.",
         },
       ],
       observations: [
@@ -306,12 +319,13 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       status: "review",
     },
     offer: {
-      status: "pending",
-      total: 0,
-      deposit: 0,
-      balance: 0,
+      total: 2000,
+      deposit: 1000,
+      balance: 1000,
+      // No dedicated Stripe link yet — card checkout shows "coming soon";
+      // bank transfer is the live payment path (same pattern as AMP/ABCD).
       stripePaymentUrl: undefined,
-      bankTransferEnabled: false,
+      bankTransferEnabled: true,
     },
   },
   "abcd-electrical": {
