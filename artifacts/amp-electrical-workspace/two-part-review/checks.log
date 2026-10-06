@@ -1,0 +1,60 @@
+PASS  review 1440 why heading
+PASS  review 1440 improved heading
+PASS  review 1440 strength 1
+PASS  review 1440 gap popup
+PASS  review 1440 gap services
+PASS  review 1440 gap callback
+PASS  review 1440 improvement copy
+PASS  review 1440 price band
+PASS  review 1440 no SEEM leak
+PASS  review 1440 no eyebrow labels
+PASS  review 1440 no page errors
+PASS  review 1440 no overflow
+FAIL  column labels
+PASS  review 768 why heading
+PASS  review 768 improved heading
+PASS  review 768 strength 1
+PASS  review 768 gap popup
+PASS  review 768 gap services
+PASS  review 768 gap callback
+PASS  review 768 improvement copy
+PASS  review 768 price band
+PASS  review 768 no SEEM leak
+PASS  review 768 no eyebrow labels
+PASS  review 768 no page errors
+PASS  review 768 no overflow
+PASS  review 375 why heading
+PASS  review 375 improved heading
+PASS  review 375 strength 1
+PASS  review 375 gap popup
+PASS  review 375 gap services
+PASS  review 375 gap callback
+PASS  review 375 improvement copy
+PASS  review 375 price band
+PASS  review 375 no SEEM leak
+PASS  review 375 no eyebrow labels
+PASS  review 375 no page errors
+PASS  review 375 no overflow
+PASS  review 320 why heading
+PASS  review 320 improved heading
+PASS  review 320 strength 1
+PASS  review 320 gap popup
+PASS  review 320 gap services
+PASS  review 320 gap callback
+PASS  review 320 improvement copy
+PASS  review 320 price band
+PASS  review 320 no SEEM leak
+PASS  review 320 no eyebrow labels
+PASS  review 320 no page errors
+PASS  review 320 no overflow
+PASS  next-steps £2,000 total
+PASS  next-steps £1,000 deposit
+FAIL  next-steps bank transfer
+PASS  next-steps no stripe leak
+2 FAILURES
+
+# Corrected assertions (CSS uppercase labels; bank option lives in payment dialog)
+PASS  column labels
+PASS  bank transfer option in dialog
+PASS  card coming soon
+PASS  no stripe in dialog

@@ -1,5 +1,5 @@
-import { supabase } from "@/lib/supabase"
-import { trackEvent } from "@/lib/tracking"
+import { supabase } from "./supabase"
+import { trackEvent } from "./tracking"
 
 // ─── Sorted Workspace data contract ───────────────────────────────────────────
 // One workspace record per business. Prospect, project and live hub screens are
@@ -19,14 +19,6 @@ export type WorkspaceObservation = {
   explanation: string
 }
 
-export type WorkspaceRebuildReason = {
-  title: string
-  /** The business's real strength — the thing customers already value. */
-  strength?: string
-  /** How the old website failed to capitalise on it. */
-  gap: string
-}
-
 export type WorkspacePreviewVersion = {
   id: string
   label: string
@@ -44,17 +36,6 @@ export type Workspace = {
   review: {
     headline: string
     summary: string
-    /** Reveal card heading — defaults to "We rebuilt your site."; use "We built your site." when the business had no website. */
-    revealTitle?: string
-    /** Reveal card supporting line. */
-    revealBody?: string
-    /** Section heading over the reasons — defaults to "Why we rebuilt it"; use "Why we built it" when there was no website. */
-    reasonsHeading?: string
-    /** Column header over the gap text — defaults to "Your old site"; use e.g. "Your Facebook page" when there was no website. */
-    gapColumnLabel?: string
-    /** Why we rebuilt it — strengths vs what the old site did with them. */
-    rebuildReasons: WorkspaceRebuildReason[]
-    /** What's improved — benefit-led observations about the new site. */
     observations: WorkspaceObservation[]
   }
   website: {
@@ -81,7 +62,6 @@ export type Workspace = {
     /** Hosted Stripe Payment Link for the £1,500 deposit. */
     stripePaymentUrl?: string
     bankTransferEnabled: boolean
-    status?: "ready" | "pending"
   }
   links: {
     bookingUrl?: string
@@ -140,31 +120,11 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       headline: "Your electrical expertise, easier to trust and contact.",
       summary:
         "Your London customers can now see what you do and how to reach you without getting past an announcement first. Clear services and direct contact options give that first impression somewhere useful to lead.",
-      rebuildReasons: [
-        {
-          title: "A working business behind a blocked door",
-          strength:
-            "Domestic and commercial electrical work across London, run from Gipsy Hill.",
-          gap: "Your old site opened on a stale announcement covering the page, so customers saw a popup before they saw your business.",
-        },
-        {
-          title: "Services customers could not find",
-          strength:
-            "Rewires, testing, EV charging, lighting and security cover most of what a home or business actually needs.",
-          gap: "None of that range was on show, so visitors had to call just to find out whether you could help.",
-        },
-        {
-          title: "Enquiries lost to a hard-to-use site",
-          strength:
-            "When customers reach you, the work gets done properly.",
-          gap: "A dated site with no clear contact route meant callers gave up or rang at awkward times, with no way to request a callback when it suited them.",
-        },
-      ],
       observations: [
         {
           title: "Confidence from the first visit",
           explanation:
-            "Customers see who you are, where you work and what you can help with straight away, without an announcement blocking the way.",
+            "Customers see who you are, where you work and what you can help with straight away — without an announcement blocking the way.",
         },
         {
           title: "Services customers can recognise",
@@ -198,32 +158,12 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
     review: {
       headline: "Three decades of trust, now turning into enquiries.",
       summary:
-        "Murray Martin has traded since 1995 on a strong balance sheet and a hard-won reputation. Your new website puts that strength in front of every visitor, so trust becomes enquiries, and enquiries become customers.",
-      rebuildReasons: [
-        {
-          title: "Three decades of trading, easy to miss",
-          strength:
-            "Established in 1995 with a strong balance sheet and a hard-won reputation. Exactly the track record commercial buyers look for before shortlisting a contractor.",
-          gap: "Your old site didn't put that history up front, so a first-time visitor couldn't tell Murray Martin from a firm that started last year.",
-        },
-        {
-          title: "Credentials buyers check, buried",
-          strength:
-            "Schneider Electric and APC partnerships, SafeContractor approval and F-Gas certification, plus real testimonials from clients like DuPont.",
-          gap: "The proof existed but sat where nobody looked for it, so careful buyers couldn't verify what existing customers already know.",
-        },
-        {
-          title: "Enquiries with no clear route in",
-          strength:
-            "Engineers who respond properly when customers do get through. It's the reason clients stay for years.",
-          gap: "The old site made getting in touch harder than it should be, so the confidence you'd just earned had no easy next step.",
-        },
-      ],
+        "Murray Martin has traded since 1995 on a strong balance sheet and a hard-won reputation. Your new website puts that strength in front of every visitor — so trust becomes enquiries, and enquiries become customers.",
       observations: [
         {
           title: "Reputation made visible",
           explanation:
-            "A new customer sees three decades of trading the moment they arrive. Before they've read a word about services, they already know you're established.",
+            "A new customer sees three decades of trading the moment they arrive — before they've read a word about services, they already know you're established.",
         },
         {
           title: "Proof where buyers look",
@@ -233,7 +173,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
         {
           title: "Trust that turns into enquiries",
           explanation:
-            "Every page ends at an easy way to reach your engineers, whether that's a callback request, a phone call or an email, so the confidence you've just earned has somewhere to go.",
+            "Every page ends at an easy way to reach your engineers — request a callback, phone or email — so the confidence you've just earned has somewhere to go.",
         },
       ],
     },
@@ -277,32 +217,12 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
     review: {
       headline: "A trusted name, now winning work online.",
       summary:
-        "Kelly Electrics has built something genuinely rare: an award-nominated, fully qualified team that customers already trust. Your new site puts that reputation in front of every visitor, so the trust you've earned turns into enquiries.",
-      rebuildReasons: [
-        {
-          title: "A reputation worth more than it showed",
-          strength:
-            "An award-nominated, fully qualified team with NICEIC registration and Part P credentials. Exactly what careful customers check before calling.",
-          gap: "Your old site didn't put that proof where visitors look first, so people comparing electricians had little reason to pick you over the next name on the list.",
-        },
-        {
-          title: "Real reviews, hidden from view",
-          strength:
-            "Local customers already rate the work highly. Genuine Google reviews, built household by household.",
-          gap: "None of that showed online, so new customers had to take your quality on faith instead of seeing other people vouch for you.",
-        },
-        {
-          title: "Trust with nowhere to go",
-          strength:
-            "When customers do reach the team, the work gets done properly and the reviews keep coming.",
-          gap: "The old site gave a visitor's confidence nowhere to land. No clear quote request on every page, so interested people drifted away instead of enquiring.",
-        },
-      ],
+        "Kelly Electrics has built something genuinely rare — an award-nominated, fully qualified team that customers already trust. Your new site puts that reputation in front of every visitor, so the trust you've earned turns into enquiries.",
       observations: [
         {
           title: "Reputation made visible",
           explanation:
-            "Your Electric Awards nomination, NICEIC registration and Part P credentials sit where a careful customer looks first. Before they've read a word, they already know you're the real thing.",
+            "Your Electric Awards nomination, NICEIC registration and Part P credentials sit where a careful customer looks first — before they've read a word, they already know you're the real thing.",
         },
         {
           title: "Proof where buyers look",
@@ -312,197 +232,13 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
         {
           title: "Trust that turns into enquiries",
           explanation:
-            "Every page ends at an easy way to reach your team, whether that's a quote request, a phone call or an email, so the confidence a visitor has just gained has somewhere to go.",
+            "Every page ends at an easy way to reach your team — request a quote, phone or email — so the confidence a visitor has just gained has somewhere to go.",
         },
       ],
     },
     website: {
       previewUrl: "https://kelly-electrics.netlify.app",
       previewImageUrl: "/kelly-electrics-homepage-preview.webp",
-      status: "review",
-    },
-  },
-  "seem-electrical-ltd": {
-    review: {
-      headline: "Your electrical expertise, finally easy to find.",
-      summary:
-        "Until now, finding SEEM online meant a Facebook page. No site, no proof, no easy way to ask for a quote. Your new site puts your work, credentials and contact options where customers actually look.",
-      revealTitle: "We built your site.",
-      revealBody:
-        "Your first real website, built around the substance already inside your business.",
-      reasonsHeading: "Why we built it",
-      gapColumnLabel: "Your Facebook page",
-      rebuildReasons: [
-        {
-          title: "Real experience, kept quiet",
-          strength:
-            "Two decades of domestic and commercial electrical work across London, with NAPIT approval behind it.",
-          gap: "None of it showed online. A Facebook page alone can't carry twenty years of experience to someone searching for an electrician.",
-        },
-        {
-          title: "Happy customers, no proof",
-          strength:
-            "Customers who've had careful, reliable work done are happy to say so.",
-          gap: "No website and no reviews on show, so new customers had to take your quality on faith instead of seeing other people vouch for you.",
-        },
-        {
-          title: "Enquiries that fit your day",
-          strength:
-            "When customers reach you, the work gets done properly.",
-          gap: "Phone calls and Facebook messages meant missed callers and mid-job interruptions, with no quick way for customers to send a quote request when it suited them.",
-        },
-      ],
-      observations: [
-        {
-          title: "Recognisable from the first visit",
-          explanation:
-            "Your own branding and clear service descriptions help customers understand who you are and what you do.",
-        },
-        {
-          title: "Find the right help",
-          explanation:
-            "Installations, rewires, testing, repairs, commercial electrics and air conditioning are easy to find, so customers can see whether you can help.",
-        },
-        {
-          title: "A direct route to an enquiry",
-          explanation:
-            "Phone and email are easy to reach. The quote request gathers useful project details; online sending still needs connecting before launch.",
-        },
-      ],
-    },
-    website: {
-      previewUrl:
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:8160"
-          : undefined,
-      previewImageUrl: "/seem-electrical-homepage-preview.webp",
-      status: "review",
-    },
-    offer: {
-      total: 2000,
-      deposit: 1000,
-      balance: 1000,
-      // No dedicated Stripe link yet — card checkout shows "coming soon";
-      // bank transfer is the live payment path (same pattern as AMP/ABCD).
-      stripePaymentUrl: undefined,
-      bankTransferEnabled: true,
-    },
-  },
-  "abcd-electrical": {
-    review: {
-      headline: "The local electrician, now easy to call.",
-      summary:
-        "ABCD Electrical already does the work Croydon homes and businesses need, from everyday jobs to urgent call-outs. Your new site makes that obvious at a glance and puts your phone number and quote request one tap away.",
-      rebuildReasons: [
-        {
-          title: "18 years of local trust, hard to see",
-          strength:
-            "Nearly two decades of domestic and commercial electrical work across Croydon and South London.",
-          gap: "That experience wasn't doing its job online. Customers comparing electricians had little to go on before deciding who to call.",
-        },
-        {
-          title: "Everyday work with no clear offer",
-          strength:
-            "Small jobs, repairs, rewires and emergency call-outs are exactly what local homes and businesses need most.",
-          gap: "With no guide prices or service detail on show, customers had to phone just to find out whether a job was worth booking.",
-        },
-        {
-          title: "Urgent calls that could be missed",
-          strength:
-            "When the phone rings, the work gets done properly, day or night.",
-          gap: "A phone number alone meant missed callers and no way to send a quote request when it suited the customer.",
-        },
-      ],
-      observations: [
-        {
-          title: "Local and established from the first glance",
-          explanation:
-            "Visitors see Croydon coverage and 18 years of experience immediately, the reassurance a careful homeowner looks for before inviting an electrician in.",
-        },
-        {
-          title: "Real prices for real jobs",
-          explanation:
-            "Guide prices for small electrical jobs set expectations before anyone picks up the phone, so enquiries arrive better informed and easier to win.",
-        },
-        {
-          title: "Every page ends at a next step",
-          explanation:
-            "Call buttons, a free-quote request and emergency contact are always within reach, so interest has somewhere to go the moment it appears.",
-        },
-      ],
-    },
-    website: {
-      previewUrl:
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:8150"
-          : undefined,
-      previewImageUrl: "/abcd-electrical-homepage-preview.webp",
-      status: "review",
-    },
-    offer: {
-      total: 2000,
-      deposit: 1000,
-      balance: 1000,
-      // No dedicated Stripe link yet — card checkout shows "coming soon";
-      // bank transfer is the live payment path (same pattern as AMP).
-      stripePaymentUrl: undefined,
-      bankTransferEnabled: true,
-    },
-  },
-  "switched-on-south-londons-electricians": {
-    review: {
-      headline: "South London's electrician, finally easy to find.",
-      summary:
-        "Until now, finding Switched On online meant a Facebook page. No site, no services list, no easy way to ask for a call back. Your new site puts your work, your patch and your contact options where customers actually look.",
-      revealTitle: "We built your site.",
-      revealBody:
-        "Your first real website, built around the work you already do across South London.",
-      reasonsHeading: "Why we built it",
-      gapColumnLabel: "Your Facebook page",
-      rebuildReasons: [
-        {
-          title: "A real patch, kept quiet",
-          strength:
-            "You cover Tooting, Balham, Clapham, Wimbledon, Wandsworth and Merton Park, the areas local customers actually search for by name.",
-          gap: "A Facebook page alone can't put that coverage in front of someone searching for a local electrician.",
-        },
-        {
-          title: "Happy customers, no proof",
-          strength:
-            "52 Google reviews from local customers who would recommend your work.",
-          gap: "With no website, that proof sat on Google instead of doing the talking on a site you control.",
-        },
-        {
-          title: "Enquiries that fit your day",
-          strength:
-            "When customers reach you, the work gets done properly.",
-          gap: "Phone calls and Facebook messages meant missed callers and mid-job interruptions, with no quick way for customers to request a call back when it suited them.",
-        },
-      ],
-      observations: [
-        {
-          title: "A proper first impression",
-          explanation:
-            "Visitors see a real local electrician straight away: your name, your patch and the work you cover, presented with confidence.",
-        },
-        {
-          title: "Proof where customers look",
-          explanation:
-            "Your Google review count sits front and centre, and approved review excerpts can run through the site once supplied.",
-        },
-        {
-          title: "A call back in a few taps",
-          explanation:
-            "The request a call back panel gathers a name, number and the job in one step. Requests prepare an email for now; a direct connection still needs wiring before launch.",
-        },
-      ],
-    },
-    website: {
-      previewUrl:
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:8123"
-          : undefined,
-      previewImageUrl: "/switched-on-homepage-preview.webp",
       status: "review",
     },
   },
@@ -541,7 +277,6 @@ const LOCAL_DEMO_WORKSPACES: Record<string, Workspace> = {
       headline: "A clearer homepage for Nexus Accounting.",
       summary:
         "This working example puts Nexus Accounting’s audiences, fixed-fee offer and consultation action up front.",
-      rebuildReasons: [],
       observations: [
         {
           title: "Name the audiences",
@@ -600,9 +335,9 @@ function titleFrom(text: string) {
   return title.length > 0 ? title.charAt(0).toUpperCase() + title.slice(1) : "What we found"
 }
 
-function deriveRebuildReasons(p: ProspectRow): WorkspaceRebuildReason[] {
+function deriveObservations(p: ProspectRow): WorkspaceObservation[] {
   const weaknesses = (p.site_weaknesses ?? []).filter(Boolean).slice(0, 4)
-  return weaknesses.map((w) => ({ title: titleFrom(w), gap: w }))
+  return weaknesses.map((w) => ({ title: titleFrom(w), explanation: w }))
 }
 
 function stateFromCrm(crm: string | null): WorkspaceState {
@@ -652,8 +387,7 @@ export async function getWorkspace(slug: string): Promise<Workspace | null> {
       summary:
         p.review_summary ??
         `We've prepared a new homepage direction for ${p.name}, built around the substance already inside the business.`,
-      rebuildReasons: deriveRebuildReasons(p),
-      observations: [],
+      observations: deriveObservations(p),
     },
     website: {
       previewImageUrl: p.mockup_urls?.[0] ?? p.mockup_url ?? undefined,

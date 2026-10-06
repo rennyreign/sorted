@@ -1,0 +1,78 @@
+PASS  website 1440 iframe→AMP3999 — http://localhost:3999
+PASS  website 1440 iframe full-bleed width — w=1440
+PASS  website 1440 no overflow
+PASS  website 1440 action bar present single-row — {"x":0,"y":0,"width":1440,"height":64}
+PASS  website 1440 viewport toggle present — visible=true
+PASS  website 1440 iframe AMP h1
+PASS  website 1440 no page errors
+PASS  website 768 iframe→AMP3999 — http://localhost:3999
+PASS  website 768 iframe full-bleed width — w=768
+PASS  website 768 no overflow
+PASS  website 768 action bar present single-row — {"x":0,"y":0,"width":768,"height":64}
+PASS  website 768 viewport toggle present — visible=true
+PASS  website 768 iframe AMP h1
+PASS  website 768 no page errors
+PASS  website 375 iframe→AMP3999 — http://localhost:3999
+PASS  website 375 iframe full-bleed width — w=375
+PASS  website 375 no overflow
+PASS  website 375 action bar present single-row — {"x":0,"y":0,"width":375,"height":56}
+PASS  website 375 viewport toggle absent-ok — visible=false
+PASS  website 375 iframe AMP h1
+PASS  website 375 no page errors
+PASS  website 320 iframe→AMP3999 — http://localhost:3999
+PASS  website 320 iframe full-bleed width — w=320
+PASS  website 320 no overflow
+PASS  website 320 action bar present single-row — {"x":0,"y":0,"width":320,"height":56}
+PASS  website 320 viewport toggle absent-ok — visible=false
+PASS  website 320 iframe AMP h1
+PASS  website 320 no page errors
+PASS  next 1440 £2,000/£1,000/£1,000
+PASS  next 1440 no overflow
+PASS  next 1440 payment dialog opens
+PASS  next 1440 card option coming soon
+PASS  next 1440 no stripe URL
+PASS  next 1440 bank details visible
+PASS  next 1440 bank amount £1,000.00
+PASS  next 1440 reference uses slug
+PASS  next 1440 dialog no overflow
+PASS  next 1440 dialog closes (Escape)
+PASS  next 1440 question drawer opens
+PASS  next 1440 no page errors
+PASS  next 768 £2,000/£1,000/£1,000
+PASS  next 768 no overflow
+PASS  next 768 payment dialog opens
+PASS  next 768 card option coming soon
+PASS  next 768 no stripe URL
+PASS  next 768 bank details visible
+PASS  next 768 bank amount £1,000.00
+PASS  next 768 reference uses slug
+PASS  next 768 dialog no overflow
+PASS  next 768 dialog closes (Escape)
+PASS  next 768 question drawer opens
+PASS  next 768 no page errors
+PASS  next 375 £2,000/£1,000/£1,000
+PASS  next 375 no overflow
+PASS  next 375 payment dialog opens
+PASS  next 375 card option coming soon
+PASS  next 375 no stripe URL
+PASS  next 375 bank details visible
+PASS  next 375 bank amount £1,000.00
+PASS  next 375 reference uses slug
+PASS  next 375 dialog no overflow
+PASS  next 375 dialog closes (Escape)
+PASS  next 375 question drawer opens
+PASS  next 375 no page errors
+PASS  next 320 £2,000/£1,000/£1,000
+PASS  next 320 no overflow
+PASS  next 320 payment dialog opens
+PASS  next 320 card option coming soon
+PASS  next 320 no stripe URL
+PASS  next 320 bank details visible
+PASS  next 320 bank amount £1,000.00
+PASS  next 320 reference uses slug
+PASS  next 320 dialog no overflow
+PASS  next 320 dialog closes (Escape)
+PASS  next 320 question drawer opens
+PASS  next 320 no page errors
+
+76/76 checks passed

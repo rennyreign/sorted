@@ -1,0 +1,92 @@
+PASS  review 1440 headline
+PASS  review 1440 summary
+PASS  review 1440 3 observations
+PASS  review 1440 pending band, no £
+PASS  review 1440 See next steps action
+PASS  review 1440 no overflow
+PASS  review 1440 no page errors
+PASS  reveal image present
+PASS  reveal image loaded
+PASS  review 768 headline
+PASS  review 768 summary
+PASS  review 768 3 observations
+PASS  review 768 pending band, no £
+PASS  review 768 See next steps action
+PASS  review 768 no overflow
+PASS  review 768 no page errors
+PASS  review 375 headline
+PASS  review 375 summary
+PASS  review 375 3 observations
+PASS  review 375 pending band, no £
+PASS  review 375 See next steps action
+PASS  review 375 no overflow
+PASS  review 375 no page errors
+PASS  review 320 headline
+PASS  review 320 summary
+PASS  review 320 3 observations
+PASS  review 320 pending band, no £
+PASS  review 320 See next steps action
+PASS  review 320 no overflow
+PASS  review 320 no page errors
+PASS  iframe points to SEEM :8160 — http://localhost:8160
+PASS  iframe renders SEEM h1 — Good electrics.Great spaces.
+PASS  iframe SEEM logo
+PASS  quote dialog opens inside iframe — Request a quote
+PASS  no version picker
+PASS  single black action bar
+PASS  action bar CTA no £ — Next stepsSee next steps
+PASS  website 1440 no page errors
+PASS  website 375 no overflow
+PASS  next-steps 1440 Quote pending
+PASS  next-steps 1440 no £ amounts — none
+PASS  next-steps 1440 step1 confirm scope
+PASS  next-steps 1440 decision copy
+PASS  next-steps 1440 no Pay button
+PASS  next-steps 1440 no bank details
+PASS  next-steps 1440 no stripe URL in DOM
+PASS  next-steps 1440 question drawer opens
+PASS  next-steps 1440 book a call
+PASS  next-steps 1440 decline confirm cancellable
+PASS  next-steps 1440 no overflow
+PASS  next-steps 1440 no page errors
+PASS  next-steps 375 Quote pending
+PASS  next-steps 375 no £ amounts — none
+PASS  next-steps 375 step1 confirm scope
+PASS  next-steps 375 decision copy
+PASS  next-steps 375 no Pay button
+PASS  next-steps 375 no bank details
+PASS  next-steps 375 no stripe URL in DOM
+PASS  next-steps 375 question drawer opens
+PASS  next-steps 375 book a call
+PASS  next-steps 375 decline confirm cancellable
+PASS  next-steps 375 no overflow
+PASS  next-steps 375 no page errors
+PASS  next-steps 320 Quote pending
+PASS  next-steps 320 no £ amounts — none
+PASS  next-steps 320 step1 confirm scope
+PASS  next-steps 320 decision copy
+PASS  next-steps 320 no Pay button
+PASS  next-steps 320 no bank details
+PASS  next-steps 320 no stripe URL in DOM
+PASS  next-steps 320 question drawer opens
+PASS  next-steps 320 book a call
+PASS  next-steps 320 decline confirm cancellable
+PASS  next-steps 320 no overflow
+PASS  next-steps 320 no page errors
+PASS  pending suppresses deposit-returned banner
+PASS  explore navigates to website
+PASS  back returns to review
+PASS  amp-electrical ready offer £2,000/£1,000
+PASS  amp-electrical deposit button
+PASS  amp-electrical payment dialog opened
+PASS  amp-electrical no payment nav
+PASS  murray-martin ready offer £1,500/£750
+PASS  murray-martin deposit button
+PASS  murray-martin payment dialog opened
+PASS  murray-martin no payment nav
+PASS  imperial-nail-studio ready offer £3,000/£1,500
+PASS  imperial-nail-studio deposit button
+PASS  imperial-nail-studio payment dialog opened
+PASS  imperial-nail-studio no payment nav
+PASS  amp review shows £2,000 fixed band
+ALL CHECKS PASSED

@@ -1,0 +1,15 @@
+├ ○ /v2/results/action-hero-marketing
+├ ○ /v2/results/bisk-education
+├ ○ /v2/results/bodysharp
+├ ○ /v2/results/glow-dental
+├ ○ /v2/results/gracie-barra-halesowen
+├ ○ /v2/reviews/glow-dental
+├ ○ /v2/systems/enquiry-follow-up
+├ ○ /website-updates
+└ ○ /workspace
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

@@ -1,0 +1,25 @@
+== NODE_ENV=production ==
+{
+ "previewImageUrl": "/amp-electrical-homepage-preview.webp",
+ "versions": null,
+ "offer": {
+  "currency": "GBP",
+  "total": 2000,
+  "deposit": 1000,
+  "balance": 1000,
+  "bankTransferEnabled": true
+ }
+}
+== NODE_ENV=development ==
+{
+ "previewUrl": "http://localhost:3999",
+ "previewImageUrl": "/amp-electrical-homepage-preview.webp",
+ "versions": null,
+ "offer": {
+  "currency": "GBP",
+  "total": 2000,
+  "deposit": 1000,
+  "balance": 1000,
+  "bankTransferEnabled": true
+ }
+}
