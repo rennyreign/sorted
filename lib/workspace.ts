@@ -333,6 +333,26 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       headline: "The local electrician, now easy to call.",
       summary:
         "ABCD Electrical already does the work Croydon homes and businesses need, from everyday jobs to urgent call-outs. Your new site makes that obvious at a glance and puts your phone number and quote request one tap away.",
+      rebuildReasons: [
+        {
+          title: "18 years of local trust, hard to see",
+          strength:
+            "Nearly two decades of domestic and commercial electrical work across Croydon and South London.",
+          gap: "That experience wasn't doing its job online. Customers comparing electricians had little to go on before deciding who to call.",
+        },
+        {
+          title: "Everyday work with no clear offer",
+          strength:
+            "Small jobs, repairs, rewires and emergency call-outs are exactly what local homes and businesses need most.",
+          gap: "With no guide prices or service detail on show, customers had to phone just to find out whether a job was worth booking.",
+        },
+        {
+          title: "Urgent calls that could be missed",
+          strength:
+            "When the phone rings, the work gets done properly, day or night.",
+          gap: "A phone number alone meant missed callers and no way to send a quote request when it suited the customer.",
+        },
+      ],
       observations: [
         {
           title: "Local and established from the first glance",
