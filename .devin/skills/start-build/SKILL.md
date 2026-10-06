@@ -19,6 +19,18 @@ Before running anything, read the full operator skill:
 1. **Full skill doc:** `/Users/renaldoedmondson/Projects/sorted/operators/skills/start-build.md` — complete instructions, prerequisites, and the operator sequence
 2. **Manufacturing line overview:** `/Users/renaldoedmondson/Projects/sorted/operators/skills/manufacturing-line.md` — the 17-operator chain
 
+## Build Request Is Local Build Approval
+
+A request to build a new client website authorises the normal local Stage 1 work: scaffold its sibling project, customise the template root layout and components, add advertised routes, optimise supplied assets, and run local checks and a preview. Do not ask for a separate `/approve` for these steps.
+
+Inspect the supplied folder first. Read the client slug, approved mockup and manifest from supplied files when present; ask only for genuinely missing or conflicting inputs. A supplied `design-ir.json` containing the project slug, sections and asset manifest is a valid manifest.
+
+Keep the separate safety gates: do not overwrite an existing build, install packages, access the network, modify deployment configuration, deploy to production, or treat a build request as client design approval. Ask for the specific permission when one of these actions is needed. CMS remains a separate step after Nod 2.
+
+## Workspace review principles
+
+The client workspace (`/workspace?slug=<slug>&route=review`) is where the client first sees the build. The review tells a two-part story: **why we built it** (the business's real strengths vs how its old online presence failed to capitalise, via `review.rebuildReasons[]` with `strength`/`gap` pairs) and **what's improved** (benefit-led `review.observations[]`). When the business had no website, adapt the angle (`revealTitle` "We built your site.", `reasonsHeading` "Why we built it", `gapColumnLabel` e.g. "Your Facebook page"). The reveal card always carries a real homepage screenshot (`previewImageUrl`, optimised webp in `sorted/public/`). Full contract and copy rules: `operators/skills/start-build.md` → "Workspace review screen" and "Writing the workspace review".
+
 ## Prerequisites
 
 Before starting, you need three things from the user. If any are missing, **stop and ask** — do not guess:
@@ -108,6 +120,15 @@ This is the only step where the agent itself needs vision capability. When you r
 2. Start the dev server: `cd <build-dir> && npx serve out -p 3999`
 3. Compare the rendered site to the mockup at `input/approved-mockup.png`
 4. Mark as `passed`, `skipped`, or `failed` with notes
+
+## Workspace review copy
+
+When the client review workspace is compiled, the review tells two halves of one story:
+
+1. **"Why we rebuilt it"** (`review.rebuildReasons[]` in `WORKSPACE_OVERRIDES`) — each reason pairs a real business strength (`strength`) with how its previous online presence failed to capitalise (`gap`). Rendered as "Your business" / "Your old site" columns.
+2. **"What's improved"** (`review.observations[]`) — benefit-led observations following the chain: trust → enquiries → customers.
+
+Adapt the angle to the client's starting point. If they had no website (Facebook page or directory listing only), set `revealTitle`, `revealBody`, `reasonsHeading` ("Why we built it") and `gapColumnLabel` accordingly — never describe a site that didn't exist. See `operators/skills/start-build.md` for the full rules and checklist.
 
 ## Resuming a build
 

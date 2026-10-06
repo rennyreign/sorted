@@ -17,6 +17,14 @@ This is the **single entry point** for starting a new Sorted website build. If y
 
 It creates a sibling project folder (not inside sorted), scaffolds the Next.js site from the client-site template, copies the mockup and manifest, and initialises the factory job.
 
+## Build Request Is Local Build Approval
+
+A request to build a new client website authorises the normal local Stage 1 work: scaffold its sibling project, customise the template root layout and components, add advertised routes, optimise supplied assets, and run local checks and a preview. Do not ask for a separate `/approve` for these steps.
+
+Inspect the supplied folder first. Read the client slug, approved mockup and manifest from supplied files when present; ask only for genuinely missing or conflicting inputs. A supplied `design-ir.json` containing the project slug, sections and asset manifest is a valid manifest.
+
+Keep the separate safety gates: do not overwrite an existing build, install packages, access the network, modify deployment configuration, deploy to production, or treat a build request as client design approval. Ask for the specific permission when one of these actions is needed. CMS remains a separate step after Nod 2.
+
 ## Prerequisites
 
 Before starting, you need:
