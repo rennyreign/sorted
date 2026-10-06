@@ -315,12 +315,13 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       status: "review",
     },
     offer: {
-      status: "pending",
-      total: 0,
-      deposit: 0,
-      balance: 0,
+      total: 2000,
+      deposit: 1000,
+      balance: 1000,
+      // No dedicated Stripe link yet — card checkout shows "coming soon";
+      // bank transfer is the live payment path (same pattern as AMP).
       stripePaymentUrl: undefined,
-      bankTransferEnabled: false,
+      bankTransferEnabled: true,
     },
   },
   "imperial-nail-studio": {
