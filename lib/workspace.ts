@@ -144,7 +144,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
         {
           title: "Confidence from the first visit",
           explanation:
-            "Customers see who you are, where you work and what you can help with straight away — without an announcement blocking the way.",
+            "Customers see who you are, where you work and what you can help with straight away, without an announcement blocking the way.",
         },
         {
           title: "Services customers can recognise",
@@ -178,12 +178,12 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
     review: {
       headline: "Three decades of trust, now turning into enquiries.",
       summary:
-        "Murray Martin has traded since 1995 on a strong balance sheet and a hard-won reputation. Your new website puts that strength in front of every visitor — so trust becomes enquiries, and enquiries become customers.",
+        "Murray Martin has traded since 1995 on a strong balance sheet and a hard-won reputation. Your new website puts that strength in front of every visitor, so trust becomes enquiries, and enquiries become customers.",
       observations: [
         {
           title: "Reputation made visible",
           explanation:
-            "A new customer sees three decades of trading the moment they arrive — before they've read a word about services, they already know you're established.",
+            "A new customer sees three decades of trading the moment they arrive. Before they've read a word about services, they already know you're established.",
         },
         {
           title: "Proof where buyers look",
@@ -193,7 +193,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
         {
           title: "Trust that turns into enquiries",
           explanation:
-            "Every page ends at an easy way to reach your engineers — request a callback, phone or email — so the confidence you've just earned has somewhere to go.",
+            "Every page ends at an easy way to reach your engineers, whether that's a callback request, a phone call or an email, so the confidence you've just earned has somewhere to go.",
         },
       ],
     },
@@ -237,12 +237,12 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
     review: {
       headline: "A trusted name, now winning work online.",
       summary:
-        "Kelly Electrics has built something genuinely rare — an award-nominated, fully qualified team that customers already trust. Your new site puts that reputation in front of every visitor, so the trust you've earned turns into enquiries.",
+        "Kelly Electrics has built something genuinely rare: an award-nominated, fully qualified team that customers already trust. Your new site puts that reputation in front of every visitor, so the trust you've earned turns into enquiries.",
       observations: [
         {
           title: "Reputation made visible",
           explanation:
-            "Your Electric Awards nomination, NICEIC registration and Part P credentials sit where a careful customer looks first — before they've read a word, they already know you're the real thing.",
+            "Your Electric Awards nomination, NICEIC registration and Part P credentials sit where a careful customer looks first. Before they've read a word, they already know you're the real thing.",
         },
         {
           title: "Proof where buyers look",
@@ -252,7 +252,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
         {
           title: "Trust that turns into enquiries",
           explanation:
-            "Every page ends at an easy way to reach your team — request a quote, phone or email — so the confidence a visitor has just gained has somewhere to go.",
+            "Every page ends at an easy way to reach your team, whether that's a quote request, a phone call or an email, so the confidence a visitor has just gained has somewhere to go.",
         },
       ],
     },
@@ -266,10 +266,10 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
     review: {
       headline: "Your electrical expertise, finally easy to find.",
       summary:
-        "Until now, finding SEEM online meant a Facebook page — no site, no proof, no easy way to ask for a quote. Your new site puts your work, credentials and contact options where customers actually look.",
+        "Until now, finding SEEM online meant a Facebook page. No site, no proof, no easy way to ask for a quote. Your new site puts your work, credentials and contact options where customers actually look.",
       revealTitle: "We built your site.",
       revealBody:
-        "Your first real website — built around the substance already inside your business.",
+        "Your first real website, built around the substance already inside your business.",
       reasonsHeading: "Why we built it",
       gapColumnLabel: "Your Facebook page",
       rebuildReasons: [
@@ -277,7 +277,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
           title: "Real experience, kept quiet",
           strength:
             "Two decades of domestic and commercial electrical work across London, with NAPIT approval behind it.",
-          gap: "None of it showed online — a Facebook page alone can't carry twenty years of experience to someone searching for an electrician.",
+          gap: "None of it showed online. A Facebook page alone can't carry twenty years of experience to someone searching for an electrician.",
         },
         {
           title: "Happy customers, no proof",
@@ -289,7 +289,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
           title: "Enquiries that fit your day",
           strength:
             "When customers reach you, the work gets done properly.",
-          gap: "Phone calls and Facebook messages meant missed callers and mid-job interruptions — no quick way for customers to send a quote request when it suited them.",
+          gap: "Phone calls and Facebook messages meant missed callers and mid-job interruptions, with no quick way for customers to send a quote request when it suited them.",
         },
       ],
       observations: [
@@ -332,17 +332,17 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
     review: {
       headline: "The local electrician, now easy to call.",
       summary:
-        "ABCD Electrical already does the work Croydon homes and businesses need — from everyday jobs to urgent call-outs. Your new site makes that obvious at a glance and puts your phone number and quote request one tap away.",
+        "ABCD Electrical already does the work Croydon homes and businesses need, from everyday jobs to urgent call-outs. Your new site makes that obvious at a glance and puts your phone number and quote request one tap away.",
       observations: [
         {
           title: "Local and established from the first glance",
           explanation:
-            "Visitors see Croydon coverage and 18 years of experience immediately — the reassurance a careful homeowner looks for before inviting an electrician in.",
+            "Visitors see Croydon coverage and 18 years of experience immediately, the reassurance a careful homeowner looks for before inviting an electrician in.",
         },
         {
           title: "Real prices for real jobs",
           explanation:
-            "Guide prices for small electrical jobs set expectations before anyone picks up the phone — so enquiries arrive better informed and easier to win.",
+            "Guide prices for small electrical jobs set expectations before anyone picks up the phone, so enquiries arrive better informed and easier to win.",
         },
         {
           title: "Every page ends at a next step",

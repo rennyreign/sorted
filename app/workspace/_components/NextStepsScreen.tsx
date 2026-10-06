@@ -275,8 +275,8 @@ export function NextStepsScreen({
                 className="font-bold text-[#070707] underline underline-offset-4"
               >
                 Ring or text us on {links.phoneDisplay ?? links.phone}
-              </a>{" "}
-              — no need to book.
+              </a>
+              , no need to book.
             </p>
           ) : null}
           <p className="mt-5 text-center">

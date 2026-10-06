@@ -309,7 +309,7 @@ export function HelpScreen({ workspace }: { workspace: Workspace }) {
               <Phone className="size-5" strokeWidth={2.2} />
             </span>
             <h2 className="mt-5 text-[17px] font-extrabold tracking-[-0.02em]">Ring or text</h2>
-            <p className="mt-2 flex-1 text-[13px] font-medium leading-[1.55] text-[#73736D]">{links.phoneDisplay ?? links.phone} — quickest way to reach us, no booking needed.</p>
+            <p className="mt-2 flex-1 text-[13px] font-medium leading-[1.55] text-[#73736D]">{links.phoneDisplay ?? links.phone} is the quickest way to reach us, no booking needed.</p>
             <p className="mt-6 inline-flex items-center gap-2 text-[13px] font-black underline underline-offset-4">
               Call now <ArrowRight className="size-3.5" strokeWidth={2.8} />
             </p>

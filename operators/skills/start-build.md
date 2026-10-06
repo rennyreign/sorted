@@ -164,7 +164,8 @@ The review write-up (`review.headline`, `review.summary`, `review.rebuildReasons
 4. **Ground each review in that client's real fundamentals** — trading history, longevity, reserves, standing. The message is "your business is stronger than its current digital presence lets it show." Use real figures as framing, not published numbers (write "three decades of trading" or "a strong balance sheet", never a literal reserves figure).
 5. **Match the angle to their starting point.** If they had a dated website, the gap is what that site failed to do. If they had no website (Facebook page or directory listing only), the gap is being invisible online — set `revealTitle`/`revealBody` accordingly and never refer to an "old site" that didn't exist.
 6. **Ban web-design vocabulary in client-facing copy.** No "homepage redesign", "layout", "CTA", "mockup", "design direction". Plain English, second person, respectful and direct. Headline ~6-9 words; summary 1-2 sentences; each observation a short title + 1-2 sentence explanation.
-7. **Keep observations honest to what's actually built** — name the real proof on the site (credentials, testimonials, ways to get in touch), not aspirations.
+7. **No em-dashes or en-dashes in client-facing copy.** Never use `—` or `–` in anything the client reads (headlines, summaries, reasons, observations, buttons, dialog text). Rewrite with a full stop, comma, colon or "whether that's …" construction instead.
+8. **Keep observations honest to what's actually built** — name the real proof on the site (credentials, testimonials, ways to get in touch), not aspirations.
 
 ### Workspace review checklist
 
@@ -174,6 +175,7 @@ The review write-up (`review.headline`, `review.summary`, `review.rebuildReasons
 - [ ] "Why we rebuilt it" pairs each real business strength with the gap in their old online presence; "What's improved" lists the benefits
 - [ ] Reveal copy matches reality — "We built your site." + `revealTitle`/`revealBody` when the client had no website
 - [ ] No web-design jargon anywhere in the client-facing copy; "site" not "homepage"
+- [ ] No em-dashes or en-dashes in any client-facing copy (check authored strings in `WORKSPACE_OVERRIDES` and rendered screen text)
 - [ ] Website preview is full-bleed with a single black action bar; CTA reads "See next steps" (no price)
 - [ ] Offer amounts render from `workspace.offer`; `stripePaymentUrl` explicitly set per client (never inherited)
 - [ ] "Not interested" red link + confirm dialog wired to `mark_workspace_not_interested`
