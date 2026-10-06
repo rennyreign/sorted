@@ -1,0 +1,38 @@
+PASS  review 1440 business name
+PASS  review 1440 authored headline
+PASS  review 1440 no overflow
+PASS  preview image present
+PASS  preview image loaded
+PASS  review shows £2,000 not £3,000
+PASS  review 1440 no page errors
+PASS  review 768 business name
+PASS  review 768 authored headline
+PASS  review 768 no overflow
+PASS  review 768 no page errors
+PASS  review 375 business name
+PASS  review 375 authored headline
+PASS  review 375 no overflow
+PASS  review 375 no page errors
+PASS  review 320 business name
+PASS  review 320 authored headline
+PASS  review 320 no overflow
+PASS  review 320 no page errors
+PASS  iframe points to AMP :3999 — http://localhost:3999
+PASS  iframe renders AMP h1 — London electricians.Work done properly.
+PASS  iframe callback modal opens
+PASS  no version selector
+PASS  website 375 no overflow
+PASS  next steps £2,000/£1,000/£1,000
+PASS  CTAs say next steps not a price
+PASS  pay/deposit trigger present
+PASS  no inherited stripe URL in DOM
+PASS  card option shows coming soon/pending
+PASS  bank transfer amount £1,000
+PASS  bank ref uses workspace slug
+PASS  questions drawer has hello@sortmydigital.site
+PASS  decline confirm cancellable
+PASS  murray still £1,500/£750
+PASS  default still £3,000/£1,500
+PASS  unknown slug not found
+
+36/36 checks passed

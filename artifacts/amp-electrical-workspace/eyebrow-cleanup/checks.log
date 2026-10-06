@@ -1,0 +1,53 @@
+PASS  review 1440 'Prepared for' absent
+PASS  review 1440 client name in header
+PASS  review 1440 headline remains
+PASS  review 1440 summary remains
+PASS  review 1440 reveal image loaded
+PASS  review 1440 no overflow
+PASS  review 1440 explore→website iframe
+PASS  review 1440 back returns headline
+PASS  next 1440 'Your completion offer' absent
+PASS  next 1440 'Ready to get started?' absent
+PASS  next 1440 h1 is page heading
+PASS  next 1440 useful h2s present — ["What's included","How it works","Let's get your website live."]
+PASS  next 1440 £2,000/£1,000/£1,000
+PASS  next 1440 no overflow
+PASS  next 1440 payment dialog coming soon
+PASS  next 1440 dialog closed
+PASS  next 1440 no page errors
+PASS  review 375 'Prepared for' absent
+PASS  review 375 client name in header
+PASS  review 375 headline remains
+PASS  review 375 summary remains
+PASS  review 375 reveal image loaded
+PASS  review 375 no overflow
+PASS  review 375 explore→website iframe
+PASS  review 375 back returns headline
+PASS  next 375 'Your completion offer' absent
+PASS  next 375 'Ready to get started?' absent
+PASS  next 375 h1 is page heading
+PASS  next 375 useful h2s present — ["What's included","How it works","Let's get your website live."]
+PASS  next 375 £2,000/£1,000/£1,000
+PASS  next 375 no overflow
+PASS  next 375 payment dialog coming soon
+PASS  next 375 dialog closed
+PASS  next 375 no page errors
+PASS  review 320 'Prepared for' absent
+PASS  review 320 client name in header
+PASS  review 320 headline remains
+PASS  review 320 summary remains
+PASS  review 320 reveal image loaded
+PASS  review 320 no overflow
+PASS  review 320 explore→website iframe
+PASS  review 320 back returns headline
+PASS  next 320 'Your completion offer' absent
+PASS  next 320 'Ready to get started?' absent
+PASS  next 320 h1 is page heading
+PASS  next 320 useful h2s present — ["What's included","How it works","Let's get your website live."]
+PASS  next 320 £2,000/£1,000/£1,000
+PASS  next 320 no overflow
+PASS  next 320 payment dialog coming soon
+PASS  next 320 dialog closed
+PASS  next 320 no page errors
+
+51/51 checks passed

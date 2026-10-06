@@ -83,9 +83,10 @@ sorted/
 - Update doctrine documents in `doctrine/`
 - Update or improve workflow files in `.devin/workflows/`
 - Update operator skills in `operators/skills/`
+- Scaffold and customise a requested sibling client-site Stage 1 build, including its root layout and advertised routes; the build request authorises this normal local work
 
 ### You must stop and request approval before
-- Modifying `app/` routing structure or root layout files
+- Modifying the Sorted platform's `app/` routing structure or root layout files (this does not apply to normal scaffolding/customisation of a requested sibling client site)
 - Installing new npm packages
 - Modifying deployment config or GitHub Actions workflows
 - Pushing to `main` directly — use feature branches (see Deployment Discipline below)

@@ -1,0 +1,40 @@
+Pre-implementation regression run of checks-script.mjs (same script, before
+the amp-electrical WORKSPACE_OVERRIDES / clientDirectory entry / preview asset
+existed). Reproduced verbatim from the recorded tool output of that run — the
+original stdout was not tee'd to a file at the time.
+
+PASS  review 1440 business name
+FAIL  review 1440 authored headline
+PASS  review 1440 no overflow
+FAIL  preview image present
+FAIL  review shows £2,000 not £3,000
+PASS  review 1440 no page errors
+PASS  review 768 business name
+FAIL  review 768 authored headline
+PASS  review 768 no overflow
+PASS  review 768 no page errors
+PASS  review 375 business name
+FAIL  review 375 authored headline
+PASS  review 375 no overflow
+PASS  review 375 no page errors
+PASS  review 320 business name
+FAIL  review 320 authored headline
+PASS  review 320 no overflow
+PASS  review 320 no page errors
+FAIL  iframe points to AMP :3999 — no iframe
+PASS  no version selector
+PASS  website 375 no overflow
+FAIL  next steps £2,000/£1,000/£1,000
+PASS  CTAs say next steps not a price
+PASS  pay/deposit trigger present
+PASS  no inherited stripe URL in DOM
+FAIL  card option shows coming soon/pending
+FAIL  bank transfer amount £1,000
+PASS  bank ref uses workspace slug
+PASS  questions drawer has hello@sortmydigital.site
+PASS  decline confirm cancellable
+PASS  murray still £1,500/£750
+PASS  default still £3,000/£1,500
+PASS  unknown slug not found
+
+23/33 checks passed

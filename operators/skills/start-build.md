@@ -17,6 +17,14 @@ This is the **single entry point** for starting a new Sorted website build. If y
 
 It creates a sibling project folder (not inside sorted), scaffolds the Next.js site from the client-site template, copies the mockup and manifest, and initialises the factory job.
 
+## Build Request Is Local Build Approval
+
+A request to build a new client website authorises the normal local Stage 1 work: scaffold its sibling project, customise the template root layout and components, add advertised routes, optimise supplied assets, and run local checks and a preview. Do not ask for a separate `/approve` for these steps.
+
+Inspect the supplied folder first. Read the client slug, approved mockup and manifest from supplied files when present; ask only for genuinely missing or conflicting inputs. A supplied `design-ir.json` containing the project slug, sections and asset manifest is a valid manifest.
+
+Keep the separate safety gates: do not overwrite an existing build, install packages, access the network, modify deployment configuration, deploy to production, or treat a build request as client design approval. Ask for the specific permission when one of these actions is needed. CMS remains a separate step after Nod 2.
+
 ## Prerequisites
 
 Before starting, you need:
@@ -130,11 +138,13 @@ This reads `build-state.json` and tells you which operator to run next. All arti
 
 ## Workspace review screen
 
-The workspace review page (`/workspace?slug=<client-slug>&route=review`) is where the client first sees the build. Two non-negotiables:
+The workspace review page (`/workspace?slug=<client-slug>&route=review`) is where the client first sees the build. Non-negotiables:
 
 1. **The black "We rebuilt your site." reveal card must always carry a real screenshot snapshot** of the built homepage — `workspace.website.previewImageUrl`, generated at the build/preview step (screenshot the live preview at desktop width, save an optimised webp to `sorted/public/`). Never ship the reveal with an empty right side.
 2. **The editorial hero copy (eyebrow / headline / summary) runs full container width** — no narrower max-width clamps on the section, h1, or summary paragraph.
 3. **Say "site", not "homepage", in workspace copy.** The reveal card reads "We rebuilt your site." and the button "Explore your new site" — the client discovers the homepage is the only live portion when they open the preview.
+4. **Two sections: "Why we rebuilt it" then "What's improved".** Section one is a numbered contrast list (`review.rebuildReasons[]`: `title`, `strength`, `gap`) pairing the business's real strengths against how its old online presence failed to capitalise — rendered as "Your business" / "Your old site" columns on desktop, stacked on mobile. Section two (`review.observations[]`) lists the benefit-led improvements. Workspaces without authored reasons fall back to a single-column gap list derived from `site_weaknesses`.
+5. **Adapt the angle when the business had no website.** Not every client has an old site — some only have a Facebook page or a directory listing. In that case set `review.revealTitle` (e.g. "We built your site."), `review.revealBody`, `review.reasonsHeading` ("Why we built it") and `review.gapColumnLabel` (e.g. "Your Facebook page"), and write the gaps as "your business was invisible online" rather than "your old site failed you". Never describe a website that didn't exist.
 
 ## Workspace website preview screen
 
@@ -154,20 +164,26 @@ The "Your new site" page (`/workspace?slug=<client-slug>&route=website`) shows t
 
 ### Review copy is benefit-led, never technical
 
-The review write-up (`review.headline`, `review.summary`, `review.observations[]` in `WORKSPACE_OVERRIDES`) sells the business outcome, not the build. Rules:
+The review write-up (`review.headline`, `review.summary`, `review.rebuildReasons[]`, `review.observations[]` in `WORKSPACE_OVERRIDES`) sells the business outcome, not the build. Rules:
 
 1. **Lead with business benefit, never technical/design analysis.** The client is reading why this earns them money, not what changed on the page.
-2. **Frame everything through the chain: trust (reputation, brand, proof) → enquiries → customers.** Each observation should map to a step in that chain — roughly: reputation made visible → proof where buyers look → trust converting into enquiries.
-3. **Ground each review in that client's real fundamentals** — trading history, longevity, reserves, standing. The message is "your business is stronger than its current digital presence lets it show." Use real figures as framing, not published numbers (write "three decades of trading" or "a strong balance sheet", never a literal reserves figure).
-4. **Ban web-design vocabulary in client-facing copy.** No "homepage redesign", "layout", "CTA", "mockup", "design direction". Plain English, second person, respectful and direct. Headline ~6-9 words; summary 1-2 sentences; each observation a short title + 1-2 sentence explanation.
-5. **Keep observations honest to what's actually built** — name the real proof on the site (credentials, testimonials, ways to get in touch), not aspirations.
+2. **"Why we rebuilt it" pairs strengths with gaps.** Each reason names a real strength of the business (`strength`) and how its previous online presence failed to capitalise (`gap`) — e.g. unused reviews, dated design, or phone-only contact causing missed callers and mid-job interruptions instead of quick actions customers can take when it suits them. Three reasons is the norm.
+3. **"What's improved" frames the chain: trust (reputation, brand, proof) → enquiries → customers.** Each observation should map to a step in that chain — roughly: reputation made visible → proof where buyers look → trust converting into enquiries.
+4. **Ground each review in that client's real fundamentals** — trading history, longevity, reserves, standing. The message is "your business is stronger than its current digital presence lets it show." Use real figures as framing, not published numbers (write "three decades of trading" or "a strong balance sheet", never a literal reserves figure).
+5. **Match the angle to their starting point.** If they had a dated website, the gap is what that site failed to do. If they had no website (Facebook page or directory listing only), the gap is being invisible online — set `revealTitle`/`revealBody` accordingly and never refer to an "old site" that didn't exist.
+6. **Ban web-design vocabulary in client-facing copy.** No "homepage redesign", "layout", "CTA", "mockup", "design direction". Plain English, second person, respectful and direct. Headline ~6-9 words; summary 1-2 sentences; each observation a short title + 1-2 sentence explanation.
+7. **No em-dashes or en-dashes in client-facing copy.** Never use `—` or `–` in anything the client reads (headlines, summaries, reasons, observations, buttons, dialog text). Rewrite with a full stop, comma, colon or "whether that's …" construction instead.
+8. **Keep observations honest to what's actually built** — name the real proof on the site (credentials, testimonials, ways to get in touch), not aspirations.
 
 ### Workspace review checklist
 
 - [ ] Real screenshot snapshot generated from the built site and saved to `sorted/public/` as optimised webp (`previewImageUrl`)
 - [ ] Hero copy (eyebrow / headline / summary) renders full container width — no max-width clamps
 - [ ] Review copy is benefit-led: trust → enquiries → customers, grounded in the client's real fundamentals
+- [ ] "Why we rebuilt it" pairs each real business strength with the gap in their old online presence; "What's improved" lists the benefits
+- [ ] Reveal copy matches reality — "We built your site." + `revealTitle`/`revealBody` when the client had no website
 - [ ] No web-design jargon anywhere in the client-facing copy; "site" not "homepage"
+- [ ] No em-dashes or en-dashes in any client-facing copy (check authored strings in `WORKSPACE_OVERRIDES` and rendered screen text)
 - [ ] Website preview is full-bleed with a single black action bar; CTA reads "See next steps" (no price)
 - [ ] Offer amounts render from `workspace.offer`; `stripePaymentUrl` explicitly set per client (never inherited)
 - [ ] "Not interested" red link + confirm dialog wired to `mark_workspace_not_interested`

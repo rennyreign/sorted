@@ -1,0 +1,278 @@
+--- /tmp/seem-ws-snapshot/lib/workspace.ts	2026-10-06 12:59:36
++++ lib/workspace.ts	2026-10-06 13:00:00
+@@ -62,6 +62,7 @@
+     /** Hosted Stripe Payment Link for the £1,500 deposit. */
+     stripePaymentUrl?: string
+     bankTransferEnabled: boolean
++    status?: "ready" | "pending"
+   }
+   links: {
+     bookingUrl?: string
+@@ -242,6 +243,46 @@
+       status: "review",
+     },
+   },
++  "seem-electrical-ltd": {
++    review: {
++      headline: "Your electrical expertise, easier to choose.",
++      summary:
++        "Customers can see the electrical work you offer across London and reach you by phone or email. A clearer first impression helps them decide whether you’re right for their job.",
++      observations: [
++        {
++          title: "Recognisable from the first visit",
++          explanation:
++            "Your own branding and clear service descriptions help customers understand who you are and what you do.",
++        },
++        {
++          title: "Find the right help",
++          explanation:
++            "Installations, rewires, testing, repairs, commercial electrics and air conditioning are easy to find, so customers can see whether you can help.",
++        },
++        {
++          title: "A direct route to an enquiry",
++          explanation:
++            "Phone and email are easy to reach. The quote request gathers useful project details; online sending still needs connecting before launch.",
++        },
++      ],
++    },
++    website: {
++      previewUrl:
++        process.env.NODE_ENV === "development"
++          ? "http://localhost:8160"
++          : undefined,
++      previewImageUrl: "/seem-electrical-homepage-preview.webp",
++      status: "review",
++    },
++    offer: {
++      status: "pending",
++      total: 0,
++      deposit: 0,
++      balance: 0,
++      stripePaymentUrl: undefined,
++      bankTransferEnabled: false,
++    },
++  },
+   "imperial-nail-studio": {
+     review: {
+       headline: "Your business is stronger than your website makes it look.",
+--- /tmp/seem-ws-snapshot/lib/clientDirectory.ts	2026-10-06 12:59:36
++++ lib/clientDirectory.ts	2026-10-06 13:00:00
+@@ -226,6 +226,20 @@
+         path: "/proposals/school-of-skill",
+         password: "sos2026",
+         signable: true,
++      },
++    ],
++  },
++  {
++    slug: "seem-electrical-ltd",
++    name: "SEEM Electrical Ltd",
++    prospectName: "Seem electrical Ltd",
++    notes:
++      "Site review ready. Client direction approval and quote pending; online enquiries still need connecting.",
++    docs: [
++      {
++        type: "proposal",
++        label: "Client review workspace",
++        path: "/workspace/seem-electrical-ltd/review",
+       },
+     ],
+   },
+--- /tmp/seem-ws-snapshot/app/workspace/_components/ReviewScreen.tsx	2026-10-06 12:59:36
++++ app/workspace/_components/ReviewScreen.tsx	2026-10-06 13:00:10
+@@ -93,10 +93,21 @@
+           <Tag className="size-5 sm:size-6" strokeWidth={2.2} />
+         </span>
+         <div>
+-          <h2 className="text-[19px] font-extrabold tracking-[-0.03em] sm:text-[22px]">Complete website · £{workspace.offer.total.toLocaleString()} fixed</h2>
+-          <p className="mt-1 max-w-[480px] text-[13px] font-semibold leading-[1.45] text-[#73736D] sm:text-[14px]">
+-            Your complete website, built and launched for one fixed price.
+-          </p>
++          {workspace.offer.status === "pending" ? (
++            <>
++              <h2 className="text-[19px] font-extrabold tracking-[-0.03em] sm:text-[22px]">Next steps for your site.</h2>
++              <p className="mt-1 max-w-[480px] text-[13px] font-semibold leading-[1.45] text-[#73736D] sm:text-[14px]">
++                We&apos;ll confirm the remaining work and pricing with you before any payment.
++              </p>
++            </>
++          ) : (
++            <>
++              <h2 className="text-[19px] font-extrabold tracking-[-0.03em] sm:text-[22px]">Complete website · £{workspace.offer.total.toLocaleString()} fixed</h2>
++              <p className="mt-1 max-w-[480px] text-[13px] font-semibold leading-[1.45] text-[#73736D] sm:text-[14px]">
++                Your complete website, built and launched for one fixed price.
++              </p>
++            </>
++          )}
+         </div>
+         <button
+           type="button"
+--- /tmp/seem-ws-snapshot/app/workspace/_components/NextStepsScreen.tsx	2026-10-06 12:59:36
++++ app/workspace/_components/NextStepsScreen.tsx	2026-10-06 13:00:43
+@@ -45,24 +45,28 @@
+   const [declined, setDeclined] = useState(false)
+ 
+   const { offer, links } = workspace
++  const offerPending = offer.status === "pending"
+ 
+   const steps = [
+-    { number: 1, title: "Pay the deposit", body: `Pay £${offer.deposit.toLocaleString()} to confirm and we'll get started.` },
++    offerPending
++      ? { number: 1, title: "Confirm scope and pricing", body: "Agree the remaining work and a written quote before any payment." }
++      : { number: 1, title: "Pay the deposit", body: `Pay £${offer.deposit.toLocaleString()} to confirm and we'll get started.` },
+     ...STEPS,
+   ]
+ 
+   useEffect(() => {
+-    if (depositReturned) workspaceEvent(workspace, "deposit_returned")
++    if (depositReturned && !offerPending) workspaceEvent(workspace, "deposit_returned")
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [depositReturned])
+ 
+   function startDeposit() {
++    if (offerPending) return
+     workspaceEvent(workspace, "payment_method_selection_opened")
+     setPaymentOpen(true)
+   }
+ 
+   function payByCard() {
+-    if (!offer.stripePaymentUrl || paying) return
++    if (offerPending || !offer.stripePaymentUrl || paying) return
+     setPaying(true)
+     workspaceEvent(workspace, "deposit_started", { payment_method: "card" })
+     // Stripe's redirect is fixed — hand the slug over via localStorage so the
+@@ -108,7 +112,7 @@
+     <>
+       <div className="mx-auto max-w-[860px] px-5 pb-9 pt-9 sm:px-8 sm:pt-13">
+         {/* Returned from payment — confirm state, not a verified payment */}
+-        {depositReturned ? (
++        {depositReturned && !offerPending ? (
+           <div className="mb-8 rounded-[12px] border border-[#00A64B]/25 bg-[#00A64B]/[0.06] p-5">
+             <p className="text-[15px] font-extrabold text-[#0A7A3D]">Deposit received. We&apos;re confirming it now.</p>
+             <p className="mt-1.5 text-[13px] font-medium leading-[1.5] text-[#0A7A3D]/80">
+@@ -130,24 +134,49 @@
+         {/* Price panel */}
+         <section className="mb-11 flex flex-col gap-6 rounded-[14px] bg-[#070707] p-7 sm:grid sm:min-h-[188px] sm:grid-cols-[1fr_1px_290px] sm:items-center sm:gap-9 sm:p-10">
+           <div>
+-            <p className="text-[46px] font-extrabold leading-none tracking-[-0.055em] text-white sm:text-[64px] sm:whitespace-nowrap">
+-              £{offer.total.toLocaleString()} <span className="text-[0.55em] tracking-[-0.03em] text-white/85">fixed</span>
+-            </p>
+-            <p className="mt-3.5 text-[17px] font-semibold text-white/70 sm:text-[22px]">
+-              £{offer.deposit.toLocaleString()} deposit · £{offer.balance.toLocaleString()} on launch
+-            </p>
++            {offerPending ? (
++              <>
++                <p className="text-[46px] font-extrabold leading-none tracking-[-0.055em] text-white sm:text-[64px] sm:whitespace-nowrap">
++                  Quote pending
++                </p>
++                <p className="mt-3.5 text-[17px] font-semibold text-white/70 sm:text-[22px]">
++                  We&apos;ll confirm your scope, price and deposit before asking for payment.
++                </p>
++              </>
++            ) : (
++              <>
++                <p className="text-[46px] font-extrabold leading-none tracking-[-0.055em] text-white sm:text-[64px] sm:whitespace-nowrap">
++                  £{offer.total.toLocaleString()} <span className="text-[0.55em] tracking-[-0.03em] text-white/85">fixed</span>
++                </p>
++                <p className="mt-3.5 text-[17px] font-semibold text-white/70 sm:text-[22px]">
++                  £{offer.deposit.toLocaleString()} deposit · £{offer.balance.toLocaleString()} on launch
++                </p>
++              </>
++            )}
+           </div>
+           <div className="hidden h-24 w-px bg-white/20 sm:block" />
+-          <button
+-            type="button"
+-            onClick={startDeposit}
+-            disabled={paying}
+-            className="inline-flex h-[54px] w-full items-center justify-center gap-3 rounded-[10px] bg-[#DFFF00] text-[15px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00] active:translate-y-0 disabled:opacity-45 disabled:hover:translate-y-0 sm:h-[72px] sm:text-[19px]"
+-          >
+-            <CreditCard className="size-5" strokeWidth={2.4} />
+-            {paying ? "Opening checkout…" : `Pay £${offer.deposit.toLocaleString()} deposit`}
+-            <ArrowRight className="size-4" strokeWidth={2.8} />
+-          </button>
++          {offerPending ? (
++            <button
++              type="button"
++              onClick={openQuestion}
++              className="inline-flex h-[54px] w-full items-center justify-center gap-3 rounded-[10px] bg-[#DFFF00] text-[15px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00] active:translate-y-0 sm:h-[72px] sm:text-[19px]"
++            >
++              <MessageCircle className="size-5" strokeWidth={2.4} />
++              Discuss the next steps
++              <ArrowRight className="size-4" strokeWidth={2.8} />
++            </button>
++          ) : (
++            <button
++              type="button"
++              onClick={startDeposit}
++              disabled={paying}
++              className="inline-flex h-[54px] w-full items-center justify-center gap-3 rounded-[10px] bg-[#DFFF00] text-[15px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00] active:translate-y-0 disabled:opacity-45 disabled:hover:translate-y-0 sm:h-[72px] sm:text-[19px]"
++            >
++              <CreditCard className="size-5" strokeWidth={2.4} />
++              {paying ? "Opening checkout…" : `Pay £${offer.deposit.toLocaleString()} deposit`}
++              <ArrowRight className="size-4" strokeWidth={2.8} />
++            </button>
++          )}
+         </section>
+ 
+         {/* What's included */}
+@@ -199,21 +228,25 @@
+             Let&apos;s get your website live.
+           </h2>
+           <p className="mt-4 max-w-[520px] text-[15px] font-medium leading-[1.55] text-[#73736D]">
+-            Pay your £{offer.deposit.toLocaleString()} deposit today and we&apos;ll complete, connect and launch your website for £{offer.total.toLocaleString()}.
++            {offerPending
++              ? "Let's confirm what remains to be done and agree your quote before any payment."
++              : <>Pay your £{offer.deposit.toLocaleString()} deposit today and we&apos;ll complete, connect and launch your website for £{offer.total.toLocaleString()}.</>}
+           </p>
+-          <div className="mt-6 grid gap-3 sm:grid-cols-[1.2fr_1fr_1fr]">
++          <div className={`mt-6 grid gap-3 ${offerPending ? "sm:grid-cols-2" : "sm:grid-cols-[1.2fr_1fr_1fr]"}`}>
++            {offerPending ? null : (
++              <button
++                type="button"
++                onClick={startDeposit}
++                disabled={paying}
++                className="inline-flex h-[50px] items-center justify-center gap-3 rounded-[9px] bg-[#DFFF00] px-5 text-[13px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px active:translate-y-0 disabled:opacity-45 sm:h-[54px]"
++              >
++                <CreditCard className="size-4.5" strokeWidth={2.4} />
++                {paying ? "Opening checkout…" : `Pay £${offer.deposit.toLocaleString()} deposit`}
++                <ArrowRight className="size-4" strokeWidth={2.8} />
++              </button>
++            )}
+             <button
+               type="button"
+-              onClick={startDeposit}
+-              disabled={paying}
+-              className="inline-flex h-[50px] items-center justify-center gap-3 rounded-[9px] bg-[#DFFF00] px-5 text-[13px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px active:translate-y-0 disabled:opacity-45 sm:h-[54px]"
+-            >
+-              <CreditCard className="size-4.5" strokeWidth={2.4} />
+-              {paying ? "Opening checkout…" : `Pay £${offer.deposit.toLocaleString()} deposit`}
+-              <ArrowRight className="size-4" strokeWidth={2.8} />
+-            </button>
+-            <button
+-              type="button"
+               onClick={openQuestion}
+               className="inline-flex h-[50px] items-center justify-center gap-3 rounded-[9px] border border-[#070707]/15 bg-white px-5 text-[13px] font-black text-[#070707] transition-colors hover:border-[#070707]/35 sm:h-[54px]"
+             >
+@@ -264,13 +297,15 @@
+       <WorkspaceFooter workspace={workspace} onNavigate={onNavigate} />
+ 
+       <QuestionDrawer workspace={workspace} open={questionOpen} onClose={() => setQuestionOpen(false)} />
+-      <DepositPaymentDialog
+-        workspace={workspace}
+-        open={paymentOpen}
+-        onClose={() => setPaymentOpen(false)}
+-        onPayByCard={payByCard}
+-        paying={paying}
+-      />
++      {offerPending ? null : (
++        <DepositPaymentDialog
++          workspace={workspace}
++          open={paymentOpen}
++          onClose={() => setPaymentOpen(false)}
++          onPayByCard={payByCard}
++          paying={paying}
++        />
++      )}
+       <NotInterestedDialog
+         workspace={workspace}
+         open={declineOpen}

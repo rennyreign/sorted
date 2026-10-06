@@ -43,6 +43,20 @@ export type ClientRecord = {
 
 export const CLIENTS: ClientRecord[] = [
   {
+    slug: "amp-electrical",
+    name: "A.M.P Electrical",
+    prospectName: "A.M.P Electrical",
+    notes:
+      "£2,000 fixed offer; £1,000 deposit and £1,000 on launch. Client design approval pending.",
+    docs: [
+      {
+        type: "proposal",
+        label: "Client review workspace",
+        path: "/workspace/amp-electrical/review",
+      },
+    ],
+  },
+  {
     slug: "advocate-better-care",
     name: "Advocate Better Care",
     docs: [
@@ -212,6 +226,20 @@ export const CLIENTS: ClientRecord[] = [
         path: "/proposals/school-of-skill",
         password: "sos2026",
         signable: true,
+      },
+    ],
+  },
+  {
+    slug: "seem-electrical-ltd",
+    name: "SEEM Electrical Ltd",
+    prospectName: "Seem electrical Ltd",
+    notes:
+      "£2,000 fixed offer; £1,000 deposit and £1,000 on launch. Client design approval pending; online enquiries still need connecting.",
+    docs: [
+      {
+        type: "proposal",
+        label: "Client review workspace",
+        path: "/workspace/seem-electrical-ltd/review",
       },
     ],
   },

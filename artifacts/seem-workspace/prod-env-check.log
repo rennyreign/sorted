@@ -1,0 +1,25 @@
+== production ==
+{
+ "previewImageUrl": "/seem-electrical-homepage-preview.webp",
+ "offer": {
+  "currency": "GBP",
+  "total": 0,
+  "deposit": 0,
+  "balance": 0,
+  "bankTransferEnabled": false,
+  "status": "pending"
+ }
+}
+== development ==
+{
+ "previewUrl": "http://localhost:8160",
+ "previewImageUrl": "/seem-electrical-homepage-preview.webp",
+ "offer": {
+  "currency": "GBP",
+  "total": 0,
+  "deposit": 0,
+  "balance": 0,
+  "bankTransferEnabled": false,
+  "status": "pending"
+ }
+}

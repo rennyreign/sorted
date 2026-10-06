@@ -1,0 +1,75 @@
+diff --git a/lib/clientDirectory.ts b/lib/clientDirectory.ts
+index 084e58e1..1b5868e2 100644
+--- a/lib/clientDirectory.ts
++++ b/lib/clientDirectory.ts
+@@ -42,6 +42,20 @@ export type ClientRecord = {
+ }
+ 
+ export const CLIENTS: ClientRecord[] = [
++  {
++    slug: "amp-electrical",
++    name: "A.M.P Electrical",
++    prospectName: "A.M.P Electrical",
++    notes:
++      "£2,000 fixed offer; £1,000 deposit and £1,000 on launch. Client design approval pending.",
++    docs: [
++      {
++        type: "proposal",
++        label: "Client review workspace",
++        path: "/workspace/amp-electrical/review",
++      },
++    ],
++  },
+   {
+     slug: "advocate-better-care",
+     name: "Advocate Better Care",
+diff --git a/lib/workspace.ts b/lib/workspace.ts
+index 6677c861..9befef44 100644
+--- a/lib/workspace.ts
++++ b/lib/workspace.ts
+@@ -115,6 +115,45 @@ type WorkspaceOverride = {
+ }
+ 
+ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
++  "amp-electrical": {
++    review: {
++      headline: "Your electrical expertise, easier to trust and contact.",
++      summary:
++        "Your London customers can now see what you do and how to reach you without getting past an announcement first. Clear services and direct contact options give that first impression somewhere useful to lead.",
++      observations: [
++        {
++          title: "Confidence from the first visit",
++          explanation:
++            "Customers see who you are, where you work and what you can help with straight away — without an announcement blocking the way.",
++        },
++        {
++          title: "Services customers can recognise",
++          explanation:
++            "Rewires, testing, EV charging, lighting and security are explained in plain English, helping homeowners and businesses find the work they need.",
++        },
++        {
++          title: "An easier next step",
++          explanation:
++            "Visitors can prepare a callback request to send by email, call you or open WhatsApp. Clear contact options make it easier to turn interest into a conversation.",
++        },
++      ],
++    },
++    website: {
++      previewUrl:
++        process.env.NODE_ENV === "development"
++          ? "http://localhost:3999"
++          : undefined,
++      previewImageUrl: "/amp-electrical-homepage-preview.webp",
++      status: "review",
++    },
++    offer: {
++      total: 2000,
++      deposit: 1000,
++      balance: 1000,
++      stripePaymentUrl: undefined,
++      bankTransferEnabled: true,
++    },
++  },
+   "murray-martin": {
+     review: {
+       headline: "Three decades of trust, now turning into enquiries.",

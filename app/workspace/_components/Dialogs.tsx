@@ -154,7 +154,7 @@ export function NotInterestedDialog({
 
         {phase === "done" ? (
           <>
-            <h2 className="mt-2 text-[24px] font-extrabold leading-[1.05] tracking-[-0.04em]">No problem — you&apos;re all set.</h2>
+            <h2 className="mt-2 text-[24px] font-extrabold leading-[1.05] tracking-[-0.04em]">No problem, you&apos;re all set.</h2>
             <p className="mt-3 text-[14px] font-medium leading-[1.55] text-[#73736D]">
               We&apos;ve noted that {workspace.business.name} isn&apos;t interested, and you won&apos;t hear from us about this again. Thanks for taking a look.
             </p>
