@@ -2,7 +2,7 @@
 
 import { BarChart3, Calendar, Check, CreditCard, FileText, MessageCircle, Monitor, Settings } from "lucide-react"
 import { workspacePath } from "./WorkspaceShell"
-import { workspaceEvent, type Workspace, type WorkspaceRoute } from "@/lib/workspace"
+import { type Workspace, type WorkspaceRoute } from "@/lib/workspace"
 
 function StatusChip({ live }: { live?: boolean }) {
   return (
@@ -16,7 +16,7 @@ function StatusChip({ live }: { live?: boolean }) {
   )
 }
 
-function HelpCard({ workspace }: { workspace: Workspace }) {
+function HelpCard({ workspace, onAskQuestion }: { workspace: Workspace; onAskQuestion: () => void }) {
   return (
     <article className="flex flex-col rounded-[12px] border border-[#E8E5DD] bg-white p-6">
       <span className="grid size-11 place-items-center rounded-full bg-[#F1F1EC]">
@@ -26,13 +26,13 @@ function HelpCard({ workspace }: { workspace: Workspace }) {
       <p className="mt-2 flex-1 text-[13px] font-medium leading-[1.55] text-[#73736D]">
         Questions about the build, the price or what happens next? Ask us directly.
       </p>
-      <a
-        href={`mailto:${workspace.links.questionEmail}`}
-        onClick={() => workspaceEvent(workspace, "question_started", { channel: "email" })}
+      <button
+        type="button"
+        onClick={onAskQuestion}
         className="mt-6 inline-flex items-center gap-2 text-[13px] font-black underline underline-offset-4 transition-colors hover:text-[#070707]/60"
       >
-        Contact Sorted
-      </a>
+        Ask a question
+      </button>
     </article>
   )
 }
@@ -69,9 +69,11 @@ function Timeline() {
 export function ProjectScreen({
   workspace,
   onNavigate,
+  onAskQuestion,
 }: {
   workspace: Workspace
   onNavigate: (route: WorkspaceRoute) => void
+  onAskQuestion: () => void
 }) {
   const domain = workspace.website.liveUrl?.replace(/^https?:\/\//, "").replace(/\/$/, "")
 
@@ -125,7 +127,7 @@ export function ProjectScreen({
             View documents
           </a>
         </article>
-        <HelpCard workspace={workspace} />
+        <HelpCard workspace={workspace} onAskQuestion={onAskQuestion} />
       </div>
 
       <Timeline />
@@ -139,8 +141,8 @@ const INCLUDED = [
   { icon: BarChart3, title: "Sorted Tracking", description: "Analytics and conversion tracking configured at launch." },
 ]
 
-export function DetailsScreen({ workspace }: { workspace: Workspace }) {
-  const { offer, links } = workspace
+export function DetailsScreen({ workspace, onAskQuestion }: { workspace: Workspace; onAskQuestion: () => void }) {
+  const { offer } = workspace
   return (
     <div className="mx-auto max-w-[860px] px-5 pb-16 pt-10 sm:px-8">
       <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#73736D]">Details</p>
@@ -189,9 +191,9 @@ export function DetailsScreen({ workspace }: { workspace: Workspace }) {
         </p>
         <p className="mt-2 text-[13px] font-medium text-[#73736D]">
           Questions about payment?{" "}
-          <a href={`mailto:${links.questionEmail}`} className="font-bold text-[#070707] underline underline-offset-4">
+          <button type="button" onClick={onAskQuestion} className="font-bold text-[#070707] underline underline-offset-4">
             Ask us directly
-          </a>
+          </button>
           .
         </p>
       </div>
