@@ -187,10 +187,12 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       status: "review",
     },
     offer: {
-      total: 2000,
-      deposit: 1000,
-      balance: 1000,
-      stripePaymentUrl: undefined,
+      total: 1500,
+      deposit: 750,
+      balance: 750,
+      // Shared £750 deposit link (Sorted Website Payments product) —
+      // checkout is tagged with the workspace slug via client_reference_id.
+      stripePaymentUrl: "https://buy.stripe.com/dRm9ASdGwbtz2MK5Iudwc03",
       bankTransferEnabled: true,
     },
   },
@@ -389,12 +391,12 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       status: "review",
     },
     offer: {
-      total: 2000,
-      deposit: 1000,
-      balance: 1000,
-      // No dedicated Stripe link yet — card checkout shows "coming soon";
-      // bank transfer is the live payment path (same pattern as AMP/ABCD).
-      stripePaymentUrl: undefined,
+      total: 1500,
+      deposit: 750,
+      balance: 750,
+      // Shared £750 deposit link (Sorted Website Payments product) —
+      // checkout is tagged with the workspace slug via client_reference_id.
+      stripePaymentUrl: "https://buy.stripe.com/dRm9ASdGwbtz2MK5Iudwc03",
       bankTransferEnabled: true,
     },
   },
@@ -450,12 +452,12 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       status: "review",
     },
     offer: {
-      total: 2000,
-      deposit: 1000,
-      balance: 1000,
-      // No dedicated Stripe link yet — card checkout shows "coming soon";
-      // bank transfer is the live payment path (same pattern as AMP).
-      stripePaymentUrl: undefined,
+      total: 1500,
+      deposit: 750,
+      balance: 750,
+      // Shared £750 deposit link (Sorted Website Payments product) —
+      // checkout is tagged with the workspace slug via client_reference_id.
+      stripePaymentUrl: "https://buy.stripe.com/dRm9ASdGwbtz2MK5Iudwc03",
       bankTransferEnabled: true,
     },
   },
