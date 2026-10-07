@@ -506,6 +506,72 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       status: "review",
     },
   },
+  "sweeneys-martial-arts": {
+    review: {
+      headline: "Five star reviews, and now a site to match.",
+      summary:
+        "Families already rate you five stars on Google. Until now that praise only reached people who found your listing. Your new site puts your classes, your academy and those reviews where anyone looking for martial arts in Leamington Spa will actually see them.",
+      revealTitle: "We built your site.",
+      revealBody:
+        "Your first proper website, built around the reputation your students have already earned.",
+      reasonsHeading: "Why we built it",
+      gapColumnLabel: "Your Google listing",
+      rebuildReasons: [
+        {
+          title: "Twenty two five star reviews, working quietly",
+          strength:
+            "Every Google review gives you five stars. Parents and students already recommend you.",
+          gap: "That proof only reaches people who already found your listing. On its own, Google cannot show what a class feels like or who it is for.",
+        },
+        {
+          title: "Classes for everyone, hard to picture",
+          strength:
+            "Children, juniors, women and adults all train here, and beginners are welcome.",
+          gap: "Without a site, a parent deciding between activities has nothing to see. No photos, no class breakdown, no sense of the room.",
+        },
+        {
+          title: "Interest with nowhere to land",
+          strength:
+            "A real academy on Crown Way with a community that keeps people coming back.",
+          gap: "Someone interested tonight has to find your listing, then call or message. No clear next step means quiet interest never becomes a first class.",
+        },
+      ],
+      observations: [
+        {
+          title: "Reputation made visible",
+          explanation:
+            "Your five star Google reviews sit right on the homepage, so the trust your members have earned is doing the talking before a visitor reads anything else.",
+        },
+        {
+          title: "Classes people can picture",
+          explanation:
+            "Children's classes, women's classes and adult training each have their own space with real photos, so families can quickly see where they would fit.",
+        },
+        {
+          title: "A simple first step",
+          explanation:
+            "Find your class and Ask about classes give every visitor an obvious next step, so interest turns into a message instead of a closed tab.",
+        },
+      ],
+    },
+    website: {
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:4180"
+          : undefined,
+      previewImageUrl: "/sweeneys-homepage-preview.webp",
+      status: "review",
+    },
+    offer: {
+      total: 500,
+      deposit: 250,
+      balance: 250,
+      // No dedicated Stripe link yet — card checkout shows "coming soon";
+      // bank transfer is the live payment path (same pattern as AMP/SEEM).
+      stripePaymentUrl: undefined,
+      bankTransferEnabled: true,
+    },
+  },
   "imperial-nail-studio": {
     review: {
       headline: "Your business is stronger than your website makes it look.",
