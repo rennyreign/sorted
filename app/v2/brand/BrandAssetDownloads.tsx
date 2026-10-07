@@ -6,11 +6,11 @@ import { ArrowDownToLine, Check, Copy } from "lucide-react"
 const SITE_URL = "https://sortmydigital.site"
 
 const downloads = [
-  ["Wordmark · light surface", "/brand/sorted-wordmark-on-light.svg", "SVG"],
-  ["Wordmark · dark surface", "/brand/sorted-wordmark-on-dark.svg", "SVG"],
-  ["Compact · light surface", "/brand/sorted-compact-on-light.svg", "SVG"],
-  ["Compact · dark surface", "/brand/sorted-compact-on-dark.svg", "SVG"],
-  ["Brand token card", "/brand/sorted-brand-token-card.svg", "SVG"],
+  ["Wordmark · light surface", "/brand/sorted-wordmark-on-light.png", "PNG"],
+  ["Wordmark · dark surface", "/brand/sorted-wordmark-on-dark.png", "PNG"],
+  ["Compact · light surface", "/brand/sorted-compact-on-light.png", "PNG"],
+  ["Compact · dark surface", "/brand/sorted-compact-on-dark.png", "PNG"],
+  ["Brand token card", "/brand/sorted-brand-token-card.png", "PNG"],
 ] as const
 
 type CopyStatus = "idle" | "copied" | "error"

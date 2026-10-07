@@ -351,7 +351,7 @@ function Downloads() {
         <div>
           <p className="text-[11px] font-black text-black/42">Brand assets</p>
           <h2 className="mt-5 text-[clamp(2.8rem,5vw,5rem)] font-black leading-[0.92] tracking-[-0.055em]">Take the right mark with you.</h2>
-          <p className="mt-6 max-w-[430px] text-[14px] font-semibold leading-[1.55] text-black/62">These SVGs reproduce the live text logo at 900 weight and −0.045em tracking. Choose the version named for the surface it will sit on.</p>
+          <p className="mt-6 max-w-[430px] text-[14px] font-semibold leading-[1.55] text-black/62">These high-resolution PNGs reproduce the live text logo at 900 weight and −0.045em tracking. Choose the version named for the surface it will sit on.</p>
         </div>
         <BrandAssetDownloads />
       </div>
