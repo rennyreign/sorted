@@ -31,6 +31,17 @@ function normalise(s: string): string {
   return s.toLowerCase().replace(/[^a-z0-9]/g, "")
 }
 
+// Workspace pretty paths (/workspace/<slug>/<route>) rely on the Hostinger
+// .htaccess rewrite — they 404 on the dev server. Internal links always use
+// the ?slug= query form, which resolves in every environment. doc.path stays
+// pretty so "Copy URL" still gives the client-facing address.
+function docHref(path: string): string {
+  const m = path.match(/^\/workspace\/([^/?]+)(?:\/([^/?]+))?\/?$/)
+  if (!m) return path
+  const [, slug, route] = m
+  return `/workspace/?slug=${slug}${route ? `&route=${route}` : ""}`
+}
+
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-GB", {
     day: "numeric",
@@ -408,7 +419,7 @@ function DocRow({
             {doc.type}
           </span>
           <a
-            href={doc.path}
+            href={docHref(doc.path)}
             target="_blank"
             rel="noreferrer"
             className="text-sm text-[#0A0A0A] font-medium truncate hover:underline"
