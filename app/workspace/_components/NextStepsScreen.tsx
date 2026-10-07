@@ -15,7 +15,7 @@ const INCLUDED = [
   {
     icon: Settings,
     title: "Sorted Updates",
-    description: "A simple editor for changing text, images and business details.",
+    description: "Your own editing studio: update text, images and business details with a live preview of every change.",
   },
   {
     icon: BarChart3,
