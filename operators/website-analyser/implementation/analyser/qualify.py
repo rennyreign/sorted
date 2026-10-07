@@ -124,38 +124,43 @@ def qualify(
     payback_jobs = compute_payback_jobs(price_point)
 
     # --- gate -----------------------------------------------------------
+    # Conditional qualification, not a score. A lead is qualified when
+    # Companies House proves a real, active company AND the website is not a
+    # demonstrably-modern build. Site condition is recorded as an opportunity
+    # flag for ordering; the human reviews every site before shortlisting.
     reasons: list[str] = []
 
-    site_down = opp == -1
-    site_bad_enough = opp is not None and opp >= MIN_OPPORTUNITY
-    if site_down:
-        # A dead/parked site IS the opportunity — different playbook, still a lead
-        reasons.append("site unreachable or parked — treated as site-down opportunity")
-    else:
-        reasons.append(
-            f"opportunity_score {opp}/10 {'≥' if site_bad_enough else '<'} {MIN_OPPORTUNITY:g} threshold"
-        )
-
-    modern_custom = bool(tech.get("is_modern_custom"))
-    if modern_custom:
-        reasons.append(f"platform '{tech.get('site_platform')}' looks like a modern custom build")
-
     ch_verified = bool(ch.get("ch_verified"))
-    rating = prospect.get("rating")
-    reviews = prospect.get("review_count")
-    maps_viable = (
-        isinstance(rating, (int, float)) and rating >= MAPS_FALLBACK_MIN_RATING
-        and isinstance(reviews, (int, float)) and reviews >= MAPS_FALLBACK_MIN_REVIEWS
-    )
-    business_viable = ch_verified or maps_viable
     if ch_verified:
         reasons.append(f"Companies House verified ({ch.get('ch_match_confidence')} confidence)")
-    elif maps_viable:
-        reasons.append(
-            f"no CH match — Maps signals used ({rating}★, {reviews} reviews)"
-        )
     else:
-        reasons.append("no Companies House match and weak Maps signals")
+        reasons.append("no confident, active Companies House match")
+
+    modern_custom = bool(tech.get("is_modern_custom"))
+    site_down = opp == -1 or not tech.get("fetch_ok")
+    built = (tech.get("site_built_estimate") or "").lower()
+    platform = (tech.get("site_platform") or "").lower()
+    dated_site = built.startswith("pre-") or built.endswith("or earlier")
+    template_site = platform in (
+        "wix", "weebly", "jimdo", "site123", "strikingly", "godaddy",
+        "squarespace", "wordpress",
+    )
+
+    if site_down:
+        opportunity = "site-down"
+        reasons.append("site unreachable or parked — treated as site-down opportunity")
+    elif dated_site:
+        opportunity = "dated"
+        reasons.append(f"dated build ({tech.get('site_built_estimate')})")
+    elif template_site:
+        opportunity = "template"
+        reasons.append(f"template-builder platform '{tech.get('site_platform')}'")
+    elif modern_custom:
+        opportunity = "modern"
+        reasons.append(f"platform '{tech.get('site_platform')}' looks like a modern custom build")
+    else:
+        opportunity = "unreviewed"
+        reasons.append("no strong site signal — flagged for manual review")
 
     payback_ok = payback_jobs is not None and payback_jobs <= MAX_PAYBACK_JOBS
     if payback_jobs is None:
@@ -163,11 +168,10 @@ def qualify(
     else:
         src = " (category estimate)" if price_source == "category_fallback" else ""
         reasons.append(
-            f"payback ~{payback_jobs} job{'s' if payback_jobs != 1 else ''}{src} "
-            f"({'≤' if payback_ok else '>'} {MAX_PAYBACK_JOBS} threshold)"
+            f"payback ~{payback_jobs} job{'s' if payback_jobs != 1 else ''}{src}"
         )
 
-    qualified = bool((site_bad_enough or site_down) and business_viable and payback_ok and not modern_custom)
+    qualified = bool(ch_verified and opportunity != "modern")
 
     return {
         "site_score": site_score,
