@@ -187,12 +187,12 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       status: "review",
     },
     offer: {
-      total: 1500,
-      deposit: 750,
-      balance: 750,
-      // Shared £750 deposit link (Sorted Website Payments product) —
+      total: 2000,
+      deposit: 1000,
+      balance: 1000,
+      // Shared £1,000 deposit link (Sorted Website Payments product) —
       // checkout is tagged with the workspace slug via client_reference_id.
-      stripePaymentUrl: "https://buy.stripe.com/dRm9ASdGwbtz2MK5Iudwc03",
+      stripePaymentUrl: "https://buy.stripe.com/3cIaEW1XOfJP3QO2widwc02",
       bankTransferEnabled: true,
     },
   },
@@ -391,12 +391,12 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       status: "review",
     },
     offer: {
-      total: 1500,
-      deposit: 750,
-      balance: 750,
-      // Shared £750 deposit link (Sorted Website Payments product) —
+      total: 2000,
+      deposit: 1000,
+      balance: 1000,
+      // Shared £1,000 deposit link (Sorted Website Payments product) —
       // checkout is tagged with the workspace slug via client_reference_id.
-      stripePaymentUrl: "https://buy.stripe.com/dRm9ASdGwbtz2MK5Iudwc03",
+      stripePaymentUrl: "https://buy.stripe.com/3cIaEW1XOfJP3QO2widwc02",
       bankTransferEnabled: true,
     },
   },
@@ -452,12 +452,12 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       status: "review",
     },
     offer: {
-      total: 1500,
-      deposit: 750,
-      balance: 750,
-      // Shared £750 deposit link (Sorted Website Payments product) —
+      total: 2000,
+      deposit: 1000,
+      balance: 1000,
+      // Shared £1,000 deposit link (Sorted Website Payments product) —
       // checkout is tagged with the workspace slug via client_reference_id.
-      stripePaymentUrl: "https://buy.stripe.com/dRm9ASdGwbtz2MK5Iudwc03",
+      stripePaymentUrl: "https://buy.stripe.com/3cIaEW1XOfJP3QO2widwc02",
       bankTransferEnabled: true,
     },
   },
