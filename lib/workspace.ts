@@ -182,7 +182,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       previewUrl:
         process.env.NODE_ENV === "development"
           ? "http://localhost:3999"
-          : undefined,
+          : "https://amp-electrical.netlify.app",
       previewImageUrl: "/amp-electrical-homepage-preview.webp",
       status: "review",
     },
@@ -238,28 +238,30 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       ],
     },
     website: {
-      // Development previews: v1 is the immutable earlier deploy, v2 is the
-      // local build. In production only the existing hosted URL is shown —
-      // versioned previews stay unpublished until preview deploy is approved.
+      // Version 1 is the current approved direction (the newer build, kept as
+      // an immutable deploy URL). Version 2 is the earlier build on the main
+      // site URL. In development, Version 1 resolves to the local preview.
       previewUrl:
         process.env.NODE_ENV === "development"
           ? "http://localhost:3999"
-          : "https://murraymartin-services.netlify.app",
+          : "https://6ac60a0765930000c7877435--murraymartin-services.netlify.app",
       previewImageUrl: "/murray-martin-homepage-preview.webp",
-      ...(process.env.NODE_ENV === "development"
-        ? {
-            previewVersions: [
-              { id: "v2", label: "Version 1", previewUrl: "http://localhost:3999" },
-              {
-                id: "v1",
-                label: "Version 2",
-                previewUrl:
-                  "https://6ac1b6191377cbff651147fb--murraymartin-services.netlify.app",
-              },
-            ],
-            defaultPreviewVersion: "v2",
-          }
-        : {}),
+      previewVersions: [
+        {
+          id: "v2",
+          label: "Version 1",
+          previewUrl:
+            process.env.NODE_ENV === "development"
+              ? "http://localhost:3999"
+              : "https://6ac60a0765930000c7877435--murraymartin-services.netlify.app",
+        },
+        {
+          id: "v1",
+          label: "Version 2",
+          previewUrl: "https://murraymartin-services.netlify.app",
+        },
+      ],
+      defaultPreviewVersion: "v2",
       status: "review",
     },
     offer: {
@@ -383,7 +385,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       previewUrl:
         process.env.NODE_ENV === "development"
           ? "http://localhost:8160"
-          : undefined,
+          : "https://seem-electrical.netlify.app",
       previewImageUrl: "/seem-electrical-homepage-preview.webp",
       status: "review",
     },
@@ -444,7 +446,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       previewUrl:
         process.env.NODE_ENV === "development"
           ? "http://localhost:8150"
-          : undefined,
+          : "https://abcd-electrical.netlify.app",
       previewImageUrl: "/abcd-electrical-homepage-preview.webp",
       status: "review",
     },
@@ -510,7 +512,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       previewUrl:
         process.env.NODE_ENV === "development"
           ? "http://localhost:8123"
-          : undefined,
+          : "https://switched-on-south-london.netlify.app",
       previewImageUrl: "/switched-on-homepage-preview.webp",
       status: "review",
     },
@@ -577,7 +579,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       previewUrl:
         process.env.NODE_ENV === "development"
           ? "http://localhost:4180"
-          : undefined,
+          : "https://sweeneys-martial-arts.netlify.app",
       previewImageUrl: "/sweeneys-homepage-preview.webp",
       status: "review",
     },
