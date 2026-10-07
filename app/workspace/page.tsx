@@ -156,11 +156,13 @@ export default function WorkspacePage() {
       {route === "next-steps" ? (
         <NextStepsScreen workspace={workspace} depositReturned={depositReturned} onNavigate={navigate} />
       ) : null}
-      {route === "project" ? <ProjectScreen workspace={workspace} onNavigate={navigate} /> : null}
-      {route === "details" ? <DetailsScreen workspace={workspace} /> : null}
-      {route === "overview" ? <OverviewScreen workspace={workspace} /> : null}
+      {route === "project" ? (
+        <ProjectScreen workspace={workspace} onNavigate={navigate} onAskQuestion={() => setQuestionOpen(true)} />
+      ) : null}
+      {route === "details" ? <DetailsScreen workspace={workspace} onAskQuestion={() => setQuestionOpen(true)} /> : null}
+      {route === "overview" ? <OverviewScreen workspace={workspace} onAskQuestion={() => setQuestionOpen(true)} /> : null}
       {route === "documents" ? <DocumentsScreen workspace={workspace} /> : null}
-      {route === "help" ? <HelpScreen workspace={workspace} /> : null}
+      {route === "help" ? <HelpScreen workspace={workspace} onAskQuestion={() => setQuestionOpen(true)} /> : null}
 
       <QuestionDrawer workspace={workspace} open={questionOpen} onClose={() => setQuestionOpen(false)} />
     </WorkspaceShell>

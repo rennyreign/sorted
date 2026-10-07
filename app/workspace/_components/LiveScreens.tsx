@@ -86,7 +86,7 @@ function LiveFooter({ workspace }: { workspace: Workspace }) {
   )
 }
 
-export function OverviewScreen({ workspace }: { workspace: Workspace }) {
+export function OverviewScreen({ workspace, onAskQuestion }: { workspace: Workspace; onAskQuestion: () => void }) {
   const { website, links } = workspace
   const [reviewDismissed, setReviewDismissed] = useState(true)
   const isLive = workspace.state === "live"
@@ -184,13 +184,13 @@ export function OverviewScreen({ workspace }: { workspace: Workspace }) {
             </p>
           </div>
           <div className="grid gap-3 sm:flex sm:items-center">
-            <a
-              href={`mailto:${links.questionEmail}?subject=${encodeURIComponent(`Help with ${workspace.business.name} website`)}`}
-              onClick={() => workspaceEvent(workspace, "support_started", { channel: "email" })}
+            <button
+              type="button"
+              onClick={onAskQuestion}
               className="inline-flex h-12 items-center justify-center gap-3 rounded-[9px] bg-[#070707] px-5 text-[13px] font-black text-white transition-transform duration-150 hover:-translate-y-px"
             >
               <MessageCircle className="size-4.5" strokeWidth={2.2} /> Message Sorted <ArrowRight className="size-4" strokeWidth={2.7} />
-            </a>
+            </button>
             {links.bookingUrl ? (
               <a
                 href={links.bookingUrl}
@@ -286,7 +286,7 @@ export function DocumentsScreen({ workspace }: { workspace: Workspace }) {
   )
 }
 
-export function HelpScreen({ workspace }: { workspace: Workspace }) {
+export function HelpScreen({ workspace, onAskQuestion }: { workspace: Workspace; onAskQuestion: () => void }) {
   const { links } = workspace
   return (
     <div className="mx-auto max-w-[860px] px-5 pb-16 pt-10 sm:px-8">
@@ -316,20 +316,20 @@ export function HelpScreen({ workspace }: { workspace: Workspace }) {
           </a>
         ) : null}
 
-        <a
-          href={`mailto:${links.questionEmail}?subject=${encodeURIComponent(`Question about ${workspace.business.name}`)}`}
-          onClick={() => workspaceEvent(workspace, "support_started", { channel: "email" })}
-          className="flex flex-col rounded-[12px] border border-[#E8E5DD] bg-white p-6 transition-transform duration-150 hover:-translate-y-0.5 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#070707]"
+        <button
+          type="button"
+          onClick={onAskQuestion}
+          className="flex flex-col rounded-[12px] border border-[#E8E5DD] bg-white p-6 text-left transition-transform duration-150 hover:-translate-y-0.5 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#070707]"
         >
           <span className="grid size-11 place-items-center rounded-full bg-[#DFFF00]">
             <MessageCircle className="size-5" strokeWidth={2.2} />
           </span>
-          <h2 className="mt-5 text-[17px] font-extrabold tracking-[-0.02em]">Email Sorted</h2>
-          <p className="mt-2 flex-1 text-[13px] font-medium leading-[1.55] text-[#73736D]">{links.questionEmail}</p>
+          <h2 className="mt-5 text-[17px] font-extrabold tracking-[-0.02em]">Ask a question</h2>
+          <p className="mt-2 flex-1 text-[13px] font-medium leading-[1.55] text-[#73736D]">Send us a message from your workspace and we&apos;ll reply personally.</p>
           <p className="mt-6 inline-flex items-center gap-2 text-[13px] font-black underline underline-offset-4">
             Send us a note <ArrowRight className="size-3.5" strokeWidth={2.8} />
           </p>
-        </a>
+        </button>
 
         {links.bookingUrl ? (
           <a
