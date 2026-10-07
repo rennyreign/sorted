@@ -28,8 +28,9 @@ Display:
 - Status: `Homepage ready for review`.
 - Heading: `The {pageName} page is waiting on your design approval.`
 - Explanation: `Once you're happy with the homepage direction, we'll carry this visual system through the remaining pages so the whole site feels consistent and unmistakably {businessName}.`
-- A primary action labelled `Confirm the design direction`, using a supplied review/workspace URL when available.
-- When no review URL is supplied, use `mailto:hello@sortmydigital.site?subject=` plus an encoded, client-specific subject such as `{businessName} - design direction feedback`. Explain that the action opens an email; it does not automatically record approval.
+- A primary action labelled `Confirm the design direction`, linking to the client's workspace Next Steps screen: `https://sortmydigital.site/workspace/<workspace-slug>/next-steps`. The workspace slug is the prospect's `review_slug`, which may differ from the site's project slug. Next Steps carries the deposit payment, question drawer and call booking — it is the lowest-friction confirm path.
+- Explain that the action takes the client to their Sorted workspace, where they can approve the direction, pay the deposit or ask a question.
+- When no workspace exists for the client yet, fall back to `mailto:hello@sortmydigital.site?subject=` plus an encoded, client-specific subject such as `{businessName} - design direction feedback`, and explain that the action opens an email; it does not automatically record approval.
 - A secondary action labelled `Return to the homepage`, linking to `/`.
 
 Use accessible contrast, visible focus states, responsive spacing and the client's established typography. Pending-route metadata should describe a design-review page, not advertise completed services that the route does not contain. Mark pending pages `noindex, nofollow`.
@@ -48,7 +49,7 @@ After the client confirms the direction, replace pending business pages through 
 - Confirm every advertised destination exports successfully, loads directly and returns HTTP 200.
 - Confirm each pending route names the correct page and client, explains the direction-confirmation step and links back to the homepage.
 - Exercise internal links on desktop and mobile; ensure mobile navigation closes after selecting a route.
-- Confirm the review action points to the supplied review URL or the client-specific Sorted email fallback, without sending a message or recording approval.
+- Confirm the review action points to the client's workspace `/next-steps` route (or the Sorted email fallback when no workspace exists), without sending a message or recording approval.
 - Confirm phone/email/booking conversion actions still use their real destinations.
 - Confirm intentional homepage anchors resolve and legal/utility exceptions remain intact.
 - Record pending routes as awaiting client direction in build artifacts; leave human/client approval gates pending.

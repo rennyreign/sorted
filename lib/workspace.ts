@@ -838,6 +838,22 @@ export function workspaceEvent(ws: Workspace, event: string, payload: Record<str
     .then(() => undefined, () => undefined)
 }
 
+// ─── Ask a question ───────────────────────────────────────────────────────────
+// Inserts into sorted_messages via a SECURITY DEFINER RPC — anon has no direct
+// INSERT grant on sorted_messages, and the static site has no API routes. The
+// RPC validates the slug against prospects and tags the row with
+// source="workspace_question".
+
+export async function submitWorkspaceQuestion(ws: Workspace, question: string): Promise<boolean> {
+  workspaceEvent(ws, "question_submitted", { channel: "workspace" })
+  const { data, error } = await supabase.rpc("submit_workspace_question", {
+    p_slug: ws.slug,
+    p_question: question,
+  })
+  if (error) return false
+  return Boolean(data)
+}
+
 // ─── Decline / opt-out ────────────────────────────────────────────────────────
 // "Not interested" on the Next Steps screen marks the backing prospect `lost`
 // via a SECURITY DEFINER RPC — the static site cannot use API routes, and anon
