@@ -58,9 +58,64 @@ export function hasPriorOutreach(p: Prospect): boolean {
   )
 }
 
+/* ------------------------- Conditional qualification ------------------------- */
+
+// Companies House is the primary machine signal: a lead is only real when CH
+// has a confident match (high/medium) against a company that is still active.
+export function isChVerified(p: Prospect): boolean {
+  return (
+    (p.ch_match_confidence === "high" || p.ch_match_confidence === "medium") &&
+    p.ch_status === "active"
+  )
+}
+
+// Website quality is a conditional opportunity flag, not a score. Scores are
+// only meaningful when CH data is true; otherwise they're suppressed anyway.
+export type WebsiteOpportunity =
+  | "none"       // no website on record — pure greenfield lead
+  | "down"       // site unreachable/parked at analysis time
+  | "weak"       // dated build or template-builder platform
+  | "modern"     // demonstrably modern build — weak prospect
+  | "unreviewed" // analysed but no strong signal either way, or not analysed
+
+const TEMPLATE_PLATFORMS = new Set([
+  "wix", "weebly", "jimdo", "site123", "strikingly", "godaddy", "squarespace",
+])
+const MODERN_PLATFORMS = new Set(["nextjs", "framer"])
+
+export function websiteOpportunity(p: Prospect): WebsiteOpportunity {
+  if (!p.website || p.website_exists === false) return "none"
+  if (p.opportunity_score === -1) return "down"
+  const platform = p.site_platform?.toLowerCase() ?? null
+  if (platform && MODERN_PLATFORMS.has(platform)) return "modern"
+  const built = p.site_built_estimate?.toLowerCase() ?? null
+  if (built && (built.startsWith("pre-") || built.endsWith("or earlier"))) return "weak"
+  if (platform && (TEMPLATE_PLATFORMS.has(platform) || platform === "wordpress")) return "weak"
+  return "unreviewed"
+}
+
+// Machine qualification = verified active company AND a real website
+// opportunity. "Unreviewed" stays a candidate deliberately — a human eyeballs
+// every site before shortlisting, so the flag sorts the list rather than gates it.
+export function isMachineQualified(p: Prospect): boolean {
+  if (!isChVerified(p)) return false
+  return websiteOpportunity(p) !== "modern"
+}
+
+// Higher = better outreach opportunity. Conditional ordering, not a score.
+export function opportunityRank(p: Prospect): number {
+  switch (websiteOpportunity(p)) {
+    case "none": return 4
+    case "down": return 3
+    case "weak": return 2
+    case "unreviewed": return 1
+    case "modern": return 0
+  }
+}
+
 // "Ready to contact": machine-qualified, untouched, has something to show and a usable channel.
 export function isReadyToContact(p: Prospect): boolean {
-  if (p.qualified_lead !== true) return false
+  if (!isMachineQualified(p)) return false
   if (crmStatusOf(p) !== "new") return false
   if (isContactBlocked(p)) return false
   if (hasPriorOutreach(p)) return false
@@ -71,7 +126,7 @@ export function isReadyToContact(p: Prospect): boolean {
 // A machine-qualified prospect still needs a human scouting decision before
 // build work begins. Once an asset exists, the record belongs in outreach.
 export function needsResearch(p: Prospect, w: ProspectWorkflow | undefined): boolean {
-  if (p.qualified_lead !== true) return false
+  if (!isMachineQualified(p)) return false
   if (crmStatusOf(p) !== "new") return false
   if (hasPriorOutreach(p) || hasWorkspaceAsset(p)) return false
   if (w?.research_status === "reviewed") return false
@@ -170,10 +225,10 @@ export function buildTodayQueue(
   research.sort(
     (a, b) =>
       (b.workflow?.scout_priority ?? 0) - (a.workflow?.scout_priority ?? 0) ||
-      (b.prospect.prospect_score ?? -Infinity) - (a.prospect.prospect_score ?? -Infinity)
+      opportunityRank(b.prospect) - opportunityRank(a.prospect)
   )
   ready.sort(
-    (a, b) => (b.prospect.prospect_score ?? -Infinity) - (a.prospect.prospect_score ?? -Infinity)
+    (a, b) => opportunityRank(b.prospect) - opportunityRank(a.prospect)
   )
   return [...replies, ...due, ...research, ...ready].slice(0, limit)
 }
@@ -247,7 +302,7 @@ export function mergeActivity(
 
 export function isCandidate(p: Prospect): boolean {
   if (isTerminal(p)) return false
-  return p.qualified_lead === true
+  return isMachineQualified(p)
 }
 
 export function isAnalysed(p: Prospect): boolean {
@@ -328,16 +383,17 @@ export function applyDiscoverFilters(prospects: Prospect[], f: DiscoverFilters):
   })
 }
 
-// Discover default ordering: current-model prospect_score is the higher-priority
-// signal when present; fresh/unanalysed rows fall back to the Maps-only intake
-// priority (0–10, early estimate — never compared numerically to prospect_score).
+// Discover default ordering: machine-qualified candidates first, ordered by
+// the conditional website-opportunity flag (no site > down > weak > unreviewed).
+// Everything else falls back to the Maps-only intake priority (0–10, early
+// estimate — never compared numerically to the opportunity flag).
 export function discoverSort(list: Prospect[]): Prospect[] {
   return [...list].sort((a, b) => {
-    const aScore = !isLegacyScore(a) && isValidScore(a.prospect_score)
-    const bScore = !isLegacyScore(b) && isValidScore(b.prospect_score)
-    if (aScore && bScore) return (b.prospect_score as number) - (a.prospect_score as number)
-    if (aScore) return -1
-    if (bScore) return 1
+    const aQ = isMachineQualified(a)
+    const bQ = isMachineQualified(b)
+    if (aQ && bQ) return opportunityRank(b) - opportunityRank(a)
+    if (aQ) return -1
+    if (bQ) return 1
     return (b.intake_priority ?? -1) - (a.intake_priority ?? -1)
   })
 }
