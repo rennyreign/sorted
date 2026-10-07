@@ -1,5 +1,9 @@
 # Skill: site-build
 
+## No hosting or deploys before client approval
+
+Stage 1 sites stay local. Do not create a Netlify site, link a repo to Netlify, add deploy hooks, or push the client repo to any remote that auto-builds until the client has approved the design (Nod 2) and Renaldo explicitly asks for a deploy. Netlify builds consume credits on every push — an unapproved Stage 1 site has no reason to exist there. The client reviews the design through the Sorted workspace preview screenshot and, if needed, a locally served `out/` export.
+
 ## Stage 1 Internal-Page Links
 
 Before building or resuming a pre-approval client site, read `operators/skills/stage-1-direction-confirmation.md` (from the Sorted repo root). Implement its shared direction-confirmation pages and consistent internal routes during Op 4, before Op 5/5b. This is an intentional review state, not a finished internal page or client approval.

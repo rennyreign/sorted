@@ -147,6 +147,10 @@ Stage 1 completion is not launch approval. Final launch readiness is handled lat
 
 ## Deployment Discipline (Credit Protection)
 
+**Stage 1 sites are not deployed anywhere.** Do not create a Netlify site, link this repo to Netlify, add deploy hooks, or push to any remote that auto-builds until the client has approved the design and Renaldo explicitly asks for a deploy. The client reviews via the Sorted workspace preview image or a locally served `out/` build — not a hosted URL.
+
+Once the client approves (post-Nod 2) and hosting is requested, the following applies:
+
 **Never push directly to `main`.**
 
 Every push to `main` triggers a Netlify build that consumes credits. During active development, this burns 20-50 credits per session.
@@ -189,6 +193,7 @@ Full doctrine: `sorted/doctrine/cascade-deployment-discipline.md`
 - Do not apply the CMS (that is Stage 2 — a separate task)
 - Do not create `lib/content.ts` or `content/` JSON files
 - Do not configure Decap CMS or Netlify Identity
+- Do not create or link a Netlify site, or deploy this site anywhere, before the client approves the design
 - Do not install new npm packages without approval
 - **Do not push to `main` directly — use a feature branch**
 
