@@ -18,6 +18,7 @@ import {
   Workflow,
   Zap,
 } from "lucide-react"
+import BrandAssetDownloads from "./BrandAssetDownloads"
 
 const heroHighlight = localFont({
   src: "../../../public/fonts/Sans-Andreas-Bold-Demo.ttf",
@@ -36,14 +37,6 @@ export const metadata: Metadata = {
   description: "The identity, typography, interface language, and downloadable assets for Sorted.",
   alternates: { canonical: "/brand" },
 }
-
-const downloads = [
-  ["Wordmark · light surface", "/brand/sorted-wordmark-on-light.svg", "SVG"],
-  ["Wordmark · dark surface", "/brand/sorted-wordmark-on-dark.svg", "SVG"],
-  ["Compact · light surface", "/brand/sorted-compact-on-light.svg", "SVG"],
-  ["Compact · dark surface", "/brand/sorted-compact-on-dark.svg", "SVG"],
-  ["Brand token card", "/brand/sorted-brand-token-card.svg", "SVG"],
-] as const
 
 const colours = [
   { name: "Ink", hex: "#070707", role: "Type, dark bands, primary action", className: "bg-[#070707] text-white" },
@@ -360,14 +353,7 @@ function Downloads() {
           <h2 className="mt-5 text-[clamp(2.8rem,5vw,5rem)] font-black leading-[0.92] tracking-[-0.055em]">Take the right mark with you.</h2>
           <p className="mt-6 max-w-[430px] text-[14px] font-semibold leading-[1.55] text-black/62">These SVGs reproduce the live text logo at 900 weight and −0.045em tracking. Choose the version named for the surface it will sit on.</p>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {downloads.map(([label, file, format], index) => (
-            <a key={file} href={file} download className={`group flex min-h-16 items-center justify-between gap-4 rounded-[12px] border border-black/10 bg-[#fbfbfa] px-5 text-[12px] font-black transition-[border-color,background-color,transform] duration-200 hover:-translate-y-0.5 hover:border-black/25 hover:bg-[#dfff00] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#dfff00]/60 ${index === downloads.length - 1 ? "sm:col-span-2" : ""}`}>
-              <span>{label}<span className="ml-2 font-mono text-[9px] text-black/38 group-hover:text-black/55">{format}</span></span>
-              <ArrowDownToLine className="size-4 shrink-0" strokeWidth={2.7} />
-            </a>
-          ))}
-        </div>
+        <BrandAssetDownloads />
       </div>
     </section>
   )
