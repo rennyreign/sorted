@@ -447,7 +447,8 @@ def check(
         result["ch_cash"] = (facts.get("cash") or {}).get("current")
         result["ch_current_assets"] = (facts.get("current_assets") or {}).get("current")
         result["ch_liabilities"] = (facts.get("liabilities") or {}).get("current")
-        result["ch_employees"] = (facts.get("employees") or {}).get("current")
+        employees = (facts.get("employees") or {}).get("current")
+        result["ch_employees"] = round(employees) if isinstance(employees, (int, float)) else None
     result["ch_data_updated_at"] = datetime.now(timezone.utc).isoformat()
 
     # Officers + PSCs — the people behind the business. Best-guess owner is

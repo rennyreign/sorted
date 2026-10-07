@@ -333,9 +333,9 @@ def run(dry_run: bool = False, limit: int = 200, skip_ch: bool = False, reanalys
         sys.exit(1)
 
 
-def run_ch_refresh(dry_run: bool = False, limit: int = 25, row_id: int | None = None) -> None:
+def run_ch_refresh(dry_run: bool = False, limit: int = 25, row_id: int | None = None, all_sources: bool = False) -> None:
     """Refresh Companies House facts without screenshots, vision or rescoring."""
-    prospects = fetch_ch_candidates(limit=limit, row_id=row_id)
+    prospects = fetch_ch_candidates(limit=limit, row_id=row_id, all_sources=all_sources)
     if not prospects:
         logger.info("No matched prospects need a Companies House refresh.")
         return
@@ -425,6 +425,11 @@ def main() -> None:
         help="Refresh Companies House facts only; no screenshots, model calls or rescoring",
     )
     parser.add_argument(
+        "--ch-all",
+        action="store_true",
+        help="With --ch-only: match every prospect missing CH data, not just company-number leads",
+    )
+    parser.add_argument(
         "--id",
         type=int,
         default=None,
@@ -437,7 +442,7 @@ def main() -> None:
             # The general analyser defaults to 200, but a CH refresh performs
             # several API reads per record. Keep its implicit local batch small.
             ch_limit = 25 if args.limit == 200 else args.limit
-            run_ch_refresh(dry_run=args.dry_run, limit=ch_limit, row_id=args.id)
+            run_ch_refresh(dry_run=args.dry_run, limit=ch_limit, row_id=args.id, all_sources=args.ch_all)
         elif args.url:
             # Ad-hoc single URL mode — print result to stdout
             result = analyse_one(
