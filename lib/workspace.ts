@@ -268,10 +268,9 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       total: 1500,
       deposit: 750,
       balance: 750,
-      // Explicitly clear the inherited shared £1,500 Payment Link — Murray
-      // Martin's deposit is £750, so a dedicated link is needed first. Until
-      // then card checkout shows "coming soon" and bank transfer works.
-      stripePaymentUrl: undefined,
+      // £750 deposit payment link (Sorted Website Payments product) —
+      // checkout is tagged with the workspace slug via client_reference_id.
+      stripePaymentUrl: "https://buy.stripe.com/dRm9ASdGwbtz2MK5Iudwc03",
       bankTransferEnabled: true,
     },
   },
@@ -324,12 +323,12 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       status: "review",
     },
     offer: {
-      total: 2000,
-      deposit: 1000,
-      balance: 1000,
-      // Shared £1,000 deposit link (Sorted Website Payments product) —
+      total: 1500,
+      deposit: 750,
+      balance: 750,
+      // £750 deposit payment link (Sorted Website Payments product) —
       // checkout is tagged with the workspace slug via client_reference_id.
-      stripePaymentUrl: "https://buy.stripe.com/3cIaEW1XOfJP3QO2widwc02",
+      stripePaymentUrl: "https://buy.stripe.com/dRm9ASdGwbtz2MK5Iudwc03",
       bankTransferEnabled: true,
     },
   },
