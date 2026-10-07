@@ -321,6 +321,15 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       previewImageUrl: "/kelly-electrics-homepage-preview.webp",
       status: "review",
     },
+    offer: {
+      total: 2000,
+      deposit: 1000,
+      balance: 1000,
+      // Shared £1,000 deposit link (Sorted Website Payments product) —
+      // checkout is tagged with the workspace slug via client_reference_id.
+      stripePaymentUrl: "https://buy.stripe.com/3cIaEW1XOfJP3QO2widwc02",
+      bankTransferEnabled: true,
+    },
   },
   "seem-electrical-ltd": {
     review: {
