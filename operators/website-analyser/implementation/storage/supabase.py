@@ -88,7 +88,7 @@ def fetch_unanalysed(limit: int = 200, reanalyse: bool = False, maps_only: bool 
     return data
 
 
-def fetch_ch_candidates(limit: int = 25, row_id: int | None = None) -> list[dict]:
+def fetch_ch_candidates(limit: int = 25, row_id: int | None = None, all_sources: bool = False) -> list[dict]:
     """Fetch matched prospects for a Companies-House-only refresh."""
     params = {
         "select": "id,place_id,name,postcode,source_company_number",
@@ -96,8 +96,12 @@ def fetch_ch_candidates(limit: int = 25, row_id: int | None = None) -> list[dict
         "order": "prospect_score.desc.nullslast,id.asc",
         "limit": str(limit),
     }
+    if all_sources:
+        del params["source_company_number"]
     if row_id is not None:
         params["id"] = f"eq.{row_id}"
+    elif all_sources:
+        params["ch_data_updated_at"] = "is.null"
     else:
         params["qualified_lead"] = "eq.true"
         params["ch_data_updated_at"] = "is.null"
