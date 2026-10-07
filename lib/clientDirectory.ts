@@ -268,6 +268,20 @@ export const CLIENTS: ClientRecord[] = [
     ],
   },
   {
+    slug: "sweeneys-martial-arts",
+    name: "Sweeney's Martial Arts Academy",
+    prospectName: "Sweeney's Martial Arts Academy",
+    notes:
+      "£500 fixed offer; £250 deposit and £250 on launch. Bank transfer only until a dedicated Stripe link is issued. Client design approval pending.",
+    docs: [
+      {
+        type: "proposal",
+        label: "Client review workspace",
+        path: "/workspace/sweeneys-martial-arts/review",
+      },
+    ],
+  },
+  {
     slug: "warwickshire-str",
     name: "Warwickshire Short Stays",
     docs: [
