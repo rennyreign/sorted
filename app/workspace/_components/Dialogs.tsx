@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { ArrowLeft, ArrowRight, CreditCard, Landmark, X } from "lucide-react"
-import { BANK_DETAILS, markWorkspaceNotInterested, workspaceEvent, type Workspace } from "@/lib/workspace"
+import { BANK_DETAILS, markWorkspaceNotInterested, submitWorkspaceQuestion, workspaceEvent, type Workspace } from "@/lib/workspace"
 
 function useEscapeAndFocus(open: boolean, onClose: () => void, ref: React.RefObject<HTMLElement | null>) {
   useEffect(() => {
@@ -33,6 +33,7 @@ export function QuestionDrawer({
 }) {
   const ref = useRef<HTMLDivElement>(null)
   const [question, setQuestion] = useState("")
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle")
   useEscapeAndFocus(open, onClose, ref)
 
   if (!open) return null
@@ -40,6 +41,14 @@ export function QuestionDrawer({
   const mailto = `mailto:${workspace.links.questionEmail}?subject=${encodeURIComponent(
     `Question about the ${workspace.business.name} website`
   )}&body=${encodeURIComponent(`${question}\n\n${workspace.business.name} workspace (${workspace.slug})`)}`
+  const canSend = question.trim().length >= 2 && status !== "sending"
+
+  async function send() {
+    if (!canSend) return
+    setStatus("sending")
+    const ok = await submitWorkspaceQuestion(workspace, question.trim())
+    setStatus(ok ? "sent" : "error")
+  }
 
   return (
     <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Ask a question">
@@ -66,23 +75,48 @@ export function QuestionDrawer({
           </p>
           <textarea
             value={question}
-            onChange={(e) => setQuestion(e.target.value)}
+            onChange={(e) => {
+              setQuestion(e.target.value)
+              if (status === "error") setStatus("idle")
+            }}
             rows={7}
             placeholder="e.g. Can the site take bookings, or just enquiries?"
-            className="mt-6 w-full resize-none rounded-[12px] border border-[#E8E5DD] bg-[#F7F7F3] px-4 py-3.5 text-[14px] font-medium text-[#070707] outline-none transition-colors placeholder:text-[#B9B9B0] focus:border-[#070707]/40"
+            disabled={status === "sent"}
+            className="mt-6 w-full resize-none rounded-[12px] border border-[#E8E5DD] bg-[#F7F7F3] px-4 py-3.5 text-[14px] font-medium text-[#070707] outline-none transition-colors placeholder:text-[#B9B9B0] focus:border-[#070707]/40 disabled:opacity-60"
           />
-          <a
-            href={mailto}
-            onClick={() => workspaceEvent(workspace, "question_started", { channel: "email" })}
-            className={`mt-5 inline-flex h-12 items-center justify-center gap-3 rounded-full bg-[#070707] px-6 text-[13px] font-black text-white transition-transform duration-150 hover:-translate-y-px ${
-              question.trim().length < 2 ? "pointer-events-none opacity-40" : ""
-            }`}
-            aria-disabled={question.trim().length < 2}
-          >
-            Send question <ArrowRight className="size-4" strokeWidth={2.8} />
-          </a>
+          {status === "sent" ? (
+            <div className="mt-5 rounded-[12px] border border-[#070707]/15 bg-[#F7F7F3] px-5 py-4" role="status">
+              <p className="text-[14px] font-bold text-[#070707]">Question sent.</p>
+              <p className="mt-1 text-[13px] font-medium leading-[1.5] text-[#73736D]">
+                It&apos;s landed with us and we&apos;ll reply personally.
+                Want to add more?{" "}
+                <a href={mailto} className="font-bold text-[#070707] underline underline-offset-4">
+                  Email {workspace.links.questionEmail}
+                </a>
+                .
+              </p>
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={send}
+              disabled={!canSend}
+              className="mt-5 inline-flex h-12 items-center justify-center gap-3 rounded-full bg-[#070707] px-6 text-[13px] font-black text-white transition-transform duration-150 hover:-translate-y-px disabled:pointer-events-none disabled:opacity-40"
+            >
+              {status === "sending" ? "Sending…" : "Send question"} <ArrowRight className="size-4" strokeWidth={2.8} />
+            </button>
+          )}
+          {status === "error" ? (
+            <p className="mt-3 text-center text-[12px] font-medium text-[#B91C1C]" role="alert">
+              That didn&apos;t send. Try again, or{" "}
+              <a href={mailto} className="font-bold underline underline-offset-4">
+                email us at {workspace.links.questionEmail}
+              </a>
+              .
+            </p>
+          ) : null}
           <p className="mt-3 text-center text-[11px] font-medium text-[#A3A3A3]">
-            Opens your email app, addressed to {workspace.links.questionEmail}.
+            {status === "sent" ? "Prefer email?" : "No email app needed."}
             {workspace.links.phone ? (
               <>
                 {" "}Or{" "}
