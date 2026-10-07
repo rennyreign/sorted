@@ -79,13 +79,6 @@ TARGET_SIC_CODES = [
     "55201",  # Holiday and other short-stay accommodation
     "55202",  # Youth hostels and mountain refuges
     "55300",  # Camping grounds, recreational vehicle parks and trailer parks
-    "56101",  # Licensed restaurants
-    "56102",  # Unlicensed restaurants and cafes
-    "56103",  # Take-away food shops and mobile food stands
-    "56210",  # Event catering activities
-    "56290",  # Other food service activities
-    "56301",  # Licenced clubs
-    "56302",  # Public houses and bars
     "59111",  # Motion picture production activities
     "59112",  # Motion picture, video and television programme post-production activities
     # Health, beauty, fitness & wellbeing
@@ -100,7 +93,6 @@ TARGET_SIC_CODES = [
     # Sports, leisure & education
     "85200",  # Primary education
     "85310",  # General secondary education
-    "85510",  # Sports and recreation education
     "85600",  # Educational support services
     "86900",  # Other human health activities
     "87900",  # Residential care activities for mental health
@@ -115,10 +107,7 @@ TARGET_SIC_CODES = [
     "91030",  # Operation of historical sites and buildings and similar visitor attractions
     "91040",  # Botanical and zoological gardens and nature reserves activities
     "92000",  # Gambling and betting activities
-    "93110",  # Operation of sports facilities
     "93120",  # Activities of sport clubs
-    "93130",  # Fitness facilities
-    "93199",  # Other sports activities
     "93210",  # Activities of amusement parks and theme parks
     "93290",  # Other amusement and recreation activities
     # Professional & local services
@@ -256,16 +245,7 @@ SIC_CATEGORY_MAP: dict[str, str] = {
     "55201": "holiday accommodation",
     "55202": "hostel",
     "55300": "campsite",
-    "56101": "restaurant",
-    "56102": "cafe",
-    "56103": "takeaway",
-    "56210": "catering",
-    "56290": "food service",
-    "56301": "club",
-    "56302": "pub",
-    "93130": "gym",
     "93120": "sports club",
-    "93199": "sports activity",
     "81210": "cleaning service",
     "81221": "window cleaning",
     "81222": "specialist cleaning",
