@@ -137,7 +137,7 @@ export function ProjectScreen({
 
 const INCLUDED = [
   { icon: Monitor, title: "Complete website", description: "All pages, copy, responsive build and customer journeys." },
-  { icon: Settings, title: "Sorted Updates", description: "A simple editor for changing text, images and details yourself." },
+  { icon: Settings, title: "Sorted Updates", description: "Your own editing studio: update text, images and details with a live preview of every change." },
   { icon: BarChart3, title: "Sorted Tracking", description: "Analytics and conversion tracking configured at launch." },
 ]
 
