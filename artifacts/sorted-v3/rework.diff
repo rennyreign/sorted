@@ -1,0 +1,529 @@
+diff --git a/app/page.tsx b/app/page.tsx
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -34,7 +34,6 @@
+     <SitesPage>
+       <SitesHeader tone="dark" />
+ 
+-      {/* Hero */}
+       <section className="relative -mt-[76px] overflow-hidden bg-[#070707] pt-[76px] text-white">
+         <div className="absolute inset-y-0 right-0 w-full lg:w-[58%]" aria-hidden="true">
+           <Image
+@@ -52,11 +51,14 @@
+         <div className="relative mx-auto grid max-w-[1220px] gap-12 px-5 pb-16 pt-12 sm:px-8 lg:grid-cols-[0.52fr_0.48fr] lg:items-center lg:pb-24 lg:pt-16">
+           <div>
+             <p className="text-[12px] font-black uppercase tracking-[0.16em] text-white/60">Websites for local businesses</p>
+-            <h1 className="mt-6 text-[clamp(3.3rem,7.2vw,6.6rem)] font-black leading-[0.92] tracking-[-0.05em]">
+-              Your competitors aren&apos;t better.{" "}
++            <h1 className="mt-6 text-[clamp(3rem,5vw,4.5rem)] font-black leading-[0.94] tracking-[-0.045em]">
++              Your competitors
++              <br />
++              aren&apos;t better.
++              <br />
+               <span className="block">
+                 They just{" "}
+-                <span className="relative inline-block [font-family:var(--font-sites-fave-script)] text-[1.12em] font-normal leading-[0.8] tracking-[0] text-[#dfff00]">
++                <span className="relative inline-block [font-family:var(--font-sites-fave-script)] text-[1.15em] font-normal leading-[0.85] tracking-[0] text-[#dfff00]">
+                   look better.
+                   <Underline className="absolute -bottom-2 left-0 w-full" />
+                 </span>
+@@ -95,13 +97,12 @@
+             </div>
+             <figcaption className="mt-4 flex items-center justify-between gap-4">
+               <span className="text-[12px] font-bold text-white/70">Real work. A better first impression.</span>
+-              <span className="[font-family:var(--font-sites-highlight)] text-[20px] leading-none text-[#dfff00]">Same trade. Different website.</span>
++              <span className="[font-family:var(--font-sites-highlight)] text-[20px] leading-none text-[#dfff00]">Made for the business.</span>
+             </figcaption>
+           </figure>
+         </div>
+       </section>
+ 
+-      {/* Proof strip */}
+       <section className="border-b border-black/10 bg-white">
+         <div className="mx-auto grid max-w-[1220px] gap-6 px-5 py-10 sm:grid-cols-2 sm:px-8 lg:grid-cols-4 lg:gap-0 lg:py-12">
+           {[
+@@ -126,7 +127,6 @@
+         </div>
+       </section>
+ 
+-      {/* Dark benefits band */}
+       <section className="bg-[#0b0b0b] px-5 py-16 text-white sm:px-8 lg:py-24">
+         <div className="mx-auto grid max-w-[1220px] gap-12 lg:grid-cols-[0.55fr_0.45fr] lg:items-center">
+           <div>
+@@ -179,7 +179,6 @@
+         </div>
+       </section>
+ 
+-      {/* Process */}
+       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.3fr_0.7fr] lg:py-20">
+         <div>
+           <h2 className="text-[clamp(2.3rem,4.4vw,3.8rem)] font-black leading-[0.95] tracking-[-0.05em]">
+@@ -189,7 +188,7 @@
+           </h2>
+           <Underline className="mt-5 w-44" />
+           <p className="mt-6 max-w-[320px] text-[15px] font-semibold leading-[1.55] text-black/65">
+-            No jargon. No drawn-out process. A clear commercial sequence with the work made visible before you commit.
++            No jargon. No drawn-out process. You see the direction before you pay. Then we finish the website at one fixed price.
+           </p>
+         </div>
+         <ol className="grid gap-6 sm:grid-cols-2">
+@@ -208,7 +207,6 @@
+         </ol>
+       </section>
+ 
+-      {/* Portfolio */}
+       <section className="border-t border-black/10 bg-white px-5 py-16 sm:px-8 lg:py-20">
+         <div className="mx-auto max-w-[1220px]">
+           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+@@ -243,7 +241,6 @@
+         </div>
+       </section>
+ 
+-      {/* Pricing band */}
+       <section className="bg-[#070707] px-5 py-16 text-white sm:px-8 lg:py-20">
+         <div className="mx-auto grid max-w-[1220px] gap-10 lg:grid-cols-[0.4fr_0.32fr_0.28fr]">
+           <div>
+@@ -282,7 +279,6 @@
+         </div>
+       </section>
+ 
+-      {/* Testimonials + final CTA */}
+       <section className="bg-[#070707] px-5 pb-16 text-white sm:px-8">
+         <div className="mx-auto max-w-[1220px] border-t border-white/12 pt-12">
+           <div className="grid gap-10 lg:grid-cols-[0.34fr_0.66fr] lg:items-start">
+diff --git a/app/what-else-we-do/page.tsx b/app/what-else-we-do/page.tsx
+--- a/app/what-else-we-do/page.tsx
++++ b/app/what-else-we-do/page.tsx
+@@ -22,13 +22,12 @@
+     <SitesPage>
+       <SitesHeader active="whatelse" />
+ 
+-      {/* Hero */}
+       <section className="mx-auto grid max-w-[1220px] gap-12 px-5 pb-16 pt-10 sm:px-8 lg:grid-cols-[0.52fr_0.48fr] lg:items-center lg:pt-14">
+         <div>
+           <p className="text-[12px] font-black uppercase tracking-[0.16em] text-black/45">What else we do</p>
+           <h1 className="mt-5 text-[clamp(3rem,6.6vw,6.2rem)] font-black leading-[0.92] tracking-[-0.05em]">
+             A great website is{" "}
+-            <span className="[font-family:var(--font-sites-fave-script)] text-[1.12em] font-normal leading-[0.8] tracking-[0] text-[#b8cf00]">
++            <span className="[font-family:var(--font-sites-fave-script)] text-[1.12em] font-normal leading-[0.8] tracking-[0] text-[#687800]">
+               just the beginning.
+             </span>
+           </h1>
+@@ -50,7 +49,6 @@
+         <WorkspacePreview />
+       </section>
+ 
+-      {/* Iceberg band */}
+       <section className="bg-[#0b0b0b] px-5 py-16 text-white sm:px-8 lg:py-24">
+         <div className="mx-auto grid max-w-[1220px] gap-12 lg:grid-cols-[0.36fr_0.34fr_0.3fr] lg:items-center">
+           <div>
+@@ -81,7 +79,6 @@
+         </div>
+       </section>
+ 
+-      {/* Capability cards */}
+       <section className="mx-auto max-w-[1220px] px-5 py-16 sm:px-8 lg:py-20">
+         <p className="text-[12px] font-black uppercase tracking-[0.16em] text-black/45">The website, and what can come next</p>
+         <h2 className="mt-5 max-w-[760px] text-[clamp(2.3rem,4.4vw,3.8rem)] font-black leading-[0.95] tracking-[-0.05em]">
+@@ -92,7 +89,7 @@
+           {[
+             [LayoutGrid, "Custom website design", "Included in the website", "A real design and build for your business — not a template with your logo dropped in.", "in"],
+             [Edit3, "Content management", "Included in the website", "Edit everyday content yourself through SortedUpdates after handoff.", "in"],
+-            [BarChart3, "Analytics & tracking", "Website analytics included", "See what is configured and observable on your site. Integrations agreed to suit the enquiry path.", "in"],
++            [BarChart3, "Analytics & tracking", "Website analytics included", "See where visitors come from and which website actions they take. We agree the tracking setup around how people enquire.", "in"],
+             [Megaphone, "Ad creatives", "Optional service", "Creative scoped separately when it makes sense. Ad spend and publishing are not automatically included.", "out"],
+             [Mail, "Follow-up automations", "Optional service", "We plan and connect an agreed sequence. A preview is a plan — it does not send emails.", "out"],
+             [CalendarCheck, "Bookings & CRM", "Optional service", "Integrations agreed and implemented per business. No automatic connection is assumed.", "out"],
+@@ -122,7 +119,6 @@
+         </p>
+       </section>
+ 
+-      {/* Flow band */}
+       <section className="border-t border-black/10 bg-[#f5f3ee] px-5 py-16 sm:px-8 lg:py-20">
+         <div className="mx-auto grid max-w-[1220px] gap-10 lg:grid-cols-[0.3fr_0.7fr] lg:items-center">
+           <div>
+@@ -156,7 +152,6 @@
+         </div>
+       </section>
+ 
+-      {/* Dark CTA */}
+       <section className="bg-[#070707] px-5 py-16 text-white sm:px-8 lg:py-20">
+         <div className="mx-auto grid max-w-[1220px] gap-8 lg:grid-cols-[0.58fr_0.42fr] lg:items-center">
+           <h2 className="text-[clamp(2.5rem,5vw,4.4rem)] font-black leading-[0.94] tracking-[-0.05em]">
+@@ -232,7 +227,7 @@
+       </div>
+       <figcaption className="mt-4 flex items-center justify-between gap-4">
+         <span className="text-[12px] font-bold text-black/55">Illustrative workspace preview</span>
+-        <span className="[font-family:var(--font-sites-highlight)] text-[19px] leading-none text-[#a8bf00]">Everything in one place.</span>
++        <span className="[font-family:var(--font-sites-highlight)] text-[19px] leading-none text-[#687800]">Everything in one place.</span>
+       </figcaption>
+     </figure>
+   )
+@@ -240,29 +235,28 @@
+ 
+ function IcebergGraphic() {
+   return (
+-    <figure className="mx-auto w-full max-w-[420px]" aria-label="Diagram: the website above the waterline, with advertising, tracking, follow-ups, CRM and bookings, and automation below it">
+-      <svg viewBox="0 0 420 360" className="w-full" role="img">
+-        <title>Iceberg diagram</title>
+-        {/* waterline */}
+-        <line x1="0" y1="130" x2="420" y2="130" stroke="#8BD8F3" strokeWidth="2" strokeDasharray="8 6" opacity="0.7" />
+-        {/* above-water facet */}
+-        <polygon points="150,130 210,42 270,130" fill="#8BD8F3" />
+-        <polygon points="150,130 210,42 196,130" fill="#6fc4e8" />
+-        {/* below-water body */}
+-        <polygon points="150,130 270,130 300,200 255,330 165,330 120,200" fill="#2e6f94" />
+-        <polygon points="150,130 210,130 196,330 165,330 120,200" fill="#255d7e" />
+-        <polygon points="210,130 270,130 300,200 255,330 232,330" fill="#1f506d" />
+-        {/* labels */}
+-        <text x="210" y="118" textAnchor="middle" fill="#ffffff" fontSize="13" fontWeight="800">Website</text>
+-        <g fill="#cfe9f5" fontSize="12" fontWeight="700" textAnchor="middle">
+-          <text x="210" y="172">Advertising</text>
+-          <text x="210" y="204">Tracking</text>
+-          <text x="210" y="236">Follow-ups</text>
+-          <text x="210" y="268">CRM &amp; bookings</text>
+-          <text x="210" y="300">Automation</text>
+-        </g>
+-      </svg>
+-      <figcaption className="mt-2 text-center text-[11px] font-bold text-white/45">What they see — and what sits underneath</figcaption>
++    <figure className="mx-auto w-full max-w-[420px]">
++      <div className="relative">
++        <svg viewBox="0 0 420 360" className="w-full" aria-hidden="true">
++          <line x1="0" y1="130" x2="420" y2="130" stroke="#8BD8F3" strokeWidth="2" strokeDasharray="8 6" opacity="0.7" />
++          <polygon points="150,130 210,42 270,130" fill="#8BD8F3" />
++          <polygon points="150,130 210,42 196,130" fill="#6fc4e8" />
++          <polygon points="150,130 270,130 300,200 255,330 165,330 120,200" fill="#2e6f94" />
++          <polygon points="150,130 210,130 196,330 165,330 120,200" fill="#255d7e" />
++          <polygon points="210,130 270,130 300,200 255,330 232,330" fill="#1f506d" />
++        </svg>
++        <p className="absolute inset-x-0 top-[25%] text-center text-[13px] font-black text-[#0b0b0b]">Website</p>
++        <ul className="absolute inset-x-0 bottom-[5%] top-[40%] flex flex-col justify-between text-center text-[13px] font-bold leading-none text-[#d6edf8] sm:text-[14px]">
++          <li>Advertising</li>
++          <li>Tracking</li>
++          <li>Follow-ups</li>
++          <li>CRM &amp; bookings</li>
++          <li>Automation</li>
++        </ul>
++      </div>
++      <figcaption className="mt-3 text-center text-[12px] font-bold text-white/55">
++        Website above the waterline — Advertising, Tracking, Follow-ups, CRM &amp; bookings and Automation underneath.
++      </figcaption>
+     </figure>
+   )
+ }
+diff --git a/app/howitworks/page.tsx b/app/howitworks/page.tsx
+--- a/app/howitworks/page.tsx
++++ b/app/howitworks/page.tsx
+@@ -144,9 +144,9 @@
+     <section className="mx-auto max-w-[1220px] px-5 py-16 sm:px-8">
+       <div>
+         <h2 className="text-[clamp(2.4rem,5vw,3.6rem)] font-black leading-[0.98] tracking-[-0.045em]">
+-          <span className="inline-block whitespace-nowrap">A simple process.</span>
++          <span className="inline-block">A simple process.</span>
+           <br />
+-          <span className="inline-block whitespace-nowrap">Total clarity.</span>
++          <span className="inline-block">Total clarity.</span>
+           <Underline className="mt-3 h-[5px] w-24" />
+         </h2>
+       </div>
+@@ -184,6 +184,8 @@
+           </article>
+           )
+         })}
++
++        {/* NOD badges between cards */}
+       </div>
+     </section>
+   )
+@@ -192,9 +194,9 @@
+ const includes = [
+   [Search, "Strategy & structure", "A clear site structure and messaging built around how your customers actually choose."],
+   [Target, "Built to earn enquiries", "Clear routes to call, message and book, with conversion-focused design throughout."],
+-  [Monitor, "Robust CMS", "Easy-to-use content management so you can update your site with ease."],
++  [Monitor, "Edit your own content", "Update everyday words, images, services and prices yourself."],
+   [Smartphone, "Fully responsive & fast", "Looks great and loads quickly on every device."],
+-  [ShieldCheck, "Secure & reliable", "SSL, backups and best-practice security as standard."],
++  [ShieldCheck, "Quality checked before launch", "We check the agreed pages, contact routes and responsive layouts before handoff."],
+   [Headphones, "Support after launch", "Ongoing support beyond handoff is agreed separately, so you know exactly what is covered."],
+ ] as const
+ 
+@@ -203,9 +205,9 @@
+     <section className="mx-auto max-w-[1220px] px-5 py-16 sm:px-8">
+       <div>
+         <h2 className="text-[clamp(2.4rem,5vw,3.6rem)] font-black leading-[0.98] tracking-[-0.045em]">
+-          <span className="inline-block whitespace-nowrap">Built for today.</span>
++          <span className="inline-block">Built for today.</span>
+           <br />
+-          <span className="inline-block whitespace-nowrap">Ready for tomorrow.</span>
++          <span className="inline-block">Ready for tomorrow.</span>
+           <Underline className="mt-3 h-[5px] w-24" />
+         </h2>
+       </div>
+@@ -254,9 +256,9 @@
+     <section className="mx-auto max-w-[1220px] px-5 py-16 sm:px-8">
+       <div>
+         <h2 className="text-[clamp(2.4rem,5vw,3.6rem)] font-black leading-[0.98] tracking-[-0.045em]">
+-          <span className="inline-block whitespace-nowrap">A short process.</span>
++          <span className="inline-block">A short process.</span>
+           <br />
+-          <span className="inline-block whitespace-nowrap">Not a rushed website.</span>
++          <span className="inline-block">Not a rushed website.</span>
+           <Underline className="mt-3 h-[5px] w-24" />
+         </h2>
+         <p className="mt-5 max-w-[560px] text-[15px] font-semibold leading-[1.55] text-black/62">
+diff --git a/app/examples/page.tsx b/app/examples/page.tsx
+--- a/app/examples/page.tsx
++++ b/app/examples/page.tsx
+@@ -46,7 +46,7 @@
+             <br />
+             Priced second.
+           </div>
+-          <Underline className="mt-3 w-[330px] max-w-full" />
++          <Underline className="mt-3 w-full max-w-[330px]" />
+           <p className="mt-7 max-w-[520px] text-[17px] font-semibold leading-[1.5] tracking-[-0.025em] text-black/75">
+             Some are live sites. Some are design previews. Look at the work, then decide what your business needs.
+           </p>
+diff --git a/app/examples/[slug]/page.tsx b/app/examples/[slug]/page.tsx
+--- a/app/examples/[slug]/page.tsx
++++ b/app/examples/[slug]/page.tsx
+@@ -49,7 +49,7 @@
+             <ArrowLeft className="size-4" /> Back to all examples
+           </a>
+           <p className="mb-5 text-[12px] font-black uppercase text-black/45">{caseStudy.category}</p>
+-          <h1 className="max-w-[560px] text-[clamp(3.35rem,5.8vw,6rem)] font-black leading-[0.9] tracking-[-0.055em]">{caseStudy.business}</h1>
++          <h1 className="max-w-[560px] text-[clamp(2.7rem,5.8vw,6rem)] font-black leading-[0.9] tracking-[-0.055em]">{caseStudy.business}</h1>
+           <p className="mt-4 [font-family:var(--font-sites-fave-script)] text-[clamp(3.4rem,5.2vw,5.6rem)] leading-[0.8] tracking-[0] text-[#d4ea00]">{caseStudy.title}</p>
+           <Underline className="mt-3 w-[240px]" />
+           <p className="mt-7 max-w-[440px] text-[17px] font-semibold leading-[1.5] tracking-[-0.03em]">{caseStudy.description}</p>
+@@ -61,9 +61,9 @@
+       <section className="border-y border-black/10 bg-white px-5 py-12 sm:px-8 sm:py-16">
+         <div className="mx-auto grid max-w-[1220px] gap-8 lg:grid-cols-[0.32fr_0.68fr] lg:items-center">
+           <div>
+-            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-black/45">Before &amp; after</p>
+-            <h2 className="mt-4 max-w-[300px] text-[clamp(2.4rem,4vw,4.2rem)] font-black leading-[0.92] tracking-[-0.055em]">See the difference.</h2>
+-            <p className="mt-5 max-w-[310px] text-[15px] font-semibold leading-[1.5] text-black/64">A clearer first impression, stronger structure and an easier route to enquire — the kind of presentation improvement you can judge for yourself.</p>
++            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-black/45">Example walkthrough</p>
++            <h2 className="mt-4 max-w-[300px] text-[clamp(2.4rem,4vw,4.2rem)] font-black leading-[0.92] tracking-[-0.055em]">See how we show the work.</h2>
++            <p className="mt-5 max-w-[310px] text-[15px] font-semibold leading-[1.5] text-black/64">This School of Skill walkthrough shows how we present a website for review. The project screenshots above show {caseStudy.business}.</p>
+           </div>
+           <BeforeAfterVideo />
+         </div>
+diff --git a/app/examples/BeforeAfterVideo.tsx b/app/examples/BeforeAfterVideo.tsx
+--- a/app/examples/BeforeAfterVideo.tsx
++++ b/app/examples/BeforeAfterVideo.tsx
+@@ -6,7 +6,7 @@
+   return (
+     <figure
+       className={`group relative aspect-video w-full overflow-hidden rounded-[16px] border border-black/12 bg-[#090a0a] text-white shadow-[0_24px_70px_rgba(0,0,0,0.14)] ${className}`}
+-      aria-label="Before and after website walkthrough video"
++      aria-label="School of Skill example website walkthrough"
+     >
+       <video
+         className="absolute inset-0 h-full w-full object-cover"
+diff --git a/app/v2/page.tsx b/app/v2/page.tsx
+--- a/app/v2/page.tsx
++++ b/app/v2/page.tsx
+@@ -360,13 +360,9 @@
+     <section id="results" className="mx-auto max-w-[1240px] px-4 py-2 sm:px-6 md:py-3 lg:py-5">
+       <div className="grid overflow-hidden rounded-[18px] bg-[#070707] text-white shadow-[0_18px_55px_rgba(0,0,0,0.18)] md:grid-cols-[1.15fr_4fr]">
+         <div className="px-7 py-6 sm:px-9 lg:px-12 lg:py-10">
+-          <SectionTitle title="Here's what changed." dark />
++          <SectionTitle title="What we measure." dark />
+           <p className="mt-5 max-w-[170px] text-[12px] font-semibold leading-[1.35] text-white lg:mt-8 lg:max-w-[190px] lg:text-[15px]">
+-            Real businesses.
+-            <br />
+-            Real numbers.
+-            <br />
+-            Measured improvements.
++            Example figures. Not verified client results. We agree the measurements for your business before work starts.
+           </p>
+           <Link
+             href="/ops/results-dashboard"
+diff --git a/app/v2/results/page.tsx b/app/v2/results/page.tsx
+--- a/app/v2/results/page.tsx
++++ b/app/v2/results/page.tsx
+@@ -5,7 +5,7 @@
+ 
+ export const metadata: Metadata = {
+   title: "Results | Sorted Ops",
+-  description: "A results index showing gaps closed, hours returned, enquiries captured, and revenue recovered across Sorted clients.",
++  description: "Project examples and illustrative reporting figures showing how Sorted measures operational improvement — not verified client aggregates.",
+ }
+ 
+ const impact = [
+@@ -22,17 +22,18 @@
+       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-8 pt-12 sm:px-8 lg:grid-cols-[1fr_0.92fr] lg:items-center">
+         <div className="min-w-0">
+           <h1 className="max-w-full text-[clamp(3.25rem,13vw,6.7rem)] font-black leading-[0.92] tracking-[-0.04em] sm:max-w-[680px]">
+-            Real changes.
++            The work.
+             <br />
+-            Measurable results.
++            And how we measure it.
+           </h1>
+           <div className="mt-5 h-[6px] w-full max-w-[430px] rounded-full bg-[#dfff00]" />
+           <p className="mt-8 max-w-[540px] text-[17px] font-semibold leading-[1.55] tracking-[-0.03em]">
+-            We close the gaps that leak revenue, hurt trust, and hold businesses back. Here is what changed across the current Sorted examples.
++            We close the gaps that leak revenue, hurt trust, and hold businesses back. These project examples show the kind of reporting we produce.
+           </p>
+         </div>
+         <aside className="min-w-0 rounded-[22px] bg-[#f7efe3] p-6 shadow-[0_22px_55px_rgba(20,14,8,0.1)] sm:p-8">
+-          <p className="text-[15px] font-black">The impact so far</p>
++          <p className="text-[15px] font-black">Example reporting figures</p>
++          <p className="mt-2 text-[12px] font-semibold leading-[1.45] text-black/60">These hardcoded example figures are not verified client totals.</p>
+           <div className="mt-6 grid divide-y divide-black/15 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+             {impact.map(([Icon, value, label], index) => {
+               const RealIcon = Icon as typeof Clock3
+diff --git a/app/v2/results/ResultsGrid.tsx b/app/v2/results/ResultsGrid.tsx
+--- a/app/v2/results/ResultsGrid.tsx
++++ b/app/v2/results/ResultsGrid.tsx
+@@ -54,6 +54,9 @@
+ export function ResultsGrid() {
+   return (
+     <section className="mx-auto max-w-[1220px] px-5 py-7 sm:px-8">
++      <p className="mb-6 max-w-[720px] rounded-[12px] border border-black/15 bg-white px-5 py-4 text-[13px] font-bold leading-[1.5]">
++        Project examples and draft reporting. Figures without a verified source are illustrative, not confirmed client outcomes.
++      </p>
+       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+         {results.map((result) => (
+           <ResultCard key={result.name} result={result} />
+diff --git a/app/v2/results/_components/TemplatedResultPage.tsx b/app/v2/results/_components/TemplatedResultPage.tsx
+--- a/app/v2/results/_components/TemplatedResultPage.tsx
++++ b/app/v2/results/_components/TemplatedResultPage.tsx
+@@ -97,6 +97,9 @@
+             Back to all results
+           </Link>
+           <p className="text-[27px] font-semibold tracking-[-0.05em]">{result.name}</p>
++          <p className="mt-3 inline-block rounded-full border border-black/15 bg-white px-4 py-2 text-[11px] font-black uppercase tracking-[0.05em] text-black/60">
++            Project example — draft reporting. Metrics and quoted feedback on this page still require verification before use as client proof.
++          </p>
+           <h1 className="mt-8 max-w-full text-[clamp(3.1rem,13vw,6.8rem)] font-black leading-[0.92] tracking-[-0.04em] sm:max-w-[680px]">
+             Gap closed!
+             <br />
+diff --git a/app/v2/results/glow-dental/page.tsx b/app/v2/results/glow-dental/page.tsx
+--- a/app/v2/results/glow-dental/page.tsx
++++ b/app/v2/results/glow-dental/page.tsx
+@@ -4,7 +4,7 @@
+ 
+ export const metadata: Metadata = {
+   title: "Results | Sorted Ops",
+-  description: "Measured examples of gaps closed by Sorted, including time returned, enquiries recovered, and reviews generated.",
++  description: "An illustrative example of enquiry follow-up and operational reporting; not verified client results.",
+ }
+ 
+ const comparison = [
+@@ -25,6 +25,9 @@
+             Back to all results
+           </a>
+           <p className="text-[27px] font-semibold tracking-[-0.05em]">Glow Dental</p>
++          <p className="mt-3 inline-block rounded-full border border-black/15 bg-white px-4 py-2 text-[11px] font-black uppercase tracking-[0.05em] text-black/60">
++            Illustrative example. Figures and quoted feedback are not verified client results.
++          </p>
+           <h1 className="mt-8 max-w-full text-[clamp(3.1rem,13vw,6.8rem)] font-black leading-[0.92] tracking-[-0.04em] sm:max-w-[680px]">
+             Gap closed!
+             <br />
+diff --git a/app/v2/case-studies/glow-dental/page.tsx b/app/v2/case-studies/glow-dental/page.tsx
+--- a/app/v2/case-studies/glow-dental/page.tsx
++++ b/app/v2/case-studies/glow-dental/page.tsx
+@@ -4,7 +4,7 @@
+ 
+ export const metadata: Metadata = {
+   title: "Glow Dental Case Study | Sorted Ops",
+-  description: "How Glow Dental recovered 63 enquiries every month by closing the gap in their follow-up.",
++  description: "An illustrative example of enquiry follow-up and operational reporting; not verified client results.",
+ }
+ 
+ export default function GlowDentalCaseStudyPage() {
+@@ -32,7 +32,12 @@
+ 
+         <main>
+           <V2Header active="results" />
+-          <section id="case-1" className="mx-auto grid max-w-[1120px] gap-8 px-5 py-8 sm:px-8 md:grid-cols-[0.9fr_1.1fr]">
++          <section id="case-1" className="mx-auto max-w-[1120px] px-5 pt-8 sm:px-8">
++            <p className="rounded-[12px] border border-black/15 bg-white px-5 py-4 text-[13px] font-bold leading-[1.5]">
++              Illustrative example. Figures and quoted feedback are not verified client results.
++            </p>
++          </section>
++          <section className="mx-auto grid max-w-[1120px] gap-8 px-5 py-8 sm:px-8 md:grid-cols-[0.9fr_1.1fr]">
+             <div>
+               <h1 className="text-[clamp(3.2rem,6vw,5.6rem)] font-black leading-[0.92] tracking-[-0.055em]">How Glow Dental Recovered 63 Enquiries Every Month</h1>
+               <div className="mt-5 h-[5px] w-56 rounded-full bg-[#dfff00]" />
+diff --git a/app/v2/reviews/glow-dental/page.tsx b/app/v2/reviews/glow-dental/page.tsx
+--- a/app/v2/reviews/glow-dental/page.tsx
++++ b/app/v2/reviews/glow-dental/page.tsx
+@@ -4,7 +4,7 @@
+ 
+ export const metadata: Metadata = {
+   title: "Example Diagnostic Review | Glow Dental",
+-  description: "An example Sorted diagnostic review showing the routine reviewed, real cost, recommendation, proposed system, and impact forecast.",
++  description: "An illustrative example of enquiry follow-up and operational reporting; not verified client results.",
+ }
+ 
+ const contents = ["Executive Summary", "The Routine We Reviewed", "What We Found", "The Real Cost", "Our Recommendation", "Proposed System", "Prototype Preview", "Implementation Outline", "Impact Forecast", "What Happens Next"]
+@@ -41,6 +41,9 @@
+           <header className="flex items-start justify-between border-b border-black/10 px-6 py-8 sm:px-10">
+             <div>
+               <h1 className="max-w-[620px] text-[clamp(3.2rem,6vw,5.7rem)] font-black leading-[0.92] tracking-[-0.055em]">Diagnostic Review<br />Glow Dental</h1>
++              <p className="mt-6 inline-block rounded-full border border-black/15 bg-white px-4 py-2 text-[11px] font-black uppercase tracking-[0.05em] text-black/60">
++                Illustrative example. Figures and quoted feedback are not verified client results.
++              </p>
+               <div className="mt-5 h-[6px] w-48 rounded-full bg-[#dfff00]" />
+               <p className="mt-8 text-[12px] font-black">DATE: <span className="ml-8">12 May 2025</span></p>
+               <p className="mt-3 text-[12px] font-black">PREPARED BY: <span className="ml-8">Sorted.</span></p>
+@@ -130,7 +133,7 @@
+ 
+           <div className="grid border-b border-black/10 lg:grid-cols-2">
+             <ReportBlock number="09" title="Impact forecast (first 12 months)">
+-              <div className="grid grid-cols-4 gap-5 text-center">
++              <div className="grid grid-cols-2 gap-5 text-center sm:grid-cols-4">
+                 {["295 Hours returned", "756 Enquiries recovered", "1,240 Reviews potential", "£100,800 Value recovered"].map((item) => (
+                   <p key={item} className="text-[20px] font-black leading-[1.1] tracking-[-0.04em]">{item}</p>
+                 ))}
+diff --git a/app/v2/industries/dental-practices/page.tsx b/app/v2/industries/dental-practices/page.tsx
+--- a/app/v2/industries/dental-practices/page.tsx
++++ b/app/v2/industries/dental-practices/page.tsx
+@@ -45,7 +45,10 @@
+             </div>
+             <p className="text-[48px] font-black tracking-[-0.08em] text-white drop-shadow">DENTAL<br />PRACTICE</p>
+           </div>
+-          <div className="-mt-10 mx-auto grid max-w-[650px] grid-cols-4 divide-x divide-white/20 rounded-[14px] bg-[#070707] p-5 text-center text-white">
++          <p className="mx-auto mt-5 max-w-[650px] rounded-[12px] border border-black/15 bg-white px-5 py-3.5 text-[12px] font-bold leading-[1.5] text-black/70">
++            Illustrative example. Figures and quoted feedback are not verified client results.
++          </p>
++          <div className="mx-auto mt-5 grid max-w-[650px] grid-cols-4 divide-x divide-white/20 rounded-[14px] bg-[#070707] p-5 text-center text-white">
+             {[
+               [MessageCircle, "63", "Enquiries recovered per month"],
+               [Clock3, "24.6", "Hours returned per month"],
+diff --git a/app/v2/results-dashboard/ResultsDashboard.tsx b/app/v2/results-dashboard/ResultsDashboard.tsx
+--- a/app/v2/results-dashboard/ResultsDashboard.tsx
++++ b/app/v2/results-dashboard/ResultsDashboard.tsx
+@@ -177,6 +177,9 @@
+           <header className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+             <div>
+               <h1 className="text-[clamp(2.45rem,3.7vw,3.55rem)] font-black leading-[0.95] tracking-[-0.06em]">{pageTitle}</h1>
++              <p className="mt-3 inline-block rounded-full border border-black/15 bg-white px-4 py-2 text-[11px] font-black uppercase tracking-[0.05em] text-black/60">
++                Example dashboard. Hardcoded demonstration figures, not live client reporting.
++              </p>
+               <p className="mt-4 text-[16px] font-semibold text-black/62">
+                 {pageDescription}
+                 <span className="ml-2 inline-block h-[5px] w-16 translate-y-1 rotate-[-4deg] rounded-full bg-[#dfff00]" />
+diff --git a/AGENTS.md b/AGENTS.md
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -292,6 +292,16 @@
+ 
+ ---
+ 
++## Public Marketing Design & Voice (V3)
++
++Scoped to Sorted's own public marketing pages only:
++
++- **Palette:** black / white / warm-neutral with lime `#D7FF00` accents (and the blue iceberg graphic on `/what-else-we-do`). Internal dashboards, operator tools and client workspaces remain on the monochrome design system — do not carry the marketing palette into them.
++- **Voice:** Sorted's canonical brand voice (constructive confrontation — honest but fair) applies to Sorted's own public communications. Client-brand copy always respects the approved client tone.
++- **Structure:** the homepage is website-led; `/what-else-we-do` explains optional wider services. Never claim false inclusions, performance or timing — no guaranteed results, no hard delivery promises, and optional services are always presented as separately scoped.
++
++---
++
+ ## Key Doctrine
+ 
+ - `doctrine/sorted-value-model.md` — four-pillar value model (Trust, Enquiries, Customers, Operations), scoring heuristic, outreach discipline

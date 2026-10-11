@@ -1,0 +1,25 @@
+{
+  "routes": [
+    { "path": "/", "state": "built" },
+    { "path": "/about/", "state": "pending" },
+    { "path": "/privacy/", "state": "pending" },
+    { "path": "/terms/", "state": "pending" }
+  ],
+  "interactions": [
+    {
+      "route": "/",
+      "widths": [375, 320],
+      "selector": "#mobile-menu-toggle",
+      "action": "click",
+      "assert": { "visible": "#mobile-menu-dialog" }
+    },
+    {
+      "route": "/",
+      "widths": [375, 320],
+      "selector": "#mobile-menu-dialog",
+      "action": "press",
+      "key": "Escape",
+      "assert": { "hidden": "#mobile-menu-dialog", "focused": "#mobile-menu-toggle" }
+    }
+  ]
+}

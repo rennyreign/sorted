@@ -25,8 +25,8 @@ export default function Footer() {
         <div className="border-t border-white/[0.08] pt-8 flex flex-col sm:flex-row justify-between gap-4 items-start sm:items-center">
           <span className="font-sans font-extrabold text-white text-xl tracking-tight">Client.</span>
           <div className="flex items-center gap-6">
-            <a href="#privacy" className="text-xs text-[#525252] hover:text-[#A3A3A3] transition-colors font-medium">Privacy</a>
-            <a href="#terms" className="text-xs text-[#525252] hover:text-[#A3A3A3] transition-colors font-medium">Terms</a>
+            <a href="/privacy/" className="text-xs text-[#525252] hover:text-[#A3A3A3] transition-colors font-medium">Privacy</a>
+            <a href="/terms/" className="text-xs text-[#525252] hover:text-[#A3A3A3] transition-colors font-medium">Terms</a>
             <p className="text-xs text-[#525252] font-medium">
               © {currentYear} <span className="font-extrabold tracking-tight">Client.</span>
             </p>

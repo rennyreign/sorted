@@ -7,7 +7,9 @@ Before building or resuming a pre-approval client site, read `/Users/renaldoedmo
 
 This repo was scaffolded from the Sorted client-site template. It is a Stage 1 build task.
 
-**Your job:** Build the static site from the mockup and brief in `client/`. No CMS. No JSON content wiring. Just a clean, fast, well-built site the client can approve.
+**Your job:** Build the static site from the complete supplied pack in `input/` and client brief. ChatGPT has already reconstructed its images and supplied design-IR. No local image generation by default, no CMS and no JSON content wiring.
+
+Canonical execution/evidence: `/Users/renaldoedmondson/Projects/sorted/operators/skills/factory-operators.md`. Do not load or repeat the old deconstruction/generation chain for a complete pack.
 
 The CMS (SortedUpdates) is applied in Stage 2 — after the client approves this build. Do not wire content to JSON files or configure Decap CMS during this task.
 
@@ -17,11 +19,15 @@ The CMS (SortedUpdates) is applied in Stage 2 — after the client approves this
 
 - Next.js static export configured (`output: 'export'`)
 - TailwindCSS v4 with `@theme` variables
-- `app/layout.tsx` — root layout with fonts (Plus Jakarta Sans + DM Mono)
+- `app/layout.tsx` - offline-first root layout; wire actual supplied client font files and verify rendered faces/weights, rather than fetching fonts automatically
 - `app/globals.css` — animation system: `page-enter`, `fade-in`, `scroll-progress`
 - `components/Nav.tsx` — sticky header, desktop pill nav, mobile hamburger
 - `components/Footer.tsx` — footer with privacy/terms links
 - `components/PageTransition.tsx` — page load animation wrapper
+- `components/Dialog.tsx` - native-dialog primitive with keyboard/Escape, focus restoration and viewport-safe portal behaviour
+- `components/PendingPage.tsx` - shared client-branded direction-confirmation route
+- `lib/site.ts` - Stage 1 client identity/review contact configuration, not CMS content
+- `client/qa-profile.json` - explicit route/interaction expectations; update for this client's advertised routes
 - `client/brief.md` — fill this in with client details before building
 - `client/assets/` — place mockup, logo, and reference images here
 
@@ -33,9 +39,10 @@ The CMS (SortedUpdates) is applied in Stage 2 — after the client approves this
 
 Before starting, read:
 1. `client/brief.md` — business type, brand colours, copy, CTAs, pages needed
-2. `client/assets/` — mockup image(s), logo, any reference material
+2. `artifacts/input-contract.json` and `input/` - original approved mockup, design-IR, supplied images/fonts and provenance
+3. `artifacts/asset-registry.json` - actual optimised production paths; do not guess filenames
 
-If `brief.md` is incomplete, use the mockup as the source of truth and make practical local-business decisions for anything unclear.
+If facts or material design/font/asset details are missing, record them as unknown and resolve the conflict. Approved human amendments override the original design; the mockup governs composition, verified facts govern claims and design-IR supplies detail unless conflicting. Do not invent reviews, contacts, prices or functioning integrations.
 
 ---
 
@@ -43,6 +50,8 @@ If `brief.md` is incomplete, use the mockup as the source of truth and make prac
 
 ### Level 1 — taste-skills (always active)
 These govern the mechanics of good design. Apply them to every decision.
+
+The values below are defaults, not authority to redesign the client mockup. Preserve its actual section density, containers, typography, geometry and ordering; use these skills for responsive/accessibility reliability.
 
 | Skill | Key rule |
 |---|---|
@@ -125,7 +134,7 @@ Every build must include:
 - [ ] `<title>` and `<meta name="description">` updated for the client
 - [ ] No dead placeholder links
 - [ ] No commented-out dead code
-- [ ] All images optimized (run `node scripts/optimize-images.mjs` — see `sorted/doctrine/image-optimization.md`)
+- [ ] Supplied originals preserved; registered production images optimised without upscaling
 - [ ] `npm run build` passes clean with zero TypeScript errors
 
 ---
@@ -142,6 +151,10 @@ Every build must include:
 - Does it feel like something a real business owner would proudly approve?
 
 Stage 1 completion is not launch approval. Final launch readiness is handled later by Sorted's Launch QA Operator after CMS, domain, analytics, forms, and production hygiene are configured.
+
+Build success is not visual acceptance. Run structural/browser checks and independent image-capable QA on the current source revision; the builder corrects discrepancies, then QA re-tests. Vision review cannot be skipped based on confidence. Record attempts and evidence in the job, keep unknown billed cost/human time unknown, and obtain human/client assessment separately.
+
+Systemisation, design extraction, internal pages, CMS/CMS QA, analytics, launch and deployment remain relevant lifecycle stages. The acquisition workspace follows the human-approved commercial/creative brief; it is not inferred from an agent pass.
 
 ---
 

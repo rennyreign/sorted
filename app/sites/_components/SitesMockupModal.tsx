@@ -57,7 +57,7 @@ const steps: Step[] = [
 ]
 
 export function MockupButton({
-  label = "Get your free mockup",
+  label = "Get your free site",
   variant = "primary",
   className = "",
 }: {
@@ -105,10 +105,15 @@ function MockupModal({ onClose }: { onClose: () => void }) {
 
   useEffect(() => {
     document.body.style.overflow = "hidden"
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") onClose()
+    }
+    window.addEventListener("keydown", onKeyDown)
     return () => {
       document.body.style.overflow = ""
+      window.removeEventListener("keydown", onKeyDown)
     }
-  }, [])
+  }, [onClose])
 
   useEffect(() => {
     if (dialogRef.current) {

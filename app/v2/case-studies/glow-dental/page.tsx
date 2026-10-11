@@ -3,8 +3,8 @@ import { CalendarDays, Check, Clock3, MessageCircle, PoundSterling, Rocket, Sett
 import { CheckList, CtaBand, SectionTitle, V2Footer, V2Header, V2Page } from "../../_components/V2Primitives"
 
 export const metadata: Metadata = {
-  title: "Glow Dental Case Study | Sorted V2",
-  description: "How Glow Dental recovered 63 enquiries every month by closing the gap in their follow-up.",
+  title: "Glow Dental Case Study | Sorted Ops",
+  description: "An illustrative example of enquiry follow-up and operational reporting; not verified client results.",
 }
 
 export default function GlowDentalCaseStudyPage() {
@@ -32,7 +32,12 @@ export default function GlowDentalCaseStudyPage() {
 
         <main>
           <V2Header active="results" />
-          <section id="case-1" className="mx-auto grid max-w-[1120px] gap-8 px-5 py-8 sm:px-8 md:grid-cols-[0.9fr_1.1fr]">
+          <section id="case-1" className="mx-auto max-w-[1120px] px-5 pt-8 sm:px-8">
+            <p className="rounded-[12px] border border-black/15 bg-white px-5 py-4 text-[13px] font-bold leading-[1.5]">
+              Illustrative example. Figures and quoted feedback are not verified client results.
+            </p>
+          </section>
+          <section className="mx-auto grid max-w-[1120px] gap-8 px-5 py-8 sm:px-8 md:grid-cols-[0.9fr_1.1fr]">
             <div>
               <h1 className="text-[clamp(3.2rem,6vw,5.6rem)] font-black leading-[0.92] tracking-[-0.055em]">How Glow Dental Recovered 63 Enquiries Every Month</h1>
               <div className="mt-5 h-[5px] w-56 rounded-full bg-[#dfff00]" />

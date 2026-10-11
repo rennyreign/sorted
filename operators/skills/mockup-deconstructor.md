@@ -1,5 +1,11 @@
 # Skill: mockup-deconstructor
 
+## Conditional Fallback
+
+Complete ChatGPT export packs already contain design-IR and reconstructed imagery. Default intake preserves these; do not re-deconstruct the mockup or overwrite its supplied contract.
+
+Use this operator only when missing layout/copy information genuinely requires a new interpretation, with the required model/network permission. Region/crop references for QA may be derived without repeating the entire creative handoff.
+
 **Type:** Step skill — Chain Step 1 of 3  
 **Trigger:** Loaded by `site-build` skill, or directly when user asks to deconstruct a mockup  
 **External API:** Vision model (GPT-4.1 by default, Claude or Gemini optional)  
@@ -16,7 +22,7 @@ Reads a website mockup image using a vision model and produces a structured JSON
 - All visible text, attributed to sections and typed
 - Build notes: accent colour, font stack, animation level, implementation notes
 
-This JSON is the single source of truth for all downstream steps. Everything the Asset Generator and Frontend Builder know about the site comes from this artifact.
+This JSON is a structured fallback handoff, not authority to contradict the approved reference or verified business facts. Preserve original inputs and record material conflicts.
 
 ---
 
@@ -27,7 +33,7 @@ This JSON is the single source of truth for all downstream steps. Everything the
 Call the OpenAI vision API directly with the mockup image and the deconstruction prompt.
 
 **API call:**
-- Model: `gpt-4.1` (recommended — best spatial reasoning on mockup images)
+- Model: configured `gpt-4.1` default; suitability must be established on the actual task rather than assumed from a model name
 - Input: mockup image (base64 or URL) + system prompt from `operators/mockup-deconstructor/implementation/src/prompt.ts`
 - Output: JSON matching the schema in `operators/mockup-deconstructor/implementation/src/schema.ts`
 
@@ -81,9 +87,9 @@ If validation fails, re-run with `--verbose` to inspect the raw model response.
 
 | Provider | Model | Notes |
 |---|---|---|
-| OpenAI (default) | `gpt-4.1` | Best spatial layout reasoning |
-| Anthropic | `claude-opus-4-5` | Strong copy extraction |
-| Google | `gemini-2.5-flash` | Fast, cost-effective |
+| OpenAI (default) | `gpt-4.1` | Existing implementation default; no comparative benchmark established |
+| Anthropic | `claude-opus-4-5` | Available configured alternative; confirm current access before use |
+| Google | `gemini-2.5-flash` | Available configured alternative; confirm current access before use |
 
 Override: `--provider anthropic` or `--provider gemini`
 

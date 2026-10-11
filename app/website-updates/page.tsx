@@ -20,10 +20,10 @@ export default function UpdatesPage() {
           <SitesTitle title={<>Your content<br />Your control</>} marker="Update it yourself." />
           <Underline className="mt-2 w-full max-w-[320px] sm:max-w-[380px]" />
           <p className="mt-7 max-w-[450px] text-[16px] font-semibold leading-[1.55] tracking-[-0.03em]">
-            Every Sorted website includes a built-in content editor. Change text, images, services, prices and contact details yourself. Save, publish and see your updates live in minutes.
+            Every Sorted website includes a built-in content editor. Change text, images, services, prices and contact details yourself. Save a change, the site rebuilds, and the updated version goes live.
           </p>
           <ul className="mt-8 grid gap-3 text-[14px] font-bold">
-            {["Edit your site in minutes", "No code or developers needed", "Changes go live instantly"].map((item) => (
+            {["Edit everyday content yourself", "No code or developers needed", "Updates go live after the site rebuilds"].map((item) => (
               <li key={item} className="flex items-center gap-3"><span className="grid size-6 place-items-center rounded-full bg-[#dfff00] text-[12px]">✓</span>{item}</li>
             ))}
           </ul>
@@ -37,7 +37,7 @@ export default function UpdatesPage() {
           {[
             ["SortedUpdates", "A clean content editor living at /cms/ on your site. Edit in your browser, save, and publish."],
             ["Included", "SortedUpdates comes with every Sorted website we build. It is part of the handoff, not an extra."],
-            ["Self-service", "Swap words, images, prices and service details yourself. Changes publish automatically."],
+            ["Self-service", "Swap words, images, prices and service details yourself. Save, the site rebuilds, and the change goes live."],
           ].map(([title, copy], index) => (
             <article key={title}>
               <span className={`grid size-11 place-items-center rounded-full text-[15px] font-black ${index === 2 ? "bg-[#dfff00]" : "bg-[#070707] text-white"}`}>{index + 1}</span>
@@ -80,9 +80,9 @@ export default function UpdatesPage() {
         <div className="mt-9 grid gap-7 md:grid-cols-4">
           {[
             [LockKeyhole, "Log in", "Access your CMS at yoursite.com/cms/. We send you a secure invite."],
-            [FileText, "Edit", "Click any section, change the text or image, and preview the result live."],
-            [Save, "Save", "Hit save. Decap writes the change to your site repository automatically."],
-            [Globe2, "Live", "Your updated site is live in under a minute. No developer needed."],
+            [FileText, "Edit", "Click any section, change the text or image, and preview the result."],
+            [Save, "Save", "Hit save and the change is written into your site."],
+            [Globe2, "Live", "The site rebuilds and the update goes live. No developer needed."],
           ].map(([Icon, title, copy], index) => {
             const RealIcon = Icon as typeof LockKeyhole
             return (
@@ -115,7 +115,7 @@ function CmsPanel() {
     <div className="overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_22px_55px_rgba(20,14,8,0.11)]">
       <div className="flex h-11 items-center justify-between bg-[#070707] px-4 text-[11px] font-bold text-white sm:px-5 sm:text-[12px]">
         <span>SortedUpdates / Pages / Home</span>
-        <span>•••</span>
+        <span className="rounded-full bg-white/10 px-3 py-1 text-[9px] font-black uppercase tracking-[0.08em] text-white/60">Illustrative preview</span>
       </div>
       <div className="grid min-h-[390px] grid-cols-[82px_1fr] sm:min-h-[460px] sm:grid-cols-[150px_1fr_180px]">
         <aside className="border-r border-black/10 bg-[#f7f7f3] p-2 text-[10px] font-bold sm:p-4 sm:text-[12px]">
@@ -134,8 +134,8 @@ function CmsPanel() {
         <aside className="hidden border-l border-black/10 p-6 sm:block">
           <p className="text-[15px] font-black">Publish</p>
           <p className="mt-5 text-[12px] font-bold text-[#00983c]">● Published</p>
-          <button className="mt-8 h-11 w-full rounded bg-[#070707] text-[12px] font-black text-white">Save & Publish</button>
-          <button className="mt-3 h-10 w-full rounded bg-black/5 text-[12px] font-black">Preview changes</button>
+          <span className="mt-8 flex h-11 w-full items-center justify-center rounded bg-[#070707] text-[12px] font-black text-white">Save & Publish</span>
+          <span className="mt-3 flex h-10 w-full items-center justify-center rounded bg-black/5 text-[12px] font-black">Preview changes</span>
         </aside>
       </div>
     </div>

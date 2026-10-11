@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 
 const links = [
   { label: "Home", href: "/" },
@@ -11,6 +11,21 @@ const links = [
 
 export default function Nav() {
   const [open, setOpen] = useState(false)
+  const toggleRef = useRef<HTMLButtonElement>(null)
+
+  // Escape closes the menu and returns focus to the toggle.
+  // These ids are referenced by client/qa-profile.json — keep them.
+  useEffect(() => {
+    if (!open) return
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setOpen(false)
+        toggleRef.current?.focus()
+      }
+    }
+    document.addEventListener("keydown", onKey)
+    return () => document.removeEventListener("keydown", onKey)
+  }, [open])
 
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" })
@@ -60,9 +75,13 @@ export default function Nav() {
             Contact
           </a>
           <button
+            ref={toggleRef}
+            id="mobile-menu-toggle"
             type="button"
             onClick={() => setOpen((o) => !o)}
             aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu-dialog"
             className="w-9 h-9 flex items-center justify-center rounded-full bg-white/90 backdrop-blur-md border border-black/[0.08] shadow-[0_2px_20px_rgba(0,0,0,0.06)]"
           >
             {open ? (
@@ -80,7 +99,13 @@ export default function Nav() {
 
       {/* Mobile full-screen menu */}
       {open && (
-        <div className="fixed inset-0 z-40 bg-[#FAFAFA] flex flex-col px-6 pt-24 pb-10 md:hidden">
+        <div
+          id="mobile-menu-dialog"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Site menu"
+          className="fixed inset-0 z-40 bg-[#FAFAFA] flex flex-col px-6 pt-24 pb-10 md:hidden"
+        >
           <nav className="flex flex-col flex-1">
             {links.map(({ label, href }) => (
               <Link

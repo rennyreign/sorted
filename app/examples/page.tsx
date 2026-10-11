@@ -1,10 +1,10 @@
 import type { Metadata } from "next"
 import { ArrowRight, Check, Edit3, Eye, Rocket } from "lucide-react"
+import Image from "next/image"
 import { MockupButton } from "../sites/_components/SitesMockupModal"
 import { SitesFooter, SitesHeader, SitesPage, Underline } from "../sites/_components/SitesPrimitives"
 import { ExamplesGallery } from "./ExamplesGallery"
 import { ExamplesCaseStudyRail } from "./ExamplesCaseStudyRail"
-import { BeforeAfterVideo } from "./BeforeAfterVideo"
 import { fetchExamples } from "./data"
 
 // Note: with NEXT_BUILD_STATIC=true the page is fully static. This revalidate
@@ -34,34 +34,32 @@ export default async function ExamplesPage() {
     <SitesPage>
       <SitesHeader active="examples" />
 
-      <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-8 pt-11 sm:px-8 sm:pb-12 sm:pt-14 lg:grid-cols-[0.96fr_1.04fr] lg:items-center">
+      <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-8 pt-11 sm:px-8 sm:pb-12 sm:pt-14 lg:grid-cols-[0.42fr_0.58fr] lg:items-center">
         <div>
-          <h1 className="max-w-[610px] text-[clamp(3.55rem,7vw,7.3rem)] font-black leading-[0.86] tracking-[-0.06em]">
-            Real work
+          <p className="text-[12px] font-black uppercase tracking-[0.16em] text-black/45">The work speaks</p>
+          <h1 className="mt-5 max-w-[610px] text-[clamp(3.2rem,6vw,5.6rem)] font-black leading-[0.9] tracking-[-0.055em]">
+            We don&apos;t sell.
             <br />
-            Real results
+            We show.
           </h1>
-          <div className="mt-2 max-w-[430px] [font-family:var(--font-sites-fave-script)] text-[clamp(4.3rem,7vw,7.4rem)] font-normal leading-[0.72] tracking-[0] text-[#cfea00]">
+          <div className="mt-3 max-w-[430px] [font-family:var(--font-sites-fave-script)] text-[clamp(3.4rem,5.6vw,5.4rem)] font-normal leading-[0.78] tracking-[0] text-[#cfea00]">
             Built first.
             <br />
             Priced second.
           </div>
-          <Underline className="mt-3 w-[330px] max-w-full" />
-          <p className="mt-7 max-w-[520px] text-[17px] font-semibold leading-[1.5] tracking-[-0.025em] text-black/75">
-            Every website you see here started as a free mockup. The business owner saw it, loved it, and we built it.
+          <Underline className="mt-4 w-full max-w-[300px]" />
+          <p className="mt-6 max-w-[420px] text-[16px] font-semibold leading-[1.5] tracking-[-0.025em] text-black/75">
+            Real websites. Thoughtful transformations. See what better could look like for your business.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-5">
+          <div className="mt-8 flex flex-wrap items-center gap-6">
             <MockupButton />
-            <span className="relative [font-family:var(--font-sites-highlight)] text-[28px] leading-[0.9] text-[#c7e800] sm:text-[32px]">
-              See your business
-              <br />
-              here next.
-              <ArrowRight className="absolute -right-14 bottom-0 hidden size-10 rotate-45 sm:block" strokeWidth={2.2} />
-            </span>
+            <a href="#live-websites" className="inline-flex min-h-11 items-center gap-2 text-[13px] font-black transition-colors hover:text-black/55">
+              Explore the work <ArrowRight className="size-4 rotate-90" strokeWidth={2.8} />
+            </a>
           </div>
         </div>
 
-        <BeforeAfterVideo className="lg:translate-y-4" />
+        <FeaturedCaseStudy />
       </section>
 
       <section id="live-websites" className="mx-auto max-w-[1220px] scroll-mt-28 border-t border-black/10 px-5 py-7 sm:px-8">
@@ -101,8 +99,8 @@ export default async function ExamplesPage() {
             <h2 className="text-[22px] font-black leading-[1.02] tracking-[-0.04em]">See what we can build for your business</h2>
           </div>
           <p className="text-[13px] font-black leading-[1.35]">
-            Get your free mockup in 24 hours.
-            <span className="block font-semibold">No obligation. No credit card.</span>
+            Get your free mockup.
+            <span className="block font-semibold">No payment. No obligation.</span>
           </p>
           <ArrowRight className="hidden size-14 lg:block" strokeWidth={2} />
           <MockupButton variant="primary" className="justify-self-start whitespace-nowrap bg-black text-white lg:justify-self-end" />
@@ -111,5 +109,37 @@ export default async function ExamplesPage() {
 
       <SitesFooter />
     </SitesPage>
+  )
+}
+
+function FeaturedCaseStudy() {
+  return (
+    <figure className="rounded-[22px] bg-[#f5f3ee] p-3 shadow-[0_24px_60px_rgba(0,0,0,0.08)] sm:p-4">
+      <div className="relative aspect-[3/2] w-full overflow-hidden rounded-[14px]">
+        <Image
+          src="/examples/school-of-skill-hero.webp"
+          alt="The School of Skill website shown across desktop and mobile screens."
+          fill
+          priority
+          sizes="(min-width: 1024px) 660px, 100vw"
+          className="object-cover"
+        />
+      </div>
+      <figcaption className="mt-3 rounded-[14px] bg-white p-5 sm:p-6">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-[0.16em] text-black/45">Featured case study</p>
+            <h2 className="mt-1.5 text-[22px] font-black leading-none tracking-[-0.04em]">School of Skill</h2>
+            <p className="mt-2 text-[12px] font-semibold text-black/55">Basketball · Birmingham</p>
+          </div>
+          <a href="/examples/school-of-skill" className="group inline-flex min-h-11 items-center gap-2 text-[12px] font-black transition-colors hover:text-black/55">
+            View case study <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2.8} />
+          </a>
+        </div>
+        <p className="mt-3 border-t border-black/10 pt-3 text-[13px] font-semibold leading-[1.5] text-black/60">
+          Bringing the programmes, people and pathways into one clear website.
+        </p>
+      </figcaption>
+    </figure>
   )
 }

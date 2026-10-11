@@ -1,4 +1,6 @@
 BUILD BRIEF — SORTED AD REVIEW
+
+CURRENT LOCATION NOTE (October 2026): the sibling `/_sorted/ads` location described below is superseded. Use the shared Sorted Ads portal and `.devin/skills/sorted-ad-review/SKILL.md`. Preserve useful product/data requirements as historical context; do not create a second per-client portal from this brief.
 Version: v1
 First implementation: Edgbaston Tuition Centre
 

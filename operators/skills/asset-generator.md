@@ -1,5 +1,11 @@
 # Skill: asset-generator
 
+## Dormant For Supplied Export Packs
+
+ChatGPT now reconstructs images before export. Complete packs go directly to factory intake and `register-assets`; do not invoke this CLI or generate replacements merely because the historical chain includes this stage.
+
+Retain this capability for explicitly requested missing/replacement imagery. Read the approved reconstruction brief and obtain required API/network permission first. Supplied original images remain unchanged. Its model/default details below describe this fallback, not default site manufacturing.
+
 **Type:** Step skill — Chain Step 2 of 3  
 **Trigger:** Loaded by `site-build` skill, or directly when user asks to generate assets  
 **External API:** Image generation model (gpt-image-1 by default)  

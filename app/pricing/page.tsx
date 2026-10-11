@@ -26,20 +26,24 @@ const priceIncludes = [
   "Development",
   "Content management system",
   "Analytics",
+  "Ad creative setup",
+  "Follow-up setup",
   "Launch",
 ] as const
 
 const launchIncludes = [
   "The approved website design and structure",
   "Build, required setup, quality assurance and launch",
+  "Ad creative, campaign structure and follow-up setup",
   "Content editing through SortedUpdates",
   "A tutorial, secure CMS access and factory reset",
 ] as const
 
 const faqs = [
-  ["Is £3,000 the whole price?", "Yes. One complete website, one fixed price. It covers strategy, design, copy, development, the content management system, analytics and launch."],
+  ["Is £3,000 the whole price?", "Yes. One complete launch setup, one fixed price. It covers the website, content management, analytics, agreed ad creative and campaign structure, follow-up setup and launch. Ad spend and ongoing management stay separate."],
   ["When is payment due?", "Nothing is due before you approve the homepage direction. A £1,500 deposit starts the full build, then the remaining £1,500 is due when the completed site is ready to launch."],
   ["Can I keep the site up to date?", "Yes. You can update everyday content such as text, images, services, prices and contact details. We protect the design and build standard so the site stays consistent."],
+  ["How long until I see the finished site?", "72 hours. Yes — you saw that right. Seventy-two hours, not seventy-two days. Once you approve the homepage direction and pay the deposit, the complete site is back in front of you for review."],
 ] as const
 
 export default function PricingPage() {
@@ -50,12 +54,12 @@ export default function PricingPage() {
       <section className="mx-auto grid max-w-[1220px] gap-12 px-5 pb-14 pt-14 sm:px-8 sm:pb-20 sm:pt-20 lg:grid-cols-[0.86fr_1.14fr] lg:items-center lg:gap-16">
         <div>
           <SitesTitle
-            title={<>Built first<br />Priced second</>}
-            marker={<span className="block [font-family:var(--font-sites-fave-script)] text-[clamp(4.8rem,8vw,7.6rem)] leading-[0.78] normal-case tracking-[0]">That&apos;s the<br />Sorted way</span>}
+            title={<>See the website.</>}
+            marker={<span className="block [font-family:var(--font-sites-fave-script)] text-[clamp(4.8rem,8vw,7.6rem)] leading-[0.78] normal-case tracking-[0]">Not a<br />sales pitch.</span>}
           />
           <Underline className="mt-3 w-[min(280px,72vw)]" />
           <p className="mt-8 max-w-[510px] text-[17px] font-semibold leading-[1.6] tracking-[-0.025em] text-black/78 sm:text-[18px]">
-            We don&apos;t quote an imaginary website. We create your new homepage first, complete with responsive design and real content. If you want us to finish it, the complete price is £3,000. Fixed.
+            We don&apos;t quote an imaginary website. We create your new homepage first, complete with responsive design and real content. If you want us to finish it, the complete price is <strong className="font-black text-black">£3,000. Fixed.</strong>
           </p>
           <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-[13px] font-black">
             {["Free homepage mockup", "No obligation", "No awkward sales process"].map((item) => (
@@ -74,24 +78,21 @@ export default function PricingPage() {
         <div className="relative aspect-[1.05/1] overflow-hidden rounded-[22px] bg-[#f7f1e8] shadow-[0_28px_80px_rgba(42,35,20,0.12)] sm:aspect-[1.28/1] sm:min-h-[430px] sm:rounded-[28px]">
           <Image
             src="/sorted-sites/pricing-hero.png"
-            alt="A completed Sorted website displayed on a laptop and phone, ready for review."
+            alt="A completed client website shown on a laptop and phone, with enquiry notifications and tracking ready."
             fill
             priority
             sizes="(min-width: 1024px) 650px, 100vw"
             className="object-cover object-center"
           />
-          <div className="absolute bottom-4 left-4 rounded-[12px] bg-[#dfff00] px-4 py-3 shadow-[0_18px_44px_rgba(0,0,0,0.14)] sm:bottom-6 sm:left-6 sm:rounded-[14px] sm:px-5 sm:py-4">
-            <p className="[font-family:var(--font-sites-marker)] text-[1.25rem] uppercase leading-[0.95] sm:text-[1.55rem]">See the website.<br />Then talk price.</p>
-          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1220px] px-5 pb-5 sm:px-8 sm:pb-8">
+      <section id="included" className="mx-auto max-w-[1220px] scroll-mt-24 px-5 pb-5 sm:px-8 sm:pb-8">
         <div className="grid overflow-hidden rounded-[24px] bg-[#0a0a0a] text-white lg:grid-cols-[0.9fr_1.1fr]">
           <div className="flex flex-col justify-between p-8 sm:p-11 lg:min-h-[440px] lg:p-12">
             <div>
               <h2 className="max-w-[520px] text-[clamp(2.35rem,4.4vw,4rem)] font-black leading-[0.96] tracking-[-0.05em] text-balance">
-                One complete website. One fixed price.
+                One complete launch setup. One fixed price.
               </h2>
             </div>
             <p className="mt-10 text-[clamp(4.75rem,9vw,8rem)] font-black leading-[0.8] tracking-[-0.075em] text-[#dfff00] tabular-nums">£3,000</p>
@@ -122,7 +123,9 @@ export default function PricingPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-7 text-[13px] font-semibold leading-[1.5] text-white/58">No tiers. No extras menu. No invoice creep.</p>
+            <p className="mt-7 text-[13px] font-semibold leading-[1.5] text-white/58">
+              No tiers. No invoice creep. The setup includes the website, agreed ad creative, campaign structure and follow-up sequence. Ad spend and ongoing management stay <a href="/what-else-we-do" className="underline underline-offset-4 transition-colors hover:text-[#dfff00]">separate and optional</a>.
+            </p>
           </div>
         </div>
       </section>
@@ -211,9 +214,9 @@ export default function PricingPage() {
             <h2 className="text-[clamp(2.1rem,3.5vw,3.1rem)] font-black leading-none tracking-[-0.045em]">Frequently asked</h2>
           </div>
         </div>
-        <div className="grid md:grid-cols-3">
+        <div className="grid md:grid-cols-2 xl:grid-cols-4">
           {faqs.map(([question, answer], index) => (
-            <article key={question} className="border-b border-black/10 py-7 md:border-b-0 md:border-l md:px-7 md:py-8 md:first:border-l-0 md:first:pl-0 md:last:pr-0">
+            <article key={question} className="border-b border-black/10 py-7 md:border-b-0 md:border-l md:px-7 md:py-8 md:odd:border-l-0 md:odd:pl-0 md:last:pr-0 xl:odd:border-l xl:odd:px-7 xl:first:border-l-0 xl:first:pl-0">
               <div className="flex items-start justify-between gap-4">
                 <h3 className="max-w-[270px] text-[16px] font-black leading-[1.2] tracking-[-0.02em]">{question}</h3>
                 <span className="text-[11px] font-black text-black/35">0{index + 1}</span>

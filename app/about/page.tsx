@@ -5,8 +5,8 @@ import { SitesFooter, SitesHeader, SitesPage, Underline } from "../sites/_compon
 import { MockupButton } from "../sites/_components/SitesMockupModal"
 
 export const metadata: Metadata = {
-  title: "Why Sorted Exists | Stronger local businesses, stronger economy",
-  description: "Sorted makes modern business infrastructure accessible so small and independent businesses can compete, grow and contribute to a stronger economy.",
+  title: "Why Sorted Exists | Good at the job? Your website should show it.",
+  description: "Sorted respects the work local businesses do and closes the gap between the business and how it looks online — starting with the website.",
   alternates: {
     canonical: "/about",
   },
@@ -29,19 +29,18 @@ export default function AboutPage() {
       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-14 pt-12 sm:px-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:pb-20 lg:pt-16">
         <div>
           <h1 className="text-[clamp(3.35rem,6vw,6.4rem)] font-black leading-[0.94] tracking-[-0.045em]">
-            Stronger local<br />
-            businesses build<br />
-            a stronger<br />
-            <span className="inline-block [font-family:var(--font-sites-fave-script)] text-[1.45em] font-normal leading-[0.72] tracking-[0] text-[#d4ea00]">economy</span>
+            Good at the<br />
+            job? Your website<br />
+            should <span className="inline-block [font-family:var(--font-sites-fave-script)] text-[1.45em] font-normal leading-[0.72] tracking-[0] text-[#d4ea00]">show it.</span>
           </h1>
           <Underline className="mt-5 w-[min(320px,75vw)]" />
           <p className="mt-7 max-w-[540px] text-[17px] font-semibold leading-[1.55] tracking-[-0.03em] text-black/78">
-            We believe economic growth is built through more capable businesses in more places. Sorted&apos;s contribution is to make modern business infrastructure accessible to small and independent businesses, starting where customers usually experience the gap first: the website.
+            We respect the work. But too many good local businesses are let down by how they look online — and customers judge what they see before they experience what you do. So we show you something better before we ask for a penny.
           </p>
           <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <MockupButton />
-            <a href="/partners/enterprise" className="inline-flex min-h-11 items-center gap-2 px-1 text-[12px] font-black transition-colors hover:text-black/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#dfff00] focus-visible:ring-offset-4">
-              Partner with Sorted <ArrowRight className="size-4" strokeWidth={2.8} />
+            <a href="/what-else-we-do" className="inline-flex min-h-11 items-center gap-2 px-1 text-[12px] font-black transition-colors hover:text-black/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#dfff00] focus-visible:ring-offset-4">
+              What else we do <ArrowRight className="size-4" strokeWidth={2.8} />
             </a>
           </div>
         </div>
@@ -133,7 +132,7 @@ export default function AboutPage() {
                   <span className="grid size-11 place-items-center bg-[#dfff00] text-[12px] font-black">02</span>
                   <div>
                     <h3 className="text-[21px] font-black tracking-[-0.04em]">Improve what happens behind the front door.</h3>
-                    <p className="mt-3 max-w-[600px] text-[14px] font-semibold leading-[1.6] text-black/66">Enquiries, follow-up, booking, customer data, reviews, reporting and repetitive work all shape the experience. We address the next costly gap only when it has earned its place.</p>
+                    <p className="mt-3 max-w-[600px] text-[14px] font-semibold leading-[1.6] text-black/66">Enquiries, follow-up, booking, customer data, reviews, reporting and repetitive work all shape the experience. We address the next costly gap only when it has earned its place. <a href="/what-else-we-do" className="underline underline-offset-4 transition-colors hover:text-black">See what else we do</a>.</p>
                   </div>
                 </article>
               </div>

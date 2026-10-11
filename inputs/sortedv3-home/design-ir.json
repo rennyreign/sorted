@@ -1,0 +1,316 @@
+{
+  "schema": "sorted.design-ir.v1",
+  "page_id": "homepage",
+  "source_mockup": "approved-mockup.png",
+  "source_dimensions_px": [
+    881,
+    1785
+  ],
+  "viewport_interpretation": "full-page desktop visual; dimensions represent screenshot, not intended CSS viewport width",
+  "route": "/",
+  "shared_design_system": {
+    "brand": "Sorted.",
+    "design_language": "Constructive confrontation: honest but fair, nice but firm; bold UK-local-business editorial aesthetic; challenge complacency without demeaning business owners.",
+    "colors": {
+      "ink": "#0B0B0B",
+      "paper": "#FFFFFF",
+      "off_white": "#F5F3EE",
+      "lime": "#D7FF00",
+      "muted": "#666666",
+      "border": "#E6E4DE",
+      "iceberg_blue": "#8BD8F3"
+    },
+    "typography": {
+      "heading": "heavy geometric sans, approximate Arial Black/Inter Tight Black; match reference visually",
+      "body": "clean sans such as Inter, 16px desktop",
+      "accent": "handwritten italic brush only when pictured; do not use for body"
+    },
+    "layout": {
+      "desktop_max_width_px": 1200,
+      "desktop_gutter_px": 56,
+      "tablet_gutter_px": 28,
+      "mobile_gutter_px": 20,
+      "grid": "12-column desktop, stacked mobile",
+      "spacing_scale_px": [
+        8,
+        16,
+        24,
+        32,
+        48,
+        64,
+        96
+      ]
+    },
+    "implementation_notes": [
+      "Reference screenshots are not literal copy or a source of exact CSS dimensions.",
+      "Build text and UI as HTML/CSS, not screenshot slices.",
+      "Crop files labeled reference are low-resolution guides and contain baked-in UI/text; replace with clean source imagery or rebuilt UI.",
+      "Do not invent customer testimonials, growth metrics, client names, business endorsements or platform features. Verify all examples and capabilities before launch.",
+      "Do not present proposed future services as included in the fixed website price without commercial confirmation.",
+      "Primary conversion is a free website mockup request.",
+      "Responsive priority: keep headings legible, preserve high-contrast CTA and stack cards."
+    ]
+  },
+  "sections": [
+    {
+      "id": "navigation",
+      "order": 1,
+      "background": "ink/transparent over hero",
+      "layout": "logo left; 5 navigation links centered; lime pill CTA right",
+      "content": {
+        "logo": "Sorted.",
+        "links": [
+          "How it works",
+          "Examples",
+          "Pricing",
+          "What's included",
+          "About"
+        ],
+        "cta": "Get your free mockup"
+      }
+    },
+    {
+      "id": "hero",
+      "order": 2,
+      "background": "dark cinematic local trades workshop photo with left black gradient",
+      "layout": "desktop two columns 52/48, copy left and laptop preview right; mobile stacked",
+      "eyebrow": "Websites for local businesses",
+      "headline_lines": [
+        "Your competitors",
+        "aren’t better.",
+        "They just look better."
+      ],
+      "headline_treatment": "Very large bold white sans; lime handwritten italic emphasis and underline on look better; preserve readability",
+      "body": "And that’s a problem. Because customers judge what they see before they experience what you do.",
+      "cta": "Get your free mockup",
+      "cta_support": "No payment. No obligation.",
+      "image_reference": "hero-photo-reference",
+      "secondary_annotation": "Same trade. Different website.",
+      "note": "Competitive headline is rhetorical, not a verified claim about any named competitor."
+    },
+    {
+      "id": "proof-strip",
+      "order": 3,
+      "background": "white",
+      "layout": "four equal columns, thin vertical dividers, lime circle icons",
+      "items": [
+        {
+          "title": "FAST",
+          "detail": "Get your mockup in 24 hours.",
+          "icon": "zap"
+        },
+        {
+          "title": "FIXED PRICE",
+          "detail": "£3,000. Everything included.",
+          "icon": "pound-sterling"
+        },
+        {
+          "title": "NO RISK",
+          "detail": "See it first. Then decide.",
+          "icon": "eye"
+        },
+        {
+          "title": "ALL INCLUSIVE",
+          "detail": "Design, build, hosting, CMS and support.",
+          "icon": "check"
+        }
+      ]
+    },
+    {
+      "id": "growth-promise",
+      "order": 4,
+      "background": "dark charcoal with van photograph on right",
+      "layout": "left 45% headline/body, middle benefit stack, right photo with dark overlay",
+      "headline": "A great website isn’t a luxury.",
+      "accent": "It’s a growth engine.",
+      "body": "Your website should work as hard as you do — bringing in more enquiries, showcasing your expertise and turning interest into customers.",
+      "benefits": [
+        "Look good.",
+        "Get more enquiries.",
+        "Turn them into customers."
+      ],
+      "image_reference": "growth-van-reference",
+      "cta": "See how it works",
+      "qualification": "Do not guarantee increased enquiries from a website alone."
+    },
+    {
+      "id": "process",
+      "order": 5,
+      "background": "white",
+      "headline": "Our simple process.",
+      "body": "No jargon. No drawn-out process. Just a better website, built around your business.",
+      "layout": "4 columns with lime icon circles and directional arrows",
+      "steps": [
+        {
+          "title": "Tell us about you",
+          "body": "Answer a few quick questions about your business and goals."
+        },
+        {
+          "title": "We design your site",
+          "body": "We create a custom mockup tailored to your business. You review it."
+        },
+        {
+          "title": "You decide",
+          "body": "Happy with the mockup? Approve it and we get to work."
+        },
+        {
+          "title": "We build & launch",
+          "body": "We build, connect everything and launch your new website."
+        }
+      ]
+    },
+    {
+      "id": "portfolio",
+      "order": 6,
+      "background": "white",
+      "headline": "Real businesses. Real results.",
+      "layout": "left intro plus 3 image cards",
+      "cards": [
+        {
+          "category": "Hospitality",
+          "name": "Warwickshire Short Stays",
+          "asset": "case-hospitality-reference"
+        },
+        {
+          "category": "Trades",
+          "name": "BuildSpark Electrical",
+          "asset": "case-trades-reference"
+        },
+        {
+          "category": "Health & Fitness",
+          "name": "BodySharp Fitness",
+          "asset": "case-fitness-reference"
+        }
+      ],
+      "verification": "Use actual approved client imagery, names and case studies; references may contain mock/fabricated details."
+    },
+    {
+      "id": "pricing",
+      "order": 7,
+      "background": "ink",
+      "layout": "three columns: price, inclusions, CTA",
+      "headline": "One complete website. One fixed price.",
+      "price": "£3,000",
+      "included": [
+        "Custom design and build",
+        "Mobile responsive",
+        "CMS (you can easily update it)",
+        "Professional copy and imagery",
+        "Analytics and tracking setup",
+        "Hosting and domain connection",
+        "Basic SEO setup",
+        "30 days of support"
+      ],
+      "cta": "Get your free mockup",
+      "secondary_link": "What the price covers",
+      "verification": "Validate exact commercial inclusions, especially hosting, domain and support."
+    },
+    {
+      "id": "testimonials",
+      "order": 8,
+      "background": "off-white",
+      "headline": "Trusted by local businesses.",
+      "layout": "intro + 3 quote cards",
+      "verification": "Use genuine, permissioned testimonials only; no invented names, quotes or outcome claims."
+    },
+    {
+      "id": "final-cta",
+      "order": 9,
+      "background": "lime",
+      "headline": "Ready to give your website the upgrade it deserves?",
+      "body": "See your new design in 24 hours. No obligation. No credit card.",
+      "cta": "Get your free mockup"
+    },
+    {
+      "id": "footer",
+      "order": 10,
+      "background": "ink",
+      "layout": "logo/description plus Product, Company, Contact columns",
+      "brand_line": "Brilliant websites for local businesses.",
+      "links": [
+        "How it works",
+        "Examples",
+        "Pricing",
+        "What’s included",
+        "About",
+        "Reviews",
+        "Partner program",
+        "Contact",
+        "Privacy",
+        "Terms",
+        "Cookies"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "id": "hero-photo-reference",
+      "path": "assets/reference-crops/hero-photo-reference.png",
+      "source_crop_px": [
+        420,
+        35,
+        880,
+        380
+      ],
+      "status": "reference_only_low_resolution",
+      "production_instruction": "Rebuild or replace as clean asset; avoid rendering cropped screenshot UI/text as a live image."
+    },
+    {
+      "id": "growth-van-reference",
+      "path": "assets/reference-crops/growth-van-reference.png",
+      "source_crop_px": [
+        560,
+        470,
+        881,
+        775
+      ],
+      "status": "reference_only_low_resolution",
+      "production_instruction": "Rebuild or replace as clean asset; avoid rendering cropped screenshot UI/text as a live image."
+    },
+    {
+      "id": "case-hospitality-reference",
+      "path": "assets/reference-crops/case-hospitality-reference.png",
+      "source_crop_px": [
+        228,
+        970,
+        414,
+        1078
+      ],
+      "status": "reference_only_low_resolution",
+      "production_instruction": "Rebuild or replace as clean asset; avoid rendering cropped screenshot UI/text as a live image."
+    },
+    {
+      "id": "case-trades-reference",
+      "path": "assets/reference-crops/case-trades-reference.png",
+      "source_crop_px": [
+        437,
+        970,
+        623,
+        1078
+      ],
+      "status": "reference_only_low_resolution",
+      "production_instruction": "Rebuild or replace as clean asset; avoid rendering cropped screenshot UI/text as a live image."
+    },
+    {
+      "id": "case-fitness-reference",
+      "path": "assets/reference-crops/case-fitness-reference.png",
+      "source_crop_px": [
+        647,
+        970,
+        830,
+        1078
+      ],
+      "status": "reference_only_low_resolution",
+      "production_instruction": "Rebuild or replace as clean asset; avoid rendering cropped screenshot UI/text as a live image."
+    }
+  ],
+  "build_acceptance_criteria": [
+    "Visual match to approved screenshot at desktop, adapted sensibly to mobile.",
+    "Every section exists in specified order and is semantically structured.",
+    "Text is live accessible HTML and buttons are functional.",
+    "All unverified reviews, results and fictional case imagery are replaced or omitted.",
+    "Every supplied reference-only crop is replaced with production-quality asset or rebuilt as HTML/CSS.",
+    "Pricing and inclusions agree with current commercial offer.",
+    "Primary CTA navigates to actual free mockup request flow."
+  ]
+}

@@ -12,11 +12,15 @@
 //   --tier <tier>       standard | premium (default: standard)
 //   --dry-run           Plan without generating files
 //   --no-build          Skip npm install + next build step
+//   --allow-install     Permit npm install (off by default)
 //   --verbose           Detailed output
 //   --help              Show this help
+//
+// NOTE: this builder is the legacy generation path — dormant by
+// default. Supplied-pack intake (factory init-pack) is the default
+// pipeline; use this only when regenerating code from a mockup.
 // ─────────────────────────────────────────────────────────────
 
-import 'dotenv/config';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -37,6 +41,7 @@ function parseArgs(argv: string[]): {
   tier?: 'standard' | 'premium';
   dryRun: boolean;
   noBuild: boolean;
+  allowInstall: boolean;
   verbose: boolean;
   help: boolean;
 } {
@@ -49,6 +54,7 @@ function parseArgs(argv: string[]): {
       assetsDir: '',
       dryRun: false,
       noBuild: false,
+      allowInstall: false,
       verbose: false,
       help: true,
     };
@@ -71,6 +77,7 @@ function parseArgs(argv: string[]): {
     tier: (get('--tier') as 'standard' | 'premium') ?? 'standard',
     dryRun: has('--dry-run'),
     noBuild: has('--no-build'),
+    allowInstall: has('--allow-install'),
     verbose: has('--verbose'),
     help: false,
   };
@@ -80,6 +87,10 @@ function printHelp() {
   console.log(`
 Frontend Builder v0.1.0 — Sorted Website Manufacturing Line
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LEGACY GENERATION PATH — dormant by default. The supplied-pack
+pipeline (factory init-pack → register-assets) is the default
+intake; use this builder only when regenerating code from a mockup.
+
 Takes a Mockup Deconstructor JSON + Asset Generator manifest
 and produces a ready-to-deploy Next.js client site.
 
@@ -97,7 +108,8 @@ Options:
   --slug <name>         Client slug for output naming (default: derived from path)
   --tier standard|premium  Build tier (default: standard)
   --dry-run             Show generation plan without calling Claude or writing files
-  --no-build            Skip npm install + next build verification
+  --no-build            Skip npm install + next build verification entirely
+  --allow-install       Permit npm install (never runs by default)
   --verbose             Detailed progress output
   --help                Show this help
 
@@ -149,6 +161,11 @@ function findTemplateDir(cliDir: string): string {
 // ── Main ──────────────────────────────────────────────────────
 
 async function main() {
+  // dotenv is optional — never fail when it is not installed
+  try {
+    await import('dotenv/config');
+  } catch { /* no dotenv — environment variables only */ }
+
   const parsed = parseArgs(process.argv);
 
   if (parsed.help) {
@@ -176,7 +193,7 @@ async function main() {
 
   if (!process.env['ANTHROPIC_API_KEY'] && !parsed.dryRun) {
     console.error('Error: ANTHROPIC_API_KEY environment variable not set');
-    console.error('Add it to .env or export it before running');
+    console.error('Add it to .env or export it before running (or use --dry-run to plan without a key)');
     process.exit(1);
   }
 
@@ -200,6 +217,8 @@ async function main() {
     clientSlug: slug,
     verbose: parsed.verbose,
     dryRun: parsed.dryRun,
+    noBuild: parsed.noBuild,
+    allowInstall: parsed.allowInstall,
     tier: parsed.tier ?? 'standard',
   };
 
@@ -216,7 +235,8 @@ Frontend Builder v0.1.0
   Slug           : ${slug}
   Tier           : ${config.tier}
   Mode           : ${config.dryRun ? 'DRY RUN — no files will be written' : 'LIVE'}
-  Build verify   : ${parsed.noBuild ? 'skipped' : 'enabled'}
+  Build verify   : ${parsed.noBuild ? 'skipped (--no-build)' : 'enabled'}
+  npm install    : ${parsed.allowInstall ? 'allowed' : 'disabled (default)'}
 `);
 
   try {
@@ -228,9 +248,13 @@ Frontend Builder v0.1.0
       for (const f of failed) {
         console.log(`  ✗ ${path.relative(outputDir, f.outputPath)}: ${f.error}`);
       }
-      process.exit(1);
+      process.exit(1); // generatedFailed
     }
-
+    if (result.buildPassed === false) {
+      process.exit(2); // buildFailed — distinct nonzero
+    }
+    // buildPassed === null means verification was skipped — it is
+    // never reported or exited as verified.
     process.exit(0);
   } catch (err) {
     console.error(`\nFatal error: ${(err as Error).message}`);

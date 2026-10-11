@@ -12,14 +12,15 @@ function GoogleMark() {
   )
 }
 
-function Stars({ rating }: { rating: number }) {
+function Stars({ rating, light = false }: { rating: number; light?: boolean }) {
+  const empty = light ? "fill-black/10 text-black/10" : "fill-white/15 text-white/15"
   return (
     <span className="flex gap-0.5" aria-label={`${rating} out of 5 stars`}>
       {Array.from({ length: 5 }, (_, index) => (
         <Star
           key={index}
           aria-hidden="true"
-          className={`size-4 ${index < Math.round(rating) ? "fill-[#fbbc04] text-[#fbbc04]" : "fill-white/15 text-white/15"}`}
+          className={`size-4 ${index < Math.round(rating) ? "fill-[#fbbc04] text-[#fbbc04]" : empty}`}
           strokeWidth={1.8}
         />
       ))}
@@ -27,7 +28,63 @@ function Stars({ rating }: { rating: number }) {
   )
 }
 
-export function GoogleReviews({ data }: { data: GoogleReviewsData }) {
+function GoogleReviewsCards({ data }: { data: GoogleReviewsData }) {
+  const reviews = data.reviews.slice(0, 3)
+  return (
+    <section aria-labelledby="google-reviews-heading">
+      <div className={`grid gap-5 ${reviews.length > 1 ? "sm:grid-cols-2" : ""} ${reviews.length > 2 ? "lg:grid-cols-3" : ""}`}>
+        {reviews.map((review) => (
+          <blockquote key={`${review.authorName}-${review.text}`} className="flex flex-col rounded-[14px] border border-black/10 bg-white p-5 shadow-[0_14px_40px_rgba(0,0,0,0.05)]">
+            <Stars rating={review.rating} light />
+            <p className="mt-3.5 line-clamp-4 text-[13px] font-semibold leading-[1.55] tracking-[-0.015em] text-black/80">“{review.text}”</p>
+            <footer className="mt-auto pt-4">
+              <div className="flex items-end justify-between gap-4">
+                <div>
+                  <a href={review.authorUrl} target="_blank" rel="noreferrer" className="text-[12px] font-black transition-colors hover:text-[#5a7000]">
+                    {review.authorName}
+                  </a>
+                  <p className="mt-1 text-[11px] font-semibold text-black/45">{review.relativeTime} · Google</p>
+                </div>
+              </div>
+              <a
+                href={review.reviewUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Read ${review.authorName}'s full review on Google`}
+                className="mt-2.5 inline-flex min-h-11 items-center gap-2 text-[12px] font-black text-black/70 underline decoration-black/20 underline-offset-4 transition-colors hover:text-black"
+              >
+                Read full review on Google <ArrowUpRight className="size-3.5" strokeWidth={2.5} />
+              </a>
+            </footer>
+          </blockquote>
+        ))}
+      </div>
+      <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2.5">
+        <a
+          href={data.profileUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="group inline-flex items-center gap-3 rounded-full border border-black/12 bg-white px-4 py-2 transition-colors hover:border-black/25"
+        >
+          <GoogleMark />
+          <strong className="text-[17px] tracking-[-0.03em]">{data.rating.toFixed(1)}</strong>
+          <Stars rating={data.rating} light />
+          <span id="google-reviews-heading" className="text-[11px] font-bold text-black/55">
+            {data.reviewCount} Google reviews for {data.businessName}
+          </span>
+          <ArrowUpRight className="size-4 text-black/40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={2.4} />
+        </a>
+        <p className="text-[11px] font-semibold text-black/40">Reviews supplied by Google</p>
+        <a href={data.writeReviewUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-[11px] font-black text-black/70 underline decoration-black/20 underline-offset-4 transition-colors hover:text-black">
+          Leave a Google review <ArrowUpRight className="size-3.5" strokeWidth={2.5} />
+        </a>
+      </div>
+    </section>
+  )
+}
+
+export function GoogleReviews({ data, variant = "default" }: { data: GoogleReviewsData; variant?: "default" | "cards" }) {
+  if (variant === "cards") return <GoogleReviewsCards data={data} />
   return (
     <section aria-labelledby="google-reviews-heading" className="overflow-hidden rounded-[18px] bg-white/[0.055] shadow-[0_22px_55px_rgba(0,0,0,0.22)] ring-1 ring-white/10">
       <div className="flex flex-col gap-5 border-b border-white/10 px-6 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-7">

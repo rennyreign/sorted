@@ -156,6 +156,33 @@ export const exampleCaseStudies: ExampleCaseStudy[] = [
       ["4.9/5", "Google review rating"],
     ],
   },
+  {
+    slug: "school-of-skill",
+    category: "Health & fitness",
+    title: "Built to feel like an organisation, not just a coach.",
+    business: "School of Skill",
+    location: "Birmingham",
+    description: "A youth basketball development brand repositioned from grassroots coaching to a credible, scalable organisation.",
+    image: "/examples/live/school-of-skill-desktop.png",
+    screenshots: {
+      desktop: "/examples/live/school-of-skill-desktop.png",
+      tablet: "/examples/live/school-of-skill-tablet.png",
+      mobile: "/examples/live/school-of-skill-mobile.png",
+    },
+    liveUrl: "https://schoolofskill.co.uk",
+    goal: "School of Skill had proven demand but looked self-made. They needed a brand and website that felt professional enough for schools, parents and strategic partners — credible, structured and ready to grow beyond the founder.",
+    solution: "We built a clean, editorial site with white space, strong photography and clear service pillars. The result positions School of Skill as a serious organisation with international reach, not just another coaching page.",
+    testimonial:
+      "We went from looking like a Facebook page to looking like a real organisation. The site gives us credibility with schools and parents we didn't have before. It's helped us have completely different conversations.",
+    testimonialName: "Dalian Mason",
+    testimonialRole: "Founder, School of Skill",
+    stats: [
+      ["24hrs", "First homepage concept delivered"],
+      ["3", "Service pillars clarified and structured"],
+      ["100%", "Mobile responsive build"],
+      ["4", "Audience groups clearly addressed"],
+    ],
+  },
 ]
 
 export function getExampleCaseStudy(slug: string) {

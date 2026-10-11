@@ -1,0 +1,343 @@
+{
+  "schema": "sorted.design-ir.v1",
+  "page_id": "what-else-we-do",
+  "source_mockup": "approved-mockup.png",
+  "source_dimensions_px": [
+    1024,
+    1536
+  ],
+  "viewport_interpretation": "full-page desktop visual; dimensions represent screenshot, not intended CSS viewport width",
+  "route": "/what-else-we-do",
+  "shared_design_system": {
+    "brand": "Sorted.",
+    "design_language": "Constructive confrontation: honest but fair, nice but firm; bold UK-local-business editorial aesthetic; challenge complacency without demeaning business owners.",
+    "colors": {
+      "ink": "#0B0B0B",
+      "paper": "#FFFFFF",
+      "off_white": "#F5F3EE",
+      "lime": "#D7FF00",
+      "muted": "#666666",
+      "border": "#E6E4DE",
+      "iceberg_blue": "#8BD8F3"
+    },
+    "typography": {
+      "heading": "heavy geometric sans, approximate Arial Black/Inter Tight Black; match reference visually",
+      "body": "clean sans such as Inter, 16px desktop",
+      "accent": "handwritten italic brush only when pictured; do not use for body"
+    },
+    "layout": {
+      "desktop_max_width_px": 1200,
+      "desktop_gutter_px": 56,
+      "tablet_gutter_px": 28,
+      "mobile_gutter_px": 20,
+      "grid": "12-column desktop, stacked mobile",
+      "spacing_scale_px": [
+        8,
+        16,
+        24,
+        32,
+        48,
+        64,
+        96
+      ]
+    },
+    "implementation_notes": [
+      "Reference screenshots are not literal copy or a source of exact CSS dimensions.",
+      "Build text and UI as HTML/CSS, not screenshot slices.",
+      "Crop files labeled reference are low-resolution guides and contain baked-in UI/text; replace with clean source imagery or rebuilt UI.",
+      "Do not invent customer testimonials, growth metrics, client names, business endorsements or platform features. Verify all examples and capabilities before launch.",
+      "Do not present proposed future services as included in the fixed website price without commercial confirmation.",
+      "Primary conversion is a free website mockup request.",
+      "Responsive priority: keep headings legible, preserve high-contrast CTA and stack cards."
+    ]
+  },
+  "sections": [
+    {
+      "id": "navigation",
+      "order": 1,
+      "background": "white",
+      "layout": "logo left, links center, primary CTA right",
+      "active_link": "What else we do",
+      "links": [
+        "How it works",
+        "Examples",
+        "Pricing",
+        "What’s included",
+        "What else we do",
+        "About"
+      ],
+      "cta": "Get your free mockup"
+    },
+    {
+      "id": "hero",
+      "order": 2,
+      "background": "white",
+      "eyebrow": "WHAT ELSE WE DO",
+      "headline": "A great website is just the beginning.",
+      "body": "Your website makes you look good. The rest helps you get found, generate enquiries and turn them into customers.",
+      "supporting_copy": "Most local businesses lose opportunities because they’re invisible online, don’t follow up properly, or rely on third-party platforms. We give you the tools to change that.",
+      "layout": "text left and angled Sorted workspace dashboard laptop right",
+      "asset": "dashboard-reference",
+      "cta": "Get your free mockup",
+      "secondary_cta": "See how it works (60 seconds)",
+      "annotation": "Your website and everything that comes with it. All in one place.",
+      "verification": "Workspace interface must reflect features actually available."
+    },
+    {
+      "id": "iceberg",
+      "order": 3,
+      "background": "dark",
+      "eyebrow": "THE BIGGER PICTURE",
+      "headline": "From website to real growth.",
+      "body": "Your website is the foundation. Around it, we connect advertising, tracking, follow-ups and the tools that turn interest into paying customers.",
+      "layout": "left text, center iceberg with waterline, right 4 benefits",
+      "asset": "iceberg-reference",
+      "iceberg_labels": {
+        "above_water": "Website (what they see)",
+        "below_water": [
+          "Advertising",
+          "Tracking",
+          "Follow-ups",
+          "CRM & bookings",
+          "Automation (what’s underneath)"
+        ]
+      },
+      "benefits": [
+        {
+          "title": "More visibility",
+          "body": "Get in front of the right people with high-converting ads."
+        },
+        {
+          "title": "More enquiries",
+          "body": "Track what’s working and capture every opportunity."
+        },
+        {
+          "title": "More customers",
+          "body": "Follow up automatically and turn interest into real work."
+        },
+        {
+          "title": "More control",
+          "body": "Everything in one place, so your business runs smoother."
+        }
+      ],
+      "note": "Benefits are potential capabilities, not guaranteed outcomes."
+    },
+    {
+      "id": "capabilities",
+      "order": 4,
+      "background": "white",
+      "eyebrow": "WHAT’S INCLUDED",
+      "headline": "Everything you need to get found, get enquiries and win more customers.",
+      "layout": "3 x 2 card grid desktop, 1 column mobile; rounded warm-grey cards, lime circle icon, interface preview anchored lower right",
+      "cards": [
+        {
+          "title": "Custom website design",
+          "body": "A modern, professional website built to establish trust and convert enquiries.",
+          "asset": "website-feature-reference",
+          "commercial_status": "core website package"
+        },
+        {
+          "title": "Content management",
+          "body": "Update text, images and pages yourself with an easy-to-use CMS.",
+          "asset": "cms-feature-reference",
+          "commercial_status": "core website package"
+        },
+        {
+          "title": "Analytics & tracking",
+          "body": "See how your website performs, where enquiries come from and what’s working.",
+          "asset": "analytics-feature-reference",
+          "commercial_status": "core website package where configured"
+        },
+        {
+          "title": "Ad creatives",
+          "body": "A set of high-quality social ads designed for your business, ready to launch.",
+          "asset": "ad-creatives-reference",
+          "commercial_status": "confirm whether supplied as part of package or optional service"
+        },
+        {
+          "title": "Follow-up automations",
+          "body": "Automatically follow up with enquiries so no opportunity gets missed.",
+          "asset": "followups-feature-reference",
+          "commercial_status": "confirm inclusion and activation scope"
+        },
+        {
+          "title": "Bookings & CRM",
+          "body": "Collect enquiries, book appointments and keep everything organised.",
+          "asset": "booking-feature-reference",
+          "commercial_status": "confirm actual integration and availability"
+        }
+      ],
+      "commercial_warning": "The heading Everything you need and visual grouping could imply every feature is included for £3,000; clarify what is included, prepared, and optional before publishing."
+    },
+    {
+      "id": "system-flow",
+      "order": 5,
+      "background": "off-white",
+      "eyebrow": "IT ALL WORKS TOGETHER",
+      "headline": "Not just a website. A complete system.",
+      "body": "Each part plays a role. The website builds trust, the ads bring in attention, the tracking shows what’s working, and the follow-ups turn interest into real customers.",
+      "layout": "left intro, right horizontal five-step icon flow with arrows; mobile vertical",
+      "steps": [
+        {
+          "name": "Website",
+          "body": "Builds trust and gives people a place to learn about your business."
+        },
+        {
+          "name": "Ads",
+          "body": "Bring the right people to your website."
+        },
+        {
+          "name": "Tracking",
+          "body": "Shows what’s working and helps you make better decisions."
+        },
+        {
+          "name": "Follow-ups",
+          "body": "Automatically keep in touch with enquiries."
+        },
+        {
+          "name": "Customers",
+          "body": "Turn more of your enquiries into paying customers."
+        }
+      ]
+    },
+    {
+      "id": "final-cta",
+      "order": 6,
+      "background": "ink",
+      "headline": "Ready to see what’s possible for your business?",
+      "promises": [
+        "Free mockup in 24 hours",
+        "No payment. No obligation.",
+        "Everything included — subject to confirmed package scope."
+      ],
+      "cta": "Get your free mockup"
+    },
+    {
+      "id": "footer",
+      "order": 7,
+      "background": "white",
+      "brand_line": "Websites that help local businesses get found, get chosen and grow.",
+      "links": [
+        "How it works",
+        "Examples",
+        "Pricing",
+        "What’s included",
+        "What else we do",
+        "About",
+        "Reviews",
+        "Partner program",
+        "Contact",
+        "Privacy",
+        "Terms",
+        "Cookies"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "id": "dashboard-reference",
+      "path": "assets/reference-crops/dashboard-reference.png",
+      "source_crop_px": [
+        405,
+        58,
+        969,
+        382
+      ],
+      "status": "reference_only_low_resolution",
+      "production_instruction": "Rebuild or replace as clean asset; avoid rendering cropped screenshot UI/text as a live image."
+    },
+    {
+      "id": "iceberg-reference",
+      "path": "assets/reference-crops/iceberg-reference.png",
+      "source_crop_px": [
+        375,
+        417,
+        693,
+        659
+      ],
+      "status": "reference_only_low_resolution",
+      "production_instruction": "Rebuild or replace as clean asset; avoid rendering cropped screenshot UI/text as a live image."
+    },
+    {
+      "id": "website-feature-reference",
+      "path": "assets/reference-crops/website-feature-reference.png",
+      "source_crop_px": [
+        249,
+        808,
+        380,
+        948
+      ],
+      "status": "reference_only_low_resolution",
+      "production_instruction": "Rebuild or replace as clean asset; avoid rendering cropped screenshot UI/text as a live image."
+    },
+    {
+      "id": "cms-feature-reference",
+      "path": "assets/reference-crops/cms-feature-reference.png",
+      "source_crop_px": [
+        508,
+        818,
+        651,
+        952
+      ],
+      "status": "reference_only_low_resolution",
+      "production_instruction": "Rebuild or replace as clean asset; avoid rendering cropped screenshot UI/text as a live image."
+    },
+    {
+      "id": "analytics-feature-reference",
+      "path": "assets/reference-crops/analytics-feature-reference.png",
+      "source_crop_px": [
+        769,
+        820,
+        954,
+        953
+      ],
+      "status": "reference_only_low_resolution",
+      "production_instruction": "Rebuild or replace as clean asset; avoid rendering cropped screenshot UI/text as a live image."
+    },
+    {
+      "id": "ad-creatives-reference",
+      "path": "assets/reference-crops/ad-creatives-reference.png",
+      "source_crop_px": [
+        168,
+        1034,
+        374,
+        1161
+      ],
+      "status": "reference_only_low_resolution",
+      "production_instruction": "Rebuild or replace as clean asset; avoid rendering cropped screenshot UI/text as a live image."
+    },
+    {
+      "id": "followups-feature-reference",
+      "path": "assets/reference-crops/followups-feature-reference.png",
+      "source_crop_px": [
+        501,
+        1025,
+        671,
+        1156
+      ],
+      "status": "reference_only_low_resolution",
+      "production_instruction": "Rebuild or replace as clean asset; avoid rendering cropped screenshot UI/text as a live image."
+    },
+    {
+      "id": "booking-feature-reference",
+      "path": "assets/reference-crops/booking-feature-reference.png",
+      "source_crop_px": [
+        777,
+        1028,
+        964,
+        1161
+      ],
+      "status": "reference_only_low_resolution",
+      "production_instruction": "Rebuild or replace as clean asset; avoid rendering cropped screenshot UI/text as a live image."
+    }
+  ],
+  "build_acceptance_criteria": [
+    "Visual match to approved screenshot at desktop, adapted sensibly to mobile.",
+    "Every section exists in specified order and is semantically structured.",
+    "Text is live accessible HTML and buttons are functional.",
+    "All unverified reviews, results and fictional case imagery are replaced or omitted.",
+    "Every supplied reference-only crop is replaced with production-quality asset or rebuilt as HTML/CSS.",
+    "Pricing and inclusions agree with current commercial offer.",
+    "Primary CTA navigates to actual free mockup request flow."
+  ]
+}

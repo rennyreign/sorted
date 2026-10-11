@@ -4,11 +4,12 @@ trigger: always_on
 
 # Sorted Operator Context
 
-When working in this repo on operator builds, always read these files first:
+For website manufacturing, first read `operators/skills/factory-operators.md` and the requested phase. For workspace tasks, use `operators/skills/workspace-build.md` plus the acquisition hub standard in `start-build.md`. Load the following broader references when the task needs their lifecycle/company context rather than repeating all context at every phase:
 
 - `doctrine/sorted-operating-model.md` — Four Nods, the manufacturing model, SortedUpdates, dual execution modes
 - `doctrine/operator-chain.md` — the state contract: artifact schemas, chain map, skill vs operator distinction
 - `doctrine/sorted-overview.md` — vision, China-Phenomena, the acquisition pipeline
+- `doctrine/sorted-brand-voice.md` — canonical brand voice: constructive confrontation, honest but fair, we don't sell we show
 - `AGENTS.md` — agent rules, deployment discipline, tech stack
 
 And from the ADX Engine mothership (`../adxEngine/doctrine/`):
@@ -23,7 +24,7 @@ And from the ADX Engine mothership (`../adxEngine/doctrine/`):
 
 The Sorted manufacturing chain runs in one of two modes:
 
-**Orchestration agent (you — default):** Run the full chain in a single session. Load the relevant skill, call external APIs for vision/image gen, write files directly. Fast, cheap, no coordination overhead.
+**Orchestration agent (you - default):** Consume the supplied ChatGPT export pack. Validate, optimise/register assets, implement, independently inspect and correct. Local generation is dormant. Use bounded implementation delegation where available; evidence-backed boundaries matter more than agent count.
 
 **Operator pipeline (scale):** Each step runs as a discrete stateless process via CLI or job queue. Use when building multiple sites concurrently or automating without a human in the loop.
 
@@ -37,12 +38,14 @@ Load these when building a client site:
 
 | Skill | When to load | File |
 |---|---|---|
-| `site-build` | Full chain: mockup → live site | `operators/skills/site-build.md` |
-| `mockup-deconstructor` | Step 1 only: image → JSON | `operators/skills/mockup-deconstructor.md` |
-| `asset-generator` | Step 2 only: JSON → assets | `operators/skills/asset-generator.md` |
+| `site-build` | Compatibility router to supplied-pack factory | `operators/skills/site-build.md` |
+| `factory-operators` | Intake, registry, safe resume and lifecycle contracts | `operators/skills/factory-operators.md` |
+| `mockup-deconstructor` | Explicit missing-design fallback only | `operators/skills/mockup-deconstructor.md` |
+| `asset-generator` | Explicit missing/replacement image fallback only | `operators/skills/asset-generator.md` |
+| `workspace-build` | Human-approved acquisition handoff | `operators/skills/workspace-build.md` |
 | `frontend-builder` | Step 3 only: JSON + assets → site | `operators/skills/frontend-builder.md` |
 
-**Always load `doctrine/operator-chain.md` before any chain step** — it defines what flows between steps.
+Use the canonical phase contract and original input/evidence for execution. `doctrine/operator-chain.md` remains the full lifecycle reference. The diagram update does not retire CMS, analytics, internal pages, systemisation or launch.
 
 ---
 
@@ -72,10 +75,12 @@ The skill file (`operators/skills/<name>.md`) is the canonical specification. Th
 
 | Operator | Skill | Status | Implementation |
 |---|---|---|---|
-| mockup-deconstructor | `operators/skills/mockup-deconstructor.md` | Active | `operators/mockup-deconstructor/implementation/` |
-| asset-generator | `operators/skills/asset-generator.md` | Active | `operators/asset-generator/implementation/` |
+| factory-orchestrator | `operators/skills/factory-operators.md` | Default | `operators/factory-orchestrator/` |
+| mockup-deconstructor | `operators/skills/mockup-deconstructor.md` | Conditional fallback | `operators/mockup-deconstructor/implementation/` |
+| asset-generator | `operators/skills/asset-generator.md` | Dormant supplied-pack fallback | `operators/asset-generator/implementation/` |
 | frontend-builder | `operators/skills/frontend-builder.md` | Active | `operators/frontend-builder/implementation/` |
-| sorted-updates | `.devin/workflows/add-decap-cms.md` | Active | `operators/sorted-updates/` |
+| Sorted Studio CMS | `.devin/workflows/add-decap-cms.md` | Post-Nod 2 | `templates/sorted-studio/` |
+| sorted-updates | `operators/sorted-updates/README.md` | Distinct maintenance capability | `operators/sorted-updates/` |
 
 ## Acquisition Operators (pre-chain)
 

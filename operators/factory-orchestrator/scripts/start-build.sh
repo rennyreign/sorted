@@ -7,19 +7,85 @@
 # copies inputs, and initialises the factory job.
 #
 # Usage:
-#   ./start-build.sh <client-slug> <mockup-path> <manifest-path>
+#   ./start-build.sh <client-slug> <pack-dir>                    (supplied pack — default)
+#   ./start-build.sh <client-slug> <mockup-path> <manifest-path> (legacy intake)
 #
-# Example:
+# Examples:
+#   ./start-build.sh lrt-plumbing ~/Downloads/lrt-plumbing-pack
 #   ./start-build.sh lrt-plumbing ~/Downloads/mockup.png ~/Downloads/manifest.json
 # ─────────────────────────────────────────────────────────────
 
 set -euo pipefail
 
-# ── Args ──────────────────────────────────────────────────────
+# ── Paths ─────────────────────────────────────────────────────
 
-CLIENT_SLUG="${1:?Usage: start-build.sh <client-slug> <mockup-path> <manifest-path>}"
-MOCKUP_PATH="${2:?Usage: start-build.sh <client-slug> <mockup-path> <manifest-path>}"
-MANIFEST_PATH="${3:?Usage: start-build.sh <client-slug> <mockup-path> <manifest-path>}"
+SORTED_DIR="$(cd "$(dirname "$0")/../../.." && pwd)"
+TEMPLATE_DIR="$SORTED_DIR/templates/client-site"
+PROJECTS_DIR="$(dirname "$SORTED_DIR")"
+FACTORY_CLI="$SORTED_DIR/operators/factory-orchestrator/dist/cli.js"
+
+# ── Supplied-pack mode (2 args) ───────────────────────────────
+
+if [ "$#" -eq 2 ]; then
+  CLIENT_SLUG="$1"
+  PACK_DIR="$2"
+  BUILD_DIR="$PROJECTS_DIR/$CLIENT_SLUG"
+
+  if [ ! -d "$PACK_DIR" ]; then
+    echo "ERROR: Pack directory not found at $PACK_DIR"
+    exit 1
+  fi
+  if [ ! -d "$TEMPLATE_DIR" ]; then
+    echo "ERROR: Client-site template not found at $TEMPLATE_DIR"
+    exit 1
+  fi
+  if [ -d "$BUILD_DIR" ]; then
+    echo "ERROR: Build directory already exists: $BUILD_DIR"
+    echo "       To resume an existing build, run:"
+    echo "       node $FACTORY_CLI resume $BUILD_DIR"
+    exit 1
+  fi
+
+  echo ""
+  echo "Sorted Website Manufacturing Line"
+  echo "────────────────────────────────────────"
+  echo "  Intake mode : supplied-pack"
+  echo "  Client slug : $CLIENT_SLUG"
+  echo "  Pack dir    : $PACK_DIR"
+  echo "  Build dir   : $BUILD_DIR"
+  echo ""
+
+  node "$FACTORY_CLI" init-pack "$PACK_DIR" "$CLIENT_SLUG" \
+    --build-dir "$BUILD_DIR" \
+    --template "$TEMPLATE_DIR"
+
+  echo ""
+  echo "────────────────────────────────────────"
+  echo "Pack initialised. Next steps:"
+  echo ""
+  echo "  1. Produce the deterministic asset registry:"
+  echo "     node $FACTORY_CLI register-assets $BUILD_DIR"
+  echo ""
+  echo "  2. See the next operator at any time:"
+  echo "     node $FACTORY_CLI resume $BUILD_DIR"
+  echo ""
+  exit 0
+fi
+
+# ── Legacy intake (3 args: slug mockup manifest) ─────────────
+
+if [ "$#" -ne 3 ]; then
+  echo "Usage: start-build.sh <client-slug> <pack-dir>"
+  echo "   or: start-build.sh <client-slug> <mockup-path> <manifest-path>  (legacy)"
+  exit 1
+fi
+
+CLIENT_SLUG="$1"
+MOCKUP_PATH="$2"
+MANIFEST_PATH="$3"
+BUILD_DIR="$PROJECTS_DIR/$CLIENT_SLUG"
+
+echo "Intake mode: legacy (explicit mockup + manifest files)"
 
 # ── Paths ─────────────────────────────────────────────────────
 

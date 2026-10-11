@@ -6,16 +6,18 @@ Apply this rule to every new or resumed client-site build before the client has 
 
 Build the homepage first so the client can judge the visual direction. Keep every advertised internal-page destination navigable, without prematurely designing the rest of the site or presenting unfinished pages as finished work.
 
-The reference implementation is `murraymartin/components/PendingPage.tsx`, used by its About, Services and Support routes. Reuse the behavior, not Murray Martin's branding, prices or approval status.
+Reference implementations: `kelly-electrics/components/PendingPage.tsx` (every nav item is a real route — About Us, Our Services, Advice, Testimonials, Contact Us — each rendering the shared pending page) and `murraymartin/components/PendingPage.tsx`. Reuse the behavior, not their branding, prices or approval status.
 
-## Routing Rule
+## Routing Rule — deep links are the standard
+
+**Standardize on real routes, not homepage anchors.** Every item in the site navigation and every advertised business/content destination gets its own route — `/about/`, `/services/`, `/reviews/` (or `/testimonials/`), `/contact/` — even when the mockup draws those links as same-page anchors. A linked page is a page.
 
 - Home and the brand link return to `/`.
-- Every advertised but unbuilt business/content page has its intended route, such as `/about/`, `/services/`, `/advice/`, `/testimonials/` or `/contact/`.
+- Every advertised but unbuilt business/content page has its intended route.
 - Each of these routes renders one shared, client-branded `PendingPage` component with a page-specific name.
 - Link to these routes consistently from desktop navigation, mobile navigation, dropdowns, service cards, homepage page CTAs and the footer.
-- Do not replace an internal-page link with a homepage anchor, unrelated email action, expandable fragment, `href="#"` or broken destination simply because that page has not been built.
-- Genuine in-page jumps remain anchors when their label clearly describes an in-page action. Business conversion actions remain functional: phone, email, WhatsApp, supplied booking links and working quote/callback actions must not be intercepted.
+- Do not replace an internal-page link with a homepage anchor, unrelated email action, expandable fragment, `href="#"` or broken destination simply because that page has not been built. If the mockup shows `Services → #services`, build `Services → /services/` (pending) anyway — the homepage section still keeps its anchor for direct jumps.
+- Genuine in-page jumps remain anchors only when the label clearly describes an in-page action (e.g. "jump to reviews on this page" is rare — prefer the route). Business conversion actions remain functional: phone, email, WhatsApp, supplied booking links and working quote/callback actions must not be intercepted.
 - Legal/privacy routes and other explicitly approved, implemented utility pages may remain real pages. Do not overwrite completed pages when resuming a build.
 - Do not create pages that the brief or mockup does not advertise merely to populate navigation.
 
@@ -26,7 +28,7 @@ Use a server component with the interface `PendingPage({ pageName }: { pageName:
 Display:
 
 - Status: `Homepage ready for review`.
-- Heading: `The {pageName} page is waiting on your design approval.`
+- Heading (standard copy): `We're waiting for approval of the homepage design before the {pageName} page opens.` — or the approved variant `The {pageName} page is waiting on your design approval.` Keep the client's typography; do not invent alternative wording that implies the page exists.
 - Explanation: `Once you're happy with the homepage direction, we'll carry this visual system through the remaining pages so the whole site feels consistent and unmistakably {businessName}.`
 - A primary action labelled `Confirm the design direction`, linking to the client's workspace Next Steps screen: `https://sortmydigital.site/workspace/<workspace-slug>/next-steps`. The workspace slug is the prospect's `review_slug`, which may differ from the site's project slug. Next Steps carries the deposit payment, question drawer and call booking — it is the lowest-friction confirm path.
 - Explain that the action takes the client to their Sorted workspace, where they can approve the direction, pay the deposit or ask a question.

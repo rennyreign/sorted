@@ -1,0 +1,1481 @@
+--- a/app/page.tsx	2026-10-11 13:27:40
++++ b/app/page.tsx	2026-10-11 13:37:04
+@@ -1,11 +1,12 @@
+ import type { Metadata } from "next"
+ import Image from "next/image"
+-import { ArrowRight, ArrowUpRight, Check, Edit3, Eye, MousePointerClick, PoundSterling, TrendingUp } from "lucide-react"
+-import { SitesFooter, SitesHeader, SitesPage, Underline } from "./sites/_components/SitesPrimitives"
++import { ArrowRight, ArrowUpRight, Check, Edit3, Eye, MessageSquare, Monitor, PoundSterling, Rocket } from "lucide-react"
++import { SitesFooter, SitesHeader, SitesPage } from "./sites/_components/SitesPrimitives"
+ import { MockupButton } from "./sites/_components/SitesMockupModal"
+ import { GoogleReviews } from "./sites/_components/GoogleReviews"
+ import { exampleCaseStudies } from "./examples/_caseStudies"
+ import { getGoogleReviews } from "@/lib/googleReviews"
++import s from "./home.module.css"
+ 
+ export const metadata: Metadata = {
+   title: "Sorted | Websites for local businesses that look as good as the work",
+@@ -32,206 +33,196 @@
+ 
+   return (
+     <SitesPage>
+-      <SitesHeader tone="dark" />
++      <SitesHeader tone="dark" variant="home" />
+ 
+-      <section className="relative -mt-[76px] overflow-hidden bg-[#070707] pt-[76px] text-white">
+-        <div className="absolute inset-y-0 right-0 w-full lg:w-[58%]" aria-hidden="true">
++      <section className={s.hero}>
++        <div className={s.heroMedia}>
+           <Image
+             src="/sorted-home/hero-workshop.webp"
+-            alt=""
++            alt="Illustrative electrical services homepage on a laptop in a trades workshop"
+             fill
+             priority
+-            sizes="(min-width: 1024px) 58vw, 100vw"
+-            className="object-cover object-[62%_center] opacity-40 lg:object-[70%_center] lg:opacity-100"
++            sizes="(min-width: 1024px) 100vw, 100vw"
+           />
+-          <div className="absolute inset-0 bg-gradient-to-r from-[#070707] via-[#070707]/85 to-[#070707]/25 lg:via-[#070707]/45" />
+-          <div className="absolute inset-0 bg-gradient-to-t from-[#070707]/80 via-transparent to-[#070707]/40 lg:hidden" />
++          <div className={s.heroShade} aria-hidden="true" />
+         </div>
+-
+-        <div className="relative mx-auto grid max-w-[1220px] gap-12 px-5 pb-16 pt-12 sm:px-8 lg:grid-cols-[0.52fr_0.48fr] lg:items-center lg:pb-24 lg:pt-16">
+-          <div>
+-            <p className="text-[12px] font-black uppercase tracking-[0.16em] text-white/60">Websites for local businesses</p>
+-            <h1 className="mt-6 text-[clamp(3rem,5vw,4.5rem)] font-black leading-[0.94] tracking-[-0.045em]">
+-              Your competitors
+-              <br />
+-              aren&apos;t better.
+-              <br />
+-              <span className="block">
++        <div className={s.wrap}>
++          <div className={s.heroInner}>
++            <div className={s.heroCopy}>
++              <h1 className={s.heroTitle}>
++                Your competitors
++                <br />
++                aren&apos;t better.
++                <br />
+                 They just{" "}
+-                <span className="relative inline-block [font-family:var(--font-sites-fave-script)] text-[1.15em] font-normal leading-[0.85] tracking-[0] text-[#dfff00]">
++                <span className={s.heroScript}>
+                   look better.
+-                  <Underline className="absolute -bottom-2 left-0 w-full" />
++                  <span className={s.heroScriptUnderline} aria-hidden="true" />
+                 </span>
+-              </span>
+-            </h1>
+-            <p className="mt-8 max-w-[460px] text-[17px] font-semibold leading-[1.55] tracking-[-0.02em] text-white/82">
+-              And that&apos;s a problem. Customers judge what they see before they experience what you do.
+-            </p>
+-            <div className="mt-9 flex flex-wrap items-center gap-6">
+-              <MockupButton variant="yellow" />
+-              <span className="[font-family:var(--font-sites-highlight)] text-[22px] leading-[1.05] text-[#dfff00]">
+-                No payment.
++              </h1>
++              <p className={s.heroBody}>
++                And that&apos;s a problem. Because customers judge what they see before they experience what you do.
++              </p>
++              <div className={s.heroCtaRow}>
++                <MockupButton variant="yellow" className={s.mockupCta} />
++                <span className={s.ctaNote}>
++                  No payment.
++                  <i aria-hidden="true" />
++                  No obligation.
++                </span>
++              </div>
++            </div>
++
++            <div className={s.annotation} aria-hidden="true">
++              <span className={s.annotationText}>
++                Same trade.
+                 <br />
+-                No obligation.
++                Different website.
+               </span>
++              <svg className={s.annotationArrow} width="76" height="52" viewBox="0 0 76 52" fill="none" aria-hidden="true">
++                <path d="M5 5 C 22 28, 44 40, 66 41" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" />
++                <path d="M58 34 L68 42 L55 46" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
++              </svg>
+             </div>
++            <span className={s.conceptTag}>Illustrative website concept</span>
+           </div>
+-
+-          <figure className="relative lg:justify-self-end">
+-            <div className="overflow-hidden rounded-[14px] border border-white/15 bg-[#0c0c0c] shadow-[0_34px_90px_rgba(0,0,0,0.55)]">
+-              <div className="flex h-9 items-center gap-2 border-b border-white/10 bg-[#141414] px-4">
+-                <span className="size-2.5 rounded-full bg-white/25" />
+-                <span className="size-2.5 rounded-full bg-white/25" />
+-                <span className="size-2.5 rounded-full bg-[#dfff00]/80" />
+-                <span className="ml-3 hidden h-5 flex-1 items-center rounded-full bg-white/[0.07] px-3 text-[10px] font-bold text-white/45 sm:flex">bodysharpfitness.com</span>
+-              </div>
+-              <div className="relative aspect-[16/10]">
+-                <Image
+-                  src="/examples/live/bodysharp-fitness-v2-desktop.png"
+-                  alt="The BodySharp Fitness website designed and built by Sorted"
+-                  fill
+-                  sizes="(min-width: 1024px) 560px, 100vw"
+-                  className="object-cover object-top"
+-                />
+-              </div>
+-            </div>
+-            <figcaption className="mt-4 flex items-center justify-between gap-4">
+-              <span className="text-[12px] font-bold text-white/70">Real work. A better first impression.</span>
+-              <span className="[font-family:var(--font-sites-highlight)] text-[20px] leading-none text-[#dfff00]">Made for the business.</span>
+-            </figcaption>
+-          </figure>
+         </div>
+       </section>
+ 
+-      <section className="border-b border-black/10 bg-white">
+-        <div className="mx-auto grid max-w-[1220px] gap-6 px-5 py-10 sm:grid-cols-2 sm:px-8 lg:grid-cols-4 lg:gap-0 lg:py-12">
+-          {[
+-            [Eye, "Preview first", "See the design before you pay."],
+-            [PoundSterling, "Fixed price", "One complete website. £3,000."],
+-            [Check, "Your decision", "No payment. No obligation."],
+-            [Edit3, "Content control", "Edit your words and images."],
+-          ].map(([Icon, title, copy]) => {
+-            const RealIcon = Icon as typeof Eye
+-            return (
+-              <article key={title as string} className="flex items-start gap-4 border-black/10 lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0">
+-                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-[#dfff00]">
+-                  <RealIcon className="size-6" strokeWidth={2.4} />
+-                </span>
+-                <div>
+-                  <h2 className="text-[15px] font-black uppercase tracking-[0.04em]">{title as string}</h2>
+-                  <p className="mt-2 text-[14px] font-semibold leading-[1.45] text-black/65">{copy as string}</p>
+-                </div>
+-              </article>
+-            )
+-          })}
++      <section className={s.proof} aria-label="What you get with Sorted">
++        <div className={s.wrap}>
++          <div className={s.proofGrid}>
++            {[
++              [Eye, "Preview first", "See the design before you pay."],
++              [PoundSterling, "Fixed price", "One complete website. £3,000."],
++              [Check, "Your decision", "No payment. No obligation."],
++              [Edit3, "Content control", "Edit your words and images."],
++            ].map(([Icon, title, copy]) => {
++              const RealIcon = Icon as typeof Eye
++              return (
++                <article key={title as string} className={s.proofItem}>
++                  <span className={s.proofIcon}>
++                    <RealIcon className="size-6" strokeWidth={2.4} />
++                  </span>
++                  <div>
++                    <h2 className={s.proofTitle}>{title as string}</h2>
++                    <p className={s.proofDetail}>{copy as string}</p>
++                  </div>
++                </article>
++              )
++            })}
++          </div>
+         </div>
+       </section>
+ 
+-      <section className="bg-[#0b0b0b] px-5 py-16 text-white sm:px-8 lg:py-24">
+-        <div className="mx-auto grid max-w-[1220px] gap-12 lg:grid-cols-[0.55fr_0.45fr] lg:items-center">
+-          <div>
+-            <h2 className="text-[clamp(2.6rem,5.4vw,4.9rem)] font-black leading-[0.95] tracking-[-0.05em]">
+-              A great website isn&apos;t a luxury.
+-              <span className="mt-2 block [font-family:var(--font-sites-fave-script)] text-[1.08em] font-normal leading-[0.85] tracking-[0] text-[#dfff00]">
+-                It&apos;s your first impression.
+-              </span>
+-            </h2>
+-            <p className="mt-7 max-w-[480px] text-[16px] font-semibold leading-[1.6] text-white/75">
+-              Your work has standards. Your website should show them.
+-            </p>
+-            <ul className="mt-9 grid gap-6 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
++      <section className={s.growth}>
++        <div className={s.wrap}>
++          <div className={s.growthInner}>
++            <div>
++              <h2 className={s.growthTitle}>A great website isn&apos;t a luxury.</h2>
++              <span className={s.growthScript}>It&apos;s a growth engine.</span>
++              <span className={s.growthUnderline} aria-hidden="true" />
++              <p className={s.growthBody}>
++                Your website should work as hard as you do — showcasing your expertise and making it easier to enquire and become a customer.
++              </p>
++              <a href="/howitworks" className={s.growthCta}>
++                See how it works <ArrowRight className="size-4" strokeWidth={2.8} />
++              </a>
++            </div>
++            <ul className={s.benefitList}>
+               {[
+-                [Eye, "Look good.", "Make the genuine quality of your work visible the moment someone lands on your site."],
+-                [MousePointerClick, "Get enquiries.", "Clear routes to call, message and book — no hunting for a way to contact you."],
+-                [TrendingUp, "Turn them into customers.", "Remove the friction between interest and a decision. Follow-ups can be scoped separately."],
+-              ].map(([Icon, title, copy]) => {
+-                const RealIcon = Icon as typeof Eye
+-                return (
+-                  <li key={title as string} className="border-t border-white/15 pt-5">
+-                    <RealIcon className="size-6 text-[#dfff00]" strokeWidth={2.2} />
+-                    <h3 className="mt-4 text-[17px] font-black tracking-[-0.03em]">{title as string}</h3>
+-                    <p className="mt-2 text-[13px] font-semibold leading-[1.55] text-white/62">{copy as string}</p>
+-                  </li>
+-                )
+-              })}
++                ["Look good.", "Make the quality of your work visible the moment someone lands on your site."],
++                ["Get enquiries.", "Clear routes to call, message and book — no hunting for a way to contact you."],
++                ["Turn them into customers.", "Remove the friction between interest and a decision."],
++              ].map(([title, copy]) => (
++                <li key={title} className={s.benefitItem}>
++                  <span className={s.benefitRing}>
++                    <Check className="size-4" strokeWidth={3} color="#dfff00" />
++                  </span>
++                  <div>
++                    <h3 className={s.benefitTitle}>{title}</h3>
++                    <p className={s.benefitCopy}>{copy}</p>
++                  </div>
++                </li>
++              ))}
+             </ul>
+-            <a
+-              href="/howitworks"
+-              className="mt-10 inline-flex min-h-12 items-center gap-3 rounded-full border border-white/25 px-6 text-[12px] font-black transition-colors hover:border-[#dfff00] hover:text-[#dfff00] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#dfff00]"
+-            >
+-              See how it works <ArrowRight className="size-4" strokeWidth={2.8} />
+-            </a>
+           </div>
+-          <div className="relative overflow-hidden rounded-[18px] border border-white/12 shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
+-            <div className="relative aspect-[4/3]">
+-              <Image
+-                src="/sorted-home/branded-van.webp"
+-                alt="A Sorted sign-written van on an autumn street — brand concept mockup"
+-                fill
+-                sizes="(min-width: 1024px) 520px, 100vw"
+-                className="object-cover object-center"
+-              />
+-            </div>
+-            <p className="border-t border-white/12 bg-white/[0.04] px-5 py-4 text-[12px] font-bold text-white/65">
+-              Brand concept — how a Sorted business shows up in the real world
+-            </p>
+-          </div>
++        </div>
++        <div className={s.growthMedia}>
++          <Image
++            src="/sorted-home/branded-van.webp"
++            alt="A Sorted sign-written van on an autumn street — brand concept"
++            fill
++            sizes="(min-width: 1024px) 40vw, 100vw"
++          />
++          <div className={s.growthFade} aria-hidden="true" />
+         </div>
+       </section>
+ 
+-      <section className="mx-auto grid max-w-[1220px] gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.3fr_0.7fr] lg:py-20">
+-        <div>
+-          <h2 className="text-[clamp(2.3rem,4.4vw,3.8rem)] font-black leading-[0.95] tracking-[-0.05em]">
+-            See it first.
+-            <br />
+-            Then decide.
+-          </h2>
+-          <Underline className="mt-5 w-44" />
+-          <p className="mt-6 max-w-[320px] text-[15px] font-semibold leading-[1.55] text-black/65">
+-            No jargon. No drawn-out process. You see the direction before you pay. Then we finish the website at one fixed price.
+-          </p>
++      <section className={s.process}>
++        <div className={`${s.wrap} ${s.processInner}`}>
++          <div>
++            <h2 className={s.sectionTitle}>Our simple process.</h2>
++            <span className={s.sectionUnderline} aria-hidden="true" />
++            <p className={s.sectionBody}>
++              No jargon. No drawn-out process. Just a better website, built around your business.
++            </p>
++            <a href="/howitworks" className={s.outlineCta}>
++              See the full process <ArrowRight className="size-4" strokeWidth={2.6} />
++            </a>
++          </div>
++          <ol className={s.steps}>
++            {[
++              [MessageSquare, "Tell us about you", "Answer a few quick questions about your business and what the website needs to do."],
++              [Monitor, "See a free preview", "We design a tailored homepage direction for your business. You review it before paying anything."],
++              [Check, "Approve the direction", "Happy with what you see? A £1,500 deposit starts the build after approval."],
++              [Rocket, "We build & launch", "We finish the site and connect everything. £1,500 balance when ready to launch."],
++            ].map(([Icon, title, copy], index) => {
++              const RealIcon = Icon as typeof MessageSquare
++              return (
++                <li key={title as string} className={s.step}>
++                  <span className={s.stepIcon}>
++                    <RealIcon className="size-6" strokeWidth={2.4} />
++                  </span>
++                  <p className={s.stepNum}>Step {index + 1}</p>
++                  <h3 className={s.stepTitle}>{title as string}</h3>
++                  <p className={s.stepCopy}>{copy as string}</p>
++                </li>
++              )
++            })}
++          </ol>
+         </div>
+-        <ol className="grid gap-6 sm:grid-cols-2">
+-          {[
+-            ["Tell us about the business", "Answer a few quick questions about what you do and what the website needs to do."],
+-            ["See a free homepage preview", "We design a tailored homepage direction for your business. You review it before paying anything."],
+-            ["Approve the direction", "Happy with what you see? A £1,500 deposit starts the full build."],
+-            ["We finish and launch", "We complete the site. The remaining £1,500 is due when it is ready to launch."],
+-          ].map(([title, copy], index) => (
+-            <li key={title} className="relative rounded-[18px] border border-black/10 bg-white p-6 shadow-[0_14px_40px_rgba(0,0,0,0.045)]">
+-              <span className="grid size-10 place-items-center rounded-full bg-[#dfff00] text-[13px] font-black">{index + 1}</span>
+-              <h3 className="mt-5 text-[17px] font-black tracking-[-0.035em]">{title}</h3>
+-              <p className="mt-3 text-[13px] font-semibold leading-[1.55] text-black/62">{copy}</p>
+-            </li>
+-          ))}
+-        </ol>
+       </section>
+ 
+-      <section className="border-t border-black/10 bg-white px-5 py-16 sm:px-8 lg:py-20">
+-        <div className="mx-auto max-w-[1220px]">
+-          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+-            <h2 className="max-w-[560px] text-[clamp(2.3rem,4.4vw,3.8rem)] font-black leading-[0.95] tracking-[-0.05em]">
+-              Good businesses.
++      <section className={s.portfolio}>
++        <div className={`${s.wrap} ${s.portfolioInner}`}>
++          <div>
++            <h2 className={s.sectionTitle}>
++              Real businesses.
+               <br />
+               Better websites.
+             </h2>
+-            <a href="/examples" className="inline-flex min-h-11 items-center gap-3 self-start whitespace-nowrap rounded-full border border-black/20 px-5 text-[12px] font-black transition-colors hover:bg-black hover:text-white sm:self-auto">
+-              View more examples <ArrowRight className="size-4" strokeWidth={2.5} />
++            <span className={s.sectionUnderline} aria-hidden="true" />
++            <p className={s.sectionBody}>
++              Some are live sites. Some are design previews. Look at the work, then decide what your business needs.
++            </p>
++            <a href="/examples" className={s.outlineCta}>
++              View all examples <ArrowRight className="size-4" strokeWidth={2.6} />
+             </a>
+           </div>
+-          <div className="mt-10 grid gap-6 md:grid-cols-3">
++          <div className={s.caseGrid}>
+             {portfolio.map((example) => (
+-              <article key={example.slug} className="overflow-hidden rounded-[14px] border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.045)]">
+-                <a href={`/examples/${example.slug}`} className="group relative block aspect-[5/4] overflow-hidden bg-[#080808]">
+-                  <Image src={example.image} alt={`${example.business} website`} fill sizes="(min-width: 768px) 380px, 100vw" className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.055]" />
++              <article key={example.slug} className={s.caseCard}>
++                <a href={`/examples/${example.slug}`} className={s.caseImg}>
++                  <Image src={example.image} alt={`${example.business} website`} fill sizes="(min-width: 1024px) 400px, 100vw" />
+                 </a>
+-                <div className="p-5">
+-                  <div className="flex flex-wrap gap-2">
+-                    <span className="inline-flex h-7 items-center rounded-full bg-[#dfff00] px-3 text-[10px] font-black text-black">{example.category}</span>
+-                    <span className="inline-flex h-7 items-center rounded-full bg-black/5 px-3 text-[10px] font-black text-black/58">{example.location}</span>
++                <div className={s.caseBody}>
++                  <div className={s.caseTags}>
++                    <span className={s.caseTag}>{example.category}</span>
++                    <span className={`${s.caseTag} ${s.caseTagMuted}`}>{example.location}</span>
+                   </div>
+-                  <h3 className="mt-4 text-[18px] font-black tracking-[-0.045em]">{example.business}</h3>
+-                  <a href={`/examples/${example.slug}`} className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-black/5 px-4 text-[12px] font-black sm:min-h-0 sm:bg-transparent sm:px-0">
++                  <h3 className={s.caseName}>{example.business}</h3>
++                  <a href={`/examples/${example.slug}`} className={s.caseLink}>
+                     View case study <ArrowRight className="size-4" strokeWidth={2.6} />
+                   </a>
+                 </div>
+@@ -241,83 +232,94 @@
+         </div>
+       </section>
+ 
+-      <section className="bg-[#070707] px-5 py-16 text-white sm:px-8 lg:py-20">
+-        <div className="mx-auto grid max-w-[1220px] gap-10 lg:grid-cols-[0.4fr_0.32fr_0.28fr]">
++      <section className={s.pricing}>
++        <span className={`${s.pricingCorner} ${s.pricingCornerA}`} aria-hidden="true" />
++        <span className={`${s.pricingCorner} ${s.pricingCornerB}`} aria-hidden="true" />
++        <div className={`${s.wrap} ${s.pricingInner}`}>
+           <div>
+-            <h2 className="text-[clamp(2.3rem,4.2vw,3.7rem)] font-black leading-[0.95] tracking-[-0.05em]">
++            <p className={s.pricingEyebrow}>Pricing</p>
++            <h2 className={s.pricingTitle}>
+               One complete website.
+               <br />
+               One fixed price.
+             </h2>
+-            <p className="mt-6 text-[clamp(3.6rem,6.5vw,5.4rem)] font-black leading-[0.85] tracking-[-0.06em] text-[#dfff00] tabular-nums">£3,000</p>
+-            <p className="mt-6 max-w-[420px] text-[13px] font-semibold leading-[1.55] text-white/58">
++            <p className={s.pricingPrice}>£3,000</p>
++            <span className={s.pricingPriceUnderline} aria-hidden="true" />
++            <p className={s.pricingTerms}>
+               £1,500 deposit when you approve the direction. £1,500 balance when the site is ready to launch.
+             </p>
+           </div>
+-          <div className="border-white/12 lg:border-l lg:pl-10">
+-            <p className="text-[12px] font-black uppercase tracking-[0.12em] text-white/48">What the price covers</p>
+-            <ul className="mt-5 space-y-3.5">
+-              {["Strategy", "Design", "Copy", "Development", "Content management system", "Analytics", "Launch"].map((item) => (
+-                <li key={item} className="flex items-center gap-3 border-b border-white/10 pb-3.5 text-[14px] font-bold">
+-                  <Check className="size-5 shrink-0 rounded-full bg-[#dfff00] p-1 text-black" strokeWidth={3.5} />
++          <div className={s.pricingIncludes}>
++            <ul className={s.pricingList}>
++              {["Strategy", "Design", "Copy", "Development", "Content management system (CMS)", "Analytics", "Launch"].map((item) => (
++                <li key={item}>
++                  <Check className="size-5" strokeWidth={3.2} />
+                   {item}
+                 </li>
+               ))}
+             </ul>
+           </div>
+-          <div className="flex flex-col justify-between gap-8 border-white/12 lg:border-l lg:pl-10">
+-            <p className="text-[15px] font-semibold leading-[1.6] text-white/72">
+-              The same complete website at the same fixed price, for every business. No tiers. No pressure.
+-            </p>
+-            <div className="flex flex-col items-start gap-5">
+-              <MockupButton variant="yellow" />
+-              <a href="/pricing#included" className="inline-flex items-center gap-2 text-[12px] font-black text-white/80 underline underline-offset-4 transition-colors hover:text-[#dfff00]">
++          <div className={s.pricingRight}>
++            <div>
++              <p className={s.pricingNoHidden}>
++                No hidden costs.
++                <br />
++                No surprises.
++              </p>
++              <p className={s.pricingRightCopy}>
++                The same complete website at the same fixed price, for every business. No tiers. No pressure.
++              </p>
++              <a href="/pricing#included" className={s.pricingLink}>
+                 What the price covers <ArrowUpRight className="size-4" strokeWidth={2.6} />
+               </a>
+             </div>
++            <MockupButton variant="yellow" className={s.mockupCta} />
+           </div>
+         </div>
+       </section>
+ 
+-      <section className="bg-[#070707] px-5 pb-16 text-white sm:px-8">
+-        <div className="mx-auto max-w-[1220px] border-t border-white/12 pt-12">
+-          <div className="grid gap-10 lg:grid-cols-[0.34fr_0.66fr] lg:items-start">
+-            <div>
+-              <h2 className="text-[clamp(2.2rem,4.2vw,3.6rem)] font-black leading-[0.95] tracking-[-0.05em]">
+-                Trusted by
+-                <br />
+-                local businesses.
+-              </h2>
+-              <Underline className="mt-5 w-44" />
+-              <p className="mt-6 max-w-[340px] text-[14px] font-semibold leading-[1.55] text-white/65">
+-                Verified Google reviews from the businesses we have worked with.
+-              </p>
+-            </div>
+-            <GoogleReviews data={googleReviews} />
++      <section id="reviews" className={s.reviews}>
++        <div className={`${s.wrap} ${s.reviewsInner}`}>
++          <div>
++            <h2 className={s.sectionTitle}>
++              Trusted by
++              <br />
++              local businesses.
++            </h2>
++            <span className={s.sectionUnderline} aria-hidden="true" />
++            <p className={s.sectionBody}>
++              Verified Google reviews from the businesses we have worked with.
++            </p>
+           </div>
++          <GoogleReviews data={googleReviews} variant="cards" />
+         </div>
+       </section>
+ 
+-      <section className="bg-[#dfff00] px-5 py-16 text-black sm:px-8 lg:py-20">
+-        <div className="mx-auto grid max-w-[1220px] gap-8 lg:grid-cols-[0.6fr_0.4fr] lg:items-center">
+-          <h2 className="text-[clamp(2.6rem,5.4vw,4.9rem)] font-black leading-[0.94] tracking-[-0.05em]">
+-            Your business grew up.
++      <section className={s.cta}>
++        <div className={`${s.wrap} ${s.ctaInner}`}>
++          <h2 className={s.ctaTitle}>
++            Ready to give your website
+             <br />
+-            Has your website?
++            the upgrade it deserves?
+           </h2>
+-          <div>
+-            <p className="max-w-[420px] text-[16px] font-semibold leading-[1.55] text-black/72">
+-              See a better direction before you decide. No payment. No obligation.
++          <div className={s.ctaMid}>
++            <p className={s.ctaCopy}>
++              See your new design before you pay.
++              <br />
++              No obligation. No payment.
+             </p>
+-            <div className="mt-7 flex flex-wrap items-center gap-5">
+-              <MockupButton variant="primary" />
+-              <span className="[font-family:var(--font-sites-highlight)] text-[22px] leading-none text-black/70">See it first. Then decide.</span>
+-            </div>
++            <svg className={s.ctaArrow} width="52" height="40" viewBox="0 0 52 40" fill="none" aria-hidden="true">
++              <path d="M4 8 C 18 20, 30 28, 44 28" stroke="#0b0b0b" strokeWidth="2.5" strokeLinecap="round" />
++              <path d="M36 22 L46 28 L36 34" stroke="#0b0b0b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
++            </svg>
+           </div>
++          <div className={s.ctaAction}>
++            <MockupButton variant="primary" />
++          </div>
+         </div>
+       </section>
+ 
+-      <SitesFooter />
++      <SitesFooter variant="compact" />
+     </SitesPage>
+   )
+ }
+--- a/app/sites/_components/SitesPrimitives.tsx	2026-10-11 13:27:40
++++ b/app/sites/_components/SitesPrimitives.tsx	2026-10-11 13:37:26
+@@ -35,38 +35,50 @@
+   return <main className={`${sitesMarker.variable} ${sitesHighlight.variable} ${sitesFaveScript.variable} ${sitesBakeshop.variable} sorted-sites-shell min-h-screen bg-[#fbfbfa] pt-[76px] text-[#070707]`}>{children}</main>
+ }
+ 
+-export function SitesHeader({ active, tone = "light" }: { active?: "how" | "examples" | "pricing" | "included" | "whatelse" | "about" | "updates"; tone?: "light" | "dark" }) {
+-  return <SitesHeaderClient active={active} tone={tone} />
++export function SitesHeader({ active, tone = "light", variant = "default" }: { active?: "how" | "examples" | "pricing" | "included" | "whatelse" | "about" | "updates"; tone?: "light" | "dark"; variant?: "default" | "home" }) {
++  return <SitesHeaderClient active={active} tone={tone} variant={variant} />
+ }
+ 
+-export function SitesFooter() {
++export function SitesFooter({ variant = "default" }: { variant?: "default" | "compact" }) {
++  const compact = variant === "compact"
+   return (
+-    <footer className="bg-[#070707] px-5 py-8 text-white sm:px-8">
+-      <div className="mx-auto grid max-w-[1220px] gap-8 md:grid-cols-[1.35fr_0.8fr_0.8fr_1fr]">
+-        <div>
++    <footer className={`bg-[#070707] px-5 text-white sm:px-8 ${compact ? "py-7" : "py-8"}`}>
++      <div className={`mx-auto grid gap-8 ${compact ? "max-w-[1280px] max-sm:grid-cols-2 md:grid-cols-[1.35fr_0.8fr_0.8fr_1fr]" : "max-w-[1220px] md:grid-cols-[1.35fr_0.8fr_0.8fr_1fr]"}`}>
++        <div className={compact ? "max-sm:col-span-2" : ""}>
+           <Logo dark />
+-          <p className="mt-4 max-w-[220px] text-[13px] font-semibold leading-[1.4] text-white/80">
++          <p className={`mt-4 text-[13px] font-semibold leading-[1.4] text-white/80 ${compact ? "max-w-[230px]" : "max-w-[220px]"}`}>
+             Brilliant websites for good local businesses.
+           </p>
+-          <p className="mt-7 text-[11px] font-medium text-white/50">© 2026 Sorted.</p>
+-          <p className="mt-2 text-[10px] font-medium leading-[1.5] text-white/40">
+-            Sorted is a trading name of ADX Engine Ltd · Registered in England &amp; Wales · Company number 17327041
+-          </p>
++          {!compact ? (
++            <>
++              <p className="mt-7 text-[11px] font-medium text-white/50">© 2026 Sorted.</p>
++              <p className="mt-2 text-[10px] font-medium leading-[1.5] text-white/40">
++                Sorted is a trading name of ADX Engine Ltd · Registered in England &amp; Wales · Company number 17327041
++              </p>
++            </>
++          ) : null}
+         </div>
+         <FooterLinks title="Product" links={[["How it works", "/howitworks"], ["Examples", "/examples"], ["Pricing", "/pricing"], ["What else we do", "/what-else-we-do"], ["SortedUpdates", "/website-updates"]]} />
+-        <FooterLinks title="Company" links={[["About us", "/about"], ["Our process", "/"], ["Reviews", "/examples"], ["Partner program", "/partners"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
+-        <div>
++        <FooterLinks title="Company" links={[["About us", "/about"], ["Our process", "/"], ["Reviews", compact ? "/#reviews" : "/examples"], ["Partner program", "/partners"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
++        <div className={compact ? "max-sm:col-span-2" : ""}>
+           <p className="mb-4 text-[12px] font-black">Let's talk</p>
+-          <a href="https://wa.me/447386468085" className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#dfff00] px-5 text-[12px] font-black text-black">
++          <a href="https://wa.me/447386468085" className={`inline-flex h-11 items-center gap-2 rounded-xl px-5 text-[12px] font-black text-black ${compact ? "bg-[#d7ff00]" : "bg-[#dfff00]"}`}>
+             <Phone className="size-4" strokeWidth={2.6} />
+             WhatsApp us
+           </a>
+           <p className="mt-4 text-[12px] font-semibold text-white/80">hello@sortmydigital.site</p>
+         </div>
+       </div>
+-      <div className="mx-auto mt-8 flex max-w-[1220px] justify-end gap-7 text-[10px] font-semibold text-white/55">
+-        <span>Privacy</span>
+-        <span>Terms</span>
++      <div className={`mx-auto mt-8 flex max-w-[1220px] gap-7 text-[10px] font-semibold text-white/55 ${compact ? "items-center justify-between border-t border-white/10 pt-5" : "justify-end"}`}>
++        {compact ? (
++          <p className="max-w-[460px] text-[10px] font-medium leading-[1.5] text-white/40">
++            © 2026 Sorted. Sorted is a trading name of ADX Engine Ltd · Registered in England &amp; Wales · Company number 17327041
++          </p>
++        ) : null}
++        <span className="flex gap-7">
++          <span>Privacy</span>
++          <span>Terms</span>
++        </span>
+       </div>
+     </footer>
+   )
+--- a/app/sites/_components/SitesHeaderClient.tsx	2026-10-11 13:27:40
++++ b/app/sites/_components/SitesHeaderClient.tsx	2026-10-11 13:37:18
+@@ -16,7 +16,7 @@
+   ["about", "About", "/about"],
+ ] as const
+ 
+-export function SitesHeaderClient({ active, tone = "light" }: { active?: ActivePage; tone?: HeaderTone }) {
++export function SitesHeaderClient({ active, tone = "light", variant = "default" }: { active?: ActivePage; tone?: HeaderTone; variant?: "default" | "home" }) {
+   const [scrolled, setScrolled] = useState(false)
+   const [menuOpen, setMenuOpen] = useState(false)
+ 
+@@ -40,11 +40,11 @@
+           : "border-b border-transparent bg-transparent"
+       } ${darkAtTop ? "text-white" : "text-[#070707]"}`}
+     >
+-      <div className="mx-auto flex w-full max-w-[1220px] items-center justify-between">
+-        <a href="/" className="inline-block min-h-11 py-2 text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]" aria-label="Sorted home">
+-          Sorted<span className="text-[#cfe900]">.</span>
++      <div className={`mx-auto flex w-full items-center justify-between ${variant === "home" ? "max-w-[1280px]" : "max-w-[1220px]"}`}>
++        <a href="/" className={`inline-block min-h-11 py-2 font-black leading-none tracking-[-0.045em] ${variant === "home" ? "text-[34px] sm:text-[36px]" : "text-[33px] sm:text-[40px]"}`} aria-label="Sorted home">
++          Sorted<span className={variant === "home" ? "text-[#d7ff00]" : "text-[#cfe900]"}>.</span>
+         </a>
+-        <nav className="hidden items-center gap-6 text-[12px] font-extrabold tracking-[-0.02em] lg:flex">
++        <nav className={`hidden items-center text-[12px] font-extrabold tracking-[-0.02em] lg:flex ${variant === "home" ? "gap-3 xl:gap-6" : "gap-6"}`}>
+           {links.map(([key, label, href]) => (
+             <a key={key} href={href} className="relative py-2">
+               {label}
+@@ -53,11 +53,11 @@
+           ))}
+         </nav>
+         <div className="flex items-center gap-5">
+-          <a href="https://wa.me/447386468085" aria-label="WhatsApp Sorted" className="hidden text-[#04b800] lg:block">
++          <a href="https://wa.me/447386468085" aria-label="WhatsApp Sorted" className={`hidden ${variant === "home" ? "xl:block" : "lg:block"} ${variant === "home" && darkAtTop ? "text-[#d7ff00]" : "text-[#04b800]"}`}>
+             <Phone className="size-6" strokeWidth={2.4} />
+           </a>
+           <div className="hidden sm:block">
+-            <MockupButton variant={darkAtTop ? "yellow" : "nav"} label="Get your free mockup" />
++            <MockupButton variant={darkAtTop ? "yellow" : "nav"} label="Get your free mockup" className={variant === "home" && darkAtTop ? "bg-[#d7ff00]!" : ""} />
+           </div>
+           <button
+             type="button"
+--- a/app/sites/_components/GoogleReviews.tsx	2026-10-11 13:27:40
++++ b/app/sites/_components/GoogleReviews.tsx	2026-10-11 13:37:18
+@@ -12,14 +12,15 @@
+   )
+ }
+ 
+-function Stars({ rating }: { rating: number }) {
++function Stars({ rating, light = false }: { rating: number; light?: boolean }) {
++  const empty = light ? "fill-black/10 text-black/10" : "fill-white/15 text-white/15"
+   return (
+     <span className="flex gap-0.5" aria-label={`${rating} out of 5 stars`}>
+       {Array.from({ length: 5 }, (_, index) => (
+         <Star
+           key={index}
+           aria-hidden="true"
+-          className={`size-4 ${index < Math.round(rating) ? "fill-[#fbbc04] text-[#fbbc04]" : "fill-white/15 text-white/15"}`}
++          className={`size-4 ${index < Math.round(rating) ? "fill-[#fbbc04] text-[#fbbc04]" : empty}`}
+           strokeWidth={1.8}
+         />
+       ))}
+@@ -27,8 +28,64 @@
+   )
+ }
+ 
+-export function GoogleReviews({ data }: { data: GoogleReviewsData }) {
++function GoogleReviewsCards({ data }: { data: GoogleReviewsData }) {
++  const reviews = data.reviews.slice(0, 3)
+   return (
++    <section aria-labelledby="google-reviews-heading">
++      <div className={`grid gap-5 ${reviews.length > 1 ? "sm:grid-cols-2" : ""} ${reviews.length > 2 ? "lg:grid-cols-3" : ""}`}>
++        {reviews.map((review) => (
++          <blockquote key={`${review.authorName}-${review.text}`} className="flex flex-col rounded-[14px] border border-black/10 bg-white p-5 shadow-[0_14px_40px_rgba(0,0,0,0.05)]">
++            <Stars rating={review.rating} light />
++            <p className="mt-3.5 line-clamp-4 text-[13px] font-semibold leading-[1.55] tracking-[-0.015em] text-black/80">“{review.text}”</p>
++            <footer className="mt-auto pt-4">
++              <div className="flex items-end justify-between gap-4">
++                <div>
++                  <a href={review.authorUrl} target="_blank" rel="noreferrer" className="text-[12px] font-black transition-colors hover:text-[#5a7000]">
++                    {review.authorName}
++                  </a>
++                  <p className="mt-1 text-[11px] font-semibold text-black/45">{review.relativeTime} · Google</p>
++                </div>
++              </div>
++              <a
++                href={review.reviewUrl}
++                target="_blank"
++                rel="noreferrer"
++                aria-label={`Read ${review.authorName}'s full review on Google`}
++                className="mt-2.5 inline-flex min-h-11 items-center gap-2 text-[12px] font-black text-black/70 underline decoration-black/20 underline-offset-4 transition-colors hover:text-black"
++              >
++                Read full review on Google <ArrowUpRight className="size-3.5" strokeWidth={2.5} />
++              </a>
++            </footer>
++          </blockquote>
++        ))}
++      </div>
++      <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2.5">
++        <a
++          href={data.profileUrl}
++          target="_blank"
++          rel="noreferrer"
++          className="group inline-flex items-center gap-3 rounded-full border border-black/12 bg-white px-4 py-2 transition-colors hover:border-black/25"
++        >
++          <GoogleMark />
++          <strong className="text-[17px] tracking-[-0.03em]">{data.rating.toFixed(1)}</strong>
++          <Stars rating={data.rating} light />
++          <span id="google-reviews-heading" className="text-[11px] font-bold text-black/55">
++            {data.reviewCount} Google reviews for {data.businessName}
++          </span>
++          <ArrowUpRight className="size-4 text-black/40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={2.4} />
++        </a>
++        <p className="text-[11px] font-semibold text-black/40">Reviews supplied by Google</p>
++        <a href={data.writeReviewUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-[11px] font-black text-black/70 underline decoration-black/20 underline-offset-4 transition-colors hover:text-black">
++          Leave a Google review <ArrowUpRight className="size-3.5" strokeWidth={2.5} />
++        </a>
++      </div>
++    </section>
++  )
++}
++
++export function GoogleReviews({ data, variant = "default" }: { data: GoogleReviewsData; variant?: "default" | "cards" }) {
++  if (variant === "cards") return <GoogleReviewsCards data={data} />
++  return (
+     <section aria-labelledby="google-reviews-heading" className="overflow-hidden rounded-[18px] bg-white/[0.055] shadow-[0_22px_55px_rgba(0,0,0,0.22)] ring-1 ring-white/10">
+       <div className="flex flex-col gap-5 border-b border-white/10 px-6 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+         <div className="flex items-center gap-3">
+--- /dev/null
++++ b/app/home.module.css
+@@ -0,0 +1,763 @@
++.hero,
++.proof,
++.growth,
++.process,
++.portfolio,
++.pricing,
++.reviews,
++.cta {
++  --home-lime: #d7ff00;
++}
++
++.wrap {
++  width: 100%;
++  max-width: 1440px;
++  margin-inline: auto;
++  padding-inline: 80px;
++}
++.wrap :is(a, button):focus-visible {
++  outline: 2px solid currentColor;
++  outline-offset: 4px;
++}
++@media (max-width: 1023px) {
++  .wrap { padding-inline: 28px; }
++}
++@media (max-width: 640px) {
++  .wrap { padding-inline: 20px; }
++}
++
++.mockupCta {
++  min-height: 52px;
++  background: var(--home-lime);
++}
++@media (min-width: 1024px) and (max-width: 1200px) {
++  .mockupCta { font-size: 11px; padding-inline: 20px; }
++}
++
++/* ---------- Hero ---------- */
++.hero {
++  position: relative;
++  margin-top: -76px;
++  background: #070707;
++  color: #fff;
++  overflow: hidden;
++}
++.heroMedia {
++  position: absolute;
++  inset: 0;
++  z-index: 0;
++}
++.heroMedia :global(img) {
++  object-fit: cover;
++  object-position: 68% center;
++}
++.heroShade {
++  position: absolute;
++  inset: 0;
++  background: linear-gradient(
++    90deg,
++    #070707 0%,
++    rgba(7, 7, 7, 0.92) 30%,
++    rgba(7, 7, 7, 0.6) 52%,
++    rgba(7, 7, 7, 0.22) 72%,
++    rgba(7, 7, 7, 0.08) 100%
++  );
++}
++.heroInner {
++  position: relative;
++  z-index: 1;
++  min-height: 625px;
++  padding-top: 125px;
++  padding-bottom: 60px;
++}
++.heroCopy {
++  position: relative;
++  z-index: 1;
++  max-width: 630px;
++}
++.heroTitle {
++  margin: 0;
++  font-size: clamp(2.55rem, 4.45vw, 4rem);
++  font-weight: 900;
++  line-height: 0.96;
++  letter-spacing: -0.045em;
++}
++.heroScript {
++  display: inline-block;
++  position: relative;
++  font-family: var(--font-sites-fave-script);
++  font-size: 1.24em;
++  font-weight: 400;
++  line-height: 0.85;
++  letter-spacing: 0;
++  color: var(--home-lime);
++}
++.heroScriptUnderline {
++  position: absolute;
++  left: 0;
++  bottom: -10px;
++  display: block;
++  width: 100%;
++  height: 5px;
++  border-radius: 999px;
++  background: var(--home-lime);
++}
++.heroBody {
++  margin-top: 26px;
++  max-width: 520px;
++  font-size: clamp(1rem, 1.45vw, 1.3125rem);
++  font-weight: 600;
++  line-height: 1.55;
++  letter-spacing: -0.015em;
++  color: rgba(255, 255, 255, 0.82);
++}
++.heroCtaRow {
++  margin-top: 34px;
++  display: flex;
++  flex-wrap: wrap;
++  align-items: center;
++  gap: 22px;
++}
++.ctaNote {
++  display: inline-flex;
++  align-items: center;
++  gap: 12px;
++  font-size: 14px;
++  font-weight: 800;
++  color: rgba(255, 255, 255, 0.78);
++  white-space: nowrap;
++}
++.ctaNote i {
++  display: block;
++  width: 1px;
++  height: 16px;
++  background: rgba(255, 255, 255, 0.35);
++}
++.annotation {
++  position: absolute;
++  left: 56%;
++  top: 15%;
++  z-index: 2;
++  pointer-events: none;
++  display: none;
++}
++.annotationText {
++  font-family: var(--font-sites-highlight);
++  font-size: 26px;
++  line-height: 1.1;
++  color: #fff;
++  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
++}
++.annotationArrow {
++  display: block;
++  margin-top: 6px;
++  margin-left: 90px;
++  transform: rotate(6deg);
++}
++.conceptTag {
++  position: absolute;
++  right: 9%;
++  bottom: 8%;
++  z-index: 2;
++  display: none;
++  font-size: 10px;
++  font-weight: 800;
++  letter-spacing: 0.12em;
++  text-transform: uppercase;
++  color: rgba(255, 255, 255, 0.6);
++}
++@media (min-width: 1024px) {
++  .annotation, .conceptTag { display: block; }
++}
++@media (max-width: 1023px) {
++  .hero { display: flex; flex-direction: column; }
++  .hero > .wrap { order: 1; }
++  .heroInner {
++    min-height: 0;
++    padding-top: 116px;
++    padding-bottom: 36px;
++  }
++  .heroMedia {
++    order: 2;
++    position: relative;
++    inset: auto;
++    margin: 0 28px 36px;
++    aspect-ratio: 16 / 10;
++    border-radius: 14px;
++    overflow: hidden;
++    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.45);
++  }
++  .heroMedia :global(img) {
++    object-position: 62% center;
++  }
++  .heroShade {
++    background: linear-gradient(180deg, rgba(7, 7, 7, 0.06) 40%, rgba(7, 7, 7, 0.28) 100%);
++  }
++}
++@media (max-width: 640px) {
++  .heroTitle { font-size: clamp(2rem, 10.8vw, 2.55rem); }
++  .heroMedia { margin-inline: 20px; margin-bottom: 30px; }
++}
++
++/* ---------- Proof strip ---------- */
++.proof {
++  background: #fff;
++  border-bottom: 1px solid #e6e4de;
++  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 18px));
++  padding-bottom: 18px;
++}
++.proofGrid {
++  display: grid;
++  grid-template-columns: repeat(4, 1fr);
++  padding-block: 30px 26px;
++}
++.proofItem {
++  display: flex;
++  align-items: flex-start;
++  gap: 16px;
++  padding-inline: 30px;
++}
++.proofItem:first-child { padding-left: 0; }
++.proofItem + .proofItem { border-left: 1px solid #e6e4de; }
++.proofIcon {
++  display: grid;
++  place-items: center;
++  width: 52px;
++  height: 52px;
++  flex-shrink: 0;
++  border-radius: 999px;
++  border: 2px solid #0b0b0b;
++  background: var(--home-lime);
++}
++.proofTitle {
++  font-size: 14px;
++  font-weight: 900;
++  text-transform: uppercase;
++  letter-spacing: 0.04em;
++}
++.proofDetail {
++  margin-top: 6px;
++  font-size: 13.5px;
++  font-weight: 600;
++  line-height: 1.45;
++  color: rgba(0, 0, 0, 0.62);
++}
++@media (max-width: 1023px) {
++  .proofGrid { grid-template-columns: 1fr 1fr; gap: 22px 0; }
++  .proofItem { padding-inline: 0; }
++  .proofItem + .proofItem { border-left: 0; }
++}
++@media (max-width: 400px) {
++  .proofGrid { grid-template-columns: 1fr; }
++}
++
++/* ---------- Growth band ---------- */
++.growth {
++  position: relative;
++  background: #0b0b0b;
++  color: #fff;
++  overflow: hidden;
++}
++.growthInner {
++  position: relative;
++  z-index: 1;
++  display: grid;
++  grid-template-columns: minmax(0, 1.16fr) minmax(0, 1fr);
++  gap: 40px;
++  width: 72%;
++  min-height: 480px;
++  padding-block: 60px;
++  align-items: center;
++}
++.growthInner > * { min-width: 0; }
++.growthMedia {
++  position: absolute;
++  top: 0;
++  bottom: 0;
++  right: 0;
++  width: 40%;
++}
++.growthMedia :global(img) {
++  object-fit: cover;
++  object-position: center;
++}
++.growthFade {
++  position: absolute;
++  inset: 0;
++  background: linear-gradient(90deg, #0b0b0b 0%, rgba(11, 11, 11, 0.55) 32%, rgba(11, 11, 11, 0.05) 75%);
++}
++.growthTitle {
++  margin: 0;
++  max-width: 440px;
++  font-size: clamp(2rem, 3.35vw, 3rem);
++  font-weight: 900;
++  line-height: 0.98;
++  letter-spacing: -0.045em;
++}
++.growthScript {
++  display: block;
++  margin-top: 8px;
++  font-family: var(--font-sites-fave-script);
++  font-size: clamp(2.4rem, 4vw, 3.625rem);
++  font-weight: 400;
++  line-height: 0.85;
++  color: var(--home-lime);
++}
++.growthUnderline {
++  display: block;
++  margin-top: 18px;
++  width: 120px;
++  height: 5px;
++  border-radius: 999px;
++  background: var(--home-lime);
++}
++.growthBody {
++  margin-top: 22px;
++  max-width: 460px;
++  font-size: 16px;
++  font-weight: 600;
++  line-height: 1.55;
++  color: rgba(255, 255, 255, 0.72);
++}
++.growthCta {
++  margin-top: 30px;
++  display: inline-flex;
++  min-height: 52px;
++  align-items: center;
++  gap: 12px;
++  border-radius: 999px;
++  background: var(--home-lime);
++  padding-inline: 26px;
++  font-size: 13px;
++  font-weight: 900;
++  color: #0b0b0b;
++  transition: transform 0.2s, filter 0.2s;
++}
++.growthCta:hover { filter: brightness(1.06); transform: translateY(-1px); }
++.benefitList {
++  list-style: none;
++  margin: 0;
++  padding: 0;
++}
++.benefitItem {
++  display: flex;
++  gap: 16px;
++  padding-block: 20px;
++}
++.benefitItem + .benefitItem { border-top: 1px solid rgba(255, 255, 255, 0.13); }
++.benefitItem:first-child { padding-top: 0; }
++.benefitItem:last-child { padding-bottom: 0; }
++.benefitRing {
++  display: grid;
++  place-items: center;
++  width: 34px;
++  height: 34px;
++  flex-shrink: 0;
++  border-radius: 999px;
++  border: 2px solid var(--home-lime);
++}
++.benefitTitle {
++  font-size: 17px;
++  font-weight: 900;
++  letter-spacing: -0.03em;
++}
++.benefitCopy {
++  margin-top: 5px;
++  font-size: 13px;
++  font-weight: 600;
++  line-height: 1.5;
++  color: rgba(255, 255, 255, 0.62);
++}
++@media (max-width: 1023px) {
++  .growthInner {
++    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
++    width: 100%;
++    min-height: 0;
++    gap: 36px;
++    padding-block: 52px 44px;
++  }
++  .growthMedia { position: relative; width: 100%; aspect-ratio: 2 / 1; inset: auto; }
++  .growthFade { background: linear-gradient(180deg, rgba(11, 11, 11, 0.05) 50%, rgba(11, 11, 11, 0.3) 100%); }
++}
++@media (max-width: 640px) {
++  .growthInner { grid-template-columns: 1fr; }
++}
++
++/* ---------- Process ---------- */
++.process {
++  background: #fff;
++  border-bottom: 1px solid #e6e4de;
++}
++.processInner {
++  display: grid;
++  grid-template-columns: 23% 1fr;
++  gap: 48px;
++  padding-block: 56px;
++  align-items: start;
++}
++.sectionTitle {
++  margin: 0;
++  font-size: clamp(1.7rem, 2.65vw, 2.375rem);
++  font-weight: 900;
++  line-height: 0.98;
++  letter-spacing: -0.045em;
++}
++.sectionUnderline {
++  display: block;
++  margin-top: 14px;
++  width: 84px;
++  height: 5px;
++  border-radius: 999px;
++  background: var(--home-lime);
++}
++.sectionBody {
++  margin-top: 18px;
++  font-size: 14.5px;
++  font-weight: 600;
++  line-height: 1.55;
++  color: rgba(0, 0, 0, 0.62);
++}
++.outlineCta {
++  margin-top: 22px;
++  display: inline-flex;
++  min-height: 48px;
++  align-items: center;
++  gap: 10px;
++  border: 1px solid rgba(0, 0, 0, 0.22);
++  border-radius: 999px;
++  padding-inline: 22px;
++  font-size: 12px;
++  font-weight: 900;
++  color: #0b0b0b;
++  transition: background 0.2s, color 0.2s;
++}
++.outlineCta:hover { background: #0b0b0b; color: #fff; }
++.steps {
++  list-style: none;
++  margin: 0;
++  padding: 0;
++  display: grid;
++  grid-template-columns: repeat(4, minmax(0, 1fr));
++  gap: 34px;
++}
++.step { position: relative; min-width: 0; }
++.step::after {
++  content: "";
++  position: absolute;
++  top: 22px;
++  right: -24px;
++  width: 14px;
++  height: 14px;
++  border-top: 3px solid var(--home-lime);
++  border-right: 3px solid var(--home-lime);
++  transform: rotate(45deg);
++}
++.step:last-child::after { display: none; }
++.stepIcon {
++  display: grid;
++  place-items: center;
++  width: 52px;
++  height: 52px;
++  border-radius: 999px;
++  background: var(--home-lime);
++}
++.stepNum {
++  margin-top: 18px;
++  font-size: 11px;
++  font-weight: 900;
++  letter-spacing: 0.12em;
++  color: rgba(0, 0, 0, 0.4);
++}
++.stepTitle {
++  margin-top: 5px;
++  font-size: 17px;
++  font-weight: 900;
++  letter-spacing: -0.035em;
++}
++.stepCopy {
++  margin-top: 8px;
++  font-size: 13px;
++  font-weight: 600;
++  line-height: 1.55;
++  color: rgba(0, 0, 0, 0.62);
++}
++@media (max-width: 1023px) {
++  .processInner { grid-template-columns: 1fr; gap: 30px; }
++  .steps { gap: 22px; }
++  .step::after { right: -18px; }
++}
++@media (max-width: 767px) {
++  .steps { grid-template-columns: 1fr 1fr; }
++  .step::after { display: none; }
++}
++@media (max-width: 640px) {
++  .steps { grid-template-columns: 1fr; }
++}
++
++/* ---------- Portfolio ---------- */
++.portfolio {
++  background: #f5f3ee;
++  border-bottom: 1px solid #e6e4de;
++}
++.portfolioInner {
++  display: grid;
++  grid-template-columns: 26% 1fr;
++  gap: 48px;
++  padding-block: 60px;
++  align-items: start;
++}
++.caseGrid {
++  display: grid;
++  grid-template-columns: repeat(3, minmax(0, 1fr));
++  gap: 24px;
++}
++.caseCard {
++  min-width: 0;
++  overflow: hidden;
++  border-radius: 14px;
++  border: 1px solid rgba(0, 0, 0, 0.09);
++  background: #fff;
++  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.045);
++}
++.caseImg {
++  position: relative;
++  display: block;
++  aspect-ratio: 16 / 9;
++  overflow: hidden;
++  background: #080808;
++}
++.caseImg :global(img) {
++  object-fit: cover;
++  object-position: top;
++  transition: transform 0.5s;
++}
++.caseCard:hover .caseImg :global(img) { transform: scale(1.045); }
++.caseBody { padding: 16px 18px 18px; }
++.caseTags { display: flex; flex-wrap: wrap; gap: 7px; }
++.caseTag {
++  display: inline-flex;
++  height: 24px;
++  align-items: center;
++  border-radius: 999px;
++  background: var(--home-lime);
++  padding-inline: 10px;
++  font-size: 10px;
++  font-weight: 900;
++  color: #0b0b0b;
++}
++.caseTagMuted { background: rgba(0, 0, 0, 0.05); color: rgba(0, 0, 0, 0.58); }
++.caseName {
++  margin-top: 12px;
++  font-size: 18px;
++  font-weight: 900;
++  letter-spacing: -0.045em;
++}
++.caseLink {
++  margin-top: 12px;
++  display: inline-flex;
++  min-height: 44px;
++  align-items: center;
++  gap: 8px;
++  font-size: 12px;
++  font-weight: 900;
++  color: #0b0b0b;
++}
++.caseLink:hover { text-decoration: underline; }
++@media (max-width: 1023px) {
++  .portfolioInner { grid-template-columns: 1fr; gap: 30px; }
++  .caseGrid { gap: 18px; }
++  .caseName { font-size: 17px; }
++}
++@media (max-width: 767px) {
++  .caseGrid { grid-template-columns: 1fr 1fr; }
++}
++@media (max-width: 639px) {
++  .caseGrid { grid-template-columns: 1fr; max-width: 560px; }
++}
++
++/* ---------- Pricing ---------- */
++.pricing {
++  position: relative;
++  background: #070707;
++  color: #fff;
++  overflow: hidden;
++}
++.pricingCorner {
++  position: absolute;
++  width: 74px;
++  height: 6px;
++  border-radius: 999px;
++  background: var(--home-lime);
++  transform: rotate(-38deg);
++}
++.pricingCornerA { top: 26px; right: 64px; }
++.pricingCornerB { top: 44px; right: 34px; width: 46px; }
++.pricingInner {
++  position: relative;
++  z-index: 1;
++  display: grid;
++  grid-template-columns: minmax(0, 44fr) minmax(0, 28fr) minmax(0, 28fr);
++  gap: 40px;
++  padding-block: 52px 58px;
++}
++.pricingInner > * { min-width: 0; }
++.pricingEyebrow {
++  font-size: 11px;
++  font-weight: 900;
++  letter-spacing: 0.16em;
++  text-transform: uppercase;
++  color: rgba(255, 255, 255, 0.45);
++}
++.pricingTitle {
++  margin: 14px 0 0;
++  font-size: clamp(1.9rem, 3vw, 2.625rem);
++  font-weight: 900;
++  line-height: 0.98;
++  letter-spacing: -0.045em;
++}
++.pricingPrice {
++  margin-top: 22px;
++  font-size: clamp(3.4rem, 5.4vw, 4.875rem);
++  font-weight: 900;
++  line-height: 0.85;
++  letter-spacing: -0.06em;
++  font-variant-numeric: tabular-nums;
++}
++.pricingPriceUnderline {
++  display: block;
++  margin-top: 16px;
++  width: 110px;
++  height: 5px;
++  border-radius: 999px;
++  background: var(--home-lime);
++}
++.pricingTerms {
++  margin-top: 20px;
++  max-width: 400px;
++  font-size: 13px;
++  font-weight: 600;
++  line-height: 1.6;
++  color: rgba(255, 255, 255, 0.58);
++}
++.pricingIncludes {
++  border-left: 1px solid rgba(255, 255, 255, 0.16);
++  padding-left: 34px;
++  align-self: center;
++}
++.pricingList {
++  list-style: none;
++  margin: 0;
++  padding: 0;
++  display: grid;
++  gap: 13px;
++}
++.pricingList li {
++  display: flex;
++  align-items: center;
++  gap: 12px;
++  font-size: 14px;
++  font-weight: 700;
++}
++.pricingList :global(svg) { color: var(--home-lime); flex-shrink: 0; }
++.pricingRight {
++  border-left: 1px solid rgba(255, 255, 255, 0.16);
++  padding-left: 34px;
++  display: flex;
++  flex-direction: column;
++  justify-content: space-between;
++  gap: 26px;
++}
++.pricingNoHidden {
++  margin: 0;
++  font-size: 24px;
++  font-weight: 900;
++  line-height: 1.05;
++  letter-spacing: -0.035em;
++}
++.pricingRightCopy {
++  margin-top: 14px;
++  font-size: 13.5px;
++  font-weight: 600;
++  line-height: 1.6;
++  color: rgba(255, 255, 255, 0.68);
++}
++.pricingLink {
++  margin-top: 14px;
++  display: inline-flex;
++  min-height: 44px;
++  align-items: center;
++  gap: 8px;
++  font-size: 12px;
++  font-weight: 900;
++  color: rgba(255, 255, 255, 0.82);
++  text-decoration: underline;
++  text-underline-offset: 4px;
++}
++.pricingLink:hover { color: var(--home-lime); }
++@media (max-width: 1023px) {
++  .pricingInner { grid-template-columns: 1fr; gap: 34px; }
++  .pricingIncludes, .pricingRight { border-left: 0; padding-left: 0; }
++}
++
++/* ---------- Reviews ---------- */
++.reviews {
++  background: #f5f3ee;
++}
++.reviewsInner {
++  display: grid;
++  grid-template-columns: 26% 1fr;
++  gap: 48px;
++  padding-block: 48px;
++  align-items: start;
++}
++@media (max-width: 1023px) {
++  .reviewsInner { grid-template-columns: 1fr; gap: 30px; }
++}
++
++/* ---------- Final CTA ---------- */
++.cta {
++  background: var(--home-lime);
++  color: #0b0b0b;
++}
++.ctaInner {
++  display: grid;
++  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto;
++  align-items: center;
++  gap: 30px;
++  padding-block: 26px;
++  min-height: 110px;
++}
++.ctaTitle {
++  margin: 0;
++  font-size: clamp(1.4rem, 2.15vw, 1.9375rem);
++  font-weight: 900;
++  line-height: 1.05;
++  letter-spacing: -0.04em;
++}
++.ctaMid {
++  display: flex;
++  align-items: center;
++  gap: 20px;
++  border-left: 1px solid rgba(0, 0, 0, 0.22);
++  padding-left: 30px;
++}
++.ctaCopy {
++  margin: 0;
++  font-size: 14px;
++  font-weight: 700;
++  line-height: 1.5;
++}
++.ctaArrow {
++  flex-shrink: 0;
++}
++.ctaAction > :global(button) { min-height: 52px; }
++@media (max-width: 1200px) {
++  .ctaArrow { display: none; }
++}
++@media (max-width: 1023px) {
++  .ctaInner { grid-template-columns: minmax(0, 1.3fr) auto; }
++  .ctaMid { border-left: 0; padding-left: 0; }
++}
++@media (max-width: 767px) {
++  .ctaInner { grid-template-columns: 1fr; gap: 20px; padding-block: 30px; }
++}

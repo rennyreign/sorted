@@ -1,5 +1,5 @@
-export type OperatorStatus = 'pending' | 'in_progress' | 'passed' | 'failed' | 'skipped' | 'escalated';
-export declare const OPERATOR_IDS: readonly ["build-init", "mockup-regions", "asset-reconstruction", "asset-registry", "frontend-build", "visual-qa", "human-vision-qa", "pixel-correction", "ui-systemisation", "design-system", "core-build-qa", "internal-pages", "cms-integration", "cms-qa", "analytics", "launch-qa", "deployment"];
+export type OperatorStatus = 'pending' | 'in_progress' | 'passed' | 'failed' | 'skipped' | 'escalated' | 'supplied';
+export declare const OPERATOR_IDS: readonly ["build-init", "mockup-regions", "asset-reconstruction", "asset-registry", "frontend-build", "visual-qa", "human-vision-qa", "pixel-correction", "ui-systemisation", "design-system", "core-build-qa", "human-assessment", "workspace-build", "internal-pages", "cms-integration", "cms-qa", "analytics", "launch-qa", "deployment"];
 export type OperatorId = (typeof OPERATOR_IDS)[number];
 export type ExecutionMode = 'harness' | 'standalone';
 export declare const EXECUTION_MODE: Record<OperatorId, ExecutionMode>;
@@ -21,6 +21,10 @@ export interface OperatorState {
     failure_reason?: string;
     artifact_path?: string;
     notes?: string;
+    evidence?: {
+        source_revision?: string;
+        input_sha256?: string;
+    };
 }
 export interface VisualQALoopState {
     iteration: number;
@@ -36,9 +40,22 @@ export interface InternalPageState {
     qa_iterations: number;
 }
 export interface BuildState {
+    schema_version: 2;
     build_id: string;
     client_id: string;
     client_slug: string;
+    input_mode: 'supplied-pack' | 'legacy';
+    source_revision: string;
+    authorizations: {
+        cms: boolean;
+        deployment: boolean;
+    };
+    authorization_log: Array<{
+        target: 'cms' | 'deployment';
+        by: string;
+        reason: string;
+        at: string;
+    }>;
     mockup_reference: string;
     manifest_reference: string;
     build_dir: string;
@@ -62,7 +79,20 @@ export declare function createInitialBuildState(params: {
     mockup_reference: string;
     manifest_reference: string;
     build_dir: string;
+    input_mode?: 'supplied-pack' | 'legacy';
 }): BuildState;
 export declare const OPERATOR_SEQUENCE: OperatorId[];
+export declare const KNOWN_STATUSES: ReadonlySet<string>;
+export declare function isTerminalStatus(status: string): boolean;
+export declare const EDIT_STAGES: ReadonlySet<OperatorId>;
+export declare const EVIDENCE_STAGES: ReadonlySet<OperatorId>;
+export declare const SKIPPABLE_OPERATORS: ReadonlySet<OperatorId>;
+export declare function stateNeedsReconciliation(state: BuildState): string | null;
+export interface NextAction {
+    kind: 'operator' | 'blocked' | 'complete';
+    operator_id?: OperatorId;
+    reason?: string;
+}
+export declare function getNextAction(state: BuildState): NextAction;
 export declare function getNextOperator(state: BuildState): OperatorId | null;
 export declare function getOperatorMeta(id: OperatorId): OperatorMeta;

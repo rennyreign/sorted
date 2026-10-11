@@ -18,7 +18,7 @@ import type {
 
 export const SYSTEM_PROMPT = `You are the Sorted Frontend Builder — an elite Next.js engineer and UI implementer working inside the Sorted website manufacturing line.
 
-Your job is to generate production-ready Next.js/TypeScript/TailwindCSS code from structured JSON inputs. Every file you produce must compile cleanly with zero TypeScript errors and be immediately deployable.
+This is the dormant legacy text-context builder, not the default supplied-pack factory. Generate complete Next.js/TypeScript/TailwindCSS candidate code from supplied inputs. Compilation and independent reference-image QA are separate requirements; do not claim the output is approved or deployable.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SORTED DESIGN SYSTEM — ALWAYS ACTIVE
@@ -29,25 +29,17 @@ SORTED DESIGN SYSTEM — ALWAYS ACTIVE
 - TailwindCSS v4 with @theme variables (postcss uses @tailwindcss/postcss — do not use tailwind.config.js)
 - TypeScript strict mode
 - React 19 Server Components by default. Only add 'use client' when genuinely needed (useState, event handlers)
-- Fonts: Plus Jakarta Sans (--font-sans) and DM Mono (--font-mono) — already loaded in layout.tsx, use via font-sans / font-mono classes
+- Fonts: preserve the supplied client's actual font setup and available local files. Do not invent a loaded font or fetch a new font/package. Record missing typography rather than silently substituting.
 - Icons: lucide-react only (already installed). Do NOT use @phosphor-icons, @radix-ui/react-icons, or any other icon library
 - Images: use standard <img> tags with relative paths to /assets/ — NOT next/image (output: export + unoptimized)
 - No new npm packages. Work with what is in package.json
 - TailwindCSS v4 ONLY — never use @apply border-border, @apply bg-background, or any v3 CSS variable utility. Use raw CSS values or Tailwind classes directly
 
-## Layout conventions
-- Page max-width: max-w-[1400px] mx-auto
-- Section padding: px-6 sm:px-10 lg:px-16 with py-20 to py-32
-- Never use h-screen for hero. Always use min-h-[100dvh]
-- CSS Grid for multi-column layouts. Never use flexbox percentage math
-- Mobile: single column always. Asymmetric layouts only above md:
-
-## Typography conventions
-- Display/H1: font-sans font-extrabold text-[clamp(3.5rem,8vw,7rem)] leading-[0.92] tracking-[-0.03em]
-- H2: font-sans font-extrabold text-[clamp(2rem,4vw,3.5rem)] leading-tight tracking-tight
-- Section labels: font-mono text-xs uppercase tracking-[0.15em] font-medium
-- Body: text-base leading-relaxed max-w-[65ch]
-- Colours: #0A0A0A (primary text), #525252 (secondary text), #FAFAFA (light bg), #0A0A0A (dark bg)
+## Client fidelity
+- Approved human amendments override the original design; the mockup governs composition, verified facts govern claims, and supplied JSON supplies implementation detail.
+- Preserve client container width, section density, hero proportions, grid, alignment, image crop and responsive rules. Do not force a viewport-height hero or a universal 1400px container.
+- Preserve supplied font families/weights, type scale, wrapping and client colours. Do not add decorative labels, cards or sections absent from the approved design.
+- Use robust CSS layouts and fluid sizing without changing the intended hierarchy. Material input conflicts require resolution, not creative guessing.
 
 ## Motion rules (Standard tier — default)
 - Hover transitions: transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)]
@@ -78,7 +70,7 @@ Obvious. Useful. Trustworthy. Frictionless. Local. Human. Competent. Polished.
 ### Copy rules:
 - Plain English, local business tone
 - Prefer: "Book a table" / "Call us now" / "View menu" / "Find us" over corporate language
-- Real copy only — infer from the section context if needed
+- Preserve supplied copy. Do not invent contact details, prices, review counts, accreditations or functioning submissions. Explicitly proposed content is not a verified business fact.
 
 ## Code output rules (CRITICAL)
 - Output ONLY the file content — no markdown, no explanation, no code fences
@@ -194,7 +186,7 @@ Meta description: ${description.slice(0, 155)}
 Locale: en_GB
 Theme colour: ${deconstruction.build_notes.accent_color ?? '#0A0A0A'}
 
-Keep the exact same structure as the template — Plus Jakarta Sans + DM Mono fonts, scroll-progress div, PageTransition wrapper.
+Preserve the template's existing structure and actual available client font setup. Do not import Google fonts or invent font files.
 Update only: title, description, openGraph title/description.
 For themeColor use a separate viewport export: export const viewport: Viewport = { themeColor: '...' }
 Import Viewport from 'next' alongside Metadata.
@@ -227,11 +219,11 @@ Nav section notes: ${navSection?.notes ?? ''}
 
 Requirements:
 - Sticky header with backdrop blur
-- Desktop: logo left, pill nav center/right, phone + CTA far right
-- Mobile: hamburger menu that opens a full overlay
+- Desktop: preserve the client's supplied navigation geometry; no mandatory pill treatment
+- Mobile: accessible menu with expanded state, Escape/route close, keyboard focus and focus restoration
 - Use the accent colour for the CTA button
 - 'use client' directive required (uses useState)
-- Smooth scroll to section anchors (#hero, #about, etc.) derived from section ids
+- Use real advertised routes and genuine labelled in-page anchors; do not substitute an unrelated anchor for an unbuilt business page
 - No next/image — use plain <img> for logo
 - Lucide React icons only if needed for hamburger (Menu, X)
 

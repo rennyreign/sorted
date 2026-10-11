@@ -4,7 +4,7 @@ import { CheckList, SectionTitle, V2Page } from "../../_components/V2Primitives"
 
 export const metadata: Metadata = {
   title: "Example Diagnostic Review | Glow Dental",
-  description: "An example Sorted diagnostic review showing the routine reviewed, real cost, recommendation, proposed system, and impact forecast.",
+  description: "An illustrative example of enquiry follow-up and operational reporting; not verified client results.",
 }
 
 const contents = ["Executive Summary", "The Routine We Reviewed", "What We Found", "The Real Cost", "Our Recommendation", "Proposed System", "Prototype Preview", "Implementation Outline", "Impact Forecast", "What Happens Next"]
@@ -41,6 +41,9 @@ export default function DiagnosticReviewPage() {
           <header className="flex items-start justify-between border-b border-black/10 px-6 py-8 sm:px-10">
             <div>
               <h1 className="max-w-[620px] text-[clamp(3.2rem,6vw,5.7rem)] font-black leading-[0.92] tracking-[-0.055em]">Diagnostic Review<br />Glow Dental</h1>
+              <p className="mt-6 inline-block rounded-full border border-black/15 bg-white px-4 py-2 text-[11px] font-black uppercase tracking-[0.05em] text-black/60">
+                Illustrative example. Figures and quoted feedback are not verified client results.
+              </p>
               <div className="mt-5 h-[6px] w-48 rounded-full bg-[#dfff00]" />
               <p className="mt-8 text-[12px] font-black">DATE: <span className="ml-8">12 May 2025</span></p>
               <p className="mt-3 text-[12px] font-black">PREPARED BY: <span className="ml-8">Sorted.</span></p>
@@ -130,7 +133,7 @@ export default function DiagnosticReviewPage() {
 
           <div className="grid border-b border-black/10 lg:grid-cols-2">
             <ReportBlock number="09" title="Impact forecast (first 12 months)">
-              <div className="grid grid-cols-4 gap-5 text-center">
+              <div className="grid grid-cols-2 gap-5 text-center sm:grid-cols-4">
                 {["295 Hours returned", "756 Enquiries recovered", "1,240 Reviews potential", "£100,800 Value recovered"].map((item) => (
                   <p key={item} className="text-[20px] font-black leading-[1.1] tracking-[-0.04em]">{item}</p>
                 ))}

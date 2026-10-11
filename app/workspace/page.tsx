@@ -13,6 +13,7 @@ import { WorkspaceShell, workspacePath } from "./_components/WorkspaceShell"
 import { ReviewScreen } from "./_components/ReviewScreen"
 import { WebsiteScreen } from "./_components/WebsiteScreen"
 import { NextStepsScreen } from "./_components/NextStepsScreen"
+import { AdsScreen, FollowUpScreen, ProspectOverviewScreen, TrackingScreen } from "./_components/AcquisitionScreens"
 import { DetailsScreen, ProjectScreen } from "./_components/ProjectScreen"
 import { DocumentsScreen, HelpScreen, OverviewScreen } from "./_components/LiveScreens"
 import { QuestionDrawer } from "./_components/Dialogs"
@@ -40,7 +41,7 @@ function parseLocation(): { slug: string | null; route: WorkspaceRoute | null; d
 }
 
 function resolveRoute(state: WorkspaceState, route: WorkspaceRoute | null): WorkspaceRoute {
-  const prospectRoutes: WorkspaceRoute[] = ["review", "website", "next-steps"]
+  const prospectRoutes: WorkspaceRoute[] = ["overview", "review", "website", "ads", "follow-up", "tracking", "next-steps"]
   if (state === "live") {
     if (route === "overview" || route === "documents" || route === "help" || route === "website") return route
     return "overview"
@@ -149,7 +150,13 @@ export default function WorkspacePage() {
 
   return (
     <WorkspaceShell workspace={workspace} route={route} onNavigate={navigate}>
+      {route === "overview" && workspace.state === "prospect" ? (
+        <ProspectOverviewScreen workspace={workspace} onNavigate={navigate} />
+      ) : null}
       {route === "review" ? <ReviewScreen workspace={workspace} onNavigate={navigate} /> : null}
+      {route === "ads" ? <AdsScreen workspace={workspace} onNavigate={navigate} /> : null}
+      {route === "follow-up" ? <FollowUpScreen workspace={workspace} /> : null}
+      {route === "tracking" && workspace.state === "prospect" ? <TrackingScreen workspace={workspace} /> : null}
       {route === "website" ? (
         <WebsiteScreen workspace={workspace} onNavigate={navigate} onAskQuestion={() => setQuestionOpen(true)} />
       ) : null}
@@ -160,7 +167,9 @@ export default function WorkspacePage() {
         <ProjectScreen workspace={workspace} onNavigate={navigate} onAskQuestion={() => setQuestionOpen(true)} />
       ) : null}
       {route === "details" ? <DetailsScreen workspace={workspace} onAskQuestion={() => setQuestionOpen(true)} /> : null}
-      {route === "overview" ? <OverviewScreen workspace={workspace} onAskQuestion={() => setQuestionOpen(true)} /> : null}
+      {route === "overview" && workspace.state === "live" ? (
+        <OverviewScreen workspace={workspace} onAskQuestion={() => setQuestionOpen(true)} />
+      ) : null}
       {route === "documents" ? <DocumentsScreen workspace={workspace} /> : null}
       {route === "help" ? <HelpScreen workspace={workspace} onAskQuestion={() => setQuestionOpen(true)} /> : null}
 

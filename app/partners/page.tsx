@@ -35,7 +35,7 @@ export default function AffiliatesLanding() {
           </div>
           <Underline className="mt-2 w-[300px]" />
           <p className="mt-7 max-w-[460px] text-[17px] font-semibold leading-[1.5] tracking-[-0.03em]">
-            We build world-class websites fast, with no upfront cost to the client. You find the business, we do the work, and you pocket £75–£300 every time a site sells.
+            We design and build complete websites for local businesses, with no upfront cost to the client. You find the business, we do the work, and you pocket £75–£300 every time a site sells.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-5">
             <PrimaryButton href="/partners/apply">
@@ -52,7 +52,7 @@ export default function AffiliatesLanding() {
         <div className="relative">
           <div className="grid gap-4 sm:grid-cols-2">
             <StatTile icon={Users} stat="Live" label="Referral tracking" copy="Submit prospects and follow each one through to payout." />
-            <StatTile icon={Clock3} stat="24hrs" label="Mockup turnaround" copy="Most mockups built within a day." />
+            <StatTile icon={Clock3} stat="Fast" label="Mockup turnaround" copy="Turnaround agreed with each referral." />
             <StatTile icon={BadgePoundSterling} stat="£300" label="Top payout per site" copy="For established business referrals." />
             <StatTile icon={Check} stat="0" label="Upfront cost to client" copy="They see the design before paying." />
           </div>
@@ -68,7 +68,7 @@ export default function AffiliatesLanding() {
         <div className="grid gap-7 md:grid-cols-4">
           {[
             [Users, "You refer a business", "Submit a mockup request through your portal with a few details about the business."],
-            [Clock3, "We design the mockup", "Sorted Sites builds a free, no-obligation mockup within 24 hours."],
+            [Clock3, "We design the mockup", "Sorted Sites builds a free, no-obligation mockup on an agreed turnaround."],
             [Check, "The client decides", "They see the design first. If they like it, they approve and we build."],
             [HandCoins, "You get paid", "When the client purchases, you earn £75–£300 by bank transfer."],
           ].map(([Icon, title, copy], index) => {

@@ -1,43 +1,48 @@
 ---
 name: start-build
-description: Start a new Sorted website build (manufacture a site). Use when the user says "build a website", "start a new site", "manufacture a site", "start a build", "run the manufacturing line", or provides a client slug + mockup + manifest to begin a website build.
+description: Start a Sorted client website from a ChatGPT export pack, approved mockup, design-IR and supplied images, or configure its acquisition workspace. Use for new client builds, export-pack intake, manufacturing starts and client hubs with website, ads, follow-up, tracking and booking.
 ---
 
-# Start a New Website Build
+# Start a Client Build or Configure Its Workspace
 
 ## Stage 1 Internal-Page Links
 
 Before building or resuming a pre-approval client site, read `operators/skills/stage-1-direction-confirmation.md` (from the Sorted repo root). Implement its shared direction-confirmation pages and consistent internal routes during Op 4, before Op 5/5b. This is an intentional review state, not a finished internal page or client approval.
 
 
-This is the **single entry point** for starting a new Sorted website build. It creates a sibling project folder, scaffolds the Next.js site from the client-site template, copies the mockup and manifest, and initialises the factory job.
+Use this entry point for new Sorted website builds and their client acquisition hubs. A new site build scaffolds a sibling project and initialises the factory job; an existing workspace update uses the shared hub and client configuration.
 
 ## What to load first
 
 Before running anything, read the full operator skill:
 
-1. **Full skill doc:** `/Users/renaldoedmondson/Projects/sorted/operators/skills/start-build.md` — complete instructions, prerequisites, and the operator sequence
-2. **Manufacturing line overview:** `/Users/renaldoedmondson/Projects/sorted/operators/skills/manufacturing-line.md` — the 17-operator chain
+1. **Website task:** `/Users/renaldoedmondson/Projects/sorted/operators/skills/factory-operators.md` - complete-pack intake, phase contracts, safe resume and evidence.
+2. **Workspace task:** `operators/skills/workspace-build.md` and `operators/skills/start-build.md` -> Client workspace standard. Load these instead of scaffolding another site.
+3. **Lifecycle reference when needed:** `doctrine/operator-chain.md`. The full downstream lifecycle remains active.
 
 ## Build Request Is Local Build Approval
 
 A request to build a new client website authorises the normal local Stage 1 work: scaffold its sibling project, customise the template root layout and components, add advertised routes, optimise supplied assets, and run local checks and a preview. Do not ask for a separate `/approve` for these steps.
 
-Inspect the supplied folder first. Read the client slug, approved mockup and manifest from supplied files when present; ask only for genuinely missing or conflicting inputs. A supplied `design-ir.json` containing the project slug, sections and asset manifest is a valid manifest.
+Inspect the supplied export folder first. ChatGPT now supplies approved mockup, reconstructed images and design-IR/asset manifests. Read these together; do not run local deconstruction or image generation by default. Resolve slug from supplied information/user, and ask only for genuinely missing or conflicting inputs.
 
 Keep the separate safety gates: do not overwrite an existing build, install packages, access the network, modify deployment configuration, deploy to production, or treat a build request as client design approval. Ask for the specific permission when one of these actions is needed. CMS remains a separate step after Nod 2.
 
-## Workspace review principles
+## Client workspace: acquisition hub v2
 
-The client workspace (`/workspace?slug=<slug>&route=review`) is where the client first sees the build. The review tells a two-part story: **why we built it** (the business's real strengths vs how its old online presence failed to capitalise, via `review.rebuildReasons[]` with `strength`/`gap` pairs) and **what's improved** (benefit-led `review.observations[]`). When the business had no website, adapt the angle (`revealTitle` "We built your site.", `reasonsHeading` "Why we built it", `gapColumnLabel` e.g. "Your Facebook page"). The reveal card always carries a real homepage screenshot (`previewImageUrl`, optimised webp in `sorted/public/`). Full contract and copy rules: `operators/skills/start-build.md` → "Workspace review screen" and "Writing the workspace review".
+The default prospect experience is now Overview / Your New Site / Your Ads / Follow-up / Tracking, with a separate Next steps action. Read `operators/skills/start-build.md` → **Client workspace standard: acquisition hub v2** when preparing or updating a client hub. The approved implementation is `sweeneys-martial-arts` in `lib/workspace.ts` and the shared `app/workspace/_components/` screens.
+
+Configure the existing shared hub through `WORKSPACE_OVERRIDES`: one customer offer, client-specific interests, complete standalone ads, selectable full email previews, a customer journey with labelled illustrative tracking, and immediate booking. The website fills the viewport beneath the global navbar. Next Steps leads with “Interested? Book your call.” and keeps “What's the cost?” secondary. Use supplied client assets/messages; mark unbuilt pages and unconnected services honestly. A proposal preview does not authorise deployment, advertising, email sending or CMS installation.
+
+For workspace-only work, inspect the existing client row/configuration and supplied inputs; do not scaffold a new sibling site or require a mockup/manifest unless a new website build is also requested. The `review` route remains compatibility support, not the default client entry point. Preserve project/live states and client-specific payment links and prices.
 
 ## Prerequisites
 
-Before starting, you need three things from the user. If any are missing, **stop and ask** — do not guess:
+Before scaffolding a new client website, resolve these three inputs from the supplied files or user. Ask for genuinely missing or conflicting inputs. Workspace-only updates do not require them:
 
 1. **Client slug** — lowercase, hyphenated (e.g., `nexus-accounting`, `lrt-plumbing`)
 2. **Mockup image path** — absolute path to an approved mockup (`.png`, `.jpg`, or `.webp`)
-3. **Manifest path** — absolute path to the image manifest JSON (deconstruction + asset manifest)
+3. **Export-pack directory** - design-IR, asset manifests and supplied image/font files. Preserve every original; intake validates file references before creating the project.
 
 ## How to start the build
 
@@ -46,8 +51,7 @@ Run the start-build script with absolute paths:
 ```bash
 /Users/renaldoedmondson/Projects/sorted/operators/factory-orchestrator/scripts/start-build.sh \
   <client-slug> \
-  <mockup-path> \
-  <manifest-path>
+  <export-pack-directory>
 ```
 
 **Example:**
@@ -55,15 +59,14 @@ Run the start-build script with absolute paths:
 ```bash
 /Users/renaldoedmondson/Projects/sorted/operators/factory-orchestrator/scripts/start-build.sh \
   nexus-accounting \
-  /Users/renaldoedmondson/Downloads/nexus-accounting.png \
-  /Users/renaldoedmondson/Downloads/nexus-accounting-manifest.json
+  /Users/renaldoedmondson/Downloads/nexus-accounting-export
 ```
 
 This will:
 1. Create `/Users/renaldoedmondson/Projects/<client-slug>/` (sibling to sorted)
 2. Scaffold the Next.js site from `sorted/templates/client-site/`
-3. Copy mockup + manifest into `input/`
-4. Initialise the factory job (creates `state/build-state.json`)
+3. Preserve the complete supplied pack in `input/`, with hashes and provenance in `artifacts/input-contract.json`
+4. Initialise the versioned factory job; reconstruction is externally supplied, registry/QA remain active
 5. Print the next steps
 
 ## If the build directory already exists
@@ -120,15 +123,6 @@ This is the only step where the agent itself needs vision capability. When you r
 2. Start the dev server: `cd <build-dir> && npx serve out -p 3999`
 3. Compare the rendered site to the mockup at `input/approved-mockup.png`
 4. Mark as `passed`, `skipped`, or `failed` with notes
-
-## Workspace review copy
-
-When the client review workspace is compiled, the review tells two halves of one story:
-
-1. **"Why we rebuilt it"** (`review.rebuildReasons[]` in `WORKSPACE_OVERRIDES`) — each reason pairs a real business strength (`strength`) with how its previous online presence failed to capitalise (`gap`). Rendered as "Your business" / "Your old site" columns.
-2. **"What's improved"** (`review.observations[]`) — benefit-led observations following the chain: trust → enquiries → customers.
-
-Adapt the angle to the client's starting point. If they had no website (Facebook page or directory listing only), set `revealTitle`, `revealBody`, `reasonsHeading` ("Why we built it") and `gapColumnLabel` accordingly — never describe a site that didn't exist. See `operators/skills/start-build.md` for the full rules and checklist.
 
 ## Resuming a build
 

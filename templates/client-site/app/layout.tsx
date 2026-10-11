@@ -1,20 +1,12 @@
 import type { Metadata } from "next"
-import { Plus_Jakarta_Sans, DM_Mono } from "next/font/google"
 import "./globals.css"
 
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  weight: ["400", "500", "600", "700", "800"],
-  display: "swap",
-})
-
-const dmMono = DM_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  weight: ["400", "500"],
-  display: "swap",
-})
+// Fonts are offline-first. Do NOT use next/font/google — it fetches
+// at build time and silently fails or swaps faces when offline.
+// When the supplied pack ships font files (input/*.woff2), copy them
+// to public/fonts/, declare @font-face rules in globals.css that set
+// --font-sans / --font-mono, and verify the rendered faces and weights
+// match the mockup. Until then the theme falls back to system stacks.
 
 export const metadata: Metadata = {
   title: "Client Site",
@@ -37,10 +29,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html
-      lang="en-GB"
-      className={`${plusJakarta.variable} ${dmMono.variable}`}
-    >
+    <html lang="en-GB">
       <body>
         <div className="scroll-progress" />
         {children}

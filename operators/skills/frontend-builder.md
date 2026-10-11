@@ -7,21 +7,23 @@ Before building or resuming a pre-approval client site, read `operators/skills/s
 
 **Type:** Step skill — Chain Step 3 of 3  
 **Trigger:** Loaded by `site-build` skill, or directly when user asks to build the frontend  
-**External API:** Claude (code generation) — `claude-sonnet-4-5` by default  
-**Input:** `deconstruction.json` + `manifest.json` + `assets/`  
+**Execution:** Active coding harness; older API CLI is a dormant legacy fallback  
+**Input:** Approved mockup + supplied design-IR + validated asset registry + client facts/unknowns  
 **Output:** Complete Next.js client site repo, `npm run build` passing
 
 ---
 
 ## What this step does
 
-Takes the structured deconstruction and asset manifest and produces a complete, ready-to-review Next.js site. It:
+The default path follows `factory-operators.md` and builds a ready-to-review Next.js site from the ChatGPT export pack. Preserve originals and source precedence; do not repeat local deconstruction/generation. The older API implementation remains a fallback and is not a fidelity-certified scale solution.
+
+The legacy implementation:
 
 1. Scaffolds the repo from `templates/client-site/`
 2. Copies all asset WebP variants into `public/assets/`
 3. Populates `client/brief.md` from the deconstruction data
 4. Generates each file (globals.css, layout.tsx, Nav, sections, Footer, page.tsx) as a separate Claude call
-5. Runs `npm install` + `npm run build` to verify the output
+5. Runs verification only when requested; dependency installation requires explicit opt-in/permission
 
 **Critical principle:** The agent writes the code directly, section by section, reading the mockup image and the deconstruction JSON together. Claude is used for boilerplate and initial structure — the agent reviews and corrects the output before accepting it.
 
@@ -31,7 +33,7 @@ Takes the structured deconstruction and asset manifest and produces a complete, 
 
 ### Orchestration agent path (standard — preferred)
 
-**Write the code directly.** Load the mockup image alongside the deconstruction JSON. For each section, write the TSX by hand — referencing the mockup visually and the deconstruction JSON for copy, assets, and structure.
+Use the coding harness's normal implementation/review workflow. Load the approved mockup alongside supplied design-IR, client facts and resolved assets. Build section by section against their composition, copy and proportions. Do not force the lead to personally write every file when bounded implementation delegation is available.
 
 This produces higher-fidelity output than delegating entirely to Claude, because:
 - The mockup image contains layout information (proportions, spacing, image positions) that the JSON does not fully capture
@@ -44,10 +46,10 @@ This produces higher-fidelity output than delegating entirely to Claude, because
 3. `components/Nav.tsx` — logo treatment, links, phone, CTA button
 4. `components/sections/Hero1.tsx` — full-bleed, exact headline treatment from mockup
 5. `components/sections/*.tsx` — one file per section, visual fidelity to mockup
-6. `components/Footer.tsx` — 4-column, social icons, legal links
+6. `components/Footer.tsx` - the approved client's structure, verified destinations and legal/review states
 7. `app/page.tsx` — clean assembler, imports all sections
 
-**Or use the operator CLI for initial generation, then review and correct:**
+**Dormant legacy CLI, only when explicitly selected:** Never aim it at an existing repo. No-build/dry-run is not verification, and API/network/install permission remains separate.
 ```bash
 cd operators/frontend-builder/implementation
 node dist/cli.js \
@@ -63,7 +65,7 @@ Then open the dev server and compare against the mockup visually. Fix any sectio
 
 ### Operator pipeline path (scale)
 
-The Node.js operator at `operators/frontend-builder/implementation/` runs the full generation via Claude. Suitable for automated pipelines where human visual review happens after the fact.
+The Node.js implementation is a legacy text-context generation path. Do not describe it as proven higher-throughput manufacturing until paired tests establish accepted fidelity, reliability and total rework cost.
 
 ---
 
@@ -102,7 +104,7 @@ For each section, verify against the mockup:
 - [ ] Card structure matches — border presence/absence, padding, spacing
 - [ ] CTA style matches — filled vs outlined, size, tracking
 
-The mockup is the source of truth for layout. The deconstruction JSON is the source of truth for copy and asset IDs.
+Approved human amendments override the original design. The mockup governs composition; verified facts govern claims; design-IR supplies detail/copy/IDs unless conflicting. Stop for material conflicts. Use available client font files and verify rendered faces/weights; generic typography/spacing defaults do not override the image.
 
 ---
 

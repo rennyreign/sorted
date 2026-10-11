@@ -157,6 +157,16 @@ The blurred mockup image is uploaded by the operator via the Pipeline drawer in 
 
 The build chain begins after the prospect responds and Nod 1 is obtained.
 
+### Current Producer And Execution Contract
+
+ChatGPT now produces the approved mockup, reconstructs images, creates design-IR/asset manifests and exports the complete pack. The CLI validates/preserves this pack; local deconstruction and image generation are conditional dormant fallbacks, not default work. Asset optimisation and registration remain active.
+
+Canonical execution: `operators/skills/factory-operators.md`; workspace handoff: `operators/skills/workspace-build.md` plus the acquisition hub standard in `start-build.md`. Intake writes `input-contract.json`, factory state validates evidence and source revisions, and `scripts/manufacturing-ledger.mjs` records attempt time/cost without converting unknowns to zero.
+
+Default flow: supplied pack -> intake/registry -> frontend -> structural QA -> independent vision QA/correction -> systemisation/design grammar/core QA -> explicit human assessment -> approved workspace brief/manufacture. The full internal-page/CMS/CMS-QA/analytics/launch/deployment lifecycle remains relevant under its approval gates.
+
+The legacy three-step artifacts/map below describe fallback compatibility, not the default export-pack route. Do not repeat upstream production merely to populate a historical artifact shape.
+
 ### The Two Execution Modes
 
 The build chain has two runtime modes. The doctrine, state shape, and output quality are identical in both. Only the runtime differs.
@@ -168,10 +178,10 @@ The active coding harness runs the operator skill in a single session. It loads 
 ```
 Harness session
   |-- reads doctrine + skills
-  |-- Step 1: calls vision API -> writes deconstruction.json
-  |-- Step 2: calls image gen API -> writes assets/ + manifest.json
-  |-- Step 3: writes TSX directly -> runs next build
-  `-- hands off output repo
+  |-- validates supplied mockup/design-IR/images -> input-contract.json
+  |-- optimises/registers supplied assets -> asset-registry.json
+  |-- builds TSX -> static build -> structural/independent vision QA
+  `-- preserves lifecycle gates and human-approved workspace handoff
 ```
 
 When to use: single-client work and curated batches. This is the default while the operating contract is being refined.
@@ -319,18 +329,18 @@ manifest.json + assets/
 
 **For the orchestration agent**
 
-1. Load `doctrine/operator-chain.md` at session start. Know the state shape before touching anything.
-2. Run steps sequentially. The asset generator needs the deconstruction JSON before it can run.
+1. Load the canonical phase contract and actual supplied inputs/evidence. Load broader lifecycle doctrine as needed.
+2. Follow factory prerequisite/approval gates. Supplied reconstruction does not trigger local generation; the first pilot is sequential across sites.
 3. Write each artifact to the canonical path before proceeding to the next step.
 4. If a step fails, diagnose against the artifact schema before retrying.
-5. Do not skip the build verification step. `npm run build` passing is the quality gate.
+5. Build success is necessary, not sufficient: require current structural and independent visual evidence; human approval is separate.
 
 **For the operator pipeline**
 
 1. Each operator reads its input artifact path from the job payload.
 2. Each operator writes its output artifact to the path specified in the job payload.
 3. Operators are stateless. They carry no memory between runs.
-4. Retries are safe. Operators are idempotent given the same input.
+4. Retry only against validated inputs and safe output boundaries. Do not assume legacy scaffolding is idempotent; never delete an existing client repo to retry.
 5. The job queue is responsible for sequencing. Operators do not know about each other.
 
 ---
@@ -412,9 +422,12 @@ When adding a new step to the chain:
 
 | Step | Skill | Operator | Status |
 |---|---|---|---|
-| Mockup Deconstructor | `operators/skills/mockup-deconstructor.md` | `operators/mockup-deconstructor/` | Active |
-| Asset Generator | `operators/skills/asset-generator.md` | `operators/asset-generator/` | Active |
-| Frontend Builder | `operators/skills/frontend-builder.md` | `operators/frontend-builder/` | Active |
-| SortedUpdates CMS | `.devin/workflows/add-decap-cms.md` | `operators/sorted-updates/` | Active |
-| Playwright Tests | | | Planned |
+| Intake / Registry / Safe Resume | `operators/skills/factory-operators.md` | `operators/factory-orchestrator/` | Default |
+| Mockup Deconstructor | `operators/skills/mockup-deconstructor.md` | `operators/mockup-deconstructor/` | Conditional missing-design fallback |
+| Asset Generator | `operators/skills/asset-generator.md` | `operators/asset-generator/` | Dormant for supplied packs |
+| Frontend Builder | `operators/skills/frontend-builder.md` | Active coding harness; older API CLI dormant | Active |
+| Independent Vision QA | `operators/skills/op-05b-human-vision-qa.md` | Read-only reviewer | Required |
+| Workspace Handoff | `operators/skills/workspace-build.md` | Shared acquisition hub v2 | Human-approved brief |
+| SortedUpdates CMS | `.devin/workflows/add-decap-cms.md` | `templates/sorted-studio/` | Post-Nod 2 |
+| Browser Checks | `operators/skills/factory-operators.md` | `scripts/manufacturing-browser-qa.mjs` | Reusable checks plus client-specific tests |
 | Client Quote Page | | | Active |

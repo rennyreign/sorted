@@ -6,7 +6,7 @@ Before building or resuming a pre-approval client site, read `operators/skills/s
 
 
 **Type:** Entry point skill — read this first before any website build
-**Trigger:** User asks to build a website, start a new site, manufacture a site, or run the manufacturing line
+**Trigger:** User asks to build a website, start a new site, manufacture a site, run the manufacturing line, or create/update a client acquisition workspace
 **Output:** A scaffolded project folder with factory job initialised
 
 ---
@@ -15,25 +15,25 @@ Before building or resuming a pre-approval client site, read `operators/skills/s
 
 This is the **single entry point** for starting a new Sorted website build. If you're asking "how do I begin a new site?" — you're in the right place.
 
-It creates a sibling project folder (not inside sorted), scaffolds the Next.js site from the client-site template, copies the mockup and manifest, and initialises the factory job.
+It creates a sibling project folder (not inside sorted), scaffolds the Next.js site from the client-site template, preserves the complete ChatGPT export pack, and initialises the factory job. Canonical phase/evidence instructions live in `operators/skills/factory-operators.md`; do not run a competing three-step generation chain.
 
 ## Build Request Is Local Build Approval
 
 A request to build a new client website authorises the normal local Stage 1 work: scaffold its sibling project, customise the template root layout and components, add advertised routes, optimise supplied assets, and run local checks and a preview. Do not ask for a separate `/approve` for these steps.
 
-Inspect the supplied folder first. Read the client slug, approved mockup and manifest from supplied files when present; ask only for genuinely missing or conflicting inputs. A supplied `design-ir.json` containing the project slug, sections and asset manifest is a valid manifest.
+Inspect the supplied folder first. ChatGPT supplies the approved mockup, reconstructed images and design-IR/asset manifests. Read them together; local image generation is dormant by default. Ask only for genuinely missing or conflicting inputs. Do not interpret unsupported business facts as verified claims.
 
 Keep the separate safety gates: do not overwrite an existing build, install packages, access the network, modify deployment configuration, deploy to production, or treat a build request as client design approval. Ask for the specific permission when one of these actions is needed. CMS remains a separate step after Nod 2.
 
 ## Prerequisites
 
-Before starting, you need:
+Before scaffolding a new client website, resolve:
 
 1. **An approved mockup image** (`.png`, `.jpg`, or `.webp`)
-2. **An image manifest JSON** — the combined deconstruction + asset manifest that describes every section, asset, copy element, and design token
+2. **The complete export folder** - design-IR, asset manifests and reconstructed image/font originals; referenced required files must exist
 3. **A client slug** — lowercase, hyphenated (e.g., `lrt-plumbing`, `chillika`)
 
-If any are missing, stop and ask.
+Ask for genuinely missing or conflicting build inputs. For workspace-only updates, inspect the existing client configuration and supplied content instead; do not require a new mockup/manifest or scaffold a sibling site.
 
 ## How to start a build
 
@@ -42,8 +42,7 @@ If any are missing, stop and ask.
 ```bash
 /Users/renaldoedmondson/Projects/sorted/operators/factory-orchestrator/scripts/start-build.sh \
   <client-slug> \
-  <mockup-path> \
-  <manifest-path>
+  <export-pack-directory>
 ```
 
 **Example:**
@@ -51,15 +50,14 @@ If any are missing, stop and ask.
 ```bash
 /Users/renaldoedmondson/Projects/sorted/operators/factory-orchestrator/scripts/start-build.sh \
   lrt-plumbing \
-  ~/Downloads/lrt-mockup.png \
-  ~/Downloads/lrt-manifest.json
+  ~/Downloads/lrt-export
 ```
 
 This will:
 1. Create `/Users/renaldoedmondson/Projects/<client-slug>/` (sibling to sorted)
 2. Scaffold the Next.js site from `sorted/templates/client-site/`
-3. Copy mockup + manifest into `input/`
-4. Initialise the factory job (creates `state/build-state.json`)
+3. Preserve the whole export pack in `input/`, including all originals and manifests
+4. Initialise versioned state and `input-contract.json`; supplied reconstruction does not trigger local model calls
 5. Print the next steps
 
 ### What gets created
@@ -72,11 +70,12 @@ This will:
   client/           ← Client brief + assets (from template)
   scripts/          ← Build scripts (from template)
   input/
-    approved-mockup.png    ← Your mockup
-    image-manifest.json    ← Your manifest
+    approved-mockup.png    ← Approved reference, with original media type preserved
+    design-ir.json        ← Supplied design detail, not a replacement for visual authority
+    assets/               ← Supplied originals (their original paths are preserved)
   state/
     build-state.json       ← Factory job state (tracks operator progress)
-  artifacts/        ← (created as operators run)
+  artifacts/        ← Input contract, registry, QA and attempt evidence
   package.json
   next.config.mjs
   tsconfig.json
@@ -93,38 +92,30 @@ Once the build is initialised, run operators in sequence. The factory orchestrat
 node /Users/renaldoedmondson/Projects/sorted/operators/factory-orchestrator/dist/cli.js resume <build-dir>
 ```
 
-### The 17 operators
+### Full lifecycle
 
 | # | Operator | Execution | Vision model? |
 |---|---|---|---|
 | 0 | Build Init | harness | No |
 | 1 | Mockup Regions | harness | No |
-| 2 | Asset Reconstruction | standalone | No |
+| 2 | Asset Reconstruction | supplied; local fallback dormant | No local call by default |
 | 3 | Asset Registry | standalone | No |
 | 4 | Frontend Build | harness | No |
 | 5 | Visual QA (automated) | harness | No |
-| **5b** | **Human Vision QA** | **harness** | **YES — switch model** |
+| **5b** | **Independent Vision QA** | **read-only reviewer** | **Yes; use available image capability** |
 | 6 | Pixel Correction | harness | No |
 | 7 | UI Systemisation | harness | No |
 | 8 | Design System | harness | No |
 | 9 | Core Build QA | harness | No |
+| Gate | Human assessment | explicit decision on current revision | Separate approval |
+| Gate | Workspace build | approved commercial/creative brief | As needed |
 | 10+ | Internal pages, CMS, etc. | harness | No |
 
-### The vision QA gate (Op 5b)
+### Independent visual and human gates
 
-After the automated visual QA (Op 5) passes structural checks, there is a **human vision QA gate** (Op 5b). This step requires actually looking at the rendered site and comparing it to the mockup — something a text-only model cannot do.
+After structural QA, a separate vision-capable reviewer diagnoses mockup discrepancies without modifying code. Read `op-05b-human-vision-qa.md`. This gate is not skippable; use the current image-capable tool/model rather than requiring an unnecessary user switch.
 
-**When you reach Op 5b:**
-
-1. **Switch to a vision-capable model** (the user initiates this switch)
-2. Start the dev server: `cd <build-dir> && npx serve out -p 3999`
-3. Open http://localhost:3999 in a browser
-4. Compare the rendered site to the mockup at `input/approved-mockup.png`
-5. Check screenshots at `artifacts/regions/screenshots/`
-6. If the site is accurate → mark as `passed` or `skipped`
-7. If issues are found → mark as `failed` with notes, then run Op 6 (pixel correction)
-
-**Skip if:** the automated visual QA found zero issues and you're confident the build is accurate. Mark as `skipped` and proceed to Op 7.
+Corrections return to fresh structural and vision checks. Human assessment approves the tested revision separately. Workspace manufacture then requires the human-approved offer/pricing/creative brief in `workspace-build.md`. Systemisation, design extraction, internal pages, CMS, analytics, launch QA and deployment remain relevant.
 
 ### Resuming a build
 
@@ -134,71 +125,99 @@ If a session is interrupted, any future session can resume:
 node /Users/renaldoedmondson/Projects/sorted/operators/factory-orchestrator/dist/cli.js resume <build-dir>
 ```
 
-This reads `build-state.json` and tells you which operator to run next. All artifacts are durable on disk — nothing is lost between sessions.
+This reads validated state and reports next work or the specific blocking reason. Legacy jobs need explicit reconciliation, which cannot certify historical work. Keep artifacts/attempts on disk and revalidate after source changes; do not claim every interruption is recoverable without checking evidence.
 
-## Workspace review screen
+## Client workspace standard: acquisition hub v2
 
-The workspace review page (`/workspace?slug=<client-slug>&route=review`) is where the client first sees the build. Non-negotiables:
+This is the default prospect workspace for new clients. Use `/workspace?slug=<client-slug>&route=overview` locally and `https://sortmydigital.site/workspace/<client-slug>/overview` publicly. The workspace connects the website, one customer offer, advertising, follow-up and reporting; it leads with a conversation rather than a deposit.
 
-1. **The black "We rebuilt your site." reveal card must always carry a real screenshot snapshot** of the built homepage — `workspace.website.previewImageUrl`, generated at the build/preview step (screenshot the live preview at desktop width, save an optimised webp to `sorted/public/`). Never ship the reveal with an empty right side.
-2. **The editorial hero copy (eyebrow / headline / summary) runs full container width** — no narrower max-width clamps on the section, h1, or summary paragraph.
-3. **Say "site", not "homepage", in workspace copy.** The reveal card reads "We rebuilt your site." and the button "Explore your new site" — the client discovers the homepage is the only live portion when they open the preview.
-4. **Two sections: "Why we rebuilt it" then "What's improved".** Section one is a numbered contrast list (`review.rebuildReasons[]`: `title`, `strength`, `gap`) pairing the business's real strengths against how its old online presence failed to capitalise — rendered as "Your business" / "Your old site" columns on desktop, stacked on mobile. Section two (`review.observations[]`) lists the benefit-led improvements. Workspaces without authored reasons fall back to a single-column gap list derived from `site_weaknesses`.
-5. **Adapt the angle when the business had no website.** Not every client has an old site — some only have a Facebook page or a directory listing. In that case set `review.revealTitle` (e.g. "We built your site."), `review.revealBody`, `review.reasonsHeading` ("Why we built it") and `review.gapColumnLabel` (e.g. "Your Facebook page"), and write the gaps as "your business was invisible online" rather than "your old site failed you". Never describe a website that didn't exist.
+**Implementation reference:** `sweeneys-martial-arts` in `lib/workspace.ts`, plus `app/workspace/_components/{WorkspaceShell,WebsiteScreen,AcquisitionScreens,NextStepsScreen}.tsx`. Read the current implementation before configuring a client. `inputs/client-hub v2/` supplies visual references; the subsequent approved full-screen website, seven standalone ads and example tracking figures supersede the original framed website and grouped variants.
 
-## Workspace website preview screen
+### Data and lifecycle
 
-The "Your new site" page (`/workspace?slug=<client-slug>&route=website`) shows the built site inside the workspace. Standards:
+- Use the existing `prospects` row and client-specific `WORKSPACE_OVERRIDES` in `lib/workspace.ts`. Keep one shared workspace implementation; configure client data rather than creating a separate hub in a sibling site.
+- Prospect default is `overview`. Header tabs: **Overview / Your New Site / Your Ads / Follow-up / Tracking**, with a separate **Next steps** action. Preserve the global navbar on every screen, active navigation, back/forward behavior and mobile scrollable tabs.
+- Keep the existing project and live states and their navigation. The legacy `review` route still resolves but is not the default entry or a prospect tab. Do not reintroduce it as the new-client flow.
+- Populate `acquisition.offerCard`, `interests`, `ads`, `followUp` and `tracking` for the client's real offer. Use a trial for an academy, a check-in for an accountant, a quote request for a trade, or the relevant customer action. Sweeney’s trial wording, audience, price and example values are client configuration, not universal business facts.
+- Stage 1 is a static proposal. Showing an offer page, campaign, sequence or reporting preview does not deploy a site, publish ads, send emails, connect integrations or install a CMS. Apply the existing approval and deployment discipline separately.
+- The standard fixed service includes the website plus agreed ad creative, campaign structure and enquiry follow-up setup. Ad spend, publishing, ongoing management and future optimisation remain separate and optional. Do not market Booking & CRM as part of the standard proposition unless a configured service is explicitly approved.
 
-1. **Full-bleed immersive layout.** The preview fills the browser width edge-to-edge — no outer gutters, no rounded device frame.
-2. **Single black action bar pinned to the top** — one uninterrupted horizontal row containing: "Back to Review" (returns to the review route), the version selector, the question action, desktop/mobile viewport toggle, and the next-steps action.
-3. **No pricing on navigation buttons.** Any button that moves the client forward reads "See next steps" (desktop) / "Next steps" (mobile) — a price on a button reads as "this charges my card". Prices live only on the Next Steps/quote screen and its payment dialog.
-4. **Version picker (dev builds).** When multiple site versions exist, expose a compact selector in the action bar labelled "Version 1" / "Version 2" — the current approved direction is always "Version 1" and the default selection. Never label a version "Original". Local-preview version URLs must not ship to production.
-5. **Responsive without horizontal overflow** at 1440px, 768px, 375px and 320px — the action bar compresses (compact select, icon-only controls with accessible labels) rather than wrapping or overflowing.
+### Overview
 
-## Workspace Next Steps / offer screen
+Lead with **“A clearer path to your next customer.”** and explain how the site, ads and follow-up connect around one useful offer. Use the dark **“Built around your business.”** reveal with a real screenshot of the built site (`website.previewImageUrl`, optimised WebP in `sorted/public/`) and a supplied creative where available. Screenshot the working site; do not substitute a mockup for the built preview.
 
-1. **Offer amounts are parameterised, never hardcoded.** Deposit, balance and total always render from `workspace.offer` (`total`, `deposit`, `balance`) — a hardcoded price leaks the wrong number to other clients.
-2. **Never inherit the shared Stripe link.** `WORKSPACE_OVERRIDES` merge spread-copies nested defaults, so an omitted `stripePaymentUrl` silently picks up the default link — which charges the wrong amount. Always set it explicitly: the client's own Stripe Payment Link, or cleared/empty so the card option shows "coming soon" and bank transfer is the only live path.
-3. **"Not interested" affordance** — a quiet red link under the action buttons opens a confirmation dialog: "Selecting this will remove you from our records and any further engagement." Confirming calls the `mark_workspace_not_interested` SECURITY DEFINER RPC (`crm_status='lost'`, guarded so paid/build/quote prospects can't self-demote), logs a `not_interested_confirmed` workspace event, and replaces the offer screen with a farewell state. Migration: `supabase/migrations/20261004130000_workspace_not_interested.sql`.
+Follow with the proposed customer offer, **How it works together** (Get noticed → Build trust → Start a conversation → See what works), four linked service cards, and the inclusion/optional management banner. Use **“Explore your new site”** and **“See next steps”** for navigation. Keep pricing on Next Steps, not on navigation buttons.
 
-### Review copy is benefit-led, never technical
+Copy is benefit-led, grounded in the client's strengths and actual starting point. Name the Trust, Enquiries, Customers or Operations value, the gap addressed and how improvement can be observed. Explain potential benefits without promising enquiries or revenue. Use plain English and “site” for the whole experience; avoid jargon and em-dashes in client-facing copy.
 
-The review write-up (`review.headline`, `review.summary`, `review.rebuildReasons[]`, `review.observations[]` in `WORKSPACE_OVERRIDES`) sells the business outcome, not the build. Rules:
+### Website: a full experience
 
-1. **Lead with business benefit, never technical/design analysis.** The client is reading why this earns them money, not what changed on the page.
-2. **"Why we rebuilt it" pairs strengths with gaps.** Each reason names a real strength of the business (`strength`) and how its previous online presence failed to capitalise (`gap`) — e.g. unused reviews, dated design, or phone-only contact causing missed callers and mid-job interruptions instead of quick actions customers can take when it suits them. Three reasons is the norm.
-3. **"What's improved" frames the chain: trust (reputation, brand, proof) → enquiries → customers.** Each observation should map to a step in that chain — roughly: reputation made visible → proof where buyers look → trust converting into enquiries.
-4. **Ground each review in that client's real fundamentals** — trading history, longevity, reserves, standing. The message is "your business is stronger than its current digital presence lets it show." Use real figures as framing, not published numbers (write "three decades of trading" or "a strong balance sheet", never a literal reserves figure).
-5. **Match the angle to their starting point.** If they had a dated website, the gap is what that site failed to do. If they had no website (Facebook page or directory listing only), the gap is being invisible online — set `revealTitle`/`revealBody` accordingly and never refer to an "old site" that didn't exist.
-6. **Ban web-design vocabulary in client-facing copy.** No "homepage redesign", "layout", "CTA", "mockup", "design direction". Plain English, second person, respectful and direct. Headline ~6-9 words; summary 1-2 sentences; each observation a short title + 1-2 sentence explanation.
-7. **No em-dashes or en-dashes in client-facing copy.** Never use `—` or `–` in anything the client reads (headlines, summaries, reasons, observations, buttons, dialog text). Rewrite with a full stop, comma, colon or "whether that's …" construction instead.
-8. **Keep observations honest to what's actually built** — name the real proof on the site (credentials, testimonials, ways to get in touch), not aspirations.
+- Full browser width and all remaining viewport height beneath the global navbar and compact preview controls. The client should scroll and interact with the actual site. No outer gutters, rounded device frame, large pitch heading, benefits cards or workspace footer around the website view.
+- Keep the workspace navbar at the top. Do not restore the old black “Back to Review” action bar. Desktop/mobile preview controls and any version/page selector live in the compact light toolbar.
+- Use `website.previewUrl` for the working iframe, with `previewImageUrl` as a fallback when the preview cannot load. Do not leave a blank skeleton indefinitely. Offer a recovery/question action when neither is available.
+- Only expose a page as a working preview when its URL/image exists. An unbuilt `website.offerPage` must explicitly say **“Proposed destination · Not yet built”**; never send a “trial” or “book” action to an unrelated page as if it were complete.
+- Existing version controls remain supported: approved direction defaults to Version 1; never label a version “Original”. Development URLs must not become public production URLs.
 
-### Workspace review checklist
+### Ads: complete standalone executions
 
-- [ ] Real screenshot snapshot generated from the built site and saved to `sorted/public/` as optimised webp (`previewImageUrl`)
-- [ ] Hero copy (eyebrow / headline / summary) renders full container width — no max-width clamps
-- [ ] Review copy is benefit-led: trust → enquiries → customers, grounded in the client's real fundamentals
-- [ ] "Why we rebuilt it" pairs each real business strength with the gap in their old online presence; "What's improved" lists the benefits
-- [ ] Reveal copy matches reality — "We built your site." + `revealTitle`/`revealBody` when the client had no website
-- [ ] No web-design jargon anywhere in the client-facing copy; "site" not "homepage"
-- [ ] No em-dashes or en-dashes in any client-facing copy (check authored strings in `WORKSPACE_OVERRIDES` and rendered screen text)
-- [ ] Website preview is full-bleed with a single black action bar; CTA reads "See next steps" (no price)
-- [ ] Offer amounts render from `workspace.offer`; `stripePaymentUrl` explicitly set per client (never inherited)
-- [ ] "Not interested" red link + confirm dialog wired to `mark_workspace_not_interested`
-- [ ] Page verified at desktop and mobile widths with Supabase stubbed — no real DB writes, snapshots saved to `sorted/artifacts/`
+Show every supplied creative as its own ad. No variant tabs, carousel or copy disclosure hiding the executions. Each card presents proposed primary text, full artwork, headline and CTA. Preserve native image proportions (`width: 100%; height: auto`); no cropping or black/white letterboxing to force matching heights. Responsive columns can accommodate different proportions.
+
+Use supplied assets from the sibling client's `input/`, optimise photographic artwork to WebP, and reference central `public/` assets in `acquisition.ads.creatives`. Create client-specific draft primary text where it is missing, and label campaigns as proposed/not running. Do not invent “free” offers, review counts or other claims. If assets are missing, show an honest draft state rather than another client's artwork.
+
+Explain that campaign setup is included while ad spend, publishing approvals, ongoing management and future optimisation are agreed separately. This hub demonstrates the proposed acquisition service. Actual campaign ingestion, approval decisions and publishing workflows remain in the existing Sorted Ads product; do not add a second approval portal or publish from the hub.
+
+### Follow-up: selectable full email previews
+
+Present a numbered sequence with timing, name and purpose beside a full selected-email preview (sender, subject, branded header and message body). On narrow screens, selection should bring the preview into view. Preserve supplied messages; draft and identify missing subject/timing metadata rather than claiming it was supplied.
+
+Keep enquiry follow-up focused on the agreed next step. Enquiry chasing pauses on reply, resolution or opt-out. Explain that Sorted connects the agreed sequence and the client handles the personal conversation. Personalisation tokens and missing next-step links stay visibly marked in a draft; do not make placeholder links actionable, describe an unwired sequence as sending, or add booking/CRM promises that have not been configured.
+
+### Tracking: a proposed journey with labelled examples
+
+Use four outcome cards, a numbered journey with **Stage / What you will see / Who updates it**, and a dark **“Measure more than clicks.”** cost section. Adapt downstream outcomes to the business: quotes/customers for services; membership offers/new members for an academy. Specify ownership for enquiry capture, the confirmed next step, attendance and subsequent customer outcomes. Never infer attendance or conversion from elapsed time or an unverified signal alone.
+
+For disconnected prospect previews, include an **Example month** with realistic, internally consistent counts and illustrative ad spend. Label the screen **“Illustrative example · Not live data”** and state that figures are neither client results, a forecast nor a performance promise. Store samples separately in `tracking.example`; keep `metrics[].connected` false. Calculate cost per outcome from that example's spend and denominator, handle zero denominators, and never fabricate live values. The reference month is £420 spend, 42 enquiries, 23 attended trials, 17 offers and 9 members; adapt examples when useful, do not present these as target results.
+
+Once integrations are connected, use verified `metrics[].value` and suppress the illustrative dataset; show an empty state for unavailable real measurements. Do not mix example costs with live outcomes. The journey and recording responsibilities remain visible.
+
+### Next Steps: booking first
+
+- Headings: **“Interested? Book your call.”**, **“What would you like to improve?”**, **“What's the cost?”**, and **“What you get”**.
+- Show the interests checklist and Cal.com calendar immediately. No “Continue to booking” gate and no requirement to select an interest first. Pass selected interests into booking notes and existing workspace events; provide an external booking fallback if embedding fails.
+- Give the calendar enough desktop width for details/month/time slots side by side (the current implementation uses a 980px page column); allow its responsive mobile stacking.
+- Render total/deposit/balance only from `workspace.offer`. Preserve client-specific commercial terms. When price is pending, explain it will be agreed on the call. Keep the deposit path secondary; a conversation needs no payment.
+- Explicitly set each client's `stripePaymentUrl` to their link or clear it. Omitting it inherits a shared link and can charge the wrong amount. Never copy Sweeney’s amount/link to another client.
+- Preserve the quiet red “Not interested” link, confirmation and `mark_workspace_not_interested` RPC (`crm_status='lost'` with paid/build/quote guards), event and farewell state. Do not test payments, opt-outs, bookings or outbound messages against live services during routine QA.
+
+### Legacy review compatibility
+
+For an explicitly requested legacy review edit, retain grounded strengths, a client-specific screenshot reveal, one three-point comparison section (`review.changes`: current → preview → advantage), and `review.comparisonPrompt`. Avoid separate reasons and improvements sections; `rebuildReasons` and `observations` are legacy rendering support. This comparison guidance does not require rewriting those fields for the new overview or clearing data used elsewhere. Do not invent an old website when the starting point is a listing or social page.
+
+### Workspace completion checks
+
+- [ ] Client-specific offer, interests, artwork, messages, journey labels and ownership configured; missing work visibly marked proposed/unbuilt.
+- [ ] Overview is the default; five tabs plus separate Next steps action; project/live and legacy URLs still work.
+- [ ] Real built-site screenshot and full-screen working website beneath the global navbar; fallback/recovery state available.
+- [ ] Every ad visible individually, including full copy and original image proportions; no variant tabs or letterboxing.
+- [ ] All supplied emails inspectable; enquiry phases, stop rules and draft next-step tokens clear without unconfigured booking/CRM promises.
+- [ ] Example tracking explicitly labelled, costs reconcile to spend/counts, samples kept separate from connected results.
+- [ ] Calendar visible without a gate; approved conversation/cost headings; correct offer amounts and explicit client Stripe link.
+- [ ] Responsive at 1440, 768, 375 and 320px with no page overflow; keyboard focus, navigation and selection work.
+- [ ] Run appropriate TypeScript/build and browser checks; stub external writes for opt-out/payment tests. Record the environment and any unconnected services in `.devin/session-logs/`.
+
 
 ## Key principles
 
 1. **Sibling folder, not inside sorted.** Each site is its own project at `/Users/renaldoedmondson/Projects/<client-slug>/`.
-2. **The manifest is the source of truth.** Every section, asset, colour, and copy element comes from the manifest.
-3. **Assets are generated, not extracted.** Flux-2-Flex is the default image generation model. No mockup extraction.
-4. **The vision QA gate is human-in-the-loop.** The harness can't auto-switch to a vision model. The user initiates that switch.
-5. **State is resumable.** `build-state.json` tracks everything. Any session can pick up where the last one left off.
+2. **Resolve authority explicitly.** Approved human amendments, mockup composition, verified business facts and design-IR detail have distinct roles; stop for material conflicts.
+3. **Assets arrive reconstructed.** Validate, optimise and register supplied files; local generation stays dormant unless specifically needed.
+4. **Independent vision QA is not human approval.** Use actual image capability; do not skip fidelity review based on structural checks.
+5. **Resume is evidence-backed.** Record starts/results and current-revision artifacts; blocked does not mean complete.
 
 ## Doctrine references
 
-- `operators/skills/manufacturing-line.md` — full operator chain documentation
-- `operators/skills/op-02-asset-reconstruction.md` — asset generation details
+- `doctrine/operator-chain.md` — maintained chain state and artifact contract
+- `operators/skills/factory-operators.md` - maintained execution/evidence contracts
+- `operators/skills/asset-generator.md` - explicitly requested dormant fallback only
+- `operators/skills/workspace-build.md` - approved commercial/creative handoff
 - `templates/client-site/AGENTS.md` — site template conventions

@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { ArrowLeft, ArrowRight, Star } from "lucide-react"
+import { ArrowLeft, ArrowRight } from "lucide-react"
 import { DarkCta, SitesFooter, SitesHeader, SitesPage, Underline } from "../../sites/_components/SitesPrimitives"
 import { exampleCaseStudies, getExampleCaseStudy } from "../_caseStudies"
 import { CaseStudyHeroPreview } from "./CaseStudyHeroPreview"
@@ -49,7 +49,7 @@ export default async function ExampleCaseStudyPage({ params }: PageProps) {
             <ArrowLeft className="size-4" /> Back to all examples
           </a>
           <p className="mb-5 text-[12px] font-black uppercase text-black/45">{caseStudy.category}</p>
-          <h1 className="max-w-[560px] text-[clamp(3.35rem,5.8vw,6rem)] font-black leading-[0.9] tracking-[-0.055em]">{caseStudy.business}</h1>
+          <h1 className="max-w-[560px] text-[clamp(2.7rem,5.8vw,6rem)] font-black leading-[0.9] tracking-[-0.055em]">{caseStudy.business}</h1>
           <p className="mt-4 [font-family:var(--font-sites-fave-script)] text-[clamp(3.4rem,5.2vw,5.6rem)] leading-[0.8] tracking-[0] text-[#d4ea00]">{caseStudy.title}</p>
           <Underline className="mt-3 w-[240px]" />
           <p className="mt-7 max-w-[440px] text-[17px] font-semibold leading-[1.5] tracking-[-0.03em]">{caseStudy.description}</p>
@@ -61,9 +61,9 @@ export default async function ExampleCaseStudyPage({ params }: PageProps) {
       <section className="border-y border-black/10 bg-white px-5 py-12 sm:px-8 sm:py-16">
         <div className="mx-auto grid max-w-[1220px] gap-8 lg:grid-cols-[0.32fr_0.68fr] lg:items-center">
           <div>
-            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-black/45">Before &amp; after</p>
-            <h2 className="mt-4 max-w-[300px] text-[clamp(2.4rem,4vw,4.2rem)] font-black leading-[0.92] tracking-[-0.055em]">See the transformation.</h2>
-            <p className="mt-5 max-w-[310px] text-[15px] font-semibold leading-[1.5] text-black/64">A full walkthrough of the website before and after the Sorted treatment is coming soon.</p>
+            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-black/45">Example walkthrough</p>
+            <h2 className="mt-4 max-w-[300px] text-[clamp(2.4rem,4vw,4.2rem)] font-black leading-[0.92] tracking-[-0.055em]">See how we show the work.</h2>
+            <p className="mt-5 max-w-[310px] text-[15px] font-semibold leading-[1.5] text-black/64">This School of Skill walkthrough shows how we present a website for review. The project screenshots above show {caseStudy.business}.</p>
           </div>
           <BeforeAfterVideo />
         </div>
@@ -86,27 +86,24 @@ export default async function ExampleCaseStudyPage({ params }: PageProps) {
           ))}
         </div>
 
-        <blockquote className="rounded-[20px] bg-[#f7f1e8] p-6 sm:p-10">
-          <p className="max-w-[720px] text-[28px] font-black leading-[1.05] tracking-[-0.035em] sm:text-[34px]">“{caseStudy.testimonial}”</p>
-          <div className="mt-8 flex items-center gap-4">
-            <span className="grid size-16 place-items-center rounded-full bg-[#070707] text-[18px] font-black text-white">{caseStudy.business.slice(0, 2).toUpperCase()}</span>
-            <p className="text-[13px] font-semibold">
-              <strong className="block text-[15px] text-black">{caseStudy.testimonialName}</strong>
-              {caseStudy.testimonialRole}
-            </p>
-          </div>
-        </blockquote>
-      </section>
-
-      <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
-        <div className="grid grid-cols-2 gap-5 rounded-[18px] bg-[#f7f1e8] p-5 sm:p-8 md:grid-cols-4">
-          {caseStudy.stats.map(([value, label]) => (
-            <article key={`${value}-${label}`} className="border-black/10 md:border-l md:pl-8 first:md:border-l-0">
-              <Star className="size-8" />
-              <p className="mt-4 text-[34px] font-black tracking-[-0.045em] sm:text-[38px]">{value}</p>
-              <p className="max-w-[150px] text-[13px] font-bold leading-[1.35]">{label}</p>
-            </article>
-          ))}
+        <div className="rounded-[20px] bg-[#f7f1e8] p-6 sm:p-10">
+          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-black/45">What changed</p>
+          <p className="mt-4 max-w-[720px] text-[22px] font-black leading-[1.15] tracking-[-0.035em] sm:text-[26px]">
+            {caseStudy.title}
+          </p>
+          <ul className="mt-7 grid gap-4 sm:grid-cols-2">
+            {[
+              "A clearer first impression that matches the quality of the work.",
+              "Stronger structure so services and proof are easier to find.",
+              "A simpler route to enquire, book or get in touch.",
+              "A responsive design that holds up on every device.",
+            ].map((item) => (
+              <li key={item} className="flex gap-3 text-[13px] font-semibold leading-[1.5] text-black/68">
+                <ArrowRight className="mt-0.5 size-4 shrink-0 text-[#789100]" strokeWidth={2.8} />
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

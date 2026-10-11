@@ -108,6 +108,24 @@ export interface AssetManifest {
 
 // ── Build config ──────────────────────────────────────────────
 
+export interface ModelCallOptions {
+  systemPrompt: string;
+  userPrompt: string;
+  apiKey: string;
+  model?: string;
+  maxTokens?: number;
+  verbose?: boolean;
+  label?: string;
+}
+
+export interface ModelCallResult {
+  content: string;
+  inputTokens: number;
+  outputTokens: number;
+  model: string;
+  stopReason?: string;
+}
+
 export interface BuildConfig {
   deconstructionPath: string;
   manifestPath: string;
@@ -118,6 +136,12 @@ export interface BuildConfig {
   verbose?: boolean;
   dryRun?: boolean;
   tier?: 'standard' | 'premium';
+  /** Skip install + build verification entirely. */
+  noBuild?: boolean;
+  /** npm install never runs unless explicitly allowed (default false). */
+  allowInstall?: boolean;
+  /** Injected model caller (tests/tools); defaults to claude.ts. */
+  callModel?: (opts: ModelCallOptions) => Promise<ModelCallResult>;
 }
 
 // ── Per-section generation plan ───────────────────────────────
@@ -169,5 +193,8 @@ export interface BuildResult {
   outputDir: string;
   tier: 'standard' | 'premium';
   files: FileResult[];
+  /** null when the build step was skipped (--no-build or dry-run);
+   *  never reported as verified. */
+  buildPassed: boolean | null;
   generatedAt: string;
 }
