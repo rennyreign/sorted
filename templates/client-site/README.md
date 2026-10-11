@@ -35,21 +35,15 @@ Foundational Principles          Concrete Application
 ### 1. Copy this template to a new repo
 
 ```bash
-# Create new client repo on GitHub
-cd ~/Projects
-mkdir newclient-site
-cd newclient-site
+# Validate/preserve a complete ChatGPT pack and create a new sibling locally
+~/Projects/sorted/operators/factory-orchestrator/scripts/start-build.sh newclient-site /absolute/path/to/export-pack
+cd ~/Projects/newclient-site
 
-# Copy scaffold contents
-cp -r ~/Projects/sorted/templates/client-site/* .
-rm -rf .git  # Remove template git history
-
-# Initialize and push
+# Initialise locally; do not create hosting or push before approval
 git init
+git checkout -b feat/stage-1-build
 git add -A
 git commit -m "init: client site from sorted scaffold"
-git remote add origin https://github.com/rennyreign/newclient-site.git
-git push -u origin main
 ```
 
 ### 2. Apply the skill cascade
@@ -79,6 +73,8 @@ This is the **pattern library** — your primary reference:
 - New patterns invented as needed
 
 **Rule of thumb:** If a design decision isn't covered by Level 1 or 2, make the call that serves the client best. The skills are guardrails, not shackles.
+
+The approved client's mockup and human amendments take precedence over generic spacing/type/section patterns. Consume supplied design-IR and reconstructed images; local generation is dormant. Read `operators/skills/factory-operators.md` for evidence/gates and `docs/manufacturing-two-build-pilot.md` for the first measured trial.
 
 ### 3. Customize for the client
 

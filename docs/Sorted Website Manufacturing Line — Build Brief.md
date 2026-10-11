@@ -1,5 +1,13 @@
 # Sorted Website Manufacturing Line — Build Brief
 
+## October 2026 Producer And Workspace Update
+
+This remains the full lifecycle specification. The update diagram does not retire systemisation, design extraction, internal pages, CMS/CMS QA, analytics, launch QA or deployment.
+
+Current intake is a complete ChatGPT export: approved mockup, already reconstructed images and design-IR/asset manifests. Local asset reconstruction below is dormant unless specifically needed; asset validation/optimisation/registry remain active. The new workspace protocol follows explicit human assessment and the human's commercial/creative brief.
+
+Use `operators/skills/factory-operators.md` for executable phase/evidence contracts and `operators/skills/workspace-build.md` for the acquisition handoff. Historical two-artifact/local-generation examples in this brief describe the earlier producer boundary, not instructions to regenerate supplied imagery.
+
 ## Objective
 
 Build the first automated production pipeline for the **Sorted website factory**.

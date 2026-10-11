@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { TemplatedResultPage } from "../_components/TemplatedResultPage"
 
 export const metadata: Metadata = {
-  title: "Action Hero Marketing Result | Sorted V2",
+  title: "Action Hero Marketing Result | Sorted Ops",
   description: "A templated Sorted result page for Action Hero Marketing.",
 }
 

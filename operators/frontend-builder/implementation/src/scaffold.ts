@@ -26,8 +26,13 @@ export function scaffoldRepo(
   }
 
   if (fs.existsSync(resolvedOutput)) {
-    if (verbose) console.log(`  Output dir exists, clearing for fresh scaffold...`);
-    fs.rmSync(resolvedOutput, { recursive: true, force: true });
+    const existing = fs.readdirSync(resolvedOutput);
+    if (existing.length > 0) {
+      throw new Error(
+        `Output directory already exists and is not empty: ${resolvedOutput}\n` +
+        `Refusing to overwrite — inspect or move it manually.`,
+      );
+    }
   }
 
   if (verbose) console.log(`  Copying template → ${resolvedOutput}`);

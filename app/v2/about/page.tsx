@@ -3,14 +3,14 @@ import { BarChart3, Check, Clock3, Flag, Layers3, Mountain, Sparkles, UsersRound
 import { CtaBand, SectionTitle, V2Footer, V2Header, V2Page } from "../_components/V2Primitives"
 
 export const metadata: Metadata = {
-  title: "About Sorted | Sorted V2",
+  title: "About Sorted | Sorted Ops",
   description: "Why Sorted exists, what we believe, how we work, and why every gap we close is measured.",
 }
 
 const beliefs = [
   ["Every business has gaps.", "It is a natural consequence of growth. More customers, more systems and more people create more places for revenue and trust to leak out.", Layers3],
   ["Gaps leak revenue and trust.", "Every gap left open costs more than it looks like: lost customers, wasted time, and money left on the table.", Clock3],
-  ["Better systems compound.", "Closing one gap will not transform a business overnight. Closing one every month will.", Sparkles],
+  ["Better systems compound.", "Useful improvements can compound. We measure each one before deciding what comes next.", Sparkles],
   ["What gets measured gets improved.", "We do not measure success by the number of systems we install. We measure what changes after they are installed.", BarChart3],
 ]
 

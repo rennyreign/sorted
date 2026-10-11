@@ -6,7 +6,7 @@ import { RoutineFinderButton } from "../../_components/RoutineFinder"
 import { ProblemRoutineAccordion } from "./ProblemRoutineAccordion"
 
 export const metadata: Metadata = {
-  title: "We Lose Customers | Sorted V2",
+  title: "We Lose Customers | Sorted Ops",
   description: "Why slow replies, missed calls, and inconsistent follow-up are gaps that cost businesses customers, trust, and revenue.",
 }
 

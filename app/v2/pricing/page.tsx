@@ -6,7 +6,7 @@ import { CtaBand, MarkerText, SectionTitle, V2Footer, V2Header, V2Page } from ".
 import { RoutineFinderButton } from "../_components/RoutineFinder"
 
 export const metadata: Metadata = {
-  title: "Pricing | Sorted V2",
+  title: "Pricing | Sorted Ops",
   description: "Two ways to work with Sorted: install one system or become an operational partner.",
 }
 

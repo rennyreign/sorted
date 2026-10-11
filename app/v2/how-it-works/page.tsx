@@ -4,7 +4,7 @@ import { CheckList, CtaBand, MarkerText, MetricBand, SectionTitle, V2Footer, V2H
 import { RoutineFinderButton } from "../_components/RoutineFinder"
 
 export const metadata: Metadata = {
-  title: "How It Works | Sorted V2",
+  title: "How It Works | Sorted Ops",
   description: "How Sorted finds the gaps leaking revenue and trust, designs and installs the right system, integrates it with how you work, and measures what you get back.",
 }
 
@@ -12,12 +12,12 @@ const process = [
   {
     icon: Search,
     title: "Inspect.",
-    copy: "You show us how the work currently happens. We map the process, identify friction, delays, and the hidden cost.",
+    copy: "You show us how the work currently happens. We map the process, identify friction, delays, and what they cost.",
   },
   {
     icon: Lightbulb,
     title: "Diagnose.",
-    copy: "We identify the biggest gap that is costing you and show you exactly what it is worth.",
+    copy: "We identify the biggest gap that is costing you and estimate what closing it could be worth, based on your numbers.",
   },
   {
     icon: Rocket,
@@ -27,7 +27,7 @@ const process = [
   {
     icon: MonitorPlay,
     title: "Integrate.",
-    copy: "We connect it to the way you already work, train your team, and launch without disruption.",
+    copy: "We connect it to the way you already work, train your team, and roll it out at an agreed pace.",
   },
   {
     icon: BarChart3,

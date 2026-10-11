@@ -1,9 +1,9 @@
 ---
 name: manufacturing-line
-description: Run the Sorted website manufacturing line operator sequence. Use when the user says "run operators", "continue the build", "resume the build", "run the manufacturing line", "next operator", or asks to progress a website build through the factory pipeline.
+description: Safely resume the Sorted manufacturing lifecycle using validated state, current evidence and approval gates. Use for "run operators", "continue the build", "resume the build", "run the manufacturing line", "next operator", or progressing a website through factory QA and delivery.
 ---
 
-# Manufacturing Line — Operator Sequence
+# Manufacturing Line - Safe Resume
 
 ## Stage 1 Internal-Page Links
 
@@ -14,10 +14,11 @@ This skill drives a website build through the Sorted factory operator chain. It 
 
 ## What to load first
 
-Read the full operator chain documentation:
+Load the execution contract for the requested boundary:
 
-1. **Full overview:** `/Users/renaldoedmondson/Projects/sorted/operators/skills/manufacturing-line.md`
-2. **Individual operator skills:** `/Users/renaldoedmondson/Projects/sorted/operators/skills/op-XX-*.md` — each operator has its own skill doc with exact execution steps
+1. `/Users/renaldoedmondson/Projects/sorted/operators/skills/factory-operators.md` - maintained phase contracts, evidence and safety gates.
+2. `/Users/renaldoedmondson/Projects/sorted/operators/skills/op-05b-human-vision-qa.md` - independent visual review when that stage is next.
+3. For workspace work, `operators/skills/workspace-build.md` and the acquisition hub standard in `operators/skills/start-build.md`.
 
 ## How to run the next operator
 
@@ -27,21 +28,23 @@ node /Users/renaldoedmondson/Projects/sorted/operators/factory-orchestrator/dist
 
 This reads `state/build-state.json` and tells you which operator to run next. Follow the instructions for that specific operator from its skill doc.
 
-## The 17 operators
+## Full Lifecycle
 
 | # | Operator | Execution | Vision model? |
 |---|---|---|---|
 | 0 | Build Init | harness | No |
 | 1 | Mockup Regions | harness | No |
-| 2 | Asset Reconstruction (Flux) | standalone CLI | No |
+| 2 | Asset Reconstruction | supplied by ChatGPT; local fallback dormant | Only if explicitly requested |
 | 3 | Asset Registry | standalone | No |
 | 4 | Frontend Build | harness | No |
 | 5 | Visual QA (automated) | harness | No |
-| **5b** | **Human Vision QA** | **harness** | **YES — ask user to switch model** |
+| **5b** | **Independent Vision QA** | **read-only reviewer** | **Yes; use existing capability when available** |
 | 6 | Pixel Correction | harness | No |
 | 7 | UI Systemisation | harness | No |
 | 8 | Design System | harness | No |
 | 9 | Core Build QA | harness | No |
+| Gate | Human assessment | explicit human decision | Separate from agent QA |
+| Gate | Workspace manufacture | harness after approved brief | As needed |
 | 10 | Internal Pages | harness | No |
 | 11 | CMS Integration | harness | No |
 | 12 | CMS QA | harness | No |
@@ -51,8 +54,9 @@ This reads `state/build-state.json` and tells you which operator to run next. Fo
 
 ## Key rules
 
-1. **Run operators in order.** Do not skip ahead unless the orchestrator says a step is already complete.
-2. **Op 2 does NOT need vision.** It runs a CLI that calls Flux-2-Flex. The agent just shells out.
-3. **Op 5b DOES need vision.** Tell the user to switch to a vision-capable model before this step.
-4. **State is resumable.** Any session can resume via the CLI. Nothing is lost between sessions.
-5. **Read each operator's skill doc before executing.** Each operator has specific inputs, outputs, and validation steps documented in `operators/skills/op-XX-*.md`.
+1. Complete export packs already contain reconstructed images and design-IR. Do not repeat upstream work; validation/optimisation/registration remain active.
+2. Blocked is not complete. Resume reports failures, active work, missing evidence and approval gates; resolve the named boundary rather than bypassing it.
+3. Vision QA is required and independent; functional checks or confidence cannot waive it. Human/client approval is another gate.
+4. Legacy states require explicit reconciliation; it does not certify historic work or authorise downstream tasks.
+5. Preserve the full lifecycle. CMS, analytics, launch and deployment retain their approval boundaries despite being omitted from the update diagram.
+6. Record attempts using `scripts/manufacturing-ledger.mjs`; evidence belongs in the job and must match the current revision.

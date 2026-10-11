@@ -1,0 +1,34 @@
+{
+  "summary": "All 11 routes 200. Zero page errors, zero missing local assets, zero HTTP errors, zero horizontal overflow. Console ERR_FAILED entries are deliberately blocked external domains only.",
+  "blockedExternalDomains": ["www.googletagmanager.com", "qweevancxedkkfxysnzq.supabase.co", "sortedstorage.s3.amazonaws.com"],
+  "routes": {
+    "/": 200,
+    "/what-else-we-do/": 200,
+    "/about/": 200,
+    "/howitworks/": 200,
+    "/pricing/": 200,
+    "/examples/": 200,
+    "/website-updates/": 200,
+    "/partners/": 200,
+    "/ops/": 200,
+    "/ops/about/": 200,
+    "/ops/how-it-works/": 200
+  },
+  "horizontalOverflow": {
+    "allRoutes@1440": "none",
+    "/@1024": "ok", "/@881": "ok", "/@768": "ok", "/@375": "ok", "/@320": "ok",
+    "/what-else-we-do/@1024": "ok", "/what-else-we-do/@881": "ok", "/what-else-we-do/@768": "ok",
+    "/what-else-we-do/@375": "ok", "/what-else-we-do/@320": "ok", "/what-else-we-do/@1440": "ok"
+  },
+  "interactions": {
+    "desktopNavActive_whatElseWeDo": ["What else we do"],
+    "mobileMenuLinks": ["How it works", "Examples", "Pricing", "What's included", "What else we do", "About"],
+    "mobileActiveItem": "What else we do",
+    "mockupModalOpensQuestion1": true,
+    "escapeClosesModal": true,
+    "firstTabFocus": "header control",
+    "pricingIncludedAnchor": "top=96 (in view under fixed header)",
+    "reducedMotionHomepage": "loaded cleanly",
+    "supabaseLeadSubmission": "not performed"
+  }
+}

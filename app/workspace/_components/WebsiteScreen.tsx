@@ -1,23 +1,27 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { ArrowLeft, ArrowRight, MessageCircle, Monitor, Smartphone } from "lucide-react"
-import { workspaceEvent, type Workspace } from "@/lib/workspace"
+import { useContext, useEffect, useState } from "react"
+import { createPortal } from "react-dom"
+import { MessageCircle, Monitor, Smartphone } from "lucide-react"
+import { workspaceEvent, type Workspace, type WorkspaceRoute } from "@/lib/workspace"
 import WalkthroughBubble from "./WalkthroughBubble"
+import { PreviewControlsTarget } from "./WorkspaceShell"
 
 type Viewport = "desktop" | "mobile"
 
 export function WebsiteScreen({
   workspace,
-  onNavigate,
   onAskQuestion,
 }: {
   workspace: Workspace
-  onNavigate: (route: "review" | "next-steps") => void
+  onNavigate: (route: WorkspaceRoute) => void
   onAskQuestion: () => void
 }) {
   const [viewport, setViewport] = useState<Viewport>("desktop")
+  const controlsTarget = useContext(PreviewControlsTarget)
+  const [page, setPage] = useState<"home" | "offer">("home")
   const [loaded, setLoaded] = useState(false)
+  const [iframeFailed, setIframeFailed] = useState(false)
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 639px)")
@@ -27,17 +31,36 @@ export function WebsiteScreen({
     return () => media.removeEventListener("change", updateViewport)
   }, [])
 
-  const { previewUrl, previewImageUrl, previewVersions, defaultPreviewVersion } = workspace.website
+  const { previewUrl, previewVersions, defaultPreviewVersion, offerPage } = workspace.website
+  const previewImageUrl = page === "offer" ? offerPage?.previewImageUrl : workspace.website.previewImageUrl
   const versions = previewVersions ?? []
   const showVersionPicker = versions.length > 1
   const [selectedVersion, setSelectedVersion] = useState(() => {
     const d = defaultPreviewVersion
     return d && versions.some((v) => v.id === d) ? d : (versions[0]?.id ?? null)
   })
-  const currentPreviewUrl = versions.length > 0
+  const homepageUrl = versions.length > 0
     ? (versions.find((v) => v.id === selectedVersion)?.previewUrl ?? previewUrl)
     : previewUrl
+  const currentPreviewUrl = page === "offer" ? offerPage?.previewUrl : homepageUrl
   const hasPreview = Boolean(currentPreviewUrl || previewImageUrl)
+
+  // If the live preview iframe never loads (e.g. a local preview that isn't
+  // running, or a refused connection), fall back to the still image — or the
+  // unavailable state when there isn't one.
+  useEffect(() => {
+    if (!currentPreviewUrl || loaded) return
+    const timer = window.setTimeout(() => setIframeFailed(true), 12000)
+    return () => window.clearTimeout(timer)
+  }, [currentPreviewUrl, loaded])
+
+  const selectPage = (next: "home" | "offer") => {
+    if (page === next) return
+    setPage(next)
+    setLoaded(false)
+    setIframeFailed(false)
+    workspaceEvent(workspace, "website_page_changed", { page: next })
+  }
 
   const switchViewport = (v: Viewport) => {
     if (v === viewport) return
@@ -50,16 +73,10 @@ export function WebsiteScreen({
     onAskQuestion()
   }
 
-  const completeSite = () => {
-    workspaceEvent(workspace, "next_steps_opened")
-    onNavigate("next-steps")
-  }
-
-  const backToReview = () => onNavigate("review")
-
   const selectVersion = (id: string) => {
     if (id === selectedVersion) return
     setLoaded(false)
+    setIframeFailed(false)
     setSelectedVersion(id)
     workspaceEvent(workspace, "website_version_changed", { version: id })
   }
@@ -92,7 +109,7 @@ export function WebsiteScreen({
     <>
       {/* Segmented control — tablet/desktop */}
       <div
-        className="hidden h-8 shrink-0 items-center rounded-full bg-white/10 p-[3px] sm:flex"
+        className="hidden h-8 shrink-0 items-center rounded-full bg-[#F1F1EC] p-[3px] sm:flex"
         role="group"
         aria-label="Website version"
       >
@@ -102,8 +119,8 @@ export function WebsiteScreen({
             type="button"
             aria-pressed={selectedVersion === v.id}
             onClick={() => selectVersion(v.id)}
-            className={`inline-flex h-[26px] items-center rounded-full px-3 text-[11px] font-bold transition-colors focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DFFF00] ${
-              selectedVersion === v.id ? "bg-[#DFFF00] text-[#070707]" : "text-white/60 hover:text-white"
+            className={`inline-flex h-[26px] items-center rounded-full px-3 text-[11px] font-bold transition-colors focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#070707] ${
+              selectedVersion === v.id ? "bg-[#070707] text-white" : "text-[#73736D] hover:text-[#070707]"
             }`}
           >
             {v.label}
@@ -115,7 +132,7 @@ export function WebsiteScreen({
         aria-label="Website version"
         value={selectedVersion ?? ""}
         onChange={(e) => selectVersion(e.target.value)}
-        className="h-9 shrink-0 rounded-md border-0 bg-white/10 px-1.5 text-[11px] font-bold text-white focus:outline-none focus-visible:outline-2 focus-visible:outline-[#DFFF00] sm:hidden"
+        className="h-9 shrink-0 rounded-md border border-[#E8E5DD] bg-white px-1.5 text-[11px] font-bold text-[#070707] focus:outline-none focus-visible:outline-2 focus-visible:outline-[#070707] sm:hidden"
       >
         {versions.map((v) => (
           <option key={v.id} value={v.id} className="text-[#070707]">
@@ -127,53 +144,25 @@ export function WebsiteScreen({
   ) : null
 
   return (
-    <div className="flex h-[100dvh] min-h-0 w-full flex-col bg-[#F7F7F3]">
-      {/* Action bar — single row pinned to viewport top */}
-      <div className="flex h-14 shrink-0 flex-nowrap items-center gap-1.5 bg-[#070707] px-2 sm:h-16 sm:gap-4 sm:px-5">
-        <button
-          type="button"
-          onClick={backToReview}
-          className="inline-flex min-h-11 shrink-0 items-center gap-1.5 text-[12px] font-black text-white transition-colors hover:text-white/80 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00]"
-        >
-          <ArrowLeft className="size-4" strokeWidth={2.4} />
-          Back to Review
-        </button>
-        {versionPicker}
-        <p className="hidden min-w-0 flex-1 truncate text-center text-[11px] font-bold uppercase tracking-[0.14em] text-white/55 lg:block">
-          Private working website · {workspace.business.name}
-        </p>
-        <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
-          <button
-            type="button"
-            onClick={askQuestion}
-            aria-label="Ask a question"
-            className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 text-[12px] font-bold text-white/85 transition-colors hover:text-white focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#DFFF00]"
-          >
-            <MessageCircle className="size-4 shrink-0" strokeWidth={2.2} />
-            <span className="hidden sm:inline">Ask a question</span>
-          </button>
-          <button
-            type="button"
-            onClick={completeSite}
-            aria-label="See next steps"
-            className="inline-flex h-11 min-w-0 items-center justify-center gap-1.5 rounded-[9px] bg-[#DFFF00] px-3 text-[11px] font-black text-[#070707] transition-transform duration-150 hover:-translate-y-px focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-0 min-[400px]:h-[42px] min-[400px]:gap-2 min-[400px]:px-5 min-[400px]:text-[12px]"
-          >
-            <span className="hidden min-[400px]:inline sm:hidden">Next steps</span>
-            <span className="hidden sm:inline">See next steps</span>
-            <ArrowRight className="size-4 shrink-0" strokeWidth={2.8} />
-          </button>
+    <div className="flex min-h-0 w-full flex-1 flex-col bg-[#F7F7F3]">
+      {controlsTarget ? createPortal(
+      <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-[#E8E5DD] pt-4">
+        <div className="flex rounded-lg border border-[#E8E5DD] bg-white p-1" role="group" aria-label="Preview page">
+          {(["home", ...(offerPage ? ["offer"] : [])] as ("home" | "offer")[]).map(value => <button key={value} type="button" aria-pressed={page === value} onClick={() => selectPage(value)} className={`min-h-10 rounded-md px-4 text-xs font-bold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#070707] ${page === value ? "bg-[#070707] text-white" : "text-[#73736D] hover:bg-[#F0EBDD]"}`}>{value === "home" ? "Homepage" : offerPage?.label}</button>)}
         </div>
-      </div>
-
-      {/* Preview toolbar */}
-      <div className="flex h-11 shrink-0 items-center justify-between border-b border-[#E8E5DD] bg-white px-4">
-        <span className="text-[11px] font-semibold text-[#73736D]">Your new website</span>
-        {viewportToggle}
-      </div>
+        <div className="flex shrink-0 items-center gap-3">
+          {versionPicker}
+          {viewportToggle}
+        </div>
+      </div>, controlsTarget) : null}
 
       {/* Preview fills remaining viewport */}
       <div className="relative min-h-0 flex-1 bg-[#F7F7F3]">
-        {!hasPreview ? (
+        {page === "offer" && !hasPreview ? (
+          <div className="grid h-full place-items-center bg-[#F0EBDD] px-6 text-center">
+            <div className="max-w-[500px]"><p className="text-[10px] font-bold uppercase tracking-widest text-[#73736D]">Proposed destination · Not yet built</p><h2 className="mt-4 text-3xl font-extrabold tracking-tight">{workspace.acquisition.offerCard.title}</h2><p className="mt-4 text-sm leading-relaxed text-[#73736D]">{offerPage?.description}</p><button type="button" onClick={askQuestion} className="mt-6 min-h-11 rounded-full bg-[#070707] px-5 text-xs font-bold text-white">Discuss the trial page</button></div>
+          </div>
+        ) : !hasPreview || (iframeFailed && !previewImageUrl) ? (
           <div className="grid h-full place-items-center px-6 text-center">
             <div>
               <p className="text-[15px] font-bold text-[#070707]">Your preview is temporarily unavailable.</p>
@@ -187,7 +176,7 @@ export function WebsiteScreen({
               </button>
             </div>
           </div>
-        ) : currentPreviewUrl ? (
+        ) : currentPreviewUrl && !iframeFailed ? (
           <div
             className={`relative mx-auto h-full bg-white transition-[width] duration-200 ease-out ${
               viewport === "mobile" ? "w-full max-w-[390px] shadow-[0_0_0_1px_#E8E5DD] sm:w-[390px]" : "w-full"

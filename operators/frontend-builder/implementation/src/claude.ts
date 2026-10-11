@@ -23,6 +23,8 @@ export interface ClaudeResult {
   inputTokens: number;
   outputTokens: number;
   model: string;
+  /** Raw stop_reason from the API (e.g. 'end_turn', 'max_tokens'). */
+  stopReason?: string;
 }
 
 // Default model — claude-sonnet-3-7 hits the best quality/cost ratio
@@ -75,6 +77,7 @@ export async function callClaude(opts: ClaudeCallOptions): Promise<ClaudeResult>
     inputTokens: response.usage.input_tokens,
     outputTokens: response.usage.output_tokens,
     model,
+    stopReason: response.stop_reason ?? undefined,
   };
 }
 
@@ -103,28 +106,7 @@ function stripCodeFences(raw: string): string {
 }
 
 // ── Token usage tracker ───────────────────────────────────────
+// Re-exported for backwards compatibility; the implementation lives
+// in tracker.ts so consumers don't have to load the SDK.
 
-export class TokenTracker {
-  private inputTotal = 0;
-  private outputTotal = 0;
-  private calls = 0;
-
-  record(result: ClaudeResult): void {
-    this.inputTotal += result.inputTokens;
-    this.outputTotal += result.outputTokens;
-    this.calls++;
-  }
-
-  summary(): string {
-    const totalTokens = this.inputTotal + this.outputTotal;
-    // Rough cost estimate: claude-sonnet-3-7 at ~$3/$15 per MTok in/out
-    const estimatedCostUSD =
-      (this.inputTotal / 1_000_000) * 3 +
-      (this.outputTotal / 1_000_000) * 15;
-    return [
-      `  Calls    : ${this.calls}`,
-      `  Tokens   : ${totalTokens.toLocaleString()} (${this.inputTotal.toLocaleString()} in / ${this.outputTotal.toLocaleString()} out)`,
-      `  Est. cost: ~$${estimatedCostUSD.toFixed(3)}`,
-    ].join('\n');
-  }
-}
+export { TokenTracker } from './tracker.js';

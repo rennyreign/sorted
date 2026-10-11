@@ -9,12 +9,11 @@ This eliminates all infrastructure setup from the build task — the agent arriv
 
 ---
 
-## Step 1 — Create the client repo on GitHub
+## Step 1 - Validate The Supplied Pack Locally
 
-Create a new **private** repo on GitHub: `rennyreign/[client-slug]`
-e.g. `rennyreign/sandra` or `rennyreign/roye-music`
+Use `operators/skills/factory-operators.md`. Resolve the slug, approved mockup, design-IR and supplied images. Run intake dry-run before scaffolding.
 
-Do not initialise with a README — keep it empty.
+Do not create/link hosting or a remote repository as a prerequisite for Stage 1.
 
 ---
 
@@ -22,19 +21,18 @@ Do not initialise with a README — keep it empty.
 
 ```bash
 # Replace [client-slug] with the actual folder name
-cp -r ~/Projects/sorted/templates/client-site/. ~/Projects/[client-slug]/
+~/Projects/sorted/operators/factory-orchestrator/scripts/start-build.sh [client-slug] /absolute/path/to/export-pack
 ```
 
 ---
 
-## Step 3 — Initialise git and push
+## Step 3 - Initialise A Local Feature Branch
 
 ```bash
 git init
+git checkout -b feat/stage-1-build
 git add -A
 git commit -m "init: scaffold from sorted client-site template"
-git remote add origin https://github.com/rennyreign/[client-slug].git
-git push -u origin main
 ```
 
 ---
@@ -54,20 +52,15 @@ The more complete the brief, the tighter the build task.
 
 ## Step 5 — Add the mockup and assets
 
-Place the mockup image(s) in `client/assets/`.
-Place the logo (if available) in `client/assets/` and `public/`.
+Intake preserves originals in `input/`. Register/optimise supplied assets and consume their actual registry paths. Do not regenerate supplied imagery or overwrite original files.
 
 ---
 
-## Step 6 — Deploy to Netlify
+## Step 6 - Build And Review Locally
 
-Connect the repo to Netlify before handing to Codex:
-- Netlify → Add new site → Import from Git → select the repo
-- Build command: `npm run build`
-- Publish directory: `out`
-- Enable Netlify Image CDN
+Use existing approved dependencies, build the static export, and serve `out/` locally. Complete structural/independent visual QA and retain current-revision artifacts.
 
-This gives Codex a live preview URL to reference during the build.
+No preapproval remote pushes, Netlify sites, deploy hooks or production builds. A workspace screenshot is not a hosted interactive site; agree the review surface explicitly.
 
 ---
 

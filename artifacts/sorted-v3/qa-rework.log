@@ -1,0 +1,86 @@
+🎭 Playwright Skill - Universal Executor
+
+📄 Executing file: /tmp/playwright-sortedv3-rework.js
+🚀 Starting automation...
+
+{
+ "pageErrors": {},
+ "overflow": {
+  "/@375": "ok",
+  "/@320": "ok",
+  "/what-else-we-do/@375": "ok",
+  "/what-else-we-do/@320": "ok",
+  "/about/@375": {
+   "overflow": "ok",
+   "widest": null
+  },
+  "/about/@320": {
+   "overflow": "ok",
+   "widest": null
+  },
+  "/howitworks/@375": {
+   "overflow": "ok",
+   "widest": null
+  },
+  "/howitworks/@320": {
+   "overflow": "ok",
+   "widest": null
+  },
+  "/pricing/@375": {
+   "overflow": "ok",
+   "widest": null
+  },
+  "/pricing/@320": {
+   "overflow": "ok",
+   "widest": null
+  },
+  "/examples/@375": {
+   "overflow": "ok",
+   "widest": null
+  },
+  "/examples/@320": {
+   "overflow": "ok",
+   "widest": null
+  },
+  "/examples/warwickshire-short-stays/@375": {
+   "overflow": "ok",
+   "widest": null
+  },
+  "/examples/warwickshire-short-stays/@320": {
+   "overflow": "ok",
+   "widest": null
+  },
+  "/website-updates/@375": {
+   "overflow": "ok",
+   "widest": null
+  },
+  "/website-updates/@320": {
+   "overflow": "ok",
+   "widest": null
+  },
+  "/partners/@375": {
+   "overflow": "ok",
+   "widest": null
+  },
+  "/partners/@320": {
+   "overflow": "ok",
+   "widest": null
+  }
+ },
+ "notes": [
+  "hero@1440: {\"heroTop\":0,\"heroBottom\":664,\"heroHeight\":664,\"viewport\":900}",
+  "iceberg labels inside svg: {\"svgBottom\":1233,\"labelsBottom\":1190,\"inside\":true}",
+  "/ops/ labels: [\"Example figures\",\"Example dashboard\"] status ok",
+  "/ops/results/ labels: [\"Example reporting figures\",\"illustrative\",\"draft reporting\",\"Example dashboard\"] status ok",
+  "/ops/results/glow-dental/ labels: [\"Example dashboard\"] status ok",
+  "/ops/results/gracie-barra-halesowen/ labels: [\"Example dashboard\"] status ok",
+  "/ops/results-dashboard/ labels: [] status ok",
+  "/ops/case-studies/glow-dental/ labels: [\"Example dashboard\",\"Illustrative example\"] status ok",
+  "/ops/reviews/glow-dental/ labels: [] status ok",
+  "/ops/industries/dental-practices/ labels: [\"Example dashboard\",\"Illustrative example\"] status ok",
+  "modal Q1=true escape=true",
+  "mobile active: [\"What else we do\"]",
+  "anchor: top=96"
+ ]
+}
+EXIT:0

@@ -3,7 +3,7 @@ import { ArrowRight, CalendarDays, Clock3, FileText, Frown, MessageCircle, Phone
 import { CtaBand, MarkerText, SectionTitle, V2Footer, V2Header, V2Page } from "../_components/V2Primitives"
 
 export const metadata: Metadata = {
-  title: "Problems We Solve | Sorted V2",
+  title: "Problems We Solve | Sorted Ops",
   description: "Browse the operational gaps Sorted closes, from missed calls and slow replies to forgotten customers and manual admin, and the systems we install to fix them.",
 }
 

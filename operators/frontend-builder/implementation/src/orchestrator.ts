@@ -17,7 +17,19 @@ import type { BuildConfig, BuildResult, FileResult, SectionPlan } from './types.
 import { validateDeconstruction, validateManifest } from './schema.js';
 import { scaffoldRepo, copyAssets, writeBrief, installDependencies, runBuild } from './scaffold.js';
 import { resolveAssets, buildGenerationPlan, writeFile, writeBuildLog } from './writer.js';
-import { callClaude, TokenTracker } from './claude.js';
+import { TokenTracker } from './tracker.js';
+import type { ModelCallResult } from './types.js';
+
+// The model caller is loaded lazily so dry runs and tests never need
+// the Anthropic SDK installed. config.callModel overrides it.
+async function getModelCaller(config: BuildConfig) {
+  if (config.callModel) return config.callModel;
+  const mod = await import('./claude.js');
+  return async (opts: Parameters<typeof mod.callClaude>[0]): Promise<ModelCallResult> => {
+    const r = await mod.callClaude(opts);
+    return { ...r, stopReason: r.stopReason };
+  };
+}
 import {
   SYSTEM_PROMPT,
   buildContext,
@@ -38,6 +50,16 @@ export async function build(config: BuildConfig): Promise<BuildResult> {
 
   const log = (msg: string) => config.verbose && console.log(msg);
 
+  // ── 0. Refuse to clobber existing output ──────────────────
+  // An existing non-empty output dir means a previous run (or real
+  // work) is present — we never rmSync it away.
+  if (!config.dryRun && fs.existsSync(config.outputDir)) {
+    const existing = fs.readdirSync(config.outputDir);
+    if (existing.length > 0) {
+      throw new Error(`Output directory already exists and is not empty: ${config.outputDir} — refusing to overwrite`);
+    }
+  }
+
   // ── 1. Read + validate inputs ─────────────────────────────
 
   log(`  Reading deconstruction: ${config.deconstructionPath}`);
@@ -55,9 +77,6 @@ export async function build(config: BuildConfig): Promise<BuildResult> {
     throw new Error(`Invalid manifest JSON:\n${JSON.stringify(manifestResult.error.format(), null, 2)}`);
   }
   const manifest = manifestResult.data;
-
-  const apiKey = process.env['ANTHROPIC_API_KEY'];
-  if (!apiKey) throw new Error('ANTHROPIC_API_KEY not set');
 
   // ── 2. Resolve assets ─────────────────────────────────────
 
@@ -101,11 +120,16 @@ export async function build(config: BuildConfig): Promise<BuildResult> {
         status: 'skipped',
         duration_ms: 0,
       })),
+      buildPassed: null, // skipped — never reported as verified
       generatedAt: new Date().toISOString(),
     };
   }
 
   // ── 5. Generate files via Claude ──────────────────────────
+
+  const apiKey = process.env['ANTHROPIC_API_KEY'];
+  if (!apiKey && !config.callModel) throw new Error('ANTHROPIC_API_KEY not set');
+  const callModel = await getModelCaller(config);
 
   log(`\n  Generating files with Claude...`);
 
@@ -118,15 +142,24 @@ export async function build(config: BuildConfig): Promise<BuildResult> {
 
       const userPrompt = buildUserPrompt(filePlan, deconstruction, plan.sectionComponents, context);
 
-      const result = await callClaude({
+      const result = await callModel({
         systemPrompt: SYSTEM_PROMPT,
         userPrompt,
-        apiKey,
+        apiKey: apiKey ?? '',
         verbose: config.verbose,
         label: rel,
       });
 
       tracker.record(result);
+
+      // A truncated response is not a file — reject before writing
+      // so a half-generated component can never land on disk.
+      if (result.stopReason === 'max_tokens') {
+        throw new Error(`model response truncated (stop_reason=max_tokens) — refusing to write partial file`);
+      }
+      if (typeof result.content !== 'string' || result.content.trim().length === 0) {
+        throw new Error('model returned empty content — refusing to write');
+      }
       writeFile(filePlan.outputPath, result.content);
 
       const duration_ms = Date.now() - fileStart;
@@ -155,24 +188,37 @@ export async function build(config: BuildConfig): Promise<BuildResult> {
   }
 
   // ── 6. Install deps + run build ───────────────────────────
+  // Build verification is opt-in machinery:
+  //   --no-build        skips install AND build entirely (buildPassed=null)
+  //   --allow-install   permits npm install (never runs by default)
 
-  console.log(`\n  Installing dependencies...`);
-  try {
-    installDependencies(config.outputDir, config.verbose);
-    console.log(`  ✓ npm install complete`);
-  } catch (err) {
-    console.log(`  ✗ npm install failed: ${(err as Error).message}`);
-  }
+  let buildPassed: boolean | null = null;
 
-  console.log(`  Running next build...`);
-  const buildOutput = runBuild(config.outputDir, config.verbose);
-  if (buildOutput.success) {
-    console.log(`  ✓ Build passed`);
+  if (config.noBuild) {
+    console.log(`\n  Build verification skipped (--no-build)`);
   } else {
-    console.log(`  ✗ Build failed:`);
-    // Print first 40 lines of build output for context
-    const lines = buildOutput.output.split('\n').slice(0, 40).join('\n');
-    console.log(lines);
+    if (config.allowInstall) {
+      console.log(`\n  Installing dependencies (--allow-install)...`);
+      try {
+        installDependencies(config.outputDir, config.verbose);
+        console.log(`  ✓ npm install complete`);
+      } catch (err) {
+        console.log(`  ✗ npm install failed: ${(err as Error).message}`);
+      }
+    } else {
+      console.log(`\n  npm install skipped (pass --allow-install to enable)`);
+    }
+
+    console.log(`  Running next build...`);
+    const buildOutput = runBuild(config.outputDir, config.verbose);
+    buildPassed = buildOutput.success;
+    if (buildOutput.success) {
+      console.log(`  ✓ Build passed`);
+    } else {
+      console.log(`  ✗ Build failed:`);
+      const lines = buildOutput.output.split('\n').slice(0, 40).join('\n');
+      console.log(lines);
+    }
   }
 
   // ── 7. Write build log ────────────────────────────────────
@@ -200,7 +246,7 @@ Frontend Build Complete
   OK       : ${ok}
   Failed   : ${failed}
   Total    : ${fileResults.length} files
-  Build    : ${buildOutput.success ? 'PASSED' : 'FAILED'}
+  Build    : ${buildPassed === null ? 'SKIPPED (not verified)' : buildPassed ? 'PASSED' : 'FAILED'}
   Duration : ${totalDuration}s
   Output   : ${path.resolve(config.outputDir)}
 
@@ -214,6 +260,7 @@ ${tracker.summary()}
     outputDir: path.resolve(config.outputDir),
     tier: config.tier ?? 'standard',
     files: fileResults,
+    buildPassed,
     generatedAt: new Date().toISOString(),
   };
 }

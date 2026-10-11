@@ -17,15 +17,18 @@ export type OperatorStatus =
   | 'passed'       // completed and validated
   | 'failed'       // ran but validation failed
   | 'skipped'      // intentionally not run (e.g. no internal pages)
-  | 'escalated';   // failed and requires human intervention
+  | 'escalated'    // failed and requires human intervention
+  | 'supplied';    // output supplied by the intake pack — only valid for
+                   // asset-reconstruction on supplied-pack intake, and only
+                   // when backed by an input-contract with resolved assets
 
 // ── The 17 operators ──────────────────────────────────────────
 
 export const OPERATOR_IDS = [
   'build-init',           // 0
   'mockup-regions',       // 1
-  'asset-reconstruction', // 2  (standalone — external model calls)
-  'asset-registry',       // 3  (standalone — post-processes Op 2 output)
+  'asset-reconstruction', // 2  (standalone — external model calls; 'supplied' on pack intake)
+  'asset-registry',       // 3  (standalone — post-processes Op 2 output / supplied assets)
   'frontend-build',       // 4
   'visual-qa',            // 5  (automated structural check)
   'human-vision-qa',      // 5b (human-in-the-loop — requires vision model)
@@ -33,12 +36,14 @@ export const OPERATOR_IDS = [
   'ui-systemisation',     // 7
   'design-system',        // 8
   'core-build-qa',        // 9
-  'internal-pages',       // 10
-  'cms-integration',      // 11
-  'cms-qa',               // 12
-  'analytics',            // 13
-  'launch-qa',            // 14
-  'deployment',           // 15
+  'human-assessment',     // 10 (human approval gate)
+  'workspace-build',      // 11 (client workspace package)
+  'internal-pages',       // 12
+  'cms-integration',      // 13
+  'cms-qa',               // 14
+  'analytics',            // 15
+  'launch-qa',            // 16
+  'deployment',           // 17
 ] as const;
 
 export type OperatorId = (typeof OPERATOR_IDS)[number];
@@ -60,6 +65,8 @@ export const EXECUTION_MODE: Record<OperatorId, ExecutionMode> = {
   'ui-systemisation':     'harness',
   'design-system':        'harness',
   'core-build-qa':        'harness',
+  'human-assessment':     'harness',  // human approval gate — explicit CLI approval required
+  'workspace-build':      'harness',
   'internal-pages':       'harness',
   'cms-integration':      'harness',
   'cms-qa':               'harness',
@@ -87,7 +94,7 @@ export const OPERATORS: OperatorMeta[] = [
     name: 'Build Initialisation',
     description: 'Turn mockup + image manifest into a valid factory job',
     execution: 'harness',
-    skillFile: 'op-00-build-init.md',
+    skillFile: 'factory-operators.md',
     outputArtifact: 'build-init.json',
   },
   {
@@ -96,7 +103,7 @@ export const OPERATORS: OperatorMeta[] = [
     name: 'Mockup Region Decomposition',
     description: 'Decompose mockup into reconstruction regions',
     execution: 'harness',
-    skillFile: 'op-01-mockup-regions.md',
+    skillFile: 'factory-operators.md',
     outputArtifact: 'regions.json',
   },
   {
@@ -105,7 +112,7 @@ export const OPERATORS: OperatorMeta[] = [
     name: 'Asset Reconstruction',
     description: 'Recreate clean production imagery via image generation models',
     execution: 'standalone',
-    skillFile: 'op-02-asset-reconstruction.md',
+    skillFile: 'factory-operators.md',
     outputArtifact: 'assets-raw/',
   },
   {
@@ -114,7 +121,7 @@ export const OPERATORS: OperatorMeta[] = [
     name: 'Asset Registry',
     description: 'Turn generated images into deterministic website assets',
     execution: 'standalone',
-    skillFile: 'op-03-asset-registry.md',
+    skillFile: 'factory-operators.md',
     outputArtifact: 'asset-registry.json',
   },
   {
@@ -123,7 +130,7 @@ export const OPERATORS: OperatorMeta[] = [
     name: 'Frontend Reconstruction',
     description: 'Recreate the approved mockup as functioning frontend code',
     execution: 'harness',
-    skillFile: 'op-04-frontend-build.md',
+    skillFile: 'factory-operators.md',
     outputArtifact: 'frontend-build.json',
   },
   {
@@ -132,7 +139,7 @@ export const OPERATORS: OperatorMeta[] = [
     name: 'Visual QA',
     description: 'Compare rendered website against the approved mockup (automated structural check)',
     execution: 'harness',
-    skillFile: 'op-05-visual-qa.md',
+    skillFile: 'factory-operators.md',
     outputArtifact: 'visual-qa.json',
   },
   {
@@ -150,7 +157,7 @@ export const OPERATORS: OperatorMeta[] = [
     name: 'Pixel Correction',
     description: 'Correct discrepancies identified by Visual QA',
     execution: 'harness',
-    skillFile: 'op-06-pixel-correction.md',
+    skillFile: 'factory-operators.md',
     outputArtifact: 'pixel-correction.json',
   },
   {
@@ -159,7 +166,7 @@ export const OPERATORS: OperatorMeta[] = [
     name: 'UI Systemisation',
     description: 'Convert visually correct implementation into robust production architecture',
     execution: 'harness',
-    skillFile: 'op-07-ui-systemisation.md',
+    skillFile: 'factory-operators.md',
     outputArtifact: 'ui-systemisation.json',
   },
   {
@@ -168,7 +175,7 @@ export const OPERATORS: OperatorMeta[] = [
     name: 'Design System Extraction',
     description: 'Extract reusable client-specific design grammar',
     execution: 'harness',
-    skillFile: 'op-08-design-system.md',
+    skillFile: 'factory-operators.md',
     outputArtifact: 'design-system.json',
   },
   {
@@ -177,61 +184,79 @@ export const OPERATORS: OperatorMeta[] = [
     name: 'Core Build QA',
     description: 'Verify the systemised core build',
     execution: 'harness',
-    skillFile: 'op-09-core-build-qa.md',
+    skillFile: 'factory-operators.md',
     outputArtifact: 'core-build-qa.json',
   },
   {
-    id: 'internal-pages',
+    id: 'human-assessment',
     number: 10,
+    name: 'Human Assessment',
+    description: 'Human approval gate for the verified core build',
+    execution: 'harness',
+    skillFile: 'factory-operators.md',
+    outputArtifact: 'human-assessment.json',
+  },
+  {
+    id: 'workspace-build',
+    number: 11,
+    name: 'Workspace Build',
+    description: 'Assemble and verify the client workspace package',
+    execution: 'harness',
+    skillFile: 'workspace-build.md',
+    outputArtifact: 'workspace-build.json',
+  },
+  {
+    id: 'internal-pages',
+    number: 12,
     name: 'Internal Page Builder',
     description: 'Manufacture remaining website pages from their mockups',
     execution: 'harness',
-    skillFile: 'op-10-internal-pages.md',
+    skillFile: 'factory-operators.md',
     outputArtifact: 'internal-pages.json',
   },
   {
     id: 'cms-integration',
-    number: 11,
+    number: 13,
     name: 'CMS Integration',
     description: 'Apply SortedUpdates CMS to the approved website',
     execution: 'harness',
-    skillFile: 'op-11-cms-integration.md',
+    skillFile: 'factory-operators.md',
     outputArtifact: 'cms-integration.json',
   },
   {
     id: 'cms-qa',
-    number: 12,
+    number: 14,
     name: 'CMS QA',
     description: 'Test actual customer editing workflows via Playwright',
     execution: 'harness',
-    skillFile: 'op-12-cms-qa.md',
+    skillFile: 'factory-operators.md',
     outputArtifact: 'cms-qa.json',
   },
   {
     id: 'analytics',
-    number: 13,
+    number: 15,
     name: 'Analytics',
     description: 'Apply measurement infrastructure',
     execution: 'harness',
-    skillFile: 'op-13-analytics.md',
+    skillFile: 'factory-operators.md',
     outputArtifact: 'analytics.json',
   },
   {
     id: 'launch-qa',
-    number: 14,
+    number: 16,
     name: 'Launch QA',
     description: 'Final production-readiness validation',
     execution: 'harness',
-    skillFile: 'op-14-launch-qa.md',
+    skillFile: 'factory-operators.md',
     outputArtifact: 'launch-qa.json',
   },
   {
     id: 'deployment',
-    number: 15,
+    number: 17,
     name: 'Deployment',
     description: 'Ship the validated website',
     execution: 'harness',
-    skillFile: 'op-15-deployment.md',
+    skillFile: 'factory-operators.md',
     outputArtifact: 'deployment.json',
   },
 ];
@@ -246,6 +271,12 @@ export interface OperatorState {
   failure_reason?: string;
   artifact_path?: string;  // relative to build job directory
   notes?: string;          // free-text operator notes
+  // Evidence recorded at pass time for artifacts that describe mutable
+  // site source. Used to detect stale QA after later source edits.
+  evidence?: {
+    source_revision?: string;
+    input_sha256?: string;
+  };
 }
 
 // ── Visual QA loop state ──────────────────────────────────────
@@ -270,10 +301,34 @@ export interface InternalPageState {
 // ── Build state ───────────────────────────────────────────────
 
 export interface BuildState {
+  // ── Schema ──
+  schema_version: 2;
+
   // ── Identity ──
   build_id: string;
   client_id: string;
   client_slug: string;
+
+  // ── Input mode ──
+  input_mode: 'supplied-pack' | 'legacy';
+
+  // ── Verified source revision ──
+  // SHA256 fingerprint of the site source last covered by passing
+  // evidence. QA passes record this; source drift blocks resume.
+  source_revision: string;
+
+  // ── Authorisations ──
+  // Local permission records only — they never execute remote work.
+  authorizations: {
+    cms: boolean;
+    deployment: boolean;
+  };
+  authorization_log: Array<{
+    target: 'cms' | 'deployment';
+    by: string;
+    reason: string;
+    at: string;
+  }>;
 
   // ── Input contract ──
   mockup_reference: string;       // path to approved-mockup.png
@@ -316,6 +371,7 @@ export function createInitialBuildState(params: {
   mockup_reference: string;
   manifest_reference: string;
   build_dir: string;
+  input_mode?: 'supplied-pack' | 'legacy';
 }): BuildState {
   const now = new Date().toISOString();
 
@@ -328,9 +384,14 @@ export function createInitialBuildState(params: {
   }
 
   return {
+    schema_version: 2,
     build_id: params.build_id,
     client_id: params.client_id,
     client_slug: params.client_slug,
+    input_mode: params.input_mode ?? 'legacy',
+    source_revision: '',
+    authorizations: { cms: false, deployment: false },
+    authorization_log: [],
     mockup_reference: params.mockup_reference,
     manifest_reference: params.manifest_reference,
     build_dir: params.build_dir,
@@ -360,62 +421,192 @@ export function createInitialBuildState(params: {
 
 export const OPERATOR_SEQUENCE: OperatorId[] = [...OPERATOR_IDS];
 
-export function getNextOperator(state: BuildState): OperatorId | null {
-  // ── Visual QA → Human Vision QA → Pixel Correction loop ────
-  // The loop has specific routing rules that override the linear sequence.
-  //
-  // Flow:
-  //   visual-qa (automated) → human-vision-qa (vision model)
-  //   human-vision-qa passed/skipped → ui-systemisation
-  //   human-vision-qa failed → pixel-correction
-  //   pixel-correction passed → human-vision-qa (re-verify)
+const TERMINAL_STATUSES: ReadonlySet<string> = new Set(['passed', 'skipped', 'supplied']);
+export const KNOWN_STATUSES: ReadonlySet<string> = new Set([
+  'pending', 'in_progress', 'passed', 'failed', 'skipped', 'escalated', 'supplied',
+]);
 
-  // 1. Pixel correction just passed → route back to human-vision-qa for re-verification
-  if (state.operators['pixel-correction'].status === 'passed' &&
-      state.last_completed_operator === 'pixel-correction') {
-    return 'human-vision-qa';
+export function isTerminalStatus(status: string): boolean {
+  return TERMINAL_STATUSES.has(status);
+}
+
+// Operators that legitimately mutate site source while running — a source
+// fingerprint change is expected while one of these is in_progress.
+export const EDIT_STAGES: ReadonlySet<OperatorId> = new Set([
+  'frontend-build',
+  'pixel-correction',
+  'ui-systemisation',
+  'internal-pages',
+  'cms-integration',
+  'analytics',
+]);
+
+// Operators whose pass evidence binds to the current source revision and
+// input contract hash.
+export const EVIDENCE_STAGES: ReadonlySet<OperatorId> = new Set([
+  'frontend-build',
+  'visual-qa',
+  'human-vision-qa',
+  'pixel-correction',
+  'ui-systemisation',
+  'design-system',
+  'core-build-qa',
+  'human-assessment',
+  'workspace-build',
+  'internal-pages',
+  'cms-integration',
+  'cms-qa',
+  'analytics',
+  'launch-qa',
+  'deployment',
+]);
+
+// mark-skipped is only ever legal for these stages.
+export const SKIPPABLE_OPERATORS: ReadonlySet<OperatorId> = new Set([
+  'mockup-regions',   // supplied pack consumed the layout directly
+  'pixel-correction', // vision QA reported zero discrepancies
+  'internal-pages',   // explicit no-pages artifact
+]);
+
+// ── Legacy / reconciliation detection ───────────────────────
+
+// A state needs reconciliation when it is not schema v2, lacks new
+// operators, or carries statuses this runtime does not understand
+// (e.g. historical 'completed'). Reads of such states must never
+// silently convert anything; mutations refuse until `reconcile` runs.
+export function stateNeedsReconciliation(state: BuildState): string | null {
+  if (state.schema_version !== 2) {
+    return 'state predates schema_version 2';
   }
-
-  // 2. Visual QA (automated) just passed → route to human-vision-qa (the vision gate)
-  if (state.operators['visual-qa'].status === 'passed' &&
-      state.last_completed_operator === 'visual-qa') {
-    return 'human-vision-qa';
-  }
-
-  // 3. Human vision QA just passed or was skipped → proceed to ui-systemisation
-  if ((state.operators['human-vision-qa'].status === 'passed' ||
-       state.operators['human-vision-qa'].status === 'skipped') &&
-      state.last_completed_operator === 'human-vision-qa' &&
-      state.operators['ui-systemisation'].status === 'pending') {
-    return 'ui-systemisation';
-  }
-
-  // 4. Human vision QA failed and iterations remain → route to pixel correction
-  if (state.operators['human-vision-qa'].status === 'failed' &&
-      state.visual_qa_loop.iteration < state.visual_qa_loop.max_iterations) {
-    return 'pixel-correction';
-  }
-
-  // 5. Visual QA failed (automated check found structural issues) → pixel correction
-  if (state.operators['visual-qa'].status === 'failed' &&
-      state.visual_qa_loop.iteration < state.visual_qa_loop.max_iterations) {
-    return 'pixel-correction';
-  }
-
-  // ── Default: linear sequence ───────────────────────────────
-  // Find the next pending operator in sequence after the last completed
-  const lastCompletedIdx = state.last_completed_operator
-    ? OPERATOR_SEQUENCE.indexOf(state.last_completed_operator)
-    : -1;
-
-  for (let i = lastCompletedIdx + 1; i < OPERATOR_SEQUENCE.length; i++) {
-    const opId = OPERATOR_SEQUENCE[i]!;
-    if (state.operators[opId].status === 'pending') {
-      return opId;
+  for (const id of OPERATOR_IDS) {
+    const op = state.operators?.[id];
+    if (!op) return `missing operator entry: ${id}`;
+    if (!KNOWN_STATUSES.has(op.status)) {
+      return `unsupported status '${op.status}' on ${id}`;
     }
   }
+  for (const id of OPERATOR_IDS) {
+    const op = state.operators[id];
+    if (op.status === 'supplied' && id !== 'asset-reconstruction') {
+      return `'supplied' status is only valid on asset-reconstruction (${id})`;
+    }
+  }
+  if (state.operators['asset-reconstruction']?.status === 'supplied' &&
+      state.input_mode !== 'supplied-pack') {
+    return `'supplied' status requires supplied-pack input mode`;
+  }
+  return null;
+}
 
-  return null; // all done
+// ── Next-action scheduling ──────────────────────────────────
+// Schedules strictly by prerequisites and status — never by
+// last_completed_operator alone.
+
+export interface NextAction {
+  kind: 'operator' | 'blocked' | 'complete';
+  operator_id?: OperatorId;
+  reason?: string;
+}
+
+// pixel-correction is only required when the vision loop produced
+// discrepancies. A passed vision loop with zero discrepancies satisfies it.
+function pixelCorrectionSatisfied(state: BuildState): boolean {
+  const st = state.operators['pixel-correction'].status;
+  if (isTerminalStatus(st)) return true;
+  if (st !== 'pending') return false;
+  return state.visual_qa_loop.passed === true &&
+         state.visual_qa_loop.last_discrepancy_count === 0;
+}
+
+function opSatisfied(state: BuildState, id: OperatorId): boolean {
+  if (id === 'pixel-correction') return pixelCorrectionSatisfied(state);
+  return isTerminalStatus(state.operators[id].status);
+}
+
+export function getNextAction(state: BuildState): NextAction {
+  // ── Reconciliation gate ────────────────────────────────────
+  const legacyReason = stateNeedsReconciliation(state);
+  if (legacyReason) {
+    return {
+      kind: 'blocked',
+      reason: `state requires reconciliation (${legacyReason}) — run: factory reconcile <build-dir>`,
+    };
+  }
+
+  const ops = state.operators;
+
+  // ── Out-of-order detection ─────────────────────────────────
+  // A terminal status with non-terminal predecessors means evidence was
+  // recorded out of order. That is a reconciliation problem, not a schedule.
+  const seen: OperatorId[] = [];
+  for (const id of OPERATOR_SEQUENCE) {
+    // Only a real terminal status can be "out of order" — the
+    // pixel-correction satisfied-pseudo-state is not a completion.
+    if (isTerminalStatus(ops[id].status)) {
+      const missing = seen.filter(prev => !opSatisfied(state, prev));
+      if (missing.length > 0) {
+        return {
+          kind: 'blocked',
+          reason: `out-of-order completion: '${id}' is ${ops[id].status} while prerequisite(s) ${missing.join(', ')} are not complete — reconcile or invalidate`,
+        };
+      }
+    }
+    seen.push(id);
+  }
+
+  // ── Hard blocks ────────────────────────────────────────────
+  const escalated = OPERATOR_SEQUENCE.find(id => ops[id].status === 'escalated');
+  if (escalated) {
+    return { kind: 'blocked', reason: `operator '${escalated}' is escalated — human intervention required` };
+  }
+
+  const running = OPERATOR_SEQUENCE.find(id => ops[id].status === 'in_progress');
+  if (running) {
+    return { kind: 'blocked', operator_id: running, reason: `operator '${running}' is already in progress` };
+  }
+
+  // ── Vision correction loop ─────────────────────────────────
+  // visual-qa or human-vision-qa failed → pixel-correction while budget
+  // remains. Budget exhausted → blocked for escalation; never loop again.
+  const vqa = ops['visual-qa'].status;
+  const hvqa = ops['human-vision-qa'].status;
+  if (vqa === 'failed' || hvqa === 'failed') {
+    const failedOp = vqa === 'failed' ? 'visual-qa' : 'human-vision-qa';
+    if (state.visual_qa_loop.iteration >= state.visual_qa_loop.max_iterations) {
+      return {
+        kind: 'blocked',
+        operator_id: failedOp,
+        reason: `vision correction budget exhausted (${state.visual_qa_loop.iteration}/${state.visual_qa_loop.max_iterations}) after '${failedOp}' failure — escalate to a human`,
+      };
+    }
+    const pixel = ops['pixel-correction'].status;
+    if (pixel === 'pending' || pixel === 'failed') {
+      return { kind: 'operator', operator_id: 'pixel-correction' };
+    }
+    return { kind: 'blocked', reason: `pixel-correction is '${pixel}' while '${failedOp}' has failed — inconsistent state` };
+  }
+
+  // ── Linear prerequisite scheduling ─────────────────────────
+  for (const id of OPERATOR_SEQUENCE) {
+    const st = ops[id].status;
+    if (opSatisfied(state, id)) continue;
+    if (st === 'pending' || st === 'failed') {
+      // failed normal stage → retry the same stage
+      return { kind: 'operator', operator_id: id };
+    }
+    // supplied/in_progress/escalated already handled or impossible here
+    return { kind: 'blocked', operator_id: id, reason: `operator '${id}' has unschedulable status '${st}'` };
+  }
+
+  return { kind: 'complete' };
+}
+
+// Compatibility shim: returns the operator id only when the next action is
+// a dispatchable operator; null for blocked and complete alike. Callers that
+// need to distinguish must use getNextAction.
+export function getNextOperator(state: BuildState): OperatorId | null {
+  const action = getNextAction(state);
+  return action.kind === 'operator' ? (action.operator_id ?? null) : null;
 }
 
 export function getOperatorMeta(id: OperatorId): OperatorMeta {

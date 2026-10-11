@@ -1,111 +1,122 @@
 // ─────────────────────────────────────────────────────────────
-// Frontend Builder — Zod Validation Schema
+// Frontend Builder — Input Validation
+//
+// Dependency-free validators (zod removed — it is not installed in
+// this implementation's environment). Returns a safeParse-shaped
+// result: { success: true, data } | { success: false, error }.
 // ─────────────────────────────────────────────────────────────
 
-import { z } from 'zod';
+import type { DeconstructionJSON, AssetManifest } from './types.js';
 
-export const DeconstructionSectionSchema = z.object({
-  id: z.string().min(1),
-  type: z.string().min(1),
-  position: z.number().int().min(1),
-  label: z.string().optional(),
-  layout: z.string().optional(),
-  theme: z.string().optional(),
-  background: z.string().optional(),
-  notes: z.string().optional(),
-});
-
-export const DeconstructionAssetSchema = z.object({
-  id: z.string().min(1),
-  type: z.string().min(1),
-  description: z.string().min(1),
-  priority: z.string().min(1),
-  source: z.string().min(1),
-  section: z.string().optional(),
-  slot: z.string().optional(),
-  aspect_ratio: z.string().optional(),
-  bbox: z.object({ x: z.number(), y: z.number(), w: z.number(), h: z.number() }).optional(),
-  mode_hint: z.string().optional(),
-  notes: z.string().optional(),
-});
-
-export const CopyBlockSchema = z.object({
-  section: z.string().min(1),
-  type: z.string().min(1),
-  text: z.string().min(1),
-  notes: z.string().optional(),
-});
-
-export const ComponentSchema = z.object({
-  component: z.string().min(1),
-  section: z.string().optional(),
-  description: z.string().optional(),
-  variant: z.string().optional(),
-});
-
-export const BuildNotesSchema = z.object({
-  layout: z.string().optional(),
-  style: z.string().optional(),
-  theme: z.string().optional(),
-  accent_color: z.string().optional(),
-  primary_font: z.string().optional(),
-  secondary_font: z.string().optional(),
-  responsive_priority: z.boolean().optional(),
-  animation: z.string().optional(),
-  grid: z.string().optional(),
-  notes: z.array(z.string()).optional(),
-});
-
-export const DeconstructionJSONSchema = z.object({
-  page_type: z.string().min(1),
-  sections: z.array(DeconstructionSectionSchema).min(1),
-  assets: z.array(DeconstructionAssetSchema),
-  components: z.array(ComponentSchema),
-  copy: z.array(CopyBlockSchema),
-  build_notes: BuildNotesSchema,
-  meta: z.object({
-    source_image: z.string().optional(),
-    model_used: z.string().optional(),
-    generated_at: z.string().optional(),
-    operator_version: z.string().optional(),
-  }).optional(),
-});
-
-export const ManifestAssetSchema = z.object({
-  id: z.string().min(1),
-  mode: z.string().min(1),
-  status: z.string().min(1),
-  files: z.object({
-    original: z.string().optional(),
-    lg: z.string().optional(),
-    md: z.string().optional(),
-    sm: z.string().optional(),
-    xs: z.string().optional(),
-  }),
-  meta: z.object({
-    format: z.string().optional(),
-    width: z.number().optional(),
-    height: z.number().optional(),
-    source_model: z.string().optional(),
-    prompt_used: z.string().optional(),
-    aspect_ratio: z.string().optional(),
-    extracted_from: z.string().optional(),
-    error: z.string().optional(),
-  }),
-});
-
-export const AssetManifestSchema = z.object({
-  mockup: z.string(),
-  deconstruction: z.string(),
-  generated_at: z.string(),
-  operator_version: z.string(),
-  assets: z.array(ManifestAssetSchema),
-});
-
-export function validateDeconstruction(data: unknown) {
-  return DeconstructionJSONSchema.safeParse(data);
+export interface ValidationError {
+  format: () => Record<string, unknown>;
 }
 
-export function validateManifest(data: unknown) {
-  return AssetManifestSchema.safeParse(data);
+type Result<T> = { success: true; data: T } | { success: false; error: ValidationError };
+
+function fail(issues: string[]): { success: false; error: ValidationError } {
+  return {
+    success: false,
+    error: { format: () => ({ issues }) },
+  };
+}
+
+function isObj(v: unknown): v is Record<string, unknown> {
+  return typeof v === 'object' && v !== null && !Array.isArray(v);
+}
+
+function isStr(v: unknown, min = 1): boolean {
+  return typeof v === 'string' && v.length >= min;
+}
+
+function isNum(v: unknown): boolean {
+  return typeof v === 'number' && Number.isFinite(v);
+}
+
+function checkStr(o: Record<string, unknown>, key: string, path: string, issues: string[], required = true): void {
+  const v = o[key];
+  if (v === undefined) {
+    if (required) issues.push(`${path}.${key}: required string missing`);
+    return;
+  }
+  if (!isStr(v, required ? 1 : 0)) issues.push(`${path}.${key}: invalid string`);
+}
+
+function checkArr(v: unknown, path: string, issues: string[], minLen = 0): v is unknown[] {
+  if (!Array.isArray(v)) {
+    issues.push(`${path}: must be an array`);
+    return false;
+  }
+  if (v.length < minLen) {
+    issues.push(`${path}: must contain at least ${minLen} item(s)`);
+    return false;
+  }
+  return true;
+}
+
+export function validateDeconstruction(data: unknown): Result<DeconstructionJSON> {
+  const issues: string[] = [];
+  if (!isObj(data)) return fail(['root: must be an object']);
+
+  checkStr(data, 'page_type', 'root', issues);
+  if (checkArr(data['sections'], 'sections', issues, 1)) {
+    (data['sections'] as unknown[]).forEach((s, i) => {
+      if (!isObj(s)) { issues.push(`sections[${i}]: must be an object`); return; }
+      checkStr(s, 'id', `sections[${i}]`, issues);
+      checkStr(s, 'type', `sections[${i}]`, issues);
+      if (!isNum(s['position']) || !Number.isInteger(s['position']) || (s['position'] as number) < 1) {
+        issues.push(`sections[${i}].position: must be an integer >= 1`);
+      }
+    });
+  }
+  if (checkArr(data['assets'], 'assets', issues)) {
+    (data['assets'] as unknown[]).forEach((a, i) => {
+      if (!isObj(a)) { issues.push(`assets[${i}]: must be an object`); return; }
+      for (const k of ['id', 'type', 'description', 'priority', 'source']) {
+        checkStr(a, k, `assets[${i}]`, issues);
+      }
+    });
+  }
+  if (checkArr(data['components'], 'components', issues)) {
+    (data['components'] as unknown[]).forEach((c, i) => {
+      if (!isObj(c)) { issues.push(`components[${i}]: must be an object`); return; }
+      checkStr(c, 'component', `components[${i}]`, issues);
+    });
+  }
+  if (checkArr(data['copy'], 'copy', issues)) {
+    (data['copy'] as unknown[]).forEach((c, i) => {
+      if (!isObj(c)) { issues.push(`copy[${i}]: must be an object`); return; }
+      for (const k of ['section', 'type', 'text']) {
+        checkStr(c, k, `copy[${i}]`, issues);
+      }
+    });
+  }
+  if (!isObj(data['build_notes'])) issues.push('build_notes: must be an object');
+
+  if (issues.length > 0) return fail(issues);
+  return { success: true, data: data as unknown as DeconstructionJSON };
+}
+
+export function validateManifest(data: unknown): Result<AssetManifest> {
+  const issues: string[] = [];
+  if (!isObj(data)) return fail(['root: must be an object']);
+
+  checkStr(data, 'mockup', 'root', issues);
+  checkStr(data, 'deconstruction', 'root', issues);
+  checkStr(data, 'generated_at', 'root', issues);
+  checkStr(data, 'operator_version', 'root', issues);
+
+  if (checkArr(data['assets'], 'assets', issues)) {
+    (data['assets'] as unknown[]).forEach((a, i) => {
+      if (!isObj(a)) { issues.push(`assets[${i}]: must be an object`); return; }
+      for (const k of ['id', 'mode', 'status']) {
+        checkStr(a, k, `assets[${i}]`, issues);
+      }
+      if (!isObj(a['files'])) issues.push(`assets[${i}].files: must be an object`);
+      if (!isObj(a['meta'])) issues.push(`assets[${i}].meta: must be an object`);
+    });
+  }
+
+  if (issues.length > 0) return fail(issues);
+  return { success: true, data: data as unknown as AssetManifest };
 }

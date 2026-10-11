@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import Image from "next/image"
 import localFont from "next/font/local"
-import { ArrowRight, Check, Clock3, Edit3, Eye, Phone, ShieldCheck, Star, Zap } from "lucide-react"
+import { ArrowRight, Check, Edit3, Eye, Phone, ShieldCheck, Zap } from "lucide-react"
 import { MockupButton } from "./SitesMockupModal"
 import { SitesHeaderClient } from "./SitesHeaderClient"
 
@@ -35,51 +35,67 @@ export function SitesPage({ children }: { children: ReactNode }) {
   return <main className={`${sitesMarker.variable} ${sitesHighlight.variable} ${sitesFaveScript.variable} ${sitesBakeshop.variable} sorted-sites-shell min-h-screen bg-[#fbfbfa] pt-[76px] text-[#070707]`}>{children}</main>
 }
 
-export function SitesHeader({ active }: { active?: "how" | "examples" | "pricing" | "about" | "updates" }) {
-  return <SitesHeaderClient active={active} />
+export function SitesHeader({ active, tone = "light", variant = "default" }: { active?: "how" | "examples" | "pricing" | "included" | "whatelse" | "about" | "updates"; tone?: "light" | "dark"; variant?: "default" | "home" }) {
+  return <SitesHeaderClient active={active} tone={tone} variant={variant} />
 }
 
-export function SitesFooter() {
+export function SitesFooter({ variant = "default", tone = "dark" }: { variant?: "default" | "compact"; tone?: "dark" | "light" }) {
+  const compact = variant === "compact"
+  const light = tone === "light"
+  const muted = light ? "text-black/60" : "text-white/80"
+  const faint = light ? "text-black/40" : "text-white/40"
+  const faintMid = light ? "text-black/50" : "text-white/55"
   return (
-    <footer className="bg-[#070707] px-5 py-8 text-white sm:px-8">
-      <div className="mx-auto grid max-w-[1220px] gap-8 md:grid-cols-[1.35fr_0.8fr_0.8fr_1fr]">
-        <div>
-          <Logo dark />
-          <p className="mt-4 max-w-[220px] text-[13px] font-semibold leading-[1.4] text-white/80">
-            Websites that build trust, explain your services and turn visitors into enquiries.
+    <footer className={`${light ? "bg-white text-[#070707]" : "bg-[#070707] text-white"} px-5 sm:px-8 ${compact ? "py-7" : "py-8"}`}>
+      <div className={`mx-auto grid gap-8 ${compact ? "max-w-[1280px] max-sm:grid-cols-2 md:grid-cols-[1.35fr_0.8fr_0.8fr_1fr]" : "max-w-[1220px] md:grid-cols-[1.35fr_0.8fr_0.8fr_1fr]"}`}>
+        <div className={compact ? "max-sm:col-span-2" : ""}>
+          <Logo dark={!light} />
+          <p className={`mt-4 text-[13px] font-semibold leading-[1.4] ${muted} ${compact ? "max-w-[230px]" : "max-w-[220px]"}`}>
+            Brilliant websites for good local businesses.
           </p>
-          <p className="mt-7 text-[11px] font-medium text-white/50">© 2026 Sorted.</p>
-          <p className="mt-2 text-[10px] font-medium leading-[1.5] text-white/40">
-            Sorted is a trading name of ADX Engine Ltd · Registered in England &amp; Wales · Company number 17327041
-          </p>
+          {!compact ? (
+            <>
+              <p className={`mt-7 text-[11px] font-medium ${faintMid}`}>© 2026 Sorted.</p>
+              <p className={`mt-2 text-[10px] font-medium leading-[1.5] ${faint}`}>
+                Sorted is a trading name of ADX Engine Ltd · Registered in England &amp; Wales · Company number 17327041
+              </p>
+            </>
+          ) : null}
         </div>
-        <FooterLinks title="Product" links={[["How it works", "/howitworks"], ["Examples", "/examples"], ["Pricing", "/pricing"], ["SortedUpdates", "/website-updates"]]} />
-        <FooterLinks title="Company" links={[["About us", "/about"], ["Our process", "/"], ["Reviews", "/examples"], ["Partner program", "/partners"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
-        <div>
+        <FooterLinks light={light} title="Product" links={[["How it works", "/howitworks"], ["Examples", "/examples"], ["Pricing", "/pricing"], ["What else we do", "/what-else-we-do"], ["SortedUpdates", "/website-updates"]]} />
+        <FooterLinks light={light} title="Company" links={[["About us", "/about"], ["Our process", "/"], ["Reviews", compact ? "/#reviews" : "/examples"], ["Partner program", "/partners"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
+        <div className={compact ? "max-sm:col-span-2" : ""}>
           <p className="mb-4 text-[12px] font-black">Let's talk</p>
-          <a href="https://wa.me/447386468085" className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#dfff00] px-5 text-[12px] font-black text-black">
+          <a href="https://wa.me/447386468085" className={`inline-flex h-11 items-center gap-2 rounded-xl px-5 text-[12px] font-black text-black ${compact ? "bg-[#d7ff00]" : "bg-[#dfff00]"}`}>
             <Phone className="size-4" strokeWidth={2.6} />
             WhatsApp us
           </a>
-          <p className="mt-4 text-[12px] font-semibold text-white/80">hello@sortmydigital.site</p>
+          <p className={`mt-4 text-[12px] font-semibold ${muted}`}>hello@sortmydigital.site</p>
         </div>
       </div>
-      <div className="mx-auto mt-8 flex max-w-[1220px] justify-end gap-7 text-[10px] font-semibold text-white/55">
-        <span>Privacy</span>
-        <span>Terms</span>
+      <div className={`mx-auto mt-8 flex ${compact && light ? "max-w-[1280px]" : "max-w-[1220px]"} gap-7 text-[10px] font-semibold ${faintMid} ${compact ? `items-center justify-between border-t pt-5 ${light ? "border-black/10" : "border-white/10"}` : "justify-end"}`}>
+        {compact ? (
+          <p className={`max-w-[460px] text-[10px] font-medium leading-[1.5] ${faint}`}>
+            © 2026 Sorted. Sorted is a trading name of ADX Engine Ltd · Registered in England &amp; Wales · Company number 17327041
+          </p>
+        ) : null}
+        <span className="flex gap-7">
+          <a href="/privacy" className={`transition-colors ${light ? "hover:text-black" : "hover:text-white"}`}>Privacy</a>
+          <a href="/terms" className={`transition-colors ${light ? "hover:text-black" : "hover:text-white"}`}>Terms</a>
+        </span>
       </div>
     </footer>
   )
 }
 
-function FooterLinks({ title, links }: { title: string; links: [string, string][] }) {
+function FooterLinks({ title, links, light = false }: { title: string; links: [string, string][]; light?: boolean }) {
   return (
     <div>
       <p className="mb-4 text-[12px] font-black">{title}</p>
-      <ul className="space-y-1 text-[12px] font-semibold text-white/82 sm:space-y-3">
+      <ul className={`space-y-1 text-[12px] font-semibold sm:space-y-3 ${light ? "text-black/70" : "text-white/82"}`}>
         {links.map(([label, href]) => (
           <li key={label}>
-            <a href={href} className="inline-flex min-h-10 items-center transition-colors hover:text-[#dfff00] sm:min-h-0">{label}</a>
+            <a href={href} className={`inline-flex min-h-10 items-center transition-colors sm:min-h-0 ${light ? "hover:text-black" : "hover:text-[#dfff00]"}`}>{label}</a>
           </li>
         ))}
       </ul>
@@ -112,11 +128,11 @@ export function Underline({ pink = false, className = "" }: { pink?: boolean; cl
 
 export function FeatureBar() {
   const items = [
-    [Clock3, "Fast", "Get your mockup in 24 hours"],
-    [Zap, "Fixed price", "One price. Everything included."],
-    [ShieldCheck, "No risk", "Free mockup. No obligation."],
-    [Check, "All included", "Design, build, hosting & CMS"],
-    [Edit3, "Easy to update", "Update text and images yourself"],
+    [Eye, "Preview first", "See the design before you pay"],
+    [Zap, "Fixed price", "One complete website. £3,000"],
+    [ShieldCheck, "Your decision", "No payment. No obligation."],
+    [Edit3, "Content control", "Edit your words and images"],
+    [Check, "See it first", "Then decide. No pressure."],
   ] as const
 
   return (
@@ -235,7 +251,7 @@ export function SitePreviewCard({ example = examples[0], large = false }: { exam
   )
 }
 
-export function DarkCta({ title = "Ready for your new website?", copy = "Get your free mockup in 24 hours. No obligation. No credit card." }: { title?: string; copy?: string }) {
+export function DarkCta({ title = "See it first. Then decide.", copy = "Get your free site. No payment. No obligation." }: { title?: string; copy?: string }) {
   return (
     <section className="bg-[#070707] px-5 pt-10 text-black sm:px-8">
       <div className="mx-auto grid max-w-[1220px] gap-5 rounded-[12px] bg-white px-5 py-5 shadow-[0_18px_44px_rgba(0,0,0,0.22)] sm:px-6 lg:grid-cols-[0.3fr_0.3fr_0.12fr_0.28fr] lg:items-center">

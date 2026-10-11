@@ -45,7 +45,10 @@ export default function DentalPracticesPage() {
             </div>
             <p className="text-[48px] font-black tracking-[-0.08em] text-white drop-shadow">DENTAL<br />PRACTICE</p>
           </div>
-          <div className="-mt-10 mx-auto grid max-w-[650px] grid-cols-4 divide-x divide-white/20 rounded-[14px] bg-[#070707] p-5 text-center text-white">
+          <p className="mx-auto mt-5 max-w-[650px] rounded-[12px] border border-black/15 bg-white px-5 py-3.5 text-[12px] font-bold leading-[1.5] text-black/70">
+            Illustrative example. Figures and quoted feedback are not verified client results.
+          </p>
+          <div className="mx-auto mt-5 grid max-w-[650px] grid-cols-4 divide-x divide-white/20 rounded-[14px] bg-[#070707] p-5 text-center text-white">
             {[
               [MessageCircle, "63", "Enquiries recovered per month"],
               [Clock3, "24.6", "Hours returned per month"],

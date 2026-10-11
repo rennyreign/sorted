@@ -101,7 +101,7 @@ Every skill in this repo has natural-language trigger phrases. To see the full l
 
 The Sorted site-build chain runs in two modes. See `doctrine/operator-chain.md` for the full state contract.
 
-**Orchestration agent (default):** Load `operators/skills/site-build.md` and run the chain in a single session — mockup → deconstruction → assets → site repo → build pass.
+**Orchestration agent (default):** Load `operators/skills/factory-operators.md`. ChatGPT supplies mockup, reconstructed imagery and design-IR export; CLI validates intake, optimises/registers assets, builds and independently verifies the site. Human assessment and the new workspace brief are explicit handoffs. The full downstream lifecycle remains relevant.
 
 **Operator pipeline (scale):** Each step runs as a discrete CLI process. Same doctrine, same artifact shapes, different runtime.
 
@@ -121,9 +121,12 @@ The Sorted site-build chain runs in two modes. See `doctrine/operator-chain.md` 
 
 | Step | Skill | Status |
 |---|---|---|
-| Mockup Deconstructor | `operators/skills/mockup-deconstructor.md` | Active |
-| Asset Generator | `operators/skills/asset-generator.md` | Active |
+| Mockup Deconstructor | `operators/skills/mockup-deconstructor.md` | Conditional fallback when supplied design detail is missing |
+| Asset Generator | `operators/skills/asset-generator.md` | Dormant for complete supplied export packs |
+| Intake / Asset Registry / Safe Resume | `operators/skills/factory-operators.md` | Default local manufacturing path |
 | Frontend Builder | `operators/skills/frontend-builder.md` | Active |
+| Independent Visual QA | `operators/skills/op-05b-human-vision-qa.md` | Required; distinct from human approval |
+| Workspace Handoff | `operators/skills/workspace-build.md` | After human assessment and approved commercial/creative brief |
 | Image Optimization | `.devin/workflows/image-optimization.md` | Active |
 | SortedUpdates CMS | `.devin/workflows/add-decap-cms.md` | Active |
 | Launch QA | `operators/skills/launch-qa.md` | Active |
@@ -180,13 +183,15 @@ Key rules — apply to every Stage 1 build:
 - **Use the proven page pattern:** nav → hero + CTA → trust bar → services → why us → about → testimonials → contact → footer
 - **Design standards:** Obvious. Useful. Trustworthy. Frictionless. Local. Human. Competent. Polished.
 - **Avoid:** startup language, AI gradients, generic three-card rows, visual cleverness that hides information
-- **Copy:** Plain English. Real draft copy. No lorem ipsum. No "elevate / unleash / transform / seamless"
+- **Copy:** Plain English. Real draft copy. No lorem ipsum. No "elevate / unleash / transform / seamless". Canonical voice: `doctrine/sorted-brand-voice.md` (constructive confrontation — honest but fair, challenge the gap not the person)
 - **Motion — Standard (default):** hover states, card lift, smooth scroll, staggered reveals. Premium only if brief specifies.
 
 **Level 3 — client customisation**
 Brand colours, fonts, section order, imagery style — varies per client. Constrained by Levels 1 and 2.
 
 Full scaffold: `templates/client-site/README.md`
+
+Approved client mockup/design-IR takes precedence over generic spacing, type and section-order defaults. Use taste skills to improve reliability/accessibility without redesigning the approved composition. Record current-revision evidence and attempts; unknown billed costs/human time remain unknown. Two-build pilot protocol: `docs/manufacturing-two-build-pilot.md`.
 
 ---
 
@@ -250,13 +255,17 @@ Pre-delivery pages shown to prospects before Nod 1. Same password-protected patt
 
 Pattern: `/workspace?slug=<client-slug>` (dev) → `sortmydigital.site/workspace/<client-slug>` (prod). Backed by a `prospects` row + `WORKSPACE_OVERRIDES` in `lib/workspace.ts`.
 
-Full standards live in `operators/skills/start-build.md` (Workspace review / website preview / Next Steps sections). Core rules:
+Full standards live in `operators/skills/start-build.md` → **Client workspace standard: acquisition hub v2**. This is the default infrastructure for new client work; Sweeney’s is the implementation reference.
 
-- **Review copy is benefit-led** — trust (reputation, brand, proof) → enquiries → customers, grounded in the client's real fundamentals. No web-design jargon; say "site", not "homepage".
-- **The black reveal card always carries a real screenshot** of the built site (`website.previewImageUrl`, optimised webp in `public/`).
-- **Website preview is full-bleed** with a single black action bar; forward CTAs read "See next steps" — never put a price on a navigation button.
-- **Offer amounts render from `workspace.offer`** — never hardcoded; always set `stripePaymentUrl` explicitly per client (omitting it inherits the shared link and charges the wrong amount).
-- **"Not interested"** red link on Next Steps → confirm dialog → `mark_workspace_not_interested` RPC flips `crm_status='lost'`.
+- **Prospect navigation:** Overview (default) / Your New Site / Your Ads / Follow-up / Tracking, plus a separate Next steps action. Preserve the global navbar and existing project/live states; `review` is a compatibility route.
+- **Overview:** website, one customer offer, ads, follow-up and tracking presented as a connected service. Benefit-led copy names the value, gap and observable improvement. The reveal carries a real built-site screenshot (`website.previewImageUrl`, optimised WebP in `public/`).
+- **Website:** full browser width and remaining viewport height beneath the global navbar and compact controls, so clients can experience the site. No outer pitch sections, device frame or old black review action bar.
+- **Ads:** every workspace includes ad creative, copy and campaign structure as part of the fixed setup; every creative is a standalone complete ad with visible copy, artwork at native proportions, headline and CTA. No variant tabs or letterboxing. Ad spend, publishing approvals and ongoing management remain in Sorted Ads / separately agreed service.
+- **Follow-up:** every workspace includes an agreed enquiry follow-up sequence as part of the fixed setup. Show selectable full email previews with clear timing/ownership; proposed sequences do not send emails until connected and approved.
+- **Tracking:** business-specific outcome cards, customer journey and costs. Disconnected previews use clearly labelled illustrative figures, with costs calculated from example spend/counts; samples never masquerade as live results. Do not market Booking & CRM as part of the standard proposition.
+- **Next Steps:** “Interested? Book your call.” with interests and immediately visible calendar; “What's the cost?” is secondary. Prices render from `workspace.offer`; set `stripePaymentUrl` explicitly per client to avoid inheriting the wrong charge.
+- **Not interested:** quiet red link → confirmation → `mark_workspace_not_interested` RPC, preserving paid/build/quote guards.
+- **Honest proposal states:** unbuilt offer pages and unconnected campaigns/reporting remain visibly proposed. Stage 1 does not authorise CMS, deployment, ad publishing or outbound emails.
 
 ## Client Directory & Agreements
 
@@ -280,6 +289,16 @@ Before closing any client delivery:
 - [ ] Handoff SHA tagged (`git tag handoff/[client-slug]`)
 - [ ] Client quote page live at `sortmydigital.site/clients/[client-slug]`
 - [ ] Quote page password sent to client separately
+
+---
+
+## Public Marketing Design & Voice (V3)
+
+Scoped to Sorted's own public marketing pages only:
+
+- **Palette:** black / white / warm-neutral with lime `#D7FF00` accents (and the blue iceberg graphic on `/what-else-we-do`). Internal dashboards, operator tools and client workspaces remain on the monochrome design system — do not carry the marketing palette into them.
+- **Voice:** Sorted's canonical brand voice (constructive confrontation — honest but fair) applies to Sorted's own public communications. Client-brand copy always respects the approved client tone.
+- **Structure:** the homepage is website-led; `/what-else-we-do` explains the wider acquisition system. The fixed service includes the website, agreed ad creative/campaign setup, tracking and follow-up setup; ad spend, ongoing management and future optimisation are always presented as separate and optional. Never claim false inclusions, performance or timing — no guaranteed results, no hard delivery promises, and do not market Booking & CRM as part of the standard proposition.
 
 ---
 

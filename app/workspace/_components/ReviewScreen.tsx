@@ -15,7 +15,7 @@ export function ReviewScreen({
     onNavigate("website")
   }
 
-  const { headline, summary, rebuildReasons, observations } = workspace.review
+  const { headline, summary, rebuildReasons, observations, changes, comparisonPrompt } = workspace.review
   const showStrengths = rebuildReasons.some((r) => r.strength)
 
   return (
@@ -25,9 +25,11 @@ export function ReviewScreen({
         <h1 className="text-[clamp(2.6rem,5.4vw,4rem)] font-extrabold leading-[0.97] tracking-[-0.05em]">
           {headline}
         </h1>
-        <p className="mt-4 text-[16px] font-medium leading-[1.55] text-[#73736D] sm:text-[18px]">
-          {summary}
-        </p>
+        {summary.split("\n\n").map((paragraph) => (
+          <p key={paragraph} className="mt-4 text-[16px] font-medium leading-[1.55] text-[#73736D] sm:text-[18px]">
+            {paragraph}
+          </p>
+        ))}
       </section>
 
       {/* Homepage reveal */}
@@ -64,8 +66,32 @@ export function ReviewScreen({
         ) : null}
       </section>
 
-      {/* Why we rebuilt it — strengths vs what the old site did with them */}
-      {rebuildReasons.length > 0 ? (
+      {changes?.length ? (
+        <section className="mb-8">
+          <h2 className="text-[28px] font-extrabold tracking-[-0.04em] sm:text-[34px]">
+            {changes.length === 3 ? "Three changes worth a look" : "Changes worth a look"}
+          </h2>
+          <span className="mt-3 block h-[4px] w-14 rounded-full bg-[#DFFF00]" />
+          <ol className="mt-6">
+            {changes.map((change, i) => (
+              <li key={change.title} className="grid grid-cols-[42px_1fr] gap-x-4 border-t border-[#E8E5DD] py-6 first:border-t-0 sm:grid-cols-[64px_minmax(0,29%)_1fr] sm:gap-x-5 sm:py-7">
+                <span className="grid size-[34px] place-items-center rounded-full bg-[#F1F1EC] text-[12px] font-black text-[#73736D]">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="text-[18px] font-extrabold leading-[1.3] tracking-[-0.02em] sm:text-[20px]">{change.title}</h3>
+                <div className="col-start-2 mt-3 text-[15px] font-medium leading-[1.6] text-[#73736D] sm:col-start-3 sm:mt-0 sm:text-[16px]">
+                  <p>{change.current}</p>
+                  <p className="mt-3">{change.preview}</p>
+                  <p className="mt-4 text-[#070707]"><strong className="font-extrabold">The advantage:</strong> {change.advantage}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : null}
+
+      {/* Existing reviews keep their authored sections until migrated. */}
+      {!changes?.length && rebuildReasons.length > 0 ? (
         <section className="mb-[18px]">
           <h2 className="text-[28px] font-extrabold tracking-[-0.04em] sm:text-[34px]">{workspace.review.reasonsHeading ?? "Why we rebuilt it"}</h2>
           <span className="mt-3 block h-[4px] w-14 rounded-full bg-[#DFFF00]" />
@@ -110,7 +136,7 @@ export function ReviewScreen({
       ) : null}
 
       {/* What's improved — the new site's benefits */}
-      {observations.length > 0 ? (
+      {!changes?.length && observations.length > 0 ? (
         <section className="mb-[18px]">
           <h2 className="text-[28px] font-extrabold tracking-[-0.04em] sm:text-[34px]">What&apos;s improved</h2>
           <span className="mt-3 block h-[4px] w-14 rounded-full bg-[#DFFF00]" />
@@ -130,6 +156,16 @@ export function ReviewScreen({
               </li>
             ))}
           </ol>
+        </section>
+      ) : null}
+
+      {comparisonPrompt ? (
+        <section className="mb-8 border-t border-[#E8E5DD] py-7">
+          <h2 className="text-[28px] font-extrabold tracking-[-0.04em] sm:text-[34px]">Take a look, then decide.</h2>
+          <p className="mt-3 text-[16px] font-medium leading-[1.6] text-[#73736D] sm:text-[18px]">{comparisonPrompt}</p>
+          <button type="button" onClick={openPreview} className="mt-5 inline-flex min-h-12 items-center gap-3 rounded-full bg-[#070707] px-6 text-[13px] font-black text-white transition-transform duration-200 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#070707]">
+            Explore your new site <ArrowRight className="size-4" strokeWidth={2.8} />
+          </button>
         </section>
       ) : null}
 

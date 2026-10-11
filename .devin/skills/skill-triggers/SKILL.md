@@ -20,6 +20,9 @@ This is the master reference for every skill in the Sorted repository and the na
 - "start a build"
 - "run the manufacturing line"
 - "new client build"
+- "create a client workspace"
+- "update the client hub"
+- "prepare the acquisition workspace"
 
 ### Run the manufacturing line (operator sequence)
 **Skill:** `manufacturing-line` — `.devin/skills/manufacturing-line/SKILL.md`
@@ -32,6 +35,7 @@ This is the master reference for every skill in the Sorted repository and the na
 - "progress the build"
 
 ### Deconstruct a mockup
+Conditional missing-design fallback; complete export packs do not trigger this step.
 **Skill:** `mockup-deconstructor` — `operators/skills/mockup-deconstructor.md`
 **Say:**
 - "deconstruct this mockup"
@@ -39,6 +43,7 @@ This is the master reference for every skill in the Sorted repository and the na
 - "analyse this mockup image"
 
 ### Generate assets
+Dormant missing/replacement-image fallback; supplied images go to intake/registry instead.
 **Skill:** `asset-generator` — `operators/skills/asset-generator.md`
 **Say:**
 - "generate assets"
@@ -52,12 +57,20 @@ This is the master reference for every skill in the Sorted repository and the na
 - "build the site from the deconstruction"
 - "generate the code"
 
-### Orchestrate full site build (all 3 steps)
+### Orchestrate supplied-pack site build
 **Skill:** `site-build` — `operators/skills/site-build.md`
 **Say:**
 - "build this client site"
 - "run the full build chain"
 - "build from mockup"
+
+### Independent visual QA
+**Contract:** `operators/skills/op-05b-human-vision-qa.md`
+Compare current screenshots against the approved reference without modifying code. Functional QA cannot waive this gate.
+
+### Prepare the acquisition workspace
+**Contract:** `operators/skills/workspace-build.md` via `start-build`
+Use the human-approved offer/pricing/creative brief and existing acquisition hub v2; do not scaffold a second site or publish campaigns.
 
 ---
 

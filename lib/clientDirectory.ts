@@ -111,6 +111,20 @@ export const CLIENTS: ClientRecord[] = [
     ],
   },
   {
+    slug: "mccolm-cardew",
+    name: "McColm Cardew",
+    prospectName: "McColm Cardew",
+    notes:
+      "Stage 1 homepage ready for review; scope and price still need confirming before payment is requested.",
+    docs: [
+      {
+        type: "proposal",
+        label: "Client review workspace",
+        path: "/workspace/mccolm-cardew/review",
+      },
+    ],
+  },
+  {
     slug: "gb-halesowen",
     name: "Gracie Barra Halesowen",
     docs: [

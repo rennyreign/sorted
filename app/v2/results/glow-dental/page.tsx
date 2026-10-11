@@ -3,8 +3,8 @@ import { ArrowLeft, ArrowRight, BarChart3, CalendarDays, Check, Clock3, MapPin, 
 import { CtaBand, MarkerText, SectionTitle, V2Footer, V2Header, V2Page } from "../../_components/V2Primitives"
 
 export const metadata: Metadata = {
-  title: "Results | Sorted V2",
-  description: "Measured examples of gaps closed by Sorted, including time returned, enquiries recovered, and reviews generated.",
+  title: "Results | Sorted Ops",
+  description: "An illustrative example of enquiry follow-up and operational reporting; not verified client results.",
 }
 
 const comparison = [
@@ -25,6 +25,9 @@ export default function ResultsPage() {
             Back to all results
           </a>
           <p className="text-[27px] font-semibold tracking-[-0.05em]">Glow Dental</p>
+          <p className="mt-3 inline-block rounded-full border border-black/15 bg-white px-4 py-2 text-[11px] font-black uppercase tracking-[0.05em] text-black/60">
+            Illustrative example. Figures and quoted feedback are not verified client results.
+          </p>
           <h1 className="mt-8 max-w-full text-[clamp(3.1rem,13vw,6.8rem)] font-black leading-[0.92] tracking-[-0.04em] sm:max-w-[680px]">
             Gap closed!
             <br />

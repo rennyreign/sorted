@@ -1,0 +1,2064 @@
+diff --git a/AGENTS.md b/AGENTS.md
+index 752f6837..0980ad0d 100644
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -101,7 +101,7 @@ Every skill in this repo has natural-language trigger phrases. To see the full l
+ 
+ The Sorted site-build chain runs in two modes. See `doctrine/operator-chain.md` for the full state contract.
+ 
+-**Orchestration agent (default):** Load `operators/skills/site-build.md` and run the chain in a single session — mockup → deconstruction → assets → site repo → build pass.
++**Orchestration agent (default):** Load `operators/skills/factory-operators.md`. ChatGPT supplies mockup, reconstructed imagery and design-IR export; CLI validates intake, optimises/registers assets, builds and independently verifies the site. Human assessment and the new workspace brief are explicit handoffs. The full downstream lifecycle remains relevant.
+ 
+ **Operator pipeline (scale):** Each step runs as a discrete CLI process. Same doctrine, same artifact shapes, different runtime.
+ 
+@@ -121,9 +121,12 @@ The Sorted site-build chain runs in two modes. See `doctrine/operator-chain.md`
+ 
+ | Step | Skill | Status |
+ |---|---|---|
+-| Mockup Deconstructor | `operators/skills/mockup-deconstructor.md` | Active |
+-| Asset Generator | `operators/skills/asset-generator.md` | Active |
++| Mockup Deconstructor | `operators/skills/mockup-deconstructor.md` | Conditional fallback when supplied design detail is missing |
++| Asset Generator | `operators/skills/asset-generator.md` | Dormant for complete supplied export packs |
++| Intake / Asset Registry / Safe Resume | `operators/skills/factory-operators.md` | Default local manufacturing path |
+ | Frontend Builder | `operators/skills/frontend-builder.md` | Active |
++| Independent Visual QA | `operators/skills/op-05b-human-vision-qa.md` | Required; distinct from human approval |
++| Workspace Handoff | `operators/skills/workspace-build.md` | After human assessment and approved commercial/creative brief |
+ | Image Optimization | `.devin/workflows/image-optimization.md` | Active |
+ | SortedUpdates CMS | `.devin/workflows/add-decap-cms.md` | Active |
+ | Launch QA | `operators/skills/launch-qa.md` | Active |
+@@ -180,7 +183,7 @@ Key rules — apply to every Stage 1 build:
+ - **Use the proven page pattern:** nav → hero + CTA → trust bar → services → why us → about → testimonials → contact → footer
+ - **Design standards:** Obvious. Useful. Trustworthy. Frictionless. Local. Human. Competent. Polished.
+ - **Avoid:** startup language, AI gradients, generic three-card rows, visual cleverness that hides information
+-- **Copy:** Plain English. Real draft copy. No lorem ipsum. No "elevate / unleash / transform / seamless"
++- **Copy:** Plain English. Real draft copy. No lorem ipsum. No "elevate / unleash / transform / seamless". Canonical voice: `doctrine/sorted-brand-voice.md` (constructive confrontation — honest but fair, challenge the gap not the person)
+ - **Motion — Standard (default):** hover states, card lift, smooth scroll, staggered reveals. Premium only if brief specifies.
+ 
+ **Level 3 — client customisation**
+@@ -188,6 +191,8 @@ Brand colours, fonts, section order, imagery style — varies per client. Constr
+ 
+ Full scaffold: `templates/client-site/README.md`
+ 
++Approved client mockup/design-IR takes precedence over generic spacing, type and section-order defaults. Use taste skills to improve reliability/accessibility without redesigning the approved composition. Record current-revision evidence and attempts; unknown billed costs/human time remain unknown. Two-build pilot protocol: `docs/manufacturing-two-build-pilot.md`.
++
+ ---
+ 
+ ## Two-Stage Delivery Model
+@@ -250,13 +255,17 @@ Pre-delivery pages shown to prospects before Nod 1. Same password-protected patt
+ 
+ Pattern: `/workspace?slug=<client-slug>` (dev) → `sortmydigital.site/workspace/<client-slug>` (prod). Backed by a `prospects` row + `WORKSPACE_OVERRIDES` in `lib/workspace.ts`.
+ 
+-Full standards live in `operators/skills/start-build.md` (Workspace review / website preview / Next Steps sections). Core rules:
++Full standards live in `operators/skills/start-build.md` → **Client workspace standard: acquisition hub v2**. This is the default infrastructure for new client work; Sweeney’s is the implementation reference.
+ 
+-- **Review copy is benefit-led** — trust (reputation, brand, proof) → enquiries → customers, grounded in the client's real fundamentals. No web-design jargon; say "site", not "homepage".
+-- **The black reveal card always carries a real screenshot** of the built site (`website.previewImageUrl`, optimised webp in `public/`).
+-- **Website preview is full-bleed** with a single black action bar; forward CTAs read "See next steps" — never put a price on a navigation button.
+-- **Offer amounts render from `workspace.offer`** — never hardcoded; always set `stripePaymentUrl` explicitly per client (omitting it inherits the shared link and charges the wrong amount).
+-- **"Not interested"** red link on Next Steps → confirm dialog → `mark_workspace_not_interested` RPC flips `crm_status='lost'`.
++- **Prospect navigation:** Overview (default) / Your New Site / Your Ads / Follow-up / Tracking, plus a separate Next steps action. Preserve the global navbar and existing project/live states; `review` is a compatibility route.
++- **Overview:** website, one customer offer, ads, follow-up and tracking presented as a connected service. Benefit-led copy names the value, gap and observable improvement. The reveal carries a real built-site screenshot (`website.previewImageUrl`, optimised WebP in `public/`).
++- **Website:** full browser width and remaining viewport height beneath the global navbar and compact controls, so clients can experience the site. No outer pitch sections, device frame or old black review action bar.
++- **Ads:** every creative is a standalone complete ad with visible copy, artwork at native proportions, headline and CTA. No variant tabs or letterboxing. Actual approvals remain in Sorted Ads.
++- **Follow-up:** selectable full email previews, clear timing/ownership and separate enquiry chasing versus booking confirmations/reminders. Proposed sequences do not send emails.
++- **Tracking:** business-specific outcome cards, customer journey and costs. Disconnected previews use clearly labelled illustrative figures, with costs calculated from example spend/counts; samples never masquerade as live results.
++- **Next Steps:** “Interested? Book your call.” with interests and immediately visible calendar; “What's the cost?” is secondary. Prices render from `workspace.offer`; set `stripePaymentUrl` explicitly per client to avoid inheriting the wrong charge.
++- **Not interested:** quiet red link → confirmation → `mark_workspace_not_interested` RPC, preserving paid/build/quote guards.
++- **Honest proposal states:** unbuilt offer pages and unconnected campaigns/reporting remain visibly proposed. Stage 1 does not authorise CMS, deployment, ad publishing or outbound emails.
+ 
+ ## Client Directory & Agreements
+ 
+@@ -283,6 +292,16 @@ Before closing any client delivery:
+ 
+ ---
+ 
++## Public Marketing Design & Voice (V3)
++
++Scoped to Sorted's own public marketing pages only:
++
++- **Palette:** black / white / warm-neutral with lime `#D7FF00` accents (and the blue iceberg graphic on `/what-else-we-do`). Internal dashboards, operator tools and client workspaces remain on the monochrome design system — do not carry the marketing palette into them.
++- **Voice:** Sorted's canonical brand voice (constructive confrontation — honest but fair) applies to Sorted's own public communications. Client-brand copy always respects the approved client tone.
++- **Structure:** the homepage is website-led; `/what-else-we-do` explains optional wider services. Never claim false inclusions, performance or timing — no guaranteed results, no hard delivery promises, and optional services are always presented as separately scoped.
++
++---
++
+ ## Key Doctrine
+ 
+ - `doctrine/sorted-value-model.md` — four-pillar value model (Trust, Enquiries, Customers, Operations), scoring heuristic, outreach discipline
+diff --git a/app/about/page.tsx b/app/about/page.tsx
+index 98746b2b..9fc65460 100644
+--- a/app/about/page.tsx
++++ b/app/about/page.tsx
+@@ -5,8 +5,8 @@ import { SitesFooter, SitesHeader, SitesPage, Underline } from "../sites/_compon
+ import { MockupButton } from "../sites/_components/SitesMockupModal"
+ 
+ export const metadata: Metadata = {
+-  title: "Why Sorted Exists | Stronger local businesses, stronger economy",
+-  description: "Sorted makes modern business infrastructure accessible so small and independent businesses can compete, grow and contribute to a stronger economy.",
++  title: "Why Sorted Exists | Good at the job. Your website should show it.",
++  description: "Sorted respects the work local businesses do and closes the gap between the business and how it looks online — starting with the website.",
+   alternates: {
+     canonical: "/about",
+   },
+@@ -29,19 +29,18 @@ export default function AboutPage() {
+       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-14 pt-12 sm:px-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:pb-20 lg:pt-16">
+         <div>
+           <h1 className="text-[clamp(3.35rem,6vw,6.4rem)] font-black leading-[0.94] tracking-[-0.045em]">
+-            Stronger local<br />
+-            businesses build<br />
+-            a stronger<br />
+-            <span className="inline-block [font-family:var(--font-sites-fave-script)] text-[1.45em] font-normal leading-[0.72] tracking-[0] text-[#d4ea00]">economy</span>
++            Good at the job.<br />
++            Your website should<br />
++            <span className="inline-block [font-family:var(--font-sites-fave-script)] text-[1.45em] font-normal leading-[0.72] tracking-[0] text-[#d4ea00]">show it.</span>
+           </h1>
+           <Underline className="mt-5 w-[min(320px,75vw)]" />
+           <p className="mt-7 max-w-[540px] text-[17px] font-semibold leading-[1.55] tracking-[-0.03em] text-black/78">
+-            We believe economic growth is built through more capable businesses in more places. Sorted&apos;s contribution is to make modern business infrastructure accessible to small and independent businesses, starting where customers usually experience the gap first: the website.
++            We respect the work. But too many good local businesses are let down by how they look online — and customers judge what they see before they experience what you do. So we show you something better before we ask for a penny.
+           </p>
+           <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+             <MockupButton />
+-            <a href="/partners/enterprise" className="inline-flex min-h-11 items-center gap-2 px-1 text-[12px] font-black transition-colors hover:text-black/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#dfff00] focus-visible:ring-offset-4">
+-              Partner with Sorted <ArrowRight className="size-4" strokeWidth={2.8} />
++            <a href="/what-else-we-do" className="inline-flex min-h-11 items-center gap-2 px-1 text-[12px] font-black transition-colors hover:text-black/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#dfff00] focus-visible:ring-offset-4">
++              What else we do <ArrowRight className="size-4" strokeWidth={2.8} />
+             </a>
+           </div>
+         </div>
+@@ -133,7 +132,7 @@ export default function AboutPage() {
+                   <span className="grid size-11 place-items-center bg-[#dfff00] text-[12px] font-black">02</span>
+                   <div>
+                     <h3 className="text-[21px] font-black tracking-[-0.04em]">Improve what happens behind the front door.</h3>
+-                    <p className="mt-3 max-w-[600px] text-[14px] font-semibold leading-[1.6] text-black/66">Enquiries, follow-up, booking, customer data, reviews, reporting and repetitive work all shape the experience. We address the next costly gap only when it has earned its place.</p>
++                    <p className="mt-3 max-w-[600px] text-[14px] font-semibold leading-[1.6] text-black/66">Enquiries, follow-up, booking, customer data, reviews, reporting and repetitive work all shape the experience. We address the next costly gap only when it has earned its place. <a href="/what-else-we-do" className="underline underline-offset-4 transition-colors hover:text-black">See what else we do</a>.</p>
+                   </div>
+                 </article>
+               </div>
+diff --git a/app/examples/BeforeAfterVideo.tsx b/app/examples/BeforeAfterVideo.tsx
+index 8fbf0760..f7d18855 100644
+--- a/app/examples/BeforeAfterVideo.tsx
++++ b/app/examples/BeforeAfterVideo.tsx
+@@ -6,7 +6,7 @@ export function BeforeAfterVideo({ className = "" }: BeforeAfterVideoProps) {
+   return (
+     <figure
+       className={`group relative aspect-video w-full overflow-hidden rounded-[16px] border border-black/12 bg-[#090a0a] text-white shadow-[0_24px_70px_rgba(0,0,0,0.14)] ${className}`}
+-      aria-label="Before and after website walkthrough video"
++      aria-label="School of Skill example website walkthrough"
+     >
+       <video
+         className="absolute inset-0 h-full w-full object-cover"
+diff --git a/app/examples/[slug]/page.tsx b/app/examples/[slug]/page.tsx
+index 7ba61ee2..084b97c8 100644
+--- a/app/examples/[slug]/page.tsx
++++ b/app/examples/[slug]/page.tsx
+@@ -1,6 +1,6 @@
+ import type { Metadata } from "next"
+ import { notFound } from "next/navigation"
+-import { ArrowLeft, ArrowRight, Star } from "lucide-react"
++import { ArrowLeft, ArrowRight } from "lucide-react"
+ import { DarkCta, SitesFooter, SitesHeader, SitesPage, Underline } from "../../sites/_components/SitesPrimitives"
+ import { exampleCaseStudies, getExampleCaseStudy } from "../_caseStudies"
+ import { CaseStudyHeroPreview } from "./CaseStudyHeroPreview"
+@@ -49,7 +49,7 @@ export default async function ExampleCaseStudyPage({ params }: PageProps) {
+             <ArrowLeft className="size-4" /> Back to all examples
+           </a>
+           <p className="mb-5 text-[12px] font-black uppercase text-black/45">{caseStudy.category}</p>
+-          <h1 className="max-w-[560px] text-[clamp(3.35rem,5.8vw,6rem)] font-black leading-[0.9] tracking-[-0.055em]">{caseStudy.business}</h1>
++          <h1 className="max-w-[560px] text-[clamp(2.7rem,5.8vw,6rem)] font-black leading-[0.9] tracking-[-0.055em]">{caseStudy.business}</h1>
+           <p className="mt-4 [font-family:var(--font-sites-fave-script)] text-[clamp(3.4rem,5.2vw,5.6rem)] leading-[0.8] tracking-[0] text-[#d4ea00]">{caseStudy.title}</p>
+           <Underline className="mt-3 w-[240px]" />
+           <p className="mt-7 max-w-[440px] text-[17px] font-semibold leading-[1.5] tracking-[-0.03em]">{caseStudy.description}</p>
+@@ -61,9 +61,9 @@ export default async function ExampleCaseStudyPage({ params }: PageProps) {
+       <section className="border-y border-black/10 bg-white px-5 py-12 sm:px-8 sm:py-16">
+         <div className="mx-auto grid max-w-[1220px] gap-8 lg:grid-cols-[0.32fr_0.68fr] lg:items-center">
+           <div>
+-            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-black/45">Before &amp; after</p>
+-            <h2 className="mt-4 max-w-[300px] text-[clamp(2.4rem,4vw,4.2rem)] font-black leading-[0.92] tracking-[-0.055em]">See the transformation.</h2>
+-            <p className="mt-5 max-w-[310px] text-[15px] font-semibold leading-[1.5] text-black/64">A full walkthrough of the website before and after the Sorted treatment is coming soon.</p>
++            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-black/45">Example walkthrough</p>
++            <h2 className="mt-4 max-w-[300px] text-[clamp(2.4rem,4vw,4.2rem)] font-black leading-[0.92] tracking-[-0.055em]">See how we show the work.</h2>
++            <p className="mt-5 max-w-[310px] text-[15px] font-semibold leading-[1.5] text-black/64">This School of Skill walkthrough shows how we present a website for review. The project screenshots above show {caseStudy.business}.</p>
+           </div>
+           <BeforeAfterVideo />
+         </div>
+@@ -86,27 +86,24 @@ export default async function ExampleCaseStudyPage({ params }: PageProps) {
+           ))}
+         </div>
+ 
+-        <blockquote className="rounded-[20px] bg-[#f7f1e8] p-6 sm:p-10">
+-          <p className="max-w-[720px] text-[28px] font-black leading-[1.05] tracking-[-0.035em] sm:text-[34px]">“{caseStudy.testimonial}”</p>
+-          <div className="mt-8 flex items-center gap-4">
+-            <span className="grid size-16 place-items-center rounded-full bg-[#070707] text-[18px] font-black text-white">{caseStudy.business.slice(0, 2).toUpperCase()}</span>
+-            <p className="text-[13px] font-semibold">
+-              <strong className="block text-[15px] text-black">{caseStudy.testimonialName}</strong>
+-              {caseStudy.testimonialRole}
+-            </p>
+-          </div>
+-        </blockquote>
+-      </section>
+-
+-      <section className="mx-auto max-w-[1220px] px-5 py-8 sm:px-8">
+-        <div className="grid grid-cols-2 gap-5 rounded-[18px] bg-[#f7f1e8] p-5 sm:p-8 md:grid-cols-4">
+-          {caseStudy.stats.map(([value, label]) => (
+-            <article key={`${value}-${label}`} className="border-black/10 md:border-l md:pl-8 first:md:border-l-0">
+-              <Star className="size-8" />
+-              <p className="mt-4 text-[34px] font-black tracking-[-0.045em] sm:text-[38px]">{value}</p>
+-              <p className="max-w-[150px] text-[13px] font-bold leading-[1.35]">{label}</p>
+-            </article>
+-          ))}
++        <div className="rounded-[20px] bg-[#f7f1e8] p-6 sm:p-10">
++          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-black/45">What changed</p>
++          <p className="mt-4 max-w-[720px] text-[22px] font-black leading-[1.15] tracking-[-0.035em] sm:text-[26px]">
++            {caseStudy.title}
++          </p>
++          <ul className="mt-7 grid gap-4 sm:grid-cols-2">
++            {[
++              "A clearer first impression that matches the quality of the work.",
++              "Stronger structure so services and proof are easier to find.",
++              "A simpler route to enquire, book or get in touch.",
++              "A responsive design that holds up on every device.",
++            ].map((item) => (
++              <li key={item} className="flex gap-3 text-[13px] font-semibold leading-[1.5] text-black/68">
++                <ArrowRight className="mt-0.5 size-4 shrink-0 text-[#789100]" strokeWidth={2.8} />
++                {item}
++              </li>
++            ))}
++          </ul>
+         </div>
+       </section>
+ 
+diff --git a/app/examples/page.tsx b/app/examples/page.tsx
+index ff895406..d7f9747e 100644
+--- a/app/examples/page.tsx
++++ b/app/examples/page.tsx
+@@ -37,18 +37,18 @@ export default async function ExamplesPage() {
+       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-8 pt-11 sm:px-8 sm:pb-12 sm:pt-14 lg:grid-cols-[0.96fr_1.04fr] lg:items-center">
+         <div>
+           <h1 className="max-w-[610px] text-[clamp(3.55rem,7vw,7.3rem)] font-black leading-[0.86] tracking-[-0.06em]">
+-            Real work
++            We don&apos;t sell.
+             <br />
+-            Real results
++            We show.
+           </h1>
+           <div className="mt-2 max-w-[430px] [font-family:var(--font-sites-fave-script)] text-[clamp(4.3rem,7vw,7.4rem)] font-normal leading-[0.72] tracking-[0] text-[#cfea00]">
+             Built first.
+             <br />
+             Priced second.
+           </div>
+-          <Underline className="mt-3 w-[330px] max-w-full" />
++          <Underline className="mt-3 w-full max-w-[330px]" />
+           <p className="mt-7 max-w-[520px] text-[17px] font-semibold leading-[1.5] tracking-[-0.025em] text-black/75">
+-            Every website you see here started as a free mockup. The business owner saw it, loved it, and we built it.
++            Some are live sites. Some are design previews. Look at the work, then decide what your business needs.
+           </p>
+           <div className="mt-8 flex flex-wrap items-center gap-5">
+             <MockupButton />
+@@ -101,8 +101,8 @@ export default async function ExamplesPage() {
+             <h2 className="text-[22px] font-black leading-[1.02] tracking-[-0.04em]">See what we can build for your business</h2>
+           </div>
+           <p className="text-[13px] font-black leading-[1.35]">
+-            Get your free mockup in 24 hours.
+-            <span className="block font-semibold">No obligation. No credit card.</span>
++            Get your free mockup.
++            <span className="block font-semibold">No payment. No obligation.</span>
+           </p>
+           <ArrowRight className="hidden size-14 lg:block" strokeWidth={2} />
+           <MockupButton variant="primary" className="justify-self-start whitespace-nowrap bg-black text-white lg:justify-self-end" />
+diff --git a/app/howitworks/page.tsx b/app/howitworks/page.tsx
+index f723dad4..9c230b68 100644
+--- a/app/howitworks/page.tsx
++++ b/app/howitworks/page.tsx
+@@ -54,8 +54,8 @@ function HeroSection() {
+           </span>
+         </h1>
+         <p className="mt-6 max-w-[470px] text-[17px] font-semibold leading-[1.55] tracking-[-0.02em] text-black/75">
+-          The Nod Mockup System™ gives you a complete preview of your new website before you spend. Approve each stage.
+-          You're in control.
++          We design a free homepage preview for your business before you spend anything. You review it, approve the
++          direction, and stay in control of each stage.
+         </p>
+         <div className="mt-8 flex flex-wrap items-center gap-5">
+           <MockupButton />
+@@ -106,40 +106,36 @@ type ProcessStep = {
+   title: string
+   description: string
+   extra?: string
+-  nod?: string
+ }
+ 
+ const processSteps: ProcessStep[] = [
+   {
+     image: "/sorted-sites/howitworks/hw-design1.png",
+     icon: Pencil,
+-    title: "We create your mockup",
+-    description: "We design your website, write the copy, define the angle and build your brand (or refresh it).",
++    title: "Tell us about the business",
++    description: "Answer a few quick questions about what you do and what the website needs to do.",
+     extra: "New site or redesign, we've got you.",
+   },
+   {
+     image: "/sorted-sites/howitworks/hw-design2.png",
+     icon: FileText,
+-    title: "You review and nod",
+-    description: "We send you your mockup the same day or within 24hrs.",
+-    extra: "You review it and give us your nod.",
+-    nod: "NOD 1",
++    title: "See a free homepage preview",
++    description: "We design a tailored homepage direction — the page, the copy and the structure — and send it to you to review.",
++    extra: "Free. No payment. No obligation.",
+   },
+   {
+     image: "/sorted-sites/howitworks/hw-design3.png",
+     icon: Calendar,
+-    title: "We build your site",
+-    description: "Once you nod, we build your fully functional, SEO, AEO & XEO optimised website.",
+-    extra: "Delivered within 48-72hrs.",
+-    nod: "NOD 2",
++    title: "Approve the direction",
++    description: "Happy with the preview? A £1,500 deposit starts the full build.",
++    extra: "If not, walk away. It costs you nothing.",
+   },
+   {
+     image: "/sorted-sites/howitworks/hw-design4.png",
+     icon: Rocket,
+-    title: "You launch and grow",
+-    description: "Your site goes live, ready to attract, convert and grow your business.",
+-    extra: "We're here for updates, support and growth.",
+-    nod: "NOD 3",
++    title: "We finish and launch",
++    description: "We complete the site, connect everything and get it ready to launch.",
++    extra: "The remaining £1,500 is due when it is ready to go live.",
+   },
+ ]
+ 
+@@ -148,14 +144,14 @@ function ProcessSection() {
+     <section className="mx-auto max-w-[1220px] px-5 py-16 sm:px-8">
+       <div>
+         <h2 className="text-[clamp(2.4rem,5vw,3.6rem)] font-black leading-[0.98] tracking-[-0.045em]">
+-          <span className="inline-block whitespace-nowrap">A simple process.</span>
++          <span className="inline-block">A simple process.</span>
+           <br />
+-          <span className="inline-block whitespace-nowrap">Total clarity.</span>
++          <span className="inline-block">Total clarity.</span>
+           <Underline className="mt-3 h-[5px] w-24" />
+         </h2>
+       </div>
+ 
+-      <div className="relative mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
++      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+         {processSteps.map((step, index) => {
+           const Icon = step.icon
+           return (
+@@ -190,36 +186,18 @@ function ProcessSection() {
+         })}
+ 
+         {/* NOD badges between cards */}
+-        <span className="absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 lg:left-[25%] lg:block">
+-          <NodBadge label="NOD 1" />
+-        </span>
+-        <span className="absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 lg:left-[50%] lg:block">
+-          <NodBadge label="NOD 2" />
+-        </span>
+-        <span className="absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 lg:left-[75%] lg:block">
+-          <NodBadge label="NOD 3" />
+-        </span>
+       </div>
+     </section>
+   )
+ }
+ 
+-function NodBadge({ label }: { label: string }) {
+-  return (
+-    <span className="flex size-14 flex-col items-center justify-center rounded-full bg-[#070707] text-center text-white shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
+-      <span className="text-[9px] font-black uppercase leading-none tracking-[0.05em]">NOD</span>
+-      <span className="text-[16px] font-black leading-none tracking-[-0.04em]">{label.replace("NOD ", "")}</span>
+-    </span>
+-  )
+-}
+-
+ const includes = [
+-  [Search, "Modern SEO, AEO & XEO Optimised", "Built to rank in Google, AI search and across emerging platforms."],
+-  [Target, "Built to Drive New Customers", "Strategic structure, clear messaging and conversion-focused design."],
+-  [Monitor, "Robust CMS", "Easy-to-use content management so you can update your site with ease."],
+-  [Smartphone, "Fully Responsive & Fast", "Looks great on every device. Lightning fast for better rankings and user experience."],
+-  [ShieldCheck, "Secure & Reliable", "SSL, backups and best-practice security as standard."],
+-  [Headphones, "Ongoing Support & Updates", "We keep your site fresh, secure and performing at its best."],
++  [Search, "Strategy & structure", "A clear site structure and messaging built around how your customers actually choose."],
++  [Target, "Built to earn enquiries", "Clear routes to call, message and book, with conversion-focused design throughout."],
++  [Monitor, "Edit your own content", "Update everyday words, images, services and prices yourself."],
++  [Smartphone, "Fully responsive & fast", "Looks great and loads quickly on every device."],
++  [ShieldCheck, "Quality checked before launch", "We check the agreed pages, contact routes and responsive layouts before handoff."],
++  [Headphones, "Support after launch", "Ongoing support beyond handoff is agreed separately, so you know exactly what is covered."],
+ ] as const
+ 
+ function IncludesSection() {
+@@ -227,9 +205,9 @@ function IncludesSection() {
+     <section className="mx-auto max-w-[1220px] px-5 py-16 sm:px-8">
+       <div>
+         <h2 className="text-[clamp(2.4rem,5vw,3.6rem)] font-black leading-[0.98] tracking-[-0.045em]">
+-          <span className="inline-block whitespace-nowrap">Built for today.</span>
++          <span className="inline-block">Built for today.</span>
+           <br />
+-          <span className="inline-block whitespace-nowrap">Ready for tomorrow.</span>
++          <span className="inline-block">Ready for tomorrow.</span>
+           <Underline className="mt-3 h-[5px] w-24" />
+         </h2>
+       </div>
+@@ -255,21 +233,21 @@ function IncludesSection() {
+ const timeline = [
+   {
+     icon: Clock3,
+-    time: "Same day or within 24hrs",
+-    title: "Mockup delivered",
+-    description: "You'll receive your custom mockup to review.",
++    time: "First, the preview",
++    title: "Free homepage preview",
++    description: "We design a tailored homepage direction and send it for you to review.",
+   },
+   {
+     icon: Code2,
+-    time: "48-72hrs after nod",
++    time: "Then, the build",
+     title: "Site built and connected",
+-    description: "We build your complete, fully functional website.",
++    description: "Once you approve the direction and pay the deposit, we build your complete website.",
+   },
+   {
+     icon: Rocket,
+-    time: "Launch & grow",
++    time: "Finally, launch",
+     title: "Your site goes live",
+-    description: "Go live and start turning your website into customers.",
++    description: "The balance is due when the finished site is ready to launch.",
+   },
+ ] as const
+ 
+@@ -278,11 +256,14 @@ function SpeedSection() {
+     <section className="mx-auto max-w-[1220px] px-5 py-16 sm:px-8">
+       <div>
+         <h2 className="text-[clamp(2.4rem,5vw,3.6rem)] font-black leading-[0.98] tracking-[-0.045em]">
+-          <span className="inline-block whitespace-nowrap">See it today.</span>
++          <span className="inline-block">A short process.</span>
+           <br />
+-          <span className="inline-block whitespace-nowrap">Live in days.</span>
++          <span className="inline-block">Not a rushed website.</span>
+           <Underline className="mt-3 h-[5px] w-24" />
+         </h2>
++        <p className="mt-5 max-w-[560px] text-[15px] font-semibold leading-[1.55] text-black/62">
++          We confirm timing with you after reviewing the scope of your site — so the date we give you is one we can keep.
++        </p>
+       </div>
+ 
+       <div className="mt-10 rounded-[20px] border border-black/10 bg-white p-6 shadow-[0_14px_40px_rgba(0,0,0,0.045)] sm:p-8">
+@@ -356,7 +337,7 @@ function BottomCta() {
+             ))}
+           </ul>
+           <p className="mt-6 max-w-[420px] text-[15px] font-semibold leading-[1.55] text-white/75">
+-            Get your free mockup in 24 hours. No obligation. No credit card.
++            Get your free homepage preview. No payment. No obligation.
+           </p>
+           <div className="mt-7">
+             <MockupButton variant="white" />
+diff --git a/app/page.tsx b/app/page.tsx
+index 11544d74..fa88cfca 100644
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -1,254 +1,323 @@
+ import type { Metadata } from "next"
+ import Image from "next/image"
+-import { ArrowRight, Check, Clock3, Edit3, Eye, Phone, ShieldCheck, Star, Zap } from "lucide-react"
+-import { FeatureBar, Logo, SitesHeader, SitesPage, SitesTitle, Underline } from "./sites/_components/SitesPrimitives"
++import { ArrowRight, ArrowUpRight, Check, Edit3, Eye, MousePointerClick, PoundSterling, TrendingUp } from "lucide-react"
++import { SitesFooter, SitesHeader, SitesPage, Underline } from "./sites/_components/SitesPrimitives"
+ import { MockupButton } from "./sites/_components/SitesMockupModal"
+ import { GoogleReviews } from "./sites/_components/GoogleReviews"
+ import { exampleCaseStudies } from "./examples/_caseStudies"
+ import { getGoogleReviews } from "@/lib/googleReviews"
+ 
+ export const metadata: Metadata = {
+-  title: "Sorted | Your new website, Sorted",
+-  description: "We create your new homepage before you commit. It is live, responsive and filled with content. One complete website, one fixed price.",
++  title: "Sorted | Websites for local businesses that look as good as the work",
++  description:
++    "Your competitors aren't better. They just look better. See a free mockup of your new website before you pay anything — one complete website, one fixed price of £3,000.",
+   alternates: {
+     canonical: "/",
+   },
++  openGraph: {
++    title: "Sorted | Websites for local businesses",
++    description:
++      "See a free mockup of your new website before you spend a penny. One complete website. One fixed price.",
++    url: "/",
++  },
+ }
+ 
++const portfolioSlugs = ["warwickshire-short-stays", "palace-barn-cottage", "bodysharp-fitness"]
++
+ export default async function SortedSitesHome() {
+   const googleReviews = await getGoogleReviews()
++  const portfolio = portfolioSlugs
++    .map((slug) => exampleCaseStudies.find((example) => example.slug === slug))
++    .filter((example): example is (typeof exampleCaseStudies)[number] => Boolean(example))
+ 
+   return (
+     <SitesPage>
+-      <SitesHeader />
+-      <section className="mx-auto grid max-w-[1220px] gap-8 px-5 pb-8 pt-10 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:pt-12">
+-        <div>
+-          <SitesTitle
+-            title={<>Your new<br />website,</>}
+-            marker={<span className="[font-family:var(--font-sites-fave-script)] text-[clamp(6rem,11vw,11.5rem)] normal-case tracking-[0]">Sorted.</span>}
+-          />
+-          <Underline className="mt-2 w-[300px]" />
+-          <div className="mt-8">
+-            <h2 className="text-[clamp(1.85rem,2.75vw,2.85rem)] font-black leading-[0.98] tracking-[-0.045em] md:whitespace-nowrap">
+-              <span className="inline-block">
+-                See it first
+-                <Underline className="mt-1 h-[5px] w-full" />
+-              </span>{" "}
+-              Then decide
+-            </h2>
+-          </div>
+-          <p className="mt-5 max-w-[470px] text-[17px] font-semibold leading-[1.5] tracking-[-0.03em]">
+-            We design your website before you spend a penny. If you love it, we build it. If you do not, walk away. No obligation.
+-          </p>
+-          <div className="mt-8 flex flex-wrap items-center gap-5">
+-            <MockupButton />
+-            <span className="[font-family:var(--font-sites-highlight)] text-[23px] leading-none text-[#d0e600]">No card details<br />No obligation.</span>
+-          </div>
+-        </div>
++      <SitesHeader tone="dark" />
+ 
+-        <div className="relative min-h-[300px] sm:min-h-[390px] lg:min-h-[500px]">
++      <section className="relative -mt-[76px] overflow-hidden bg-[#070707] pt-[76px] text-white">
++        <div className="absolute inset-y-0 right-0 w-full lg:w-[58%]" aria-hidden="true">
+           <Image
+-            src="/sorted-sites/home-herobg.png"
+-            alt="Sorted website mockups displayed around a laptop website preview."
++            src="/sorted-home/hero-image.png"
++            alt=""
+             fill
+             priority
+-            sizes="(min-width: 1024px) 690px, 100vw"
+-            className="object-contain object-center"
++            sizes="(min-width: 1024px) 58vw, 100vw"
++            className="object-cover object-center opacity-40 lg:opacity-100"
+           />
++          <div className="absolute inset-0 bg-gradient-to-r from-[#070707] via-[#070707]/85 to-[#070707]/25 lg:via-[#070707]/45" />
++          <div className="absolute inset-0 bg-gradient-to-t from-[#070707]/80 via-transparent to-[#070707]/40 lg:hidden" />
+         </div>
+-      </section>
+ 
+-      <FeatureBar />
++        <div className="relative mx-auto grid max-w-[1220px] gap-12 px-5 pb-16 pt-12 sm:px-8 lg:grid-cols-[0.52fr_0.48fr] lg:items-center lg:pb-24 lg:pt-16">
++          <div>
++            <p className="text-[12px] font-black uppercase tracking-[0.16em] text-white/60">Websites for local businesses</p>
++            <h1 className="mt-6 text-[clamp(3rem,5vw,4.5rem)] font-black leading-[0.94] tracking-[-0.045em]">
++              Your competitors
++              <br />
++              aren&apos;t better.
++              <br />
++              <span className="block">
++                They just{" "}
++                <span className="relative inline-block [font-family:var(--font-sites-fave-script)] text-[1.15em] font-normal leading-[0.85] tracking-[0] text-[#dfff00]">
++                  look better.
++                  <Underline className="absolute -bottom-2 left-0 w-full" />
++                </span>
++              </span>
++            </h1>
++            <p className="mt-8 max-w-[460px] text-[17px] font-semibold leading-[1.55] tracking-[-0.02em] text-white/82">
++              And that&apos;s a problem. Customers judge what they see before they experience what you do.
++            </p>
++            <div className="mt-9 flex flex-wrap items-center gap-6">
++              <MockupButton variant="yellow" />
++              <span className="[font-family:var(--font-sites-highlight)] text-[22px] leading-[1.05] text-[#dfff00]">
++                No payment.
++                <br />
++                No obligation.
++              </span>
++            </div>
++          </div>
+ 
+-      <section className="mx-auto grid max-w-[1220px] gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.28fr_0.72fr]">
+-        <div>
+-          <h2 className="text-[36px] font-black leading-[0.98] tracking-[-0.035em]">Simple process<br />Serious results</h2>
+-          <Underline className="mt-5 w-60" />
++          <figure className="relative lg:justify-self-end">
++            <div className="overflow-hidden rounded-[14px] border border-white/15 bg-[#0c0c0c] shadow-[0_34px_90px_rgba(0,0,0,0.55)]">
++              <div className="flex h-9 items-center gap-2 border-b border-white/10 bg-[#141414] px-4">
++                <span className="size-2.5 rounded-full bg-white/25" />
++                <span className="size-2.5 rounded-full bg-white/25" />
++                <span className="size-2.5 rounded-full bg-[#dfff00]/80" />
++                <span className="ml-3 hidden h-5 flex-1 items-center rounded-full bg-white/[0.07] px-3 text-[10px] font-bold text-white/45 sm:flex">bodysharpfitness.com</span>
++              </div>
++              <div className="relative aspect-[16/10]">
++                <Image
++                  src="/examples/live/bodysharp-fitness-v2-desktop.png"
++                  alt="The BodySharp Fitness website designed and built by Sorted"
++                  fill
++                  sizes="(min-width: 1024px) 560px, 100vw"
++                  className="object-cover object-top"
++                />
++              </div>
++            </div>
++            <figcaption className="mt-4 flex items-center justify-between gap-4">
++              <span className="text-[12px] font-bold text-white/70">Real work. A better first impression.</span>
++              <span className="[font-family:var(--font-sites-highlight)] text-[20px] leading-none text-[#dfff00]">Made for the business.</span>
++            </figcaption>
++          </figure>
+         </div>
+-        <div className="grid grid-cols-2 gap-5 md:grid-cols-4 md:gap-7">
++      </section>
++
++      <section className="border-b border-black/10 bg-white">
++        <div className="mx-auto grid max-w-[1220px] gap-6 px-5 py-10 sm:grid-cols-2 sm:px-8 lg:grid-cols-4 lg:gap-0 lg:py-12">
+           {[
+-            [Edit3, "Tell us about you", "Answer a few quick questions about your business and goals."],
+-            [Eye, "We design your site", "We create a custom mockup tailored to your business. You review it."],
+-            [Check, "You decide", "Happy with the mockup? Approve it and we get to work."],
+-            [Zap, "We build & launch", "We build, connect everything and launch your new website."],
++            [Eye, "Preview first", "See the design before you pay."],
++            [PoundSterling, "Fixed price", "One complete website. £3,000."],
++            [Check, "Your decision", "No payment. No obligation."],
++            [Edit3, "Content control", "Edit your words and images."],
+           ].map(([Icon, title, copy]) => {
+-            const RealIcon = Icon as typeof Edit3
++            const RealIcon = Icon as typeof Eye
+             return (
+-              <article key={title as string} className="relative border-black/10 md:border-l md:pl-8 first:md:border-l-0">
+-                <span className="grid size-11 place-items-center rounded-full bg-[#dfff00] sm:size-12">
++              <article key={title as string} className="flex items-start gap-4 border-black/10 lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0">
++                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-[#dfff00]">
+                   <RealIcon className="size-6" strokeWidth={2.4} />
+                 </span>
+-                <h3 className="mt-4 text-[15px] font-black tracking-[-0.04em] sm:mt-5 sm:text-[16px]">{title as string}</h3>
+-                <p className="mt-3 text-[13px] font-semibold leading-[1.5] text-black/65">{copy as string}</p>
++                <div>
++                  <h2 className="text-[15px] font-black uppercase tracking-[0.04em]">{title as string}</h2>
++                  <p className="mt-2 text-[14px] font-semibold leading-[1.45] text-black/65">{copy as string}</p>
++                </div>
+               </article>
+             )
+           })}
+         </div>
+       </section>
+ 
+-      <section className="mx-auto grid max-w-[1220px] gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[0.28fr_0.72fr]">
+-        <div>
+-          <h2 className="text-[36px] font-black leading-[1] tracking-[-0.035em]">Websites that<br />drive real growth</h2>
+-        </div>
+-        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+-          {[
+-            [Edit3, "3x", "More enquiries", "On average within the first 60 days"],
+-            [Star, "CMS", "Easy content updates", "Text, images and services you can edit yourself"],
+-            [Clock3, "24hrs", "Mockup delivery", "Most mockups delivered in 24 hours"],
+-            [ShieldCheck, "0%", "Risk before approval", "No payment is needed before you see the mockup"],
+-          ].map(([Icon, stat, label, copy]) => {
+-            const RealIcon = Icon as typeof Edit3
+-            return (
+-              <article key={stat as string} className="border-black/10 md:border-l md:pl-8">
+-                <RealIcon className="size-7" strokeWidth={2.2} />
+-                <p className="mt-4 text-[34px] font-black tracking-[-0.045em] sm:mt-5 sm:text-[38px]">{stat as string}</p>
+-                <p className="text-[14px] font-black">{label as string}</p>
+-                <p className="mt-2 text-[13px] font-semibold leading-[1.45] text-black/65">{copy as string}</p>
+-              </article>
+-            )
+-          })}
++      <section className="bg-[#0b0b0b] px-5 py-16 text-white sm:px-8 lg:py-24">
++        <div className="mx-auto grid max-w-[1220px] gap-12 lg:grid-cols-[0.55fr_0.45fr] lg:items-center">
++          <div>
++            <h2 className="text-[clamp(2.6rem,5.4vw,4.9rem)] font-black leading-[0.95] tracking-[-0.05em]">
++              A great website isn&apos;t a luxury.
++              <span className="mt-2 block [font-family:var(--font-sites-fave-script)] text-[1.08em] font-normal leading-[0.85] tracking-[0] text-[#dfff00]">
++                It&apos;s your first impression.
++              </span>
++            </h2>
++            <p className="mt-7 max-w-[480px] text-[16px] font-semibold leading-[1.6] text-white/75">
++              Your work has standards. Your website should show them.
++            </p>
++            <ul className="mt-9 grid gap-6 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
++              {[
++                [Eye, "Look good.", "Make the genuine quality of your work visible the moment someone lands on your site."],
++                [MousePointerClick, "Get enquiries.", "Clear routes to call, message and book — no hunting for a way to contact you."],
++                [TrendingUp, "Turn them into customers.", "Remove the friction between interest and a decision. Follow-ups can be scoped separately."],
++              ].map(([Icon, title, copy]) => {
++                const RealIcon = Icon as typeof Eye
++                return (
++                  <li key={title as string} className="border-t border-white/15 pt-5">
++                    <RealIcon className="size-6 text-[#dfff00]" strokeWidth={2.2} />
++                    <h3 className="mt-4 text-[17px] font-black tracking-[-0.03em]">{title as string}</h3>
++                    <p className="mt-2 text-[13px] font-semibold leading-[1.55] text-white/62">{copy as string}</p>
++                  </li>
++                )
++              })}
++            </ul>
++            <a
++              href="/howitworks"
++              className="mt-10 inline-flex min-h-12 items-center gap-3 rounded-full border border-white/25 px-6 text-[12px] font-black transition-colors hover:border-[#dfff00] hover:text-[#dfff00] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#dfff00]"
++            >
++              See how it works <ArrowRight className="size-4" strokeWidth={2.8} />
++            </a>
++          </div>
++          <div className="relative overflow-hidden rounded-[18px] border border-white/12 shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
++            <div className="relative aspect-[4/3]">
++              <Image
++                src="/examples/live/warwickshire-short-stays-desktop.png"
++                alt="The Warwickshire Short Stays website designed and built by Sorted"
++                fill
++                sizes="(min-width: 1024px) 520px, 100vw"
++                className="object-cover object-top"
++              />
++            </div>
++            <p className="border-t border-white/12 bg-white/[0.04] px-5 py-4 text-[12px] font-bold text-white/65">
++              Real client work — Warwickshire Short Stays
++            </p>
++          </div>
+         </div>
+       </section>
+ 
+-      <section className="mx-auto grid max-w-[1220px] gap-7 px-5 py-12 sm:px-8 lg:grid-cols-[0.32fr_repeat(3,1fr)]">
++      <section className="mx-auto grid max-w-[1220px] gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.3fr_0.7fr] lg:py-20">
+         <div>
+-          <h2 className="text-[34px] font-black leading-[1] tracking-[-0.035em]">Real businesses<br />Real mockups<br />Real results</h2>
+-          <a href="/examples" className="mt-7 inline-flex h-12 items-center gap-3 whitespace-nowrap rounded-full border border-black/20 px-5 text-[12px] font-black">
+-            View more examples <ArrowRight className="size-4" strokeWidth={2.5} />
+-          </a>
++          <h2 className="text-[clamp(2.3rem,4.4vw,3.8rem)] font-black leading-[0.95] tracking-[-0.05em]">
++            See it first.
++            <br />
++            Then decide.
++          </h2>
++          <Underline className="mt-5 w-44" />
++          <p className="mt-6 max-w-[320px] text-[15px] font-semibold leading-[1.55] text-black/65">
++            No jargon. No drawn-out process. You see the direction before you pay. Then we finish the website at one fixed price.
++          </p>
+         </div>
+-        {exampleCaseStudies.slice(0, 3).map((example) => (
+-          <article key={example.slug} className="overflow-hidden rounded-[14px] border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.045)]">
+-            <a href={`/examples/${example.slug}`} className="group relative block aspect-[5/4] overflow-hidden bg-[#080808]">
+-              <Image src={example.image} alt={`${example.business} website`} fill sizes="360px" className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.055]" />
+-            </a>
+-            <div className="p-5">
+-              <div className="flex flex-wrap gap-2">
+-                <span className="inline-flex h-7 items-center rounded-full bg-[#dfff00] px-3 text-[10px] font-black text-black">{example.category}</span>
+-                <span className="inline-flex h-7 items-center rounded-full bg-black/5 px-3 text-[10px] font-black text-black/58">{example.location}</span>
+-              </div>
+-              <h3 className="mt-4 text-[18px] font-black tracking-[-0.045em]">{example.business}</h3>
+-              <a href={`/examples/${example.slug}`} className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-black/5 px-4 text-[12px] font-black sm:min-h-0 sm:bg-transparent sm:px-0">
+-                View case study <ArrowRight className="size-4" strokeWidth={2.6} />
+-              </a>
+-            </div>
+-          </article>
+-        ))}
++        <ol className="grid gap-6 sm:grid-cols-2">
++          {[
++            ["Tell us about the business", "Answer a few quick questions about what you do and what the website needs to do."],
++            ["See a free homepage preview", "We design a tailored homepage direction for your business. You review it before paying anything."],
++            ["Approve the direction", "Happy with what you see? A £1,500 deposit starts the full build."],
++            ["We finish and launch", "We complete the site. The remaining £1,500 is due when it is ready to launch."],
++          ].map(([title, copy], index) => (
++            <li key={title} className="relative rounded-[18px] border border-black/10 bg-white p-6 shadow-[0_14px_40px_rgba(0,0,0,0.045)]">
++              <span className="grid size-10 place-items-center rounded-full bg-[#dfff00] text-[13px] font-black">{index + 1}</span>
++              <h3 className="mt-5 text-[17px] font-black tracking-[-0.035em]">{title}</h3>
++              <p className="mt-3 text-[13px] font-semibold leading-[1.55] text-black/62">{copy}</p>
++            </li>
++          ))}
++        </ol>
+       </section>
+ 
+-      <section className="mx-auto max-w-[1220px] px-5 py-12 sm:px-8">
+-        <div className="grid gap-10 rounded-[20px] bg-[#f7f1e8] p-8 sm:p-10 lg:grid-cols-[0.5fr_0.5fr] lg:items-center">
+-          <div>
+-            <p className="text-[12px] font-black text-black/45">Pricing</p>
+-            <h2 className="mt-3 text-[clamp(2.3rem,4.4vw,3.9rem)] font-black leading-[0.98] tracking-[-0.045em]">
+-              One complete website.<br />One fixed price.
++      <section className="border-t border-black/10 bg-white px-5 py-16 sm:px-8 lg:py-20">
++        <div className="mx-auto max-w-[1220px]">
++          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
++            <h2 className="max-w-[560px] text-[clamp(2.3rem,4.4vw,3.8rem)] font-black leading-[0.95] tracking-[-0.05em]">
++              Good businesses.
++              <br />
++              Better websites.
+             </h2>
+-            <div className="mt-5 flex items-end gap-5">
+-              <p className="text-[clamp(3.4rem,6vw,5.6rem)] font-black leading-[0.9] tracking-[-0.055em]">£3,000</p>
+-              <Underline className="mb-4 w-24" />
+-            </div>
++            <a href="/examples" className="inline-flex min-h-11 items-center gap-3 self-start whitespace-nowrap rounded-full border border-black/20 px-5 text-[12px] font-black transition-colors hover:bg-black hover:text-white sm:self-auto">
++              View more examples <ArrowRight className="size-4" strokeWidth={2.5} />
++            </a>
+           </div>
+-          <div className="border-black/10 lg:border-l lg:pl-10">
+-            <p className="text-[16px] font-semibold leading-[1.55] tracking-[-0.02em]">
+-              We create your new homepage before you commit. It is live, responsive and filled with content.
+-            </p>
+-            <p className="mt-5 text-[14px] font-semibold leading-[1.6] text-black/68">
+-              If you want us to complete it, one fixed price covers the strategy, design, copy, development, content management system, analytics and launch, without the usual agency ambiguity.
+-            </p>
+-            <div className="mt-7 flex flex-wrap items-center gap-5">
+-              <MockupButton variant="primary" />
+-              <a href="/pricing" className="text-[12px] font-black underline underline-offset-4 transition-colors hover:text-black/60">What the price covers</a>
+-            </div>
++          <div className="mt-10 grid gap-6 md:grid-cols-3">
++            {portfolio.map((example) => (
++              <article key={example.slug} className="overflow-hidden rounded-[14px] border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.045)]">
++                <a href={`/examples/${example.slug}`} className="group relative block aspect-[5/4] overflow-hidden bg-[#080808]">
++                  <Image src={example.image} alt={`${example.business} website`} fill sizes="(min-width: 768px) 380px, 100vw" className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.055]" />
++                </a>
++                <div className="p-5">
++                  <div className="flex flex-wrap gap-2">
++                    <span className="inline-flex h-7 items-center rounded-full bg-[#dfff00] px-3 text-[10px] font-black text-black">{example.category}</span>
++                    <span className="inline-flex h-7 items-center rounded-full bg-black/5 px-3 text-[10px] font-black text-black/58">{example.location}</span>
++                  </div>
++                  <h3 className="mt-4 text-[18px] font-black tracking-[-0.045em]">{example.business}</h3>
++                  <a href={`/examples/${example.slug}`} className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-black/5 px-4 text-[12px] font-black sm:min-h-0 sm:bg-transparent sm:px-0">
++                    View case study <ArrowRight className="size-4" strokeWidth={2.6} />
++                  </a>
++                </div>
++              </article>
++            ))}
+           </div>
+         </div>
+       </section>
+ 
+-      <HomeBottom googleReviews={googleReviews} />
+-    </SitesPage>
+-  )
+-}
+-
+-function HomeBottom({ googleReviews }: { googleReviews: Awaited<ReturnType<typeof getGoogleReviews>> }) {
+-  return (
+-    <section className="bg-[#070707] px-5 pb-8 pt-12 text-white sm:px-8">
+-      <div className="mx-auto max-w-[1220px]">
+-        <div className="grid gap-10 lg:grid-cols-[0.82fr_1fr] lg:items-start">
++      <section className="bg-[#070707] px-5 py-16 text-white sm:px-8 lg:py-20">
++        <div className="mx-auto grid max-w-[1220px] gap-10 lg:grid-cols-[0.4fr_0.32fr_0.28fr]">
+           <div>
+-            <h2 className="max-w-[480px] text-[clamp(2.8rem,5vw,5rem)] font-black leading-[0.95] tracking-[-0.045em]">
+-              You see it first
++            <h2 className="text-[clamp(2.3rem,4.2vw,3.7rem)] font-black leading-[0.95] tracking-[-0.05em]">
++              One complete website.
+               <br />
+-              Then you decide
++              One fixed price.
+             </h2>
+-            <Underline className="mt-5 w-60" />
+-            <p className="mt-6 max-w-[450px] text-[15px] font-semibold leading-[1.5] text-white/82">
+-              We believe in earning your trust before asking for your money. That is why every website starts with a free mockup.
++            <p className="mt-6 text-[clamp(3.6rem,6.5vw,5.4rem)] font-black leading-[0.85] tracking-[-0.06em] text-[#dfff00] tabular-nums">£3,000</p>
++            <p className="mt-6 max-w-[420px] text-[13px] font-semibold leading-[1.55] text-white/58">
++              £1,500 deposit when you approve the direction. £1,500 balance when the site is ready to launch.
+             </p>
+-            <div className="mt-7 grid max-w-[520px] gap-5 text-[14px] font-semibold sm:grid-cols-2">
+-              <ul className="space-y-3">
+-                {["No payment required", "No pushy sales"].map((item) => (
+-                  <li key={item} className="flex items-center gap-3">
+-                    <Check className="size-4 text-[#dfff00]" strokeWidth={4} />
+-                    {item}
+-                  </li>
+-                ))}
+-              </ul>
+-              <p className="border-white/25 text-white/88 sm:border-l sm:pl-8">Just a great website, built for your business.</p>
++          </div>
++          <div className="border-white/12 lg:border-l lg:pl-10">
++            <p className="text-[12px] font-black uppercase tracking-[0.12em] text-white/48">What the price covers</p>
++            <ul className="mt-5 space-y-3.5">
++              {["Strategy", "Design", "Copy", "Development", "Content management system", "Analytics", "Launch"].map((item) => (
++                <li key={item} className="flex items-center gap-3 border-b border-white/10 pb-3.5 text-[14px] font-bold">
++                  <Check className="size-5 shrink-0 rounded-full bg-[#dfff00] p-1 text-black" strokeWidth={3.5} />
++                  {item}
++                </li>
++              ))}
++            </ul>
++          </div>
++          <div className="flex flex-col justify-between gap-8 border-white/12 lg:border-l lg:pl-10">
++            <p className="text-[15px] font-semibold leading-[1.6] text-white/72">
++              The same complete website at the same fixed price, for every business. No tiers. No pressure.
++            </p>
++            <div className="flex flex-col items-start gap-5">
++              <MockupButton variant="yellow" />
++              <a href="/pricing#included" className="inline-flex items-center gap-2 text-[12px] font-black text-white/80 underline underline-offset-4 transition-colors hover:text-[#dfff00]">
++                What the price covers <ArrowUpRight className="size-4" strokeWidth={2.6} />
++              </a>
+             </div>
+           </div>
+-
+-          <GoogleReviews data={googleReviews} />
+         </div>
++      </section>
+ 
+-        <div className="mt-10 grid gap-5 rounded-[12px] bg-white px-6 py-5 text-black shadow-[0_18px_44px_rgba(0,0,0,0.22)] lg:grid-cols-[0.3fr_0.3fr_0.12fr_0.28fr] lg:items-center">
+-          <div className="grid grid-cols-[56px_1fr] items-center gap-4">
+-            <span className="grid size-14 place-items-center rounded-full bg-[#e7ff1e]">
+-              <Edit3 className="size-8" strokeWidth={2.2} />
+-            </span>
+-            <p className="text-[24px] font-black leading-[1.05] tracking-[-0.035em]">Ready for your<br />new website?</p>
++      <section className="bg-[#070707] px-5 pb-16 text-white sm:px-8">
++        <div className="mx-auto max-w-[1220px] border-t border-white/12 pt-12">
++          <div className="grid gap-10 lg:grid-cols-[0.34fr_0.66fr] lg:items-start">
++            <div>
++              <h2 className="text-[clamp(2.2rem,4.2vw,3.6rem)] font-black leading-[0.95] tracking-[-0.05em]">
++                Trusted by
++                <br />
++                local businesses.
++              </h2>
++              <Underline className="mt-5 w-44" />
++              <p className="mt-6 max-w-[340px] text-[14px] font-semibold leading-[1.55] text-white/65">
++                Verified Google reviews from the businesses we have worked with.
++              </p>
++            </div>
++            <GoogleReviews data={googleReviews} />
+           </div>
+-          <p className="text-[14px] font-semibold leading-[1.45]">Get your free mockup in 24 hours<br />No obligation. No credit card.</p>
+-          <ArrowRight className="hidden size-16 rotate-[-8deg] lg:block" strokeWidth={1.7} />
+-          <MockupButton variant="primary" className="justify-self-start whitespace-nowrap lg:justify-self-end" />
+         </div>
++      </section>
+ 
+-        <footer className="mt-9 grid gap-8 md:grid-cols-[1.35fr_0.8fr_0.8fr_1fr]">
++      <section className="bg-[#dfff00] px-5 py-16 text-black sm:px-8 lg:py-20">
++        <div className="mx-auto grid max-w-[1220px] gap-8 lg:grid-cols-[0.6fr_0.4fr] lg:items-center">
++          <h2 className="text-[clamp(2.6rem,5.4vw,4.9rem)] font-black leading-[0.94] tracking-[-0.05em]">
++            Your business grew up.
++            <br />
++            Has your website?
++          </h2>
+           <div>
+-            <Logo dark />
+-            <p className="mt-4 max-w-[220px] text-[13px] font-semibold leading-[1.4] text-white/80">
+-              Websites that build trust, explain your services and turn visitors into enquiries.
+-            </p>
+-            <p className="mt-7 text-[11px] font-medium text-white/50">© 2026 Sorted.</p>
+-            <p className="mt-2 text-[10px] font-medium leading-[1.5] text-white/40">
+-              Sorted is a trading name of ADX Engine Ltd · Registered in England &amp; Wales · Company number 17327041
++            <p className="max-w-[420px] text-[16px] font-semibold leading-[1.55] text-black/72">
++              See a better direction before you decide. No payment. No obligation.
+             </p>
++            <div className="mt-7 flex flex-wrap items-center gap-5">
++              <MockupButton variant="primary" />
++              <span className="[font-family:var(--font-sites-highlight)] text-[22px] leading-none text-black/70">See it first. Then decide.</span>
++            </div>
+           </div>
+-          <HomeFooterLinks title="Product" links={[["How it works", "/"], ["Examples", "/examples"], ["Pricing", "/pricing"], ["SortedUpdates", "/website-updates"]]} />
+-          <HomeFooterLinks title="Company" links={[["About us", "/about"], ["Our process", "/"], ["Reviews", "/examples"], ["Partner program", "/partners"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
+-          <div>
+-            <p className="mb-4 text-[12px] font-black">Let's talk</p>
+-            <a href="https://wa.me/447386468085" className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#dfff00] px-5 text-[12px] font-black text-black">
+-              <Phone className="size-4" strokeWidth={2.6} />
+-              WhatsApp us
+-            </a>
+-            <p className="mt-4 text-[12px] font-semibold text-white/80">hello@sortmydigital.site</p>
+-          </div>
+-        </footer>
+-      </div>
+-    </section>
+-  )
+-}
++        </div>
++      </section>
+ 
+-function HomeFooterLinks({ title, links }: { title: string; links: [string, string][] }) {
+-  return (
+-    <div>
+-      <p className="mb-4 text-[12px] font-black">{title}</p>
+-      <ul className="space-y-1 text-[12px] font-semibold text-white/82 sm:space-y-3">
+-        {links.map(([label, href]) => (
+-          <li key={label}>
+-            <a href={href} className="inline-flex min-h-10 items-center transition-colors hover:text-[#dfff00] sm:min-h-0">{label}</a>
+-          </li>
+-        ))}
+-      </ul>
+-    </div>
++      <SitesFooter />
++    </SitesPage>
+   )
+ }
+diff --git a/app/partners/page.tsx b/app/partners/page.tsx
+index f7f2888e..ae1c396f 100644
+--- a/app/partners/page.tsx
++++ b/app/partners/page.tsx
+@@ -35,7 +35,7 @@ export default function AffiliatesLanding() {
+           </div>
+           <Underline className="mt-2 w-[300px]" />
+           <p className="mt-7 max-w-[460px] text-[17px] font-semibold leading-[1.5] tracking-[-0.03em]">
+-            We build world-class websites fast, with no upfront cost to the client. You find the business, we do the work, and you pocket £75–£300 every time a site sells.
++            We design and build complete websites for local businesses, with no upfront cost to the client. You find the business, we do the work, and you pocket £75–£300 every time a site sells.
+           </p>
+           <div className="mt-8 flex flex-wrap items-center gap-5">
+             <PrimaryButton href="/partners/apply">
+@@ -52,7 +52,7 @@ export default function AffiliatesLanding() {
+         <div className="relative">
+           <div className="grid gap-4 sm:grid-cols-2">
+             <StatTile icon={Users} stat="Live" label="Referral tracking" copy="Submit prospects and follow each one through to payout." />
+-            <StatTile icon={Clock3} stat="24hrs" label="Mockup turnaround" copy="Most mockups built within a day." />
++            <StatTile icon={Clock3} stat="Fast" label="Mockup turnaround" copy="Turnaround agreed with each referral." />
+             <StatTile icon={BadgePoundSterling} stat="£300" label="Top payout per site" copy="For established business referrals." />
+             <StatTile icon={Check} stat="0" label="Upfront cost to client" copy="They see the design before paying." />
+           </div>
+@@ -68,7 +68,7 @@ export default function AffiliatesLanding() {
+         <div className="grid gap-7 md:grid-cols-4">
+           {[
+             [Users, "You refer a business", "Submit a mockup request through your portal with a few details about the business."],
+-            [Clock3, "We design the mockup", "Sorted Sites builds a free, no-obligation mockup within 24 hours."],
++            [Clock3, "We design the mockup", "Sorted Sites builds a free, no-obligation mockup on an agreed turnaround."],
+             [Check, "The client decides", "They see the design first. If they like it, they approve and we build."],
+             [HandCoins, "You get paid", "When the client purchases, you earn £75–£300 by bank transfer."],
+           ].map(([Icon, title, copy], index) => {
+diff --git a/app/pricing/page.tsx b/app/pricing/page.tsx
+index ec7f9ff1..6bc5a5e3 100644
+--- a/app/pricing/page.tsx
++++ b/app/pricing/page.tsx
+@@ -50,12 +50,12 @@ export default function PricingPage() {
+       <section className="mx-auto grid max-w-[1220px] gap-12 px-5 pb-14 pt-14 sm:px-8 sm:pb-20 sm:pt-20 lg:grid-cols-[0.86fr_1.14fr] lg:items-center lg:gap-16">
+         <div>
+           <SitesTitle
+-            title={<>Built first<br />Priced second</>}
+-            marker={<span className="block [font-family:var(--font-sites-fave-script)] text-[clamp(4.8rem,8vw,7.6rem)] leading-[0.78] normal-case tracking-[0]">That&apos;s the<br />Sorted way</span>}
++            title={<>See the website.</>}
++            marker={<span className="block [font-family:var(--font-sites-fave-script)] text-[clamp(4.8rem,8vw,7.6rem)] leading-[0.78] normal-case tracking-[0]">Not a<br />sales pitch.</span>}
+           />
+           <Underline className="mt-3 w-[min(280px,72vw)]" />
+           <p className="mt-8 max-w-[510px] text-[17px] font-semibold leading-[1.6] tracking-[-0.025em] text-black/78 sm:text-[18px]">
+-            We don&apos;t quote an imaginary website. We create your new homepage first, complete with responsive design and real content. If you want us to finish it, the complete price is £3,000. Fixed.
++            We don&apos;t quote an imaginary website. We create your new homepage first, complete with responsive design and real content. If you want us to finish it, the complete price is <strong className="font-black text-black">£3,000. Fixed.</strong>
+           </p>
+           <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-[13px] font-black">
+             {["Free homepage mockup", "No obligation", "No awkward sales process"].map((item) => (
+@@ -86,7 +86,7 @@ export default function PricingPage() {
+         </div>
+       </section>
+ 
+-      <section className="mx-auto max-w-[1220px] px-5 pb-5 sm:px-8 sm:pb-8">
++      <section id="included" className="mx-auto max-w-[1220px] scroll-mt-24 px-5 pb-5 sm:px-8 sm:pb-8">
+         <div className="grid overflow-hidden rounded-[24px] bg-[#0a0a0a] text-white lg:grid-cols-[0.9fr_1.1fr]">
+           <div className="flex flex-col justify-between p-8 sm:p-11 lg:min-h-[440px] lg:p-12">
+             <div>
+@@ -122,7 +122,9 @@ export default function PricingPage() {
+                 </li>
+               ))}
+             </ul>
+-            <p className="mt-7 text-[13px] font-semibold leading-[1.5] text-white/58">No tiers. No extras menu. No invoice creep.</p>
++            <p className="mt-7 text-[13px] font-semibold leading-[1.5] text-white/58">
++              No tiers. No invoice creep. Wider services — advertising, follow-up automations and booking or CRM integrations — are <a href="/what-else-we-do" className="underline underline-offset-4 transition-colors hover:text-[#dfff00]">agreed separately</a>, not folded into this price.
++            </p>
+           </div>
+         </div>
+       </section>
+diff --git a/app/sites/_components/SitesHeaderClient.tsx b/app/sites/_components/SitesHeaderClient.tsx
+index 7d4a953e..c7fdf1e6 100644
+--- a/app/sites/_components/SitesHeaderClient.tsx
++++ b/app/sites/_components/SitesHeaderClient.tsx
+@@ -4,17 +4,19 @@ import { useEffect, useState } from "react"
+ import { Menu, Phone, X } from "lucide-react"
+ import { MockupButton } from "./SitesMockupModal"
+ 
+-type ActivePage = "how" | "examples" | "pricing" | "about" | "updates"
++type ActivePage = "how" | "examples" | "pricing" | "included" | "whatelse" | "about" | "updates"
++export type HeaderTone = "light" | "dark"
+ 
+ const links = [
+   ["how", "How it works", "/howitworks"],
+   ["examples", "Examples", "/examples"],
+   ["pricing", "Pricing", "/pricing"],
+-  ["updates", "SortedUpdates", "/website-updates"],
++  ["included", "What's included", "/pricing#included"],
++  ["whatelse", "What else we do", "/what-else-we-do"],
+   ["about", "About", "/about"],
+ ] as const
+ 
+-export function SitesHeaderClient({ active }: { active?: ActivePage }) {
++export function SitesHeaderClient({ active, tone = "light" }: { active?: ActivePage; tone?: HeaderTone }) {
+   const [scrolled, setScrolled] = useState(false)
+   const [menuOpen, setMenuOpen] = useState(false)
+ 
+@@ -28,17 +30,21 @@ export function SitesHeaderClient({ active }: { active?: ActivePage }) {
+     return () => window.removeEventListener("scroll", updateScrolled)
+   }, [])
+ 
++  const darkAtTop = tone === "dark" && !scrolled
++
+   return (
+     <header
+       className={`fixed left-0 right-0 top-0 z-50 px-5 py-4 transition-colors duration-200 sm:px-8 ${
+-        scrolled ? "border-b border-black/5 bg-white/82 shadow-[0_10px_30px_rgba(0,0,0,0.035)] backdrop-blur-xl" : "border-b border-transparent bg-transparent"
+-      }`}
++        scrolled
++          ? "border-b border-black/5 bg-white/92 shadow-[0_10px_30px_rgba(0,0,0,0.035)] backdrop-blur-xl"
++          : "border-b border-transparent bg-transparent"
++      } ${darkAtTop ? "text-white" : "text-[#070707]"}`}
+     >
+       <div className="mx-auto flex w-full max-w-[1220px] items-center justify-between">
+         <a href="/" className="inline-block min-h-11 py-2 text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]" aria-label="Sorted home">
+           Sorted<span className="text-[#cfe900]">.</span>
+         </a>
+-        <nav className="hidden items-center gap-8 text-[12px] font-extrabold tracking-[-0.02em] md:flex">
++        <nav className="hidden items-center gap-6 text-[12px] font-extrabold tracking-[-0.02em] lg:flex">
+           {links.map(([key, label, href]) => (
+             <a key={key} href={href} className="relative py-2">
+               {label}
+@@ -47,25 +53,27 @@ export function SitesHeaderClient({ active }: { active?: ActivePage }) {
+           ))}
+         </nav>
+         <div className="flex items-center gap-5">
+-          <a href="https://wa.me/447386468085" aria-label="WhatsApp Sorted" className="hidden text-[#04b800] md:block">
++          <a href="https://wa.me/447386468085" aria-label="WhatsApp Sorted" className="hidden text-[#04b800] lg:block">
+             <Phone className="size-6" strokeWidth={2.4} />
+           </a>
+           <div className="hidden sm:block">
+-            <MockupButton variant="nav" />
++            <MockupButton variant={darkAtTop ? "yellow" : "nav"} label="Get your free mockup" />
+           </div>
+           <button
+             type="button"
+             aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+             aria-expanded={menuOpen}
+             onClick={() => setMenuOpen((open) => !open)}
+-            className="grid size-11 place-items-center rounded-full bg-[#070707] text-white shadow-[0_10px_28px_rgba(0,0,0,0.16)] md:hidden"
++            className={`grid size-11 place-items-center rounded-full shadow-[0_10px_28px_rgba(0,0,0,0.16)] lg:hidden ${
++              darkAtTop ? "bg-white text-[#070707]" : "bg-[#070707] text-white"
++            }`}
+           >
+             {menuOpen ? <X className="size-5" strokeWidth={2.8} /> : <Menu className="size-5" strokeWidth={2.8} />}
+           </button>
+         </div>
+       </div>
+       {menuOpen ? (
+-        <div className="mx-auto mt-3 max-w-[1220px] rounded-[16px] border border-black/10 bg-white/96 p-3 shadow-[0_18px_44px_rgba(0,0,0,0.12)] backdrop-blur-xl md:hidden">
++        <div className="mx-auto mt-3 max-w-[1220px] rounded-[16px] border border-black/10 bg-white/96 p-3 text-[#070707] shadow-[0_18px_44px_rgba(0,0,0,0.12)] backdrop-blur-xl lg:hidden">
+           <nav className="grid gap-1 text-[15px] font-black tracking-[-0.03em]">
+             {links.map(([key, label, href]) => (
+               <a
+diff --git a/app/sites/_components/SitesMockupModal.tsx b/app/sites/_components/SitesMockupModal.tsx
+index aedab796..6173d8e2 100644
+--- a/app/sites/_components/SitesMockupModal.tsx
++++ b/app/sites/_components/SitesMockupModal.tsx
+@@ -105,10 +105,15 @@ function MockupModal({ onClose }: { onClose: () => void }) {
+ 
+   useEffect(() => {
+     document.body.style.overflow = "hidden"
++    function onKeyDown(event: KeyboardEvent) {
++      if (event.key === "Escape") onClose()
++    }
++    window.addEventListener("keydown", onKeyDown)
+     return () => {
+       document.body.style.overflow = ""
++      window.removeEventListener("keydown", onKeyDown)
+     }
+-  }, [])
++  }, [onClose])
+ 
+   useEffect(() => {
+     if (dialogRef.current) {
+diff --git a/app/sites/_components/SitesPrimitives.tsx b/app/sites/_components/SitesPrimitives.tsx
+index 2fea55f3..df6b2efb 100644
+--- a/app/sites/_components/SitesPrimitives.tsx
++++ b/app/sites/_components/SitesPrimitives.tsx
+@@ -1,7 +1,7 @@
+ import type { ReactNode } from "react"
+ import Image from "next/image"
+ import localFont from "next/font/local"
+-import { ArrowRight, Check, Clock3, Edit3, Eye, Phone, ShieldCheck, Star, Zap } from "lucide-react"
++import { ArrowRight, Check, Edit3, Eye, Phone, ShieldCheck, Zap } from "lucide-react"
+ import { MockupButton } from "./SitesMockupModal"
+ import { SitesHeaderClient } from "./SitesHeaderClient"
+ 
+@@ -35,8 +35,8 @@ export function SitesPage({ children }: { children: ReactNode }) {
+   return <main className={`${sitesMarker.variable} ${sitesHighlight.variable} ${sitesFaveScript.variable} ${sitesBakeshop.variable} sorted-sites-shell min-h-screen bg-[#fbfbfa] pt-[76px] text-[#070707]`}>{children}</main>
+ }
+ 
+-export function SitesHeader({ active }: { active?: "how" | "examples" | "pricing" | "about" | "updates" }) {
+-  return <SitesHeaderClient active={active} />
++export function SitesHeader({ active, tone = "light" }: { active?: "how" | "examples" | "pricing" | "included" | "whatelse" | "about" | "updates"; tone?: "light" | "dark" }) {
++  return <SitesHeaderClient active={active} tone={tone} />
+ }
+ 
+ export function SitesFooter() {
+@@ -46,14 +46,14 @@ export function SitesFooter() {
+         <div>
+           <Logo dark />
+           <p className="mt-4 max-w-[220px] text-[13px] font-semibold leading-[1.4] text-white/80">
+-            Websites that build trust, explain your services and turn visitors into enquiries.
++            Brilliant websites for good local businesses.
+           </p>
+           <p className="mt-7 text-[11px] font-medium text-white/50">© 2026 Sorted.</p>
+           <p className="mt-2 text-[10px] font-medium leading-[1.5] text-white/40">
+             Sorted is a trading name of ADX Engine Ltd · Registered in England &amp; Wales · Company number 17327041
+           </p>
+         </div>
+-        <FooterLinks title="Product" links={[["How it works", "/howitworks"], ["Examples", "/examples"], ["Pricing", "/pricing"], ["SortedUpdates", "/website-updates"]]} />
++        <FooterLinks title="Product" links={[["How it works", "/howitworks"], ["Examples", "/examples"], ["Pricing", "/pricing"], ["What else we do", "/what-else-we-do"], ["SortedUpdates", "/website-updates"]]} />
+         <FooterLinks title="Company" links={[["About us", "/about"], ["Our process", "/"], ["Reviews", "/examples"], ["Partner program", "/partners"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
+         <div>
+           <p className="mb-4 text-[12px] font-black">Let's talk</p>
+@@ -112,11 +112,11 @@ export function Underline({ pink = false, className = "" }: { pink?: boolean; cl
+ 
+ export function FeatureBar() {
+   const items = [
+-    [Clock3, "Fast", "Get your mockup in 24 hours"],
+-    [Zap, "Fixed price", "One price. Everything included."],
+-    [ShieldCheck, "No risk", "Free mockup. No obligation."],
+-    [Check, "All included", "Design, build, hosting & CMS"],
+-    [Edit3, "Easy to update", "Update text and images yourself"],
++    [Eye, "Preview first", "See the design before you pay"],
++    [Zap, "Fixed price", "One complete website. £3,000"],
++    [ShieldCheck, "Your decision", "No payment. No obligation."],
++    [Edit3, "Content control", "Edit your words and images"],
++    [Check, "See it first", "Then decide. No pressure."],
+   ] as const
+ 
+   return (
+@@ -235,7 +235,7 @@ export function SitePreviewCard({ example = examples[0], large = false }: { exam
+   )
+ }
+ 
+-export function DarkCta({ title = "Ready for your new website?", copy = "Get your free mockup in 24 hours. No obligation. No credit card." }: { title?: string; copy?: string }) {
++export function DarkCta({ title = "See it first. Then decide.", copy = "Get your free mockup. No payment. No obligation." }: { title?: string; copy?: string }) {
+   return (
+     <section className="bg-[#070707] px-5 pt-10 text-black sm:px-8">
+       <div className="mx-auto grid max-w-[1220px] gap-5 rounded-[12px] bg-white px-5 py-5 shadow-[0_18px_44px_rgba(0,0,0,0.22)] sm:px-6 lg:grid-cols-[0.3fr_0.3fr_0.12fr_0.28fr] lg:items-center">
+diff --git a/app/v2/about/page.tsx b/app/v2/about/page.tsx
+index d7d98029..5265f8ac 100644
+--- a/app/v2/about/page.tsx
++++ b/app/v2/about/page.tsx
+@@ -3,14 +3,14 @@ import { BarChart3, Check, Clock3, Flag, Layers3, Mountain, Sparkles, UsersRound
+ import { CtaBand, SectionTitle, V2Footer, V2Header, V2Page } from "../_components/V2Primitives"
+ 
+ export const metadata: Metadata = {
+-  title: "About Sorted | Sorted V2",
++  title: "About Sorted | Sorted Ops",
+   description: "Why Sorted exists, what we believe, how we work, and why every gap we close is measured.",
+ }
+ 
+ const beliefs = [
+   ["Every business has gaps.", "It is a natural consequence of growth. More customers, more systems and more people create more places for revenue and trust to leak out.", Layers3],
+   ["Gaps leak revenue and trust.", "Every gap left open costs more than it looks like: lost customers, wasted time, and money left on the table.", Clock3],
+-  ["Better systems compound.", "Closing one gap will not transform a business overnight. Closing one every month will.", Sparkles],
++  ["Better systems compound.", "Useful improvements can compound. We measure each one before deciding what comes next.", Sparkles],
+   ["What gets measured gets improved.", "We do not measure success by the number of systems we install. We measure what changes after they are installed.", BarChart3],
+ ]
+ 
+diff --git a/app/v2/case-studies/glow-dental/page.tsx b/app/v2/case-studies/glow-dental/page.tsx
+index 4097c50b..843297d0 100644
+--- a/app/v2/case-studies/glow-dental/page.tsx
++++ b/app/v2/case-studies/glow-dental/page.tsx
+@@ -3,8 +3,8 @@ import { CalendarDays, Check, Clock3, MessageCircle, PoundSterling, Rocket, Sett
+ import { CheckList, CtaBand, SectionTitle, V2Footer, V2Header, V2Page } from "../../_components/V2Primitives"
+ 
+ export const metadata: Metadata = {
+-  title: "Glow Dental Case Study | Sorted V2",
+-  description: "How Glow Dental recovered 63 enquiries every month by closing the gap in their follow-up.",
++  title: "Glow Dental Case Study | Sorted Ops",
++  description: "An illustrative example of enquiry follow-up and operational reporting; not verified client results.",
+ }
+ 
+ export default function GlowDentalCaseStudyPage() {
+@@ -32,7 +32,12 @@ export default function GlowDentalCaseStudyPage() {
+ 
+         <main>
+           <V2Header active="results" />
+-          <section id="case-1" className="mx-auto grid max-w-[1120px] gap-8 px-5 py-8 sm:px-8 md:grid-cols-[0.9fr_1.1fr]">
++          <section id="case-1" className="mx-auto max-w-[1120px] px-5 pt-8 sm:px-8">
++            <p className="rounded-[12px] border border-black/15 bg-white px-5 py-4 text-[13px] font-bold leading-[1.5]">
++              Illustrative example. Figures and quoted feedback are not verified client results.
++            </p>
++          </section>
++          <section className="mx-auto grid max-w-[1120px] gap-8 px-5 py-8 sm:px-8 md:grid-cols-[0.9fr_1.1fr]">
+             <div>
+               <h1 className="text-[clamp(3.2rem,6vw,5.6rem)] font-black leading-[0.92] tracking-[-0.055em]">How Glow Dental Recovered 63 Enquiries Every Month</h1>
+               <div className="mt-5 h-[5px] w-56 rounded-full bg-[#dfff00]" />
+diff --git a/app/v2/how-it-works/page.tsx b/app/v2/how-it-works/page.tsx
+index 79a47a16..979f0ba0 100644
+--- a/app/v2/how-it-works/page.tsx
++++ b/app/v2/how-it-works/page.tsx
+@@ -4,7 +4,7 @@ import { CheckList, CtaBand, MarkerText, MetricBand, SectionTitle, V2Footer, V2H
+ import { RoutineFinderButton } from "../_components/RoutineFinder"
+ 
+ export const metadata: Metadata = {
+-  title: "How It Works | Sorted V2",
++  title: "How It Works | Sorted Ops",
+   description: "How Sorted finds the gaps leaking revenue and trust, designs and installs the right system, integrates it with how you work, and measures what you get back.",
+ }
+ 
+@@ -12,12 +12,12 @@ const process = [
+   {
+     icon: Search,
+     title: "Inspect.",
+-    copy: "You show us how the work currently happens. We map the process, identify friction, delays, and the hidden cost.",
++    copy: "You show us how the work currently happens. We map the process, identify friction, delays, and what they cost.",
+   },
+   {
+     icon: Lightbulb,
+     title: "Diagnose.",
+-    copy: "We identify the biggest gap that is costing you and show you exactly what it is worth.",
++    copy: "We identify the biggest gap that is costing you and estimate what closing it could be worth, based on your numbers.",
+   },
+   {
+     icon: Rocket,
+@@ -27,7 +27,7 @@ const process = [
+   {
+     icon: MonitorPlay,
+     title: "Integrate.",
+-    copy: "We connect it to the way you already work, train your team, and launch without disruption.",
++    copy: "We connect it to the way you already work, train your team, and roll it out at an agreed pace.",
+   },
+   {
+     icon: BarChart3,
+diff --git a/app/v2/industries/dental-practices/page.tsx b/app/v2/industries/dental-practices/page.tsx
+index e723d789..b9e8034f 100644
+--- a/app/v2/industries/dental-practices/page.tsx
++++ b/app/v2/industries/dental-practices/page.tsx
+@@ -45,7 +45,10 @@ export default function DentalPracticesPage() {
+             </div>
+             <p className="text-[48px] font-black tracking-[-0.08em] text-white drop-shadow">DENTAL<br />PRACTICE</p>
+           </div>
+-          <div className="-mt-10 mx-auto grid max-w-[650px] grid-cols-4 divide-x divide-white/20 rounded-[14px] bg-[#070707] p-5 text-center text-white">
++          <p className="mx-auto mt-5 max-w-[650px] rounded-[12px] border border-black/15 bg-white px-5 py-3.5 text-[12px] font-bold leading-[1.5] text-black/70">
++            Illustrative example. Figures and quoted feedback are not verified client results.
++          </p>
++          <div className="mx-auto mt-5 grid max-w-[650px] grid-cols-4 divide-x divide-white/20 rounded-[14px] bg-[#070707] p-5 text-center text-white">
+             {[
+               [MessageCircle, "63", "Enquiries recovered per month"],
+               [Clock3, "24.6", "Hours returned per month"],
+diff --git a/app/v2/page.tsx b/app/v2/page.tsx
+index 4b9b7f97..3007a3bd 100644
+--- a/app/v2/page.tsx
++++ b/app/v2/page.tsx
+@@ -39,7 +39,7 @@ const v2Bakeshop = localFont({
+ export const metadata: Metadata = {
+   title: "Sorted. Your business has gaps. We close them.",
+   description:
+-    "Sorted finds the gaps that leak revenue, hurt trust, and leave money on the table, installs the systems that close them, and shows exactly how much you get back.",
++    "Sorted finds the gaps that leak revenue, hurt trust, and leave money on the table, installs the systems that close them, and measures the outcomes we agree with you.",
+ }
+ 
+ const accent = "#dfff00"
+@@ -73,12 +73,12 @@ const steps = [
+   },
+   {
+     title: "We install the system.",
+-    copy: "We install a proven system that closes the gap. No unnecessary software. No disruption.",
++    copy: "We install a proven system that closes the gap. No unnecessary software. A rollout planned around your team.",
+     icon: SettingsIcon,
+   },
+   {
+     title: "We measure what changed.",
+-    copy: "You will see exactly what improved and how much you got back.",
++    copy: "You see what changed, measured against the outcomes we agreed at the start.",
+     icon: BarChart3,
+   },
+   {
+@@ -185,7 +185,7 @@ function Hero() {
+         </div>
+ 
+         <p className="mt-6 max-w-[420px] text-[13px] font-semibold leading-[1.55] tracking-[-0.025em] text-[#111] lg:mt-12 lg:text-[17px]">
+-          Missed enquiries. Repetitive work. Manual processes. Delays. We&apos;ve already built the systems that solve them. We simply install the ones your business needs and show you exactly what they return.
++          Missed enquiries. Repetitive work. Manual processes. Delays. We&apos;ve already built the systems that solve them. We install the ones your business needs and measure what they return.
+         </p>
+ 
+         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center lg:mt-9 lg:gap-4">
+@@ -360,13 +360,9 @@ function ResultsBand() {
+     <section id="results" className="mx-auto max-w-[1240px] px-4 py-2 sm:px-6 md:py-3 lg:py-5">
+       <div className="grid overflow-hidden rounded-[18px] bg-[#070707] text-white shadow-[0_18px_55px_rgba(0,0,0,0.18)] md:grid-cols-[1.15fr_4fr]">
+         <div className="px-7 py-6 sm:px-9 lg:px-12 lg:py-10">
+-          <SectionTitle title="Here's what changed." dark />
++          <SectionTitle title="What we measure." dark />
+           <p className="mt-5 max-w-[170px] text-[12px] font-semibold leading-[1.35] text-white lg:mt-8 lg:max-w-[190px] lg:text-[15px]">
+-            Real businesses.
+-            <br />
+-            Real numbers.
+-            <br />
+-            Measured improvements.
++            Example figures. Not verified client results. We agree the measurements for your business before work starts.
+           </p>
+           <Link
+             href="/ops/results-dashboard"
+diff --git a/app/v2/pricing/page.tsx b/app/v2/pricing/page.tsx
+index 5f1c1ac3..a8629545 100644
+--- a/app/v2/pricing/page.tsx
++++ b/app/v2/pricing/page.tsx
+@@ -6,7 +6,7 @@ import { CtaBand, MarkerText, SectionTitle, V2Footer, V2Header, V2Page } from ".
+ import { RoutineFinderButton } from "../_components/RoutineFinder"
+ 
+ export const metadata: Metadata = {
+-  title: "Pricing | Sorted V2",
++  title: "Pricing | Sorted Ops",
+   description: "Two ways to work with Sorted: install one system or become an operational partner.",
+ }
+ 
+diff --git a/app/v2/problems-we-solve/page.tsx b/app/v2/problems-we-solve/page.tsx
+index 748f019b..f6fb09d2 100644
+--- a/app/v2/problems-we-solve/page.tsx
++++ b/app/v2/problems-we-solve/page.tsx
+@@ -3,7 +3,7 @@ import { ArrowRight, CalendarDays, Clock3, FileText, Frown, MessageCircle, Phone
+ import { CtaBand, MarkerText, SectionTitle, V2Footer, V2Header, V2Page } from "../_components/V2Primitives"
+ 
+ export const metadata: Metadata = {
+-  title: "Problems We Solve | Sorted V2",
++  title: "Problems We Solve | Sorted Ops",
+   description: "Browse the operational gaps Sorted closes, from missed calls and slow replies to forgotten customers and manual admin, and the systems we install to fix them.",
+ }
+ 
+diff --git a/app/v2/problems/nobody-owns-it/page.tsx b/app/v2/problems/nobody-owns-it/page.tsx
+index 0c7e4bf2..7a5d9432 100644
+--- a/app/v2/problems/nobody-owns-it/page.tsx
++++ b/app/v2/problems/nobody-owns-it/page.tsx
+@@ -2,7 +2,7 @@ import type { Metadata } from "next"
+ import { ProblemDetailTemplate } from "../_components/ProblemDetailTemplate"
+ 
+ export const metadata: Metadata = {
+-  title: "Nobody Owns It | Sorted V2",
++  title: "Nobody Owns It | Sorted Ops",
+   description: "Why unclear ownership, memory-based routines and invisible handoffs are gaps that create operational drag.",
+ }
+ 
+diff --git a/app/v2/problems/we-lose-customers/page.tsx b/app/v2/problems/we-lose-customers/page.tsx
+index 0d093582..d31b2431 100644
+--- a/app/v2/problems/we-lose-customers/page.tsx
++++ b/app/v2/problems/we-lose-customers/page.tsx
+@@ -6,7 +6,7 @@ import { RoutineFinderButton } from "../../_components/RoutineFinder"
+ import { ProblemRoutineAccordion } from "./ProblemRoutineAccordion"
+ 
+ export const metadata: Metadata = {
+-  title: "We Lose Customers | Sorted V2",
++  title: "We Lose Customers | Sorted Ops",
+   description: "Why slow replies, missed calls, and inconsistent follow-up are gaps that cost businesses customers, trust, and revenue.",
+ }
+ 
+diff --git a/app/v2/problems/we-miss-opportunities/page.tsx b/app/v2/problems/we-miss-opportunities/page.tsx
+index 207b1147..d945bb5e 100644
+--- a/app/v2/problems/we-miss-opportunities/page.tsx
++++ b/app/v2/problems/we-miss-opportunities/page.tsx
+@@ -2,7 +2,7 @@ import type { Metadata } from "next"
+ import { ProblemDetailTemplate } from "../_components/ProblemDetailTemplate"
+ 
+ export const metadata: Metadata = {
+-  title: "We Miss Opportunities | Sorted V2",
++  title: "We Miss Opportunities | Sorted Ops",
+   description: "Why forgotten reviews, old customers, unchased quotes and missed referrals are gaps that cost businesses growth.",
+ }
+ 
+diff --git a/app/v2/problems/we-waste-time/page.tsx b/app/v2/problems/we-waste-time/page.tsx
+index 199621f8..829b983f 100644
+--- a/app/v2/problems/we-waste-time/page.tsx
++++ b/app/v2/problems/we-waste-time/page.tsx
+@@ -2,7 +2,7 @@ import type { Metadata } from "next"
+ import { ProblemDetailTemplate } from "../_components/ProblemDetailTemplate"
+ 
+ export const metadata: Metadata = {
+-  title: "We Waste Time | Sorted V2",
++  title: "We Waste Time | Sorted Ops",
+   description: "Why repeated admin, copied updates and manual reporting are gaps that cost businesses time and money every week.",
+ }
+ 
+diff --git a/app/v2/results-dashboard/ResultsDashboard.tsx b/app/v2/results-dashboard/ResultsDashboard.tsx
+index 8e26b8e7..a9ae08c5 100644
+--- a/app/v2/results-dashboard/ResultsDashboard.tsx
++++ b/app/v2/results-dashboard/ResultsDashboard.tsx
+@@ -126,7 +126,7 @@ export function ResultsDashboard() {
+     <main className={`${v2Marker.variable} ${v2Highlight.variable} ${v2Bakeshop.variable} min-h-screen overflow-x-hidden bg-[#fbfbfa] text-[#070707]`}>
+       <div className="grid min-h-screen min-w-0 lg:grid-cols-[236px_1fr]">
+         <aside className="flex min-w-0 flex-col overflow-x-hidden overflow-y-auto bg-[#070707] px-5 py-6 text-white lg:sticky lg:top-0 lg:h-screen">
+-          <a href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]" aria-label="Sorted V2 home">
++          <a href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]" aria-label="Sorted Ops home">
+             Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-v2-bakeshop)] translate-y-[-0.06em] text-[#cfe900]">ops</span>
+           </a>
+ 
+@@ -177,6 +177,9 @@ export function ResultsDashboard() {
+           <header className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+             <div>
+               <h1 className="text-[clamp(2.45rem,3.7vw,3.55rem)] font-black leading-[0.95] tracking-[-0.06em]">{pageTitle}</h1>
++              <p className="mt-3 inline-block rounded-full border border-black/15 bg-white px-4 py-2 text-[11px] font-black uppercase tracking-[0.05em] text-black/60">
++                Example dashboard. Hardcoded demonstration figures, not live client reporting.
++              </p>
+               <p className="mt-4 text-[16px] font-semibold text-black/62">
+                 {pageDescription}
+                 <span className="ml-2 inline-block h-[5px] w-16 translate-y-1 rotate-[-4deg] rounded-full bg-[#dfff00]" />
+diff --git a/app/v2/results-dashboard/page.tsx b/app/v2/results-dashboard/page.tsx
+index 84ebd407..6f3afd07 100644
+--- a/app/v2/results-dashboard/page.tsx
++++ b/app/v2/results-dashboard/page.tsx
+@@ -2,7 +2,7 @@ import type { Metadata } from "next"
+ import { ResultsDashboard } from "./ResultsDashboard"
+ 
+ export const metadata: Metadata = {
+-  title: "Results Dashboard | Sorted V2",
++  title: "Results Dashboard | Sorted Ops",
+   description: "A reusable Sorted client results dashboard showing time returned, customers recovered, reviews generated, revenue recovered, and investment return.",
+ }
+ 
+diff --git a/app/v2/results/ResultsGrid.tsx b/app/v2/results/ResultsGrid.tsx
+index 864eac2a..afd1aa8c 100644
+--- a/app/v2/results/ResultsGrid.tsx
++++ b/app/v2/results/ResultsGrid.tsx
+@@ -54,6 +54,9 @@ const results = [
+ export function ResultsGrid() {
+   return (
+     <section className="mx-auto max-w-[1220px] px-5 py-7 sm:px-8">
++      <p className="mb-6 max-w-[720px] rounded-[12px] border border-black/15 bg-white px-5 py-4 text-[13px] font-bold leading-[1.5]">
++        Project examples and draft reporting. Figures without a verified source are illustrative, not confirmed client outcomes.
++      </p>
+       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+         {results.map((result) => (
+           <ResultCard key={result.name} result={result} />
+diff --git a/app/v2/results/_components/TemplatedResultPage.tsx b/app/v2/results/_components/TemplatedResultPage.tsx
+index db2af93d..c0696983 100644
+--- a/app/v2/results/_components/TemplatedResultPage.tsx
++++ b/app/v2/results/_components/TemplatedResultPage.tsx
+@@ -97,6 +97,9 @@ export function TemplatedResultPage({ slug }: { slug: TemplatedResultSlug }) {
+             Back to all results
+           </Link>
+           <p className="text-[27px] font-semibold tracking-[-0.05em]">{result.name}</p>
++          <p className="mt-3 inline-block rounded-full border border-black/15 bg-white px-4 py-2 text-[11px] font-black uppercase tracking-[0.05em] text-black/60">
++            Project example — draft reporting. Metrics and quoted feedback on this page still require verification before use as client proof.
++          </p>
+           <h1 className="mt-8 max-w-full text-[clamp(3.1rem,13vw,6.8rem)] font-black leading-[0.92] tracking-[-0.04em] sm:max-w-[680px]">
+             Gap closed!
+             <br />
+diff --git a/app/v2/results/action-hero-marketing/page.tsx b/app/v2/results/action-hero-marketing/page.tsx
+index 241f782e..2676bb30 100644
+--- a/app/v2/results/action-hero-marketing/page.tsx
++++ b/app/v2/results/action-hero-marketing/page.tsx
+@@ -2,7 +2,7 @@ import type { Metadata } from "next"
+ import { TemplatedResultPage } from "../_components/TemplatedResultPage"
+ 
+ export const metadata: Metadata = {
+-  title: "Action Hero Marketing Result | Sorted V2",
++  title: "Action Hero Marketing Result | Sorted Ops",
+   description: "A templated Sorted result page for Action Hero Marketing.",
+ }
+ 
+diff --git a/app/v2/results/bisk-education/page.tsx b/app/v2/results/bisk-education/page.tsx
+index 8e41e17a..19d89f27 100644
+--- a/app/v2/results/bisk-education/page.tsx
++++ b/app/v2/results/bisk-education/page.tsx
+@@ -2,7 +2,7 @@ import type { Metadata } from "next"
+ import { TemplatedResultPage } from "../_components/TemplatedResultPage"
+ 
+ export const metadata: Metadata = {
+-  title: "Bisk Education Result | Sorted V2",
++  title: "Bisk Education Result | Sorted Ops",
+   description: "A templated Sorted result page for Bisk Education.",
+ }
+ 
+diff --git a/app/v2/results/bodysharp/page.tsx b/app/v2/results/bodysharp/page.tsx
+index d88e2162..06c20f0a 100644
+--- a/app/v2/results/bodysharp/page.tsx
++++ b/app/v2/results/bodysharp/page.tsx
+@@ -2,7 +2,7 @@ import type { Metadata } from "next"
+ import { TemplatedResultPage } from "../_components/TemplatedResultPage"
+ 
+ export const metadata: Metadata = {
+-  title: "Bodysharp Result | Sorted V2",
++  title: "Bodysharp Result | Sorted Ops",
+   description: "A templated Sorted result page for Bodysharp.",
+ }
+ 
+diff --git a/app/v2/results/glow-dental/page.tsx b/app/v2/results/glow-dental/page.tsx
+index 19b263f0..86a8a760 100644
+--- a/app/v2/results/glow-dental/page.tsx
++++ b/app/v2/results/glow-dental/page.tsx
+@@ -3,8 +3,8 @@ import { ArrowLeft, ArrowRight, BarChart3, CalendarDays, Check, Clock3, MapPin,
+ import { CtaBand, MarkerText, SectionTitle, V2Footer, V2Header, V2Page } from "../../_components/V2Primitives"
+ 
+ export const metadata: Metadata = {
+-  title: "Results | Sorted V2",
+-  description: "Measured examples of gaps closed by Sorted, including time returned, enquiries recovered, and reviews generated.",
++  title: "Results | Sorted Ops",
++  description: "An illustrative example of enquiry follow-up and operational reporting; not verified client results.",
+ }
+ 
+ const comparison = [
+@@ -25,6 +25,9 @@ export default function ResultsPage() {
+             Back to all results
+           </a>
+           <p className="text-[27px] font-semibold tracking-[-0.05em]">Glow Dental</p>
++          <p className="mt-3 inline-block rounded-full border border-black/15 bg-white px-4 py-2 text-[11px] font-black uppercase tracking-[0.05em] text-black/60">
++            Illustrative example. Figures and quoted feedback are not verified client results.
++          </p>
+           <h1 className="mt-8 max-w-full text-[clamp(3.1rem,13vw,6.8rem)] font-black leading-[0.92] tracking-[-0.04em] sm:max-w-[680px]">
+             Gap closed!
+             <br />
+diff --git a/app/v2/results/gracie-barra-halesowen/page.tsx b/app/v2/results/gracie-barra-halesowen/page.tsx
+index 3b8e2e15..9ebf675a 100644
+--- a/app/v2/results/gracie-barra-halesowen/page.tsx
++++ b/app/v2/results/gracie-barra-halesowen/page.tsx
+@@ -2,7 +2,7 @@ import type { Metadata } from "next"
+ import { TemplatedResultPage } from "../_components/TemplatedResultPage"
+ 
+ export const metadata: Metadata = {
+-  title: "Gracie Barra Halesowen Result | Sorted V2",
++  title: "Gracie Barra Halesowen Result | Sorted Ops",
+   description: "A templated Sorted result page for Gracie Barra Halesowen.",
+ }
+ 
+diff --git a/app/v2/results/page.tsx b/app/v2/results/page.tsx
+index 437dcd21..a13733be 100644
+--- a/app/v2/results/page.tsx
++++ b/app/v2/results/page.tsx
+@@ -4,8 +4,8 @@ import { CtaBand, V2Footer, V2Header, V2Page } from "../_components/V2Primitives
+ import { ResultsGrid } from "./ResultsGrid"
+ 
+ export const metadata: Metadata = {
+-  title: "Results | Sorted V2",
+-  description: "A results index showing gaps closed, hours returned, enquiries captured, and revenue recovered across Sorted clients.",
++  title: "Results | Sorted Ops",
++  description: "Project examples and illustrative reporting figures showing how Sorted measures operational improvement — not verified client aggregates.",
+ }
+ 
+ const impact = [
+@@ -22,17 +22,18 @@ export default function ResultsIndexPage() {
+       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-8 pt-12 sm:px-8 lg:grid-cols-[1fr_0.92fr] lg:items-center">
+         <div className="min-w-0">
+           <h1 className="max-w-full text-[clamp(3.25rem,13vw,6.7rem)] font-black leading-[0.92] tracking-[-0.04em] sm:max-w-[680px]">
+-            Real changes.
++            The work.
+             <br />
+-            Measurable results.
++            And how we measure it.
+           </h1>
+           <div className="mt-5 h-[6px] w-full max-w-[430px] rounded-full bg-[#dfff00]" />
+           <p className="mt-8 max-w-[540px] text-[17px] font-semibold leading-[1.55] tracking-[-0.03em]">
+-            We close the gaps that leak revenue, hurt trust, and hold businesses back. Here is what changed across the current Sorted examples.
++            We close the gaps that leak revenue, hurt trust, and hold businesses back. These project examples show the kind of reporting we produce.
+           </p>
+         </div>
+         <aside className="min-w-0 rounded-[22px] bg-[#f7efe3] p-6 shadow-[0_22px_55px_rgba(20,14,8,0.1)] sm:p-8">
+-          <p className="text-[15px] font-black">The impact so far</p>
++          <p className="text-[15px] font-black">Example reporting figures</p>
++          <p className="mt-2 text-[12px] font-semibold leading-[1.45] text-black/60">These hardcoded example figures are not verified client totals.</p>
+           <div className="mt-6 grid divide-y divide-black/15 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+             {impact.map(([Icon, value, label], index) => {
+               const RealIcon = Icon as typeof Clock3
+diff --git a/app/v2/reviews/glow-dental/page.tsx b/app/v2/reviews/glow-dental/page.tsx
+index 90dcadd4..6dab20f4 100644
+--- a/app/v2/reviews/glow-dental/page.tsx
++++ b/app/v2/reviews/glow-dental/page.tsx
+@@ -4,7 +4,7 @@ import { CheckList, SectionTitle, V2Page } from "../../_components/V2Primitives"
+ 
+ export const metadata: Metadata = {
+   title: "Example Diagnostic Review | Glow Dental",
+-  description: "An example Sorted diagnostic review showing the routine reviewed, real cost, recommendation, proposed system, and impact forecast.",
++  description: "An illustrative example of enquiry follow-up and operational reporting; not verified client results.",
+ }
+ 
+ const contents = ["Executive Summary", "The Routine We Reviewed", "What We Found", "The Real Cost", "Our Recommendation", "Proposed System", "Prototype Preview", "Implementation Outline", "Impact Forecast", "What Happens Next"]
+@@ -41,6 +41,9 @@ export default function DiagnosticReviewPage() {
+           <header className="flex items-start justify-between border-b border-black/10 px-6 py-8 sm:px-10">
+             <div>
+               <h1 className="max-w-[620px] text-[clamp(3.2rem,6vw,5.7rem)] font-black leading-[0.92] tracking-[-0.055em]">Diagnostic Review<br />Glow Dental</h1>
++              <p className="mt-6 inline-block rounded-full border border-black/15 bg-white px-4 py-2 text-[11px] font-black uppercase tracking-[0.05em] text-black/60">
++                Illustrative example. Figures and quoted feedback are not verified client results.
++              </p>
+               <div className="mt-5 h-[6px] w-48 rounded-full bg-[#dfff00]" />
+               <p className="mt-8 text-[12px] font-black">DATE: <span className="ml-8">12 May 2025</span></p>
+               <p className="mt-3 text-[12px] font-black">PREPARED BY: <span className="ml-8">Sorted.</span></p>
+@@ -130,7 +133,7 @@ export default function DiagnosticReviewPage() {
+ 
+           <div className="grid border-b border-black/10 lg:grid-cols-2">
+             <ReportBlock number="09" title="Impact forecast (first 12 months)">
+-              <div className="grid grid-cols-4 gap-5 text-center">
++              <div className="grid grid-cols-2 gap-5 text-center sm:grid-cols-4">
+                 {["295 Hours returned", "756 Enquiries recovered", "1,240 Reviews potential", "£100,800 Value recovered"].map((item) => (
+                   <p key={item} className="text-[20px] font-black leading-[1.1] tracking-[-0.04em]">{item}</p>
+                 ))}
+diff --git a/app/website-updates/page.tsx b/app/website-updates/page.tsx
+index 3a6780ba..a70df401 100644
+--- a/app/website-updates/page.tsx
++++ b/app/website-updates/page.tsx
+@@ -20,10 +20,10 @@ export default function UpdatesPage() {
+           <SitesTitle title={<>Your content<br />Your control</>} marker="Update it yourself." />
+           <Underline className="mt-2 w-full max-w-[320px] sm:max-w-[380px]" />
+           <p className="mt-7 max-w-[450px] text-[16px] font-semibold leading-[1.55] tracking-[-0.03em]">
+-            Every Sorted website includes a built-in content editor. Change text, images, services, prices and contact details yourself. Save, publish and see your updates live in minutes.
++            Every Sorted website includes a built-in content editor. Change text, images, services, prices and contact details yourself. Save a change, the site rebuilds, and the updated version goes live.
+           </p>
+           <ul className="mt-8 grid gap-3 text-[14px] font-bold">
+-            {["Edit your site in minutes", "No code or developers needed", "Changes go live instantly"].map((item) => (
++            {["Edit everyday content yourself", "No code or developers needed", "Updates go live after the site rebuilds"].map((item) => (
+               <li key={item} className="flex items-center gap-3"><span className="grid size-6 place-items-center rounded-full bg-[#dfff00] text-[12px]">✓</span>{item}</li>
+             ))}
+           </ul>
+@@ -37,7 +37,7 @@ export default function UpdatesPage() {
+           {[
+             ["SortedUpdates", "A clean content editor living at /cms/ on your site. Edit in your browser, save, and publish."],
+             ["Included", "SortedUpdates comes with every Sorted website we build. It is part of the handoff, not an extra."],
+-            ["Self-service", "Swap words, images, prices and service details yourself. Changes publish automatically."],
++            ["Self-service", "Swap words, images, prices and service details yourself. Save, the site rebuilds, and the change goes live."],
+           ].map(([title, copy], index) => (
+             <article key={title}>
+               <span className={`grid size-11 place-items-center rounded-full text-[15px] font-black ${index === 2 ? "bg-[#dfff00]" : "bg-[#070707] text-white"}`}>{index + 1}</span>
+@@ -80,9 +80,9 @@ export default function UpdatesPage() {
+         <div className="mt-9 grid gap-7 md:grid-cols-4">
+           {[
+             [LockKeyhole, "Log in", "Access your CMS at yoursite.com/cms/. We send you a secure invite."],
+-            [FileText, "Edit", "Click any section, change the text or image, and preview the result live."],
+-            [Save, "Save", "Hit save. Decap writes the change to your site repository automatically."],
+-            [Globe2, "Live", "Your updated site is live in under a minute. No developer needed."],
++            [FileText, "Edit", "Click any section, change the text or image, and preview the result."],
++            [Save, "Save", "Hit save and the change is written into your site."],
++            [Globe2, "Live", "The site rebuilds and the update goes live. No developer needed."],
+           ].map(([Icon, title, copy], index) => {
+             const RealIcon = Icon as typeof LockKeyhole
+             return (
+@@ -115,7 +115,7 @@ function CmsPanel() {
+     <div className="overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_22px_55px_rgba(20,14,8,0.11)]">
+       <div className="flex h-11 items-center justify-between bg-[#070707] px-4 text-[11px] font-bold text-white sm:px-5 sm:text-[12px]">
+         <span>SortedUpdates / Pages / Home</span>
+-        <span>•••</span>
++        <span className="rounded-full bg-white/10 px-3 py-1 text-[9px] font-black uppercase tracking-[0.08em] text-white/60">Illustrative preview</span>
+       </div>
+       <div className="grid min-h-[390px] grid-cols-[82px_1fr] sm:min-h-[460px] sm:grid-cols-[150px_1fr_180px]">
+         <aside className="border-r border-black/10 bg-[#f7f7f3] p-2 text-[10px] font-bold sm:p-4 sm:text-[12px]">
+@@ -134,8 +134,8 @@ function CmsPanel() {
+         <aside className="hidden border-l border-black/10 p-6 sm:block">
+           <p className="text-[15px] font-black">Publish</p>
+           <p className="mt-5 text-[12px] font-bold text-[#00983c]">● Published</p>
+-          <button className="mt-8 h-11 w-full rounded bg-[#070707] text-[12px] font-black text-white">Save & Publish</button>
+-          <button className="mt-3 h-10 w-full rounded bg-black/5 text-[12px] font-black">Preview changes</button>
++          <span className="mt-8 flex h-11 w-full items-center justify-center rounded bg-[#070707] text-[12px] font-black text-white">Save & Publish</span>
++          <span className="mt-3 flex h-10 w-full items-center justify-center rounded bg-black/5 text-[12px] font-black">Preview changes</span>
+         </aside>
+       </div>
+     </div>
+diff --git a/app/what-else-we-do/page.tsx b/app/what-else-we-do/page.tsx
+new file mode 100644
+index 00000000..348a159e
+--- /dev/null
++++ b/app/what-else-we-do/page.tsx
+@@ -0,0 +1,334 @@
++import type { Metadata } from "next"
++import { ArrowRight, BarChart3, CalendarCheck, Check, Edit3, LayoutGrid, Mail, Megaphone, Radar, Users } from "lucide-react"
++import { SitesFooter, SitesHeader, SitesPage, Underline } from "../sites/_components/SitesPrimitives"
++import { MockupButton } from "../sites/_components/SitesMockupModal"
++
++export const metadata: Metadata = {
++  title: "What Else We Do | Sorted",
++  description:
++    "A great website is just the beginning. Advertising, tracking, follow-ups and booking integrations — the wider ways Sorted helps local businesses get found and win customers.",
++  alternates: {
++    canonical: "/what-else-we-do",
++  },
++  openGraph: {
++    title: "What Else We Do | Sorted",
++    description: "The website makes you look good. The rest helps you get found, handle enquiries and turn them into customers.",
++    url: "/what-else-we-do",
++  },
++}
++
++export default function WhatElseWeDoPage() {
++  return (
++    <SitesPage>
++      <SitesHeader active="whatelse" />
++
++      <section className="mx-auto grid max-w-[1220px] gap-12 px-5 pb-16 pt-10 sm:px-8 lg:grid-cols-[0.52fr_0.48fr] lg:items-center lg:pt-14">
++        <div>
++          <p className="text-[12px] font-black uppercase tracking-[0.16em] text-black/45">What else we do</p>
++          <h1 className="mt-5 text-[clamp(3rem,6.6vw,6.2rem)] font-black leading-[0.92] tracking-[-0.05em]">
++            A great website is{" "}
++            <span className="[font-family:var(--font-sites-fave-script)] text-[1.12em] font-normal leading-[0.8] tracking-[0] text-[#687800]">
++              just the beginning.
++            </span>
++          </h1>
++          <Underline className="mt-5 w-52" />
++          <p className="mt-7 max-w-[500px] text-[17px] font-semibold leading-[1.55] tracking-[-0.02em] text-black/78">
++            Your website makes you look good. The rest helps you get found, handle enquiries and turn them into customers.
++          </p>
++          <p className="mt-4 max-w-[500px] text-[15px] font-semibold leading-[1.6] text-black/60">
++            A good first impression only gets you so far. Slow replies, forgotten quotes and awkward bookings can still get in the way.
++          </p>
++          <div className="mt-8 flex flex-wrap items-center gap-6">
++            <MockupButton />
++            <a href="/howitworks" className="inline-flex min-h-11 items-center gap-2 text-[12px] font-black underline underline-offset-4 transition-colors hover:text-black/55">
++              See how it works <ArrowRight className="size-4" strokeWidth={2.8} />
++            </a>
++          </div>
++        </div>
++
++        <WorkspacePreview />
++      </section>
++
++      <section className="bg-[#0b0b0b] px-5 py-16 text-white sm:px-8 lg:py-24">
++        <div className="mx-auto grid max-w-[1220px] gap-12 lg:grid-cols-[0.36fr_0.34fr_0.3fr] lg:items-center">
++          <div>
++            <p className="text-[12px] font-black uppercase tracking-[0.16em] text-white/45">The bigger picture</p>
++            <h2 className="mt-5 text-[clamp(2.4rem,4.6vw,4.2rem)] font-black leading-[0.95] tracking-[-0.05em]">
++              The website is the bit you see.
++            </h2>
++            <p className="mt-6 max-w-[400px] text-[15px] font-semibold leading-[1.6] text-white/70">
++              Underneath are the ways people find you, get a reply and become customers. We start with the website, then tackle the gap that matters next.
++            </p>
++          </div>
++
++          <IcebergGraphic />
++
++          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
++            {[
++              ["More visibility", "Ways to get in front of the right people, when advertising makes sense."],
++              ["More enquiries", "See what is working and give every genuine enquiry a clear route in."],
++              ["More customers", "Agreed follow-up so fewer opportunities quietly go cold."],
++              ["More control", "One place to see the website, the plan and what happens next."],
++            ].map(([title, copy]) => (
++              <li key={title} className="border-t border-white/15 pt-5">
++                <h3 className="text-[17px] font-black tracking-[-0.03em]">{title}</h3>
++                <p className="mt-2 text-[13px] font-semibold leading-[1.55] text-white/62">{copy}</p>
++              </li>
++            ))}
++          </ul>
++        </div>
++      </section>
++
++      <section className="mx-auto max-w-[1220px] px-5 py-16 sm:px-8 lg:py-20">
++        <p className="text-[12px] font-black uppercase tracking-[0.16em] text-black/45">The website, and what can come next</p>
++        <h2 className="mt-5 max-w-[760px] text-[clamp(2.3rem,4.4vw,3.8rem)] font-black leading-[0.95] tracking-[-0.05em]">
++          Look good. Get enquiries. Don&apos;t leave them hanging.
++        </h2>
++
++        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
++          {[
++            [LayoutGrid, "Custom website design", "Included in the website", "A real design and build for your business — not a template with your logo dropped in.", "in"],
++            [Edit3, "Content management", "Included in the website", "Edit everyday content yourself through SortedUpdates after handoff.", "in"],
++            [BarChart3, "Analytics & tracking", "Website analytics included", "See where visitors come from and which website actions they take. We agree the tracking setup around how people enquire.", "in"],
++            [Megaphone, "Ad creatives", "Optional service", "Creative scoped separately when it makes sense. Ad spend and publishing are not automatically included.", "out"],
++            [Mail, "Follow-up automations", "Optional service", "We plan and connect an agreed sequence. A preview is a plan — it does not send emails.", "out"],
++            [CalendarCheck, "Bookings & CRM", "Optional service", "Integrations agreed and implemented per business. No automatic connection is assumed.", "out"],
++          ].map(([Icon, title, status, copy, kind]) => {
++            const RealIcon = Icon as typeof LayoutGrid
++            const included = kind === "in"
++            return (
++              <article key={title as string} className="flex flex-col rounded-[18px] bg-[#f7f1e8] p-6">
++                <div className="flex items-center justify-between gap-4">
++                  <span className="grid size-12 place-items-center rounded-full bg-[#dfff00]">
++                    <RealIcon className="size-6" strokeWidth={2.2} />
++                  </span>
++                  <span className={`rounded-full px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.06em] ${included ? "bg-black text-white" : "border border-black/25 text-black/70"}`}>
++                    {status as string}
++                  </span>
++                </div>
++                <h3 className="mt-6 text-[19px] font-black tracking-[-0.035em]">{title as string}</h3>
++                <p className="mt-3 text-[13px] font-semibold leading-[1.55] text-black/62">{copy as string}</p>
++                <CapabilitySketch kind={title as string} />
++              </article>
++            )
++          })}
++        </div>
++
++        <p className="mt-10 max-w-[860px] rounded-[14px] border border-black/15 bg-white p-6 text-[14px] font-bold leading-[1.6]">
++          The £3,000 price covers the website package. Advertising, follow-up automation and CRM or booking integrations are scoped separately. A workspace preview is not a live campaign or connected system.
++        </p>
++      </section>
++
++      <section className="border-t border-black/10 bg-[#f5f3ee] px-5 py-16 sm:px-8 lg:py-20">
++        <div className="mx-auto grid max-w-[1220px] gap-10 lg:grid-cols-[0.3fr_0.7fr] lg:items-center">
++          <div>
++            <p className="text-[12px] font-black uppercase tracking-[0.16em] text-black/45">It all works together</p>
++            <h2 className="mt-5 text-[clamp(2.3rem,4.2vw,3.7rem)] font-black leading-[0.95] tracking-[-0.05em]">
++              An enquiry isn&apos;t a customer. Yet.
++            </h2>
++            <p className="mt-6 max-w-[360px] text-[14px] font-semibold leading-[1.6] text-black/62">
++              A possible connected journey — not all included, and not all active on day one. Each step is agreed before it is switched on.
++            </p>
++          </div>
++          <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5 lg:gap-0">
++            {[
++              [LayoutGrid, "Website", "Builds trust and gives people a place to choose you."],
++              [Megaphone, "Ads", "Bring the right people to the website."],
++              [Radar, "Tracking", "Shows what is working so decisions are easier."],
++              [Mail, "Follow-ups", "Keep agreed contact going after the first enquiry."],
++              [Users, "Customers", "More of your enquiries becoming paying work."],
++            ].map(([Icon, title, copy], index, arr) => {
++              const RealIcon = Icon as typeof LayoutGrid
++              return (
++                <li key={title as string} className="relative border-black/12 pt-5 lg:border-l lg:pl-5 lg:pt-0 lg:first:border-l-0 lg:first:pl-0">
++                  <RealIcon className="size-7" strokeWidth={2} />
++                  <h3 className="mt-4 text-[15px] font-black tracking-[-0.03em]">{title as string}</h3>
++                  <p className="mt-2 text-[12px] font-semibold leading-[1.5] text-black/60">{copy as string}</p>
++                  {index < arr.length - 1 ? <ArrowRight className="absolute -right-2 top-6 hidden size-4 text-black/35 xl:block" strokeWidth={2.5} /> : null}
++                </li>
++              )
++            })}
++          </ol>
++        </div>
++      </section>
++
++      <section className="bg-[#070707] px-5 py-16 text-white sm:px-8 lg:py-20">
++        <div className="mx-auto grid max-w-[1220px] gap-8 lg:grid-cols-[0.58fr_0.42fr] lg:items-center">
++          <h2 className="text-[clamp(2.5rem,5vw,4.4rem)] font-black leading-[0.94] tracking-[-0.05em]">
++            Start with the bit you can see.
++          </h2>
++          <div>
++            <ul className="space-y-3 text-[14px] font-bold">
++              {["Free mockup before you pay", "No payment. No obligation.", "Wider services agreed separately"].map((item) => (
++                <li key={item} className="flex items-center gap-3">
++                  <Check className="size-5 shrink-0 rounded-full bg-[#dfff00] p-1 text-black" strokeWidth={3.5} />
++                  {item}
++                </li>
++              ))}
++            </ul>
++            <div className="mt-8">
++              <MockupButton variant="yellow" />
++            </div>
++          </div>
++        </div>
++      </section>
++
++      <SitesFooter />
++    </SitesPage>
++  )
++}
++
++const workspaceNav = ["Overview", "Your New Site", "Your Ads", "Follow-up", "Tracking"]
++const workspaceStatus = [
++  ["Your New Site", "Website preview", "#dfff00"],
++  ["Your Ads", "Proposed ads", "#0b0b0b"],
++  ["Follow-up", "Follow-up plan", "#0b0b0b"],
++  ["Tracking", "Tracking not connected", "#8a8a8a"],
++] as const
++
++function WorkspacePreview() {
++  return (
++    <figure className="relative">
++      <div className="overflow-hidden rounded-[16px] border border-black/10 bg-white shadow-[0_28px_70px_rgba(0,0,0,0.12)]">
++        <div className="flex h-10 items-center gap-2 border-b border-black/10 bg-[#0b0b0b] px-4">
++          <span className="size-2.5 rounded-full bg-white/25" />
++          <span className="size-2.5 rounded-full bg-white/25" />
++          <span className="size-2.5 rounded-full bg-[#dfff00]/85" />
++          <span className="ml-3 text-[10px] font-bold text-white/50">sortmydigital.site/workspace</span>
++        </div>
++        <div className="grid grid-cols-[104px_1fr] sm:grid-cols-[140px_1fr]">
++          <nav className="border-r border-black/10 bg-[#f7f7f3] p-2 sm:p-3" aria-hidden="true">
++            {workspaceNav.map((item, index) => (
++              <p key={item} className={`rounded-lg px-2 py-2 text-[10px] font-bold sm:px-3 sm:text-[11px] ${index === 0 ? "bg-white shadow-sm" : "text-black/55"}`}>
++                {item}
++              </p>
++            ))}
++          </nav>
++          <div className="p-4 sm:p-5">
++            <p className="text-[15px] font-black tracking-[-0.03em]">Overview</p>
++            <p className="mt-1 text-[11px] font-semibold text-black/50">Your website, and what can come next.</p>
++            <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
++              {workspaceStatus.map(([label, status, dot]) => (
++                <div key={label} className="rounded-[10px] border border-black/10 p-3">
++                  <p className="text-[11px] font-black">{label}</p>
++                  <p className="mt-2 flex items-center gap-2 text-[10px] font-bold text-black/60">
++                    <span className="size-2 rounded-full" style={{ backgroundColor: dot }} />
++                    {status}
++                  </p>
++                </div>
++              ))}
++            </div>
++            <div className="mt-3 rounded-[10px] bg-[#f5f3ee] p-3">
++              <p className="text-[10px] font-black uppercase tracking-[0.06em] text-black/45">Next steps</p>
++              <p className="mt-1.5 text-[11px] font-semibold leading-[1.45] text-black/60">Review the preview, then decide what to tackle first.</p>
++            </div>
++          </div>
++        </div>
++      </div>
++      <figcaption className="mt-4 flex items-center justify-between gap-4">
++        <span className="text-[12px] font-bold text-black/55">Illustrative workspace preview</span>
++        <span className="[font-family:var(--font-sites-highlight)] text-[19px] leading-none text-[#687800]">Everything in one place.</span>
++      </figcaption>
++    </figure>
++  )
++}
++
++function IcebergGraphic() {
++  return (
++    <figure className="mx-auto w-full max-w-[420px]">
++      <div className="relative">
++        <svg viewBox="0 0 420 360" className="w-full" aria-hidden="true">
++          <line x1="0" y1="130" x2="420" y2="130" stroke="#8BD8F3" strokeWidth="2" strokeDasharray="8 6" opacity="0.7" />
++          <polygon points="150,130 210,42 270,130" fill="#8BD8F3" />
++          <polygon points="150,130 210,42 196,130" fill="#6fc4e8" />
++          <polygon points="150,130 270,130 300,200 255,330 165,330 120,200" fill="#2e6f94" />
++          <polygon points="150,130 210,130 196,330 165,330 120,200" fill="#255d7e" />
++          <polygon points="210,130 270,130 300,200 255,330 232,330" fill="#1f506d" />
++        </svg>
++        <p className="absolute inset-x-0 top-[25%] text-center text-[13px] font-black text-[#0b0b0b]">Website</p>
++        <ul className="absolute inset-x-0 bottom-[5%] top-[40%] flex flex-col justify-between text-center text-[13px] font-bold leading-none text-[#d6edf8] sm:text-[14px]">
++          <li>Advertising</li>
++          <li>Tracking</li>
++          <li>Follow-ups</li>
++          <li>CRM &amp; bookings</li>
++          <li>Automation</li>
++        </ul>
++      </div>
++      <figcaption className="mt-3 text-center text-[12px] font-bold text-white/55">
++        Website above the waterline — Advertising, Tracking, Follow-ups, CRM &amp; bookings and Automation underneath.
++      </figcaption>
++    </figure>
++  )
++}
++
++function CapabilitySketch({ kind }: { kind: string }) {
++  return (
++    <div className="mt-auto pt-6" aria-hidden="true">
++      <div className="flex h-20 items-end gap-2 overflow-hidden rounded-[10px] border border-black/10 bg-white p-3">
++        {kind === "Custom website design" ? (
++          <>
++            <div className="h-full w-1/3 rounded-md bg-[#0b0b0b]" />
++            <div className="flex h-full flex-1 flex-col gap-1.5">
++              <div className="h-2.5 w-3/4 rounded-full bg-black/15" />
++              <div className="h-2.5 w-1/2 rounded-full bg-black/15" />
++              <div className="mt-auto h-5 w-16 rounded-full bg-[#dfff00]" />
++            </div>
++          </>
++        ) : kind === "Content management" ? (
++          <div className="grid w-full grid-cols-[28px_1fr] gap-2">
++            <div className="flex h-full flex-col gap-1">
++              {[0, 1, 2, 3].map((i) => (
++                <div key={i} className={`h-3.5 rounded-sm ${i === 0 ? "bg-[#dfff00]" : "bg-black/10"}`} />
++              ))}
++            </div>
++            <div className="flex flex-col gap-1.5">
++              <div className="h-2.5 w-2/3 rounded-full bg-black/15" />
++              <div className="h-8 rounded-md border border-black/10 bg-black/[0.03]" />
++              <div className="h-2.5 w-1/3 rounded-full bg-black/15" />
++            </div>
++          </div>
++        ) : kind === "Analytics & tracking" ? (
++          <div className="flex h-full w-full items-end gap-2">
++            {[38, 62, 48, 78, 58, 90].map((h, i) => (
++              <div key={i} className={`flex-1 rounded-t-sm ${i === 5 ? "bg-[#dfff00]" : "bg-black/15"}`} style={{ height: `${h}%` }} />
++            ))}
++          </div>
++        ) : kind === "Ad creatives" ? (
++          <div className="flex w-full gap-2">
++            {[0, 1, 2].map((i) => (
++              <div key={i} className="flex-1 rounded-md border border-black/10 p-1.5">
++                <div className={`h-6 rounded-sm ${i === 1 ? "bg-[#dfff00]" : "bg-black/12"}`} />
++                <div className="mt-1.5 h-1.5 w-3/4 rounded-full bg-black/15" />
++                <div className="mt-1 h-1.5 w-1/2 rounded-full bg-black/15" />
++              </div>
++            ))}
++          </div>
++        ) : kind === "Follow-up automations" ? (
++          <div className="flex w-full items-center gap-1.5">
++            {[0, 1, 2].map((i) => (
++              <div key={i} className="flex flex-1 items-center gap-1.5">
++                <div className={`flex h-10 flex-1 flex-col justify-center gap-1 rounded-md border px-2 ${i === 0 ? "border-black/20 bg-black/[0.04]" : "border-black/10"}`}>
++                  <div className="h-1.5 w-2/3 rounded-full bg-black/20" />
++                  <div className="h-1.5 w-1/3 rounded-full bg-black/12" />
++                </div>
++                {i < 2 ? <ArrowRight className="size-3 shrink-0 text-black/35" strokeWidth={2.5} /> : null}
++              </div>
++            ))}
++          </div>
++        ) : (
++          <div className="flex w-full flex-col gap-1.5">
++            <div className="grid grid-cols-7 gap-1">
++              {Array.from({ length: 14 }, (_, i) => (
++                <div key={i} className={`h-3 rounded-sm ${i === 9 ? "bg-[#dfff00]" : "bg-black/10"}`} />
++              ))}
++            </div>
++            <div className="mt-1 flex items-center gap-2">
++              <div className="h-2.5 w-16 rounded-full bg-black/15" />
++              <div className="h-4 w-12 rounded-full bg-black/80" />
++            </div>
++          </div>
++        )}
++      </div>
++    </div>
++  )
++}

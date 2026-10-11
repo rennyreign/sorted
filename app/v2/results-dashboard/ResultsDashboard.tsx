@@ -126,7 +126,7 @@ export function ResultsDashboard() {
     <main className={`${v2Marker.variable} ${v2Highlight.variable} ${v2Bakeshop.variable} min-h-screen overflow-x-hidden bg-[#fbfbfa] text-[#070707]`}>
       <div className="grid min-h-screen min-w-0 lg:grid-cols-[236px_1fr]">
         <aside className="flex min-w-0 flex-col overflow-x-hidden overflow-y-auto bg-[#070707] px-5 py-6 text-white lg:sticky lg:top-0 lg:h-screen">
-          <a href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]" aria-label="Sorted V2 home">
+          <a href="/ops" className="inline-flex min-h-11 items-center text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]" aria-label="Sorted Ops home">
             Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-v2-bakeshop)] translate-y-[-0.06em] text-[#cfe900]">ops</span>
           </a>
 
@@ -177,6 +177,9 @@ export function ResultsDashboard() {
           <header className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
             <div>
               <h1 className="text-[clamp(2.45rem,3.7vw,3.55rem)] font-black leading-[0.95] tracking-[-0.06em]">{pageTitle}</h1>
+              <p className="mt-3 inline-block rounded-full border border-black/15 bg-white px-4 py-2 text-[11px] font-black uppercase tracking-[0.05em] text-black/60">
+                Example dashboard. Hardcoded demonstration figures, not live client reporting.
+              </p>
               <p className="mt-4 text-[16px] font-semibold text-black/62">
                 {pageDescription}
                 <span className="ml-2 inline-block h-[5px] w-16 translate-y-1 rotate-[-4deg] rounded-full bg-[#dfff00]" />

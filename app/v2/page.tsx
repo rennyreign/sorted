@@ -39,7 +39,7 @@ const v2Bakeshop = localFont({
 export const metadata: Metadata = {
   title: "Sorted. Your business has gaps. We close them.",
   description:
-    "Sorted finds the gaps that leak revenue, hurt trust, and leave money on the table, installs the systems that close them, and shows exactly how much you get back.",
+    "Sorted finds the gaps that leak revenue, hurt trust, and leave money on the table, installs the systems that close them, and measures the outcomes we agree with you.",
 }
 
 const accent = "#dfff00"
@@ -73,12 +73,12 @@ const steps = [
   },
   {
     title: "We install the system.",
-    copy: "We install a proven system that closes the gap. No unnecessary software. No disruption.",
+    copy: "We install a proven system that closes the gap. No unnecessary software. A rollout planned around your team.",
     icon: SettingsIcon,
   },
   {
     title: "We measure what changed.",
-    copy: "You will see exactly what improved and how much you got back.",
+    copy: "You see what changed, measured against the outcomes we agreed at the start.",
     icon: BarChart3,
   },
   {
@@ -185,7 +185,7 @@ function Hero() {
         </div>
 
         <p className="mt-6 max-w-[420px] text-[13px] font-semibold leading-[1.55] tracking-[-0.025em] text-[#111] lg:mt-12 lg:text-[17px]">
-          Missed enquiries. Repetitive work. Manual processes. Delays. We&apos;ve already built the systems that solve them. We simply install the ones your business needs and show you exactly what they return.
+          Missed enquiries. Repetitive work. Manual processes. Delays. We&apos;ve already built the systems that solve them. We install the ones your business needs and measure what they return.
         </p>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center lg:mt-9 lg:gap-4">
@@ -360,13 +360,9 @@ function ResultsBand() {
     <section id="results" className="mx-auto max-w-[1240px] px-4 py-2 sm:px-6 md:py-3 lg:py-5">
       <div className="grid overflow-hidden rounded-[18px] bg-[#070707] text-white shadow-[0_18px_55px_rgba(0,0,0,0.18)] md:grid-cols-[1.15fr_4fr]">
         <div className="px-7 py-6 sm:px-9 lg:px-12 lg:py-10">
-          <SectionTitle title="Here's what changed." dark />
+          <SectionTitle title="What we measure." dark />
           <p className="mt-5 max-w-[170px] text-[12px] font-semibold leading-[1.35] text-white lg:mt-8 lg:max-w-[190px] lg:text-[15px]">
-            Real businesses.
-            <br />
-            Real numbers.
-            <br />
-            Measured improvements.
+            Example figures. Not verified client results. We agree the measurements for your business before work starts.
           </p>
           <Link
             href="/ops/results-dashboard"
@@ -505,8 +501,8 @@ function Footer() {
         </div>
       </div>
       <div className="mx-auto mt-6 flex max-w-[1220px] justify-end gap-5 text-[10px] font-semibold text-white/65">
-        <span>Privacy</span>
-        <span>Terms</span>
+        <a href="/privacy" className="transition-colors hover:text-white">Privacy</a>
+        <a href="/terms" className="transition-colors hover:text-white">Terms</a>
         <span>Cookies</span>
       </div>
     </footer>

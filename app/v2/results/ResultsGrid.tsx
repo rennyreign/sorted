@@ -54,6 +54,9 @@ const results = [
 export function ResultsGrid() {
   return (
     <section className="mx-auto max-w-[1220px] px-5 py-7 sm:px-8">
+      <p className="mb-6 max-w-[720px] rounded-[12px] border border-black/15 bg-white px-5 py-4 text-[13px] font-bold leading-[1.5]">
+        Project examples and draft reporting. Figures without a verified source are illustrative, not confirmed client outcomes.
+      </p>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {results.map((result) => (
           <ResultCard key={result.name} result={result} />
