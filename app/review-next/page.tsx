@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { supabase } from "@/lib/supabase"
+import { getWorkspace, type Workspace } from "@/lib/workspace"
 import NextPageClient from "./NextPageClient"
 
 // Static SPA shell served at /review-next/
@@ -11,7 +11,7 @@ import NextPageClient from "./NextPageClient"
 
 export default function ReviewNextPage() {
   const [slug, setSlug] = useState<string | null>(null)
-  const [prospectName, setProspectName] = useState<string>("")
+  const [workspace, setWorkspace] = useState<Workspace | null>(null)
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
 
@@ -34,16 +34,16 @@ export default function ReviewNextPage() {
 
   useEffect(() => {
     if (!slug) return
-    supabase
-      .from("prospects")
-      .select("name")
-      .eq("review_slug", slug)
-      .single()
-      .then(({ data, error }) => {
-        if (error || !data) setNotFound(true)
-        else setProspectName(data.name)
-        setLoading(false)
-      })
+    let cancelled = false
+    getWorkspace(slug).then((data) => {
+      if (cancelled) return
+      if (!data) setNotFound(true)
+      else setWorkspace(data)
+      setLoading(false)
+    }).catch(() => {
+      if (!cancelled) { setNotFound(true); setLoading(false) }
+    })
+    return () => { cancelled = true }
   }, [slug])
 
   if (loading) {
@@ -57,7 +57,7 @@ export default function ReviewNextPage() {
     )
   }
 
-  if (notFound || !slug) {
+  if (notFound || !slug || !workspace) {
     return (
       <div className="min-h-screen bg-[#FAFAF9] flex items-center justify-center">
         <div className="text-center max-w-sm px-6">
@@ -69,5 +69,5 @@ export default function ReviewNextPage() {
     )
   }
 
-  return <NextPageClient slug={slug} prospectName={prospectName} />
+  return <NextPageClient slug={slug} prospectName={workspace.business.name} offer={workspace.offer} />
 }

@@ -1,5 +1,6 @@
 "use client"
 
+import { formatMoney } from "@/lib/market-pricing"
 import { ArrowRight, Tag } from "lucide-react"
 import { workspaceEvent, type Workspace } from "@/lib/workspace"
 
@@ -184,7 +185,7 @@ export function ReviewScreen({
             </>
           ) : (
             <>
-              <h2 className="text-[19px] font-extrabold tracking-[-0.03em] sm:text-[22px]">Complete website · £{workspace.offer.total.toLocaleString()} fixed</h2>
+              <h2 className="text-[19px] font-extrabold tracking-[-0.03em] sm:text-[22px]">Complete website · {formatMoney(workspace.offer.total, workspace.offer.currency)} fixed</h2>
               <p className="mt-1 max-w-[480px] text-[13px] font-semibold leading-[1.45] text-[#73736D] sm:text-[14px]">
                 Your complete website, built and launched for one fixed price.
               </p>

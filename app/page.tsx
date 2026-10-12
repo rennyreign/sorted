@@ -1,6 +1,7 @@
+import { MarketCopy } from "@/components/MarketPricing"
 import type { Metadata } from "next"
 import Image from "next/image"
-import { ArrowRight, ArrowUpRight, Check, Edit3, Eye, MessageSquare, Monitor, PoundSterling, Rocket } from "lucide-react"
+import { ArrowRight, ArrowUpRight, Check, Edit3, Eye, MessageSquare, Monitor, CircleDollarSign, Rocket } from "lucide-react"
 import { SitesFooter, SitesHeader, SitesPage } from "./sites/_components/SitesPrimitives"
 import { MockupButton } from "./sites/_components/SitesMockupModal"
 import { GoogleReviews } from "./sites/_components/GoogleReviews"
@@ -11,7 +12,7 @@ import s from "./home.module.css"
 export const metadata: Metadata = {
   title: "Sorted | Websites for local businesses that look as good as the work",
   description:
-    "Your competitors aren't better. They just look better. See a free mockup of your new website before you pay anything — one complete website, one fixed price of £3,000.",
+    "Your competitors aren't better. They just look better. See a free mockup of your new website before you pay anything — one complete website, one fixed price: £3,000 in the UK or $3,500 in the US.",
   alternates: {
     canonical: "/",
   },
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
   },
 }
 
-const portfolioSlugs = ["warwickshire-short-stays", "palace-barn-cottage", "bodysharp-fitness"]
+const portfolioSlugs = ["school-of-skill", "warwickshire-short-stays", "bodysharp-fitness"]
 
 export default async function SortedSitesHome() {
   const googleReviews = await getGoogleReviews()
@@ -94,7 +95,7 @@ export default async function SortedSitesHome() {
           <div className={s.proofGrid}>
             {[
               [Eye, "Preview first", "See the design before you pay."],
-              [PoundSterling, "Fixed price", "One complete website. £3,000."],
+              [CircleDollarSign, "Fixed price", "One complete website. {total}."],
               [Check, "Your decision", "No payment. No obligation."],
               [Edit3, "Content control", "Edit your words and images."],
             ].map(([Icon, title, copy]) => {
@@ -106,7 +107,7 @@ export default async function SortedSitesHome() {
                   </span>
                   <div>
                     <h2 className={s.proofTitle}>{title as string}</h2>
-                    <p className={s.proofDetail}>{copy as string}</p>
+                    <p className={s.proofDetail}><MarketCopy>{copy as string}</MarketCopy></p>
                   </div>
                 </article>
               )
@@ -175,8 +176,8 @@ export default async function SortedSitesHome() {
             {[
               [MessageSquare, "Tell us about you", "Answer a few quick questions about your business and what the website needs to do."],
               [Monitor, "See a free preview", "We design a tailored homepage direction for your business. You review it before paying anything."],
-              [Check, "Approve the direction", "Happy with what you see? A £1,500 deposit starts the build after approval."],
-              [Rocket, "We build & launch", "We finish the site and connect everything. £1,500 balance when ready to launch."],
+              [Check, "Approve the direction", "Happy with what you see? A {deposit} deposit starts the build after approval."],
+              [Rocket, "We build & launch", "We finish the site and connect everything. {balance} balance when ready to launch."],
             ].map(([Icon, title, copy], index) => {
               const RealIcon = Icon as typeof MessageSquare
               return (
@@ -186,7 +187,7 @@ export default async function SortedSitesHome() {
                   </span>
                   <p className={s.stepNum}>Step {index + 1}</p>
                   <h3 className={s.stepTitle}>{title as string}</h3>
-                  <p className={s.stepCopy}>{copy as string}</p>
+                  <p className={s.stepCopy}><MarketCopy>{copy as string}</MarketCopy></p>
                 </li>
               )
             })}
@@ -243,10 +244,10 @@ export default async function SortedSitesHome() {
               <br />
               One fixed price.
             </h2>
-            <p className={s.pricingPrice}>£3,000</p>
+            <p className={s.pricingPrice}><MarketCopy>{"{total}"}</MarketCopy></p>
             <span className={s.pricingPriceUnderline} aria-hidden="true" />
             <p className={s.pricingTerms}>
-              £1,500 deposit when you approve the direction. £1,500 balance when the site is ready to launch.
+              <MarketCopy>{"{deposit}"}</MarketCopy> deposit when you approve the direction. <MarketCopy>{"{balance}"}</MarketCopy> balance when the site is ready to launch.
             </p>
           </div>
           <div className={s.pricingIncludes}>

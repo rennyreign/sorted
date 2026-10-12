@@ -1,5 +1,6 @@
 "use client"
 
+import { formatMoney } from "@/lib/market-pricing"
 import { useEffect, useRef, useState } from "react"
 import { ArrowLeft, ArrowRight, CreditCard, Landmark, X } from "lucide-react"
 import { BANK_DETAILS, markWorkspaceNotInterested, submitWorkspaceQuestion, workspaceEvent, type Workspace } from "@/lib/workspace"
@@ -259,7 +260,7 @@ export function DepositPaymentDialog({
   if (!open) return null
 
   const reference = `SORTED-${workspace.slug.replace(/[^a-z0-9]/gi, "").slice(0, 12).toUpperCase()}`
-  const depositAmount = `£${workspace.offer.deposit.toLocaleString()}`
+  const depositAmount = formatMoney(workspace.offer.deposit, workspace.offer.currency)
 
   return (
     <div className="fixed inset-0 z-50 grid place-items-center overflow-y-auto px-4 py-6" role="dialog" aria-modal="true" aria-label="Choose a deposit payment method">
@@ -328,7 +329,7 @@ export function DepositPaymentDialog({
               ))}
             </dl>
             <p className="mt-5 text-[13px] font-medium leading-[1.55] text-[#73736D]">
-              Use the reference so we can match your payment. We&apos;ll confirm when it arrives; your remaining £{workspace.offer.balance.toLocaleString()} is due when the site is ready to launch.
+              Use the reference so we can match your payment. We&apos;ll confirm when it arrives; your remaining {formatMoney(workspace.offer.balance, workspace.offer.currency)} is due when the site is ready to launch.
             </p>
             <button
               type="button"
@@ -341,7 +342,7 @@ export function DepositPaymentDialog({
         ) : (
           <>
             <p className="mt-3 text-[14px] font-medium leading-[1.55] text-[#73736D]">
-              Choose how you&apos;d like to pay the deposit. Your website price remains £{workspace.offer.total.toLocaleString()} fixed.
+              Choose how you&apos;d like to pay the deposit. Your website price remains {formatMoney(workspace.offer.total, workspace.offer.currency)} fixed.
             </p>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               <button
@@ -358,7 +359,7 @@ export function DepositPaymentDialog({
                   {cardCheckoutAvailable ? "Secure checkout with Stripe." : "Stripe Checkout link coming soon."}
                 </span>
               </button>
-              {workspace.offer.bankTransferEnabled ? (
+              {workspace.offer.bankTransferEnabled && workspace.offer.currency === "GBP" ? (
                 <button
                   type="button"
                   onClick={() => {

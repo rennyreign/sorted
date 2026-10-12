@@ -1,5 +1,6 @@
 "use client"
 
+import { formatMoney } from "@/lib/market-pricing"
 import { BarChart3, Calendar, Check, CreditCard, FileText, MessageCircle, Monitor, Settings } from "lucide-react"
 import { workspacePath } from "./WorkspaceShell"
 import { type Workspace, type WorkspaceRoute } from "@/lib/workspace"
@@ -157,10 +158,10 @@ export function DetailsScreen({ workspace, onAskQuestion }: { workspace: Workspa
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-[46px] font-extrabold leading-none tracking-[-0.055em] text-white">
-              £{offer.total.toLocaleString()} <span className="text-[0.55em] text-white/85">fixed</span>
+              {formatMoney(offer.total, offer.currency)} <span className="text-[0.55em] text-white/85">fixed</span>
             </p>
             <p className="mt-3 text-[16px] font-semibold text-white/70">
-              £{offer.deposit.toLocaleString()} deposit paid · £{offer.balance.toLocaleString()} on launch
+              {formatMoney(offer.deposit, offer.currency)} deposit paid · {formatMoney(offer.balance, offer.currency)} on launch
             </p>
           </div>
           <span className="inline-flex w-fit items-center gap-2 rounded-full bg-[#DFFF00] px-4 py-2 text-[11px] font-black uppercase tracking-[0.1em] text-[#070707]">
@@ -187,7 +188,7 @@ export function DetailsScreen({ workspace, onAskQuestion }: { workspace: Workspa
       <div className="mt-10 rounded-[12px] border border-[#E8E5DD] bg-white p-6">
         <p className="flex items-center gap-2.5 text-[13px] font-bold text-[#070707]">
           <CreditCard className="size-4" strokeWidth={2.2} />
-          Balance of £{offer.balance.toLocaleString()} is due when your site is ready to launch.
+          Balance of {formatMoney(offer.balance, offer.currency)} is due when your site is ready to launch.
         </p>
         <p className="mt-2 text-[13px] font-medium text-[#73736D]">
           Questions about payment?{" "}

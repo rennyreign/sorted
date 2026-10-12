@@ -1,5 +1,6 @@
 "use client"
 
+import { formatMoney } from "@/lib/market-pricing"
 import { useEffect, useRef, useState } from "react"
 import {
   ArrowRight,
@@ -319,7 +320,7 @@ export function NextStepsScreen({
           ) : (
             <>
               <p className="mt-3 max-w-[560px] text-[15px] font-medium leading-[1.55] text-[#73736D]">
-                £{offer.total.toLocaleString()} fixed. £{offer.deposit.toLocaleString()} to start, £{offer.balance.toLocaleString()} when it launches. We&apos;ll confirm the scope on the call first; nothing to pay today.
+                {formatMoney(offer.total, offer.currency)} fixed. {formatMoney(offer.deposit, offer.currency)} to start, {formatMoney(offer.balance, offer.currency)} when it launches. We&apos;ll confirm the scope on the call first; nothing to pay today.
               </p>
               <p className="mt-5 text-[13px] font-medium text-[#73736D]">
                 Already sure?{" "}
@@ -329,7 +330,7 @@ export function NextStepsScreen({
                   disabled={paying}
                   className="font-bold text-[#070707] underline underline-offset-4 transition-colors hover:text-[#070707]/70 disabled:opacity-45"
                 >
-                  {paying ? "Opening checkout…" : `Pay the £${offer.deposit.toLocaleString()} deposit to get started`}
+                  {paying ? "Opening checkout…" : `Pay the ${formatMoney(offer.deposit, offer.currency)} deposit to get started`}
                 </button>
               </p>
             </>

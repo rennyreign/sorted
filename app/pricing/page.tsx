@@ -1,3 +1,4 @@
+import { MarketCopy } from "@/components/MarketPricing"
 import type { Metadata } from "next"
 import Image from "next/image"
 import { Check, CircleDollarSign, Eye, Pencil, Rocket, ShieldCheck } from "lucide-react"
@@ -6,7 +7,7 @@ import { MockupButton } from "../sites/_components/SitesMockupModal"
 
 export const metadata: Metadata = {
   title: "Pricing | Sorted",
-  description: "One complete website. One fixed price: £3,000. Approve the homepage direction, pay a £1,500 deposit, then pay the remaining £1,500 when the site is ready to launch.",
+  description: "One complete website: £3,000 in the UK or $3,500 in the US, split into two equal payments after direction approval and when ready to launch.",
   alternates: {
     canonical: "/pricing",
   },
@@ -15,8 +16,8 @@ export const metadata: Metadata = {
 const purchaseSteps = [
   [Pencil, "We build it", "We create a real homepage for your business before asking you to spend anything."],
   [Eye, "You inspect it", "See the actual website, not a proposal, moodboard or imagined deliverable."],
-  [CircleDollarSign, "You confirm the direction", "Once you are happy with the homepage direction, a £1,500 deposit starts the full build."],
-  [Rocket, "We finish and launch", "The remaining £1,500 is due when the completed site is ready to launch."],
+  [CircleDollarSign, "You confirm the direction", "Once you are happy with the homepage direction, a {deposit} deposit starts the full build."],
+  [Rocket, "We finish and launch", "The remaining {balance} is due when the completed site is ready to launch."],
 ] as const
 
 const priceIncludes = [
@@ -40,8 +41,8 @@ const launchIncludes = [
 ] as const
 
 const faqs = [
-  ["Is £3,000 the whole price?", "Yes. One complete launch setup, one fixed price. It covers the website, content management, analytics, agreed ad creative and campaign structure, follow-up setup and launch. Ad spend and ongoing management stay separate."],
-  ["When is payment due?", "Nothing is due before you approve the homepage direction. A £1,500 deposit starts the full build, then the remaining £1,500 is due when the completed site is ready to launch."],
+  ["Is {total} the whole price?", "Yes. One complete launch setup, one fixed price. It covers the website, content management, analytics, agreed ad creative and campaign structure, follow-up setup and launch. Ad spend and ongoing management stay separate."],
+  ["When is payment due?", "Nothing is due before you approve the homepage direction. A {deposit} deposit starts the full build, then the remaining {balance} is due when the completed site is ready to launch."],
   ["Can I keep the site up to date?", "Yes. You can update everyday content such as text, images, services, prices and contact details. We protect the design and build standard so the site stays consistent."],
   ["How long until I see the finished site?", "72 hours. Yes — you saw that right. Seventy-two hours, not seventy-two days. Once you approve the homepage direction and pay the deposit, the complete site is back in front of you for review."],
 ] as const
@@ -59,7 +60,7 @@ export default function PricingPage() {
           />
           <Underline className="mt-3 w-[min(280px,72vw)]" />
           <p className="mt-8 max-w-[510px] text-[17px] font-semibold leading-[1.6] tracking-[-0.025em] text-black/78 sm:text-[18px]">
-            We don&apos;t quote an imaginary website. We create your new homepage first, complete with responsive design and real content. If you want us to finish it, the complete price is <strong className="font-black text-black">£3,000. Fixed.</strong>
+            We don&apos;t quote an imaginary website. We create your new homepage first, complete with responsive design and real content. If you want us to finish it, the complete price is <strong className="font-black text-black"><MarketCopy>{"{total}"}</MarketCopy>. Fixed.</strong>
           </p>
           <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-[13px] font-black">
             {["Free homepage mockup", "No obligation", "No awkward sales process"].map((item) => (
@@ -95,7 +96,7 @@ export default function PricingPage() {
                 One complete launch setup. One fixed price.
               </h2>
             </div>
-            <p className="mt-10 text-[clamp(4.75rem,9vw,8rem)] font-black leading-[0.8] tracking-[-0.075em] text-[#dfff00] tabular-nums">£3,000</p>
+            <p className="mt-10 text-[clamp(4.75rem,9vw,8rem)] font-black leading-[0.8] tracking-[-0.075em] text-[#dfff00] tabular-nums"><MarketCopy>{"{total}"}</MarketCopy></p>
           </div>
 
           <div className="border-t border-white/12 p-8 sm:p-11 lg:border-l lg:border-t-0 lg:p-12">
@@ -105,12 +106,12 @@ export default function PricingPage() {
             <div className="mt-8 grid gap-px overflow-hidden rounded-[14px] bg-white/12 sm:grid-cols-2">
               <div className="bg-white/[0.06] p-5">
                 <p className="text-[10px] font-black uppercase tracking-[0.14em] text-white/45">After approval</p>
-                <p className="mt-2 text-[24px] font-black tracking-[-0.04em] tabular-nums">£1,500 deposit</p>
+                <p className="mt-2 text-[24px] font-black tracking-[-0.04em] tabular-nums"><MarketCopy>{"{deposit}"}</MarketCopy> deposit</p>
                 <p className="mt-1 text-[12px] font-semibold text-white/58">Starts the full build</p>
               </div>
               <div className="bg-white/[0.06] p-5">
                 <p className="text-[10px] font-black uppercase tracking-[0.14em] text-white/45">Ready to launch</p>
-                <p className="mt-2 text-[24px] font-black tracking-[-0.04em] tabular-nums">£1,500 balance</p>
+                <p className="mt-2 text-[24px] font-black tracking-[-0.04em] tabular-nums"><MarketCopy>{"{balance}"}</MarketCopy> balance</p>
                 <p className="mt-1 text-[12px] font-semibold text-white/58">Completes the exchange</p>
               </div>
             </div>
@@ -149,7 +150,7 @@ export default function PricingPage() {
                 </div>
                 <div className="mt-auto pt-12">
                   <h3 className="text-[17px] font-black tracking-[-0.025em]">{title}</h3>
-                  <p className="mt-3 text-[13px] font-semibold leading-[1.55] text-black/62">{copy}</p>
+                  <p className="mt-3 text-[13px] font-semibold leading-[1.55] text-black/62"><MarketCopy>{copy}</MarketCopy></p>
                 </div>
               </article>
             )
@@ -191,11 +192,11 @@ export default function PricingPage() {
       <section className="mx-auto max-w-[1220px] px-5 pb-12 sm:px-8 sm:pb-16">
         <div className="grid overflow-hidden rounded-[24px] bg-[#dfff00] lg:grid-cols-[1fr_0.48fr]">
           <div className="p-8 sm:p-10 lg:p-12">
-            <h2 className="max-w-[700px] text-[clamp(2.2rem,4vw,3.8rem)] font-black leading-[0.96] tracking-[-0.05em] text-balance">£3,000 is the price. Not a starting point.</h2>
+            <h2 className="max-w-[700px] text-[clamp(2.2rem,4vw,3.8rem)] font-black leading-[0.96] tracking-[-0.05em] text-balance"><MarketCopy>{"{total}"}</MarketCopy> is the price. Not a starting point.</h2>
             <p className="mt-6 max-w-[620px] text-[15px] font-semibold leading-[1.6] text-black/72">The same complete website, at the same fixed price, for every business. You see the work first and decide without pressure.</p>
             <ul className="mt-7 flex flex-wrap gap-x-7 gap-y-3 text-[13px] font-black">
-              {["£1,500 after approval", "£1,500 when ready to launch", "No pressure to buy"].map((item) => (
-                <li key={item} className="flex items-center gap-2"><Check className="size-4" strokeWidth={3.5} />{item}</li>
+              {["{deposit} after approval", "{balance} when ready to launch", "No pressure to buy"].map((item) => (
+                <li key={item} className="flex items-center gap-2"><Check className="size-4" strokeWidth={3.5} /><MarketCopy>{item}</MarketCopy></li>
               ))}
             </ul>
           </div>
@@ -218,10 +219,10 @@ export default function PricingPage() {
           {faqs.map(([question, answer], index) => (
             <article key={question} className="border-b border-black/10 py-7 md:border-b-0 md:border-l md:px-7 md:py-8 md:odd:border-l-0 md:odd:pl-0 md:last:pr-0 xl:odd:border-l xl:odd:px-7 xl:first:border-l-0 xl:first:pl-0">
               <div className="flex items-start justify-between gap-4">
-                <h3 className="max-w-[270px] text-[16px] font-black leading-[1.2] tracking-[-0.02em]">{question}</h3>
+                <h3 className="max-w-[270px] text-[16px] font-black leading-[1.2] tracking-[-0.02em]"><MarketCopy>{question}</MarketCopy></h3>
                 <span className="text-[11px] font-black text-black/35">0{index + 1}</span>
               </div>
-              <p className="mt-4 text-[13px] font-semibold leading-[1.6] text-black/62">{answer}</p>
+              <p className="mt-4 text-[13px] font-semibold leading-[1.6] text-black/62"><MarketCopy>{answer}</MarketCopy></p>
             </article>
           ))}
         </div>

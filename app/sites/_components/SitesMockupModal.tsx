@@ -1,5 +1,6 @@
 "use client"
 
+import { useMarket, useMarketOffer } from "@/components/MarketPricing"
 import type { FormEvent } from "react"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { ArrowLeft, ArrowRight, Check, ExternalLink, Loader2, Mail, Sparkles, X } from "lucide-react"
@@ -265,6 +266,8 @@ function LoadingStep({ answers }: { answers: Partial<Record<StepKey, string>> })
 }
 
 function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, string>>; summary: string }) {
+  const market = useMarket()
+  const pricing = useMarketOffer()
   const [businessName, setBusinessName] = useState("")
   const [websiteUrl, setWebsiteUrl] = useState("")
   const [email, setEmail] = useState("")
@@ -293,7 +296,7 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
         p_business_name: cleanBusinessName,
         p_website_url: websiteUrl.trim() || null,
         p_email: cleanEmail,
-        p_answers: answers,
+        p_answers: { ...answers, market, currency: pricing.currency },
         p_summary: summary,
         p_utm_source: attribution.utm_source,
         p_utm_medium: attribution.utm_medium,
@@ -327,11 +330,15 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
         form_type: "modal",
         conversion_type: "lead",
         conversion_name: "mockup_request",
+        currency: pricing.currency,
+        pricing_market: market,
       })
       trackEvent(TRACKING_EVENTS.THANK_YOU_VIEW, {
         form_name: "mockup_request",
         conversion_type: "lead",
         conversion_name: "mockup_request",
+        currency: pricing.currency,
+        pricing_market: market,
       })
     } catch (error) {
       setSubmitState("error")

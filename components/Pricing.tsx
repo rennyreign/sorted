@@ -1,5 +1,7 @@
 "use client"
 
+import { MarketCopy } from "@/components/MarketPricing"
+
 const testimonials = [
   {
     quote: "They built our site in 36 hours. I paid after I saw it. Simple.",
@@ -40,9 +42,9 @@ export default function Pricing() {
 
             <div className="space-y-6 text-[#A3A3A3] text-lg leading-relaxed mb-12">
               <p>
-                We don&apos;t estimate. We demonstrate. In 24 hours, you&apos;ll have 
-                a working mockup of your site to click through. If you want it 
-                completed, it&apos;s one fixed price — £3,000 — covering everything 
+                We don&apos;t estimate. We demonstrate. In 24 hours, you&apos;ll have
+                a working mockup of your site to click through. If you want it
+                completed, it&apos;s one fixed price — <MarketCopy>{"{total}"}</MarketCopy> — covering everything
                 through launch.
               </p>
             </div>

@@ -1,3 +1,4 @@
+import { MarketCopy } from "@/components/MarketPricing"
 import type { ReactNode } from "react"
 import Image from "next/image"
 import localFont from "next/font/local"
@@ -129,7 +130,7 @@ export function Underline({ pink = false, className = "" }: { pink?: boolean; cl
 export function FeatureBar() {
   const items = [
     [Eye, "Preview first", "See the design before you pay"],
-    [Zap, "Fixed price", "One complete website. £3,000"],
+    [Zap, "Fixed price", "One complete website. {total}"],
     [ShieldCheck, "Your decision", "No payment. No obligation."],
     [Edit3, "Content control", "Edit your words and images"],
     [Check, "See it first", "Then decide. No pressure."],
@@ -145,7 +146,7 @@ export function FeatureBar() {
             </span>
             <div>
               <p className="text-[10px] font-black uppercase">{title}</p>
-              <p className="mt-2 text-[13px] font-bold leading-[1.35]">{copy}</p>
+              <p className="mt-2 text-[13px] font-bold leading-[1.35]"><MarketCopy>{copy}</MarketCopy></p>
             </div>
           </div>
         ))}
@@ -195,16 +196,6 @@ export const examples: SiteExample[] = [
     headline: "Freshly baked. Delivered with love.",
     tone: "dark",
     result: "22 hour mockup",
-  },
-  {
-    slug: "palace-barn",
-    category: "Hospitality",
-    title: "Palace Barn Cottages",
-    description: "Luxury holiday cottages in the Cotswolds.",
-    image: "/examples/palacebarns.jpg",
-    headline: "Your countryside escape awaits.",
-    tone: "dark",
-    result: "21 hour mockup",
   },
   {
     slug: "nourish",
@@ -261,7 +252,7 @@ export function DarkCta({ title = "See it first. Then decide.", copy = "Get your
           </span>
           <h2 className="text-[22px] font-black leading-[1.05] tracking-[-0.035em] sm:text-[24px]">{title}</h2>
         </div>
-        <p className="text-[14px] font-semibold leading-[1.45]">{copy}</p>
+        <p className="text-[14px] font-semibold leading-[1.45]"><MarketCopy>{copy}</MarketCopy></p>
         <ArrowRight className="hidden size-16 rotate-[-8deg] lg:block" strokeWidth={1.7} />
         <MockupButton variant="primary" className="justify-self-start whitespace-nowrap lg:justify-self-end" />
       </div>
