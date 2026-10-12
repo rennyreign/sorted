@@ -952,9 +952,9 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       status: "review",
     },
     offer: {
-      total: 1500,
+      total: 3000,
       deposit: 750,
-      balance: 750,
+      balance: 2250,
       // £750 deposit payment link (Sorted Website Payments product) —
       // checkout is tagged with the workspace slug via client_reference_id.
       stripePaymentUrl: "https://buy.stripe.com/dRm9ASdGwbtz2MK5Iudwc03",
