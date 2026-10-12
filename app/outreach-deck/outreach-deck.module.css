@@ -6,6 +6,7 @@
 .paper{background:var(--paper)} .cream{background:var(--cream)} .dark{background:var(--ink);color:var(--paper)}
 .slideInner { position:relative; z-index:2; width:100%; height:100%; padding:clamp(5.5rem,10vh,7.5rem) clamp(1.5rem,6vw,6.5rem) clamp(5.5rem,10vh,7.2rem); display:flex; flex-direction:column; }
 .brand { position:fixed; z-index:20; top:clamp(1.25rem,3vh,2rem); left:clamp(1.5rem,3.5vw,3.5rem); font-size:clamp(1.45rem,2.1vw,2rem); line-height:1; font-weight:950; letter-spacing:-.065em; transition:color .25s ease; }
+.brand span{color:#96B400}
 .briefing { position:fixed; z-index:20; top:clamp(1.42rem,3.2vh,2.15rem); right:clamp(1.5rem,3.5vw,3.5rem); font:800 clamp(.58rem,.72vw,.72rem)/1 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.14em; text-transform:uppercase; transition:color .25s ease; }
 .headerDark{color:var(--paper)}.headerLight{color:var(--ink)}
 .label { display:flex; align-items:center; gap:.85rem; width:max-content; font:900 clamp(.57rem,.72vw,.72rem)/1 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.12em; text-transform:uppercase; }
@@ -64,6 +65,7 @@
 .closeLinks a{display:flex;align-items:center;gap:.6rem;height:3rem;padding:0 1.2rem;border:1px solid rgba(250,250,250,.4);color:var(--paper);text-decoration:none;font-size:.72rem;font-weight:900}
 .closeLinks svg{width:1rem}
 .finalMark{position:absolute;right:clamp(1.5rem,6vw,6.5rem);top:clamp(5.5rem,10vh,7.5rem);font-size:clamp(2rem,4vw,4rem);font-weight:950;letter-spacing:-.07em}
+.finalMark span{color:#96B400}
 .controls{position:fixed;z-index:25;right:clamp(1.5rem,3.5vw,3.5rem);bottom:clamp(1.2rem,2.5vh,1.8rem);display:flex;align-items:center;background:var(--ink);border:1px solid rgba(250,250,250,.26);color:var(--paper);border-radius:.6rem;overflow:hidden}
 .controls button{display:grid;place-items:center;width:2.7rem;height:2.7rem;border:0;background:transparent;color:inherit;cursor:pointer}
 .controls button:hover:not(:disabled),.controls button:focus-visible{background:var(--paper);color:var(--ink);outline:none}
