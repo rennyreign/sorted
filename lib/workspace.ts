@@ -1072,6 +1072,80 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       stripePaymentUrl: "https://buy.stripe.com/3cIaEW1XOfJP3QO2widwc02",
       bankTransferEnabled: true,
     },
+    acquisition: {
+      ads: {
+        offer:
+          "A campaign kit built around one clear action: request a site visit from SEEM Electrical.",
+        creatives: [
+          {
+            title: "Good electrics. Great spaces.",
+            format: "Facebook & Instagram feed · 3x4",
+            audience: "Homeowners and businesses across London planning lighting, installations or rewires.",
+            headline: "Lighting, installations and rewires",
+            cta: "Request a site visit",
+            primaryText:
+              "Good electrics. Great spaces. SEEM Electrical handles lighting, installations and rewires for homes and businesses across London. Request a site visit to discuss your project.",
+            imageUrl: "/workspace/seem/ad-01.webp",
+            imageAlt: "SEEM Electrical creative: Good electrics. Great spaces. Pendant lighting over a kitchen island.",
+          },
+          {
+            title: "Good electrics. Great spaces.",
+            format: "Facebook & Instagram feed · 3x4",
+            audience: "Homeowners and businesses across London planning lighting, installations or rewires.",
+            headline: "Lighting, installations and rewires",
+            cta: "Request a site visit",
+            primaryText:
+              "Good electrics. Great spaces. SEEM Electrical handles lighting, installations and rewires for homes and businesses across London. Request a site visit to discuss your project.",
+            imageUrl: "/workspace/seem/ad-02.webp",
+            imageAlt: "SEEM Electrical creative: Good electrics. Great spaces. Pendant lighting over a kitchen island.",
+          },
+          {
+            title: "Good electrics. Great spaces.",
+            format: "Facebook & Instagram story · 9x16",
+            audience: "Homeowners and businesses across London planning lighting, installations or rewires.",
+            headline: "Lighting, installations and rewires",
+            cta: "Request a site visit",
+            primaryText:
+              "Good electrics. Great spaces. SEEM Electrical handles lighting, installations and rewires for homes and businesses across London.",
+            imageUrl: "/workspace/seem/ad-03.webp",
+            imageAlt: "SEEM Electrical story creative: Good electrics. Great spaces. Pendant lighting over a kitchen island.",
+          },
+          {
+            title: "Good electrics. Great spaces.",
+            format: "Facebook & Instagram story · 9x16",
+            audience: "Homeowners and businesses across London planning lighting, installations or rewires.",
+            headline: "Lighting, installations and rewires",
+            cta: "Request a site visit",
+            primaryText:
+              "Good electrics. Great spaces. SEEM Electrical handles lighting, installations and rewires for homes and businesses across London.",
+            imageUrl: "/workspace/seem/ad-04.webp",
+            imageAlt: "SEEM Electrical story creative: Good electrics. Great spaces. Pendant lighting over a kitchen island.",
+          },
+          {
+            title: "Good electrics. Great spaces.",
+            format: "Facebook & Instagram story · 9x16",
+            audience: "Homeowners and businesses across London planning lighting, installations or rewires.",
+            headline: "Lighting, installations and rewires",
+            cta: "Request a site visit",
+            primaryText:
+              "Good electrics. Great spaces. SEEM Electrical handles lighting, installations and rewires for homes and businesses across London.",
+            imageUrl: "/workspace/seem/ad-05.webp",
+            imageAlt: "SEEM Electrical story creative: Good electrics. Great spaces. Navy and electric blue pendant lighting design.",
+          },
+          {
+            title: "Before the work. Know the plan.",
+            format: "Facebook & Instagram story · 9x16",
+            audience: "Homeowners and businesses across London planning lighting, installations or rewires.",
+            headline: "A clear plan before any work starts",
+            cta: "Request a site visit",
+            primaryText:
+              "Before the work, know the plan. SEEM Electrical maps out your lighting, installation or rewire before a cable is touched. Request a site visit to start yours.",
+            imageUrl: "/workspace/seem/ad-06.webp",
+            imageAlt: "SEEM Electrical story creative: Before the work. Know the plan. Three-step planning walkthrough.",
+          },
+        ],
+      },
+    },
   },
   "abcd-electrical": {
     review: {
