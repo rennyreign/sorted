@@ -1259,6 +1259,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       // client_reference_id. Bank transfer remains available.
       stripePaymentUrl: "https://buy.stripe.com/28E9ASgSIdBH7300oadwc01",
       bankTransferEnabled: true,
+      status: "pending",
     },
     acquisition: {
       interests: [
