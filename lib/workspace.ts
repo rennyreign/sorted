@@ -571,15 +571,26 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       previewUrl:
         process.env.NODE_ENV === "development"
           ? "http://localhost:4319"
-          : undefined,
+          : "https://baker-berte-v2.netlify.app",
       previewImageUrl: "/workspace/baker-berte/baker-berte-v2-homepage-preview.webp",
-      previewVersions:
-        process.env.NODE_ENV === "development"
-          ? [
-              { id: "v1", label: "Version 1", previewUrl: "http://localhost:4318" },
-              { id: "v2", label: "Version 2", previewUrl: "http://localhost:4319" },
-            ]
-          : undefined,
+      previewVersions: [
+        {
+          id: "v1",
+          label: "Version 1",
+          previewUrl:
+            process.env.NODE_ENV === "development"
+              ? "http://localhost:4318"
+              : "https://baker-berte-v1.netlify.app",
+        },
+        {
+          id: "v2",
+          label: "Version 2",
+          previewUrl:
+            process.env.NODE_ENV === "development"
+              ? "http://localhost:4319"
+              : "https://baker-berte-v2.netlify.app",
+        },
+      ],
       defaultPreviewVersion: "v2",
       status: "review",
     },
