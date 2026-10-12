@@ -1251,15 +1251,14 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       status: "review",
     },
     offer: {
-      total: 500,
+      total: 1000,
       deposit: 250,
-      balance: 250,
+      balance: 750,
       // Dedicated Stripe Payment Link for the £250 deposit (Sorted
       // Website Payments product); checkout is tagged with the slug via
       // client_reference_id. Bank transfer remains available.
       stripePaymentUrl: "https://buy.stripe.com/28E9ASgSIdBH7300oadwc01",
       bankTransferEnabled: true,
-      status: "pending",
     },
     acquisition: {
       interests: [
