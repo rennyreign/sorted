@@ -1,3 +1,4 @@
+import { MarketCopy } from "@/components/MarketPricing"
 import type { Metadata } from "next"
 import Image from "next/image"
 import { ArrowRight, BarChart3, Check, Edit3, Eye, LayoutGrid, Mail, Megaphone, Play, Radar, Settings, Users } from "lucide-react"
@@ -104,7 +105,7 @@ export default function WhatElseWeDoPage() {
             and win more customers.
           </h2>
           <p className="max-w-[480px] border-black/15 text-[14px] font-semibold leading-[1.65] text-black/60 lg:border-l lg:pl-6">
-            The £3,000 service includes your website, agreed ad creative, campaign structure, tracking and follow-up setup. Ad spend and ongoing management stay separate.
+            The <MarketCopy>{"{total}"}</MarketCopy> service includes your website, agreed ad creative, campaign structure, tracking and follow-up setup. Ad spend and ongoing management stay separate.
           </p>
         </div>
 
@@ -139,9 +140,9 @@ export default function WhatElseWeDoPage() {
               </span>
               <h3 className="text-[17px] font-black tracking-[-0.035em]">One fixed launch setup</h3>
             </div>
-            <p className="mt-4 text-[34px] font-black leading-none tracking-[-0.05em]">£3,000</p>
+            <p className="mt-4 text-[34px] font-black leading-none tracking-[-0.05em]"><MarketCopy>{"{total}"}</MarketCopy></p>
             <p className="mt-3 text-[12.5px] font-semibold leading-[1.55] text-black/60">
-              £1,500 after direction approval. £1,500 when ready to launch.
+              <MarketCopy>{"{deposit}"}</MarketCopy> after direction approval. <MarketCopy>{"{balance}"}</MarketCopy> when ready to launch.
             </p>
             <p className="mt-3 border-t border-black/10 pt-3 text-[12.5px] font-semibold leading-[1.55] text-black/60">
               Ad spend, publishing approvals, ongoing management and future optimisation stay separate.

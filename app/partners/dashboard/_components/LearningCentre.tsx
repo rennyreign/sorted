@@ -1,5 +1,7 @@
 "use client"
 
+import { MarketCopy } from "@/components/MarketPricing"
+
 import { useCallback, useEffect, useState } from "react"
 import {
   ArrowLeft,
@@ -334,7 +336,7 @@ function TimelineStep({ step, label, description, active }: { step: number; labe
   )
 }
 
-function FaqItem({ question, answer }: { question: string; answer: string }) {
+function FaqItem({ question, answer }: { question: string; answer: React.ReactNode }) {
   const [open, setOpen] = useState(false)
   return (
     <div className="border-b border-black/8 last:border-b-0">
@@ -542,7 +544,7 @@ const MODULE_CONTENT: Record<ModuleId, React.ReactNode> = {
         />
         <FaqItem
           question="How much do the websites cost?"
-          answer="One complete website, one fixed price: £3,000. If a business asks, that is the answer — Sorted handles the rest of the conversation."
+          answer={<MarketCopy>{"One complete website, one fixed price: {total}. If a business asks, that is the answer — Sorted handles the rest of the conversation."}</MarketCopy>}
         />
         <FaqItem
           question="Do customers have to buy?"

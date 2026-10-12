@@ -31,6 +31,7 @@ const sections: LegalSection[] = [
       "Enquiry and project information, including messages, goals, supplied materials, approvals and questions.",
       "Workspace and proposal activity, such as pages viewed, options selected and next-step interests.",
       "Payment and transaction records where work is agreed. Card payments are processed by our payment provider; Sorted does not store full card details.",
+      "Pricing region: a country-only lookup through api.country.is receives your IP address to default public pricing. Your manual UK/US choice is saved in your browser; client workspace pricing follows the agreed offer.",
       "Technical and analytics information, such as device, browser, approximate location, pages visited and actions taken, where enabled.",
       "Communications, including emails, calls, WhatsApp messages and meeting details.",
     ],

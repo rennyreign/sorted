@@ -1,3 +1,4 @@
+import { MarketCopy } from "@/components/MarketPricing"
 import type { Metadata } from "next"
 import { LegalDocument, type LegalSection } from "../_components/LegalDocument"
 
@@ -50,7 +51,7 @@ const sections: LegalSection[] = [
     title: "Price and payment",
     body: (
       <p>
-        The public fixed price is currently £3,000 for the standard launch setup, normally split into £1,500 after direction approval and £1,500 when the completed site is ready to launch. Client-specific quotes, proposals or invoices take precedence where different terms have been agreed.
+        The public fixed price is currently <MarketCopy>{"{total}"}</MarketCopy> for the standard launch setup, normally split into <MarketCopy>{"{deposit}"}</MarketCopy> after direction approval and <MarketCopy>{"{balance}"}</MarketCopy> when the completed site is ready to launch. Client-specific quotes, proposals or invoices take precedence where different terms have been agreed.
       </p>
     ),
     points: [

@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { MarketSelector } from "@/components/MarketPricing"
 import { useState } from "react"
 
 const links = [
@@ -28,6 +29,8 @@ export default function Nav() {
         >
           Sorted.
         </Link>
+
+        <div className="pointer-events-auto"><MarketSelector /></div>
 
         {/* Desktop pill */}
         <nav className="pointer-events-auto hidden md:flex items-center gap-5 rounded-full bg-white/90 backdrop-blur-md border border-black/[0.08] shadow-[0_2px_20px_rgba(0,0,0,0.06)] px-5 py-2.5">

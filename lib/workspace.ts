@@ -1,3 +1,4 @@
+import { MARKET_PRICING, resolveWorkspaceOffer, parseMarket, type OfferCurrency } from "@/lib/market-pricing"
 import { supabase } from "@/lib/supabase"
 import { trackEvent } from "@/lib/tracking"
 
@@ -154,11 +155,11 @@ export type Workspace = {
     status: "preview" | "building" | "review" | "live"
   }
   offer: {
-    currency: "GBP"
+    currency: OfferCurrency
     total: number
     deposit: number
     balance: number
-    /** Hosted Stripe Payment Link for the £1,500 deposit. */
+    /** Hosted Stripe Payment Link matching this offer’s deposit amount and currency. */
     stripePaymentUrl?: string
     bankTransferEnabled: boolean
     status?: "ready" | "pending"
@@ -261,6 +262,13 @@ export const WORKSPACE_DEFAULTS = {
         "Attendance is confirmed by a real signal: a confirmed next step or a simple Attended / No-show record. It is never inferred from elapsed time.",
     },
   } as WorkspaceAcquisition,
+}
+
+/** Shared USD offer. Set only a verified $1,750 USD Stripe deposit link here. */
+export const WORKSPACE_US_OFFER: Workspace["offer"] = {
+  ...MARKET_PRICING.US,
+  stripePaymentUrl: "",
+  bankTransferEnabled: false,
 }
 
 export const BANK_DETAILS = {
@@ -1469,6 +1477,14 @@ const LOCAL_DEMO_WORKSPACES: Record<string, Workspace> = {
   },
 }
 
+// Local-only USD fixture for checking workspace pricing without changing a client offer.
+LOCAL_DEMO_WORKSPACES["nexus-accounting-us"] = {
+  ...LOCAL_DEMO_WORKSPACES["nexus-accounting"],
+  slug: "nexus-accounting-us",
+  business: { name: "Nexus Accounting US demo" },
+  offer: resolveWorkspaceOffer(WORKSPACE_DEFAULTS.offer, WORKSPACE_US_OFFER),
+}
+
 // ─── Prospect → workspace mapping ─────────────────────────────────────────────
 
 type ProspectRow = {
@@ -1484,6 +1500,7 @@ type ProspectRow = {
   walkthrough_video_url: string | null
   screenshot_url: string | null
   crm_status: string | null
+  lead_answers: { market?: string; currency?: string } | null
 }
 
 function domainFrom(url?: string | null) {
@@ -1520,7 +1537,8 @@ function merge(ws: Workspace, o: WorkspaceOverride | undefined): Workspace {
     state: o.state ?? ws.state,
     review: { ...ws.review, ...(o.review ?? {}) },
     website: { ...ws.website, ...(o.website ?? {}) },
-    offer: { ...ws.offer, ...(o.offer ?? {}) },
+    // Existing authored offers predate currency selection and were agreed in GBP.
+    offer: resolveWorkspaceOffer(ws.offer, o.offer ? { currency: "GBP", ...o.offer } : undefined),
     links: { ...ws.links, ...(o.links ?? {}) },
     acquisition: a
       ? {
@@ -1539,13 +1557,20 @@ export async function getWorkspace(slug: string): Promise<Workspace | null> {
     return LOCAL_DEMO_WORKSPACES[slug]
   }
 
-  const { data, error } = await supabase
+  const fields = "id, name, website, owner_name, review_summary, site_analysis, site_weaknesses, mockup_url, mockup_urls, walkthrough_video_url, screenshot_url, crm_status"
+  let { data, error } = await supabase
     .from("prospects")
-    .select(
-      "id, name, website, owner_name, review_summary, site_analysis, site_weaknesses, mockup_url, mockup_urls, walkthrough_video_url, screenshot_url, crm_status"
-    )
+    .select(`${fields}, lead_answers`)
     .eq("review_slug", slug)
     .maybeSingle()
+
+  // Older installations may not yet have the optional lead_answers migration.
+  // Keep their established UK workspaces available without changing the schema.
+  if (error && ["42703", "PGRST204"].includes(error.code)) {
+    const fallback = await supabase.from("prospects").select(fields).eq("review_slug", slug).maybeSingle()
+    data = fallback.data ? { ...fallback.data, lead_answers: null } : null
+    error = fallback.error
+  }
 
   if (error || !data) return null
   const p = data as ProspectRow
@@ -1572,7 +1597,8 @@ export async function getWorkspace(slug: string): Promise<Workspace | null> {
       walkthroughVideoUrl: p.walkthrough_video_url ?? undefined,
       status: "preview",
     },
-    offer: { ...WORKSPACE_DEFAULTS.offer },
+    offer: resolveWorkspaceOffer(WORKSPACE_DEFAULTS.offer,
+      parseMarket(p.lead_answers?.currency ?? p.lead_answers?.market) === "US" ? WORKSPACE_US_OFFER : undefined),
     links: { ...WORKSPACE_DEFAULTS.links },
     acquisition: WORKSPACE_DEFAULTS.acquisition,
   }
@@ -1655,6 +1681,7 @@ export function workspaceEvent(ws: Workspace, event: string, payload: Record<str
     workspace_slug: ws.slug,
     business_name: ws.business.name,
     lifecycle_state: ws.state,
+    currency: ws.offer.currency,
     ...payload,
   }
   trackEvent(event, context)

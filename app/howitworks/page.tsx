@@ -1,3 +1,4 @@
+import { MarketCopy } from "@/components/MarketPricing"
 import type { Metadata } from "next"
 import Image from "next/image"
 import {
@@ -120,7 +121,7 @@ const processSteps: ProcessStep[] = [
     imageAlt: "School of Skill basketball coaching website direction preview.",
     icon: Calendar,
     title: "Approve the direction",
-    description: "Happy with the preview? A £1,500 deposit starts the full build.",
+    description: "Happy with the preview? A {deposit} deposit starts the full build.",
     extra: "If not, walk away. It costs you nothing.",
   },
   {
@@ -129,7 +130,7 @@ const processSteps: ProcessStep[] = [
     icon: Rocket,
     title: "We finish and launch",
     description: "We complete the site, connect everything and get it ready to launch.",
-    extra: "The remaining £1,500 is due when it is ready to go live.",
+    extra: "The remaining {balance} is due when it is ready to go live.",
   },
 ]
 
@@ -161,9 +162,9 @@ function ProcessSection() {
               </div>
               <h3 className="mt-3 text-[17px] font-black tracking-[-0.04em]">{step.title}</h3>
               <div className="mt-2 flex-1">
-                <p className="text-[13px] font-semibold leading-[1.55] text-black/65">{step.description}</p>
+                <p className="text-[13px] font-semibold leading-[1.55] text-black/65"><MarketCopy>{step.description}</MarketCopy></p>
                 {step.extra ? (
-                  <p className="mt-3 text-[13px] font-semibold leading-[1.55] text-black/65">{step.extra}</p>
+                  <p className="mt-3 text-[13px] font-semibold leading-[1.55] text-black/65"><MarketCopy>{step.extra}</MarketCopy></p>
                 ) : null}
               </div>
             <div className="relative mt-5 aspect-[3/2] w-full overflow-hidden rounded-[14px] bg-[#070707]">

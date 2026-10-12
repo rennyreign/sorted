@@ -2,34 +2,31 @@
 
 import { useState, useEffect, useRef } from "react"
 import { supabase } from "@/lib/supabase"
-import { WORKSPACE_DEFAULTS } from "@/lib/workspace"
+import { WORKSPACE_DEFAULTS, type Workspace } from "@/lib/workspace"
 
-// The build is one fixed price — £3,000. The question below only shapes
-// how the payment is structured, not what the site costs.
-const HALF = 1500
-const FULL = 3000
+import { formatMoney } from "@/lib/market-pricing"
 
-function getBudgetResponse(value: number): {
+function getBudgetResponse(value: number, offer: Workspace["offer"]): {
   tone: "below-floor" | "stretch" | "good"
   heading: string
   body: string
   showBooking: boolean
   callOptional: boolean
 } {
-  if (value < HALF) {
+  if (value < offer.deposit) {
     return {
       tone: "below-floor",
       heading: "We can work with that.",
-      body: `Every site we build is the same complete build — one fixed price of £${FULL.toLocaleString()}. If splitting it across payments helps, book a call below and we will walk you through the options. No pressure.`,
+      body: `Every site we build is the same complete build — one fixed price of ${formatMoney(offer.total, offer.currency)}. If splitting it across payments helps, book a call below and we will walk you through the options. No pressure.`,
       showBooking: true,
       callOptional: false,
     }
   }
-  if (value < FULL) {
+  if (value < offer.total) {
     return {
       tone: "stretch",
       heading: "That works.",
-      body: "That covers a first payment comfortably. The site is £3,000 fixed — we can structure the balance as a second payment. Book a call below and we will confirm the details.",
+      body: `That covers a first payment comfortably. The site is ${formatMoney(offer.total, offer.currency)} fixed — we can structure the balance as a second payment. Book a call below and we will confirm the details.`,
       showBooking: true,
       callOptional: false,
     }
@@ -80,7 +77,7 @@ function Countdown({ targetMs }: { targetMs: number }) {
   )
 }
 
-export default function NextPageClient({ slug, prospectName }: { slug: string; prospectName: string }) {
+export default function NextPageClient({ slug, prospectName, offer }: { slug: string; prospectName: string; offer: Workspace["offer"] }) {
   const [budgetRaw, setBudgetRaw] = useState("")
   const [budgetValue, setBudgetValue] = useState<number | null>(null)
   const [submitted, setSubmitted] = useState(false)
@@ -129,7 +126,7 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
     }, 300)
   }
 
-  const response = submitted && budgetValue !== null ? getBudgetResponse(budgetValue) : null
+  const response = submitted && budgetValue !== null ? getBudgetResponse(budgetValue, offer) : null
 
   return (
     <div className="min-h-screen bg-[#FAFAF9]">
@@ -172,7 +169,7 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
           {[
             { n: "1", title: "You see the finished site first", body: "We build it, you review it. No commitment until you have seen it." },
             { n: "2", title: "You edit your own content", body: "Every site ships with a simple editor. Change your text, photos, and details yourself. No web designer needed." },
-            { n: "3", title: "One fixed price", body: "You approve the site first. Then it's £3,000 — complete, no ambiguity." },
+            { n: "3", title: "One fixed price", body: `You approve the site first. Then it's ${formatMoney(offer.total, offer.currency)} — complete, no ambiguity.` },
           ].map(({ n, title, body }) => (
             <div key={n} className="bg-white border border-black/[0.08] rounded-xl p-5 flex gap-4">
               <span className="w-7 h-7 rounded-full bg-[#0A0A0A] text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
@@ -189,21 +186,21 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
         {/* Budget */}
         <div className="bg-white border border-black/[0.08] rounded-2xl p-8">
           <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#A3A3A3] mb-4">One fixed price</p>
-          <h2 className="font-sans font-bold text-[#0A0A0A] text-xl mb-2">One complete website — £3,000.</h2>
+          <h2 className="font-sans font-bold text-[#0A0A0A] text-xl mb-2">One complete website — {formatMoney(offer.total, offer.currency)}.</h2>
           <p className="text-sm text-[#737373] mb-6 leading-relaxed">
-            £3,000 covers the strategy, design, copy, development, content management system, analytics and launch — the same complete build for every business. If spreading it across two payments would help, tell us what you could start with below.
+            {formatMoney(offer.total, offer.currency)} covers the strategy, design, copy, development, content management system, analytics and launch — the same complete build for every business. If spreading it across two payments would help, tell us what you could start with below.
           </p>
 
           {!submitted ? (
             <form onSubmit={handleSubmit} className="flex gap-3 items-start">
               <div className="relative flex-1">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#A3A3A3] font-mono text-sm font-bold">£</span>
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#A3A3A3] font-mono text-sm font-bold">{offer.currency === "USD" ? "$" : "£"}</span>
                 <input
                   type="text"
                   inputMode="numeric"
                   value={budgetRaw}
                   onChange={handleBudgetChange}
-                  placeholder="e.g. 1500"
+                  placeholder={`e.g. ${offer.deposit}`}
                   className="w-full pl-8 pr-4 py-3 border border-black/[0.12] rounded-xl font-mono text-sm text-[#0A0A0A] bg-white focus:outline-none focus:ring-2 focus:ring-black/10 placeholder:text-[#C4C4C4]"
                 />
               </div>
@@ -267,7 +264,7 @@ export default function NextPageClient({ slug, prospectName }: { slug: string; p
               <div className="mt-6 pt-6 border-t border-black/[0.06] text-center">
                 <p className="text-sm text-[#737373] mb-3">Prefer to skip the call?</p>
                 <a
-                  href={`mailto:hello@sortmydigital.site?subject=${encodeURIComponent(`Ready to proceed — ${prospectName}`)}&body=${encodeURIComponent(`Hi,\n\nI've seen the £3,000 fixed price and I'm ready to proceed. I'd like to skip the call and get started.\n\nReview link: https://sortmydigital.site/review-next/?slug=${slug}\n\nThanks,`)}`}
+                  href={`mailto:hello@sortmydigital.site?subject=${encodeURIComponent(`Ready to proceed — ${prospectName}`)}&body=${encodeURIComponent(`Hi,\n\nI've seen the ${formatMoney(offer.total, offer.currency)} fixed price and I'm ready to proceed. I'd like to skip the call and get started.\n\nReview link: https://sortmydigital.site/review-next/?slug=${slug}\n\nThanks,`)}`}
                   className="inline-block bg-white border border-black/[0.12] text-[#0A0A0A] font-bold text-sm px-6 py-3 rounded-xl hover:bg-black/[0.02] transition-colors"
                 >
                   Email us to get started →

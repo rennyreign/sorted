@@ -1,5 +1,6 @@
 "use client"
 
+import { MarketSelector } from "@/components/MarketPricing"
 import { useEffect, useState } from "react"
 import { Menu, Phone, X } from "lucide-react"
 import { MockupButton } from "./SitesMockupModal"
@@ -62,7 +63,8 @@ export function SitesHeaderClient({ active, tone = "light", variant = "default" 
             </a>
           ))}
         </nav>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-2 sm:gap-4">
+          <MarketSelector />
           <a href="https://wa.me/447386468085" aria-label="WhatsApp Sorted" className={`hidden ${variant === "home" ? "xl:block" : "lg:block"} ${variant === "home" && darkAtTop ? "text-[#d7ff00]" : "text-[#04b800]"}`}>
             <Phone className="size-6" strokeWidth={2.4} />
           </a>

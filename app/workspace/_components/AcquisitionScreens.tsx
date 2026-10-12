@@ -1,5 +1,6 @@
 "use client"
 
+import { formatMoney } from "@/lib/market-pricing"
 import { useState } from "react"
 import { ChevronRight, FileText, ArrowRight, BarChart3, CalendarCheck, Check, MailWarning, Megaphone, MessageSquare, Monitor, MousePointerClick, UserCheck } from "lucide-react"
 import { workspaceEvent, type WorkspaceAdCreative, type Workspace, type WorkspaceRoute } from "@/lib/workspace"
@@ -324,7 +325,7 @@ export function TrackingScreen({ workspace }: { workspace: Workspace }) {
     if (!example) return "—"
     const key = /member|customer/i.test(label) ? "customers" : /attended/i.test(label) ? "attended" : /booking/i.test(label) ? "bookings" : "enquiries"
     const count = example.values[key]
-    return count > 0 ? new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(example.adSpend / count) : "—"
+    return count > 0 ? formatMoney(example.adSpend / count, workspace.offer.currency, true) : "—"
   }
   const icons = { attention: Megaphone, enquiries: MessageSquare, bookings: CalendarCheck, attended: UserCheck, quotes: FileText, customers: UserCheck } as const
   const journey = tracking.journey ?? [
@@ -335,7 +336,7 @@ export function TrackingScreen({ workspace }: { workspace: Workspace }) {
   return <>
     <div className="mx-auto max-w-[1200px] px-5 pb-10 pt-10 sm:px-8 sm:pt-14">
       <PageIntro eyebrow="Your tracking" title="Know where interest leads." body="Follow the journey from an enquiry to a real conversation and the next step your team records." badge={<StatusBadge tone="proposed">{example ? "Illustrative example · Not live data" : "Preview · Not connected yet"}</StatusBadge>} />
-      {example ? <div className="mb-5 flex flex-col gap-2 rounded-[12px] bg-[#F0EBDD] px-6 py-4 sm:flex-row sm:items-center sm:justify-between"><p className="text-sm font-extrabold">{example.period} · £{example.adSpend} illustrative ad spend</p><p className="max-w-[540px] text-xs leading-relaxed text-[#73736D]">Sample figures to show how your reporting could look. These are not your results, a forecast or a performance promise.</p></div> : null}
+      {example ? <div className="mb-5 flex flex-col gap-2 rounded-[12px] bg-[#F0EBDD] px-6 py-4 sm:flex-row sm:items-center sm:justify-between"><p className="text-sm font-extrabold">{example.period} · {formatMoney(example.adSpend, workspace.offer.currency)} illustrative ad spend</p><p className="max-w-[540px] text-xs leading-relaxed text-[#73736D]">Sample figures to show how your reporting could look. These are not your results, a forecast or a performance promise.</p></div> : null}
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{tracking.metrics.map(metric => {
         const Icon = icons[metric.key as keyof typeof icons] ?? BarChart3
         return <article key={metric.key} className="rounded-[10px] border border-[#E8E5DD] bg-white p-6"><div className="flex items-center justify-between"><p className="text-4xl font-extrabold tracking-tight tabular-nums">{metric.connected && metric.value !== undefined ? metric.value.toLocaleString("en-GB") : example?.values[metric.key]?.toLocaleString("en-GB") ?? "—"}</p><span className="grid size-10 place-items-center rounded-full bg-[#F0EBDD]"><Icon className="size-5" /></span></div><h2 className="mt-3 text-sm font-extrabold">{metric.label}</h2><p className="mt-2 text-xs leading-relaxed text-[#73736D]">{metric.description}</p><p className="mt-4 border-t border-[#E8E5DD] pt-3 text-[10px] font-bold text-[#73736D]">{example ? "Example figure" : metric.connected ? "Connected" : "Not connected"} · {metric.source}</p></article>
