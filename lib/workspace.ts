@@ -346,7 +346,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       previewUrl:
         process.env.NODE_ENV === "development"
           ? "http://localhost:4317"
-          : undefined,
+          : "https://adams-plumbing-215.netlify.app",
       previewImageUrl: "/adams-plumbing-homepage-preview.webp",
       status: "review",
     },
@@ -868,7 +868,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       previewUrl:
         process.env.NODE_ENV === "development"
           ? "http://localhost:4319"
-          : undefined,
+          : "https://mccolm-cardew.netlify.app",
       previewImageUrl: "/mccolm-cardew-homepage-preview.webp",
       status: "review",
     },
@@ -1478,7 +1478,10 @@ const LOCAL_DEMO_WORKSPACES: Record<string, Workspace> = {
       ],
     },
     website: {
-      previewUrl: "http://localhost:3001/",
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3001/"
+          : "https://nexus-accounting-395.netlify.app",
       previewImageUrl: "/nexus-accounting-homepage-preview.webp",
       status: "preview",
     },
