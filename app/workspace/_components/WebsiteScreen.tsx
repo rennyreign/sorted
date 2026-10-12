@@ -146,15 +146,15 @@ export function WebsiteScreen({
   return (
     <div className="flex min-h-0 w-full flex-1 flex-col bg-[#F7F7F3]">
       {controlsTarget ? createPortal(
-      <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-[#E8E5DD] pt-4">
+      <>
         <div className="flex rounded-lg border border-[#E8E5DD] bg-white p-1" role="group" aria-label="Preview page">
-          {(["home", ...(offerPage ? ["offer"] : [])] as ("home" | "offer")[]).map(value => <button key={value} type="button" aria-pressed={page === value} onClick={() => selectPage(value)} className={`min-h-10 rounded-md px-4 text-xs font-bold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#070707] ${page === value ? "bg-[#070707] text-white" : "text-[#73736D] hover:bg-[#F0EBDD]"}`}>{value === "home" ? "Homepage" : offerPage?.label}</button>)}
+          {(["home", ...(offerPage ? ["offer"] : [])] as ("home" | "offer")[]).map(value => <button key={value} type="button" aria-pressed={page === value} onClick={() => selectPage(value)} className={`min-h-9 rounded-md px-4 text-xs font-bold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#070707] ${page === value ? "bg-[#070707] text-white" : "text-[#73736D] hover:bg-[#F0EBDD]"}`}>{value === "home" ? "Homepage" : offerPage?.label}</button>)}
         </div>
-        <div className="flex shrink-0 items-center gap-3">
+        <div className="ml-auto flex shrink-0 items-center gap-3">
           {versionPicker}
           {viewportToggle}
         </div>
-      </div>, controlsTarget) : null}
+      </>, controlsTarget) : null}
 
       {/* Preview fills remaining viewport */}
       <div className="relative min-h-0 flex-1 bg-[#F7F7F3]">

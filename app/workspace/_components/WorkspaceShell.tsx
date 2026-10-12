@@ -197,27 +197,13 @@ export function WorkspaceShell({
     return (
       <div className="flex h-[100dvh] flex-col overflow-hidden bg-[#F7F7F3] text-[#070707]">
         <a href="#workspace-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-[#DFFF00] focus:p-3">Skip to website</a>
-        <details
-          className="group fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-40 sm:left-6"
-          onKeyDown={(event) => {
-            if (event.key === "Escape") {
-              event.currentTarget.open = false
-              event.currentTarget.querySelector("summary")?.focus()
-            }
-          }}
-        >
-          <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-full border border-white/20 bg-[#070707] px-4 text-xs font-bold text-white shadow-lg transition-colors duration-200 hover:bg-[#30302B] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#070707] [&::-webkit-details-marker]:hidden">
-            <span className="text-base font-black">s<span className="text-[#DFFF00]">.</span></span>
-            Workspace <span aria-hidden="true" className="text-white/60 group-open:rotate-180">⌃</span>
-          </summary>
-          <div className="absolute bottom-14 left-0 max-h-[calc(100dvh-6rem)] w-[min(360px,calc(100vw-2rem))] overflow-y-auto rounded-2xl border border-[#E8E5DD] bg-[#F7F7F3] p-5 shadow-xl">
-            <Wordmark href={workspacePath(workspace.slug, homeRoute)} onNavigate={goHome} />
-            <p className="mt-2 text-xs text-[#73736D]">For {workspace.business.name}</p>
-            <div className="my-4 [&_nav]:flex-col [&_nav]:items-stretch [&_nav]:gap-1">{tabRow}</div>
-            {nextStepsCta}
-            <div ref={setPreviewControlsTarget} />
-          </div>
-        </details>
+        {header}
+        <div className="shrink-0 border-b border-[#E8E5DD] bg-white">
+          <div
+            ref={setPreviewControlsTarget}
+            className="mx-auto flex min-h-11 w-full max-w-[1440px] flex-wrap items-center gap-x-3 gap-y-2 px-5 py-2 sm:px-8"
+          />
+        </div>
         <PreviewControlsTarget.Provider value={previewControlsTarget}>
           <main id="workspace-content" className="flex min-h-0 flex-1 flex-col">{children}</main>
         </PreviewControlsTarget.Provider>
