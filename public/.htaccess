@@ -10,4 +10,7 @@ RewriteRule ^review/(.+)/?$ /review/index.html [L,NC]
 
 # Rewrite /workspace/:slug/* to /workspace/index.html (workspace SPA shell)
 # The client-side code reads slug + route from window.location.pathname
+# Existing files (e.g. /workspace/<client>/ad creatives) are served directly.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^workspace/(.+)/?$ /workspace/index.html [L,NC]
