@@ -198,7 +198,7 @@ export function WorkspaceShell({
       <div className="flex h-[100dvh] flex-col overflow-hidden bg-[#F7F7F3] text-[#070707]">
         <a href="#workspace-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-[#DFFF00] focus:p-3">Skip to website</a>
         {header}
-        <div className="shrink-0 border-b border-[#E8E5DD] bg-white">
+        <div className="shrink-0 border-b border-white/10 bg-[#070707]">
           <div
             ref={setPreviewControlsTarget}
             className="mx-auto flex min-h-11 w-full max-w-[1440px] flex-wrap items-center gap-x-3 gap-y-2 px-5 py-2 sm:px-8"

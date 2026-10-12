@@ -82,7 +82,7 @@ export function WebsiteScreen({
   }
 
   const viewportToggle = (
-    <div className="hidden h-8 items-center rounded-full bg-[#F1F1EC] p-[3px] sm:flex" role="group" aria-label="Preview viewport">
+    <div className="hidden h-8 items-center rounded-full bg-white/10 p-[3px] sm:flex" role="group" aria-label="Preview viewport">
       {(
         [
           ["desktop", "Desktop", Monitor],
@@ -94,8 +94,8 @@ export function WebsiteScreen({
           type="button"
           aria-pressed={viewport === value}
           onClick={() => switchViewport(value)}
-          className={`inline-flex h-[26px] items-center gap-2 rounded-full px-3 text-[11px] font-bold transition-colors focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#070707] ${
-            viewport === value ? "bg-[#070707] text-white" : "text-[#73736D] hover:text-[#070707]"
+          className={`inline-flex h-[26px] items-center gap-2 rounded-full px-3 text-[11px] font-bold transition-colors focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DFFF00] ${
+            viewport === value ? "bg-[#DFFF00] text-[#070707]" : "text-white/60 hover:text-white"
           }`}
         >
           <Icon className="size-3.5" strokeWidth={2.2} />
@@ -109,7 +109,7 @@ export function WebsiteScreen({
     <>
       {/* Segmented control — tablet/desktop */}
       <div
-        className="hidden h-8 shrink-0 items-center rounded-full bg-[#F1F1EC] p-[3px] sm:flex"
+        className="hidden h-8 shrink-0 items-center rounded-full bg-white/10 p-[3px] sm:flex"
         role="group"
         aria-label="Website version"
       >
@@ -119,8 +119,8 @@ export function WebsiteScreen({
             type="button"
             aria-pressed={selectedVersion === v.id}
             onClick={() => selectVersion(v.id)}
-            className={`inline-flex h-[26px] items-center rounded-full px-3 text-[11px] font-bold transition-colors focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#070707] ${
-              selectedVersion === v.id ? "bg-[#070707] text-white" : "text-[#73736D] hover:text-[#070707]"
+            className={`inline-flex h-[26px] items-center rounded-full px-3 text-[11px] font-bold transition-colors focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DFFF00] ${
+              selectedVersion === v.id ? "bg-[#DFFF00] text-[#070707]" : "text-white/60 hover:text-white"
             }`}
           >
             {v.label}
@@ -132,7 +132,7 @@ export function WebsiteScreen({
         aria-label="Website version"
         value={selectedVersion ?? ""}
         onChange={(e) => selectVersion(e.target.value)}
-        className="h-9 shrink-0 rounded-md border border-[#E8E5DD] bg-white px-1.5 text-[11px] font-bold text-[#070707] focus:outline-none focus-visible:outline-2 focus-visible:outline-[#070707] sm:hidden"
+        className="h-9 shrink-0 rounded-md border border-white/20 bg-transparent px-1.5 text-[11px] font-bold text-white focus:outline-none focus-visible:outline-2 focus-visible:outline-[#DFFF00] sm:hidden"
       >
         {versions.map((v) => (
           <option key={v.id} value={v.id} className="text-[#070707]">
@@ -147,8 +147,8 @@ export function WebsiteScreen({
     <div className="flex min-h-0 w-full flex-1 flex-col bg-[#F7F7F3]">
       {controlsTarget ? createPortal(
       <>
-        <div className="flex rounded-lg border border-[#E8E5DD] bg-white p-1" role="group" aria-label="Preview page">
-          {(["home", ...(offerPage ? ["offer"] : [])] as ("home" | "offer")[]).map(value => <button key={value} type="button" aria-pressed={page === value} onClick={() => selectPage(value)} className={`min-h-9 rounded-md px-4 text-xs font-bold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#070707] ${page === value ? "bg-[#070707] text-white" : "text-[#73736D] hover:bg-[#F0EBDD]"}`}>{value === "home" ? "Homepage" : offerPage?.label}</button>)}
+        <div className="flex rounded-lg border border-white/15 bg-white/10 p-1" role="group" aria-label="Preview page">
+          {(["home", ...(offerPage ? ["offer"] : [])] as ("home" | "offer")[]).map(value => <button key={value} type="button" aria-pressed={page === value} onClick={() => selectPage(value)} className={`min-h-9 rounded-md px-4 text-xs font-bold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DFFF00] ${page === value ? "bg-[#DFFF00] text-[#070707]" : "text-white/60 hover:bg-white/10 hover:text-white"}`}>{value === "home" ? "Homepage" : offerPage?.label}</button>)}
         </div>
         <div className="ml-auto flex shrink-0 items-center gap-3">
           {versionPicker}
