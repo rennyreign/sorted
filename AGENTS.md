@@ -1,6 +1,6 @@
 # AGENTS.md — Sorted
 
-Sorted is a business modernisation company operated by ADX Engine. Its public brand now routes users into two focused offers: Sorted Sites for websites and Sorted Ops for operational improvement.
+Sorted is one business modernisation brand operated by ADX Engine. Websites and operational improvements are services under Sorted, not separate public sub-brands.
 
 This file is the operating brief for any agent working in this repo or on a Sorted client site.
 
@@ -8,17 +8,23 @@ This file is the operating brief for any agent working in this repo or on a Sort
 
 ## Current Brand Architecture
 
-The active Sorted brand is:
+**Sorted is one business modernisation brand.** Root URL: `sortmydigital.site`. Websites and operational improvements are services under Sorted, not separate public sub-brands.
 
-1. **Sorted** — the flagship switchboard and parent brand. Root URL: `sortmydigital.site`.
-2. **Sorted Sites** — the website offer. Local route: `/sites`. Legacy alias: `/sorted-sites`.
-3. **Sorted Ops** — the operational improvement offer. Local route: `/ops`. Implementation currently aliases the V2 build in `/v2`. Intended public host: `ops.sortmydigital.site`.
+Public routes:
+
+1. **How we work** — `/howitworks` presents the website process. `/sites` is a compatibility alias.
+2. **Operations** — `/ops` sits within the main site. `/v2` renders the same integrated operations homepage.
+3. **Pricing** — `/pricing` combines the fixed website launch and one scoped operational-improvement offer. `/ops/pricing` and `/v2/pricing` render the unified page.
 
 The previous standalone Sorted website positioning around "get picked, get enquiries, get bought" is deprecated and archived locally in `archive/deprecated-sorted-online/`.
 
-## What Sorted Sites Does
+Approved public positioning:
 
-Sorted Sites builds websites for small businesses using a reversed product cycle: build first, show the client the finished site, then quote. Client site deliveries usually ship with:
+> Sorted is one business modernisation brand. Core promise: We make good businesses more capable. We modernise how local businesses win customers and get work done. Better digital systems. Less unnecessary work. More capacity to grow. Websites and operational improvements are services under Sorted, not separate public sub-brands. How we work presents the website process; Operations sits within the main site at /ops. Pricing combines the fixed £3,000 UK / $3,500 US website launch and one scoped operational-improvement offer. No invented retainer or starts-from price; ongoing support is agreed only for a defined need. Website CTA: Get your free site. Supporting disclosure: We build your first page free. Decide whether to take it further. Existing website manufacturing, approval, analytics and submission infrastructure is unchanged. Preserve legacy /sites /ops /v2 and pricing addresses as compatibility routes. Homepage headline stays fixed.
+
+## What the Sorted Website Service Does
+
+Sorted builds websites for small businesses using a reversed product cycle: build first, show the client the finished site, then quote. Client site deliveries usually ship with:
 
 1. A Next.js static site
 2. SortedUpdates — a Decap CMS giving the client control over all content
@@ -28,9 +34,9 @@ Sorted Sites builds websites for small businesses using a reversed product cycle
 
 The client owns the content layer. Sorted owns the design, code, and reset key.
 
-## What Sorted Ops Does
+## What Sorted Operations Does
 
-Sorted Ops removes repetitive work, recovers time, and improves operational performance for businesses with accumulated process drag. It is the route for established businesses and teams that need capacity returned through systems, automation, measurement, and operational redesign.
+Sorted's operations service removes repetitive work, recovers time, and improves operational performance for businesses with accumulated process drag. It is the route for established businesses and teams that need capacity returned through systems, automation, measurement, and operational redesign.
 
 Full model: `doctrine/sorted-operating-model.md`
 
@@ -53,10 +59,9 @@ sorted/
   app/
     clients/          ← Password-protected delivery/quote pages per client
     proposals/        ← Pre-delivery proposal pages (party-world pattern)
-    sites/            ← Sorted Sites public offer
-    sorted-sites/     ← Sorted Sites compatibility alias
-    ops/              ← Sorted Ops public offer alias
-    v2/               ← Sorted Ops implementation route during migration
+    sites/            ← Website offer compatibility alias for /howitworks
+    ops/              ← Operations public offer alias
+    v2/               ← Operations implementation route
     sorted-updates/   ← SortedUpdates portal (chat, history, preview, reset)
     operators/        ← Internal operator dashboards (prospect-finder)
   client/
@@ -298,7 +303,7 @@ Scoped to Sorted's own public marketing pages only:
 
 - **Palette:** black / white / warm-neutral with lime `#D7FF00` accents (and the blue iceberg graphic on `/what-else-we-do`). Internal dashboards, operator tools and client workspaces remain on the monochrome design system — do not carry the marketing palette into them.
 - **Voice:** Sorted's canonical brand voice (constructive confrontation — honest but fair) applies to Sorted's own public communications. Client-brand copy always respects the approved client tone.
-- **Structure:** the homepage is website-led; `/what-else-we-do` explains the wider acquisition system. The fixed service includes the website, agreed ad creative/campaign setup, tracking and follow-up setup; ad spend, ongoing management and future optimisation are always presented as separate and optional. Never claim false inclusions, performance or timing — no guaranteed results, no hard delivery promises, and do not market Booking & CRM as part of the standard proposition.
+- **Structure:** the homepage leads with the parent promise ("We make good businesses more capable.") and routes into the two services; `/what-else-we-do` (labelled "What we improve") explains the systems Sorted improves. The fixed website launch includes the website, agreed ad creative/campaign setup, tracking and follow-up setup; ad spend, ongoing management and future optimisation are always presented as separate and optional. Operations work is scoped case by case — no fixed fees or ready-made catalogue. Never claim false inclusions, performance or timing — no guaranteed results, no hard delivery promises, and do not market Booking & CRM as part of the standard proposition.
 
 ---
 

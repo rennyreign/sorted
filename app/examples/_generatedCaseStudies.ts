@@ -22,7 +22,7 @@ export const generatedCaseStudies: GeneratedCaseStudy[] = [
     "stats": [
       [
         "24hrs",
-        "First homepage concept delivered"
+        "First page concept delivered"
       ],
       [
         "3",
@@ -61,7 +61,7 @@ export const generatedCaseStudies: GeneratedCaseStudy[] = [
     "stats": [
       [
         "24hrs",
-        "First homepage concept delivered"
+        "First page concept delivered"
       ],
       [
         "9",
@@ -100,7 +100,7 @@ export const generatedCaseStudies: GeneratedCaseStudy[] = [
     "stats": [
       [
         "24hrs",
-        "First homepage concept delivered"
+        "First page concept delivered"
       ],
       [
         "2",
@@ -139,7 +139,7 @@ export const generatedCaseStudies: GeneratedCaseStudy[] = [
     "stats": [
       [
         "24hrs",
-        "First homepage concept delivered"
+        "First page concept delivered"
       ],
       [
         "3",

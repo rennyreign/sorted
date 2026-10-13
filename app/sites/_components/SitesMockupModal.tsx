@@ -1,8 +1,9 @@
 "use client"
 
 import { useMarket, useMarketOffer } from "@/components/MarketPricing"
-import type { FormEvent } from "react"
+import type { FormEvent, RefObject } from "react"
 import { useEffect, useMemo, useRef, useState } from "react"
+import { createPortal } from "react-dom"
 import { ArrowLeft, ArrowRight, Check, ExternalLink, Loader2, Mail, Sparkles, X } from "lucide-react"
 import { supabase } from "@/lib/supabase"
 import { getAttribution } from "@/lib/attribution"
@@ -46,7 +47,7 @@ const steps: Step[] = [
   {
     key: "timeline",
     kicker: "Question 5 of 6",
-    question: "How soon would you like to see a mockup?",
+    question: "How soon would you like to see the first version?",
     options: ["Today if possible", "Within 24 hours", "This week", "No rush, I am exploring"],
   },
   {
@@ -61,16 +62,25 @@ export function MockupButton({
   label = "Get your free site",
   variant = "primary",
   className = "",
+  returnFocusRef,
 }: {
   label?: string
   variant?: "nav" | "primary" | "yellow" | "white"
   className?: string
+  returnFocusRef?: RefObject<HTMLButtonElement | null>
 }) {
   const [open, setOpen] = useState(false)
+  const triggerRef = useRef<HTMLButtonElement>(null)
+
+  function close() {
+    setOpen(false)
+    ;(returnFocusRef?.current ?? triggerRef.current)?.focus()
+  }
 
   return (
     <>
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen(true)}
         data-track="cta_click"
@@ -81,13 +91,13 @@ export function MockupButton({
         {label}
         <ArrowRight className="size-4" strokeWidth={3} />
       </button>
-      {open ? <MockupModal onClose={() => setOpen(false)} /> : null}
+      {open ? <MockupModal onClose={close} /> : null}
     </>
   )
 }
 
-function buttonClass(variant: "nav" | "primary" | "yellow" | "white") {
-  const base = "inline-flex items-center justify-center gap-4 rounded-full font-black transition-transform duration-200 hover:-translate-y-0.5"
+export function buttonClass(variant: "nav" | "primary" | "yellow" | "white") {
+  const base = "inline-flex items-center justify-center gap-4 rounded-full font-black transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#dfff00] focus-visible:ring-offset-2"
   const styles = {
     nav: "h-11 bg-[#070707] px-5 text-[11px] text-white shadow-[0_14px_30px_rgba(0,0,0,0.16)]",
     primary: "h-[52px] bg-[#070707] px-7 text-[12px] text-white shadow-[0_18px_36px_rgba(0,0,0,0.16)]",
@@ -98,7 +108,7 @@ function buttonClass(variant: "nav" | "primary" | "yellow" | "white") {
   return `${base} ${styles[variant]}`
 }
 
-function MockupModal({ onClose }: { onClose: () => void }) {
+export function MockupModal({ onClose }: { onClose: () => void }) {
   const [answers, setAnswers] = useState<Partial<Record<StepKey, string>>>({})
   const [stepIndex, setStepIndex] = useState(0)
   const [phase, setPhase] = useState<"questions" | "loading" | "result">("questions")
@@ -149,7 +159,7 @@ function MockupModal({ onClose }: { onClose: () => void }) {
     setStepIndex((current) => Math.max(0, current - 1))
   }
 
-  return (
+  return createPortal(
     <div ref={dialogRef} className="fixed inset-0 z-[90] h-[100dvh] overflow-y-auto overscroll-contain bg-[#fbfbfa] text-[#070707] [-webkit-overflow-scrolling:touch]" role="dialog" aria-modal="true" aria-label="Free website mockup">
       <button
         type="button"
@@ -178,7 +188,8 @@ function MockupModal({ onClose }: { onClose: () => void }) {
           {phase === "result" ? <ResultStep answers={answers} summary={summary} /> : null}
         </div>
       </div>
-    </div>
+    </div>,
+    document.querySelector(".sorted-sites-shell") ?? document.body,
   )
 }
 
@@ -256,7 +267,7 @@ function LoadingStep({ answers }: { answers: Partial<Record<StepKey, string>> })
     <section className="mx-auto max-w-[760px] text-center">
       <Loader2 className="mx-auto size-12 animate-spin text-[#bdd900]" strokeWidth={3} />
       <h2 className="mt-8 [font-family:var(--font-sites-marker)] text-[clamp(3.4rem,6vw,6.2rem)] uppercase leading-[0.9]">
-        Building your mockup brief
+        Building your site brief
       </h2>
       <p className="mx-auto mt-5 max-w-[520px] text-[16px] font-bold leading-[1.5]">
         We are turning {answers.business?.toLowerCase() ?? "your business"} into a practical website direction.
@@ -306,7 +317,7 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
       })
 
       if (error) {
-        throw new Error("Could not submit your mockup brief")
+        throw new Error("Could not submit your site brief")
       }
 
       let reviewUrl: string | null = null
@@ -342,7 +353,7 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
       })
     } catch (error) {
       setSubmitState("error")
-      setSubmitError(error instanceof Error ? error.message : "Could not submit your mockup brief")
+      setSubmitError(error instanceof Error ? error.message : "Could not submit your site brief")
 
       trackEvent(TRACKING_EVENTS.FORM_ERROR, {
         form_name: "mockup_request",
@@ -354,7 +365,7 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
   return (
     <section className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
       <div>
-        <p className="text-[12px] font-black text-black/45">Your free mockup direction</p>
+        <p className="text-[12px] font-black text-black/45">Your free first-page build</p>
         <h2 className="mt-5 [font-family:var(--font-sites-marker)] text-[clamp(3.5rem,7vw,7.2rem)] uppercase leading-[0.92]">
           We can build this first
         </h2>
@@ -368,13 +379,13 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
             <span className="grid size-14 place-items-center rounded-full bg-[#dfff00] text-black">
               <Check className="size-7" strokeWidth={3.4} />
             </span>
-            <p className="mt-7 text-[13px] font-black text-[#dfff00]">Mockup brief received</p>
+            <p className="mt-7 text-[13px] font-black text-[#dfff00]">Site brief received</p>
             <h3 className="mt-3 max-w-[560px] text-[clamp(2.1rem,4vw,4.1rem)] font-black leading-[0.95] tracking-[-0.055em]">
-              Your private mockup page is being prepared.
+              Your private review page is being prepared.
             </h3>
             <p className="mt-5 max-w-[520px] text-[15px] font-bold leading-[1.5] text-white/72">
-              We’ll use your answers to prepare the first direction, then send the review link to{" "}
-              <span className="text-white">{successDetails.email}</span>. When the mockup is revealed, your stage updates in the Sorted pipeline automatically.
+              We’ll use your answers to prepare the first version, then send the review link to{" "}
+              <span className="text-white">{successDetails.email}</span>. When your first version is ready to review, your stage updates in the Sorted pipeline automatically.
             </p>
             <div className="mt-7 grid gap-3 sm:grid-cols-2">
               {successDetails.reviewUrl ? (
@@ -390,7 +401,7 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
                 onClick={() => window.location.reload()}
                 className="inline-flex h-12 items-center justify-center gap-3 rounded-full border border-white/20 px-5 text-[12px] font-black text-white transition-colors hover:border-[#dfff00] hover:text-[#dfff00]"
               >
-                Request another mockup <Sparkles className="size-4" strokeWidth={2.8} />
+                Request another site <Sparkles className="size-4" strokeWidth={2.8} />
               </button>
             </div>
             <div className="mt-7 grid gap-3 rounded-[14px] border border-white/10 bg-white/[0.04] p-4 text-[12px] font-bold text-white/62 sm:grid-cols-[24px_1fr]">
@@ -404,7 +415,7 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
               <p className="text-[12px] font-black text-black/45">What we will focus on</p>
               <h3 className="mt-3 text-[28px] font-black tracking-[-0.045em]">{answers.goal ?? "A website that gets enquiries"}</h3>
               <ul className="mt-5 grid gap-3 text-[13px] font-black">
-                {["A homepage that says what you do clearly", "Proof that makes people trust you", "A direct path to enquire or book", "Simple content you can update yourself"].map((item) => (
+                {["A first page that says what you do clearly", "Proof that makes people trust you", "A direct path to enquire or book", "Simple content you can update yourself"].map((item) => (
                   <li key={item} className="flex items-center gap-3">
                     <Check className="size-5 rounded-full bg-[#dfff00] p-1" strokeWidth={3.5} />
                     {item}
@@ -438,7 +449,7 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
                 required
               />
               <button type="submit" disabled={submitState === "submitting"} className="mt-1 inline-flex h-11 items-center justify-center gap-3 rounded-full bg-[#dfff00] px-5 text-[11px] font-black text-black transition-opacity disabled:opacity-70">
-                {submitState === "submitting" ? "Sending..." : "Send my mockup brief"}
+                {submitState === "submitting" ? "Sending..." : "Send my site brief"}
                 {submitState === "submitting" ? <Loader2 className="size-4 animate-spin" strokeWidth={3} /> : <ArrowRight className="size-4" strokeWidth={3} />}
               </button>
               {submitState === "error" ? (

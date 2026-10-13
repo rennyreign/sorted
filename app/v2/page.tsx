@@ -16,7 +16,8 @@ import {
   TrendingUp,
 } from "lucide-react"
 import { RoutineFinderButton } from "./_components/RoutineFinder"
-import { BookDiscoveryButton, V2Header } from "./_components/V2Primitives"
+import { BookDiscoveryButton } from "./_components/V2Primitives"
+import { SitesFooter, SitesHeader, SitesPage } from "../sites/_components/SitesPrimitives"
 
 const v2Marker = localFont({
   src: "../../public/fonts/cc-ask-for-mercy.ttf",
@@ -37,9 +38,17 @@ const v2Bakeshop = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "Sorted. Your business has gaps. We close them.",
+  title: "Operations | Sorted",
   description:
-    "Sorted finds the gaps that leak revenue, hurt trust, and leave money on the table, installs the systems that close them, and measures the outcomes we agree with you.",
+    "Sorted operations identifies the gaps costing your business time and customers, then agrees feasibility, scope, price and success measures before any work starts.",
+  alternates: {
+    canonical: "/ops",
+  },
+  openGraph: {
+    title: "Operations | Sorted",
+    description: "Scoped operational improvement for local businesses — agreed case by case, measured against agreed outcomes.",
+    url: "/ops",
+  },
 }
 
 const accent = "#dfff00"
@@ -49,19 +58,19 @@ const problems = [
     title: "We lose customers.",
     icon: Frown,
     items: ["Missed calls", "Slow replies", "No follow up"],
-    href: "/ops/problems/we-lose-customers",
+    href: "/ops#how-we-improve",
   },
   {
     title: "We waste time.",
     icon: Clock3,
     items: ["Copying information", "Updating customers", "Repeating the same task"],
-    href: "/ops/problems/we-waste-time",
+    href: "/ops#how-we-improve",
   },
   {
     title: "We miss opportunities.",
     icon: TrendingUp,
     items: ["No review requests", "Old customers forgotten", "Quotes never chased"],
-    href: "/ops/problems/we-miss-opportunities",
+    href: "/ops#how-we-improve",
   },
 ]
 
@@ -72,18 +81,18 @@ const steps = [
     icon: Search,
   },
   {
-    title: "We install the system.",
-    copy: "We install a proven system that closes the gap. No unnecessary software. A rollout planned around your team.",
+    title: "We agree the intervention.",
+    copy: "Once feasibility is confirmed, we agree scope, price and the outcome we are aiming for — before any work starts.",
     icon: SettingsIcon,
   },
   {
-    title: "We measure what changed.",
-    copy: "You see what changed, measured against the outcomes we agreed at the start.",
+    title: "We implement.",
+    copy: "A bespoke implementation for your business, planned around your team. No unnecessary software.",
     icon: BarChart3,
   },
   {
-    title: "We improve.",
-    copy: "Businesses change. New gaps appear. We keep closing them.",
+    title: "We review together.",
+    copy: "We review what changed against the agreed outcome, then decide what — if anything — is worth doing next.",
     icon: RefreshCw,
   },
 ]
@@ -91,31 +100,31 @@ const steps = [
 const familiar = [
   {
     quote: "We only have 14 Google reviews.",
-    label: "Review System",
+    label: "Review generation",
     icon: Star,
     splash: "bg-[#e8ff1a]",
   },
   {
     quote: "We are terrible at following people up.",
-    label: "Enquiry System",
+    label: "Enquiry follow-up",
     icon: MessageCircle,
     splash: "bg-[#ff9ad8]",
   },
   {
     quote: "Customers wait too long for a reply.",
-    label: "Customer Response System",
+    label: "Response handling",
     mark: "?",
     splash: "bg-[#ffe48a]",
   },
   {
     quote: "We have got thousands of old customers and do nothing with them.",
-    label: "Reactivation System",
+    label: "Customer reactivation",
     icon: UsersIcon,
     splash: "bg-[#b86cff]",
   },
   {
     quote: "We keep missing calls.",
-    label: "Reception System",
+    label: "Call handling",
     icon: Phone,
     splash: "bg-[#a7e6ff]",
   },
@@ -154,17 +163,19 @@ const testimonials = [
 
 export default function SortedV2Page() {
   return (
-    <main className={`${v2Marker.variable} ${v2Highlight.variable} ${v2Bakeshop.variable} min-h-screen overflow-hidden bg-[#fbfbfa] text-[#080808]`}>
-      <V2Header />
-      <Hero />
-      <Problems />
-      <Process />
-      <SoundFamiliar />
-      <ResultsBand />
-      <Testimonials />
-      <FinalCta />
-      <Footer />
-    </main>
+    <SitesPage>
+      <div className={`${v2Marker.variable} ${v2Highlight.variable} ${v2Bakeshop.variable} overflow-hidden bg-[#fbfbfa] text-[#080808]`}>
+        <SitesHeader active="operations" cta="company" />
+        <Hero />
+        <Problems />
+        <Process />
+        <SoundFamiliar />
+        <ResultsBand />
+        <Testimonials />
+        <FinalCta />
+      </div>
+      <SitesFooter />
+    </SitesPage>
   )
 }
 
@@ -172,34 +183,39 @@ function Hero() {
   return (
     <section className="mx-auto grid max-w-[1220px] items-center gap-10 px-5 pb-6 sm:px-8 md:grid-cols-[1.18fr_0.82fr] md:gap-8 md:pb-7 lg:grid-cols-[1.04fr_0.96fr] lg:gap-14">
       <div className="relative pt-3">
-        <h1 className="max-w-[650px] text-[clamp(3.35rem,6.45vw,6.75rem)] font-black leading-[0.9] tracking-[-0.05em] lg:text-[clamp(4.1rem,8.2vw,6.75rem)]">
+        <p className="text-[11px] font-black uppercase tracking-[0.16em] text-black/45">Operations</p>
+        <h1 className="mt-3 max-w-[650px] text-[clamp(2.9rem,6.45vw,6.75rem)] font-black leading-[0.9] tracking-[-0.05em] lg:text-[clamp(4.1rem,8.2vw,6.75rem)]">
           Your business
           <br />
-          has gaps.
+          works hard.
         </h1>
         <div className="relative mt-4 max-w-[565px]">
-          <p className="whitespace-nowrap [font-family:var(--font-v2-highlight)] text-[clamp(3rem,5.6vw,5.65rem)] font-normal leading-[0.86] tracking-[-0.02em] text-[#cee700] lg:text-[clamp(3.7rem,6.8vw,5.65rem)]">
-            We close them.
+          <p className="[font-family:var(--font-v2-highlight)] text-[clamp(2.2rem,5.2vw,5.65rem)] font-normal leading-[0.9] tracking-[-0.02em] text-[#cee700] lg:text-[clamp(3.7rem,6.8vw,5.65rem)]">
+            Your systems should too.
           </p>
           <MarkerStroke className="-bottom-3 left-0 h-4 w-[96%]" />
         </div>
 
         <p className="mt-6 max-w-[420px] text-[13px] font-semibold leading-[1.55] tracking-[-0.025em] text-[#111] lg:mt-12 lg:text-[17px]">
-          Missed enquiries. Repetitive work. Manual processes. Delays. We&apos;ve already built the systems that solve them. We install the ones your business needs and measure what they return.
+          Missed enquiries. Repetitive work. Manual processes. Delays. We help you identify the gap worth fixing, confirm what is feasible, then implement a bespoke solution — scope and price agreed case by case.
         </p>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center lg:mt-9 lg:gap-4">
-          <RoutineFinderButton label="Start the diagnostic" variant="primary" />
+          <BookDiscoveryButton className="h-12 lg:h-14" />
+          <RoutineFinderButton label="Explore a possible improvement" variant="primary" className="bg-transparent shadow-none ring-1 ring-black/20 !text-black" />
           <Link
-            href="/ops/results-dashboard"
+            href="/pricing#operations"
             className="group inline-flex h-12 items-center justify-center gap-3 rounded-full px-4 text-[11px] font-extrabold lg:h-14 lg:gap-4 lg:text-[12px]"
           >
-            See an example review
+            How operations work is priced
             <span className="grid size-9 place-items-center rounded-full border border-black/20 transition-transform group-hover:translate-x-0.5">
               <ArrowRight className="size-3.5" strokeWidth={3} />
             </span>
           </Link>
         </div>
+        <p className="mt-3 max-w-[420px] text-[11px] font-semibold leading-[1.5] text-black/45">
+          A starting point for discussion, not a confirmed solution or quote.
+        </p>
 
         <SketchArrow className="absolute -right-7 bottom-10 hidden h-14 w-[5.5rem] md:block lg:bottom-14 lg:h-20 lg:w-28" />
       </div>
@@ -303,7 +319,7 @@ function Problems() {
 
 function Process() {
   return (
-    <section id="how-it-works" className="mx-auto max-w-[1220px] px-5 py-3 sm:px-8 md:py-4 lg:py-7">
+    <section id="how-we-improve" className="mx-auto max-w-[1220px] scroll-mt-24 px-5 py-3 sm:px-8 md:py-4 lg:py-7">
       <SectionTitle title="Here's how we work." />
       <div className="mt-5 grid gap-8 md:grid-cols-4 md:gap-5 lg:mt-7">
         {steps.map((step, index) => {
@@ -343,8 +359,8 @@ function SoundFamiliar() {
                 {Icon ? <Icon className="size-8 lg:size-14" strokeWidth={2.7} /> : <span className="text-[36px] font-black leading-none lg:text-[62px]">{item.mark}</span>}
               </div>
               <p className="mt-2.5 min-h-[38px] text-[9px] font-black leading-[1.12] tracking-[-0.04em] lg:mt-5 lg:min-h-[52px] lg:text-[14px]">"{item.quote}"</p>
-              <Link href="/ops/problems/we-lose-customers" className="mt-auto inline-flex min-h-11 items-center gap-2 text-[10px] font-extrabold tracking-[-0.02em] lg:gap-3 lg:text-[12px]">
-                {item.label}
+              <Link href="/pricing#operations" className="mt-auto inline-flex min-h-11 items-center gap-2 text-[10px] font-extrabold tracking-[-0.02em] lg:gap-3 lg:text-[12px]">
+                Discuss this improvement
                 <ArrowRight className="size-3.5" strokeWidth={3} />
               </Link>
             </article>
@@ -365,10 +381,10 @@ function ResultsBand() {
             Example figures. Not verified client results. We agree the measurements for your business before work starts.
           </p>
           <Link
-            href="/ops/results-dashboard"
+            href="/pricing#operations"
             className="mt-5 inline-flex min-h-11 items-center gap-4 rounded-xl bg-[#dfff00] px-4 text-[9px] font-black text-black transition-transform hover:-translate-y-0.5 lg:mt-8 lg:h-12 lg:gap-5 lg:px-6 lg:text-[12px]"
           >
-            See an example dashboard
+            How operations work is priced
             <ArrowRight className="size-4" strokeWidth={3} />
           </Link>
         </div>
@@ -438,7 +454,7 @@ function FinalCta() {
             <br />
             WHERE THE GAPS ARE.
           </h2>
-          <div className="mt-6 h-[4px] w-[340px] max-w-full rounded-full bg-[#ff73d2]" />
+          <div className="mt-6 h-[4px] w-full max-w-[340px] rounded-full bg-[#ff73d2]" />
           <p className="mt-10 text-[clamp(1.6rem,2.25vw,2.4rem)] font-black leading-none tracking-[-0.055em]">
             Let's close them.
           </p>
@@ -447,13 +463,13 @@ function FinalCta() {
         <div className="relative z-[1] grid gap-7 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
           <div>
             <p className="text-[clamp(1.45rem,2.3vw,2.15rem)] font-black leading-[1.08] tracking-[-0.055em]">
-              Start with the diagnostic. Talk if that is easier.
+              Book a discovery call. Or explore a possible improvement.
             </p>
             <p className="mt-4 max-w-[340px] text-[14px] font-black leading-[1.45] tracking-[-0.03em]">
-              Either way, the next step is the same: find the first gap worth closing.
+              Either way, the next step is the same: find the first gap worth closing, then agree scope and price.
             </p>
             <ul className="mt-6 grid gap-2 text-[12px] font-black sm:grid-cols-3 lg:grid-cols-1">
-              {["No obligation", "No jargon", "A useful first answer"].map((item) => (
+              {["Scoped case by case", "No obligation", "A useful first answer"].map((item) => (
                 <li key={item} className="flex items-center gap-2">
                   <Check className="size-4 text-[#849800]" strokeWidth={4} />
                   {item}
@@ -461,65 +477,15 @@ function FinalCta() {
               ))}
             </ul>
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-            <RoutineFinderButton label="Start the diagnostic" variant="footer" />
+          <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
             <BookDiscoveryButton className="h-16 w-full bg-white text-[15px]" />
+            <RoutineFinderButton label="Explore a possible improvement" variant="footer" className="max-sm:h-14 max-sm:gap-3 max-sm:px-4 max-sm:text-[13px]" />
           </div>
         </div>
         <Star className="absolute right-10 top-8 size-20 rotate-12 text-[#ff73d2]" strokeWidth={2.9} />
         <ArrowRight className="absolute bottom-10 left-[43%] hidden size-16 rotate-[-8deg] text-black md:block" strokeWidth={2.2} />
       </div>
     </section>
-  )
-}
-
-function Footer() {
-  return (
-    <footer className="bg-[#070707] px-5 py-6 text-white sm:px-8 lg:py-7">
-      <div className="mx-auto grid max-w-[1220px] gap-6 md:grid-cols-[1.4fr_1fr_1fr_1fr] lg:gap-8">
-        <div>
-          <p className="text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
-            Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-v2-bakeshop)] translate-y-[-0.06em] text-[#cfe900]">ops</span>
-          </p>
-          <p className="mt-2 max-w-[170px] text-[12px] font-semibold leading-[1.35] text-white/80">
-            We find the gaps that cost local businesses revenue and trust, and close them.
-          </p>
-          <p className="mt-5 text-[10px] font-medium text-white/55">© 2026 Sorted. All rights reserved.</p>
-        </div>
-        <FooterLinks links={[["How it works", "/ops/how-it-works"], ["Problems we solve", "/ops/problems-we-solve"], ["Results", "/ops/results"]]} />
-        <FooterLinks links={[["About", "/ops/about"], ["Pricing", "/ops/pricing"], ["Example dashboard", "/ops/results-dashboard"]]} />
-        <div>
-          <p className="mb-4 text-[12px] font-black">Ready to start?</p>
-          <RoutineFinderButton label="Start the diagnostic" variant="nav" className="mb-3 h-11 border border-[#dfff00] bg-[#dfff00] !text-[#070707] shadow-none" />
-          <a
-            href="https://wa.me/447386468085"
-            className="inline-flex h-11 items-center gap-2 rounded-xl border border-white/15 px-5 text-[12px] font-black text-white"
-          >
-            <Phone className="size-4" strokeWidth={2.6} />
-            WhatsApp us
-          </a>
-        </div>
-      </div>
-      <div className="mx-auto mt-6 flex max-w-[1220px] justify-end gap-5 text-[10px] font-semibold text-white/65">
-        <a href="/privacy" className="transition-colors hover:text-white">Privacy</a>
-        <a href="/terms" className="transition-colors hover:text-white">Terms</a>
-        <span>Cookies</span>
-      </div>
-    </footer>
-  )
-}
-
-function FooterLinks({ links }: { links: [string, string][] }) {
-  return (
-    <ul className="space-y-3 text-[11px] font-bold text-white/85">
-      {links.map(([label, href]) => (
-        <li key={label}>
-          <Link href={href} className="inline-flex min-h-11 min-w-11 items-center transition-colors hover:text-[#dfff00]">
-            {label}
-          </Link>
-        </li>
-      ))}
-    </ul>
   )
 }
 

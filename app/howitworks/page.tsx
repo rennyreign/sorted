@@ -20,18 +20,24 @@ import { SitesFooter, SitesHeader, SitesPage, Underline } from "../sites/_compon
 import { MockupButton } from "../sites/_components/SitesMockupModal"
 
 export const metadata: Metadata = {
-  title: "How it works | Sorted",
+  title: "How we work | Sorted",
   description:
-    "See your new website before you spend a penny. Sorted designs your site first, then builds it once you approve the mockup.",
+    "Websites built proof-first: we build your first page free, then agree the scope and price of the complete build before continuing.",
   alternates: {
     canonical: "/howitworks",
+  },
+  openGraph: {
+    title: "How we work | Sorted",
+    description:
+      "Websites built proof-first: we build your first page free, then agree the scope and price of the complete build before continuing.",
+    url: "/howitworks",
   },
 }
 
 export default function HowItWorksPage() {
   return (
     <SitesPage>
-      <SitesHeader active="how" />
+      <SitesHeader active="how" cta="website" />
       <HeroSection />
       <ProcessSection />
       <IncludesSection />
@@ -54,8 +60,8 @@ function HeroSection() {
           </span>
         </h1>
         <p className="mt-6 max-w-[470px] text-[17px] font-semibold leading-[1.55] tracking-[-0.02em] text-black/75">
-          We design a free homepage preview for your business before you spend anything. You review it, approve the
-          direction, and stay in control of each stage.
+          We build your first page free. Decide whether to take it further. If you want the complete build, we
+          agree the scope and price before continuing.
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-5">
           <MockupButton />
@@ -64,22 +70,22 @@ function HeroSection() {
               <span className="grid size-5 place-items-center rounded-full bg-[#dfff00]">
                 <Check className="size-3" strokeWidth={3.5} />
               </span>
-              No card details
+              Clear scope
             </li>
             <li className="flex items-center gap-2.5">
               <span className="grid size-5 place-items-center rounded-full bg-[#dfff00]">
                 <Check className="size-3" strokeWidth={3.5} />
               </span>
-              No obligation
+              Your decision
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="relative aspect-[4/3] min-h-[320px] sm:min-h-[420px] lg:min-h-[520px]">
+      <div className="relative aspect-[4/3] min-h-[200px] sm:min-h-[420px] lg:min-h-[400px]">
         <Image
           src="/sorted-sites/howitworks-v2/hero-showcase.webp"
-          alt="Sorted website previews shown across desktop and mobile screens."
+          alt="Sorted website designs shown across desktop and mobile screens."
           fill
           priority
           sizes="(min-width: 1024px) 720px, 100vw"
@@ -102,7 +108,7 @@ type ProcessStep = {
 const processSteps: ProcessStep[] = [
   {
     image: "/sorted-sites/howitworks-v2/card-edgbaston-tuition-centre.webp",
-    imageAlt: "Edgbaston Tuition Centre website direction preview.",
+    imageAlt: "Edgbaston Tuition Centre website first-page design.",
     icon: Pencil,
     title: "Tell us about the business",
     description: "Answer a few quick questions about what you do and what the website needs to do.",
@@ -110,23 +116,23 @@ const processSteps: ProcessStep[] = [
   },
   {
     image: "/sorted-sites/howitworks-v2/card-gracie-barra-jiu-jitsu.webp",
-    imageAlt: "Gracie Barra Jiu-Jitsu website direction preview.",
+    imageAlt: "Gracie Barra Jiu-Jitsu website first-page design.",
     icon: FileText,
-    title: "See a free homepage preview",
-    description: "We design a tailored homepage direction — the page, the copy and the structure — and send it to you to review.",
+    title: "See your first page build",
+    description: "We build a tailored first page — the design, the copy and the structure — and send it to you to review.",
     extra: "Free. No payment. No obligation.",
   },
   {
     image: "/sorted-sites/howitworks-v2/card-basketball-coach.webp",
-    imageAlt: "School of Skill basketball coaching website direction preview.",
+    imageAlt: "School of Skill basketball coaching website first-page design.",
     icon: Calendar,
     title: "Approve the direction",
-    description: "Happy with the preview? A {deposit} deposit starts the full build.",
+    description: "Happy with the first page? A {deposit} deposit starts the full build.",
     extra: "If not, walk away. It costs you nothing.",
   },
   {
     image: "/sorted-sites/howitworks-v2/card-kelly-electrics.webp",
-    imageAlt: "Kelly Electrics website direction preview.",
+    imageAlt: "Kelly Electrics website first-page design.",
     icon: Rocket,
     title: "We finish and launch",
     description: "We complete the site, connect everything and get it ready to launch.",
@@ -139,11 +145,12 @@ function ProcessSection() {
     <section className="mx-auto max-w-[1220px] px-5 py-16 sm:px-8">
       <div>
         <h2 className="text-[clamp(2.4rem,5vw,3.6rem)] font-black leading-[0.98] tracking-[-0.045em]">
-          <span className="inline-block">A simple process.</span>
-          <br />
-          <span className="inline-block">Total clarity.</span>
+          <span className="inline-block">Your website launch.</span>
           <Underline className="mt-3 h-[5px] w-24" />
         </h2>
+        <p className="mt-5 max-w-[560px] text-[15px] font-semibold leading-[1.55] text-black/62">
+          Our established website journey: a free first-page build, then a fixed-price complete build when you approve it.
+        </p>
       </div>
 
       <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
@@ -205,6 +212,9 @@ function IncludesSection() {
           <span className="inline-block">Ready for tomorrow.</span>
           <Underline className="mt-3 h-[5px] w-24" />
         </h2>
+        <p className="mt-5 max-w-[560px] text-[15px] font-semibold leading-[1.55] text-black/62">
+          What your website launch includes.
+        </p>
       </div>
 
       <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
@@ -228,9 +238,9 @@ function IncludesSection() {
 const timeline = [
   {
     icon: Clock3,
-    time: "First, the preview",
-    title: "Free homepage preview",
-    description: "We design a tailored homepage direction and send it for you to review.",
+    time: "First, your first page",
+    title: "Free first-page build",
+    description: "We build a tailored first page and send it for you to review.",
   },
   {
     icon: Code2,
@@ -300,10 +310,10 @@ function BottomCta() {
   return (
     <section className="bg-[#070707] px-5 py-14 text-white sm:px-8">
       <div className="mx-auto grid max-w-[1220px] items-center gap-10 lg:grid-cols-[1fr_1fr]">
-        <div className="relative aspect-[4/3] min-h-[280px] sm:min-h-[360px]">
+        <div className="relative aspect-[4/3] min-h-[200px] sm:min-h-[360px]">
           <Image
             src="/sorted-sites/howitworks-v2/footer-showcase.webp"
-            alt="Sorted website previews shown across desktop and mobile screens."
+            alt="Sorted website designs shown across desktop and mobile screens."
             fill
             sizes="(min-width: 1024px) 600px, 100vw"
             className="object-contain object-center"
@@ -311,7 +321,8 @@ function BottomCta() {
         </div>
 
         <div>
-          <h2 className="max-w-[420px] text-[clamp(2.4rem,5vw,3.8rem)] font-black leading-[0.98] tracking-[-0.045em]">
+          <p className="text-[11px] font-black uppercase tracking-[0.14em] text-white/45">Your website</p>
+          <h2 className="mt-3 max-w-[420px] text-[clamp(2.4rem,5vw,3.8rem)] font-black leading-[0.98] tracking-[-0.045em]">
             Ready to see your new website?
           </h2>
           <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-semibold">
@@ -323,7 +334,7 @@ function BottomCta() {
             ))}
           </ul>
           <p className="mt-6 max-w-[420px] text-[15px] font-semibold leading-[1.55] text-white/75">
-            Get your free homepage preview. No payment. No obligation.
+            We build your first page free. Decide whether to take it further. No payment. No obligation.
           </p>
           <div className="mt-7">
             <MockupButton variant="white" />

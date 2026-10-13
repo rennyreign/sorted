@@ -1,32 +1,33 @@
 import { MarketCopy } from "@/components/MarketPricing"
 import type { Metadata } from "next"
 import Image from "next/image"
-import { ArrowRight, ArrowUpRight, Check, Edit3, Eye, MessageSquare, Monitor, CircleDollarSign, Rocket } from "lucide-react"
+import { ArrowRight, ArrowUpRight, Check, Edit3, Eye, MessageSquare, Monitor, Search, Rocket } from "lucide-react"
 import { SitesFooter, SitesHeader, SitesPage } from "./sites/_components/SitesPrimitives"
 import { MockupButton } from "./sites/_components/SitesMockupModal"
+import { ImprovementButton } from "./sites/_components/ImprovementEntry"
 import { GoogleReviews } from "./sites/_components/GoogleReviews"
 import { exampleCaseStudies } from "./examples/_caseStudies"
 import { getGoogleReviews } from "@/lib/googleReviews"
 import s from "./home.module.css"
 
 export const metadata: Metadata = {
-  title: "Sorted | Websites for local businesses that look as good as the work",
+  title: "Sorted | We make good businesses more capable",
   description:
-    "Your competitors aren't better. They just look better. See a free mockup of your new website before you pay anything — one complete website, one fixed price: £3,000 in the UK or $3,500 in the US.",
+    "We modernise how local businesses win customers and get work done. Better digital systems. Less unnecessary work. More capacity to grow.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Sorted | Websites for local businesses",
+    title: "Sorted | We make good businesses more capable",
     description:
-      "See a free mockup of your new website before you spend a penny. One complete website. One fixed price.",
+      "We modernise how local businesses win customers and get work done. Better digital systems. Less unnecessary work. More capacity to grow.",
     url: "/",
   },
 }
 
 const portfolioSlugs = ["school-of-skill", "warwickshire-short-stays", "bodysharp-fitness"]
 
-export default async function SortedSitesHome() {
+export default async function SortedHome() {
   const googleReviews = await getGoogleReviews()
   const portfolio = portfolioSlugs
     .map((slug) => exampleCaseStudies.find((example) => example.slug === slug))
@@ -40,7 +41,7 @@ export default async function SortedSitesHome() {
         <div className={s.heroMedia}>
           <Image
             src="/sorted-home/hero-workshop.webp"
-            alt="Illustrative electrical services homepage on a laptop in a trades workshop"
+            alt="Illustrative electrical services website first page on a laptop in a trades workshop"
             fill
             priority
             sizes="(min-width: 1024px) 100vw, 100vw"
@@ -50,24 +51,27 @@ export default async function SortedSitesHome() {
         <div className={s.wrap}>
           <div className={s.heroInner}>
             <div className={s.heroCopy}>
+              <p className={s.heroKicker}>Business Modernisation</p>
               <h1 className={s.heroTitle}>
-                Your competitors
+                We make good{" "}
                 <br />
-                aren&apos;t better.
+                businesses{" "}
                 <br />
-                They just{" "}
                 <span className={s.heroScript}>
-                  look better.
+                  more capable.
                   <span className={s.heroScriptUnderline} aria-hidden="true" />
                 </span>
               </h1>
               <p className={s.heroBody}>
-                And that&apos;s a problem. Because customers judge what they see before they experience what you do.
+                We modernise how local businesses win customers and get work done.
+              </p>
+              <p className={s.heroSub}>
+                Better digital systems. Less unnecessary work. More capacity to grow.
               </p>
               <div className={s.heroCtaRow}>
-                <MockupButton variant="yellow" className={s.mockupCta} />
+                <ImprovementButton variant="yellow" className={s.mockupCta} />
                 <span className={s.ctaNote}>
-                  No payment.
+                  No pressure.
                   <i aria-hidden="true" />
                   No obligation.
                 </span>
@@ -76,9 +80,9 @@ export default async function SortedSitesHome() {
 
             <div className={s.annotation} aria-hidden="true">
               <span className={s.annotationText}>
-                Same trade.
+                Good business.
                 <br />
-                Different website.
+                Better equipped.
               </span>
               <svg className={s.annotationArrow} width="76" height="52" viewBox="0 0 76 52" fill="none" aria-hidden="true">
                 <path d="M5 5 C 22 28, 44 40, 66 41" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" />
@@ -90,14 +94,14 @@ export default async function SortedSitesHome() {
         </div>
       </section>
 
-      <section className={s.proof} aria-label="What you get with Sorted">
+      <section className={s.proof} aria-label="How Sorted works with your business">
         <div className={s.wrap}>
           <div className={s.proofGrid}>
             {[
-              [Eye, "Preview first", "See the design before you pay."],
-              [CircleDollarSign, "Fixed price", "One complete website. {total}."],
-              [Check, "Your decision", "No payment. No obligation."],
-              [Edit3, "Content control", "Edit your words and images."],
+              [Eye, "Understand the problem", "We look for the gap that is costing you most."],
+              [Search, "Show the improvement", "You see what better could look like first."],
+              [Check, "Build the solution", "We deliver the agreed change, not a promise."],
+              [Edit3, "Keep you in control", "Clear scope, clear price, your decision throughout."],
             ].map(([Icon, title, copy]) => {
               const RealIcon = Icon as typeof Eye
               return (
@@ -107,7 +111,7 @@ export default async function SortedSitesHome() {
                   </span>
                   <div>
                     <h2 className={s.proofTitle}>{title as string}</h2>
-                    <p className={s.proofDetail}><MarketCopy>{copy as string}</MarketCopy></p>
+                    <p className={s.proofDetail}>{copy as string}</p>
                   </div>
                 </article>
               )
@@ -120,21 +124,21 @@ export default async function SortedSitesHome() {
         <div className={s.wrap}>
           <div className={s.growthInner}>
             <div>
-              <h2 className={s.growthTitle}>A great website isn&apos;t a luxury.</h2>
-              <span className={s.growthScript}>It&apos;s a growth engine.</span>
+              <h2 className={s.growthTitle}>Good businesses deserve better systems.</h2>
+              <span className={s.growthScript}>Not more hassle.</span>
               <span className={s.growthUnderline} aria-hidden="true" />
               <p className={s.growthBody}>
-                Your website should work as hard as you do — showcasing your expertise and making it easier to enquire and become a customer.
+                A good business needs more than a good first impression. We improve how customers find, trust and contact you — and how the work gets done behind the scenes.
               </p>
               <a href="/howitworks" className={s.growthCta}>
-                See how it works <ArrowRight className="size-4" strokeWidth={2.8} />
+                See how we work <ArrowRight className="size-4" strokeWidth={2.8} />
               </a>
             </div>
             <ul className={s.benefitList}>
               {[
-                ["Look good.", "Make the quality of your work visible the moment someone lands on your site."],
-                ["Get enquiries.", "Clear routes to call, message and book — no hunting for a way to contact you."],
-                ["Turn them into customers.", "Remove the friction between interest and a decision."],
+                ["Get noticed.", "Make the quality of your work easier to find and easier to trust."],
+                ["Win customers.", "Clearer routes to enquire, book and buy — less friction between interest and a decision."],
+                ["Get work done.", "Fewer repeated manual tasks and less chasing, so the day has more room in it."],
               ].map(([title, copy]) => (
                 <li key={title} className={s.benefitItem}>
                   <span className={s.benefitRing}>
@@ -163,21 +167,21 @@ export default async function SortedSitesHome() {
       <section className={s.process}>
         <div className={`${s.wrap} ${s.processInner}`}>
           <div>
-            <h2 className={s.sectionTitle}>Our simple process.</h2>
+            <h2 className={s.sectionTitle}>How we modernise businesses.</h2>
             <span className={s.sectionUnderline} aria-hidden="true" />
             <p className={s.sectionBody}>
-              No jargon. No drawn-out process. Just a better website, built around your business.
+              No jargon. No drawn-out process. One improvement at a time, agreed with you before work starts.
             </p>
             <a href="/howitworks" className={s.outlineCta}>
-              See the full process <ArrowRight className="size-4" strokeWidth={2.6} />
+              See how we work <ArrowRight className="size-4" strokeWidth={2.6} />
             </a>
           </div>
           <ol className={s.steps}>
             {[
-              [MessageSquare, "Tell us about you", "Answer a few quick questions about your business and what the website needs to do."],
-              [Monitor, "See a free preview", "We design a tailored homepage direction for your business. You review it before paying anything."],
-              [Check, "Approve the direction", "Happy with what you see? A {deposit} deposit starts the build after approval."],
-              [Rocket, "We build & launch", "We finish the site and connect everything. {balance} balance when ready to launch."],
+              [Search, "Identify a costly gap", "We look at how you win customers and how work gets done, then find the gap worth fixing first."],
+              [Monitor, "Make the improvement visible", "You see what better could look like for your business before committing to anything."],
+              [MessageSquare, "Agree scope and price", "We agree exactly what changes, what it costs and how we will know it worked."],
+              [Rocket, "Deliver and review", "We build the agreed improvement, then review what changed together."],
             ].map(([Icon, title, copy], index) => {
               const RealIcon = Icon as typeof MessageSquare
               return (
@@ -187,7 +191,7 @@ export default async function SortedSitesHome() {
                   </span>
                   <p className={s.stepNum}>Step {index + 1}</p>
                   <h3 className={s.stepTitle}>{title as string}</h3>
-                  <p className={s.stepCopy}><MarketCopy>{copy as string}</MarketCopy></p>
+                  <p className={s.stepCopy}>{copy as string}</p>
                 </li>
               )
             })}
@@ -201,11 +205,11 @@ export default async function SortedSitesHome() {
             <h2 className={s.sectionTitle}>
               Real businesses.
               <br />
-              Better websites.
+              Real change.
             </h2>
             <span className={s.sectionUnderline} aria-hidden="true" />
             <p className={s.sectionBody}>
-              Some are live sites. Some are design previews. Look at the work, then decide what your business needs.
+              Our factory started with websites. Explore launched sites and design previews for real businesses — and see the quality of the work for yourself.
             </p>
             <a href="/examples" className={s.outlineCta}>
               View all examples <ArrowRight className="size-4" strokeWidth={2.6} />
@@ -238,16 +242,16 @@ export default async function SortedSitesHome() {
         <span className={`${s.pricingCorner} ${s.pricingCornerB}`} aria-hidden="true" />
         <div className={`${s.wrap} ${s.pricingInner}`}>
           <div>
-            <p className={s.pricingEyebrow}>Pricing</p>
+            <p className={s.pricingEyebrow}>Your website</p>
             <h2 className={s.pricingTitle}>
-              One complete launch setup.
+              One clear place to start:
               <br />
-              One fixed price.
+              your website launch.
             </h2>
             <p className={s.pricingPrice}><MarketCopy>{"{total}"}</MarketCopy></p>
             <span className={s.pricingPriceUnderline} aria-hidden="true" />
             <p className={s.pricingTerms}>
-              <MarketCopy>{"{deposit}"}</MarketCopy> deposit when you approve the direction. <MarketCopy>{"{balance}"}</MarketCopy> balance when the site is ready to launch.
+              Fixed scope, fixed price. <MarketCopy>{"{deposit}"}</MarketCopy> deposit when you approve the direction. <MarketCopy>{"{balance}"}</MarketCopy> balance when the site is ready to launch.
             </p>
           </div>
           <div className={s.pricingIncludes}>
@@ -268,7 +272,7 @@ export default async function SortedSitesHome() {
                 No surprises.
               </p>
               <p className={s.pricingRightCopy}>
-                The same launch setup at the same fixed price, for every business. Ad spend and ongoing management stay optional.
+                Your complete website launch has one agreed scope and one fixed price. Ad spend, ongoing management and additional work are only charged if separately agreed.
               </p>
               <a href="/pricing#included" className={s.pricingLink}>
                 What the price covers <ArrowUpRight className="size-4" strokeWidth={2.6} />
@@ -299,15 +303,15 @@ export default async function SortedSitesHome() {
       <section className={s.cta}>
         <div className={`${s.wrap} ${s.ctaInner}`}>
           <h2 className={s.ctaTitle}>
-            Ready to give your website
+            Ready to make your business
             <br />
-            the upgrade it deserves?
+            more capable?
           </h2>
           <div className={s.ctaMid}>
             <p className={s.ctaCopy}>
-              See your new design before you pay.
+              Tell us what is slowing you down.
               <br />
-              No obligation. No payment.
+              We will help you find the first gap worth fixing.
             </p>
             <svg className={s.ctaArrow} width="52" height="40" viewBox="0 0 52 40" fill="none" aria-hidden="true">
               <path d="M4 8 C 18 20, 30 28, 44 28" stroke="#0b0b0b" strokeWidth="2.5" strokeLinecap="round" />
@@ -315,7 +319,7 @@ export default async function SortedSitesHome() {
             </svg>
           </div>
           <div className={s.ctaAction}>
-            <MockupButton variant="primary" />
+            <ImprovementButton variant="primary" />
           </div>
         </div>
       </section>
