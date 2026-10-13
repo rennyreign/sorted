@@ -2,7 +2,7 @@
 
 **Status:** Canonical doctrine  
 **Repository path:** `doctrine/sorted-brand-voice.md`  
-**Scope:** Sorted brand, Sorted Sites, Sorted Ops, public website, prospecting, advertising, follow-ups, sales, and customer communications.
+**Scope:** Sorted brand, Sorted website and operations services, public website, prospecting, advertising, follow-ups, sales, and customer communications.
 
 ## 1. The foundational principle: Constructive confrontation
 
@@ -26,34 +26,39 @@ We respect the work. We challenge the presentation and the excuses that allow a 
 
 We do not claim every competitor is worse, every website is broken, or every business is losing sales. Provocative lines are creative hypotheses; personalised factual claims require evidence.
 
-## 3. The three-part customer promise
+## 3. The company promise
 
-> **We make you look good, get more enquiries, and turn them into customers.**
+> **We make good businesses more capable.**
+>
+> We modernise how local businesses win customers and get work done.
+>
+> Better digital systems. Less unnecessary work. More capacity to grow.
 
-1. **Look good:** Present genuine competence, credibility, reviews, and differentiation so customers can trust the business.
-2. **Get enquiries:** Make the business discoverable and approachable, supported where appropriate by outreach, advertising, and content.
-3. **Win customers:** Reduce friction in enquiries, bookings, responses, tracking, and follow-ups.
+This is the anchor and direction of customer value, **not a guarantee** of specific outcomes, enquiry volumes, or sales.
 
-This is a direction of customer value, **not a guarantee** that a website alone will generate a specific number of enquiries or sales.
+## 4. Company first. One brand, two services.
 
-## 4. Lead with the website; reveal the iceberg
+**Sorted is one business modernisation brand.** Websites and operational improvements are services under Sorted, not separate public sub-brands:
 
-**The website remains the primary entry product.** It is tangible, easy to understand, and can be demonstrated before commitment. Do not replace this entry message with abstract talk of digital transformation, AI, or operational infrastructure.
+- **Websites** — the established fixed-scope website launch package (£3,000 UK / $3,500 US), including agreed acquisition setup. It is tangible, easy to understand, and can be demonstrated before commitment.
+- **Operations** — scoped operational improvement. Feasibility, scope, price and success measures are agreed case by case. There is no fixed operations fee and no ready-made catalogue.
 
-The first offer is clear:
+The website is a powerful starting point, not a mandatory entry or the boundary of the company.
+
+For the website service, the offer stays concrete:
 
 > **See it first. Then decide.**
 
-Sorted can manufacture a website preview before asking the prospect to buy. The preview is proof, not a lengthy pitch. Keep the CTA simple: **Get your free mockup.** Describe the scope and timing accurately.
+Sorted can manufacture a website preview before asking the prospect to buy. The preview is proof, not a lengthy pitch. Keep the website CTA simple: **Get your free site.** The supporting disclosure is **We build your first page free. Decide whether to take it further.** Describe the scope and timing accurately. The company-level CTA offers a chooser — **winning customers, getting work done, or not sure yet** — rather than assuming every visitor wants a website.
 
-The wider business capability is visible but subordinate:
+The overall digital system is the frame:
 
-- **Above the waterline:** The website customers can see and evaluate.
-- **Below the waterline:** Advertising creative and campaign structure, analytics and tracking, follow-up sequences, campaign management, automation, and operational improvements.
+- **Above the waterline:** The customer-facing presence people can see and evaluate.
+- **Below the waterline:** Discovery, enquiry handling, tracking, workflows, and content control.
 
-A **What else we do** page may explain these connected capabilities with an iceberg visual and practical customer context. The fixed service may include the website plus agreed ad creative, campaign structure, tracking and follow-up setup when that is the current offer. Ad spend, ongoing campaign management and future optimisation remain separate and optional. Do not market Booking & CRM as part of the standard proposition unless a configured service is explicitly approved.
+A **What we improve** page explains these systems with an iceberg visual and practical customer context. The website launch may include the website plus agreed ad creative, campaign structure, tracking and follow-up setup. Ad spend, ongoing management and future optimisation remain separate and optional. Do not market Booking & CRM as part of the standard proposition unless a configured service is explicitly approved.
 
-**Website → relationship → understanding → one costly gap → useful intervention → demonstrated result → deeper trust.** Expansion is earned, never automatic.
+**Identify the gap → show the improvement → agree scope and price → deliver and review.** Expansion is earned, never automatic.
 
 ## 5. The psychological target: the story that permits inaction
 
@@ -69,6 +74,8 @@ Sorted's strongest copy challenges a self-justification, not merely an ugly webp
 | “Our work speaks for itself.” | Prospective customers may not have experienced the work yet. | **Good at the job. Bad at showing it.** |
 
 A strong hook creates self-recognition and a reason to act. The follow-through must offer proof and an achievable next step—not manufactured panic.
+
+Appearance-led hooks (looking better, embarrassing websites, retiring sites) belong to **website campaigns and acquisition work**. Company-level copy leads with capability and modernisation, not just looks.
 
 ## 6. The voice rules
 
@@ -108,9 +115,9 @@ A strong hook creates self-recognition and a reason to act. The follow-through m
 
 These are **examples of tone, not universal factual statements**. Select and adapt based on the audience and evidence.
 
-## 8. Copy architecture for Sorted Sites
+## 8. Copy architecture for the website service
 
-**Hero:** Provocation → why the gap matters → concrete website offer → free-mockup CTA → accurate risk reduction.
+**Hero:** Provocation → why the gap matters → concrete website offer → free-site CTA → accurate risk reduction.
 
 Example:
 
@@ -120,7 +127,7 @@ Example:
 >
 > We build brilliant websites for local businesses. See yours before you spend a penny.
 >
-> **Get your free mockup.** No payment. No obligation.
+> **Get your free site.** We build your first page free. No payment. No obligation.
 
 **Benefits:** Lead with look good → get enquiries → turn them into customers. Clarify which acquisition setup is included and which ongoing services remain optional.
 
@@ -130,13 +137,13 @@ Example:
 
 **Pricing:** State the fixed price and exactly what is included. Separate included setup from ongoing spend, management and optimisation. Avoid surprise charges.
 
-**Expansion:** Introduce “What else we do” as a logical continuation, not a competing primary CTA. Explain why ads, tracking, follow-ups, campaign management and operational workflows matter to the business.
+**Expansion:** Introduce **What we improve** as a parallel door into the company, not a subordinate add-on. Explain why presence, acquisition, enquiry handling, tracking, workflows and content control matter to the business — and which parts are established website launch delivery versus scoped operational work.
 
 **Final CTA:** Reconnect the uncomfortable observation with a low-friction action: see the improvement before deciding.
 
 ## 9. Channel adaptation
 
-- **Homepage:** One unmistakable provocation, followed immediately by explanation, proof, and an easy CTA.
+- **Homepage:** The fixed anchor — **We make good businesses more capable.** — followed immediately by explanation, proof, and an easy CTA. The headline stays fixed; any future rotation means different copy per visit, never a timed carousel.
 - **Outbound:** Ground the critique in the recipient's actual site; show the improved preview rather than making a generic insult.
 - **Ads and short-form content:** Sharper hooks and visual contrasts are appropriate; the landing experience must fulfil the expectation.
 - **Follow-up:** Helpful, concise, specific, and respectful. Do not repeat insults or use fake scarcity.
@@ -182,6 +189,6 @@ It inherits and must remain consistent with:
 
 **Canonical summary:**
 
-> **Sorted is constructively confrontational. We call out the digital gap between how good a local business is and how good it looks, make the better alternative visible, and earn the right to help with what comes next.**
+> **Sorted is constructively confrontational. We make good businesses more capable — calling out the gap between how good a local business is and how well its systems support it, making the better alternative visible, and earning the right to improve what comes next.**
 >
 > **Honest but fair. Nice but firm. We don't sell. We show.**

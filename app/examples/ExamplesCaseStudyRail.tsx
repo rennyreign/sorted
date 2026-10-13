@@ -47,8 +47,11 @@ export function ExamplesCaseStudyRail() {
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h2 className="max-w-[520px] text-[31px] font-black leading-[0.95] tracking-[-0.05em] sm:text-[38px]">
-            Websites we’ve built and launched.
+            Real work. Built by the factory.
           </h2>
+          <p className="mt-2 text-[12px] font-black uppercase tracking-[0.12em] text-black/45">
+            Website case studies and delivery work
+          </p>
         </div>
         <div className="flex items-center justify-between gap-4 sm:justify-end">
           <a href="#mockup-factory" className="inline-flex min-h-11 items-center gap-2 text-[12px] font-black transition-colors hover:text-black/58">

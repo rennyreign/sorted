@@ -38,7 +38,7 @@ export function V2Header({ active }: { active?: "how" | "problems" | "results" |
   ] as const
 
   return (
-    <header className="mx-auto flex w-full max-w-[1220px] items-center justify-between px-5 pb-5 pt-6 sm:px-8 md:pb-6">
+    <header className="mx-auto flex w-full max-w-[1220px] flex-wrap items-center justify-between gap-x-4 gap-y-3 px-5 pb-5 pt-6 sm:px-8 md:pb-6">
       <Link href="/ops" className="inline-block min-h-11 py-2 text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
         Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-v2-bakeshop)] translate-y-[-0.06em] text-[#cfe900]">ops</span>
       </Link>
@@ -51,8 +51,9 @@ export function V2Header({ active }: { active?: "how" | "problems" | "results" |
         ))}
       </nav>
       <div className="flex items-center gap-3 sm:gap-4">
+        <RoutineFinderButton label="Explore a possible improvement" variant="nav" className="hidden !bg-transparent !text-black !shadow-none ring-1 ring-black/20 xl:inline-flex" />
         <div className="relative">
-          <RoutineFinderButton label="Start the diagnostic" variant="nav" />
+          <BookDiscoveryButton className="h-11 !border-transparent !bg-[#070707] px-5 text-[11px] !text-white shadow-[0_14px_30px_rgba(0,0,0,0.16)]" />
           <span className="absolute -right-5 -top-3 hidden h-8 w-8 rotate-12 text-[#dfff00] sm:block">
             <DoodleBurst />
           </span>
@@ -70,16 +71,20 @@ export function V2Footer() {
           <p className="text-[33px] font-black leading-none tracking-[-0.045em] sm:text-[40px]">
             Sorted<span className="text-[#cfe900]">.</span><span className="[font-family:var(--font-v2-bakeshop)] translate-y-[-0.06em] text-[#cfe900]">ops</span>
           </p>
-          <p className="mt-2 max-w-[180px] text-[12px] font-semibold leading-[1.35] text-white/80">
-            We find the gaps that cost local businesses revenue and trust, and close them.
+          <p className="mt-2 max-w-[190px] text-[12px] font-semibold leading-[1.35] text-white/80">
+            Scoped operational improvement from Sorted — scope, price and success measures agreed before work.
           </p>
+          <Link href="/" className="mt-3 inline-flex min-h-11 items-center text-[12px] font-black text-[#dfff00]">
+            Sorted home <ArrowRight className="ml-2 size-4" strokeWidth={2.8} />
+          </Link>
           <p className="mt-5 text-[10px] font-medium text-white/55">© 2026 Sorted. All rights reserved.</p>
         </div>
         <FooterLinks links={[["How it works", "/ops/how-it-works"], ["Problems we solve", "/ops/problems-we-solve"], ["Pricing", "/ops/pricing"]]} />
         <FooterLinks links={[["About", "/ops/about"], ["Results", "/ops/results"], ["Example dashboard", "/ops/results-dashboard"]]} />
         <div>
           <p className="mb-4 text-[12px] font-black">Ready to start?</p>
-          <RoutineFinderButton label="Start the diagnostic" variant="nav" className="mb-3 h-11 border border-[#dfff00] bg-[#dfff00] !text-[#070707] shadow-none" />
+          <BookDiscoveryButton className="mb-3 h-11 !border-[#dfff00] !bg-[#dfff00] !text-[#070707] shadow-none" />
+          <RoutineFinderButton label="Explore a possible improvement" variant="nav" className="mb-3 h-10 !bg-transparent !text-white !shadow-none ring-1 ring-white/25" />
           <a href="https://wa.me/447386468085" className="inline-flex h-11 items-center gap-2 rounded-xl border border-white/15 px-5 text-[12px] font-black text-white">
             <Phone className="size-4" strokeWidth={2.6} />
             WhatsApp us
@@ -87,9 +92,8 @@ export function V2Footer() {
         </div>
       </div>
       <div className="mx-auto mt-6 flex max-w-[1220px] justify-end gap-5 text-[10px] font-semibold text-white/65">
-        <span>Privacy</span>
-        <span>Terms</span>
-        <span>Cookies</span>
+        <Link href="/privacy" className="transition-colors hover:text-white">Privacy</Link>
+        <Link href="/terms" className="transition-colors hover:text-white">Terms</Link>
       </div>
     </footer>
   )
@@ -125,19 +129,19 @@ export function MarkerText({ children, className = "" }: { children: ReactNode; 
   return <span className={`[font-family:var(--font-v2-highlight)] font-normal leading-[0.9] tracking-[-0.02em] text-[#cfe900] ${className}`}>{children}</span>
 }
 
-export function CtaBand({ title, copy, button = "Start the diagnostic" }: { title: string; copy: string; button?: string }) {
+export function CtaBand({ title, copy, button = "Explore a possible improvement" }: { title: string; copy: string; button?: string }) {
   return (
     <section className="mx-auto max-w-[1240px] px-4 py-6 sm:px-6">
       <div className="relative grid gap-6 overflow-hidden rounded-[17px] bg-[#e7ff1e] px-8 py-7 md:grid-cols-[1fr_1.1fr] md:items-center">
         <div>
           <p className="[font-family:var(--font-v2-marker)] text-[clamp(2.4rem,4vw,4.1rem)] uppercase leading-[1.03]">{title}</p>
-          <div className="mt-3 h-[3px] w-72 max-w-full rounded-full bg-[#ff73d2]" />
+          <div className="mt-3 h-[3px] w-full max-w-72 rounded-full bg-[#ff73d2]" />
         </div>
-        <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
+        <div className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-center">
           <p className="max-w-[360px] text-[14px] font-black leading-[1.45] tracking-[-0.03em]">{copy}</p>
           <div className="flex flex-wrap items-center gap-3">
-            <RoutineFinderButton label={button} variant="band" />
-            <BookDiscoveryButton />
+            <BookDiscoveryButton className="!border-transparent !bg-[#070707] !text-white" />
+            <RoutineFinderButton label={button} variant="band" className="!bg-transparent !text-black !shadow-none ring-1 ring-black/25" />
           </div>
         </div>
         <Star className="absolute right-7 top-6 size-14 rotate-12 text-[#ff73d2]" strokeWidth={2.6} />
@@ -146,14 +150,14 @@ export function CtaBand({ title, copy, button = "Start the diagnostic" }: { titl
   )
 }
 
-export function BookDiscoveryButton({ className = "" }: { className?: string }) {
+export function BookDiscoveryButton({ className = "", label = "Book a discovery call" }: { className?: string; label?: string }) {
   return (
     <a
       href="https://cal.com/sortmydigital/discovery"
       className={`inline-flex h-12 items-center justify-center gap-3 rounded-full border border-black/15 bg-white/75 px-6 text-[11px] font-black text-black shadow-[0_10px_24px_rgba(0,0,0,0.08)] transition-transform hover:-translate-y-0.5 ${className}`}
     >
       <CalendarDays className="size-4" strokeWidth={2.6} />
-      Book a discovery call
+      {label}
     </a>
   )
 }

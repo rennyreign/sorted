@@ -2,20 +2,20 @@
 
 **Status:** Active doctrine
 **Parent:** ADX Engine. Digital Manufacturing.
-**Dispatch units:** Sorted Sites + Sorted Ops
+**Dispatch units:** Websites + Operational improvements
 
 ---
 
 ## What Sorted Is
 
-Sorted is a business modernisation company operating inside the ADX Engine digital manufacturing system.
+Sorted is one business modernisation brand operating inside the ADX Engine digital manufacturing system. Its core promise: **We make good businesses more capable.** Supporting statement: We modernise how local businesses win customers and get work done. Better digital systems. Less unnecessary work. More capacity to grow.
 
-It has two public offers:
+Websites and operational improvements are services under Sorted, not separate public sub-brands:
 
-- **Sorted Sites** creates websites that build trust and generate enquiries.
-- **Sorted Ops** removes repetitive work, recovers time, and improves operational performance.
+- **Websites** — the established fixed-scope website launch package (£3,000 UK / $3,500 US), including agreed acquisition setup. How we work presents the website process; website CTA: "Get your free site" with the disclosure "We build your first page free. Decide whether to take it further."
+- **Operations** — scoped operational improvement at `/ops`; feasibility, scope, price and success measures are agreed case by case. No invented retainer or starts-from price; ongoing support is agreed only for a defined need.
 
-The website manufacturing line remains active as the Sorted Sites fulfilment engine. Sorted Ops expands the same manufacturing discipline into operating systems, automations, measurement, and process improvement.
+Pricing combines the fixed website launch and one scoped operational-improvement offer. The website is a powerful starting point, not a mandatory entry or the boundary of the company. The website manufacturing line remains active as the website fulfilment engine. Operations work expands the same manufacturing discipline into operating systems, automations, measurement, and process improvement.
 
 Not a web agency. Not a freelance service. A modernisation company with defined processes, consistent output quality, and a client experience that converts because prospects see real work before they buy.
 

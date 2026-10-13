@@ -64,7 +64,7 @@ function GoogleReviewsCards({ data }: { data: GoogleReviewsData }) {
           href={data.profileUrl}
           target="_blank"
           rel="noreferrer"
-          className="group inline-flex items-center gap-3 rounded-full border border-black/12 bg-white px-4 py-2 transition-colors hover:border-black/25"
+          className="group inline-flex items-center gap-3 rounded-full border border-black/12 bg-white px-4 py-2 transition-colors hover:border-black/25 max-sm:w-full max-sm:flex-wrap"
         >
           <GoogleMark />
           <strong className="text-[17px] tracking-[-0.03em]">{data.rating.toFixed(1)}</strong>
