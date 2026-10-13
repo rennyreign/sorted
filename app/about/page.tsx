@@ -2,13 +2,18 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import { ArrowRight, Eye, Handshake, Network, Rocket, ThumbsUp } from "lucide-react"
 import { SitesFooter, SitesHeader, SitesPage, Underline } from "../sites/_components/SitesPrimitives"
-import { MockupButton } from "../sites/_components/SitesMockupModal"
+import { ImprovementButton } from "../sites/_components/ImprovementEntry"
 
 export const metadata: Metadata = {
-  title: "Why Sorted Exists | Good at the job? Your website should show it.",
-  description: "Sorted respects the work local businesses do and closes the gap between the business and how it looks online — starting with the website.",
+  title: "About Sorted | Good at what you do? Your systems should be too.",
+  description: "Sorted modernises how local businesses win customers and get work done — closing the gap between the business and the systems around it.",
   alternates: {
     canonical: "/about",
+  },
+  openGraph: {
+    title: "About Sorted | Good at what you do? Your systems should be too.",
+    description: "Sorted modernises how local businesses win customers and get work done — closing the gap between the business and the systems around it.",
+    url: "/about",
   },
 }
 
@@ -29,18 +34,18 @@ export default function AboutPage() {
       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 pb-14 pt-12 sm:px-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:pb-20 lg:pt-16">
         <div>
           <h1 className="text-[clamp(3.35rem,6vw,6.4rem)] font-black leading-[0.94] tracking-[-0.045em]">
-            Good at the<br />
-            job? Your website<br />
-            should <span className="inline-block [font-family:var(--font-sites-fave-script)] text-[1.45em] font-normal leading-[0.72] tracking-[0] text-[#d4ea00]">show it.</span>
+            Good at what<br />
+            you do? Your systems<br />
+            <span className="inline-block [font-family:var(--font-sites-fave-script)] text-[clamp(5.6rem,9vw,9.2rem)] font-normal leading-[0.85] tracking-[0] text-[#d4ea00] max-sm:text-[clamp(4.8rem,25vw,5.6rem)]">should be too.</span>
           </h1>
           <Underline className="mt-5 w-[min(320px,75vw)]" />
           <p className="mt-7 max-w-[540px] text-[17px] font-semibold leading-[1.55] tracking-[-0.03em] text-black/78">
-            We respect the work. But too many good local businesses are let down by how they look online — and customers judge what they see before they experience what you do. So we show you something better before we ask for a penny.
+            Plenty of competent local businesses lack the time, budget or technical support to modernise the systems around the work — how customers find them and how work gets done. That is the gap Sorted closes.
           </p>
           <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <MockupButton />
+            <ImprovementButton />
             <a href="/what-else-we-do" className="inline-flex min-h-11 items-center gap-2 px-1 text-[12px] font-black transition-colors hover:text-black/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#dfff00] focus-visible:ring-offset-4">
-              What else we do <ArrowRight className="size-4" strokeWidth={2.8} />
+              What we improve <ArrowRight className="size-4" strokeWidth={2.8} />
             </a>
           </div>
         </div>
@@ -93,10 +98,10 @@ export default function AboutPage() {
 
       <section className="mx-auto grid max-w-[1220px] gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.4fr_0.6fr] lg:gap-20 lg:py-24">
         <div className="lg:sticky lg:top-28 lg:self-start">
-          <p className="mb-4 text-[11px] font-black uppercase tracking-[0.14em] text-black/45">Our mission</p>
+          <p className="mb-4 text-[12px] font-black uppercase tracking-[0.14em] text-black/45">Our mission · Being local shouldn&apos;t mean being behind.</p>
           <h2 className="max-w-[440px] text-[clamp(2.7rem,5vw,5.2rem)] font-black leading-[0.93] tracking-[-0.055em]">Build businesses. Strengthen places. Grow the economy.</h2>
           <Underline className="mt-6 w-48" />
-          <p className="mt-7 max-w-[440px] text-[15px] font-semibold leading-[1.65] text-black/68">Local is where economic contribution becomes tangible, not where the ambition ends. More capable businesses create value in the places around them. Repeated across towns, cities and regions, that value contributes to the strength of the economy as a whole.</p>
+          <p className="mt-7 max-w-[440px] text-[15px] font-semibold leading-[1.65] text-black/68">Our ambition is to help stronger businesses create value in the places around them. Better systems can free up capacity, support growth and make buying local easier. Repeated across towns, cities and regions, that is the contribution we want to help make.</p>
         </div>
 
         <ol className="border-t border-black">
@@ -132,7 +137,7 @@ export default function AboutPage() {
                   <span className="grid size-11 place-items-center bg-[#dfff00] text-[12px] font-black">02</span>
                   <div>
                     <h3 className="text-[21px] font-black tracking-[-0.04em]">Improve what happens behind the front door.</h3>
-                    <p className="mt-3 max-w-[600px] text-[14px] font-semibold leading-[1.6] text-black/66">Enquiries, follow-up, booking, customer data, reviews, reporting and repetitive work all shape the experience. We address the next costly gap only when it has earned its place. <a href="/what-else-we-do" className="underline underline-offset-4 transition-colors hover:text-black">See what else we do</a>.</p>
+                    <p className="mt-3 max-w-[600px] text-[14px] font-semibold leading-[1.6] text-black/66">Enquiries, follow-up, customer data, reviews, reporting and repetitive work all shape the experience. We address the next costly gap only when it has earned its place. <a href="/what-else-we-do" className="underline underline-offset-4 transition-colors hover:text-black">See what we improve</a>.</p>
                   </div>
                 </article>
               </div>
@@ -150,10 +155,10 @@ export default function AboutPage() {
 
         <div className="grid grid-cols-2 gap-x-5 gap-y-9 md:grid-cols-4 md:gap-7">
           {[
-            [Eye, "We build a mockup", "A considered website direction built around the real business."],
-            [Eye, "You review it", "See the quality, question the thinking and decide in your own time."],
-            [ThumbsUp, "You approve", "Commit only when the work has earned your confidence."],
-            [Rocket, "We build and launch", "We finish the site, connect what matters and put it to work."],
+            [Eye, "Identify the gap", "We find the costly gap worth addressing first."],
+            [Eye, "Show the improvement", "See what better could look like before committing."],
+            [ThumbsUp, "Agree the intervention", "Scope, price and success measures agreed upfront."],
+            [Rocket, "Deliver and review", "We deliver the agreed change and review what happened."],
           ].map(([Icon, title, copy], index) => {
             const RealIcon = Icon as typeof Eye
             return (
@@ -211,7 +216,7 @@ export default function AboutPage() {
           <div className="flex flex-col items-start gap-4 lg:items-end">
             <p className="max-w-[520px] text-[14px] font-semibold leading-[1.55] text-black/66 lg:text-right">If you run a business, see what better could look like. If you support businesses, explore what we could build through one trusted partnership.</p>
             <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-              <MockupButton variant="primary" />
+              <ImprovementButton variant="primary" />
               <a href="/partners/enterprise" className="inline-flex min-h-11 items-center gap-2 px-3 text-[12px] font-black transition-colors hover:text-black/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#dfff00] focus-visible:ring-offset-2">
                 Explore partnerships <Handshake className="size-4" strokeWidth={2.5} />
               </a>

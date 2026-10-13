@@ -8,15 +8,17 @@ This file captures the core strategic and operational doctrine of Sorted so it r
 
 ---
 
-## Strategic Identity (Updated 22.06.2026)
+## Strategic Identity (Updated — one business modernisation brand)
 
-Sorted is a **small-business modernization company**, not a website company.
+Sorted is **one business modernisation brand**.
 
-- **Mission:** Help small businesses build more trust, generate more enquiries, and win more customers through digital modernization.
-- **The website is the doorway, not the destination.** It is the first and most visible capability gap that Sorted solves, but future solutions include reviews, follow-up systems, CRM, AI receptionists, booking systems, reporting, and automation.
-- **Homepage positioning has shifted from:**
-  - "Your new website. Sorted." (old, website-first)
-  - **to:** "More trust. More enquiries. More customers." (modernization-first)
+- **Core promise:** We make good businesses more capable.
+- **Supporting statement:** We modernise how local businesses win customers and get work done. Better digital systems. Less unnecessary work. More capacity to grow.
+- **Websites and operational improvements are services under Sorted, not separate public sub-brands.** How we work presents the website process; Operations sits within the main site at `/ops`.
+- **Pricing** combines the fixed £3,000 UK / $3,500 US website launch and one scoped operational-improvement offer. No invented retainer or starts-from price; ongoing support is agreed only for a defined need.
+- **Website CTA:** "Get your free site". Supporting disclosure: "We build your first page free. Decide whether to take it further."
+- **Existing website manufacturing, approval, analytics and submission infrastructure is unchanged.** Preserve legacy `/sites`, `/ops`, `/v2` and pricing addresses as compatibility routes.
+- **Homepage headline stays fixed;** future rotation means different copy per visit, never a timed carousel.
 
 The website should make visitors feel they are improving their business, not simply buying a website.
 

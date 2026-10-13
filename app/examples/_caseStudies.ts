@@ -42,7 +42,7 @@ export const exampleCaseStudies: ExampleCaseStudy[] = [
     testimonialName: "Dalian Mason",
     testimonialRole: "Founder, School of Skill",
     stats: [
-      ["24hrs", "First homepage concept delivered"],
+      ["24hrs", "First page concept delivered"],
       ["3", "Service pillars clarified and structured"],
       ["100%", "Mobile responsive build"],
       ["4", "Audience groups clearly addressed"],
@@ -96,7 +96,7 @@ export const exampleCaseStudies: ExampleCaseStudy[] = [
     testimonialName: "Mikey Spice",
     testimonialRole: "Founder & Head Coach",
     stats: [
-      ["24hrs", "First homepage concept delivered"],
+      ["24hrs", "First page concept delivered"],
       ["3", "Clear coaching pathways"],
       ["100%", "Mobile responsive redesign"],
       ["20+", "Years of experience showcased"],
@@ -123,7 +123,7 @@ export const exampleCaseStudies: ExampleCaseStudy[] = [
     testimonialName: "Savannah Villegas",
     testimonialRole: "Founder & Creative Director",
     stats: [
-      ["24hrs", "First homepage concept delivered"],
+      ["24hrs", "First page concept delivered"],
       ["8", "Custom-designed pages"],
       ["100%", "Mobile responsive build"],
       ["Premium", "Editorial-inspired design system"],
@@ -150,7 +150,7 @@ export const exampleCaseStudies: ExampleCaseStudy[] = [
     testimonialName: "Warwickshire Short Stays",
     testimonialRole: "Management Team",
     stats: [
-      ["24hrs", "First homepage concept delivered"],
+      ["24hrs", "First page concept delivered"],
       ["5", "Properties showcased"],
       ["100%", "Mobile responsive redesign"],
       ["Direct", "Booking-first user journey"],

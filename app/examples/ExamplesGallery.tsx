@@ -69,7 +69,7 @@ export function ExamplesGallery({ mockups, totalCount }: { mockups: MockupExampl
                 Fresh from the factory.
               </h2>
               <p className="mt-4 max-w-[270px] text-[14px] font-semibold leading-[1.45] text-white/74">
-                Every design below started as a free mockup. Scroll to see what’s being built right now.
+                Every design below started as a free first-page build. Scroll to see what’s being built right now.
               </p>
               <ArrowRight className="mt-7 hidden size-12 -rotate-45 text-[#dfff00] lg:block" strokeWidth={1.8} />
             </div>

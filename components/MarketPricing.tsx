@@ -1,6 +1,7 @@
 "use client"
 
 import { useSyncExternalStore } from "react"
+import { ChevronDown } from "lucide-react"
 import { MARKET_PRICING, marketCopy, parseMarket, type Market } from "@/lib/market-pricing"
 
 const PREFERENCE_KEY = "sorted-market"
@@ -80,24 +81,27 @@ export function MarketCopy({ children }: { children: string }) {
 export function MarketSelector({ className = "" }: { className?: string }) {
   const market = useMarket()
   return (
-    <select
-      aria-label="Pricing region"
-      value={market}
-      onChange={(event) => {
-        const next = parseMarket(event.target.value)
-        if (!next) return
-        revision++
-        writeStorage("localStorage", PREFERENCE_KEY, next)
-        // Avoid a stale outreach query undoing the choice on refresh.
-        const url = new URL(window.location.href)
-        url.searchParams.delete("market")
-        window.history.replaceState(window.history.state, "", url)
-        publish(next)
-      }}
-      className={`min-h-11 rounded-full border border-current/20 bg-transparent px-3 text-[12px] font-bold focus-visible:outline-2 focus-visible:outline-offset-2 ${className}`}
-    >
-      <option value="UK" className="bg-white text-black">UK · £ GBP</option>
-      <option value="US" className="bg-white text-black">US · $ USD</option>
-    </select>
+    <span className="relative inline-flex shrink-0 items-center">
+      <select
+        aria-label="Pricing region"
+        value={market}
+        onChange={(event) => {
+          const next = parseMarket(event.target.value)
+          if (!next) return
+          revision++
+          writeStorage("localStorage", PREFERENCE_KEY, next)
+          // Avoid a stale outreach query undoing the choice on refresh.
+          const url = new URL(window.location.href)
+          url.searchParams.delete("market")
+          window.history.replaceState(window.history.state, "", url)
+          publish(next)
+        }}
+        className={`min-h-11 appearance-none rounded-full border border-current/20 bg-transparent pl-3 pr-9 text-[12px] font-bold focus-visible:outline-2 focus-visible:outline-offset-2 ${className}`}
+      >
+        <option value="UK" className="bg-white text-black">UK · £ GBP</option>
+        <option value="US" className="bg-white text-black">US · $ USD</option>
+      </select>
+      <ChevronDown aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2" strokeWidth={2.4} />
+    </span>
   )
 }

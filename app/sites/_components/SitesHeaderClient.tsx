@@ -1,24 +1,28 @@
 "use client"
 
 import { MarketSelector } from "@/components/MarketPricing"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Menu, Phone, X } from "lucide-react"
 import { MockupButton } from "./SitesMockupModal"
+import { ImprovementButton } from "./ImprovementEntry"
 
-type ActivePage = "how" | "examples" | "pricing" | "included" | "whatelse" | "about" | "updates"
+type ActivePage = "how" | "examples" | "sites" | "operations" | "pricing" | "included" | "whatelse" | "about" | "updates"
 export type HeaderTone = "light" | "dark"
+export type HeaderCta = "company" | "website"
 
 const links = [
-  ["how", "How it works", "/howitworks"],
-  ["examples", "Examples", "/examples"],
+  ["how", "How we work", "/howitworks"],
+  ["examples", "Our work", "/examples"],
+  ["operations", "Operations", "/ops"],
   ["pricing", "Pricing", "/pricing"],
-  ["whatelse", "What else we do", "/what-else-we-do"],
+  ["whatelse", "What we improve", "/what-else-we-do"],
   ["about", "About", "/about"],
 ] as const
 
-export function SitesHeaderClient({ active, tone = "light", variant = "default" }: { active?: ActivePage; tone?: HeaderTone; variant?: "default" | "home" }) {
+export function SitesHeaderClient({ active, tone = "light", variant = "default", cta = "company" }: { active?: ActivePage; tone?: HeaderTone; variant?: "default" | "home"; cta?: HeaderCta }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     function updateScrolled() {
@@ -44,7 +48,7 @@ export function SitesHeaderClient({ active, tone = "light", variant = "default" 
         <a href="/" className={`inline-block min-h-11 py-2 font-black leading-none tracking-[-0.045em] ${variant === "home" ? "text-[34px] sm:text-[36px]" : "text-[33px] sm:text-[40px]"}`} aria-label="Sorted home">
           Sorted<span className={variant === "home" ? "text-[#d7ff00]" : "text-[#cfe900]"}>.</span>
         </a>
-        <nav className={`hidden items-center text-[12px] font-extrabold tracking-[-0.02em] lg:flex ${variant === "home" ? "gap-3 xl:gap-6" : "gap-6"}`}>
+        <nav className={`hidden items-center text-[12px] font-extrabold tracking-[-0.02em] xl:flex ${variant === "home" ? "gap-2.5 xl:gap-5" : "gap-5"}`}>
           {links.map(([key, label, href]) => (
             <a
               key={key}
@@ -69,14 +73,19 @@ export function SitesHeaderClient({ active, tone = "light", variant = "default" 
             <Phone className="size-6" strokeWidth={2.4} />
           </a>
           <div className="hidden sm:block">
-            <MockupButton variant={darkAtTop ? "yellow" : "nav"} label="Get your free site" className={variant === "home" && darkAtTop ? "bg-[#d7ff00]!" : ""} />
+            {cta === "website" ? (
+              <MockupButton variant={darkAtTop ? "yellow" : "nav"} className={variant === "home" && darkAtTop ? "bg-[#d7ff00]!" : ""} />
+            ) : (
+              <ImprovementButton variant={darkAtTop ? "yellow" : "nav"} location="header" className={variant === "home" && darkAtTop ? "bg-[#d7ff00]!" : ""} />
+            )}
           </div>
           <button
+            ref={menuButtonRef}
             type="button"
             aria-label={menuOpen ? "Close navigation" : "Open navigation"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
-            className={`grid size-11 place-items-center rounded-full shadow-[0_10px_28px_rgba(0,0,0,0.16)] lg:hidden ${
+            className={`grid size-11 place-items-center rounded-full shadow-[0_10px_28px_rgba(0,0,0,0.16)] xl:hidden ${
               darkAtTop ? "bg-white text-[#070707]" : "bg-[#070707] text-white"
             }`}
           >
@@ -84,8 +93,8 @@ export function SitesHeaderClient({ active, tone = "light", variant = "default" 
           </button>
         </div>
       </div>
-      {menuOpen ? (
-        <div className="mx-auto mt-3 max-w-[1220px] rounded-[16px] border border-black/10 bg-white/96 p-3 text-[#070707] shadow-[0_18px_44px_rgba(0,0,0,0.12)] backdrop-blur-xl lg:hidden">
+      {
+        <div className={`mx-auto mt-3 max-w-[1220px] rounded-[16px] border border-black/10 bg-white/96 p-3 text-[#070707] shadow-[0_18px_44px_rgba(0,0,0,0.12)] backdrop-blur-xl xl:hidden ${menuOpen ? "" : "hidden"}`}>
           <nav className="grid gap-1 text-[15px] font-black tracking-[-0.03em]">
             {links.map(([key, label, href]) => (
               <a
@@ -106,11 +115,15 @@ export function SitesHeaderClient({ active, tone = "light", variant = "default" 
               WhatsApp
             </a>
             <div onClick={() => setMenuOpen(false)}>
-              <MockupButton variant="nav" className="w-full" />
+              {cta === "website" ? (
+                <MockupButton variant="nav" className="w-full" returnFocusRef={menuButtonRef} />
+              ) : (
+                <ImprovementButton variant="nav" location="header" className="w-full" returnFocusRef={menuButtonRef} />
+              )}
             </div>
           </div>
         </div>
-      ) : null}
+      }
     </header>
   )
 }

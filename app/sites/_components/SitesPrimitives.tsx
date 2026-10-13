@@ -36,8 +36,8 @@ export function SitesPage({ children }: { children: ReactNode }) {
   return <main className={`${sitesMarker.variable} ${sitesHighlight.variable} ${sitesFaveScript.variable} ${sitesBakeshop.variable} sorted-sites-shell min-h-screen bg-[#fbfbfa] pt-[76px] text-[#070707]`}>{children}</main>
 }
 
-export function SitesHeader({ active, tone = "light", variant = "default" }: { active?: "how" | "examples" | "pricing" | "included" | "whatelse" | "about" | "updates"; tone?: "light" | "dark"; variant?: "default" | "home" }) {
-  return <SitesHeaderClient active={active} tone={tone} variant={variant} />
+export function SitesHeader({ active, tone = "light", variant = "default", cta = "company" }: { active?: "how" | "examples" | "sites" | "operations" | "pricing" | "included" | "whatelse" | "about" | "updates"; tone?: "light" | "dark"; variant?: "default" | "home"; cta?: "company" | "website" }) {
+  return <SitesHeaderClient active={active} tone={tone} variant={variant} cta={cta} />
 }
 
 export function SitesFooter({ variant = "default", tone = "dark" }: { variant?: "default" | "compact"; tone?: "dark" | "light" }) {
@@ -52,7 +52,8 @@ export function SitesFooter({ variant = "default", tone = "dark" }: { variant?: 
         <div className={compact ? "max-sm:col-span-2" : ""}>
           <Logo dark={!light} />
           <p className={`mt-4 text-[13px] font-semibold leading-[1.4] ${muted} ${compact ? "max-w-[230px]" : "max-w-[220px]"}`}>
-            Brilliant websites for good local businesses.
+            We make good businesses more capable.
+            <span className={`mt-1.5 block text-[12px] ${faintMid}`}>Business modernisation for local businesses.</span>
           </p>
           {!compact ? (
             <>
@@ -63,8 +64,8 @@ export function SitesFooter({ variant = "default", tone = "dark" }: { variant?: 
             </>
           ) : null}
         </div>
-        <FooterLinks light={light} title="Product" links={[["How it works", "/howitworks"], ["Examples", "/examples"], ["Pricing", "/pricing"], ["What else we do", "/what-else-we-do"], ["SortedUpdates", "/website-updates"]]} />
-        <FooterLinks light={light} title="Company" links={[["About us", "/about"], ["Our process", "/"], ["Reviews", compact ? "/#reviews" : "/examples"], ["Partner program", "/partners"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
+        <FooterLinks light={light} title="How we help" links={[["Websites", "/howitworks"], ["Operations", "/ops"], ["Pricing", "/pricing"], ["SortedUpdates", "/website-updates"]]} />
+        <FooterLinks light={light} title="Company" links={[["How we work", "/howitworks"], ["Our work", "/examples"], ["About us", "/about"], ["Reviews", compact ? "/#reviews" : "/examples"], ["Partner program", "/partners"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
         <div className={compact ? "max-sm:col-span-2" : ""}>
           <p className="mb-4 text-[12px] font-black">Let's talk</p>
           <a href="https://wa.me/447386468085" className={`inline-flex h-11 items-center gap-2 rounded-xl px-5 text-[12px] font-black text-black ${compact ? "bg-[#d7ff00]" : "bg-[#dfff00]"}`}>
@@ -242,7 +243,7 @@ export function SitePreviewCard({ example = examples[0], large = false }: { exam
   )
 }
 
-export function DarkCta({ title = "See it first. Then decide.", copy = "Get your free site. No payment. No obligation." }: { title?: string; copy?: string }) {
+export function DarkCta({ title = "See it first. Then decide.", copy = "We build your first page free. Decide whether to take it further. No payment. No obligation." }: { title?: string; copy?: string }) {
   return (
     <section className="bg-[#070707] px-5 pt-10 text-black sm:px-8">
       <div className="mx-auto grid max-w-[1220px] gap-5 rounded-[12px] bg-white px-5 py-5 shadow-[0_18px_44px_rgba(0,0,0,0.22)] sm:px-6 lg:grid-cols-[0.3fr_0.3fr_0.12fr_0.28fr] lg:items-center">
@@ -254,7 +255,7 @@ export function DarkCta({ title = "See it first. Then decide.", copy = "Get your
         </div>
         <p className="text-[14px] font-semibold leading-[1.45]"><MarketCopy>{copy}</MarketCopy></p>
         <ArrowRight className="hidden size-16 rotate-[-8deg] lg:block" strokeWidth={1.7} />
-        <MockupButton variant="primary" className="justify-self-start whitespace-nowrap lg:justify-self-end" />
+        <MockupButton variant="primary" className="w-full justify-self-start sm:w-auto sm:whitespace-nowrap lg:justify-self-end" />
       </div>
     </section>
   )

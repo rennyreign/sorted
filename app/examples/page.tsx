@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { ArrowRight, Check, Edit3, Eye, Rocket } from "lucide-react"
 import Image from "next/image"
 import { MockupButton } from "../sites/_components/SitesMockupModal"
+import { ImprovementButton } from "../sites/_components/ImprovementEntry"
 import { SitesFooter, SitesHeader, SitesPage, Underline } from "../sites/_components/SitesPrimitives"
 import { ExamplesGallery } from "./ExamplesGallery"
 import { ExamplesCaseStudyRail } from "./ExamplesCaseStudyRail"
@@ -13,15 +14,20 @@ import { fetchExamples } from "./data"
 export const revalidate = 86400
 
 export const metadata: Metadata = {
-  title: "Examples | Sorted",
-  description: "Real Sorted mockups for small businesses across health, home services, hospitality, retail and professional services.",
+  title: "Our work | Sorted",
+  description: "Website case studies and delivery work — what Sorted has built, launched and explored for real businesses.",
   alternates: {
     canonical: "/examples",
+  },
+  openGraph: {
+    title: "Our work | Sorted",
+    description: "Real work. Built by the factory. Website case studies and delivery work for real businesses.",
+    url: "/examples",
   },
 }
 
 const processSteps = [
-  [Edit3, "We build a mockup", "A free, custom design made for your business."],
+  [Edit3, "We build your first page", "A free, custom first-page build made for your business."],
   [Eye, "You review it", "See exactly what you are getting."],
   [Check, "You approve", "Love it? One fixed price completes it."],
   [Rocket, "We build & launch", "We build your website and get you live."],
@@ -49,10 +55,10 @@ export default async function ExamplesPage() {
           </div>
           <Underline className="mt-4 w-full max-w-[300px]" />
           <p className="mt-6 max-w-[420px] text-[16px] font-semibold leading-[1.5] tracking-[-0.025em] text-black/75">
-            Real websites. Thoughtful transformations. See what better could look like for your business.
+            Our factory started with websites. Here&apos;s what we&apos;ve built, launched and explored for real businesses. Every project helps us improve the systems behind the work.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-6">
-            <MockupButton />
+            <ImprovementButton />
             <a href="#live-websites" className="inline-flex min-h-11 items-center gap-2 text-[13px] font-black transition-colors hover:text-black/55">
               Explore the work <ArrowRight className="size-4 rotate-90" strokeWidth={2.8} />
             </a>
@@ -71,7 +77,8 @@ export default async function ExamplesPage() {
       <section className="bg-white px-5 py-8 sm:px-8">
         <div className="mx-auto grid max-w-[1220px] gap-8 lg:grid-cols-[0.28fr_0.72fr] lg:items-center">
           <div>
-            <h2 className="text-[34px] font-black leading-[0.95] tracking-[-0.05em]">How every website starts</h2>
+            <p className="text-[11px] font-black uppercase tracking-[0.14em] text-black/45">Website launch</p>
+            <h2 className="mt-2 text-[34px] font-black leading-[0.95] tracking-[-0.05em]">How every website starts</h2>
             <p className="mt-4 max-w-[260px] text-[15px] font-semibold leading-[1.45] text-black/65">
               Simple, fast and built around your business.
             </p>
@@ -99,7 +106,7 @@ export default async function ExamplesPage() {
             <h2 className="text-[22px] font-black leading-[1.02] tracking-[-0.04em]">See what we can build for your business</h2>
           </div>
           <p className="text-[13px] font-black leading-[1.35]">
-            Get your free mockup.
+            We build your first page free. Decide whether to take it further.
             <span className="block font-semibold">No payment. No obligation.</span>
           </p>
           <ArrowRight className="hidden size-14 lg:block" strokeWidth={2} />

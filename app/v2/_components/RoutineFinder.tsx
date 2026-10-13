@@ -95,7 +95,7 @@ const recommendations = {
 type RecommendationKey = keyof typeof recommendations
 
 export function RoutineFinderButton({
-  label = "Start the diagnostic",
+  label = "Explore a possible improvement",
   variant = "primary",
   className = "",
 }: {
