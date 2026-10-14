@@ -1432,7 +1432,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       previewUrl:
         process.env.NODE_ENV === "development"
           ? "http://localhost:4180"
-          : "https://sweeneys-martial-arts.netlify.app",
+          : "https://sortmydigital.site/preview/sweeneys-martial-arts/",
       previewImageUrl: "/sweeneys-homepage-preview.webp",
       offerPage: {
         label: "Trial page",
