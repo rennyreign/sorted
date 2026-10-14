@@ -6,6 +6,17 @@
 
 ---
 
+## Hosting Paths (updated October 2026)
+
+Two hosting paths now exist:
+
+- **Pre-commitment previews → Hostinger.** Client repos ship `.github/workflows/deploy-preview.yml`, which builds `out/` and SCPs it to `sortmydigital.site/preview/<repo-name>/` on every `main` push. Free to serve. The workspace `previewUrl` points here — no Netlify site should exist before Nod 2.
+- **Post-commitment production → Netlify (prebuilt) or client Hostinger domain.** Once the client commits, deploy the same export via `netlify deploy --prod --dir=out` (zero build minutes — minutes are only metered on Netlify CI) or to the client's own hosting. Netlify Identity/Git Gateway for the CMS only applies at this stage.
+
+The Netlify branch-deploy mechanics below remain valid for client sites already on Netlify; new client repos should never be linked to Netlify before commitment.
+
+---
+
 ## The Problem
 
 Every push to `main` on a Sorted client site triggers a Netlify build + deploy. During active development:

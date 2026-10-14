@@ -1,0 +1,60 @@
+name: Deploy Preview to Hostinger
+
+# Deploys the static export to sortmydigital.site/preview/<repo-name>/
+# on every push to main (and on demand). This is the pre-commitment
+# preview path — it replaces Netlify deploy previews and burns zero
+# build credits.
+#
+# Required secrets (set at org level so all client repos inherit them):
+#   SSH_HOST, SSH_USERNAME, SSH_PRIVATE_KEY, SSH_PORT
+#
+# The repo name is used as the preview slug — name client repos after
+# the client slug (e.g. "jp-plumbing" -> /preview/jp-plumbing/).
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build static export under preview base path
+        run: pnpm run build
+        env:
+          PREVIEW_BASE_PATH: /preview/${{ github.event.repository.name }}
+          NEXT_TELEMETRY_DISABLED: "1"
+
+      - name: Deploy to Hostinger preview directory
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "./out/*"
+          target: "/home/u212019412/domains/sortmydigital.site/public_html/preview/${{ github.event.repository.name }}"
+          strip_components: 1
+          overwrite: true

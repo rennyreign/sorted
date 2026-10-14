@@ -162,21 +162,26 @@ Systemisation, design extraction, internal pages, CMS/CMS QA, analytics, launch 
 
 ## Deployment Discipline (Credit Protection)
 
-**Stage 1 sites are not deployed anywhere.** Do not create a Netlify site, link this repo to Netlify, add deploy hooks, or push to any remote that auto-builds until the client has approved the design and Renaldo explicitly asks for a deploy. The client reviews via the Sorted workspace preview image or a locally served `out/` build — not a hosted URL.
+**Do not create a Netlify site, link this repo to Netlify, or add Netlify deploy hooks.** Pre-commitment hosting lives on Hostinger — free to serve.
 
-Once the client approves (post-Nod 2) and hosting is requested, the following applies:
+### Preview hosting (pre-commitment)
 
-**Never push directly to `main`.**
+`.github/workflows/deploy-preview.yml` builds the static export and SCPs it to `sortmydigital.site/preview/<repo-name>/` on every push to `main`. The workspace `previewUrl` for this client is `https://sortmydigital.site/preview/<repo-name>/`.
 
-Every push to `main` triggers a Netlify build that consumes credits. During active development, this burns 20-50 credits per session.
+- Repo name = preview slug — keep the repo named after the client slug.
+- Requires org/repo secrets: `SSH_HOST`, `SSH_USERNAME`, `SSH_PRIVATE_KEY`, `SSH_PORT`.
+- The workflow builds with `PREVIEW_BASE_PATH=/preview/<repo-name>` so routes and assets resolve under the subdirectory. Local dev and a production build at the domain root are unaffected (base path only applies when the env var is set).
+
+### Once the client commits (post-Nod 2)
+
+The same static export deploys to the client's production path — either a prebuilt Netlify deploy (`netlify deploy --prod --dir=out`, zero build minutes) or the client's own Hostinger domain directory. Only then does CMS/Identity setup apply.
 
 ### The Rule
 
 1. **Work in feature branches**: `feat/description`
-2. **Netlify Deploy Previews build automatically** for all branches (free)
-3. **Review on preview URL**, not production
-4. **Merge to `main` only** when work is complete and tested
-5. **`main` deploys are production releases** — make them count
+2. **Review on the Hostinger preview URL** after merging — previews cost nothing
+3. **Merge to `main` only** when work is complete and tested
+4. **`main` pushes redeploy the preview** — safe to do freely
 
 ### Workflow
 
@@ -190,10 +195,10 @@ git commit -m "feat: add hero section"
 git push origin feat/stage-1-build
 ```
 
-Netlify creates a Deploy Preview URL automatically. Share this for review.
+Merge to `main` to refresh the Hostinger preview (`sortmydigital.site/preview/<repo-name>/`). Preview redeploys are free — merge as often as useful.
 
 ```bash
-# When ready for production
+# Refresh the preview / go to production
 git checkout main
 git merge --no-ff feat/stage-1-build
 git push origin main
@@ -208,7 +213,7 @@ Full doctrine: `sorted/doctrine/cascade-deployment-discipline.md`
 - Do not apply the CMS (that is Stage 2 — a separate task)
 - Do not create `lib/content.ts` or `content/` JSON files
 - Do not configure Decap CMS or Netlify Identity
-- Do not create or link a Netlify site, or deploy this site anywhere, before the client approves the design
+- Do not create or link a Netlify site, or deploy this site anywhere other than the Hostinger preview path, before the client approves the design
 - Do not install new dependencies without approval
 - **Do not push to `main` directly — use a feature branch**
 

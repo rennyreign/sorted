@@ -157,6 +157,7 @@ Copy is benefit-led, grounded in the client's strengths and actual starting poin
 - Full browser width and all remaining viewport height beneath the global navbar and compact preview controls. The client should scroll and interact with the actual site. No outer gutters, rounded device frame, large pitch heading, benefits cards or workspace footer around the website view.
 - Keep the workspace navbar at the top. Do not restore the old black “Back to Review” action bar. Desktop/mobile preview controls and any version/page selector live in the compact light toolbar.
 - Use `website.previewUrl` for the working iframe, with `previewImageUrl` as a fallback when the preview cannot load. Do not leave a blank skeleton indefinitely. Offer a recovery/question action when neither is available.
+- Preview hosting convention: client repos deploy their static export to `sortmydigital.site/preview/<repo-name>/` via `deploy-preview.yml` (Hostinger, free). Set `website.previewUrl` to that URL for new workspaces — not a `*.netlify.app` URL. Client repos must not be linked to Netlify before commitment.
 - Only expose a page as a working preview when its URL/image exists. An unbuilt `website.offerPage` must explicitly say **“Proposed destination · Not yet built”**; never send a “trial” or “book” action to an unrelated page as if it were complete.
 - Existing version controls remain supported: approved direction defaults to Version 1; never label a version “Original”. Development URLs must not become public production URLs.
 
