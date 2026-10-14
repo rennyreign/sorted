@@ -1047,7 +1047,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       previewUrl:
         process.env.NODE_ENV === "development"
           ? "http://localhost:4319"
-          : undefined,
+          : "https://mccolm-cardew.netlify.app",
       previewImageUrl: "/mccolm-cardew-homepage-preview.webp",
       status: "review",
     },
@@ -1603,6 +1603,57 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
         costMetrics: ["Cost per enquiry", "Cost per attended trial", "Cost per new member"],
         attendanceNote: "Attendance and membership are confirmed by your team or connected records. A booking alone never counts as an attended trial or a new member.",
       },
+    },
+  },
+  "joshi-accounting-services": {
+    review: {
+      headline: "Big enough to cope. Small enough to care — now it shows.",
+      summary:
+        "Joshi Accounting already gives small businesses practical, plain-English support. Your new site puts that promise front and centre, so a business owner in Rugby or beyond can see what you do and start a conversation in seconds.",
+      rebuildReasons: [],
+      observations: [],
+    },
+    website: {
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:4321"
+          : "https://joshi-accounting-services.netlify.app",
+      previewImageUrl: "/joshi-accounting-services-homepage-preview.webp",
+      status: "review",
+    },
+  },
+  "diligent-electrical-contractors": {
+    review: {
+      headline: "Good work. Safe homes. Reliable power — easy to ask for.",
+      summary:
+        "Diligent Electrical Contractors does the work properly; your new site makes that obvious at a glance. London homeowners and businesses can see your services and request a quote without hunting for a way to reach you.",
+      rebuildReasons: [],
+      observations: [],
+    },
+    website: {
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:4317"
+          : "https://diligent-electrical.netlify.app",
+      previewImageUrl: "/diligent-electrical-homepage-preview.webp",
+      status: "review",
+    },
+  },
+  "psc-electrical": {
+    review: {
+      headline: "Your local electricians, finally easy to find.",
+      summary:
+        "PSC Electrical covers Croydon and South East London with a team customers can trust. Your new site puts your services, your patch and a clear request-a-quote route where local customers actually look.",
+      rebuildReasons: [],
+      observations: [],
+    },
+    website: {
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:4320"
+          : "https://psc-electrical.netlify.app",
+      previewImageUrl: "/psc-electrical-homepage-preview.webp",
+      status: "review",
     },
   },
   "imperial-nail-studio": {
