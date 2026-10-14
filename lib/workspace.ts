@@ -299,6 +299,185 @@ type WorkspaceOverride = {
 }
 
 const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
+  "jp-plumbing-gas-heating-limited": {
+    review: {
+      headline: "A proper local plumbing and heating business, shown like one.",
+      summary:
+        "JP Plumbing & Gas Heating already has the credentials — Gas Safe registration and Worcester Bosch accreditation across Warwickshire. The new site puts that proof in front of every homeowner and landlord the moment the page opens, with one clear way to request a callback.",
+      rebuildReasons: [
+        {
+          title: "Credentials that deserved more prominence",
+          strength:
+            "Gas Safe registered (186424) and a Worcester Bosch accredited installer — the qualifications homeowners look for before they call.",
+          gap: "The old site buried that proof, so a first-time visitor had to hunt for the trust signals that should have greeted them.",
+        },
+        {
+          title: "Real services, hard to scan",
+          strength:
+            "Boiler repairs, servicing, new boilers and general plumbing cover most of what a Warwickshire home actually needs.",
+          gap: "Services weren't presented as clear, recognisable choices, so visitors couldn't quickly confirm JP handled their job.",
+        },
+        {
+          title: "Interest with no simple next step",
+          strength:
+            "People with a boiler fault or a landlord's gas safety deadline want a quick way to ask for help.",
+          gap: "Without an obvious callback route, visitors either phoned at awkward times or left without making contact.",
+        },
+      ],
+      observations: [
+        {
+          title: "Trust in the first five seconds",
+          explanation:
+            "The hero leads with a professional visual and the credentials strip — Gas Safe and Worcester Bosch accreditation — sits directly beneath it.",
+        },
+        {
+          title: "Services homeowners recognise",
+          explanation:
+            "Boiler repairs, servicing, new boilers and plumbing each get a clear card, so a visitor can see at a glance that you handle their job.",
+        },
+        {
+          title: "One obvious next step",
+          explanation:
+            "Request a callback appears in the header, hero, services and footer — someone can ask for help in seconds and hear back from a real person.",
+        },
+      ],
+    },
+    website: {
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:4418"
+          : undefined,
+      previewImageUrl: "/workspace/jp-plumbing/homepage-preview.webp",
+      status: "review",
+    },
+    offer: {
+      total: 3000,
+      deposit: 1500,
+      balance: 1500,
+      stripePaymentUrl: "https://buy.stripe.com/28E7sKbyo1SZ3QOgn8dwc00",
+      bankTransferEnabled: true,
+    },
+    acquisition: {
+      interests: [
+        { id: "attract", title: "Attract more customers", description: "Reaching homeowners and landlords in Warwick, Leamington Spa and surrounding Warwickshire" },
+        { id: "convert", title: "Convert more enquiries", description: "A site and offer that turn interest into callback requests" },
+        { id: "follow-up", title: "Improve follow-up", description: "Confirmations, detail chasing and appointment reminders that run themselves" },
+        { id: "tracking", title: "Understand what's working", description: "See callback requests, confirmed appointments, attended visits and jobs won" },
+      ],
+      offerCard: {
+        title: "Request a callback",
+        description: "Tell JP Plumbing & Gas Heating what needs attention and the team calls you back to discuss the job.",
+        bullets: ["Boilers, heating & plumbing", "Warwick, Leamington & surrounding villages", "01926 497950"],
+      },
+      ads: {
+        offer:
+          "A campaign kit built around one clear action: request a callback from JP Plumbing & Gas Heating.",
+        // No approved ad creatives supplied — they remain explicitly proposed.
+      },
+      followUp: {
+        // Standard sequence applies; no client-approved email copy supplied yet.
+      },
+      tracking: {
+        journey: [
+          { stage: "New enquiry", detail: "Callback request or call", owner: "Captured automatically", note: "From your website and ads once connected." },
+          { stage: "Visit arranged", detail: "Callback made and job discussed", owner: "Your team", note: "Recorded when the visit is confirmed." },
+          { stage: "Visit attended", detail: "A record that the visit took place", owner: "Your team", note: "Confirmed attendance, never assumed." },
+          { stage: "Job won", detail: "Work accepted and scheduled", owner: "Your team", note: "Confirmed from your job records." },
+        ],
+        costMetrics: ["Cost per enquiry", "Cost per booked visit", "Cost per job won"],
+      },
+    },
+  },
+  "m-carter-heating-and-plumbing-ltd": {
+    review: {
+      headline: "A proper local trades business, finally shown like one.",
+      summary:
+        "Matt Carter already has the reputation — a 5.0 rating across 90 reviews, Gas Safe registration and 20 years of experience around Warwick. The new site puts that credibility in front of every homeowner the moment the page opens, with a free boiler survey offer and one clear way to request a quote.",
+      rebuildReasons: [
+        {
+          title: "A strong reputation behind a dated page",
+          strength:
+            "Five-star rated across 90 reviews, Gas Safe registered and family-run for over 20 years — the trust is already there.",
+          gap: "The old site presented that track record inside clunky grey blocks and dated typography that made the business look less polished than it is.",
+        },
+        {
+          title: "Real work, nowhere to show it",
+          strength:
+            "Boiler installs, bathrooms, cylinders and servicing are the kind of work homeowners want to see before they call.",
+          gap: "No imagery or gallery meant visitors couldn't see the quality of workmanship — they had to take it on faith.",
+        },
+        {
+          title: "Interest with no easy next step",
+          strength:
+            "People needing a boiler, bathroom or plumbing job want a simple way to ask for a quote.",
+          gap: "A generic contact button and no quote process meant visitors either phoned at awkward times or left without making contact.",
+        },
+      ],
+      observations: [
+        {
+          title: "Trust in the first five seconds",
+          explanation:
+            "The hero leads with a warm, professional visual and your credentials — years of experience, Gas Safe registration and a workmanship guarantee — sit directly beneath it.",
+        },
+        {
+          title: "Services homeowners recognise",
+          explanation:
+            "Boilers & heating, plumbing & bathrooms, and servicing & safety each get a clear card, so a visitor can see at a glance that you handle their job.",
+        },
+        {
+          title: "One obvious next step",
+          explanation:
+            "Request a quote appears in the header, hero, survey band and footer — and a free boiler survey offer gives people a low-pressure way to start.",
+        },
+      ],
+    },
+    website: {
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:4317"
+          : undefined,
+      previewImageUrl: "/matt-carter-homepage-preview.webp",
+      status: "review",
+    },
+    offer: {
+      total: 3000,
+      deposit: 1500,
+      balance: 1500,
+      stripePaymentUrl: "https://buy.stripe.com/28E7sKbyo1SZ3QOgn8dwc00",
+      bankTransferEnabled: true,
+    },
+    acquisition: {
+      interests: [
+        { id: "attract", title: "Attract more customers", description: "Reaching homeowners in Warwick and the surrounding areas" },
+        { id: "convert", title: "Convert more enquiries", description: "A site and free boiler survey offer that turn interest into quote requests" },
+        { id: "follow-up", title: "Improve follow-up", description: "Confirmations, reminders and gentle nudges that run themselves" },
+        { id: "tracking", title: "Understand what's working", description: "See quote requests, survey bookings, attended visits and jobs won" },
+      ],
+      offerCard: {
+        title: "Free boiler survey",
+        description: "A free, no-obligation boiler survey and quotation — the natural first step for homeowners planning heating work.",
+        bullets: ["No obligation", "Warwick & surrounding areas", "07460 571082"],
+      },
+      ads: {
+        offer:
+          "A campaign kit built around one clear action: request a free boiler survey or quote from Matt Carter Heating & Plumbing.",
+        // No approved ad creatives supplied yet — they remain explicitly proposed.
+      },
+      followUp: {
+        // Standard sequence applies; no client-approved email copy supplied yet.
+      },
+      tracking: {
+        journey: [
+          { stage: "New enquiry", detail: "Quote request or call", owner: "Captured automatically", note: "From your website and ads once connected." },
+          { stage: "Survey booked", detail: "Free boiler survey arranged", owner: "Your team", note: "Recorded when the visit is confirmed." },
+          { stage: "Survey attended", detail: "A record that the visit took place", owner: "Your team", note: "Confirmed attendance, never assumed." },
+          { stage: "Quote sent", detail: "Written quotation shared", owner: "Your team", note: "Updated when the quote goes out." },
+          { stage: "Job won", detail: "Work accepted and scheduled", owner: "Your team", note: "Confirmed from your job records." },
+        ],
+        costMetrics: ["Cost per enquiry", "Cost per booked survey", "Cost per job won"],
+      },
+    },
+  },
   "adams-plumbing-and-heating-maintenance-ltd": {
     review: {
       headline: "Trusted local plumbing, now with a site that shows it.",
@@ -1448,6 +1627,290 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
             "We've added real proof through your work, reviews and a more professional design, so new clients feel confident booking with you.",
         },
       ],
+    },
+  },
+  "rsp-services-plumbing-heating": {
+    review: {
+      headline: "A proper first website for RSP Services.",
+      summary:
+        "RSP Services covers plumbing, heating, bathrooms and tiling — but right now all of that lives on a Facebook page. Your new homepage gives each service its own clear space, shows the kind of work you take on, and gives customers a direct way to request a quote.",
+      rebuildReasons: [
+        {
+          title: "Everything rides on Facebook",
+          strength:
+            "RSP Services already does the work — plumbing, heating, bathrooms and tiling — and the Facebook page shows a real trading business.",
+          gap: "Facebook is the whole presence. Customers who search Google for a local plumber never find it, and the page can't be organised around the services people actually want.",
+        },
+        {
+          title: "No way to ask for a quote",
+          strength:
+            "The trade covers the jobs homeowners most need a reliable name for — boilers, bathrooms, repairs.",
+          gap: "There's no quote or enquiry route at all, so anyone interested has to message a social post and hope it's seen.",
+        },
+        {
+          title: "Proof that can't be shown properly",
+          strength:
+            "The work — bathrooms, tiling, boiler installs — photographs well and sells itself when shown properly.",
+          gap: "A Facebook feed can't present finished projects as a portfolio, so the quality of the work stays invisible to new customers.",
+        },
+      ],
+      observations: [
+        {
+          title: "Services laid out plainly",
+          explanation:
+            "Plumbing & heating, bathroom installations and tiling each get a named card with real imagery, so a visitor sees the job they need without digging.",
+        },
+        {
+          title: "Work shown like work",
+          explanation:
+            "A gallery section presents project photography the way a portfolio should — clearly labelled as illustrative until your own project photos replace it.",
+        },
+        {
+          title: "A direct request-a-quote route",
+          explanation:
+            "The quote form runs through the header, hero and footer, so asking for a price takes seconds instead of a Facebook message.",
+        },
+      ],
+    },
+    website: {
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:4321/"
+          : undefined,
+      previewImageUrl: "/rsp-services-homepage-preview.webp",
+      status: "review",
+    },
+    acquisition: {
+      interests: [
+        { id: "attract", title: "Attract more customers", description: "Reaching homeowners searching Google for a local plumber or bathroom fitter" },
+        { id: "convert", title: "Convert more enquiries", description: "A first real website that turns interest into quote requests" },
+        { id: "follow-up", title: "Improve follow-up", description: "Confirmations and reminders so no enquiry gets missed" },
+        { id: "tracking", title: "Understand what's working", description: "See quote requests, booked visits and jobs won" },
+      ],
+      offerCard: {
+        title: "Request a free quote",
+        description:
+          "Tell RSP Services what needs doing — bathroom, boiler, plumbing or tiling — and get a clear, no-obligation quote.",
+        bullets: ["Plumbing, heating, bathrooms & tiling", "Free, no-obligation quote", "A real first website, not just Facebook"],
+      },
+      ads: {
+        offer:
+          "A campaign kit built around one clear action: request a free quote from RSP Services.",
+        creatives: [
+          {
+            title: "A bathroom worth showing",
+            format: "Facebook & Instagram feed · 1x1",
+            audience: "Homeowners considering a bathroom upgrade.",
+            headline: "Better bathrooms, done properly",
+            cta: "Request a free quote",
+            primaryText:
+              "Planning a new bathroom? RSP Services handles plumbing, heating, bathrooms and tiling. Request a free, no-obligation quote to talk through your project.",
+            imageUrl: "/workspace/rsp-services/ad-01.webp",
+            imageAlt: "RSP Services creative: bathroom renovation preview image.",
+          },
+          {
+            title: "Reliable heating",
+            format: "Facebook & Instagram feed · 1x1",
+            audience: "Homeowners needing boiler or heating work.",
+            headline: "Reliable heating. Sorted.",
+            cta: "Request a free quote",
+            primaryText:
+              "Boiler replacement or heating upgrade on the list? Talk to RSP Services — your local plumbing and heating specialist. Request a free quote.",
+            imageUrl: "/workspace/rsp-services/ad-02.webp",
+            imageAlt: "RSP Services creative: boiler installation preview image.",
+          },
+          {
+            title: "A home that works",
+            format: "Facebook & Instagram feed · 1x1",
+            audience: "Local homeowners with plumbing or repair jobs.",
+            headline: "A home that works",
+            cta: "Request a free quote",
+            primaryText:
+              "From leaks to full bathroom renovations, RSP Services covers plumbing, heating and tiling. Request a free, no-obligation quote.",
+            imageUrl: "/workspace/rsp-services/ad-03.webp",
+            imageAlt: "RSP Services creative: bathroom and tiling preview image.",
+          },
+        ],
+      },
+      tracking: {
+        metrics: [
+          { key: "enquiries", label: "Quote requests", description: "People asking RSP for a quote.", source: "Website quote form + ad enquiries", connected: false },
+          { key: "attended", label: "Site visits attended", description: "Visits that took place, confirmed by the team.", source: "RSP attendance confirmation", connected: false },
+          { key: "quotes", label: "Quotes sent", description: "Quotes shared after an enquiry.", source: "RSP records", connected: false },
+          { key: "customers", label: "Jobs won", description: "Confirmed jobs from those enquiries.", source: "RSP records", connected: false },
+        ],
+      },
+    },
+  },
+  "gdc-plumbing-and-gas-ltd": {
+    review: {
+      headline: "A proper local trade business, shown like one.",
+      summary:
+        "GDC Plumbing and Gas already has the trust — a 5.0 rating across 103 Google reviews and Gas Safe registered engineers covering Rugby. The current site is template-era: a van photo with no headline, no reviews on show and no way to request a booking. The new homepage puts the credibility and the booking action up front.",
+      rebuildReasons: [
+        {
+          title: "Reputation that never reaches the page",
+          strength:
+            "A 5.0 rating across 103 Google reviews and Gas Safe registered gas work — the proof customers look for already exists.",
+          gap:
+            "None of it appeared on the old site: no testimonials, no accreditations, no reason to choose GDC over the next result.",
+        },
+        {
+          title: "A hero with no next step",
+          strength:
+            "The branding and van photography are professional and recognisable around Rugby.",
+          gap:
+            "The old homepage opened on an image with no headline or call to action — visitors had to work out what to do themselves.",
+        },
+        {
+          title: "No booking pathway",
+          strength:
+            "People with boiler breakdowns and urgent repairs want a fast, obvious way to get help.",
+          gap:
+            "Only a phone number was offered — no booking request, no service detail and a layout that struggled on mobile.",
+        },
+      ],
+      observations: [
+        {
+          title: "Trust in the first five seconds",
+          explanation:
+            "The hero leads with the GDC van and a clear promise — 'Plumbing problems? Let's get it sorted.' — with Gas Safe registration, insurance and domestic & commercial cover directly beneath.",
+        },
+        {
+          title: "Services people actually search for",
+          explanation:
+            "Boilers & heating, plumbing & repairs and gas services each get a clear card, so visitors can see at a glance that GDC handles their job.",
+        },
+        {
+          title: "One obvious next step",
+          explanation:
+            "Request a booking and call now appear in the header, hero, urgent repair band and contact section — plus a booking request form for people who'd rather not phone.",
+        },
+      ],
+    },
+    website: {
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://127.0.0.1:3999"
+          : undefined,
+      previewImageUrl: "/gdc-plumbing-and-gas-homepage-preview.webp",
+      status: "review",
+    },
+    offer: { ...WORKSPACE_DEFAULTS.offer },
+    acquisition: {
+      interests: [
+        { id: "attract", title: "Attract more customers", description: "Reaching homeowners and businesses in Rugby and surrounding areas" },
+        { id: "convert", title: "Convert more enquiries", description: "A site that turns urgent plumbing, heating and gas searches into booking requests and calls" },
+        { id: "follow-up", title: "Improve follow-up", description: "Confirmations, reminders and gentle nudges that run themselves" },
+        { id: "tracking", title: "Understand what's working", description: "See booking requests, calls and jobs won" },
+      ],
+      offerCard: {
+        title: "Free, no-obligation estimate",
+        description: "A free estimate on plumbing, heating or gas work — the natural first step before booking a job.",
+        bullets: ["No obligation", "Rugby & surrounding areas", "07964 840 635"],
+      },
+      tracking: {
+        metrics: [
+          { key: "enquiries", label: "Booking requests", description: "People who request a booking or call.", source: "Website form + phone calls", connected: false },
+          { key: "attended", label: "Attended jobs", description: "Site visits that took place, confirmed by GDC.", source: "GDC's records", connected: false },
+          { key: "quotes", label: "Quotes sent", description: "Estimates shared after a conversation.", source: "GDC's records", connected: false },
+          { key: "customers", label: "Jobs won", description: "Confirmed work from those enquiries.", source: "GDC's records", connected: false },
+        ],
+      },
+    },
+  },
+  "spa-plumbing": {
+    review: {
+      headline: "Forty years of boiler work, finally shown properly.",
+      summary:
+        "Spa Plumbing has been keeping Leamington Spa homes warm since 1982 — Worcester Bosch repairs, servicing and installations, Gas Safe registered. That history deserved a proper modern site, so we built one: clear services, the coverage you actually serve and a direct way to request a callback.",
+      revealTitle: "We built your site.",
+      revealBody:
+        "A working homepage for Spa Plumbing — not a template, but a site built around your name, your services and your patch.",
+      reasonsHeading: "Why we built it",
+      gapColumnLabel: "Before the site",
+      rebuildReasons: [
+        {
+          title: "A reputation that predates the internet",
+          strength:
+            "Established in 1982 and still trading — a depth of local experience most competitors cannot claim.",
+          gap:
+            "Decades of trust live in word of mouth. People searching for boiler help in Leamington Spa had nothing that showed it.",
+        },
+        {
+          title: "Genuine specialism, unseen",
+          strength:
+            "Worcester Bosch boiler specialists with Gas Safe registration — exactly what homeowners with a boiler problem look for.",
+          gap:
+            "Without a site, that expertise had nowhere to be presented. A searcher could not tell a specialist from any other plumber.",
+        },
+        {
+          title: "Coverage people could not check",
+          strength:
+            "The team already works across Leamington, Warwick, Kenilworth, Whitnash, Southam and the surrounding villages.",
+          gap:
+            "Anyone wondering whether you cover their town had to call first. One more question between them and the work.",
+        },
+      ],
+      observations: [
+        {
+          title: "Experience leads the page",
+          explanation:
+            "The homepage opens on the engineers and the promise — A warmer home. In experienced hands. — with the 1982 heritage right behind it.",
+        },
+        {
+          title: "Three services, three clear cards",
+          explanation:
+            "Boiler repairs, servicing and new boilers each get their own card and route, so a visitor finds their job in seconds.",
+        },
+        {
+          title: "An obvious way back to a human",
+          explanation:
+            "Call or request a callback appears in the header, hero and contact section — the next step is always one tap away.",
+        },
+      ],
+    },
+    website: {
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://127.0.0.1:4319/"
+          : undefined,
+      previewImageUrl: "/spa-plumbing-homepage-preview.webp",
+      offerPage: {
+        label: "Callback page",
+        description:
+          "A focused request-a-callback page for homeowners who would rather be phoned than call themselves. Planned, not yet built — the homepage contact section covers this today.",
+      },
+      status: "review",
+    },
+    offer: { ...WORKSPACE_DEFAULTS.offer },
+    acquisition: {
+      interests: [
+        { id: "attract", title: "Attract more customers", description: "Reaching homeowners across Leamington Spa and Warwickshire searching for boiler help" },
+        { id: "convert", title: "Convert more enquiries", description: "A site that turns boiler breakdowns and service searches into calls and callbacks" },
+        { id: "follow-up", title: "Improve follow-up", description: "Confirmations and reminders so no callback request goes cold" },
+        { id: "tracking", title: "Understand what's working", description: "See callback requests, confirmed visits and jobs won" },
+      ],
+      offerCard: {
+        title: "Request a callback",
+        description:
+          "A free, no-obligation callback on any boiler work — repairs, annual servicing or a new installation.",
+        bullets: ["No obligation", "Leamington Spa & Warwickshire", "Established 1982 · Gas Safe registered"],
+      },
+      ads: {
+        offer:
+          "A campaign kit built around one clear action: request a callback from a Gas Safe boiler specialist.",
+        // No ad artwork supplied for this client yet — honest proposed state.
+        creatives: [],
+      },
+      tracking: {
+        metrics: [
+          { key: "enquiries", label: "Callback requests", description: "People asking Spa Plumbing to call them back.", source: "Website callback form + phone calls", connected: false },
+          { key: "attended", label: "Visits attended", description: "Booked visits that took place, confirmed by the team.", source: "Spa Plumbing's records", connected: false },
+          { key: "quotes", label: "Quotes sent", description: "Prices shared after an enquiry or visit.", source: "Spa Plumbing's records", connected: false },
+          { key: "customers", label: "Jobs won", description: "Confirmed work from those enquiries.", source: "Spa Plumbing's records", connected: false },
+        ],
+      },
     },
   },
 }
