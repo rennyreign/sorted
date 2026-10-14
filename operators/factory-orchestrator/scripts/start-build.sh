@@ -69,6 +69,10 @@ if [ "$#" -eq 2 ]; then
   echo "  2. See the next operator at any time:"
   echo "     node $FACTORY_CLI resume $BUILD_DIR"
   echo ""
+  echo "  3. When you create the GitHub repo for this client, set the"
+  echo "     Hostinger preview-deploy secrets (required by deploy-preview.yml):"
+  echo "     $SORTED_DIR/operators/factory-orchestrator/scripts/set-preview-secrets.sh $CLIENT_SLUG"
+  echo ""
   exit 0
 fi
 
