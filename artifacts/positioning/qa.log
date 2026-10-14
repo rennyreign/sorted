@@ -1,0 +1,96 @@
+🎭 Playwright Skill - Universal Executor
+
+📄 Executing file: /tmp/playwright-qa-positioning.js
+🚀 Starting automation...
+
+PASS home H1 exact — We make good|businesses|more capable.
+PASS home supporting sentence
+PASS home benefits sentence
+PASS home kicker
+PASS home single h1 — count=1
+PASS home @1440 no horizontal overflow — scrollWidth=1440 inner=1440
+PASS home @1024 no horizontal overflow — scrollWidth=1024 inner=1024
+PASS home @768 no horizontal overflow — scrollWidth=768 inner=768
+PASS home @390 no horizontal overflow — scrollWidth=390 inner=390
+PASS home @320 no horizontal overflow — scrollWidth=320 inner=320
+PASS /about single h1 — count=1
+PASS /about title+desc — About Sorted | Good at what you do? Your systems should be too.
+   /about canonical=https://sortmydigital.site/about/ og:url=https://sortmydigital.site/
+PASS /about @1440 no horizontal overflow — scrollWidth=1440 inner=1440
+PASS /about @390 no horizontal overflow — scrollWidth=390 inner=390
+PASS /pricing single h1 — count=1
+PASS /pricing title+desc — Sorted Sites | One fixed-price website launch
+   /pricing canonical=https://sortmydigital.site/pricing/ og:url=https://sortmydigital.site/pricing/
+PASS /pricing @1440 no horizontal overflow — scrollWidth=1440 inner=1440
+PASS /pricing @390 no horizontal overflow — scrollWidth=390 inner=390
+PASS /examples single h1 — count=1
+PASS /examples title+desc — Our work | Sorted
+   /examples canonical=https://sortmydigital.site/examples/ og:url=https://sortmydigital.site/examples/
+PASS /examples @1440 no horizontal overflow — scrollWidth=1440 inner=1440
+PASS /examples @390 no horizontal overflow — scrollWidth=390 inner=390
+PASS /what-else-we-do single h1 — count=1
+PASS /what-else-we-do title+desc — What we improve | Sorted
+   /what-else-we-do canonical=https://sortmydigital.site/what-else-we-do/ og:url=https://sortmydigital.site/what-else-we-do/
+PASS /what-else-we-do @1440 no horizontal overflow — scrollWidth=1440 inner=1440
+PASS /what-else-we-do @390 no horizontal overflow — scrollWidth=390 inner=390
+PASS /howitworks single h1 — count=1
+PASS /howitworks title+desc — How we work | Sorted
+   /howitworks canonical=https://sortmydigital.site/howitworks/ og:url=https://sortmydigital.site/howitworks/
+PASS /howitworks @1440 no horizontal overflow — scrollWidth=1440 inner=1440
+PASS /howitworks @390 no horizontal overflow — scrollWidth=390 inner=390
+PASS /sites single h1 — count=1
+PASS /sites title+desc — Sorted Sites | Your new website, Sorted
+   /sites canonical=https://sortmydigital.site/sites/ og:url=https://sortmydigital.site/
+PASS /sites @1440 no horizontal overflow — scrollWidth=1440 inner=1440
+PASS /sites @390 no horizontal overflow — scrollWidth=390 inner=390
+PASS /ops single h1 — count=1
+PASS /ops title+desc — Sorted Ops | Scoped operational improvement
+   /ops canonical=https://sortmydigital.site/ops/ og:url=https://sortmydigital.site/ops/
+PASS /ops @1440 no horizontal overflow — scrollWidth=1440 inner=1440
+PASS /ops @390 no horizontal overflow — scrollWidth=390 inner=390
+PASS /ops/pricing single h1 — count=1
+PASS /ops/pricing title+desc — Pricing | Sorted Ops
+   /ops/pricing canonical=https://sortmydigital.site/ops/pricing/ og:url=https://sortmydigital.site/ops/pricing/
+PASS /ops/pricing @1440 no horizontal overflow — scrollWidth=1440 inner=1440
+PASS /ops/pricing @390 no horizontal overflow — scrollWidth=390 inner=390
+FAIL chooser opens
+PASS acquisition link
+PASS chooser closed before mockup
+FAIL mockup question 1 visible
+PASS focus restored to trigger after mockup close — See what we can improve
+FAIL reopen resets to chooser
+PASS ops panel scope/price
+PASS ops discovery link
+FAIL back returns to chooser
+PASS unsure discovery link
+PASS escape closes dialog
+PASS focus restored after escape — See what we can improve
+PASS body scroll restored
+FAIL mobile menu CTA present
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('header button').filter({ hasText: /See what we can improve/i }).first()[22m
+[2m    - locator resolved to <button type="button" data-track="cta_click" data-cta-location="header" data-cta-text="See what we can improve" class="inline-flex items-center justify-center gap-4 rounded-full font-black transition-transform duration-200 hover:-translate-y-0.5 h-[52px] bg-[#dfff00] px-8 text-[12px] text-black shadow-[0_16px_32px_rgba(190,210,0,0.22)] bg-[#d7ff00]!">…</button>[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not visible[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not visible[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    58 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is not visible[22m
+[2m     - retrying click action[22m
+[2m       - waiting 500ms[22m
+
+    at /Users/renaldoedmondson/.agents/skills/playwright/.temp-execution-1791887842404.js:141:25 {
+  name: 'TimeoutError'
+}
+
+Node.js v24.11.1

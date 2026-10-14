@@ -12,6 +12,8 @@ Before building or resuming a pre-approval client site, read `operators/skills/s
 
 Use this entry point for new Sorted website builds and their client acquisition hubs. A new site build scaffolds a sibling project and initialises the factory job; an existing workspace update uses the shared hub and client configuration.
 
+Use pnpm for setup, development, verification and handoffs. Follow `operators/skills/factory-operators.md` -> Package Manager And Handoffs before any dependency work; package/network permissions remain separate.
+
 ## What to load first
 
 Before running anything, read the full operator skill:
@@ -120,7 +122,7 @@ It needs `FLUX_API_KEY` in the environment, not a vision model.
 
 This is the only step where the agent itself needs vision capability. When you reach Op 5b:
 1. Tell the user to switch to a vision-capable model
-2. Start the dev server: `cd <build-dir> && npx serve out -p 3999`
+2. Start the dev server: `cd <build-dir> && python3 -m http.server 3999 --bind 127.0.0.1 --directory out`
 3. Compare the rendered site to the mockup at `input/approved-mockup.png`
 4. Mark as `passed`, `skipped`, or `failed` with notes
 

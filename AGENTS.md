@@ -92,7 +92,7 @@ sorted/
 
 ### You must stop and request approval before
 - Modifying the Sorted platform's `app/` routing structure or root layout files (this does not apply to normal scaffolding/customisation of a requested sibling client site)
-- Installing new npm packages
+- Installing new dependencies (using pnpm)
 - Modifying deployment config or GitHub Actions workflows
 - Pushing to `main` directly — use feature branches (see Deployment Discipline below)
 
@@ -336,10 +336,12 @@ Scoped to Sorted's own public marketing pages only:
 
 ## Build Commands
 
+Use pnpm for setup, development, verification and handoffs. Follow `operators/skills/factory-operators.md` -> Package Manager And Handoffs before any dependency work; package/network permissions remain separate.
+
 ```bash
-npm run dev       # Next.js dev server
-npm run build     # Production build
-npm run cms       # Decap local proxy (run alongside dev for CMS editing)
+pnpm run dev       # Next.js dev server
+pnpm run build     # Production build
+pnpm run cms       # Decap local proxy (run alongside dev for CMS editing)
 ```
 
 <!-- BEGIN:nextjs-agent-rules -->

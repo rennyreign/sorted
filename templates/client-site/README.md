@@ -219,10 +219,12 @@ When patterns don't fit, decide based on:
 
 ## Build Commands
 
+Use pnpm (pinned in `package.json`). Dependency installation requires package/network approval. The first approved `pnpm install` creates `pnpm-lock.yaml`; subsequent installs use `pnpm install --frozen-lockfile` when the lockfile matches. See `AGENTS.md` and the factory contract for resume/migration gates.
+
 ```bash
-npm install          # Install dependencies
-npm run dev          # Start dev server (localhost:3000)
-npm run build        # Build static export to ./out/
+pnpm install          # Install dependencies
+pnpm run dev          # Start dev server (localhost:3000)
+pnpm run build        # Build static export to ./out/
 ```
 
 ## Deployment

@@ -1,0 +1,296 @@
+PASS | nav order / | How we work,Our work,Operations,Pricing,What we improve,About
+PASS | nav hrefs / | /howitworks,/examples,/ops,/pricing,/what-else-we-do,/about
+PASS | no Websites tab /
+PASS | single footer / | n=4
+PASS | single header / | n=1
+PASS | nav order /howitworks | How we work,Our work,Operations,Pricing,What we improve,About
+PASS | nav hrefs /howitworks | /howitworks,/examples,/ops,/pricing,/what-else-we-do,/about
+PASS | no Websites tab /howitworks
+PASS | single footer /howitworks | n=1
+PASS | single header /howitworks | n=1
+PASS | nav order /ops | How we work,Our work,Operations,Pricing,What we improve,About
+PASS | nav hrefs /ops | /howitworks,/examples,/ops,/pricing,/what-else-we-do,/about
+PASS | no Websites tab /ops
+PASS | single footer /ops | n=1
+PASS | single header /ops | n=1
+PASS | nav order /pricing | How we work,Our work,Operations,Pricing,What we improve,About
+PASS | nav hrefs /pricing | /howitworks,/examples,/ops,/pricing,/what-else-we-do,/about
+PASS | no Websites tab /pricing
+PASS | single footer /pricing | n=1
+PASS | single header /pricing | n=1
+PASS | nav order /examples | How we work,Our work,Operations,Pricing,What we improve,About
+PASS | nav hrefs /examples | /howitworks,/examples,/ops,/pricing,/what-else-we-do,/about
+PASS | no Websites tab /examples
+PASS | single footer /examples | n=1
+PASS | single header /examples | n=1
+PASS | nav order /about | How we work,Our work,Operations,Pricing,What we improve,About
+PASS | nav hrefs /about | /howitworks,/examples,/ops,/pricing,/what-else-we-do,/about
+PASS | no Websites tab /about
+PASS | single footer /about | n=1
+PASS | single header /about | n=1
+PASS | nav order /what-else-we-do | How we work,Our work,Operations,Pricing,What we improve,About
+PASS | nav hrefs /what-else-we-do | /howitworks,/examples,/ops,/pricing,/what-else-we-do,/about
+PASS | no Websites tab /what-else-we-do
+PASS | single footer /what-else-we-do | n=1
+PASS | single header /what-else-we-do | n=1
+INFO /sites canonical=https://sortmydigital.site/howitworks/ title="How we work | Sorted" h1="See it first. Then you decide"
+INFO /v2 canonical=https://sortmydigital.site/ops/ title="Operations | Sorted" h1="Your business works hard."
+INFO /ops canonical=https://sortmydigital.site/ops/ title="Operations | Sorted" h1="Your business works hard."
+INFO /ops/pricing canonical=https://sortmydigital.site/pricing/ title="Pricing | Sorted" h1="Clear prices."
+INFO /v2/pricing canonical=https://sortmydigital.site/ops/pricing/ title="Pricing | Sorted Ops" h1="Scoped to the problem."
+PASS | /sites aliases howitworks content | {"c":"https://sortmydigital.site/howitworks/","h":"See it first. Then you decide"}
+PASS | /v2 = integrated ops home | {"c":"https://sortmydigital.site/ops/","h":"Your business works hard."}
+PASS | /ops/pricing unified | https://sortmydigital.site/pricing/
+FAIL | /v2/pricing unified | https://sortmydigital.site/ops/pricing/
+PASS | no "Sorted Sites" on /
+PASS | no "Sorted Ops" on /
+PASS | no "Get your free website preview" on /
+PASS | no "free homepage" on /
+PASS | no "homepage preview" on /
+PASS | no "homepage direction" on /
+PASS | no "free mockup" on /
+PASS | no "Sorted Sites" on /howitworks
+PASS | no "Sorted Ops" on /howitworks
+PASS | no "Get your free website preview" on /howitworks
+PASS | no "free homepage" on /howitworks
+PASS | no "homepage preview" on /howitworks
+PASS | no "homepage direction" on /howitworks
+PASS | no "free mockup" on /howitworks
+PASS | no "Sorted Sites" on /ops
+PASS | no "Sorted Ops" on /ops
+PASS | no "Get your free website preview" on /ops
+PASS | no "free homepage" on /ops
+PASS | no "homepage preview" on /ops
+PASS | no "homepage direction" on /ops
+PASS | no "free mockup" on /ops
+PASS | no "Sorted Sites" on /pricing
+PASS | no "Sorted Ops" on /pricing
+PASS | no "Get your free website preview" on /pricing
+PASS | no "free homepage" on /pricing
+PASS | no "homepage preview" on /pricing
+PASS | no "homepage direction" on /pricing
+PASS | no "free mockup" on /pricing
+PASS | no "Sorted Sites" on /examples
+PASS | no "Sorted Ops" on /examples
+PASS | no "Get your free website preview" on /examples
+PASS | no "free homepage" on /examples
+PASS | no "homepage preview" on /examples
+PASS | no "homepage direction" on /examples
+PASS | no "free mockup" on /examples
+PASS | no "Sorted Sites" on /about
+PASS | no "Sorted Ops" on /about
+PASS | no "Get your free website preview" on /about
+PASS | no "free homepage" on /about
+PASS | no "homepage preview" on /about
+PASS | no "homepage direction" on /about
+PASS | no "free mockup" on /about
+PASS | no "Sorted Sites" on /what-else-we-do
+PASS | no "Sorted Ops" on /what-else-we-do
+PASS | no "Get your free website preview" on /what-else-we-do
+PASS | no "free homepage" on /what-else-we-do
+PASS | no "homepage preview" on /what-else-we-do
+PASS | no "homepage direction" on /what-else-we-do
+PASS | no "free mockup" on /what-else-we-do
+PASS | no "Sorted Sites" on /sites
+PASS | no "Sorted Ops" on /sites
+PASS | no "Get your free website preview" on /sites
+PASS | no "free homepage" on /sites
+PASS | no "homepage preview" on /sites
+PASS | no "homepage direction" on /sites
+PASS | no "free mockup" on /sites
+PASS | home H1 exact | We make good businesses more capable.
+PASS | home portfolio title
+PASS | home no-hidden-costs body | YOUR WEBSITE One clear place to start: your website launch. £3,000 Fixed scope, fixed price. £1,500 deposit when you approve the direction. £1,500 balance when 
+PASS | home no /ops anchor in no-hidden block
+PASS | home price kicker Your website
+PASS | howitworks process heading | Your website launch. | Built for today. Ready for tomorrow. | A short process. Not a rushed website. | Ready to see your new website?
+PASS | howitworks no Sorted Sites prefix
+PASS | howitworks free disclosure
+PASS | howitworks includes heading
+PASS | howitworks no ops cross-sell
+PASS | howitworks hero website CTA | n=1
+PASS | pricing operations section exists
+PASS | pricing ops heading
+PASS | pricing ops exact body | OPERATIONAL IMPROVEMENTS
+
+Less admin. Better ways of working.
+
+Repeated tasks, disconnected tools, missed enquiries and manual chasing. Tell us what is getting in the way; we’ll agree the improvement,
+PASS | pricing ops discovery CTA
+PASS | pricing no retainer/starts-from
+PASS | pricing kicker
+PASS | pricing website heading
+PASS | pricing free sentence
+PASS | pricing market selector present
+PASS | pricing UK amounts
+PASS | pricing US amounts | $3,500,$1,750,$1,750,$1,750,$1,750,$3,500,$1,750,$1,750,$3,500,$1,750,$1,750
+PASS | pricing website CTA label
+PASS | pricing modal visible
+PASS | pricing modal Q1 | Back
+
+Question 1 of 6
+
+WHAT KIND OF BUSINESS NEEDS THE WEBSITE?
+Local service bu
+PASS | modal advances to Q2 | Back
+
+Question 2 of 6
+
+WHAT ARE YOU WORKING WITH RIGHT NOW?
+No website yet
+An ol
+PASS | scroll locked during modal | hidden
+PASS | modal closes + overflow restored | {"o":"","modal":false}
+FAIL | ops no mini-site deep links | /ops/#how-we-improve,/ops/#how-we-improve,/ops/#how-we-improve
+PASS | ops kicker Operations
+PASS | ops hero H1
+PASS | ops discovery primary
+PASS | ops questionnaire secondary
+PASS | ops disclaimer
+PASS | ops no Sorted Ops
+PASS | ops header CTA opens native chooser
+PASS | chooser panels | WHAT WOULD YOU LIKE TO IMPROVE?
+Winning customers
+Getting work done
+Not sure yet
+PASS | chooser escape closes
+FAIL | chooser->mockup handoff visible | {"mockVisible":false,"overflow":"hidden","dialogOpen":false}
+PASS | scroll locked during handoff preview | hidden
+PASS | scroll stays locked after Q1 | hidden
+PASS | close restores overflow | {"o":"","active":"BUTTON","modal":false}
+PASS | mobile / preview visible+interactable | Back
+
+Question 1 of 6
+
+WHAT KIND OF BUSINESS NEEDS THE WEBSI
+PASS | mobile / scroll locked | hidden
+PASS | mobile / overflow restored
+PASS | mobile / focus returns to hamburger | Open navigation
+PASS | mobile /pricing preview visible+interactable | Back
+
+Question 1 of 6
+
+WHAT KIND OF BUSINESS NEEDS THE WEBSI
+PASS | mobile /pricing scroll locked | hidden
+PASS | mobile /pricing overflow restored
+PASS | mobile /pricing focus returns to hamburger | Open navigation
+PASS | mobile /sites preview visible+interactable | Back
+
+Question 1 of 6
+
+WHAT KIND OF BUSINESS NEEDS THE WEBSI
+PASS | mobile /sites scroll locked | hidden
+PASS | mobile /sites overflow restored
+PASS | mobile /sites focus returns to hamburger | Open navigation
+PASS | /@1440 no horizontal scroll
+PASS | /@1440 one H1 | h1=1
+PASS | /@1440 no clipped text elements
+PASS | /howitworks@1440 no horizontal scroll
+PASS | /howitworks@1440 one H1 | h1=1
+PASS | /howitworks@1440 no clipped text elements
+PASS | /ops@1440 no horizontal scroll
+PASS | /ops@1440 one H1 | h1=1
+PASS | /ops@1440 no clipped text elements
+PASS | /pricing@1440 no horizontal scroll
+PASS | /pricing@1440 one H1 | h1=1
+PASS | /pricing@1440 no clipped text elements
+PASS | /examples@1440 no horizontal scroll
+PASS | /examples@1440 one H1 | h1=1
+PASS | /examples@1440 no clipped text elements
+PASS | /about@1440 no horizontal scroll
+PASS | /about@1440 one H1 | h1=1
+PASS | /about@1440 no clipped text elements
+PASS | /what-else-we-do@1440 no horizontal scroll
+PASS | /what-else-we-do@1440 one H1 | h1=1
+PASS | /what-else-we-do@1440 no clipped text elements
+PASS | /@1024 no horizontal scroll
+PASS | /@1024 one H1 | h1=1
+PASS | /@1024 no clipped text elements
+PASS | /howitworks@1024 no horizontal scroll
+PASS | /howitworks@1024 one H1 | h1=1
+PASS | /howitworks@1024 no clipped text elements
+PASS | /ops@1024 no horizontal scroll
+PASS | /ops@1024 one H1 | h1=1
+PASS | /ops@1024 no clipped text elements
+PASS | /pricing@1024 no horizontal scroll
+PASS | /pricing@1024 one H1 | h1=1
+PASS | /pricing@1024 no clipped text elements
+PASS | /examples@1024 no horizontal scroll
+PASS | /examples@1024 one H1 | h1=1
+PASS | /examples@1024 no clipped text elements
+PASS | /about@1024 no horizontal scroll
+PASS | /about@1024 one H1 | h1=1
+PASS | /about@1024 no clipped text elements
+PASS | /what-else-we-do@1024 no horizontal scroll
+PASS | /what-else-we-do@1024 one H1 | h1=1
+FAIL | /what-else-we-do@1024 no clipped text elements | FIGCAPTION.mt-2 text="Illustrative interface, not live results" right=1040
+PASS | /@768 no horizontal scroll
+PASS | /@768 one H1 | h1=1
+PASS | /@768 no clipped text elements
+PASS | /howitworks@768 no horizontal scroll
+PASS | /howitworks@768 one H1 | h1=1
+PASS | /howitworks@768 no clipped text elements
+PASS | /ops@768 no horizontal scroll
+PASS | /ops@768 one H1 | h1=1
+PASS | /ops@768 no clipped text elements
+PASS | /pricing@768 no horizontal scroll
+PASS | /pricing@768 one H1 | h1=1
+PASS | /pricing@768 no clipped text elements
+PASS | /examples@768 no horizontal scroll
+PASS | /examples@768 one H1 | h1=1
+PASS | /examples@768 no clipped text elements
+PASS | /about@768 no horizontal scroll
+PASS | /about@768 one H1 | h1=1
+PASS | /about@768 no clipped text elements
+PASS | /what-else-we-do@768 no horizontal scroll
+PASS | /what-else-we-do@768 one H1 | h1=1
+PASS | /what-else-we-do@768 no clipped text elements
+PASS | /@390 no horizontal scroll
+PASS | /@390 one H1 | h1=1
+PASS | /@390 no clipped text elements
+PASS | /howitworks@390 no horizontal scroll
+PASS | /howitworks@390 one H1 | h1=1
+PASS | /howitworks@390 no clipped text elements
+PASS | /ops@390 no horizontal scroll
+PASS | /ops@390 one H1 | h1=1
+PASS | /ops@390 no clipped text elements
+PASS | /pricing@390 no horizontal scroll
+PASS | /pricing@390 one H1 | h1=1
+PASS | /pricing@390 no clipped text elements
+PASS | /examples@390 no horizontal scroll
+PASS | /examples@390 one H1 | h1=1
+PASS | /examples@390 no clipped text elements
+PASS | /about@390 no horizontal scroll
+PASS | /about@390 one H1 | h1=1
+PASS | /about@390 no clipped text elements
+PASS | /what-else-we-do@390 no horizontal scroll
+PASS | /what-else-we-do@390 one H1 | h1=1
+PASS | /what-else-we-do@390 no clipped text elements
+PASS | /@320 no horizontal scroll
+PASS | /@320 one H1 | h1=1
+PASS | /@320 no clipped text elements
+PASS | /howitworks@320 no horizontal scroll
+PASS | /howitworks@320 one H1 | h1=1
+PASS | /howitworks@320 no clipped text elements
+PASS | /ops@320 no horizontal scroll
+PASS | /ops@320 one H1 | h1=1
+PASS | /ops@320 no clipped text elements
+PASS | /pricing@320 no horizontal scroll
+PASS | /pricing@320 one H1 | h1=1
+PASS | /pricing@320 no clipped text elements
+PASS | /examples@320 no horizontal scroll
+PASS | /examples@320 one H1 | h1=1
+PASS | /examples@320 no clipped text elements
+PASS | /about@320 no horizontal scroll
+PASS | /about@320 one H1 | h1=1
+PASS | /about@320 no clipped text elements
+PASS | /what-else-we-do@320 no horizontal scroll
+PASS | /what-else-we-do@320 one H1 | h1=1
+PASS | /what-else-we-do@320 no clipped text elements
+SHOT home captured
+SHOT howitworks captured
+SHOT ops captured
+SHOT pricing captured
+PASS | no failed images (home)
+
+TOTAL: 251 PASS / 4 FAIL

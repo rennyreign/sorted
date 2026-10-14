@@ -1,0 +1,52 @@
+🎭 Playwright Skill - Universal Executor
+
+📄 Executing file: /tmp/playwright-qa-positioning2.js
+🚀 Starting automation...
+
+PASS chooser opens w/ labelled heading
+PASS acquisition link
+PASS chooser closed before mockup
+PASS mockup modal mounted
+PASS mockup first question
+PASS focus restored to trigger after mockup close
+PASS reopen resets to chooser
+PASS ops panel scope/price
+PASS ops discovery link
+PASS ops: no website-modal detour
+PASS back returns to chooser
+PASS unsure discovery link
+PASS focus stays inside dialog
+PASS escape closes
+PASS focus restored after escape
+PASS body scroll restored
+PASS mobile menu CTA present
+PASS mobile CTA opens chooser
+PASS menu closed after CTA
+PASS pricing UK total+deposit
+PASS pricing US total+deposit
+PASS pricing US no GBP leak
+
+==== SUMMARY ====
+PASS chooser opens w/ labelled heading
+PASS acquisition link
+PASS chooser closed before mockup
+PASS mockup modal mounted
+PASS mockup first question
+PASS focus restored to trigger after mockup close
+PASS reopen resets to chooser
+PASS ops panel scope/price
+PASS ops discovery link
+PASS ops: no website-modal detour
+PASS back returns to chooser
+PASS unsure discovery link
+PASS focus stays inside dialog
+PASS escape closes
+PASS focus restored after escape
+PASS body scroll restored
+PASS mobile menu CTA present
+PASS mobile CTA opens chooser
+PASS menu closed after CTA
+PASS pricing UK total+deposit
+PASS pricing US total+deposit
+PASS pricing US no GBP leak
+22/22 passed

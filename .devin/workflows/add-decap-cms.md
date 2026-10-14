@@ -20,6 +20,8 @@ Decap is infrastructure. `/cms/` must be Sorted Studio. Stock Decap may remain a
 
 **Reference implementation:** `warwickshire-str` — the most complete and current example of this full stack. Study `public/cms/`, `lib/content.ts`, and `content/` in that repo before starting.
 
+Use pnpm for setup, development, verification and handoffs. Follow `operators/skills/factory-operators.md` -> Package Manager And Handoffs before any dependency work; package/network permissions remain separate.
+
 ---
 
 ## Prerequisites
@@ -40,14 +42,14 @@ Add the `cms` script, `decap-server` dev dependency, and the studio-content buil
 "scripts": {
   "dev": "next dev",
   "build": "node scripts/build-studio-content.mjs && next build",
-  "cms": "npx decap-server"
+  "cms": "decap-server"
 },
 "devDependencies": {
   "decap-server": "^3.7.0"
 }
 ```
 
-Run `npm install` after editing.
+After package/network approval, run `pnpm install` to update dependencies and `pnpm-lock.yaml`. Use `pnpm install --frozen-lockfile` only when the lockfile already matches `package.json`. Do not switch to npm for CMS setup.
 
 The `build` script regenerates `public/cms/studio-content.json` from the manifest + content files before every `next build`. This ensures the static fallback snapshot is always current.
 
@@ -329,7 +331,7 @@ fs.writeFileSync(outputPath, `${JSON.stringify({ generatedAt: new Date().toISOSt
 console.log(`Wrote ${path.relative(root, outputPath)} with ${sections.length} sections`)
 ```
 
-This runs automatically as part of `npm run build`. It reads every content file mapped in the manifest and writes a single `studio-content.json` snapshot. Studio loads this as a fallback when the Decap backend is unavailable.
+This runs automatically as part of `pnpm run build`. It reads every content file mapped in the manifest and writes a single `studio-content.json` snapshot. Studio loads this as a fallback when the Decap backend is unavailable.
 
 ### Legacy Decap fallback: `public/cms/decap.html`
 
@@ -707,10 +709,10 @@ Two terminals required:
 
 ```bash
 # Terminal 1
-npm run dev
+pnpm run dev
 
 # Terminal 2
-npm run cms
+pnpm run cms
 ```
 
 Access CMS at `http://localhost:3000/cms/index.html` (not `/cms/` — Next.js intercepts the bare path).
@@ -801,12 +803,12 @@ SoS `/performance/`); `/tracking/` is additive.
 - [ ] Colour fields render a colour picker
 - [ ] Desktop and mobile preview toggles work
 - [ ] Live preview iframe loads the section's `previewPath`
-- [ ] Save draft writes JSON through `npm run cms` local backend
+- [ ] Save draft writes JSON through `pnpm run cms` local backend
 - [ ] Publish commits to Git via Git Gateway on production
 - [ ] Toast notifications appear on save/publish success and failure
 - [ ] `imgSrc()` wrapping applied to all images
 - [ ] No hardcoded copy remains in page components
-- [ ] Site builds clean with `npm run build` (regenerates `studio-content.json`)
+- [ ] Site builds clean with `pnpm run build` (regenerates `studio-content.json`)
 - [ ] Factory reset script created and handoff SHA tagged
 - [ ] Netlify Identity set to Invite Only
 - [ ] Production `/.netlify/identity/settings` returns `"disable_signup": true` — do not trust the dashboard toggle until this verifies

@@ -1,0 +1,116 @@
+PASS | pricing cards 1440 | {"sameRow":true,"w":1440}
+PASS | pricing@1440 no horizontal scroll
+PASS | pricing@1440 no clipped text
+PASS | pricing one ops offer 1440
+PASS | pricing no yellow panel 1440
+PASS | pricing no resell 1440
+PASS | pricing H1 1440
+PASS | pricing support 1440
+PASS | pricing 4 steps in card 1440
+PASS | pricing FAQs after cards 1440
+PASS | pricing 6 faqs 1440
+PASS | pricing ops no fee 1440
+PASS | pricing ops support 1440
+PASS | pricing exclusions 1440
+PASS | pricing discovery cta 1440
+PASS | pricing cards 1024 | {"sameRow":true,"w":1024}
+PASS | pricing@1024 no horizontal scroll
+PASS | pricing@1024 no clipped text
+PASS | pricing one ops offer 1024
+PASS | pricing no yellow panel 1024
+PASS | pricing no resell 1024
+PASS | pricing H1 1024
+PASS | pricing support 1024
+PASS | pricing 4 steps in card 1024
+PASS | pricing FAQs after cards 1024
+PASS | pricing 6 faqs 1024
+PASS | pricing ops no fee 1024
+PASS | pricing ops support 1024
+PASS | pricing exclusions 1024
+PASS | pricing discovery cta 1024
+PASS | pricing cards 768 | {"sameRow":false,"w":768}
+PASS | pricing@768 no horizontal scroll
+PASS | pricing@768 no clipped text
+PASS | pricing one ops offer 768
+PASS | pricing no yellow panel 768
+PASS | pricing no resell 768
+PASS | pricing H1 768
+PASS | pricing support 768
+PASS | pricing 4 steps in card 768
+PASS | pricing FAQs after cards 768
+PASS | pricing 6 faqs 768
+PASS | pricing ops no fee 768
+PASS | pricing ops support 768
+PASS | pricing exclusions 768
+PASS | pricing discovery cta 768
+PASS | pricing cards 390 | {"sameRow":false,"w":390}
+PASS | pricing@390 no horizontal scroll
+PASS | pricing@390 no clipped text
+PASS | pricing one ops offer 390
+PASS | pricing no yellow panel 390
+PASS | pricing no resell 390
+PASS | pricing H1 390
+PASS | pricing support 390
+PASS | pricing 4 steps in card 390
+PASS | pricing FAQs after cards 390
+PASS | pricing 6 faqs 390
+PASS | pricing ops no fee 390
+PASS | pricing ops support 390
+PASS | pricing exclusions 390
+PASS | pricing discovery cta 390
+PASS | pricing cards 320 | {"sameRow":false,"w":320}
+PASS | pricing@320 no horizontal scroll
+PASS | pricing@320 no clipped text
+PASS | pricing one ops offer 320
+PASS | pricing no yellow panel 320
+PASS | pricing no resell 320
+PASS | pricing H1 320
+PASS | pricing support 320
+PASS | pricing 4 steps in card 320
+PASS | pricing FAQs after cards 320
+PASS | pricing 6 faqs 320
+PASS | pricing ops no fee 320
+PASS | pricing ops support 320
+PASS | pricing exclusions 320
+PASS | pricing discovery cta 320
+PASS | pricing UK {total}/deposit/balance
+PASS | selector present
+PASS | selector appearance-none
+PASS | selector single chevron svg | n=1
+PASS | pricing US amounts | $3,500,$1,750,$1,750
+PASS | pricing UK restored via keyboard
+PASS | selector in header bounds
+PASS | pricing CTA modal visible
+PASS | modal Q1 first-page framing
+PASS | modal closed
+PASS | overflow restored
+PASS | header no overflow 1024 | ok
+PASS | pricing-header@1024 no horizontal scroll
+PASS | header no overflow 768 | ok
+PASS | pricing-header@768 no horizontal scroll
+PASS | capability no price card
+PASS | capability six cards | n=6
+PASS | laptop larger than baseline 440x320 | {"cards":6,"price":false,"imgW":800,"imgH":420,"figW":800}
+PASS | capability@1440 no clipped text
+PASS | capability@390 no horizontal scroll
+PASS | capability@390 no clipped text
+PASS | capability laptop mobile fullwidth | w=350
+PASS | about H1 @1440 | Good at what you do? Your systems should be too.
+PASS | about script whole phrase @1440 | should be too.
+PASS | about script no clip @1440 | right=375.828125
+PASS | about@1440 no horizontal scroll
+PASS | about@1440 no clipped text
+PASS | about H1 @390 | Good at what you do? Your systems should be too.
+PASS | about script whole phrase @390 | should be too.
+PASS | about script no clip @390 | right=202.828125
+PASS | about@390 no horizontal scroll
+PASS | about@390 no clipped text
+PASS | about H1 @320 | Good at what you do? Your systems should be too.
+PASS | about script whole phrase @320 | should be too.
+PASS | about script no clip @320 | right=202.828125
+PASS | about@320 no horizontal scroll
+PASS | about@320 no clipped text
+PASS | no failed images
+
+TOTAL: 113 PASS / 0 FAIL
+EXIT: 0

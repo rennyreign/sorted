@@ -1,0 +1,11 @@
+PASS note shown 1440
+PASS note does not overlap caption 1440 [520,540]
+PASS caption in viewport 1440
+PASS note shown 1024
+PASS note does not overlap caption 1024 [501,521]
+PASS caption in viewport 1024
+PASS note shown 768
+PASS note does not overlap caption 768 [818,838]
+PASS caption in viewport 768
+PASS note hidden below sm 390
+TOTAL: 10 PASS 0 FAIL

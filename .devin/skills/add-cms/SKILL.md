@@ -7,6 +7,8 @@ description: Apply SortedUpdates CMS to a client site. Use when the user says "a
 
 Apply the SortedUpdates CMS to the current client site repo. This is Stage 2 — only proceed if the client has approved the build (Nod 2).
 
+Use pnpm for setup, development, verification and handoffs. Follow `operators/skills/factory-operators.md` -> Package Manager And Handoffs before any dependency work; package/network permissions remain separate.
+
 ## What to load
 
 Before writing any code, load these files from the sorted repo:
@@ -43,6 +45,6 @@ Run the full QA loop from the operator skill before considering the task complet
 - Every page tab and section opens with editable fields
 - List/property editors support add/remove and nested editing
 - Save draft writes JSON locally; Publish commits to Git
-- `npm run build` passes and regenerates `studio-content.json`
+- `pnpm run build` passes and regenerates `studio-content.json`
 - No horizontal overflow on desktop or mobile
 - No links to `/cms/decap.html` in the Studio UI

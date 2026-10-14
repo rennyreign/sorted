@@ -1,0 +1,29 @@
+PASS laptop painted right edge inside viewport 1440 1344
+PASS laptop painted left edge >=0 1440 610
+PASS caption visible inside viewport 1440 [540,1344]
+laptop 1440 painted 734 x 367
+PASS laptop painted right edge inside viewport 1280 1264
+PASS laptop painted left edge >=0 1280 530
+PASS caption visible inside viewport 1280 [540,1264]
+laptop 1280 painted 734 x 367
+PASS laptop painted right edge inside viewport 1024 1000
+PASS laptop painted left edge >=0 1024 427
+PASS caption visible inside viewport 1024 [521,1000]
+laptop 1024 painted 573 x 286
+PASS laptop painted right edge inside viewport 390 370
+PASS laptop painted left edge >=0 390 20
+PASS caption visible inside viewport 390 [788,370]
+laptop 390 painted 350 x 175
+PASS about script inside viewport 1440 [142,532,"129.6px"]
+PASS about script size >=60px at 1440 "129.6px"
+PASS about H1 normalized 1440 "Good at what you do? Your systems should be too."
+PASS about script inside viewport 390 [20,289,"89.6px"]
+PASS about script size >=60px at 390 "89.6px"
+PASS about H1 normalized 390 "Good at what you do? Your systems should be too."
+PASS about script inside viewport 320 [20,261,"80px"]
+PASS about script size >=60px at 320 "80px"
+PASS about H1 normalized 320 "Good at what you do? Your systems should be too."
+PASS pricing one market selector
+PASS US $3,500 after selection
+PASS 4 numbered steps inside website card
+TOTAL: 24 PASS 0 FAIL

@@ -1,0 +1,117 @@
+🎭 Playwright Skill - Universal Executor
+
+📄 Executing file: /tmp/playwright-final-qa.js
+🚀 Starting automation...
+
+PASS P1 chooser closed before preview
+PASS P1 mockup visible
+PASS P1 scroll locked after RAF
+PASS P1 Q1 answered -> still locked
+PASS P1 advanced to Q2
+PASS P1 closed + initial overflow restored
+PASS P1 focus on hamburger
+PASS /pricing menu website CTA
+PASS /pricing mockup visible
+PASS /pricing scroll locked
+PASS /pricing scroll restored
+PASS /pricing focus on hamburger
+PASS /sites menu website CTA
+PASS /sites mockup visible
+PASS /sites scroll locked
+PASS /sites scroll restored
+PASS /sites focus on hamburger
+PASS D back->chooser
+PASS D escape->trigger focus
+PASS D escape->scroll restored
+PASS D reopen resets
+PASS D mockup visible above header
+PASS D handoff scroll locked
+PASS D close->scroll restored
+PASS D close->trigger focus
+PASS /about og:title
+PASS /about og:url
+PASS /about og:desc
+PASS /sites og:title
+PASS /sites og:url
+PASS /sites og:desc
+PASS /sites @1440 no overflow — 1440
+PASS /sites H1 exact — Your competitors aren't better. They just look better.
+PASS /sites @390 no overflow — 390
+PASS /sites @320 no overflow — 320
+PASS / @320 no clip/overflow — sw=320
+PASS / @768 no clip/overflow — sw=768
+PASS /about @320 no clip/overflow — sw=320
+PASS /about @768 no clip/overflow — sw=768
+PASS /pricing @320 no clip/overflow — sw=320
+PASS /pricing @768 no clip/overflow — sw=768
+PASS /examples @320 no clip/overflow — sw=320
+PASS /examples @768 no clip/overflow — sw=768
+PASS /what-else-we-do @320 no clip/overflow — sw=320
+PASS /what-else-we-do @768 no clip/overflow — sw=768
+PASS /howitworks @320 no clip/overflow — sw=320
+PASS /howitworks @768 no clip/overflow — sw=768
+PASS /sites @320 no clip/overflow — sw=320
+PASS /sites @768 no clip/overflow — sw=768
+PASS /ops @320 no clip/overflow — sw=320
+PASS /ops @768 no clip/overflow — sw=768
+PASS /ops/pricing @320 no clip/overflow — sw=320
+PASS /ops/pricing @768 no clip/overflow — sw=768
+saved home-desktop
+saved home-mobile
+saved sites-desktop
+
+==== SUMMARY ====
+PASS P1 chooser closed before preview
+PASS P1 mockup visible
+PASS P1 scroll locked after RAF
+PASS P1 Q1 answered -> still locked
+PASS P1 advanced to Q2
+PASS P1 closed + initial overflow restored
+PASS P1 focus on hamburger
+PASS /pricing menu website CTA
+PASS /pricing mockup visible
+PASS /pricing scroll locked
+PASS /pricing scroll restored
+PASS /pricing focus on hamburger
+PASS /sites menu website CTA
+PASS /sites mockup visible
+PASS /sites scroll locked
+PASS /sites scroll restored
+PASS /sites focus on hamburger
+PASS D back->chooser
+PASS D escape->trigger focus
+PASS D escape->scroll restored
+PASS D reopen resets
+PASS D mockup visible above header
+PASS D handoff scroll locked
+PASS D close->scroll restored
+PASS D close->trigger focus
+PASS /about og:title
+PASS /about og:url
+PASS /about og:desc
+PASS /sites og:title
+PASS /sites og:url
+PASS /sites og:desc
+PASS /sites @1440 no overflow — 1440
+PASS /sites H1 exact — Your competitors aren't better. They just look better.
+PASS /sites @390 no overflow — 390
+PASS /sites @320 no overflow — 320
+PASS / @320 no clip/overflow — sw=320
+PASS / @768 no clip/overflow — sw=768
+PASS /about @320 no clip/overflow — sw=320
+PASS /about @768 no clip/overflow — sw=768
+PASS /pricing @320 no clip/overflow — sw=320
+PASS /pricing @768 no clip/overflow — sw=768
+PASS /examples @320 no clip/overflow — sw=320
+PASS /examples @768 no clip/overflow — sw=768
+PASS /what-else-we-do @320 no clip/overflow — sw=320
+PASS /what-else-we-do @768 no clip/overflow — sw=768
+PASS /howitworks @320 no clip/overflow — sw=320
+PASS /howitworks @768 no clip/overflow — sw=768
+PASS /sites @320 no clip/overflow — sw=320
+PASS /sites @768 no clip/overflow — sw=768
+PASS /ops @320 no clip/overflow — sw=320
+PASS /ops @768 no clip/overflow — sw=768
+PASS /ops/pricing @320 no clip/overflow — sw=320
+PASS /ops/pricing @768 no clip/overflow — sw=768
+53/53 passed

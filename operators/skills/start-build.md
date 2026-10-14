@@ -17,6 +17,8 @@ This is the **single entry point** for starting a new Sorted website build. If y
 
 It creates a sibling project folder (not inside sorted), scaffolds the Next.js site from the client-site template, preserves the complete ChatGPT export pack, and initialises the factory job. Canonical phase/evidence instructions live in `operators/skills/factory-operators.md`; do not run a competing three-step generation chain.
 
+Use pnpm for setup, development, verification and handoffs. Follow `operators/skills/factory-operators.md` -> Package Manager And Handoffs before any dependency work; package/network permissions remain separate.
+
 ## Build Request Is Local Build Approval
 
 A request to build a new client website authorises the normal local Stage 1 work: scaffold its sibling project, customise the template root layout and components, add advertised routes, optimise supplied assets, and run local checks and a preview. Do not ask for a separate `/approve` for these steps.

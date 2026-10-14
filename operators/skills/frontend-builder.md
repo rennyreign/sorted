@@ -9,7 +9,7 @@ Before building or resuming a pre-approval client site, read `operators/skills/s
 **Trigger:** Loaded by `site-build` skill, or directly when user asks to build the frontend  
 **Execution:** Active coding harness; older API CLI is a dormant legacy fallback  
 **Input:** Approved mockup + supplied design-IR + validated asset registry + client facts/unknowns  
-**Output:** Complete Next.js client site repo, `npm run build` passing
+**Output:** Complete Next.js client site repo, `pnpm run build` passing
 
 ---
 
@@ -26,6 +26,8 @@ The legacy implementation:
 5. Runs verification only when requested; dependency installation requires explicit opt-in/permission
 
 **Critical principle:** The agent writes the code directly, section by section, reading the mockup image and the deconstruction JSON together. Claude is used for boilerplate and initial structure — the agent reviews and corrects the output before accepting it.
+
+Use pnpm for setup, development, verification and handoffs. Follow `operators/skills/factory-operators.md` -> Package Manager And Handoffs before any dependency work; package/network permissions remain separate.
 
 ---
 
@@ -86,7 +88,7 @@ These are non-negotiable in every generated component:
 - **TailwindCSS v4** — no `@apply border-border`, no `@apply bg-background`, no v3 CSS variable utilities
 - **`<img>` tags** — not `next/image` (static export + unoptimized mode)
 - **lucide-react only** — no other icon libraries
-- **No new npm packages** — work within what `package.json` already has
+- **No new dependencies** — work within what `package.json` already has
 - **Server Components by default** — only `"use client"` when genuinely needed (useState, event handlers)
 - **`Viewport` export** — `themeColor` goes in `export const viewport: Viewport`, not in `metadata`
 - **Real copy** — no lorem ipsum or generic "Coming soon" pages. The explicit Stage 1 direction-confirmation state in `stage-1-direction-confirmation.md` is permitted until the client confirms the homepage direction.
@@ -137,7 +139,7 @@ After writing all files:
 
 ```bash
 cd output/<slug>-site
-npm run build
+pnpm run build
 ```
 
 Expected output:
@@ -166,7 +168,7 @@ Route (app)
 
 ## After the build passes
 
-1. Start the dev server: `npm run dev --port 3099`
+1. Start the dev server: `pnpm run dev --port 3099`
 2. Open in browser and compare each section against the mockup
 3. Fix any visual discrepancies — particularly hero layout, card structures, section spacing
 4. Report Standard vs Premium tier, notable decisions, Premium upgrade opportunities

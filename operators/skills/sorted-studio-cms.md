@@ -6,6 +6,8 @@ Primary doctrine: `doctrine/sorted-studio-cms.md`
 Installation workflow: `.devin/workflows/add-decap-cms.md`  
 Reference implementation: `warwickshire-str` — study `public/cms/`, `lib/content.ts`, `content/` before starting
 
+Use pnpm for setup, development, verification and handoffs. Follow `operators/skills/factory-operators.md` -> Package Manager And Handoffs before any dependency work; package/network permissions remain separate.
+
 ## Operating Standard
 
 Build the client CMS as Sorted Studio:
@@ -28,7 +30,7 @@ Build the client CMS as Sorted Studio:
 - `public/cms/studio-content.json` — generated snapshot for static fallback
 - `public/cms/config.yml` — Decap backend configuration
 - `public/cms/tutorial.json` — walkthrough video URL and helper text
-- `scripts/build-studio-content.mjs` — snapshot generator (runs in `npm run build`)
+- `scripts/build-studio-content.mjs` — snapshot generator (runs in `pnpm run build`)
 - `lib/content.ts` — TypeScript types and disk-reading loaders
 
 ## Studio Layout
@@ -122,13 +124,13 @@ Run a complete QA loop before closing:
 - Branded email templates (`templates/sorted-studio/emails/`) pasted into Identity → Emails
 
 **Save:**
-- Local: "Save draft" writes JSON through `npm run cms` — verify file changed on disk
+- Local: "Save draft" writes JSON through `pnpm run cms` — verify file changed on disk
 - Production: "Publish" commits to Git via Git Gateway — verify commit appears in repo
 - Toast notification appears on success or failure
 - Test edits are restored before commit
 
 **Build:**
-- `npm run build` passes and regenerates `studio-content.json`
+- `pnpm run build` passes and regenerates `studio-content.json`
 - Focused CMS Playwright smoke tests pass
 - Desktop and mobile layouts have no horizontal overflow
 
@@ -139,7 +141,7 @@ If any control has no purpose, need, and use case, remove it.
 Use the Sorted repo upgrade script for repeatable rollouts:
 
 ```bash
-npm run studio:upgrade -- --target ../client-repo --slug client-slug
+pnpm run studio:upgrade --target ../client-repo --slug client-slug
 ```
 
 Default behavior:

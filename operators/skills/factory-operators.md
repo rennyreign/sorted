@@ -10,6 +10,18 @@ Use this contract when starting or resuming a Sorted manufacturing job. It prese
 - Use the active client's fonts, geometry, colours and section order. Taste skills are quality guardrails, not instructions to replace the approved design with generic Sorted styling.
 - QA diagnoses; the builder corrects. Agent visual acceptance is not human/client approval.
 
+## Package Manager And Handoffs
+
+Use pnpm for Sorted and Sorted client-site repositories. New scaffolds declare `packageManager: "pnpm@12.6.0"` in `package.json`; `pnpm-lock.yaml` is the dependency lockfile. Keep an existing pnpm version pin on resumed repos rather than silently changing it.
+
+- Inspect `package.json` and lockfiles before dependency work. Use `pnpm install --frozen-lockfile` when a current pnpm lockfile exists. For a new scaffold without a lockfile, or an approved dependency change, use `pnpm install` and retain the resulting `pnpm-lock.yaml`.
+- Do not run `npm install`, `npm ci`, yarn, or npx as a fallback. If pnpm is unavailable, report the blocker and ask before provisioning it or accessing the network.
+- A legacy npm/yarn lockfile or conflicting package-manager declaration is a migration boundary, not permission to mix package managers. Report it and agree the migration before changing or deleting existing lockfiles. An npm lockfile does not override Sorted's pnpm standard.
+- Use `pnpm run dev`, `pnpm run build`, `pnpm run typecheck` and `pnpm run cms` where those scripts exist; use `pnpm exec <tool>` for installed tools. Avoid `pnpm dlx` unless a one-off download is explicitly approved. Serve static QA output without a download: `python3 -m http.server 3999 --bind 127.0.0.1 --directory out`.
+- Dependency installation and network access still require their existing permissions. Permission requests must name the target repo and exact pnpm command; using pnpm does not waive a safety gate.
+- Implementation briefs, QA evidence and session handoffs must state pnpm, the package-manager pin/lockfile state, the commands run and any pending install permission. Never carry an npm command forward from an older handoff.
+- The dormant frontend API CLI still contains npm execution paths. Do not use its install/build flags until those paths are migrated; use the active harness with the pnpm commands above.
+
 ## Commands
 
 From the Sorted root, compile the factory with existing dependencies before using a changed CLI:

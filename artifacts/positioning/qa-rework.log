@@ -1,0 +1,116 @@
+🎭 Playwright Skill - Universal Executor
+
+📄 Executing file: /tmp/playwright-qa-rework.js
+🚀 Starting automation...
+
+PASS P1 mobile menu CTA visible
+PASS P1 chooser closed
+PASS P1 mockup attached
+PASS P1 mockup VISIBLE (not hidden in menu)
+PASS P1 mockup fills viewport — {"x":0,"y":0,"width":390,"height":844}
+PASS P1 question 1 present
+PASS P1 scroll locked
+PASS P1 advances to question 2
+PASS P1 mockup closed via Escape
+PASS P1 scroll restored
+PASS P1 focus restored to hamburger — Open navigation
+PASS P2 /pricing menu website CTA visible
+PASS P2 mockup VISIBLE
+PASS P2 question 1 present
+PASS P2 close -> hamburger focus — Open navigation
+PASS P2 scroll restored
+PASS P3 /sites menu website CTA visible
+PASS P3 mockup VISIBLE
+PASS P3 scroll restored
+PASS D1 back -> chooser
+PASS D1 escape -> focus on trigger
+PASS D1 reopen resets
+PASS D1 mockup visible above header
+PASS D1 scroll stays locked through handoff
+PASS D1 scroll restored after close
+PASS D1 focus to trigger after handoff close
+PASS /about og:title exact — About Sorted | Good at what you do? Your systems should be too.
+PASS /about og:url exact — https://sortmydigital.site/about/
+PASS /about og:description present
+PASS /sites og:title exact — Sorted Sites | Your new website, Sorted
+PASS /sites og:url exact — https://sortmydigital.site/sites/
+PASS /sites og:description present
+PASS /sites @1440 no overflow — 1440
+FAIL /sites H1 exact — Your competitorsaren't better. They just look better.
+PASS /sites @390 no overflow — 390
+FAIL /sites @320 no overflow — 358
+PASS / @320 no element clipping
+PASS / @768 no element clipping
+PASS /about @320 no element clipping
+PASS /about @768 no element clipping
+PASS /pricing @320 no element clipping
+PASS /pricing @768 no element clipping
+FAIL /examples @320 no element clipping — IMG:object-cover object-top transition-transform duration-500 gr right=540 | IMG:object-cover object-top transition-transform duration-500 gr right=818 | IMG:object-cover object-top transition-transform duration-500 gr right=1097 | IMG:object-cover object-top transition-transform duration-500 gr right=1375
+FAIL /examples @768 no element clipping — IMG:object-cover object-top transition-transform duration-500 gr right=1063 | IMG:object-cover object-top transition-transform duration-500 gr right=1423 | IMG:object-cover object-top transition-transform duration-500 gr right=1783
+PASS /what-else-we-do @320 no element clipping
+PASS /what-else-we-do @768 no element clipping
+FAIL /howitworks @320 no element clipping — H1:text-[clamp(3.4rem,7vw,7rem)] font-black leading-[0.92] trac right=340 | P:mt-6 max-w-[470px] text-[17px] font-semibold leading-[1.55]  right=340 | IMG:object-contain object-center right=340 | IMG:object-contain object-center right=340 | P:text-[11px] font-black uppercase tracking-[0.14em] text-whit right=340
+PASS /howitworks @768 no element clipping
+FAIL /sites @320 no element clipping — H2:max-w-[480px] text-[clamp(2.8rem,5vw,5rem)] font-black leadi right=358 | P:mt-6 max-w-[450px] text-[15px] font-semibold leading-[1.5] t right=358 | P:border-white/25 text-white/88 sm:border-l sm:pl-8 right=358 | P:mb-6 text-[15px] font-black right=330 | SECTION: right=330
+PASS /sites @768 no element clipping
+FAIL /ops @320 no element clipping — H2:[font-family:var(--font-v2-marker)] text-[clamp(3.4rem,6.2vw right=388 | P:mt-10 text-[clamp(1.6rem,2.25vw,2.4rem)] font-black leading- right=388 | P:text-[clamp(1.45rem,2.3vw,2.15rem)] font-black leading-[1.08 right=388 | P:mt-4 max-w-[340px] text-[14px] font-black leading-[1.45] tra right=388
+FAIL /ops @768 no element clipping — P:text-[clamp(1.45rem,2.3vw,2.15rem)] font-black leading-[1.08 right=822 | P:mt-4 max-w-[340px] text-[14px] font-black leading-[1.45] tra right=784
+FAIL /ops/pricing @320 no element clipping — P:[font-family:var(--font-v2-marker)] text-[clamp(2.4rem,4vw,4 right=336 | P:max-w-[360px] text-[14px] font-black leading-[1.45] tracking right=336
+PASS /ops/pricing @768 no element clipping
+
+==== SUMMARY ====
+PASS P1 mobile menu CTA visible
+PASS P1 chooser closed
+PASS P1 mockup attached
+PASS P1 mockup VISIBLE (not hidden in menu)
+PASS P1 mockup fills viewport — {"x":0,"y":0,"width":390,"height":844}
+PASS P1 question 1 present
+PASS P1 scroll locked
+PASS P1 advances to question 2
+PASS P1 mockup closed via Escape
+PASS P1 scroll restored
+PASS P1 focus restored to hamburger — Open navigation
+PASS P2 /pricing menu website CTA visible
+PASS P2 mockup VISIBLE
+PASS P2 question 1 present
+PASS P2 close -> hamburger focus — Open navigation
+PASS P2 scroll restored
+PASS P3 /sites menu website CTA visible
+PASS P3 mockup VISIBLE
+PASS P3 scroll restored
+PASS D1 back -> chooser
+PASS D1 escape -> focus on trigger
+PASS D1 reopen resets
+PASS D1 mockup visible above header
+PASS D1 scroll stays locked through handoff
+PASS D1 scroll restored after close
+PASS D1 focus to trigger after handoff close
+PASS /about og:title exact — About Sorted | Good at what you do? Your systems should be too.
+PASS /about og:url exact — https://sortmydigital.site/about/
+PASS /about og:description present
+PASS /sites og:title exact — Sorted Sites | Your new website, Sorted
+PASS /sites og:url exact — https://sortmydigital.site/sites/
+PASS /sites og:description present
+PASS /sites @1440 no overflow — 1440
+FAIL /sites H1 exact — Your competitorsaren't better. They just look better.
+PASS /sites @390 no overflow — 390
+FAIL /sites @320 no overflow — 358
+PASS / @320 no element clipping
+PASS / @768 no element clipping
+PASS /about @320 no element clipping
+PASS /about @768 no element clipping
+PASS /pricing @320 no element clipping
+PASS /pricing @768 no element clipping
+FAIL /examples @320 no element clipping — IMG:object-cover object-top transition-transform duration-500 gr right=540 | IMG:object-cover object-top transition-transform duration-500 gr right=818 | IMG:object-cover object-top transition-transform duration-500 gr right=1097 | IMG:object-cover object-top transition-transform duration-500 gr right=1375
+FAIL /examples @768 no element clipping — IMG:object-cover object-top transition-transform duration-500 gr right=1063 | IMG:object-cover object-top transition-transform duration-500 gr right=1423 | IMG:object-cover object-top transition-transform duration-500 gr right=1783
+PASS /what-else-we-do @320 no element clipping
+PASS /what-else-we-do @768 no element clipping
+FAIL /howitworks @320 no element clipping — H1:text-[clamp(3.4rem,7vw,7rem)] font-black leading-[0.92] trac right=340 | P:mt-6 max-w-[470px] text-[17px] font-semibold leading-[1.55]  right=340 | IMG:object-contain object-center right=340 | IMG:object-contain object-center right=340 | P:text-[11px] font-black uppercase tracking-[0.14em] text-whit right=340
+PASS /howitworks @768 no element clipping
+FAIL /sites @320 no element clipping — H2:max-w-[480px] text-[clamp(2.8rem,5vw,5rem)] font-black leadi right=358 | P:mt-6 max-w-[450px] text-[15px] font-semibold leading-[1.5] t right=358 | P:border-white/25 text-white/88 sm:border-l sm:pl-8 right=358 | P:mb-6 text-[15px] font-black right=330 | SECTION: right=330
+PASS /sites @768 no element clipping
+FAIL /ops @320 no element clipping — H2:[font-family:var(--font-v2-marker)] text-[clamp(3.4rem,6.2vw right=388 | P:mt-10 text-[clamp(1.6rem,2.25vw,2.4rem)] font-black leading- right=388 | P:text-[clamp(1.45rem,2.3vw,2.15rem)] font-black leading-[1.08 right=388 | P:mt-4 max-w-[340px] text-[14px] font-black leading-[1.45] tra right=388
+FAIL /ops @768 no element clipping — P:text-[clamp(1.45rem,2.3vw,2.15rem)] font-black leading-[1.08 right=822 | P:mt-4 max-w-[340px] text-[14px] font-black leading-[1.45] tra right=784
+FAIL /ops/pricing @320 no element clipping — P:[font-family:var(--font-v2-marker)] text-[clamp(2.4rem,4vw,4 right=336 | P:max-w-[360px] text-[14px] font-black leading-[1.45] tracking right=336
+PASS /ops/pricing @768 no element clipping
+45/54 passed

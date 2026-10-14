@@ -12,6 +12,8 @@ Before building or resuming a pre-approval client site, read `operators/skills/s
 
 This skill drives a website build through the Sorted factory operator chain. It is used after `start-build` has initialised the build directory.
 
+Use pnpm for setup, development, verification and handoffs. Follow `operators/skills/factory-operators.md` -> Package Manager And Handoffs before any dependency work; package/network permissions remain separate.
+
 ## What to load first
 
 Load the execution contract for the requested boundary:

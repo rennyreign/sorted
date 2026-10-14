@@ -13,6 +13,8 @@ Canonical execution/evidence: `/Users/renaldoedmondson/Projects/sorted/operators
 
 The CMS (SortedUpdates) is applied in Stage 2 — after the client approves this build. Do not wire content to JSON files or configure Decap CMS during this task.
 
+Use pnpm for setup, development, verification and handoffs. Follow `/Users/renaldoedmondson/Projects/sorted/operators/skills/factory-operators.md` -> Package Manager And Handoffs before any dependency work; package/network permissions remain separate.
+
 ---
 
 ## What's already in place
@@ -135,7 +137,7 @@ Every build must include:
 - [ ] No dead placeholder links
 - [ ] No commented-out dead code
 - [ ] Supplied originals preserved; registered production images optimised without upscaling
-- [ ] `npm run build` passes clean with zero TypeScript errors
+- [ ] `pnpm run build` passes clean with zero TypeScript errors
 
 ---
 
@@ -207,14 +209,14 @@ Full doctrine: `sorted/doctrine/cascade-deployment-discipline.md`
 - Do not create `lib/content.ts` or `content/` JSON files
 - Do not configure Decap CMS or Netlify Identity
 - Do not create or link a Netlify site, or deploy this site anywhere, before the client approves the design
-- Do not install new npm packages without approval
+- Do not install new dependencies without approval
 - **Do not push to `main` directly — use a feature branch**
 
 ---
 
 ## When done
 
-1. Run `npm run build` — confirm it passes clean
+1. Run `pnpm run build` — confirm it passes clean
 2. Commit on a feature branch: `feat/stage-1-build`
 3. Report: Standard or Premium tier, any notable decisions made, any Premium upgrade opportunities spotted
 

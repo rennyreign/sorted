@@ -12,7 +12,7 @@ Before building or resuming a pre-approval client site, read `operators/skills/s
 **Type:** Orchestration skill  
 **Trigger:** User provides a mockup image and asks to build a client site  
 **Chain:** Supplied export pack -> validated intake -> asset registry -> frontend -> independent QA -> existing lifecycle  
-**Output:** Ready-to-review Next.js site repo, `npm run build` passing clean
+**Output:** Ready-to-review Next.js site repo, `pnpm run build` passing clean
 
 ---
 
@@ -27,6 +27,8 @@ Load when the user says any of:
 This is a compatibility router to `factory-operators.md`. Load only the relevant phase contract; do not use the older local-generation chain for a complete supplied export pack.
 
 This skill belongs to **Sorted Sites** and client website production. Do not use it to restructure the flagship Sorted brand site or the Sorted Ops product site unless the user is explicitly asking to build a website mockup through the manufacturing chain.
+
+Use pnpm for setup, development, verification and handoffs. Follow `operators/skills/factory-operators.md` -> Package Manager And Handoffs before any dependency work; package/network permissions remain separate.
 
 ---
 
@@ -78,7 +80,7 @@ The artifacts are the source of truth. The chain is resumable at any checkpoint.
 
 Run through these before calling the build complete:
 
-- [ ] `npm run build` passes clean — zero TypeScript errors, zero CSS errors
+- [ ] `pnpm run build` passes clean — zero TypeScript errors, zero CSS errors
 - [ ] Hero section matches the mockup — full-bleed image, headline, primary CTA visible
 - [ ] All sections present in approved mockup order; generic page patterns do not override it
 - [ ] All assets resolved — no broken image paths in the generated components

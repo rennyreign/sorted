@@ -171,6 +171,8 @@ function extractAssetArray(doc) {
     const obj = doc;
     if (Array.isArray(obj['assets']))
         return obj['assets'];
+    if (Array.isArray(obj['image_assets']))
+        return obj['image_assets'];
     const am = obj['asset_manifest'];
     if (Array.isArray(am))
         return am;
