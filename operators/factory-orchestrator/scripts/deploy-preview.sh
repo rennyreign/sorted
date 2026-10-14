@@ -37,12 +37,14 @@ echo "Building $SLUG with base path $BASE ..."
 PREVIEW_BASE_PATH="$BASE" pnpm build
 
 # Rewrite root-absolute refs that basePath doesn't cover:
-#   src="/..." href="/..." in HTML, url(/...) in CSS
-# Skips refs already carrying the preview prefix and protocol
-# relatives (//).
+#   src="/..." href="/..." in HTML (skips already-prefixed and //)
+#   /images/... paths anywhere (srcSet lists, JS chunks, inline styles)
+#   url(/...) in CSS
 echo "Rewriting root-absolute refs under $BASE ..."
 find out -name "*.html" -type f -exec perl -pi -e \
   "s{(src|href)=\"/(?!preview/|/)}{\$1=\"$BASE/}g" {} +
+find out \( -name "*.html" -o -name "*.js" \) -type f -exec perl -pi -e \
+  "s{(?<!/preview/)/images/}{$BASE/images/}g" {} +
 find out/_next -name "*.css" -type f -exec perl -pi -e \
   "s{url\\(/(?!preview/)}{url($BASE/}g" {} +
 
