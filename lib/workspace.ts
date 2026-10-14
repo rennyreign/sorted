@@ -346,7 +346,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       previewUrl:
         process.env.NODE_ENV === "development"
           ? "http://localhost:4418"
-          : undefined,
+          : "https://sortmydigital.site/preview/jp-plumbing/",
       previewImageUrl: "/workspace/jp-plumbing/homepage-preview.webp",
       status: "review",
     },
@@ -1676,7 +1676,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       previewUrl:
         process.env.NODE_ENV === "development"
           ? "http://localhost:4321/"
-          : undefined,
+          : "https://sortmydigital.site/preview/rsp-services/",
       previewImageUrl: "/rsp-services-homepage-preview.webp",
       status: "review",
     },
