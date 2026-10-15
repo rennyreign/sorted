@@ -1913,6 +1913,357 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       },
     },
   },
+  "accounts-tax-management-ltd": {
+    review: {
+      headline: "A clearer accountancy offer is being prepared.",
+      summary:
+        "Accounts & Tax Management already has the substance clients look for — accounting, tax and payroll support from an established Warwickshire firm. The current website makes that harder to see than it should, so this workspace is ready while the new homepage direction is prepared.",
+      revealTitle: "Your workspace is ready.",
+      revealBody:
+        "The acquisition workspace is configured. A new homepage preview has not been supplied yet, so the website screen will show its unavailable state until a real build is added.",
+      rebuildReasons: [
+        {
+          title: "Useful services, little distinction",
+          strength:
+            "Accounting, tax and payroll support cover the recurring needs small businesses bring to an accountant.",
+          gap: "The current site says the firm is reliable and trustworthy, but gives visitors little proof or positioning that separates it from every other local practice.",
+        },
+        {
+          title: "Professional trust, thinly shown",
+          strength:
+            "An established practice has real experience clients could recognise and trust.",
+          gap: "There are no prominent testimonials, case studies, team detail or client outcomes to make that experience feel concrete before a consultation.",
+        },
+        {
+          title: "Consultation interest, no clear journey",
+          strength:
+            "Business owners comparing accountants need an easy first step into a conversation.",
+          gap: "The current navigation and calls to action do not guide someone toward a clear consultation offer or explain what happens next.",
+        },
+      ],
+      observations: [
+        {
+          title: "Lead with client confidence",
+          explanation:
+            "The new direction should show who the firm helps, the outcomes clients care about and why this practice is worth a conversation.",
+        },
+        {
+          title: "Make services easier to choose",
+          explanation:
+            "Accounting, tax and payroll support need clear descriptions written around the client's problem, not just service labels.",
+        },
+        {
+          title: "Keep the next step obvious",
+          explanation:
+            "A consultation offer should stay visible from the first screen through to the closing section, so interest has somewhere to go.",
+        },
+      ],
+    },
+    website: {
+      status: "preview",
+      offerPage: {
+        label: "Consultation page",
+        description:
+          "A focused free-consultation page is planned as the destination for advertising and referral traffic. It has not been built yet; the website preview remains unavailable until a real page is supplied.",
+      },
+    },
+    offer: { ...WORKSPACE_DEFAULTS.offer },
+    acquisition: {
+      interests: [
+        { id: "attract", title: "Attract more clients", description: "Reaching small business owners in Warwickshire who need accounting, tax or payroll support" },
+        { id: "convert", title: "Convert more enquiries", description: "A clearer accountancy offer that turns research into consultation requests" },
+        { id: "follow-up", title: "Improve follow-up", description: "Confirmations and reminders so consultation requests do not go cold" },
+        { id: "tracking", title: "Understand what's working", description: "See enquiries, consultations, proposals and clients won" },
+      ],
+      offerCard: {
+        title: "Book a consultation",
+        description:
+          "A straightforward first conversation for business owners who want practical help with accounts, tax or payroll.",
+        bullets: ["Accounting, tax & payroll", "Warwickshire practice", "A consultation is a conversation, not a commitment"],
+      },
+      ads: {
+        offer:
+          "A campaign kit built around one clear action: book a consultation with Accounts & Tax Management.",
+        creatives: [],
+      },
+      tracking: {
+        metrics: [
+          { key: "enquiries", label: "Consultation requests", description: "People asking to arrange a conversation.", source: "Website form + phone calls", connected: false },
+          { key: "attended", label: "Consultations attended", description: "Meetings that took place, confirmed by the team.", source: "Accounts & Tax Management records", connected: false },
+          { key: "quotes", label: "Proposals sent", description: "Service proposals shared after a conversation.", source: "Accounts & Tax Management records", connected: false },
+          { key: "customers", label: "Clients won", description: "Confirmed new client engagements.", source: "Accounts & Tax Management records", connected: false },
+        ],
+        journey: [
+          { stage: "New enquiry", detail: "Service needed and source", owner: "Captured automatically", note: "From your website and ads once connected." },
+          { stage: "Consultation arranged", detail: "Agreed time and format", owner: "Your team", note: "Recorded when the consultation is confirmed." },
+          { stage: "Consultation attended", detail: "A record that it took place", owner: "Your team", note: "Confirmed attendance, never assumed." },
+          { stage: "Proposal sent", detail: "Recommended support shared", owner: "Your team", note: "Updated when the proposal goes out." },
+          { stage: "Client won", detail: "New engagement confirmed", owner: "Your team", note: "Updated from your client records." },
+        ],
+        costMetrics: ["Cost per enquiry", "Cost per attended consultation", "Cost per client won"],
+      },
+    },
+  },
+  "joshi-accounting-services": {
+    review: {
+      headline: "A calmer, more personal Joshi Accounting.",
+      summary:
+        "Joshi Accounting already has a clear position: big enough to cope, small enough to care. The new homepage gives that promise a more polished, local presentation, with practical services, a simple process and a direct route into a conversation.",
+      rebuildReasons: [
+        {
+          title: "A personal firm behind generic presentation",
+          strength:
+            "Established in 2008, based in Rugby and supporting UK small businesses — a credible local practice with a human offer.",
+          gap: "The old site relied on generic stock imagery and accountancy language, so visitors could not see who they would actually work with or why Joshi was different.",
+        },
+        {
+          title: "Practical help that was hard to choose",
+          strength:
+            "Accounting, tax, payroll, bookkeeping, management accounts and business support cover the jobs small firms need most.",
+          gap: "The services were not presented as clear choices, so a visitor had to work out which conversation to start.",
+        },
+        {
+          title: "No easy first conversation",
+          strength:
+            "Small business owners often need reassurance before they switch accountant or ask for help.",
+          gap: "The old site did not make the first step feel simple, personal or obviously local.",
+        },
+      ],
+      observations: [
+        {
+          title: "A warmer first impression",
+          explanation:
+            "The homepage leads with 'Your business. Our expertise. Less to worry about.' and a calmer visual direction that feels more like a real advisory practice.",
+        },
+        {
+          title: "Six services, plainly organised",
+          explanation:
+            "Core support is laid out as recognisable choices, so owners can see the kind of help they need without decoding accountancy language.",
+        },
+        {
+          title: "A direct conversation route",
+          explanation:
+            "The primary action stays focused on starting a conversation, with Joshi's Rugby base and phone number supporting the local trust signal.",
+        },
+      ],
+    },
+    website: {
+      previewImageUrl: "/joshi-accounting-homepage-preview.webp",
+      status: "review",
+    },
+    offer: { ...WORKSPACE_DEFAULTS.offer },
+    acquisition: {
+      interests: [
+        { id: "attract", title: "Attract more clients", description: "Reaching small business owners in Rugby and across the UK" },
+        { id: "convert", title: "Convert more enquiries", description: "A clearer accountancy offer that turns research into conversations" },
+        { id: "follow-up", title: "Improve follow-up", description: "Confirmations and reminders so enquiries do not go cold" },
+        { id: "tracking", title: "Understand what's working", description: "See enquiries, consultations, proposals and clients won" },
+      ],
+      offerCard: {
+        title: "Talk about your business",
+        description:
+          "A practical first conversation for owners who want clearer accounting, tax or payroll support.",
+        bullets: ["Established 2008", "Rugby-based · UK small businesses", "01788 312272"],
+      },
+      ads: {
+        offer:
+          "A campaign kit built around one clear action: start a conversation with Joshi Accounting Services.",
+        creatives: [],
+      },
+      tracking: {
+        metrics: [
+          { key: "enquiries", label: "Conversation requests", description: "People asking to talk about their business.", source: "Website contact routes + phone calls", connected: false },
+          { key: "attended", label: "Conversations attended", description: "Meetings that took place, confirmed by the team.", source: "Joshi records", connected: false },
+          { key: "quotes", label: "Proposals sent", description: "Service proposals shared after a conversation.", source: "Joshi records", connected: false },
+          { key: "customers", label: "Clients won", description: "Confirmed new client engagements.", source: "Joshi records", connected: false },
+        ],
+        journey: [
+          { stage: "New enquiry", detail: "Service needed and source", owner: "Captured automatically", note: "From your website and ads once connected." },
+          { stage: "Conversation arranged", detail: "Agreed time and format", owner: "Joshi team", note: "Recorded when the discussion is confirmed." },
+          { stage: "Conversation attended", detail: "A record that it took place", owner: "Joshi team", note: "Confirmed attendance, never assumed." },
+          { stage: "Proposal sent", detail: "Recommended support shared", owner: "Joshi team", note: "Updated when the proposal goes out." },
+          { stage: "Client won", detail: "New engagement confirmed", owner: "Joshi team", note: "Updated from client records." },
+        ],
+        costMetrics: ["Cost per enquiry", "Cost per attended conversation", "Cost per client won"],
+      },
+    },
+  },
+  "diligent-electrical-contractors": {
+    review: {
+      headline: "A clearer, more trustworthy Diligent Electrical.",
+      summary:
+        "Diligent already presents itself as a NICEIC-approved London contractor. The new homepage turns that claim into a clearer customer experience: recognisable services, a stronger trust section, London coverage and one obvious quote action.",
+      rebuildReasons: [
+        {
+          title: "Trust claimed but not shown",
+          strength:
+            "NICEIC approval and a 5.0 Google rating across 61 reviews are strong reasons to call.",
+          gap: "The old site led with generic trust language and scattered calls to action, so the proof did not carry a visitor toward an enquiry.",
+        },
+        {
+          title: "Services without a clear choice",
+          strength:
+            "Installations, repairs, testing and lighting cover the electrical jobs London homes and businesses need.",
+          gap: "The old layout interrupted the reading flow with a dated sidebar and generic content, making the useful service range harder to scan.",
+        },
+        {
+          title: "A quote process with too much work",
+          strength:
+            "People planning electrical work want a clear way to ask for a price and understand what happens next.",
+          gap: "Calls to action competed rather than forming one simple route, leaving the visitor to decide how to proceed.",
+        },
+      ],
+      observations: [
+        {
+          title: "A stronger opening promise",
+          explanation:
+            "'Good work. Safe homes. Reliable power.' gives the page a simple, concrete message before the visitor reaches the details.",
+        },
+        {
+          title: "The jobs people recognise",
+          explanation:
+            "Installations, repairs, testing and lighting are presented as clear service cards for homeowners and businesses.",
+        },
+        {
+          title: "London trust and coverage",
+          explanation:
+            "The reassurance strip, review area and coverage section make the business feel established and local before the closing quote action.",
+        },
+      ],
+    },
+    website: {
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://127.0.0.1:4317"
+          : undefined,
+      previewImageUrl: "/diligent-electrical-homepage-preview.webp",
+      status: "review",
+    },
+    offer: { ...WORKSPACE_DEFAULTS.offer },
+    acquisition: {
+      interests: [
+        { id: "attract", title: "Attract more customers", description: "Reaching London homeowners and businesses planning electrical work" },
+        { id: "convert", title: "Convert more enquiries", description: "A site that turns service searches into quote requests and calls" },
+        { id: "follow-up", title: "Improve follow-up", description: "Confirmations and reminders so enquiries do not go cold" },
+        { id: "tracking", title: "Understand what's working", description: "See quote requests, site visits, quotes and jobs won" },
+      ],
+      offerCard: {
+        title: "Request a quote",
+        description:
+          "Tell Diligent about the electrical work you need and the team can talk through the job and next step.",
+        bullets: ["Installations, repairs, testing & lighting", "London homes and businesses", "NICEIC-approved contractor"],
+      },
+      ads: {
+        offer:
+          "A campaign kit built around one clear action: request a quote from Diligent Electrical Contractors.",
+        creatives: [],
+      },
+      tracking: {
+        metrics: [
+          { key: "enquiries", label: "Quote requests", description: "People asking Diligent for a quote.", source: "Website quote routes + phone calls", connected: false },
+          { key: "attended", label: "Site visits attended", description: "Visits that took place, confirmed by the team.", source: "Diligent records", connected: false },
+          { key: "quotes", label: "Quotes sent", description: "Prices shared after a visit or conversation.", source: "Diligent records", connected: false },
+          { key: "customers", label: "Jobs won", description: "Confirmed work from those enquiries.", source: "Diligent records", connected: false },
+        ],
+        journey: [
+          { stage: "New enquiry", detail: "Work needed and source", owner: "Captured automatically", note: "From your website and ads once connected." },
+          { stage: "Visit arranged", detail: "Agreed time and scope", owner: "Diligent team", note: "Recorded when the visit is confirmed." },
+          { stage: "Visit attended", detail: "A record that it took place", owner: "Diligent team", note: "Confirmed attendance, never assumed." },
+          { stage: "Quote sent", detail: "Price proposed for the work", owner: "Diligent team", note: "Updated when the quote goes out." },
+          { stage: "Job won", detail: "Work accepted and scheduled", owner: "Diligent team", note: "Updated from job records." },
+        ],
+        costMetrics: ["Cost per enquiry", "Cost per attended visit", "Cost per job won"],
+      },
+    },
+  },
+  "p-s-c-electrical-london-ltd": {
+    review: {
+      headline: "A stronger PSC Electrical, built on twenty-two years of trust.",
+      summary:
+        "PSC already has the substance — a long-running Croydon business, hundreds of reviews and a clear domestic and commercial offer. The new homepage gives that credibility a cleaner presentation, with recognisable services, work examples and a simple quote action.",
+      rebuildReasons: [
+        {
+          title: "A proven business looking cheaper than it is",
+          strength:
+            "More than two decades trading and a 4.7 rating across 133 Google reviews give PSC real credibility.",
+          gap: "The old site's dated template, cluttered header and copy inconsistencies undercut the confidence customers already have in the work.",
+        },
+        {
+          title: "Real services behind a generic grid",
+          strength:
+            "Domestic repairs, installations, upgrades and commercial electrical work cover the jobs local customers actually search for.",
+          gap: "The services were shown as a generic icon grid, with little sense of workmanship, scale or the right next step.",
+        },
+        {
+          title: "A good quote idea, hard to trust",
+          strength:
+            "The postcode quote concept suits a local electrical business and keeps the next step practical.",
+          gap: "The surrounding page made visitors work through clutter, while typos and mixed branding chipped away at trust.",
+        },
+      ],
+      observations: [
+        {
+          title: "Local and established from the start",
+          explanation:
+            "The homepage names Croydon and South East London and presents PSC as a local team customers can trust.",
+        },
+        {
+          title: "Services customers can recognise",
+          explanation:
+            "Six service cards organise the domestic and commercial work into clear routes, so a visitor can find their job quickly.",
+        },
+        {
+          title: "One clear quote action",
+          explanation:
+            "Request a quote appears consistently and opens a simple call-focused dialog, matching how this business actually takes enquiries.",
+        },
+      ],
+    },
+    website: {
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://127.0.0.1:4320"
+          : undefined,
+      previewImageUrl: "/psc-electrical-homepage-preview.webp",
+      status: "review",
+    },
+    offer: { ...WORKSPACE_DEFAULTS.offer },
+    acquisition: {
+      interests: [
+        { id: "attract", title: "Attract more customers", description: "Reaching homeowners, landlords and businesses across Croydon and South East London" },
+        { id: "convert", title: "Convert more enquiries", description: "A site that turns electrical searches into quote requests and calls" },
+        { id: "follow-up", title: "Improve follow-up", description: "Confirmations and reminders so enquiries do not go cold" },
+        { id: "tracking", title: "Understand what's working", description: "See quote requests, site visits, quotes and jobs won" },
+      ],
+      offerCard: {
+        title: "Request a quote",
+        description:
+          "Tell PSC about the electrical work you need and the team can talk through the job and next step.",
+        bullets: ["Domestic & commercial electrical work", "Croydon & South East London", "0203 857 4796"],
+      },
+      ads: {
+        offer:
+          "A campaign kit built around one clear action: request a quote from PSC Electrical.",
+        creatives: [],
+      },
+      tracking: {
+        metrics: [
+          { key: "enquiries", label: "Quote requests", description: "People asking PSC for a quote.", source: "Website quote action + phone calls", connected: false },
+          { key: "attended", label: "Site visits attended", description: "Visits that took place, confirmed by the team.", source: "PSC records", connected: false },
+          { key: "quotes", label: "Quotes sent", description: "Prices shared after a visit or conversation.", source: "PSC records", connected: false },
+          { key: "customers", label: "Jobs won", description: "Confirmed work from those enquiries.", source: "PSC records", connected: false },
+        ],
+        journey: [
+          { stage: "New enquiry", detail: "Work needed and source", owner: "Captured automatically", note: "From your website and ads once connected." },
+          { stage: "Visit arranged", detail: "Agreed time and scope", owner: "PSC team", note: "Recorded when the visit is confirmed." },
+          { stage: "Visit attended", detail: "A record that it took place", owner: "PSC team", note: "Confirmed attendance, never assumed." },
+          { stage: "Quote sent", detail: "Price proposed for the work", owner: "PSC team", note: "Updated when the quote goes out." },
+          { stage: "Job won", detail: "Work accepted and scheduled", owner: "PSC team", note: "Updated from job records." },
+        ],
+        costMetrics: ["Cost per enquiry", "Cost per attended visit", "Cost per job won"],
+      },
+    },
+  },
 }
 
 const LOCAL_DEMO_WORKSPACES: Record<string, Workspace> = {
