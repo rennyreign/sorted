@@ -2,10 +2,11 @@
 
 import { useContext, useEffect, useState } from "react"
 import { createPortal } from "react-dom"
-import { MessageCircle, Monitor, Smartphone } from "lucide-react"
+import { Maximize2, MessageCircle, Minimize2, Monitor, Smartphone } from "lucide-react"
 import { workspaceEvent, type Workspace, type WorkspaceRoute } from "@/lib/workspace"
 import WalkthroughBubble from "./WalkthroughBubble"
 import { PreviewControlsTarget } from "./WorkspaceShell"
+import { useSiteFullscreen } from "./useSiteFullscreen"
 
 type Viewport = "desktop" | "mobile"
 
@@ -44,6 +45,7 @@ export function WebsiteScreen({
     : previewUrl
   const currentPreviewUrl = page === "offer" ? offerPage?.previewUrl : homepageUrl
   const hasPreview = Boolean(currentPreviewUrl || previewImageUrl)
+  const siteFs = useSiteFullscreen(currentPreviewUrl ?? previewImageUrl)
 
   // If the live preview iframe never loads (e.g. a local preview that isn't
   // running, or a refused connection), fall back to the still image — or the
@@ -153,11 +155,22 @@ export function WebsiteScreen({
         <div className="ml-auto flex shrink-0 items-center gap-3">
           {versionPicker}
           {viewportToggle}
+          {hasPreview ? (
+            <button
+              type="button"
+              onClick={siteFs.toggle}
+              aria-pressed={siteFs.isFullscreen}
+              className="inline-flex h-8 shrink-0 items-center gap-2 rounded-full bg-white/10 px-3 text-[11px] font-bold text-white/60 transition-colors hover:text-white focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DFFF00]"
+            >
+              {siteFs.isFullscreen ? <Minimize2 className="size-3.5" strokeWidth={2.2} /> : <Maximize2 className="size-3.5" strokeWidth={2.2} />}
+              <span className="hidden sm:inline">{siteFs.isFullscreen ? "Exit full screen" : "Full screen"}</span>
+            </button>
+          ) : null}
         </div>
       </>, controlsTarget) : null}
 
       {/* Preview fills remaining viewport */}
-      <div className="relative min-h-0 flex-1 bg-[#F7F7F3]">
+      <div ref={siteFs.ref} className="relative min-h-0 flex-1 bg-[#F7F7F3]">
         {page === "offer" && !hasPreview ? (
           <div className="grid h-full place-items-center bg-[#F0EBDD] px-6 text-center">
             <div className="max-w-[500px]"><p className="text-[10px] font-bold uppercase tracking-widest text-[#73736D]">Proposed destination · Not yet built</p><h2 className="mt-4 text-3xl font-extrabold tracking-tight">{workspace.acquisition.offerCard.title}</h2><p className="mt-4 text-sm leading-relaxed text-[#73736D]">{offerPage?.description}</p><button type="button" onClick={askQuestion} className="mt-6 min-h-11 rounded-full bg-[#070707] px-5 text-xs font-bold text-white">Discuss the trial page</button></div>
@@ -179,7 +192,7 @@ export function WebsiteScreen({
         ) : currentPreviewUrl && !iframeFailed ? (
           <div
             className={`relative mx-auto h-full bg-white transition-[width] duration-200 ease-out ${
-              viewport === "mobile" ? "w-full max-w-[390px] shadow-[0_0_0_1px_#E8E5DD] sm:w-[390px]" : "w-full"
+              !siteFs.isFullscreen && viewport === "mobile" ? "w-full max-w-[390px] shadow-[0_0_0_1px_#E8E5DD] sm:w-[390px]" : "w-full"
             }`}
           >
             {!loaded ? (
@@ -205,7 +218,7 @@ export function WebsiteScreen({
         ) : (
           <div
             className={`mx-auto h-full overflow-auto bg-white transition-[width] duration-200 ease-out ${
-              viewport === "mobile" ? "w-full max-w-[390px] shadow-[0_0_0_1px_#E8E5DD] sm:w-[390px]" : "w-full"
+              !siteFs.isFullscreen && viewport === "mobile" ? "w-full max-w-[390px] shadow-[0_0_0_1px_#E8E5DD] sm:w-[390px]" : "w-full"
             }`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -216,6 +229,15 @@ export function WebsiteScreen({
             />
           </div>
         )}
+        {siteFs.isFullscreen ? (
+          <button
+            type="button"
+            onClick={siteFs.toggle}
+            className="absolute right-4 top-4 z-20 inline-flex h-10 items-center gap-2 rounded-full bg-[#070707]/90 px-4 text-[11px] font-bold text-white shadow-lg transition-colors hover:bg-[#070707] focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DFFF00]"
+          >
+            <Minimize2 className="size-4" strokeWidth={2.2} /> Exit full screen
+          </button>
+        ) : null}
         {hasPreview && workspace.website.walkthroughVideoUrl ? (
           <WalkthroughBubble
             src={workspace.website.walkthroughVideoUrl}

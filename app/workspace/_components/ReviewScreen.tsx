@@ -1,8 +1,9 @@
 "use client"
 
 import { formatMoney } from "@/lib/market-pricing"
-import { ArrowRight, Tag } from "lucide-react"
+import { ArrowRight, Maximize2, Minimize2, Tag } from "lucide-react"
 import { workspaceEvent, type Workspace } from "@/lib/workspace"
+import { useSiteFullscreen } from "./useSiteFullscreen"
 
 export function ReviewScreen({
   workspace,
@@ -18,6 +19,7 @@ export function ReviewScreen({
 
   const { headline, summary, rebuildReasons, observations, changes, comparisonPrompt } = workspace.review
   const showStrengths = rebuildReasons.some((r) => r.strength)
+  const siteFs = useSiteFullscreen(workspace.website.previewUrl ?? workspace.website.previewImageUrl)
 
   return (
     <div className="mx-auto max-w-[1140px] px-5 pb-16 pt-7 sm:px-8 sm:pt-11">
@@ -51,19 +53,32 @@ export function ReviewScreen({
           </button>
         </div>
         {workspace.website.previewImageUrl ? (
-          <button
-            type="button"
-            onClick={openPreview}
-            aria-label={`Open the working site for ${workspace.business.name}`}
-            className="relative block aspect-[16/10] cursor-pointer overflow-hidden p-3 sm:p-4 lg:h-full lg:aspect-auto lg:p-5"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={workspace.website.previewImageUrl}
-              alt={`Working site created for ${workspace.business.name}`}
-              className="h-full w-full rounded-[10px] object-cover object-top"
-            />
-          </button>
+          <div ref={siteFs.ref} className={`relative lg:h-full ${siteFs.isFullscreen ? "bg-black" : ""}`}>
+            <button
+              type="button"
+              onClick={openPreview}
+              aria-label={`Open the working site for ${workspace.business.name}`}
+              className={`relative block w-full cursor-pointer overflow-hidden ${
+                siteFs.isFullscreen ? "h-full" : "aspect-[16/10] p-3 sm:p-4 lg:h-full lg:aspect-auto lg:p-5"
+              }`}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={workspace.website.previewImageUrl}
+                alt={`Working site created for ${workspace.business.name}`}
+                className={siteFs.isFullscreen ? "h-full w-full object-contain" : "h-full w-full rounded-[10px] object-cover object-top"}
+              />
+            </button>
+            <button
+              type="button"
+              onClick={siteFs.toggle}
+              aria-label={siteFs.isFullscreen ? "Exit full screen" : "View site preview full screen"}
+              className="absolute bottom-6 right-6 z-10 inline-flex h-9 items-center gap-2 rounded-full bg-[#070707]/85 px-3.5 text-[11px] font-bold text-white shadow-md transition-colors hover:bg-[#070707] focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DFFF00]"
+            >
+              {siteFs.isFullscreen ? <Minimize2 className="size-3.5" strokeWidth={2.2} /> : <Maximize2 className="size-3.5" strokeWidth={2.2} />}
+              {siteFs.isFullscreen ? "Exit" : "Full screen"}
+            </button>
+          </div>
         ) : null}
       </section>
 

@@ -2,9 +2,10 @@
 
 import { formatMoney } from "@/lib/market-pricing"
 import { useState } from "react"
-import { ChevronRight, FileText, ArrowRight, BarChart3, CalendarCheck, Check, MailWarning, Megaphone, MessageSquare, Monitor, MousePointerClick, UserCheck } from "lucide-react"
+import { ChevronRight, FileText, ArrowRight, BarChart3, CalendarCheck, Check, MailWarning, Maximize2, Megaphone, MessageSquare, Minimize2, Monitor, MousePointerClick, UserCheck } from "lucide-react"
 import { workspaceEvent, type WorkspaceAdCreative, type Workspace, type WorkspaceRoute } from "@/lib/workspace"
 import { WorkspaceFooter } from "./WorkspaceShell"
+import { useSiteFullscreen } from "./useSiteFullscreen"
 
 // ─── Shared bits ──────────────────────────────────────────────────────────────
 
@@ -63,6 +64,7 @@ export function ProspectOverviewScreen({
 }) {
   const { acquisition } = workspace
   const leadCreative = acquisition.ads.creatives[0]
+  const siteFs = useSiteFullscreen(workspace.website.previewUrl ?? workspace.website.previewImageUrl)
 
   return (
     <>
@@ -97,8 +99,8 @@ export function ProspectOverviewScreen({
             </div>
             <div className="relative">
               {/* Browser-framed site preview */}
-              <div className="overflow-hidden rounded-[12px] border border-white/10 bg-white shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
-                <div className="flex h-7 items-center gap-1.5 border-b border-[#E8E5DD] bg-[#F7F7F3] px-3">
+              <div ref={siteFs.ref} className={`relative bg-white ${siteFs.isFullscreen ? "overflow-hidden" : "overflow-hidden rounded-[12px] border border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.45)]"}`}>
+                <div className={`${siteFs.isFullscreen ? "hidden" : "flex"} h-7 items-center gap-1.5 border-b border-[#E8E5DD] bg-[#F7F7F3] px-3`}>
                   <span className="size-2 rounded-full bg-[#D8D8CF]" />
                   <span className="size-2 rounded-full bg-[#D8D8CF]" />
                   <span className="size-2 rounded-full bg-[#D8D8CF]" />
@@ -108,15 +110,26 @@ export function ProspectOverviewScreen({
                   <img
                     src={workspace.website.previewImageUrl}
                     alt={`Working website design for ${workspace.business.name}`}
-                    className="h-[330px] sm:h-[360px] w-full object-cover object-top"
+                    className={siteFs.isFullscreen ? "h-full w-full object-contain" : "h-[330px] w-full object-cover object-top sm:h-[360px]"}
                   />
                 ) : workspace.website.previewUrl ? (
                   <iframe
                     src={workspace.website.previewUrl}
                     title={`Website preview for ${workspace.business.name}`}
-                    className="h-[300px] w-full border-0"
+                    className={siteFs.isFullscreen ? "h-full w-full border-0" : "h-[300px] w-full border-0"}
                     sandbox="allow-scripts allow-same-origin"
                   />
+                ) : null}
+                {workspace.website.previewImageUrl || workspace.website.previewUrl ? (
+                  <button
+                    type="button"
+                    onClick={siteFs.toggle}
+                    aria-label={siteFs.isFullscreen ? "Exit full screen" : "View site preview full screen"}
+                    className="absolute bottom-3 right-3 z-10 inline-flex h-9 items-center gap-2 rounded-full bg-[#070707]/85 px-3.5 text-[11px] font-bold text-white shadow-md transition-colors hover:bg-[#070707] focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DFFF00]"
+                  >
+                    {siteFs.isFullscreen ? <Minimize2 className="size-3.5" strokeWidth={2.2} /> : <Maximize2 className="size-3.5" strokeWidth={2.2} />}
+                    {siteFs.isFullscreen ? "Exit" : "Full screen"}
+                  </button>
                 ) : null}
               </div>
               {/* Sponsored ad mini-card */}
