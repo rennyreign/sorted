@@ -343,10 +343,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       ],
     },
     website: {
-      previewUrl:
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:4418"
-          : "https://sortmydigital.site/preview/jp-plumbing/",
+      previewUrl: "https://sortmydigital.site/preview/jp-plumbing-gas-heating-limited/",
       previewImageUrl: "/workspace/jp-plumbing/homepage-preview.webp",
       status: "review",
     },
@@ -432,10 +429,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       ],
     },
     website: {
-      previewUrl:
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:4317"
-          : undefined,
+      previewUrl: "https://sortmydigital.site/preview/m-carter-heating-and-plumbing-ltd/",
       previewImageUrl: "/matt-carter-homepage-preview.webp",
       status: "review",
     },
@@ -522,10 +516,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       ],
     },
     website: {
-      previewUrl:
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:4317"
-          : undefined,
+      previewUrl: "https://sortmydigital.site/preview/adams-plumbing-and-heating-maintenance-ltd/",
       previewImageUrl: "/adams-plumbing-homepage-preview.webp",
       status: "review",
     },
@@ -1044,10 +1035,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       observations: [],
     },
     website: {
-      previewUrl:
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:4319"
-          : undefined,
+      previewUrl: "https://sortmydigital.site/preview/mccolm-cardew/",
       previewImageUrl: "/mccolm-cardew-homepage-preview.webp",
       status: "review",
     },
@@ -1673,10 +1661,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       ],
     },
     website: {
-      previewUrl:
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:4321/"
-          : "https://sortmydigital.site/preview/rsp-services/",
+      previewUrl: "https://sortmydigital.site/preview/rsp-services-plumbing-heating/",
       previewImageUrl: "/rsp-services-homepage-preview.webp",
       status: "review",
     },
@@ -1789,10 +1774,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       ],
     },
     website: {
-      previewUrl:
-        process.env.NODE_ENV === "development"
-          ? "http://127.0.0.1:3999"
-          : undefined,
+      previewUrl: "https://sortmydigital.site/preview/gdc-plumbing-and-gas-ltd/",
       previewImageUrl: "/gdc-plumbing-and-gas-homepage-preview.webp",
       status: "review",
     },
@@ -1871,10 +1853,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       ],
     },
     website: {
-      previewUrl:
-        process.env.NODE_ENV === "development"
-          ? "http://127.0.0.1:4319/"
-          : undefined,
+      previewUrl: "https://sortmydigital.site/preview/spa-plumbing/",
       previewImageUrl: "/spa-plumbing-homepage-preview.webp",
       offerPage: {
         label: "Callback page",
@@ -2048,6 +2027,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       ],
     },
     website: {
+      previewUrl: "https://sortmydigital.site/preview/joshi-accounting-services/",
       previewImageUrl: "/joshi-accounting-homepage-preview.webp",
       status: "review",
     },
@@ -2132,10 +2112,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       ],
     },
     website: {
-      previewUrl:
-        process.env.NODE_ENV === "development"
-          ? "http://127.0.0.1:4317"
-          : undefined,
+      previewUrl: "https://sortmydigital.site/preview/diligent-electrical-contractors/",
       previewImageUrl: "/diligent-electrical-homepage-preview.webp",
       status: "review",
     },
@@ -2220,10 +2197,7 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       ],
     },
     website: {
-      previewUrl:
-        process.env.NODE_ENV === "development"
-          ? "http://127.0.0.1:4320"
-          : undefined,
+      previewUrl: "https://sortmydigital.site/preview/p-s-c-electrical-london-ltd/",
       previewImageUrl: "/psc-electrical-homepage-preview.webp",
       status: "review",
     },

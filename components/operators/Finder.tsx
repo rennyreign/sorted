@@ -672,10 +672,19 @@ function DiscoverView({
 function DiscoverRow({ prospect: p, dark = false, tag, selected, onSelect }: { prospect: Prospect; dark?: boolean; tag?: string; selected: boolean; onSelect: () => void }) {
   const name = dark ? "text-[#FAFAFA]" : "text-[#0A0A0A]"
   const scoreText = dark ? "text-[#FAFAFA]" : "text-[#0A0A0A]"
+  const workspaceUrl = p.review_slug ? `/workspace/?slug=${p.review_slug}` : null
   return (
-    <button
+    <div
+      role="button"
+      tabIndex={0}
       onClick={onSelect}
-      className={`w-full text-left px-4 sm:px-5 py-4 flex items-center gap-5 transition-colors ${
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault()
+          onSelect()
+        }
+      }}
+      className={`w-full text-left px-4 sm:px-5 py-4 flex items-center gap-5 transition-colors cursor-pointer ${
         dark
           ? selected ? "bg-white/[0.08]" : "hover:bg-white/[0.05]"
           : selected ? "bg-black/[0.04]" : "hover:bg-black/[0.02]"
@@ -704,6 +713,20 @@ function DiscoverRow({ prospect: p, dark = false, tag, selected, onSelect }: { p
       <div className="hidden sm:block w-16 shrink-0">
         <MiniStat label="Gap" value={scoreLabelFor(p, p.opportunity_score)} hint="high = big gap" />
       </div>
+      {workspaceUrl && (
+        <a
+          href={workspaceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          title={`Open workspace — sortmydigital.site/workspace/${p.review_slug}`}
+          className={`hidden xl:block max-w-44 truncate shrink-0 font-mono text-[10px] uppercase tracking-[0.1em] transition-colors ${
+            dark ? "text-[#D4D4D4] hover:text-white" : "text-[#525252] hover:text-[#0A0A0A]"
+          }`}
+        >
+          /workspace/{p.review_slug}
+        </a>
+      )}
       <div className="w-20 shrink-0 text-right">
         {isLegacyScore(p) ? (
           <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#C4C4C4]">Legacy</span>
@@ -716,7 +739,7 @@ function DiscoverRow({ prospect: p, dark = false, tag, selected, onSelect }: { p
         )}
       </div>
       <span className="text-[#C4C4C4] shrink-0">→</span>
-    </button>
+    </div>
   )
 }
 
