@@ -44,9 +44,9 @@ echo "Rewriting root-absolute refs under $BASE ..."
 find out -name "*.html" -type f -exec perl -pi -e \
   "s{(src|href)=\"/(?!preview/|/)}{\$1=\"$BASE/}g" {} +
 find out \( -name "*.html" -o -name "*.js" \) -type f -exec perl -pi -e \
-  "s{(?<!/preview/)/images/}{$BASE/images/}g" {} +
+  "s{(?<![A-Za-z0-9_.-])/images/}{$BASE/images/}g; s{\Q$BASE$BASE/\E}{$BASE/}g" {} +
 find out/_next -name "*.css" -type f -exec perl -pi -e \
-  "s{url\\(/(?!preview/)}{url($BASE/}g" {} +
+  "s{url\\(/(?!preview/)}{url($BASE/}g; s{\Q$BASE$BASE/\E}{$BASE/}g" {} +
 
 echo "Deploying to $SSH_HOST:$REMOTE_DIR ..."
 ssh -p "$SSH_PORT" -i "$SSH_KEY_FILE" "$SSH_USER@$SSH_HOST" \
