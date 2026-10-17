@@ -1,4 +1,4 @@
-import { MARKET_PRICING, resolveWorkspaceOffer, parseMarket, type OfferCurrency } from "@/lib/market-pricing"
+import { MARKET_PRICING, resolveWorkspaceOffer, websiteLeadOffer, type WebsiteLeadOfferContext, type OfferCurrency } from "@/lib/market-pricing"
 import { supabase } from "@/lib/supabase"
 import { trackEvent } from "@/lib/tracking"
 
@@ -2299,7 +2299,7 @@ type ProspectRow = {
   walkthrough_video_url: string | null
   screenshot_url: string | null
   crm_status: string | null
-  lead_answers: { market?: string; currency?: string } | null
+  lead_answers: WebsiteLeadOfferContext | null
 }
 
 function domainFrom(url?: string | null) {
@@ -2397,7 +2397,7 @@ export async function getWorkspace(slug: string): Promise<Workspace | null> {
       status: "preview",
     },
     offer: resolveWorkspaceOffer(WORKSPACE_DEFAULTS.offer,
-      parseMarket(p.lead_answers?.currency ?? p.lead_answers?.market) === "US" ? WORKSPACE_US_OFFER : undefined),
+      websiteLeadOffer(p.lead_answers)),
     links: { ...WORKSPACE_DEFAULTS.links },
     acquisition: WORKSPACE_DEFAULTS.acquisition,
   }
