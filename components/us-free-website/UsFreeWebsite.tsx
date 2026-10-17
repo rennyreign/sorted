@@ -36,8 +36,8 @@ export default function UsFreeWebsite() {
           <figure className={styles.work}>
             <div className={styles.annotation} aria-hidden="true"><span>Your business, <br />shown properly.</span><svg width="82" height="42" viewBox="0 0 82 42" fill="none"><path d="M4 5C20 29 41 33 72 28M63 21L74 28L65 37" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></div>
             <div className={styles.previewHeader}><span className={styles.previewDots}><i /><i /><i /></span><span>JOSHI ACCOUNTING · WEBSITE PREVIEW</span><ArrowUpRight size={14} aria-hidden="true" /></div>
-            <div className={styles.previewImage}><Image src="/joshi-accounting-homepage-preview.webp" alt="Sorted website preview for Joshi Accounting, with clear accounting services and a welcoming client meeting photograph" width={1440} height={4130} sizes="(max-width: 800px) 92vw, 46vw" priority /></div>
-            <figcaption><span>Joshi Accounting</span><span className={styles.previewLabel}>A website preview by Sorted.</span></figcaption>
+            <WebsitePreview />
+            <figcaption><span>Joshi Accounting</span><span className={styles.previewLabel}><span className={styles.hoverHint}>Hover or scroll to explore</span><span className={styles.touchHint}>Swipe to explore</span></span></figcaption>
           </figure>
         </section>
       </div></div>
@@ -68,6 +68,57 @@ export default function UsFreeWebsite() {
       </div></div>
     </main>
   )
+}
+
+function WebsitePreview() {
+  const viewport = useRef<HTMLDivElement>(null)
+  const animation = useRef<number | null>(null)
+
+  function stop() {
+    if (animation.current !== null) cancelAnimationFrame(animation.current)
+    animation.current = null
+  }
+
+  useEffect(() => stop, [])
+
+  function start() {
+    stop()
+    const element = viewport.current
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
+    if (!element || reducedMotion.matches || !window.matchMedia("(hover: hover)").matches) return
+    const end = element.scrollHeight - element.clientHeight
+    if (end <= 0) return
+    const direction = element.scrollTop >= end - 1 ? -1 : 1
+    let position = element.scrollTop
+    let previous: number | null = null
+
+    function frame(time: number) {
+      if (!element || reducedMotion.matches) { stop(); return }
+      const elapsed = previous === null ? 0 : Math.min(time - previous, 64)
+      previous = time
+      position = Math.max(0, Math.min(end, position + direction * elapsed * 0.055))
+      element.scrollTop = position
+      if ((direction > 0 && position < end) || (direction < 0 && position > 0)) {
+        animation.current = requestAnimationFrame(frame)
+      } else {
+        animation.current = null
+      }
+    }
+    animation.current = requestAnimationFrame(frame)
+  }
+
+  return <div
+    ref={viewport}
+    className={styles.previewImage}
+    role="region"
+    aria-label="Joshi Accounting website preview. Scroll to explore the full page."
+    tabIndex={0}
+    onPointerEnter={event => { if (event.pointerType === "mouse") start() }}
+    onPointerLeave={stop}
+    onPointerDown={stop}
+    onWheel={stop}
+    onKeyDown={stop}
+  ><Image src="/joshi-accounting-homepage-preview.webp" alt="Sorted website preview for Joshi Accounting, with clear accounting services and a welcoming client meeting photograph" width={1440} height={4130} sizes="(max-width: 800px) 92vw, 46vw" priority /></div>
 }
 
 function RequestForm() {
