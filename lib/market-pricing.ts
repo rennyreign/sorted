@@ -49,3 +49,21 @@ export function resolveWorkspaceOffer(defaults: Offer, override?: Partial<Offer>
   }
   return { ...base, ...override, currency }
 }
+
+/** US friend/referral landing-page offer; other market prices and agreed quotes stay unchanged. */
+export const US_REFERRAL_WEBSITE_OFFER = {
+  currency: "USD",
+  total: 2000,
+  deposit: 1000,
+  balance: 1000,
+  stripePaymentUrl: "",
+  bankTransferEnabled: false,
+} as const
+
+export type WebsiteLeadOfferContext = { market?: string; currency?: string; landing_page?: string }
+
+export function websiteLeadOffer(answers: WebsiteLeadOfferContext | null): Partial<Offer> | undefined {
+  if (parseMarket(answers?.currency ?? answers?.market) !== "US") return undefined
+  if (answers?.landing_page === "us_free_website") return US_REFERRAL_WEBSITE_OFFER
+  return { ...MARKET_PRICING.US, stripePaymentUrl: "", bankTransferEnabled: false }
+}

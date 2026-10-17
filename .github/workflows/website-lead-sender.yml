@@ -47,7 +47,7 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           FROM_EMAIL: hello@sortmydigital.site
           FROM_NAME: Sorted
-          REVIEW_BASE_URL: https://sortmydigital.site/review/
+          REVIEW_BASE_URL: https://sortmydigital.site/workspace/
           OPERATOR_EMAIL: hello@sortmydigital.site
         run: |
           ARGS="--batch ${{ inputs.batch || '10' }}"

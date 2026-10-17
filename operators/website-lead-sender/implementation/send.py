@@ -145,7 +145,7 @@ def email_html(lead):
             <p style="margin:18px 0 0 0;font-size:15px;font-weight:650;color:rgba(0,0,0,0.66);line-height:1.5;">Hi {name}, this is where your Sorted website mockup will be shown once it is ready.</p>
           </td></tr>
           <tr><td style="padding:24px 28px 10px 28px;">
-            <a href="{url}" style="display:block;background:#dfff00;color:#070707;text-align:center;font-size:13px;font-weight:900;text-decoration:none;padding:17px 22px;border-radius:999px;">Open your review page →</a>
+            <a href="{url}" style="display:block;background:#dfff00;color:#070707;text-align:center;font-size:13px;font-weight:900;text-decoration:none;padding:17px 22px;border-radius:999px;">Open your workspace →</a>
           </td></tr>
           <tr><td style="padding:12px 28px 34px 28px;">
             <table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f1e8;border-radius:14px;padding:18px;">
@@ -241,7 +241,7 @@ def operator_email_html(lead):
             <h1 style="margin:0;font-size:38px;font-weight:900;letter-spacing:-0.055em;line-height:0.98;">{name}</h1>
           </td></tr>
           <tr><td style="padding:24px 28px 10px 28px;">
-            <a href="{url}" style="display:block;background:#dfff00;color:#070707;text-align:center;font-size:13px;font-weight:900;text-decoration:none;padding:17px 22px;border-radius:999px;">Open review page →</a>
+            <a href="{url}" style="display:block;background:#dfff00;color:#070707;text-align:center;font-size:13px;font-weight:900;text-decoration:none;padding:17px 22px;border-radius:999px;">Open workspace →</a>
           </td></tr>
           <tr><td style="padding:24px 28px 8px 28px;">
             <table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f1e8;border-radius:14px;padding:18px;">
