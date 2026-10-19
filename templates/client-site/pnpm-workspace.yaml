@@ -1,0 +1,8 @@
+# Allow the scaffold's native build scripts so `pnpm install`
+# completes without an interactive approve-builds step.
+allowBuilds:
+  sharp: true
+  unrs-resolver: true
+onlyBuiltDependencies:
+  - sharp
+  - unrs-resolver

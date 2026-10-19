@@ -27,6 +27,7 @@
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
+import { execFileSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { readBuildState, writeBuildState, createBuildJob, statusSummary, setOperatorStatus, acquireStateLock, reconcileBuildState, incrementVisualQALoop, setVisualQAPassed, artifactPath, } from './state-manager.js';
 import { OPERATORS, OPERATOR_IDS, OPERATOR_SEQUENCE, getNextAction, getOperatorMeta, isTerminalStatus, stateNeedsReconciliation, EDIT_STAGES, EVIDENCE_STAGES, SKIPPABLE_OPERATORS, } from './state.js';
@@ -303,6 +304,23 @@ function cmdNext() {
         die('Usage: factory next <build-dir>');
     printAction(loadState(buildDir));
 }
+// Runs `pnpm install` in the build dir when node_modules is absent.
+// Uses --frozen-lockfile when a pnpm lockfile exists. Fails loudly so
+// a missing install never reaches the build step. Skips silently when
+// deps are already installed.
+function ensureDependencies(buildDir) {
+    if (fs.existsSync(path.join(buildDir, 'node_modules')))
+        return;
+    const hasLockfile = fs.existsSync(path.join(buildDir, 'pnpm-lock.yaml'));
+    const pnpmArgs = hasLockfile ? ['install', '--frozen-lockfile'] : ['install'];
+    console.log(`frontend-build: node_modules missing — running pnpm ${pnpmArgs.join(' ')} in ${buildDir}`);
+    try {
+        execFileSync('pnpm', pnpmArgs, { cwd: buildDir, stdio: 'inherit' });
+    }
+    catch {
+        die(`pnpm ${pnpmArgs.join(' ')} failed in ${buildDir} — resolve dependency installation before starting frontend-build`);
+    }
+}
 function cmdResume() {
     const buildDir = getPositionals()[0] || findBuildDir();
     if (!buildDir)
@@ -350,6 +368,13 @@ function cmdStart() {
         }
         if (operatorId === 'deployment' && !state.authorizations.deployment) {
             die(`deployment is not authorised — run: factory authorize ${buildDir} deployment --by <name> --reason <text>`);
+        }
+        // Automatic dependency gate: a frontend build cannot pass without a
+        // clean `pnpm run build`, which requires installed deps. If the
+        // scaffold has no node_modules yet, install before the stage starts
+        // so harnesses never hit missing-dependency failures mid-build.
+        if (operatorId === 'frontend-build') {
+            ensureDependencies(buildDir);
         }
         setOperatorStatus(state, operatorId, 'in_progress', { expectedUpdatedAt: expected });
         // Starting a correction attempt consumes exactly one iteration.

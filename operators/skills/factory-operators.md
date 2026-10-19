@@ -19,6 +19,7 @@ Use pnpm for Sorted and Sorted client-site repositories. New scaffolds declare `
 - A legacy npm/yarn lockfile or conflicting package-manager declaration is a migration boundary, not permission to mix package managers. Report it and agree the migration before changing or deleting existing lockfiles. An npm lockfile does not override Sorted's pnpm standard.
 - Use `pnpm run dev`, `pnpm run build`, `pnpm run typecheck` and `pnpm run cms` where those scripts exist; use `pnpm exec <tool>` for installed tools. Avoid `pnpm dlx` unless a one-off download is explicitly approved. Serve static QA output without a download: `python3 -m http.server 3999 --bind 127.0.0.1 --directory out`.
 - Dependency installation and network access still require their existing permissions. Permission requests must name the target repo and exact pnpm command; using pnpm does not waive a safety gate.
+- Automatic gate: `factory start frontend-build` runs `pnpm install` (frozen-lockfile when `pnpm-lock.yaml` exists) in the build dir whenever `node_modules` is missing, and refuses to start the stage if install fails. The client-site template ships `pnpm-workspace.yaml` whitelisting `sharp`/`unrs-resolver` build scripts, so installs do not stall on `approve-builds`.
 - Implementation briefs, QA evidence and session handoffs must state pnpm, the package-manager pin/lockfile state, the commands run and any pending install permission. Never carry an npm command forward from an older handoff.
 - The dormant frontend API CLI still contains npm execution paths. Do not use its install/build flags until those paths are migrated; use the active harness with the pnpm commands above.
 
@@ -119,6 +120,8 @@ Validate/decode supplied assets, preserve masters, optimise raster production fi
 
 ## 4 - Frontend Reconstruction
 
+`factory start frontend-build` ensures dependencies are installed first (automatic `pnpm install` gate; see Package Manager And Handoffs).
+
 Read approved image and design-IR together. Build the homepage and advertised routes using the client template and existing dependencies.
 
 Before coding, list material conflicts, font availability/weights, required sections, asset placements/crops and actual CTA behaviours. Record missing business facts as unknown. Do not invent review counts, accreditations, addresses, working submissions or approval backends.
@@ -176,6 +179,13 @@ Rebuild after systemisation. Confirm current-revision build/browser checks, asse
 Output: `core-build-qa.json` with actual checks and overall pass. Historic build results do not establish that the current revision is working.
 
 ## Human Assessment
+
+Standard post-build handoff: build, present the local preview, then one
+consolidated QA round against the original mockup. Follow
+`mockup-fidelity-gate.md`; retain aligned comparison evidence and run its
+98% fidelity-checklist decision before workspace manufacture. A passing
+score is visual readiness, not human/client approval. Failed or unknown
+evidence blocks the workspace handoff.
 
 Present current reference/build evidence and recorded exceptions. Wait for explicit Renaldo/client approval or rejection of that revision.
 
