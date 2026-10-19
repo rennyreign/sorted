@@ -2238,6 +2238,181 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       },
     },
   },
+  "gems-accounting-services": {
+    review: {
+      headline: "Accountancy people actually want to talk to.",
+      summary:
+        "Gems Accounting Services already has the personal, practical approach clients value — a named Kenilworth team covering accounts, tax, VAT, payroll and company secretarial work. The new site leads with that warmth and gives self-employed visitors and growing businesses one clear way to start a conversation.",
+      rebuildReasons: [
+        {
+          title: "A real team behind a thin web presence",
+          strength:
+            "Five named team members — Karen, Gemma, Tammy, Tammy and Sophie — with broad small-business cover.",
+          gap: "The existing presence gave visitors little sense of who they'd be dealing with or what Gems actually handles.",
+        },
+        {
+          title: "A full service list worth scanning",
+          strength:
+            "Accounts & bookkeeping, personal & business tax, VAT, payroll & CIS, management accounts and company secretarial — most of what a self-employed person or growing company needs in one place.",
+          gap: "The range wasn't presented as recognisable choices, so a visitor couldn't quickly confirm Gems covered their situation.",
+        },
+        {
+          title: "Interest without an obvious first step",
+          strength:
+            "People who need an accountant usually want a conversation, not a commitment.",
+          gap: "With no clear enquiry route, visitors had to phone at office hours or leave without making contact.",
+        },
+      ],
+      observations: [
+        {
+          title: "A human first impression",
+          explanation:
+            "The hero leads with real people and 'More clarity. Less paperwork.' — the promise a busy business owner actually cares about, above the fold.",
+        },
+        {
+          title: "Services at a glance",
+          explanation:
+            "Six clear service cards and an indigo ribbon of the core trio let a visitor confirm in seconds that Gems handles their job.",
+        },
+        {
+          title: "One easy way to start",
+          explanation:
+            "Let's talk about your business appears in the header, hero and contact panel — an enquiry, not a commitment, answered by the Kenilworth team.",
+        },
+      ],
+    },
+    website: {
+      previewImageUrl: "/workspace/gems-accounting-services/homepage-preview.webp",
+      status: "review",
+    },
+    offer: {
+      total: 3000,
+      deposit: 1500,
+      balance: 1500,
+      stripePaymentUrl: "https://buy.stripe.com/28E7sKbyo1SZ3QOgn8dwc00",
+      bankTransferEnabled: true,
+    },
+    links: {
+      questionEmail: "info@gems-accounting.co.uk",
+      phone: "+441926268330",
+      phoneDisplay: "01926 268330",
+    },
+    acquisition: {
+      interests: [
+        { id: "attract", title: "Attract more clients", description: "Reaching self-employed people and growing businesses in Kenilworth and Warwickshire" },
+        { id: "convert", title: "Convert more enquiries", description: "A site built around one action — starting a conversation with the Gems team" },
+        { id: "follow-up", title: "Improve follow-up", description: "Enquiry confirmations, detail chasing and appointment reminders that run themselves" },
+        { id: "tracking", title: "Understand what's working", description: "See enquiries, confirmed appointments, attended conversations and clients won" },
+      ],
+      offerCard: {
+        title: "Let's talk about your business",
+        description: "A free, no-obligation conversation with the Gems team about the accountancy support you need.",
+        bullets: ["No obligation", "Kenilworth & Warwickshire", "01926 268330"],
+      },
+      ads: {
+        offer:
+          "A campaign kit built around one clear action: tell Gems Accounting Services what you need.",
+        // Supplied creatives awaiting final ad approval — no destination URL bound yet.
+        creatives: [
+          {
+            title: "More clarity. Less paperwork.",
+            format: "Facebook & Instagram feed · 1x1",
+            audience: "Self-employed people and growing small businesses in Kenilworth and Warwickshire.",
+            headline: "More clarity. Less paperwork.",
+            cta: "Let\u2019s talk about your business",
+            primaryText: "Accountancy and bookkeeping support for the self-employed and growing businesses. Talk to Gems Accounting Services in Kenilworth about what you need.",
+            imageUrl: "/workspace/gems-accounting-services/ad-01.webp",
+            imageAlt: "Gems Accounting Services creative: Gems Accounting Services; KENILWORTH; More clarity.; Less paperwork.",
+          },
+          {
+            title: "Good accountancy starts with a conversation.",
+            format: "Facebook & Instagram feed · 1x1",
+            audience: "Self-employed people and growing small businesses in Kenilworth and Warwickshire.",
+            headline: "Good accountancy starts with a conversation.",
+            cta: "Let\u2019s talk about your business",
+            primaryText: "Not sure which accountancy support you need? Tell the Gems team about your business and talk through the services that fit.",
+            imageUrl: "/workspace/gems-accounting-services/ad-02.webp",
+            imageAlt: "Gems Accounting Services creative: Gems Accounting Services; ACCOUNTANTS IN KENILWORTH; Good accountancy starts with a conversation.; Tell us what you need.",
+          },
+        ],
+      },
+      followUp: {
+        // Supplied draft sequence — staff-owned confirmations; nothing sends until connected.
+        emails: [
+          {
+            name: "We\u2019ve received your enquiry",
+            subject: "We\u2019ve received your enquiry",
+            timing: "immediate",
+            purpose: "Confirms the enquiry landed and sets expectations \u2014 no appointment is implied until staff confirm one.",
+            body: "Hi {{ first_name }},\n\nThank you for contacting Gems Accounting Services about {{ requested_service }}. We\u2019ve received your enquiry.\n\nThe team will review what you need and reply to discuss the next step. If you\u2019ve asked for a meeting, a time has not yet been confirmed.\n\nIf there\u2019s anything you\u2019d like to add or correct, just reply to this email. Please don\u2019t email passwords, bank details or identity documents.\n\nKind regards,\nThe Gems team",
+            phase: "enquiry",
+          },
+          {
+            name: "A quick question about your enquiry",
+            subject: "A quick question about your enquiry",
+            timing: "next business day after request",
+            purpose: "Chases one specific missing detail the customer owns, so staff can move the enquiry forward.",
+            body: "Hi {{ first_name }},\n\nThank you for your enquiry about {{ requested_service }}. To take the next step, we just need {{ missing_detail }}.\n\nReply with that information and we can continue discussing the support you need. Please keep any sensitive financial information out of email; we can agree a secure way to share it if needed.\n\nIf your circumstances have changed, let us know.\n\nKind regards,\nThe Gems team",
+            phase: "enquiry",
+          },
+          {
+            name: "Would you still like help with your enquiry?",
+            subject: "Would you still like help with your enquiry?",
+            timing: "three business days after request",
+            purpose: "A polite close that leaves the door open without chasing further.",
+            body: "Hi {{ first_name }},\n\nWe\u2019re checking once more whether you\u2019d like to continue your enquiry about {{ requested_service }}. The next step is to reply with {{ missing_detail }}.\n\nIf now isn\u2019t the right time, that\u2019s fine\u2014reply and let us know. If you still need support, we\u2019ll be happy to pick up the conversation.\n\nWe won\u2019t keep sending reminders about this missing detail. This email does not cancel any existing appointment.\n\nKind regards,\nThe Gems team",
+            phase: "enquiry",
+          },
+          {
+            name: "Your appointment with Gems is confirmed",
+            subject: "Your appointment with Gems is confirmed",
+            timing: "on explicit confirmed appointment event",
+            purpose: "Confirms an appointment only after staff have actually agreed a slot.",
+            body: "Hi {{ first_name }},\n\nYour appointment with Gems Accounting Services is confirmed.\n\nService: {{ requested_service }}\nDate: {{ appointment_date }}\nTime: {{ appointment_time }} ({{ appointment_timezone }})\nWhere: {{ appointment_location }}\n\n{{ preparation_instructions }}\n\nUse the link below to view your appointment or request a change. If you need any help, reply to this email or call 01926 268330.\n\nWe look forward to speaking with you.\n\nKind regards,\nThe Gems team",
+            phase: "booking",
+          },
+          {
+            name: "A reminder of your appointment with Gems",
+            subject: "A reminder of your appointment with Gems",
+            timing: "24 hours before appointment",
+            purpose: "Reminder 24 hours before a confirmed appointment.",
+            body: "Hi {{ first_name }},\n\nA reminder of your appointment with Gems Accounting Services tomorrow.\n\nService: {{ requested_service }}\nDate: {{ appointment_date }}\nTime: {{ appointment_time }} ({{ appointment_timezone }})\nWhere: {{ appointment_location }}\n\n{{ preparation_instructions }}\n\nIf your plans have changed, use the link below to request a different time. You can also reply or call 01926 268330.\n\nKind regards,\nThe Gems team",
+            phase: "booking",
+          },
+          {
+            name: "Your Gems appointment is coming up",
+            subject: "Your Gems appointment is coming up",
+            timing: "2 hours before appointment",
+            purpose: "Reminder 2 hours before a confirmed appointment.",
+            body: "Hi {{ first_name }},\n\nYour appointment with Gems Accounting Services is coming up.\n\nDate: {{ appointment_date }}\nTime: {{ appointment_time }} ({{ appointment_timezone }})\nWhere: {{ appointment_location }}\n\nIf you need to make a change, use the link below or call 01926 268330.\n\nKind regards,\nThe Gems team",
+            phase: "booking",
+          },
+          {
+            name: "Would you like to arrange another time?",
+            subject: "Would you like to arrange another time?",
+            timing: "next business day after explicit no-show event",
+            purpose: "Re-offers the next step the next business day after an explicit no-show.",
+            body: "Hi {{ first_name }},\n\nIt looks like we weren\u2019t able to connect for your appointment about {{ requested_service }}. We know plans can change.\n\nIf you\u2019d still like to talk, use the link below to request another time, or reply and tell us what works for you.\n\nIf you no longer need the appointment, just let us know.\n\nKind regards,\nThe Gems team",
+            phase: "booking",
+          },
+        ],
+        stopRules: [
+          "The sequence stops the moment someone replies, an appointment is confirmed, or they ask not to be contacted.",
+          "Appointment confirmations and reminders only send after staff have actually agreed a slot — never inferred from elapsed time.",
+        ],
+      },
+      tracking: {
+        journey: [
+          { stage: "New enquiry", detail: "Service needed and source", owner: "Captured automatically", note: "From your website and ads once connected." },
+          { stage: "Conversation arranged", detail: "Call or meeting agreed", owner: "Gems team", note: "Recorded when the slot is confirmed." },
+          { stage: "Conversation attended", detail: "A record that it took place", owner: "Gems team", note: "Confirmed attendance, never assumed." },
+          { stage: "Support agreed", detail: "Services and fees proposed", owner: "Gems team", note: "Updated when a proposal goes out." },
+          { stage: "Client won", detail: "Engagement accepted", owner: "Gems team", note: "Confirmed from your client records." },
+        ],
+        costMetrics: ["Cost per enquiry", "Cost per attended conversation", "Cost per client won"],
+      },
+    },
+  },
 }
 
 const LOCAL_DEMO_WORKSPACES: Record<string, Workspace> = {
