@@ -97,6 +97,8 @@ export type WorkspaceAcquisition = {
   followUp: {
     emails: WorkspaceFollowUpEmail[]
     stopRules: string[]
+    /** Label for booking-phase emails in the sequence list — e.g. "Booked trial", "Confirmed appointment". */
+    bookingPhaseLabel?: string
   }
   tracking: {
     metrics: WorkspaceTrackingMetric[]
@@ -2410,6 +2412,434 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
           { stage: "Client won", detail: "Engagement accepted", owner: "Gems team", note: "Confirmed from your client records." },
         ],
         costMetrics: ["Cost per enquiry", "Cost per attended conversation", "Cost per client won"],
+      },
+    },
+  },
+  "tann-law": {
+    review: {
+      headline: "A modern practice, finally presented like one.",
+      summary:
+        "Tann Law advises individuals, families and businesses across Rugby and Warwickshire on personal, business and immigration matters. The new site says that clearly in the first five seconds and gives every visitor one obvious next step: request a consultation.",
+      rebuildReasons: [
+        {
+          title: "Real legal breadth, hard to see",
+          strength:
+            "Personal law, business law and immigration support under one roof covers most of what local clients actually need a solicitor for.",
+          gap: "The current site does not present those services as clear, recognisable choices, so a visitor cannot quickly confirm Tann Law handles their matter.",
+        },
+        {
+          title: "Trust that arrives too late",
+          strength:
+            "A local practice working by appointment, giving each matter proper attention rather than processing volume.",
+          gap: "Nothing on the current page communicates that care early, so cautious first-time clients have little reason to choose Tann Law over a louder competitor.",
+        },
+        {
+          title: "Interest with no simple next step",
+          strength:
+            "People facing a legal question want a calm, clear way to ask for advice.",
+          gap: "Without an obvious consultation route, visitors either call at awkward times or leave without making contact.",
+        },
+      ],
+      observations: [
+        {
+          title: "Calm authority in the first five seconds",
+          explanation:
+            "The hero leads with a clear promise — clear advice, confident next steps — and the practice areas sit immediately beneath it.",
+        },
+        {
+          title: "Services clients recognise",
+          explanation:
+            "Personal law, business law and immigration each get a clear section, so a visitor can see at a glance that you handle their matter.",
+        },
+        {
+          title: "One obvious next step",
+          explanation:
+            "Request a consultation appears in the header, hero and footer — someone can ask for advice in seconds and hear back from the team.",
+        },
+      ],
+    },
+    website: {
+      previewUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:4446"
+          : "https://sortmydigital.site/preview/tann-law/",
+      previewImageUrl: "/workspace/tann-law/homepage-preview.webp",
+      offerPage: {
+        label: "Consultation page",
+        description: "A focused page where a visitor describes their matter and requests a consultation, confirmed by the team. This page is planned and is not yet built.",
+      },
+      status: "review",
+    },
+    offer: {
+      total: 3000,
+      deposit: 1500,
+      balance: 1500,
+      // No client-specific Stripe deposit link issued yet — cleared so the
+      // shared default link cannot charge the wrong amount.
+      stripePaymentUrl: "",
+      bankTransferEnabled: true,
+      status: "pending",
+    },
+    acquisition: {
+      interests: [
+        { id: "attract", title: "Attract more clients", description: "Reaching people and businesses needing legal advice in Rugby and Warwickshire" },
+        { id: "convert", title: "Convert more enquiries", description: "A site and consultation request that turn interest into booked appointments" },
+        { id: "follow-up", title: "Improve follow-up", description: "Confirmations, detail chasing and appointment reminders that run themselves" },
+        { id: "tracking", title: "Understand what's working", description: "See consultation requests, confirmed appointments, attended meetings and new clients" },
+      ],
+      offerCard: {
+        title: "Request a consultation",
+        description: "Tell Tann Law Solicitors about your matter and the team arranges a consultation to discuss your options.",
+        bullets: ["Personal, business & immigration law", "Rugby & surrounding Warwickshire", "By appointment only"],
+      },
+      ads: {
+        offer:
+          "A campaign kit built around one clear action: request a consultation with Tann Law Solicitors.",
+        creatives: [
+          {
+            title: "Clear advice",
+            format: "Single image · Facebook & Instagram feed",
+            audience: "Individuals, families and business owners in Rugby and surrounding Warwickshire.",
+            headline: "Clear advice. Confident next steps.",
+            cta: "Request a consultation",
+            primaryText:
+              "Practical legal support for your family, your future and your business. Tell Tann Law Solicitors what you need and request a consultation. Appointments are arranged by the team.",
+            imageUrl: "/workspace/tann-law/ad-01-feed-1x1.webp",
+            imageAlt: "Tann Law Solicitors advert: Clear advice. Confident next steps. Personal, business and immigration law. Request a consultation.",
+          },
+          {
+            title: "Know where you stand",
+            format: "Single image · Facebook & Instagram feed",
+            audience: "Individuals, families and business owners in Rugby and surrounding Warwickshire.",
+            headline: "Know where you stand.",
+            cta: "Request a consultation",
+            primaryText:
+              "Not sure what to do next? Tell Tann Law Solicitors about your situation, understand your options and discuss the next step. Request a consultation. By appointment only.",
+            imageUrl: "/workspace/tann-law/ad-02-feed-1x1.webp",
+            imageAlt: "Tann Law Solicitors advert: Know where you stand. Tell us what you need, understand your options, take the next step.",
+          },
+        ],
+      },
+      followUp: {
+        emails: [
+          {
+            name: "Request received",
+            subject: "We\u2019ve received your consultation request",
+            timing: "Immediately after an enquiry",
+            purpose: "Confirms the request landed and sets the honest expectation that no appointment is confirmed yet.",
+            phase: "enquiry",
+            body: "Hello {{ first_name }},\n\nThank you for contacting Tann Law Solicitors about {{ service_name }}. We\u2019ve received your request.\n\nYour appointment is not yet confirmed. Our team will review your enquiry and contact you to discuss the next step.\n\nIf anything in your request needs correcting, simply reply to this email. Please avoid sending sensitive documents until our team confirms how to share them.\n\nKind regards,\nTann Law Solicitors",
+          },
+          {
+            name: "Chase the missing detail",
+            subject: "A next step for your Tann Law enquiry",
+            timing: "When a detail is needed to progress the request",
+            purpose: "Asks for the one outstanding detail without pressure.",
+            phase: "enquiry",
+            body: "Hello {{ first_name }},\n\nTo help us progress your consultation request, we still need the following from you:\n\n{{ customer_action_text }}\n\nYou can reply to this email with the details. If your circumstances have changed, let us know and we\u2019ll update your enquiry.\n\nKind regards,\nTann Law Solicitors",
+          },
+          {
+            name: "Continue or close",
+            subject: "Would you still like help with your enquiry?",
+            timing: "Later, if the enquiry is still unresolved",
+            purpose: "A polite check that either restarts the request or closes it without assumptions.",
+            phase: "enquiry",
+            body: "Hello {{ first_name }},\n\nWould you still like us to help with your consultation request? To continue, please reply with:\n\n{{ customer_action_text }}\n\nIf you no longer need help, reply and let us know. We won\u2019t assume your request is cancelled just because you haven\u2019t replied.\n\nKind regards,\nTann Law Solicitors",
+          },
+          {
+            name: "Appointment confirmed",
+            subject: "Your Tann Law appointment is confirmed",
+            timing: "When the team confirms a slot",
+            purpose: "Service, date, time, meeting details and preparation in one place.",
+            phase: "booking",
+            body: "Hello {{ first_name }},\n\nYour appointment with Tann Law Solicitors is confirmed.\n\nService: {{ service_name }}\nDate: {{ appointment_date }}\nTime: {{ appointment_time }} ({{ appointment_timezone }})\nWhere: {{ meeting_details }}\n\nPreparation: {{ preparation_text }}\n\nIf you need to change or cancel, reply to this email and our team will help.\n\nKind regards,\nTann Law Solicitors",
+          },
+          {
+            name: "Reminder, 24 hours",
+            subject: "A reminder of your Tann Law appointment",
+            timing: "The day before the appointment",
+            purpose: "A useful reminder with a route to change or cancel.",
+            phase: "booking",
+            body: "Hello {{ first_name }},\n\nA reminder of your appointment with Tann Law Solicitors:\n\nService: {{ service_name }}\nDate: {{ appointment_date }}\nTime: {{ appointment_time }} ({{ appointment_timezone }})\nWhere: {{ meeting_details }}\n\nPreparation: {{ preparation_text }}\n\nIf you can no longer attend or need to change the time, please reply so our team can help.\n\nKind regards,\nTann Law Solicitors",
+          },
+          {
+            name: "Reminder, 2 hours",
+            subject: "Your Tann Law appointment is coming up",
+            timing: "Two hours before the appointment",
+            purpose: "A short reminder with the meeting details.",
+            phase: "booking",
+            body: "Hello {{ first_name }},\n\nYour appointment with Tann Law Solicitors is coming up.\n\nDate: {{ appointment_date }}\nTime: {{ appointment_time }} ({{ appointment_timezone }})\nWhere: {{ meeting_details }}\n\nIf you need help with the meeting details or your plans have changed, reply to this email.\n\nKind regards,\nTann Law Solicitors",
+          },
+          {
+            name: "After a missed appointment",
+            subject: "Would you like to arrange another appointment?",
+            timing: "After an explicit no-show",
+            purpose: "Offers a new time without pressure or assumptions.",
+            phase: "booking",
+            body: "Hello {{ first_name }},\n\nWe weren\u2019t able to meet for your appointment on {{ appointment_date }}.\n\nIf you\u2019d like to arrange another time, reply to this email and our team will help. If you no longer need an appointment, just let us know.\n\nKind regards,\nTann Law Solicitors",
+          },
+        ],
+        stopRules: [
+          "The sequence stops the moment someone replies, an appointment is confirmed, or they ask not to be contacted.",
+          "Appointment confirmations and reminders only send after the team has actually agreed a slot — never inferred from elapsed time.",
+          "info@tannlaw.co.uk appears in the source material, but sender identity, a monitored reply route and the practice calendar must be configured before anything sends.",
+        ],
+        bookingPhaseLabel: "Confirmed appointment",
+      },
+      tracking: {
+        metrics: [
+          { key: "enquiries", label: "Consultation requests", description: "People asking for legal advice.", source: "Website forms + ad enquiries", connected: false },
+          { key: "attended", label: "Consultations attended", description: "Appointments that took place, confirmed by the team.", source: "Tann Law attendance confirmation", connected: false },
+          { key: "quotes", label: "Scopes of work proposed", description: "Advice and fee proposals shared after a consultation.", source: "Tann Law team", connected: false },
+          { key: "customers", label: "New clients", description: "People who instruct Tann Law after their consultation.", source: "Tann Law client records", connected: false },
+        ],
+        journey: [
+          { stage: "New enquiry", detail: "Source and matter type", owner: "Captured automatically", note: "From your website and ads once connected." },
+          { stage: "Appointment confirmed", detail: "Agreed date, time and location", owner: "Tann Law team", note: "Appointments are arranged by your team, never auto-booked." },
+          { stage: "Consultation attended", detail: "A record that the meeting took place", owner: "Tann Law team", note: "Confirmed attendance, never assumed." },
+          { stage: "Scope of work proposed", detail: "Advice and fees shared", owner: "Tann Law team", note: "Recorded when a proposal goes out." },
+          { stage: "Client instructed", detail: "Engagement accepted", owner: "Tann Law team", note: "Confirmed from your client records." },
+        ],
+        costMetrics: ["Cost per enquiry", "Cost per attended consultation", "Cost per new client"],
+        attendanceNote:
+          "Consultation attendance is confirmed by the team or connected records. A request or a booked slot alone never counts as an attended consultation or a new client.",
+      },
+    },
+  },
+  "j-smith-tree-surgery": {
+    review: {
+      headline: "Real tree and garden work, finally front and centre.",
+      summary:
+        "J Smith already does the work — tree surgery, landscaping and garden clearance across Birmingham — but the current site gives that proof very little room and offers no clear way to request a quote. Your new site leads with the work itself, lays out each service plainly and gives every visitor one obvious next step: request a free quote.",
+      rebuildReasons: [
+        {
+          title: "Real work, barely visible",
+          strength:
+            "Tree surgery, landscaping and garden clearance carried out across Birmingham — the kind of local work homeowners want to see before they pick up the phone.",
+          gap: "The current site gives that proof very little room, so a visitor cannot quickly confirm the standard of work they'd be paying for.",
+        },
+        {
+          title: "Services hidden instead of listed",
+          strength:
+            "A clear service range — tree surgery, landscaping, stump removal and site clearance — that covers most of what local gardens need.",
+          gap: "Visitors have to work to understand what's on offer, so many leave before realising you cover their job.",
+        },
+        {
+          title: "Interest with no easy next step",
+          strength:
+            "People planning tree or garden work want a simple way to describe the job and hear back with a price.",
+          gap: "Without an obvious quote request route, interested visitors either call at awkward times or leave without making contact.",
+        },
+      ],
+      observations: [
+        {
+          title: "The work sells itself in the first five seconds",
+          explanation:
+            "The hero leads with a real climbing shot and a clear promise — healthy trees, beautiful landscapes — with Get a Free Quote right beside it.",
+        },
+        {
+          title: "A gallery of real jobs",
+          explanation:
+            "Fourteen of your own site photos — patios, turfing, hedge work and felled trees — show exactly what customers can expect, with filters for each service.",
+        },
+        {
+          title: "One obvious next step",
+          explanation:
+            "Get a Free Quote appears in the header, hero, about section and footer, and the form itself asks only what you need to price the work.",
+        },
+      ],
+    },
+    website: {
+      previewUrl:
+        process.env.NODE_ENV === "development" ? "http://localhost:4462" : undefined,
+      previewImageUrl: "/j-smith-homepage-preview.webp",
+      offerPage: {
+        label: "Quote request form",
+        description:
+          "Built into the homepage — a visitor describes the work and requests a free quote. The form is designed but not yet connected to an inbox; we wire that up at launch.",
+      },
+      status: "review",
+    },
+    offer: {
+      total: 3000,
+      deposit: 1500,
+      balance: 1500,
+      bankTransferEnabled: true,
+      status: "pending",
+    },
+    acquisition: {
+      interests: [
+        { id: "attract", title: "Attract more customers", description: "Reaching Birmingham homeowners planning tree or garden work" },
+        { id: "convert", title: "Convert more enquiries", description: "A site and quote request that turn interest into priced jobs" },
+        { id: "follow-up", title: "Improve follow-up", description: "Enquiry acknowledgements, detail chasing and appointment reminders that run themselves" },
+        { id: "tracking", title: "Understand what's working", description: "See quote requests, confirmed visits, attended appointments and jobs won" },
+      ],
+      offerCard: {
+        title: "Request a free quote",
+        description:
+          "Tell J Smith Tree Surgery & Landscaping about the work you have in mind and get a free quote — no obligation.",
+        bullets: ["Tree surgery, landscaping & clearance", "Birmingham & surrounding areas", "Free, no-obligation quote"],
+      },
+      ads: {
+        offer:
+          "A campaign kit built around one clear action: request a free quote from J Smith Tree Surgery & Landscaping.",
+        creatives: [
+          {
+            title: "Tree care. Taken care of.",
+            format: "Single image · Facebook & Instagram feed · 1:1",
+            audience: "Homeowners in Birmingham and surrounding areas with trees needing attention.",
+            headline: "Tree care. Taken care of.",
+            cta: "Get a Free Quote",
+            primaryText:
+              "Need help with a tree, pruning or garden clearance? Tell J Smith Tree Surgery & Landscaping about the work you have in mind. Serving Birmingham and surrounding areas. Request a free quote.",
+            imageUrl: "/workspace/j-smith/concept-a-square.webp",
+            imageAlt:
+              "J Smith Tree Surgery & Landscaping advert: Tree care. Taken care of. Tree surgery, pruning & garden clearance. Get a Free Quote.",
+          },
+          {
+            title: "Tree care. Taken care of. — portrait",
+            format: "Single image · Facebook & Instagram feed · 3:4",
+            audience: "Homeowners in Birmingham and surrounding areas with trees needing attention.",
+            headline: "Tree care. Taken care of.",
+            cta: "Get a Free Quote",
+            primaryText:
+              "Need help with a tree, pruning or garden clearance? Tell J Smith Tree Surgery & Landscaping about the work you have in mind. Serving Birmingham and surrounding areas. Request a free quote.",
+            imageUrl: "/workspace/j-smith/concept-a-portrait.webp",
+            imageAlt:
+              "J Smith Tree Surgery & Landscaping portrait advert: Tree care. Taken care of. Tree surgery, pruning & garden clearance.",
+          },
+          {
+            title: "Tree care. Taken care of. — story",
+            format: "Single image · Stories · 9:16",
+            audience: "Homeowners in Birmingham and surrounding areas with trees needing attention.",
+            headline: "Tree care. Taken care of.",
+            cta: "Get a Free Quote",
+            primaryText:
+              "Need help with a tree, pruning or garden clearance? Tell J Smith Tree Surgery & Landscaping about the work you have in mind. Serving Birmingham and surrounding areas. Request a free quote.",
+            imageUrl: "/workspace/j-smith/concept-a-story.webp",
+            imageAlt:
+              "J Smith Tree Surgery & Landscaping story advert: Tree care. Taken care of. Tree surgery, pruning & garden clearance.",
+          },
+          {
+            title: "A fresh start for your garden.",
+            format: "Single image · Facebook & Instagram feed · 1:1",
+            audience: "Homeowners in Birmingham and surrounding areas planning landscaping or garden improvements.",
+            headline: "A fresh start for your garden.",
+            cta: "Get a Free Quote",
+            primaryText:
+              "Planning a change to your garden? From landscaping and turfing to garden care, tell J Smith Tree Surgery & Landscaping what you have in mind. Serving Birmingham and surrounding areas. Request a free quote.",
+            imageUrl: "/workspace/j-smith/concept-b-square.webp",
+            imageAlt:
+              "J Smith Tree Surgery & Landscaping advert: A fresh start for your garden. Landscaping, turfing & garden care. Get a Free Quote.",
+          },
+          {
+            title: "A fresh start for your garden. — portrait",
+            format: "Single image · Facebook & Instagram feed · 3:4",
+            audience: "Homeowners in Birmingham and surrounding areas planning landscaping or garden improvements.",
+            headline: "A fresh start for your garden.",
+            cta: "Get a Free Quote",
+            primaryText:
+              "Planning a change to your garden? From landscaping and turfing to garden care, tell J Smith Tree Surgery & Landscaping what you have in mind. Serving Birmingham and surrounding areas. Request a free quote.",
+            imageUrl: "/workspace/j-smith/concept-b-portrait.webp",
+            imageAlt:
+              "J Smith Tree Surgery & Landscaping portrait advert: A fresh start for your garden. Landscaping, turfing & garden care.",
+          },
+          {
+            title: "A fresh start for your garden. — story",
+            format: "Single image · Stories · 9:16",
+            audience: "Homeowners in Birmingham and surrounding areas planning landscaping or garden improvements.",
+            headline: "A fresh start for your garden.",
+            cta: "Get a Free Quote",
+            primaryText:
+              "Planning a change to your garden? From landscaping and turfing to garden care, tell J Smith Tree Surgery & Landscaping what you have in mind. Serving Birmingham and surrounding areas. Request a free quote.",
+            imageUrl: "/workspace/j-smith/concept-b-story.webp",
+            imageAlt:
+              "J Smith Tree Surgery & Landscaping story advert: A fresh start for your garden. Landscaping, turfing & garden care.",
+          },
+        ],
+      },
+      followUp: {
+        emails: [
+          {
+            name: "Request received",
+            subject: "We\u2019ve received your quote request",
+            timing: "Immediately after an enquiry",
+            purpose: "Confirms the request landed and sets the honest expectation that no appointment is confirmed yet.",
+            phase: "enquiry",
+            body: "Hi {{ first_name }},\n\nThanks for getting in touch about {{ requested_service }}. We\u2019ve received your request.\n\nThis is an acknowledgement, not a confirmed appointment. We\u2019ll review the details and get back to you about the next step.\n\nIf you have a location, useful photos or anything else to add, reply to this email.\n\nReply with details: {{ reply_url }}\n\nJ Smith Tree Surgery & Landscaping",
+          },
+          {
+            name: "Chase the missing details",
+            subject: "A few details for your quote request",
+            timing: "Next business day, if details are needed",
+            purpose: "Asks for the outstanding details needed to progress the quote.",
+            phase: "enquiry",
+            body: "Hi {{ first_name }},\n\nThanks for your enquiry about {{ requested_service }}. To help us take the next step, could you send us {{ missing_details }}?\n\nYou can reply directly with the details and any useful photos. If you\u2019re waiting for us to confirm something, there\u2019s no need to chase \u2014 we\u2019ll pick that up.\n\nReply with details: {{ reply_url }}\n\nJ Smith Tree Surgery & Landscaping",
+          },
+          {
+            name: "Continue or close",
+            subject: "Would you still like to discuss the work?",
+            timing: "Later, if the enquiry is still unresolved",
+            purpose: "A polite check that either restarts the request or closes it without assumptions.",
+            phase: "enquiry",
+            body: "Hi {{ first_name }},\n\nJust checking whether you\u2019d still like to discuss {{ requested_service }}. We\u2019re still waiting for {{ missing_details }} before we can move forward.\n\nReply when you\u2019re ready, or let us know if your plans have changed. There\u2019s no pressure, and this message doesn\u2019t automatically cancel your request.\n\nReply to your request: {{ reply_url }}\n\nJ Smith Tree Surgery & Landscaping",
+          },
+          {
+            name: "Appointment confirmed",
+            subject: "Your appointment is confirmed",
+            timing: "When the team confirms a visit",
+            purpose: "Date, time, location and preparation in one place.",
+            phase: "booking",
+            body: "Hi {{ first_name }},\n\nYour {{ requested_service }} appointment is confirmed.\n\nDate: {{ appointment_date }}\nTime: {{ appointment_time }} ({{ timezone_label }})\nLocation: {{ appointment_location }}\n\n{{ preparation_notes }}\n\nIf you need to make a change, use the link below or reply to this email.\n\nManage your appointment: {{ manage_booking_url }}\n\nJ Smith Tree Surgery & Landscaping",
+          },
+          {
+            name: "Reminder, 24 hours",
+            subject: "A reminder about your appointment tomorrow",
+            timing: "The day before the appointment",
+            purpose: "A useful reminder with a route to change plans.",
+            phase: "booking",
+            body: "Hi {{ first_name }},\n\nA reminder about your {{ requested_service }} appointment.\n\nDate: {{ appointment_date }}\nTime: {{ appointment_time }} ({{ timezone_label }})\nLocation: {{ appointment_location }}\n\n{{ preparation_notes }}\n\nIf your plans have changed, please use the link below.\n\nManage your appointment: {{ manage_booking_url }}\n\nJ Smith Tree Surgery & Landscaping",
+          },
+          {
+            name: "Reminder, 2 hours",
+            subject: "Your appointment is coming up",
+            timing: "Two hours before the appointment",
+            purpose: "A short reminder with the time and location.",
+            phase: "booking",
+            body: "Hi {{ first_name }},\n\nYour {{ requested_service }} appointment is coming up.\n\nToday at {{ appointment_time }} ({{ timezone_label }})\nLocation: {{ appointment_location }}\n\nNeed to change something? Use the link below or reply to this email.\n\nManage your appointment: {{ manage_booking_url }}\n\nJ Smith Tree Surgery & Landscaping",
+          },
+          {
+            name: "After a missed appointment",
+            subject: "Would you like to arrange another time?",
+            timing: "After an explicit no-show",
+            purpose: "Offers a new time without pressure or assumptions.",
+            phase: "booking",
+            body: "Hi {{ first_name }},\n\nIt looks like we didn\u2019t manage to connect for your {{ requested_service }} appointment. If you\u2019d still like to discuss the work, you can arrange another time using the link below.\n\nIf your plans have changed, just reply and let us know.\n\nArrange another time: {{ manage_booking_url }}\n\nJ Smith Tree Surgery & Landscaping",
+          },
+        ],
+        stopRules: [
+          "The sequence stops the moment someone replies, an appointment is confirmed, or they ask not to be contacted.",
+          "Appointment confirmations and reminders only send after the team has actually agreed a slot — never inferred from elapsed time.",
+          "Sender email, reply route and the business calendar are unresolved — all messages are drafts until a monitored sender and reply queue are configured.",
+        ],
+      },
+      tracking: {
+        metrics: [
+          { key: "enquiries", label: "Quote requests", description: "People asking for a free quote.", source: "Website form + ad enquiries", connected: false },
+          { key: "attended", label: "Appointments attended", description: "Site visits and consultations that took place, confirmed by the team.", source: "J Smith attendance confirmation", connected: false },
+          { key: "quotes", label: "Quotes delivered", description: "Priced quotes sent after reviewing the work.", source: "J Smith records", connected: false },
+          { key: "customers", label: "Jobs won", description: "Confirmed work booked from those enquiries.", source: "J Smith records", connected: false },
+        ],
+        journey: [
+          { stage: "New enquiry", detail: "Source and service requested", owner: "Captured automatically", note: "From your website and ads once connected." },
+          { stage: "Visit agreed", detail: "Agreed date and time", owner: "J Smith team", note: "Appointments are arranged by your team, never auto-booked." },
+          { stage: "Visit attended", detail: "A record that the appointment took place", owner: "J Smith team", note: "Confirmed attendance, never assumed." },
+          { stage: "Quote delivered", detail: "Priced work sent to the customer", owner: "J Smith team", note: "Recorded when the quote goes out." },
+          { stage: "Job won", detail: "Work accepted", owner: "J Smith team", note: "Confirmed from your job records." },
+        ],
+        costMetrics: ["Cost per quote request", "Cost per attended visit", "Cost per job won"],
+        attendanceNote:
+          "Appointment attendance is confirmed by the team or connected records. A request or agreed slot alone never counts as an attended visit or a job won.",
       },
     },
   },
