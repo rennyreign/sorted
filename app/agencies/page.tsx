@@ -10,13 +10,13 @@ import {
   Image as ImageIcon,
   Mail,
   Monitor,
-  Play,
   Settings,
   Zap,
 } from "lucide-react"
 import { AgencyHeader } from "./_components/AgencyHeader"
 import { AgencyObservers } from "./_components/AgencyObservers"
 import { ExampleWorkspaceModal } from "./_components/ExampleWorkspaceModal"
+import { HeroVideo, VideoWatchButton } from "./_components/HeroVideo"
 
 const faveScript = localFont({
   src: "../../public/fonts/Fave-ScriptPro.ttf",
@@ -163,50 +163,12 @@ export default function AgenciesPage() {
               Book a campaign angle conversation
               <ArrowRight size={15} aria-hidden="true" />
             </a>
-            {/* Founder video not yet supplied — non-interactive placeholder per design IR */}
-            <span
-              className="inline-flex cursor-not-allowed items-center gap-2.5 text-sm font-semibold text-[#0C0C0C]"
-              role="img"
-              aria-label="Founder overview video — coming soon"
-              title="Video coming soon"
-            >
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#D4FF00]">
-                <Play size={14} className="ml-0.5 fill-[#0C0C0C] text-[#0C0C0C]" aria-hidden="true" />
-              </span>
-              <span className="leading-tight">
-                Watch a 2 min
-                <br />
-                <span className="font-medium text-[#6E6E6A]">founder overview</span>
-              </span>
-            </span>
+            <VideoWatchButton />
           </div>
         </div>
 
-        {/* Video placeholder — authentic recording not yet supplied */}
         <div className="relative">
-          <div
-            className="relative flex aspect-[4/5] w-full flex-col justify-between overflow-hidden rounded-xl bg-[#0C0C0C] p-6"
-            role="img"
-            aria-label="Placeholder for a two-minute introduction video to Sorted"
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,#232323_0%,#0C0C0C_70%)]" />
-            <div className="relative flex justify-end">
-              <span className="rounded-md bg-white/10 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-white/80">
-                02:18
-              </span>
-            </div>
-            <div className="relative flex flex-col items-center gap-4 text-center">
-              <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#D4FF00]">
-                <Play size={22} className="ml-1 fill-[#0C0C0C] text-[#0C0C0C]" aria-hidden="true" />
-              </span>
-              <p className="max-w-[26ch] text-[13px] font-medium leading-snug text-white/70">
-                Founder introduction video — coming soon
-              </p>
-            </div>
-            <p className="relative text-[12px] font-medium text-white/50">
-              Why this matters for agencies
-            </p>
-          </div>
+          <HeroVideo />
         </div>
       </section>
 
