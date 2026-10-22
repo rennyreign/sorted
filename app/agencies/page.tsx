@@ -16,6 +16,7 @@ import {
 } from "lucide-react"
 import { AgencyHeader } from "./_components/AgencyHeader"
 import { AgencyObservers } from "./_components/AgencyObservers"
+import { ExampleWorkspaceModal } from "./_components/ExampleWorkspaceModal"
 
 const faveScript = localFont({
   src: "../../public/fonts/Fave-ScriptPro.ttf",
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
   },
 }
 
-const CAL_URL = process.env.NEXT_PUBLIC_AGENCIES_CAL_URL
+const CAL_URL = process.env.NEXT_PUBLIC_AGENCIES_CAL_URL ?? "https://cal.com/sortmydigital.site/discovery"
 
 const benefits = [
   {
@@ -312,6 +313,7 @@ export default function AgenciesPage() {
                 </li>
               ))}
             </ul>
+            <ExampleWorkspaceModal />
           </div>
         </div>
       </section>
