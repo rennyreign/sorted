@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
 }
 
-const CAL_URL = process.env.NEXT_PUBLIC_AGENCIES_CAL_URL ?? "https://cal.com/sortmydigital/discovery"
+const CAL_URL = process.env.NEXT_PUBLIC_AGENCIES_CAL_URL ?? "https://cal.com/sortmydigital/discovery?layout=month_view&hideEventTypeDetails=true"
 
 const benefits = [
   {
