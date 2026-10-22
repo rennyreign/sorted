@@ -431,7 +431,7 @@ export default function AgenciesPage() {
       <footer className="border-t border-[#E6E6E2] bg-[#FAFAF7]">
         <div className="mx-auto flex max-w-[1180px] flex-col gap-6 px-5 py-10 sm:px-8 lg:flex-row lg:items-end lg:justify-between lg:px-[60px]">
           <div>
-            <p className="font-sans text-xl font-extrabold tracking-tight">Sorted.</p>
+            <p className="font-sans text-xl font-black tracking-[-0.045em]">Sorted<span className="text-[#cfe900]">.</span></p>
             <p className="mt-1.5 max-w-[38ch] text-[12.5px] leading-[1.6] text-[#6E6E6A]">
               Campaign angle manufacturing for performance marketing teams.
             </p>

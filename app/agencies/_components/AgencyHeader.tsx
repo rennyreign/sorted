@@ -18,10 +18,10 @@ export function AgencyHeader() {
         <div className="mx-auto flex max-w-[1180px] items-center justify-between px-5 py-4 sm:px-8 lg:px-[60px]">
           <a
             href="#top"
-            className="font-sans text-2xl font-extrabold leading-none tracking-tight text-[#0C0C0C]"
+            className="font-sans text-2xl font-black leading-none tracking-[-0.045em] text-[#0C0C0C]"
             aria-label="Sorted — back to top"
           >
-            Sorted.
+            Sorted<span className="text-[#cfe900]">.</span>
           </a>
 
           <nav aria-label="Page sections" className="hidden items-center gap-7 md:flex">
