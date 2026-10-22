@@ -121,9 +121,9 @@ const letterBlocks = [
   { type: "emphasis", text: "Your next meaningful improvement might not be a better version of the campaign you’re already running. It might be a conversation with customers you’ve never properly had." },
 ] as const
 
-function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
+function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <p className={`text-[11px] font-semibold uppercase tracking-[0.18em] ${dark ? "text-[#8f8f8a]" : "text-[#6E6E6A]"}`}>
+    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#6E6E6A]">
       {children}
     </p>
   )
@@ -138,7 +138,6 @@ export default function AgenciesPage() {
       {/* ── Hero ─────────────────────────────────────────── */}
       <section className="mx-auto grid max-w-[1180px] gap-10 px-5 pb-16 pt-12 sm:px-8 lg:grid-cols-[0.52fr_0.48fr] lg:items-center lg:px-[60px] lg:pt-16">
         <div>
-          <Eyebrow>FOR PERFORMANCE MARKETING TEAMS</Eyebrow>
           <h1 className="mt-5 text-[clamp(2.6rem,5.2vw,3.75rem)] font-black leading-[1.02] tracking-[-0.03em]">
             <span className="block">More angles.</span>
             <span className="block">More experiments.</span>
@@ -231,7 +230,6 @@ export default function AgenciesPage() {
       {/* ── Sprint ───────────────────────────────────────── */}
       <section id="sprint" className="scroll-mt-20 border-t border-[#E6E6E2]">
         <div className="mx-auto max-w-[1180px] px-5 py-16 sm:px-8 lg:px-[60px] lg:py-24">
-          <Eyebrow>THE SORTED CAMPAIGN ANGLE SPRINT</Eyebrow>
           <h2 className="mt-4 max-w-[16ch] text-[clamp(1.9rem,3.6vw,2.4rem)] font-black leading-[1.08] tracking-[-0.025em]">
             Give us two campaigns. We’ll show you two new ways to test them.
           </h2>
@@ -275,7 +273,6 @@ export default function AgenciesPage() {
       {/* ── Deliverables ─────────────────────────────────── */}
       <section className="border-t border-[#E6E6E2] bg-[#F4F3EF]">
         <div className="mx-auto max-w-[1180px] px-5 py-14 sm:px-8 lg:px-[60px]">
-          <Eyebrow>YOU RECEIVE</Eyebrow>
           <div className="mt-7 grid grid-cols-2 gap-x-6 gap-y-7 sm:grid-cols-3 lg:grid-cols-6">
             {deliverables.map(({ icon: Icon, title }) => (
               <div key={title} className="flex flex-col gap-3">
@@ -294,7 +291,6 @@ export default function AgenciesPage() {
       <section className="border-t border-[#E6E6E2]">
         <div className="mx-auto grid max-w-[1180px] gap-8 px-5 py-16 sm:px-8 lg:grid-cols-2 lg:gap-16 lg:px-[60px] lg:py-24">
           <div>
-            <Eyebrow>YOU RUN THE CAMPAIGNS</Eyebrow>
             <h2 className="mt-4 text-[clamp(1.9rem,3.6vw,2.4rem)] font-black leading-[1.08] tracking-[-0.025em]">
               We manufacture the angles.
             </h2>
@@ -377,7 +373,6 @@ export default function AgenciesPage() {
       <section id="book" className="scroll-mt-20 bg-[#080808] text-[#FAFAF7]">
         <div className="mx-auto grid max-w-[1180px] gap-10 px-5 py-16 sm:px-8 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-[60px] lg:py-24">
           <div>
-            <Eyebrow dark>READY TO EXPLORE WHAT’S POSSIBLE?</Eyebrow>
             <h2 className="mt-4 text-[clamp(2rem,4vw,2.75rem)] font-black leading-[1.05] tracking-[-0.03em]">
               Book a campaign conversation.
             </h2>
