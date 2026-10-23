@@ -149,7 +149,7 @@ export default function AgenciesPage() {
             Sorted builds the experiments your team doesn’t have the capacity to produce.
           </p>
           <p className="mt-6 text-[clamp(1.15rem,2vw,1.4rem)] font-extrabold leading-[1.3] tracking-[-0.015em] text-[#0C0C0C]">
-            You run the campaigns. We manufacture the angles.
+            We manufacture the angles you don’t have time for.
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-4">
