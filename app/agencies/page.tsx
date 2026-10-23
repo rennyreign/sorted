@@ -150,7 +150,7 @@ export default function AgenciesPage() {
           <p className="mt-3 max-w-[46ch] text-[15px] font-semibold leading-[1.7] text-[#0C0C0C]">
             Sorted builds the complete experiments your team doesn’t have the capacity to produce.
           </p>
-          <p className="mt-6 [font-family:var(--font-agency-script)] text-[clamp(1.8rem,3.4vw,2.6rem)] leading-[1.1] text-[#b8d900]">
+          <p className="mt-6 text-[clamp(1.15rem,2vw,1.4rem)] font-extrabold leading-[1.3] tracking-[-0.015em] text-[#0C0C0C]">
             You run the campaigns. We manufacture the angles.
           </p>
 
