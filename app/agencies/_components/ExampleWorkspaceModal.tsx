@@ -8,7 +8,7 @@ import { ArrowRight, X } from "lucide-react"
  * The full example workspace content is being assembled; this dialog
  * is the hook it will slot into.
  */
-export function ExampleWorkspaceModal() {
+export function ExampleWorkspaceModal({ dark = false }: { dark?: boolean }) {
   const [open, setOpen] = useState(false)
   const dialogRef = useRef<HTMLDivElement>(null)
 
@@ -31,7 +31,11 @@ export function ExampleWorkspaceModal() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="mt-7 inline-flex items-center gap-2 rounded-full border border-black/[0.14] bg-transparent px-5 py-2.5 text-[13.5px] font-semibold text-[#0C0C0C] transition-all duration-200 hover:border-[#0C0C0C] hover:bg-[#0C0C0C] hover:text-[#FAFAF7]"
+        className={`mt-7 inline-flex items-center gap-2 rounded-full border bg-transparent px-5 py-2.5 text-[13.5px] font-semibold transition-all duration-200 ${
+          dark
+            ? "border-white/25 text-white hover:border-white hover:bg-white hover:text-[#0C0C0C]"
+            : "border-black/[0.14] text-[#0C0C0C] hover:border-[#0C0C0C] hover:bg-[#0C0C0C] hover:text-[#FAFAF7]"
+        }`}
       >
         See an example
         <ArrowRight size={14} aria-hidden="true" />

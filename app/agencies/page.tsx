@@ -3,13 +3,17 @@ import localFont from "next/font/local"
 import {
   ArrowRight,
   ChartColumn,
+  ChartLine,
   ChartNoAxesCombined,
   CircleHelp,
   Eye,
   FileText,
   Image as ImageIcon,
+  Lightbulb,
   Mail,
+  MessagesSquare,
   Monitor,
+  MonitorSmartphone,
   Settings,
   Zap,
 } from "lucide-react"
@@ -248,31 +252,55 @@ export default function AgenciesPage() {
         </div>
       </section>
 
-      {/* ── Roles ────────────────────────────────────────── */}
+      {/* ── What we do ───────────────────────────────────── */}
       <section className="border-t border-[#E6E6E2]">
-        <div className="mx-auto grid max-w-[1180px] gap-8 px-5 py-16 sm:px-8 lg:grid-cols-2 lg:gap-16 lg:px-[60px] lg:py-24">
-          <div>
-            <h2 className="mt-4 text-[clamp(1.9rem,3.6vw,2.4rem)] font-black leading-[1.08] tracking-[-0.025em]">
-              We manufacture the angles.
-            </h2>
-          </div>
-          <div>
-            <p className="text-[15px] leading-[1.75] text-[#4a4a46]">
-              Your agency retains media buying, deployment into its automation systems, experimentation decisions and client ownership. Sorted manufactures and verifies the agreed assets on supported infrastructure, ready for your team to launch.
-            </p>
-            <ul className="mt-6 space-y-3">
-              {[
-                "No mandatory platform migration",
-                "Preview direction before full production",
-                "Clear handover and ownership boundaries",
-              ].map((point) => (
-                <li key={point} className="flex items-center gap-3 text-[13.5px] font-semibold">
-                  <span className="h-2 w-2 flex-shrink-0 rounded-full bg-[#D4FF00] ring-1 ring-black/10" aria-hidden="true" />
-                  {point}
-                </li>
-              ))}
-            </ul>
-            <ExampleWorkspaceModal />
+        <div className="mx-auto max-w-[1180px] px-5 py-16 sm:px-8 lg:px-[60px] lg:py-24">
+          <div className="rounded-3xl border border-white/10 bg-[#080808] p-7 text-[#FAFAF7] sm:p-10 lg:p-12">
+            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8f8f8a]">
+                  WHAT WE DO
+                </p>
+                <h2 className="mt-4 text-[clamp(1.9rem,3.6vw,2.4rem)] font-black leading-[1.08] tracking-[-0.025em]">
+                  We manufacture the angles.
+                </h2>
+                <p className="mt-3 text-[15px] leading-[1.7] text-white/60">
+                  And everything needed to test them.
+                </p>
+                <div className="mt-10">
+                  <p className="text-[13.5px] font-bold">Our core focus</p>
+                  <p className="mt-1.5 max-w-[36ch] text-[13.5px] leading-[1.7] text-white/55">
+                    Different reasons people buy, turned into complete campaign propositions.
+                  </p>
+                </div>
+                <ExampleWorkspaceModal dark />
+              </div>
+
+              <ul className="space-y-7 self-center">
+                {[
+                  { icon: Lightbulb, title: "Campaign angles", sub: "Strategy, hooks, ad copy and creative", featured: true },
+                  { icon: MonitorSmartphone, title: "Websites & landing pages", sub: "Complete, message-matched experiences" },
+                  { icon: MessagesSquare, title: "Follow-up sequences", sub: "Email, SMS and conversion narratives" },
+                  { icon: ChartLine, title: "Tracking & measurement", sub: "Events, conversion data and handover" },
+                ].map(({ icon: Icon, title, sub, featured }) => (
+                  <li key={title} className="flex items-start gap-4">
+                    <span className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl ${featured ? "bg-[#D4FF00] text-[#0C0C0C]" : "bg-white/[0.07] text-white"}`}>
+                      <Icon size={18} strokeWidth={2} aria-hidden="true" />
+                    </span>
+                    <span>
+                      <span className="block text-[17px] font-extrabold leading-snug tracking-[-0.01em]">{title}</span>
+                      <span className="mt-1 block text-[13.5px] leading-snug text-white/50">{sub}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="mt-12 border-t border-white/10 pt-7">
+              <p className="max-w-[72ch] text-[15px] leading-[1.7] text-white/60">
+                Use the whole production chain or just what your team needs. Your agency keeps control of its campaigns, systems and clients.
+              </p>
+            </div>
           </div>
         </div>
       </section>
