@@ -222,6 +222,9 @@ export function OperatorDeck() {
             aria-hidden={i !== index}
             className={`${styles.slide} ${i === index ? styles.slideActive : ""}`}
           >
+            <div className={styles.brand} aria-label="Sorted">
+              Sorted<span aria-hidden="true">.</span>
+            </div>
             {content}
           </article>
         ))}

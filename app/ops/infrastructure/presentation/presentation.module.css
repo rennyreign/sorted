@@ -27,6 +27,19 @@
 @media (min-width: 768px) { .slide { padding: 56px 64px; } }
 .slideActive { display: flex; flex-direction: column; }
 
+.brand {
+  position: absolute;
+  top: 22px;
+  left: 24px;
+  z-index: 2;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.brand span { color: var(--lime); }
+@media (min-width: 768px) { .brand { top: 28px; left: 64px; font-size: 24px; } }
+
 .slideInner {
   width: 100%;
   max-width: 1080px;
@@ -236,7 +249,7 @@
   .controls { display: none !important; }
   .slide {
     display: flex !important;
-    position: static;
+    position: relative;
     inset: auto;
     overflow: visible;
     height: 7.5in;
@@ -247,6 +260,7 @@
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+  .brand { top: 0.34in; left: 0.8in; font-size: 20px; }
   .slide:last-child { page-break-after: auto; break-after: auto; }
 }
 
