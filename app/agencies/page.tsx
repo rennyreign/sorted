@@ -138,19 +138,18 @@ export default function AgenciesPage() {
       {/* ── Hero ─────────────────────────────────────────── */}
       <section className="mx-auto grid max-w-[1180px] gap-10 px-5 pb-16 pt-12 sm:px-8 lg:grid-cols-[0.52fr_0.48fr] lg:items-center lg:px-[60px] lg:pt-16">
         <div>
-          <h1 className="mt-5 text-[clamp(2.6rem,5.2vw,3.75rem)] font-black leading-[1.02] tracking-[-0.03em]">
-            <span className="block">More angles.</span>
-            <span className="block">More experiments.</span>
-            <span className="block [font-family:var(--font-agency-script)] text-[1.25em] font-normal leading-[0.9] tracking-normal text-[#b8d900]">
-              More opportunities
-            </span>
-            <span className="block">to find what works.</span>
+          <h1 className="text-[clamp(2.4rem,4.6vw,3.4rem)] font-black leading-[1.06] tracking-[-0.03em]">
+            <span className="block">Are you optimising campaigns,</span>
+            <span className="block">or just keeping them running?</span>
           </h1>
           <p className="mt-6 max-w-[46ch] text-[15px] leading-[1.7] text-[#4a4a46]">
-            We manufacture complete, message-matched campaign journeys around the different reasons customers buy.
+            Your team knows there’s more to test. But new angles mean more creative, landing pages, copy and production work nobody has time for.
           </p>
-          <p className="mt-3 max-w-[46ch] text-[15px] leading-[1.7] text-[#4a4a46]">
-            From ad creative and copy to landing pages and follow-up narratives, Sorted makes it practical to test more purchasing motivations without adding another production burden to your team.
+          <p className="mt-3 max-w-[46ch] text-[15px] font-semibold leading-[1.7] text-[#0C0C0C]">
+            Sorted builds the complete experiments your team doesn’t have the capacity to produce.
+          </p>
+          <p className="mt-6 [font-family:var(--font-agency-script)] text-[clamp(1.8rem,3.4vw,2.6rem)] leading-[1.1] text-[#b8d900]">
+            You run the campaigns. We manufacture the angles.
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-4">
