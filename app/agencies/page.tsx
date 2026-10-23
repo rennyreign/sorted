@@ -140,7 +140,9 @@ export default function AgenciesPage() {
         <div>
           <h1 className="text-[clamp(2.4rem,4.6vw,3.4rem)] font-black leading-[1.06] tracking-[-0.03em]">
             <span className="block">Are you optimising campaigns,</span>
-            <span className="block">or just keeping them running?</span>
+            <span className="block [font-family:var(--font-agency-script)] text-[1.2em] font-normal leading-[1.15] tracking-normal text-[#b8d900]">
+              or just keeping them running?
+            </span>
           </h1>
           <p className="mt-6 max-w-[46ch] text-[15px] leading-[1.7] text-[#4a4a46]">
             Your team knows there’s more to test. But new angles mean more creative, landing pages, copy and production work nobody has time for.
