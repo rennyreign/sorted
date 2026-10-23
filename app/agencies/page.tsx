@@ -198,11 +198,11 @@ export default function AgenciesPage() {
           <h2 className="mx-auto max-w-[20ch] text-center text-[clamp(2.2rem,5vw,3.4rem)] font-black leading-[1.05] tracking-[-0.03em]">
             Test more angles. Without adding more to your team’s plate.
           </h2>
-          <p className="mx-auto mt-4 max-w-[58ch] text-center text-[15px] leading-[1.7] text-[#4a4a46]">
-            Your campaigns have more opportunities for improvement than your team has capacity to explore.
+          <p className="mx-auto mt-4 max-w-[54ch] text-center text-[15px] leading-[1.7] text-[#4a4a46]">
+            There’s more to test than your team has capacity for. Sorted gives you the production capacity to try new motivations, propositions and complete journeys.
           </p>
-          <p className="mx-auto mt-3 max-w-[58ch] text-center text-[15px] leading-[1.7] text-[#4a4a46]">
-            Sorted gives you the production capacity to test more customer motivations, new propositions and complete campaign journeys, without additional hires, tools or production headaches.
+          <p className="mx-auto mt-3 max-w-[54ch] text-center text-[15px] font-semibold leading-[1.7] text-[#0C0C0C]">
+            No extra hires. No new tools. No production headaches.
           </p>
 
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
