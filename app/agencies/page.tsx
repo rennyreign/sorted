@@ -139,8 +139,8 @@ export default function AgenciesPage() {
       <section className="mx-auto grid max-w-[1180px] gap-10 px-5 pb-16 pt-12 sm:px-8 lg:grid-cols-[0.52fr_0.48fr] lg:items-center lg:px-[60px] lg:pt-16">
         <div>
           <h1 className="text-[clamp(2.6rem,5.2vw,3.9rem)] font-black leading-[1.04] tracking-[-0.03em]">
-            <span className="block">Are you optimizing campaigns,</span>
-            <span className="block text-[#b8d900]">or just keeping them running?</span>
+            <span className="block">Are you optimizing campaigns?</span>
+            <span className="block text-[#b8d900]">Or just keeping them running?</span>
           </h1>
           <p className="mt-6 max-w-[46ch] text-[15px] leading-[1.7] text-[#4a4a46]">
             Your team knows there’s more to test. But new angles mean more creative, landing pages, copy and production work nobody has time for.
