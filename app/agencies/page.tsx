@@ -195,10 +195,10 @@ export default function AgenciesPage() {
       {/* ── Sprint ───────────────────────────────────────── */}
       <section id="sprint" className="scroll-mt-20 border-t border-[#E6E6E2]">
         <div className="mx-auto max-w-[1180px] px-5 py-16 sm:px-8 lg:px-[60px] lg:py-24">
-          <h2 className="mt-4 max-w-[16ch] text-[clamp(1.9rem,3.6vw,2.4rem)] font-black leading-[1.08] tracking-[-0.025em]">
+          <h2 className="mx-auto max-w-[18ch] text-center text-[clamp(2.2rem,5vw,3.4rem)] font-black leading-[1.05] tracking-[-0.03em]">
             Give us two campaigns. We’ll show you two new ways to test them.
           </h2>
-          <p className="mt-4 max-w-[62ch] text-[15px] leading-[1.7] text-[#4a4a46]">
+          <p className="mx-auto mt-4 max-w-[58ch] text-center text-[15px] leading-[1.7] text-[#4a4a46]">
             Choose two active client products or campaigns. We’ll develop an expansion angle for one and a completely different buying angle for the other.
           </p>
 
