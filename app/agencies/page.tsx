@@ -67,24 +67,24 @@ const sprintCards = [
   {
     label: "A",
     title: "Angle Expansion",
-    eyebrow: "MAKE AN EXISTING CAMPAIGN WORK HARDER",
+    eyebrow: "FIND MORE PERFORMANCE IN EXISTING CAMPAIGNS",
     body: [
-      "Take an active campaign and identify additional customer motivations or messages within its established proposition.",
-      "Deliver new ad concepts, creative, revised copy and a message-matched landing-page variant, with follow-up narratives where useful.",
+      "Explore additional buying motivations within a campaign you’re already running.",
+      "We develop new messaging, ad creative, copy and matching landing-page variants to help you test more ways to improve what’s already working.",
     ],
     question:
-      "What else could make this campaign resonate with the people we’re already trying to reach?",
+      "What other reasons might persuade this audience to act?",
   },
   {
     label: "B",
     title: "Angle Discovery",
-    eyebrow: "EXPLORE A DIFFERENT REASON TO BUY",
+    eyebrow: "TEST AN ENTIRELY DIFFERENT REASON TO BUY",
     body: [
-      "Develop a distinct purchasing hypothesis for an existing product or service, then manufacture the campaign assets required to test it.",
-      "New messaging, ad concepts, creative assets, a dedicated landing-page experience and a matching follow-up narrative.",
+      "Go beyond refining your existing proposition.",
+      "We identify a distinct purchasing motivation and manufacture a complete challenger campaign around it: from advertising and landing pages to follow-up messaging.",
     ],
     question:
-      "Who else might buy this product, and for a reason our current campaigns barely address?",
+      "What demand might we be missing because we haven’t tested the right proposition?",
   },
 ]
 
@@ -195,11 +195,14 @@ export default function AgenciesPage() {
       {/* ── Sprint ───────────────────────────────────────── */}
       <section id="sprint" className="scroll-mt-20 border-t border-[#E6E6E2]">
         <div className="mx-auto max-w-[1180px] px-5 py-16 sm:px-8 lg:px-[60px] lg:py-24">
-          <h2 className="mx-auto max-w-[18ch] text-center text-[clamp(2.2rem,5vw,3.4rem)] font-black leading-[1.05] tracking-[-0.03em]">
-            Give us two campaigns. We’ll create the angles you’ve not got round to trying.
+          <h2 className="mx-auto max-w-[20ch] text-center text-[clamp(2.2rem,5vw,3.4rem)] font-black leading-[1.05] tracking-[-0.03em]">
+            Test more angles. Without adding more to your team’s plate.
           </h2>
           <p className="mx-auto mt-4 max-w-[58ch] text-center text-[15px] leading-[1.7] text-[#4a4a46]">
-            Choose two active client products or campaigns. We’ll develop an expansion angle for one and a completely different buying angle for the other.
+            Your campaigns have more opportunities for improvement than your team has capacity to explore.
+          </p>
+          <p className="mx-auto mt-3 max-w-[58ch] text-center text-[15px] leading-[1.7] text-[#4a4a46]">
+            Sorted gives you the production capacity to test more customer motivations, new propositions and complete campaign journeys, without additional hires, tools or production headaches.
           </p>
 
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
