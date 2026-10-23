@@ -237,18 +237,43 @@ export default function AgenciesPage() {
 
       {/* ── Deliverables ─────────────────────────────────── */}
       <section className="border-t border-[#E6E6E2] bg-[#F4F3EF]">
-        <div className="mx-auto max-w-[1180px] px-5 py-14 sm:px-8 lg:px-[60px]">
-          <div className="mt-7 grid grid-cols-2 gap-x-6 gap-y-7 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="mx-auto max-w-[1180px] px-5 py-16 sm:px-8 lg:px-[60px] lg:py-24">
+          <p className="flex items-center justify-center gap-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8a8a85]">
+            <span className="h-px w-8 bg-[#c9c9c3]" aria-hidden="true" />
+            DELIVERABLES
+            <span className="h-px w-8 bg-[#c9c9c3]" aria-hidden="true" />
+          </p>
+          <h2 className="mt-5 text-center text-[clamp(2.2rem,5vw,3.4rem)] font-black leading-[1.05] tracking-[-0.03em]">
+            What you receive
+          </h2>
+          <p className="mx-auto mt-4 max-w-[52ch] text-center text-[15px] leading-[1.7] text-[#6E6E6A]">
+            A complete, production-ready experiment — from strategy and creative to launch assets and measurement.
+          </p>
+
+          <div className="mt-11 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
             {deliverables.map(({ icon: Icon, title }) => (
-              <div key={title} className="flex flex-col gap-3">
-                <Icon size={20} strokeWidth={1.8} className="text-[#0C0C0C]" aria-hidden="true" />
-                <p className="text-[12.5px] font-semibold leading-snug">{title}</p>
+              <div
+                key={title}
+                className="rounded-2xl border border-black/[0.08] bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] transition-transform duration-200 hover:-translate-y-0.5"
+              >
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#D4FF00]">
+                  <Icon size={18} strokeWidth={2} className="text-[#0C0C0C]" aria-hidden="true" />
+                </span>
+                <p className="mt-4 text-[13.5px] font-bold leading-[1.4] tracking-[-0.01em]">{title}</p>
               </div>
             ))}
           </div>
-          <p className="mt-9 max-w-[68ch] text-[12.5px] leading-[1.7] text-[#6E6E6A]">
-            Two angles, including actual production outputs — rather than strategy-only recommendations. Scope, number of creative variants, integration support and turnaround confirmed before payment.
-          </p>
+
+          <div className="mt-6 flex items-center gap-4 rounded-2xl border border-black/[0.08] bg-white px-6 py-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+            <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[#D4FF00]">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8.5L6.5 12L13 4.5" stroke="#0C0C0C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+            <p className="text-[13px] leading-[1.65] text-[#6E6E6A]">
+              Two angles, including actual production outputs — rather than strategy-only recommendations. Scope, number of creative variants, integration support and turnaround confirmed before payment.
+            </p>
+          </div>
         </div>
       </section>
 
