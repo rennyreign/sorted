@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { ArrowRight, X } from "lucide-react"
 
 /**
- * "See an example" — opens the example Sprint workspace overlay.
+ * "See an example" - opens the example Sprint workspace overlay.
  * The full example workspace content is being assembled; this dialog
  * is the hook it will slot into.
  */
@@ -75,11 +75,11 @@ export function ExampleWorkspaceModal({ dark = false }: { dark?: boolean }) {
             <div className="grid flex-1 gap-px overflow-y-auto bg-[#E6E6E2] sm:grid-cols-3">
               {[
                 {
-                  label: "Angle A — Expansion",
+                  label: "Angle A: Expansion",
                   desc: "Visual campaign preview, ad concepts and the message-matched landing-page variant for an existing proposition.",
                 },
                 {
-                  label: "Angle B — Discovery",
+                  label: "Angle B: Discovery",
                   desc: "A distinct buying hypothesis with its own creative, dedicated landing experience and follow-up narrative.",
                 },
                 {
@@ -103,7 +103,7 @@ export function ExampleWorkspaceModal({ dark = false }: { dark?: boolean }) {
 
             <div className="border-t border-[#E6E6E2] px-6 py-4">
               <p className="text-[12px] leading-[1.6] text-[#6E6E6A]">
-                This is the view an agency gets during a sprint — both angles side by side, with
+                This is the view an agency gets during a sprint: both angles side by side, with
                 everything needed to run the experiments. The full worked example is being put together.
               </p>
             </div>

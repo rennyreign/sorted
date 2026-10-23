@@ -19,7 +19,7 @@ export function AgencyHeader() {
           <a
             href="#top"
             className="font-sans text-2xl font-black leading-none tracking-[-0.045em] text-[#0C0C0C]"
-            aria-label="Sorted — back to top"
+            aria-label="Sorted - back to top"
           >
             Sorted<span className="text-[#cfe900]">.</span>
           </a>

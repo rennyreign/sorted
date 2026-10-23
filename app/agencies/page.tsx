@@ -31,7 +31,7 @@ const faveScript = localFont({
 export const metadata: Metadata = {
   title: "Sorted for Agencies | Campaign Angle Manufacturing",
   description:
-    "We manufacture complete, message-matched campaign journeys around the different reasons customers buy — so your team can test more purchasing motivations without the production burden.",
+    "We manufacture complete, message-matched campaign journeys around the different reasons customers buy, so your team can test more purchasing motivations without the production burden.",
   alternates: {
     canonical: "/agencies",
   },
@@ -114,9 +114,9 @@ const letterBlocks = [
   { type: "emphasis", text: "I think most marketing leaders want the work done. Properly. Without creating another operational problem." },
   { type: "heading", text: "That’s why we built Sorted." },
   { type: "paragraph", text: "I spent 15 years in marketing, including as Head of Marketing at Bisk Education. And across that time I kept seeing the same problem: campaigns running at what felt like 20% of their potential because we simply didn’t have the capacity to do everything they needed." },
-  { type: "paragraph", text: "We could see the opportunities. Better landing pages, more creative variations, stronger follow-up, more testing. But every improvement needed people, time and coordination—and the work kept piling up." },
-  { type: "emphasis", text: "The distance between knowing what a campaign needs and having the resources to make it happen—that’s the gap Sorted was built to close." },
-  { type: "paragraph", text: "Sorted was built around a simple idea: what if manufacturing another complete campaign angle wasn’t a major undertaking? Not another random set of AI-generated advertisements. A genuine purchasing hypothesis—developed into convincing advertising, relevant creative, a dedicated landing experience, matching follow-up messaging and the measurement requirements needed to test it." },
+  { type: "paragraph", text: "We could see the opportunities. Better landing pages, more creative variations, stronger follow-up, more testing. But every improvement needed people, time and coordination, and the work kept piling up." },
+  { type: "emphasis", text: "The distance between knowing what a campaign needs and having the resources to make it happen. That’s the gap Sorted was built to close." },
+  { type: "paragraph", text: "Sorted was built around a simple idea: what if manufacturing another complete campaign angle wasn’t a major undertaking? Not another random set of AI-generated advertisements. A genuine purchasing hypothesis: developed into convincing advertising, relevant creative, a dedicated landing experience, matching follow-up messaging and the measurement requirements needed to test it." },
   { type: "paragraph", text: "And rather than asking your team to coordinate all of that, we take responsibility for manufacturing the agreed assets. You keep your campaigns, your technology, your customers and your judgement. We supply the work." },
   { type: "heading", text: "Here’s where we start." },
   { type: "paragraph", text: "Give us two active products or campaigns you believe have room to improve. For one, we’ll explore an additional motivation within the existing proposition. For the other, we’ll develop an entirely different reason somebody might buy." },
@@ -247,7 +247,7 @@ export default function AgenciesPage() {
             What you receive
           </h2>
           <p className="mx-auto mt-4 max-w-[52ch] text-center text-[15px] leading-[1.7] text-[#6E6E6A]">
-            A complete, production-ready experiment — from strategy and creative to launch assets and measurement.
+            A complete, production-ready experiment, from strategy and creative to launch assets and measurement.
           </p>
 
           <div className="mt-11 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
@@ -271,7 +271,7 @@ export default function AgenciesPage() {
               </svg>
             </span>
             <p className="text-[13px] leading-[1.65] text-[#6E6E6A]">
-              Two angles, including actual production outputs — rather than strategy-only recommendations. Scope, number of creative variants, integration support and turnaround confirmed before payment.
+              Two angles, including actual production outputs, rather than strategy-only recommendations. Scope, number of creative variants, integration support and turnaround confirmed before payment.
             </p>
           </div>
         </div>
