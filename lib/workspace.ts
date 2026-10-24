@@ -1239,6 +1239,146 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       stripePaymentUrl: "https://buy.stripe.com/3cIaEW1XOfJP3QO2widwc02",
       bankTransferEnabled: true,
     },
+    acquisition: {
+      ads: {
+        offer:
+          "A campaign kit built around one clear action: request a site visit from SEEM Electrical.",
+        creatives: [
+          {
+            title: "Good electrics. Great spaces.",
+            format: "Facebook & Instagram feed · 3x4",
+            audience: "Homeowners and businesses across London planning lighting, installations or rewires.",
+            headline: "Lighting, installations and rewires",
+            cta: "Request a site visit",
+            primaryText:
+              "Good electrics. Great spaces. SEEM Electrical handles lighting, installations and rewires for homes and businesses across London. Request a site visit to discuss your project.",
+            imageUrl: "/workspace/seem/ad-01.webp",
+            imageAlt: "SEEM Electrical creative: Good electrics. Great spaces. Pendant lighting over a kitchen island.",
+          },
+          {
+            title: "Good electrics. Great spaces.",
+            format: "Facebook & Instagram feed · 3x4",
+            audience: "Homeowners and businesses across London planning lighting, installations or rewires.",
+            headline: "Lighting, installations and rewires",
+            cta: "Request a site visit",
+            primaryText:
+              "Good electrics. Great spaces. SEEM Electrical handles lighting, installations and rewires for homes and businesses across London. Request a site visit to discuss your project.",
+            imageUrl: "/workspace/seem/ad-02.webp",
+            imageAlt: "SEEM Electrical creative: Good electrics. Great spaces. Pendant lighting over a kitchen island.",
+          },
+          {
+            title: "Good electrics. Great spaces.",
+            format: "Facebook & Instagram story · 9x16",
+            audience: "Homeowners and businesses across London planning lighting, installations or rewires.",
+            headline: "Lighting, installations and rewires",
+            cta: "Request a site visit",
+            primaryText:
+              "Good electrics. Great spaces. SEEM Electrical handles lighting, installations and rewires for homes and businesses across London.",
+            imageUrl: "/workspace/seem/ad-03.webp",
+            imageAlt: "SEEM Electrical story creative: Good electrics. Great spaces. Pendant lighting over a kitchen island.",
+          },
+          {
+            title: "Good electrics. Great spaces.",
+            format: "Facebook & Instagram story · 9x16",
+            audience: "Homeowners and businesses across London planning lighting, installations or rewires.",
+            headline: "Lighting, installations and rewires",
+            cta: "Request a site visit",
+            primaryText:
+              "Good electrics. Great spaces. SEEM Electrical handles lighting, installations and rewires for homes and businesses across London.",
+            imageUrl: "/workspace/seem/ad-04.webp",
+            imageAlt: "SEEM Electrical story creative: Good electrics. Great spaces. Pendant lighting over a kitchen island.",
+          },
+          {
+            title: "Good electrics. Great spaces.",
+            format: "Facebook & Instagram story · 9x16",
+            audience: "Homeowners and businesses across London planning lighting, installations or rewires.",
+            headline: "Lighting, installations and rewires",
+            cta: "Request a site visit",
+            primaryText:
+              "Good electrics. Great spaces. SEEM Electrical handles lighting, installations and rewires for homes and businesses across London.",
+            imageUrl: "/workspace/seem/ad-05.webp",
+            imageAlt: "SEEM Electrical story creative: Good electrics. Great spaces. Navy and electric blue pendant lighting design.",
+          },
+          {
+            title: "Before the work. Know the plan.",
+            format: "Facebook & Instagram story · 9x16",
+            audience: "Homeowners and businesses across London planning lighting, installations or rewires.",
+            headline: "A clear plan before any work starts",
+            cta: "Request a site visit",
+            primaryText:
+              "Before the work, know the plan. SEEM Electrical maps out your lighting, installation or rewire before a cable is touched. Request a site visit to start yours.",
+            imageUrl: "/workspace/seem/ad-06.webp",
+            imageAlt: "SEEM Electrical story creative: Before the work. Know the plan. Three-step planning walkthrough.",
+          },
+        ],
+      },
+      followUp: {
+        emails: [
+          {
+            name: "Request received",
+            subject: "We've received your site-visit request",
+            timing: "Immediately after a site-visit request",
+            purpose: "Confirms the request landed, makes clear the visit is not yet booked and invites useful project details.",
+            phase: "enquiry",
+            body: "Hi [First name],\n\nThanks for getting in touch with SEEM Electrical. We've received your request about [service] at [postcode].\n\nYour site visit isn't confirmed yet. We'll contact you using the details you provided to discuss the work and agree a suitable time.\n\nIf there's anything else we should know — access arrangements, plans or a few photos — just reply to this email. Please don't remove covers or touch wiring to take a photo.\n\nThanks,\nThe SEEM Electrical team",
+          },
+          {
+            name: "A quick next step",
+            subject: "One detail to arrange your site visit",
+            timing: "Next business day, only when the customer owes the next action",
+            purpose: "Asks for the specific detail needed to move the request toward a confirmed visit.",
+            phase: "enquiry",
+            body: "Hi [First name],\n\nWe have your request for [service]. To move it forward, we just need: [missing detail — e.g. your preferred weekdays and whether morning or afternoon suits you].\n\nReply with that detail and we can continue arranging your site visit. A sentence or two is fine.\n\nIf your plans have changed, let us know and we'll update your request.\n\nThanks,\nThe SEEM Electrical team",
+          },
+          {
+            name: "Whenever you're ready",
+            subject: "Still looking to arrange your electrical work?",
+            timing: "Three business days after the request, only while waiting for customer action",
+            purpose: "A polite final check that leaves the request open without chasing further.",
+            phase: "enquiry",
+            body: "Hi [First name],\n\nJust checking whether you'd still like to arrange a site visit for [service].\n\nWe're waiting for [missing detail] before we can take the next step. Reply when you have it, or tell us if you no longer need the visit.\n\nWe'll leave it with you after this email. Your request won't be automatically cancelled.\n\nThanks,\nThe SEEM Electrical team",
+          },
+          {
+            name: "Your visit is confirmed",
+            subject: "Your SEEM Electrical site visit is confirmed",
+            timing: "Only after the appointment is confirmed",
+            purpose: "Date, time, address and what to have ready in one place, with a route to rearrange.",
+            phase: "booking",
+            body: "Hi [First name],\n\nYour site visit is confirmed.\n\nService: [service]\nDate: [visit date]\nTime: [visit time] (Europe/London)\nAddress: [visit address]\n\nWe'll discuss what you need and assess the work before preparing a quote. The visit is to assess your project; any work will need to be agreed separately.\n\nPlease have any plans or questions ready and let us know about parking, entry codes or access restrictions. There's no need to open electrical equipment.\n\nNeed to change the time? Reply to this email and we'll help rearrange it.\n\nSee you then,\nThe SEEM Electrical team",
+          },
+          {
+            name: "See you tomorrow",
+            subject: "Your electrical site visit is tomorrow",
+            timing: "24 hours before a confirmed appointment",
+            purpose: "Useful reminder with the details and a route to rearrange.",
+            phase: "booking",
+            body: "Hi [First name],\n\nA quick reminder about your SEEM Electrical site visit tomorrow.\n\nTime: [visit time] (Europe/London)\nAddress: [visit address]\nProject: [service]\n\nPlease make sure someone can provide access to the areas we need to see. Have any plans or questions handy, and let us know about parking or entry arrangements.\n\nIf you need to rearrange, reply to this email.\n\nThanks,\nThe SEEM Electrical team",
+          },
+          {
+            name: "Your visit is coming up",
+            subject: "Your SEEM site visit is coming up",
+            timing: "2 hours before a confirmed appointment",
+            purpose: "Short reminder of the agreed visit with a direct contact route.",
+            phase: "booking",
+            body: "Hi [First name],\n\nYour SEEM Electrical site visit is scheduled for [visit time] (Europe/London) today at [visit address].\n\nPlease make sure we can access the property. If anything has changed, reply to this email or call 07501 632408.\n\nThanks,\nThe SEEM Electrical team",
+          },
+          {
+            name: "Let's find another time",
+            subject: "Would you like to rearrange your site visit?",
+            timing: "Next business day after a recorded missed visit",
+            purpose: "Offers a simple route to rearrange without pressure.",
+            phase: "booking",
+            body: "Hi [First name],\n\nWe weren't able to complete your site visit on [visit date].\n\nIf you'd still like us to take a look at [service], reply with a couple of times that work for you and we'll arrange the next step.\n\nIf you no longer need the visit, just let us know.\n\nThanks,\nThe SEEM Electrical team",
+          },
+        ],
+        stopRules: [
+          "Enquiry follow-ups only run while the customer owes the next action; staff delays become an internal task, not a customer nudge.",
+          "The sequence stops the moment someone replies, confirms, reschedules or asks not to be contacted.",
+          "Confirmation and reminder emails belong to the booked-visit journey. A missed visit is only recorded by the team — never inferred from missing data.",
+          "Visit details are filled from the confirmed booking before anything sends. Sample names, dates and addresses never reach a customer.",
+        ],
+      },
+    },
   },
   "abcd-electrical": {
     review: {
