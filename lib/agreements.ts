@@ -11,12 +11,14 @@ export type Agreement = {
   created_at: string
 }
 
-/** Fetch the most recent signature recorded for a page slug. */
-export async function getLatestAgreement(slug: string): Promise<Agreement | null> {
-  const { data, error } = await supabase
+/** Fetch the most recent signature recorded for a page slug, optionally for one document type. */
+export async function getLatestAgreement(slug: string, docType?: string): Promise<Agreement | null> {
+  let query = supabase
     .from("agreements")
     .select("*")
     .eq("slug", slug)
+  if (docType) query = query.eq("doc_type", docType)
+  const { data, error } = await query
     .order("signed_at", { ascending: false })
     .limit(1)
     .maybeSingle()
