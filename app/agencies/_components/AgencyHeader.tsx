@@ -17,9 +17,9 @@ export function AgencyHeader() {
       <header className="sticky top-0 inset-x-0 z-50 bg-[#FAFAF7]/85 backdrop-blur-md border-b border-[#E6E6E2]">
         <div className="mx-auto flex max-w-[1180px] items-center justify-between px-5 py-4 sm:px-8 lg:px-[60px]">
           <a
-            href="#top"
+            href="/"
             className="font-sans text-3xl font-black leading-none tracking-[-0.045em] text-[#0C0C0C]"
-            aria-label="Sorted - back to top"
+            aria-label="Sorted - home"
           >
             Sorted<span className="text-[#cfe900]">.</span>
           </a>
