@@ -20,12 +20,11 @@ export const metadata: Metadata = {
   },
 }
 
-const trustLogos = [
-  { src: "/sorted/logos/graciebarralogo.png", alt: "Gracie Barra" },
-  { src: "/sorted/logos/Bisk_Logo.jpg", alt: "Bisk" },
-  { src: "/sorted/logos/adxengine.png", alt: "ADX Engine" },
-  { src: "/sorted/logos/ArcherLogoEPS.svg", alt: "Archer" },
-]
+// const trustLogos = [
+//   { src: "/sorted/logos/graciebarralogo.png", alt: "Gracie Barra" },
+//   { src: "/sorted/logos/Bisk_Logo.jpg", alt: "Bisk" },
+//   { src: "/sorted/logos/ArcherLogoEPS.svg", alt: "Archer" },
+// ]
 
 const campaignAngles = [
   { key: "A", name: "Price", dot: "bg-[#070707]" },
@@ -154,7 +153,7 @@ export default function Home() {
         </OfferCard>
       </section>
 
-      <section className="mx-auto max-w-[1120px] px-5 py-12 text-center sm:px-8 lg:py-16">
+      {/* <section className="mx-auto max-w-[1120px] px-5 py-12 text-center sm:px-8 lg:py-16">
         <p className="text-[11px] font-black uppercase tracking-[0.08em] text-black/42">Trusted by businesses to get results</p>
         <div className="mx-auto mt-7 grid max-w-[820px] grid-cols-2 items-center justify-items-center gap-x-10 gap-y-6 sm:grid-cols-4 lg:gap-x-16">
           {trustLogos.map((logo) => (
@@ -163,7 +162,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       <footer className="bg-[#070707] px-5 py-9 text-white sm:px-8">
         <div className="mx-auto grid max-w-[1220px] gap-8 md:grid-cols-[1.25fr_repeat(3,1fr)] md:items-start">
@@ -180,7 +179,7 @@ export default function Home() {
             </p>
           </div>
           <FooterPoint title="No jargon." copy="Clear and focused on what matters." />
-          <FooterPoint title="No lock-in." copy="You own your website and your systems." />
+          <FooterPoint title="No lock-in." copy="You own your systems and your assets." />
           <FooterPoint title="No wasted time." copy="We move fast and get things done." />
         </div>
       </footer>
