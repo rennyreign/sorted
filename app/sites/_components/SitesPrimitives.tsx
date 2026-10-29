@@ -64,7 +64,7 @@ export function SitesFooter({ variant = "default", tone = "dark" }: { variant?: 
             </>
           ) : null}
         </div>
-        <FooterLinks light={light} title="How we help" links={[["Websites", "/howitworks"], ["Operations", "/ops"], ["Pricing", "/pricing"], ["SortedUpdates", "/website-updates"]]} />
+        <FooterLinks light={light} title="How we help" links={[["Websites", "/howitworks"], ["Pricing", "/pricing"], ["SortedUpdates", "/website-updates"]]} />
         <FooterLinks light={light} title="Company" links={[["How we work", "/howitworks"], ["Our work", "/examples"], ["About us", "/about"], ["Reviews", compact ? "/#reviews" : "/examples"], ["Partner program", "/partners"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
         <div className={compact ? "max-sm:col-span-2" : ""}>
           <p className="mb-4 text-[12px] font-black">Let's talk</p>
@@ -243,7 +243,7 @@ export function SitePreviewCard({ example = examples[0], large = false }: { exam
   )
 }
 
-export function DarkCta({ title = "See it first. Then decide.", copy = "We build your first page free. Decide whether to take it further. No payment. No obligation." }: { title?: string; copy?: string }) {
+export function DarkCta({ title = "See it first. Then decide.", copy = "See the direction before you spend anything. Decide whether to take it further. No payment. No obligation." }: { title?: string; copy?: string }) {
   return (
     <section className="bg-[#070707] px-5 pt-10 text-black sm:px-8">
       <div className="mx-auto grid max-w-[1220px] gap-5 rounded-[12px] bg-white px-5 py-5 shadow-[0_18px_44px_rgba(0,0,0,0.22)] sm:px-6 lg:grid-cols-[0.3fr_0.3fr_0.12fr_0.28fr] lg:items-center">

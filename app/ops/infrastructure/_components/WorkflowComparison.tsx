@@ -10,13 +10,13 @@ const workflows = [
   {
     name: "Agent-assisted",
     steps: ["Request", "Brief", "AI-assisted production", "Human handoffs", "Review", "Publish"],
-    caption: "AI speeds up tasks. Your team still drives the process.",
+    caption: "AI speeds up tasks. The process still needs a driver.",
     featured: false,
   },
   {
     name: "Operator-led",
     steps: ["Approved brief", "Scoped production line", "Review-ready page"],
-    caption: "Operators execute the agreed steps. A person approves release where required.",
+    caption: "One defined input in. One predictable output out.",
     featured: true,
   },
 ]

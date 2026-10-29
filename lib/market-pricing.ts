@@ -2,8 +2,8 @@ export type Market = "UK" | "US"
 export type OfferCurrency = "GBP" | "USD"
 
 export const MARKET_PRICING = {
-  UK: { currency: "GBP", total: 3000, deposit: 1500, balance: 1500 },
-  US: { currency: "USD", total: 3500, deposit: 1750, balance: 1750 },
+  UK: { currency: "GBP", total: 1500, deposit: 750, balance: 750 },
+  US: { currency: "USD", total: 1750, deposit: 875, balance: 875 },
 } as const
 
 export function parseMarket(value: string | null | undefined): Market | null {

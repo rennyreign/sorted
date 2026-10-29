@@ -184,7 +184,7 @@ function CustomersPanel({ onPreview }: { onPreview: () => void }) {
       <div>
         <h3 className="text-[19px] font-black tracking-[-0.035em]">Start with your website</h3>
         <p className="mt-3 text-[14px] font-semibold leading-[1.6] text-black/65">
-          Your website is where customers decide whether to trust you. We build your first page free. Decide
+          Your website is where customers decide whether to trust you. See a tailored first page. Decide
           whether to take it further.
         </p>
         <div className="mt-5">

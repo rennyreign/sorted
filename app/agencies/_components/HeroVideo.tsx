@@ -18,14 +18,14 @@ export function HeroVideo() {
       <video
         id="founder-video"
         ref={videoRef}
-        src="/agencies/founder-intro.mp4"
-        poster="/agencies/founder-intro-poster.jpg"
+        src="/agencies/campaign-angles.mp4"
+        poster="/agencies/campaign-angles-poster.jpg"
         preload="none"
         controls={playing}
         playsInline
         className="aspect-[4/5] w-full object-cover"
         onPlay={() => setPlaying(true)}
-        aria-label="Introduction to Sorted"
+        aria-label="How a campaign angle is manufactured"
       />
       {!playing && (
         <button
@@ -37,7 +37,7 @@ export function HeroVideo() {
           <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#D4FF00]">
             <Play size={22} className="ml-1 fill-[#0C0C0C] text-[#0C0C0C]" aria-hidden="true" />
           </span>
-          <span className="text-[13px] font-medium text-white/80">Why this matters for agencies</span>
+          <span className="text-[13px] font-medium text-white/80">See a campaign angle built</span>
         </button>
       )}
     </div>

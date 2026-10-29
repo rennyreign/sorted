@@ -1,5 +1,23 @@
 RewriteEngine On
 
+# ── Sorted Sites lives at sites.sortmydigital.site ──────────────
+# Subdomain root serves the sites homepage.
+RewriteCond %{HTTP_HOST} ^sites\.sortmydigital\.site$ [NC]
+RewriteRule ^$ /sites/ [L]
+
+# Subdomain: collapse /sites/* URLs to clean paths.
+RewriteCond %{HTTP_HOST} ^sites\.sortmydigital\.site$ [NC]
+RewriteRule ^sites/?(.*)$ /$1 [R=301,L]
+
+# Subdomain is Sorted Sites only — ops, campaigns and internal
+# destinations return 404 here.
+RewriteCond %{HTTP_HOST} ^sites\.sortmydigital\.site$ [NC]
+RewriteRule ^(ops|agencies|v2|workspace|clients|proposals|brand-switchboard)(/|$) - [R=404,L]
+
+# Main domain: /sites/* moves to the subdomain.
+RewriteCond %{HTTP_HOST} !^sites\.sortmydigital\.site$ [NC]
+RewriteRule ^sites/?(.*)$ https://sites.sortmydigital.site/$1 [R=301,L]
+
 # Rewrite /review/[slug]/next to /review-next/index.html (next step SPA shell)
 # Must come before the general review rewrite
 RewriteRule ^review/([^/]+)/next/?$ /review-next/index.html [L,NC]

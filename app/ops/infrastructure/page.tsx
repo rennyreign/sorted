@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
+import { BuildReplay } from "./_components/BuildReplay"
+import { InfraVideo } from "./_components/InfraVideo"
 import { WorkflowComparison } from "./_components/WorkflowComparison"
 import styles from "./infrastructure.module.css"
 
@@ -18,31 +20,76 @@ export const metadata: Metadata = {
 const steps = [
   {
     num: "01",
-    title: "Operational discovery",
-    body: "Map the work, handoffs and systems. Prioritise the bottleneck by business value and technical feasibility.",
+    title: "We find the bottleneck",
+    body: "Show us where work piles up. We map the process and pick the one fix worth paying for first.",
   },
   {
     num: "02",
-    title: "Operator development",
-    body: "Define inputs, permitted actions, outputs and exception handling. Connect the operator to existing tools where sensible.",
+    title: "We build the fix",
+    body: "We define what goes in, what comes out, and what it can never do. It plugs into the tools you already use.",
   },
   {
     num: "03",
-    title: "Controlled introduction",
-    body: "Test against the current process. Keep approvals where needed. Monitor reliability before increasing autonomy.",
+    title: "We prove it safely",
+    body: "It runs against your current process first. Approvals stay in place until it has earned more autonomy.",
   },
   {
     num: "04",
-    title: "Measurement and expansion",
-    body: "Compare manual effort, cycle time, errors and throughput with the agreed baseline. Use the evidence to choose the next improvement.",
+    title: "You see the numbers",
+    body: "Less manual effort. Faster turnaround. Fewer errors. Measured against where you started. Then we pick the next one.",
+  },
+]
+
+const workloads = [
+  {
+    quote: "Reporting eats half the week.",
+    fix: "Bring the numbers together and prepare the report for someone to check.",
+    effort: "6–12 hrs / week",
+    people: "2–4 people",
+    outcome: "Less copying. More time to act.",
+  },
+  {
+    quote: "We type the same details into three systems.",
+    fix: "Enter information once and pass it to the places that need it.",
+    effort: "4–8 hrs / week",
+    people: "2–3 people",
+    outcome: "Less retyping. Fewer mismatched records.",
+  },
+  {
+    quote: "Getting a new client started means endless chasing.",
+    fix: "Collect the details, flag what’s missing and keep the next step moving.",
+    effort: "2–4 hrs / new client",
+    people: "2–4 people",
+    outcome: "Less chasing. A clearer handover.",
+  },
+  {
+    quote: "Every proposal starts from scratch.",
+    fix: "Use the brief, approved pricing and service details to prepare a draft for sign-off.",
+    effort: "2–5 hrs / proposal",
+    people: "2–3 people",
+    outcome: "Less rewriting. Easier reviews.",
+  },
+  {
+    quote: "I keep asking where things stand.",
+    fix: "Put job status, ownership and next steps in one place.",
+    effort: "3–6 hrs / week",
+    people: "3–6 people",
+    outcome: "Fewer update requests. Clearer ownership.",
+  },
+  {
+    quote: "Every request needs someone to sort it.",
+    fix: "Send routine requests to the right place and flag the ones that need a decision.",
+    effort: "4–10 hrs / week",
+    people: "2–4 people",
+    outcome: "Less manual sorting. Fewer missed requests.",
   },
 ]
 
 const pillars = [
-  "Defined input",
-  "Agreed permissions",
-  "Observable output",
-  "Clear exception path",
+  "You set the input",
+  "You set the permissions",
+  "You see every output",
+  "It asks before it guesses",
 ]
 
 export default function InfrastructurePage() {
@@ -54,15 +101,14 @@ export default function InfrastructurePage() {
             Sorted<span className={styles.logoDot}>.</span>
           </a>
           <nav className={styles.nav} aria-label="Page sections">
-            <a className={styles.navLink} href="#approach">How it works</a>
             <a className={styles.navLink} href="#difference">Agents vs operators</a>
+            <a className={styles.navLink} href="#familiar">Sound familiar</a>
+            <a className={styles.navLink} href="#watch">Watch a build</a>
+            <a className={styles.navLink} href="#approach">How it works</a>
             <a className={styles.navLink} href="#letter">The letter</a>
-            <a className={styles.navLink} href="/ops/infrastructure/presentation">
-              Meeting presentation
-            </a>
           </nav>
           <a className={`${styles.btnPrimary} ${styles.btnHeader}`} href="#conversation">
-            Let&apos;s find your first operator
+            Let&apos;s fix your bottleneck
           </a>
         </div>
       </header>
@@ -86,31 +132,16 @@ export default function InfrastructurePage() {
             </p>
             <div className={styles.heroCtas}>
               <a className={styles.btnPrimary} href="#conversation">
-                Let&apos;s find your first operator
+                Let&apos;s fix your bottleneck
               </a>
-              <a className={styles.btnGhost} href="#difference">
+              <a className={styles.btnGhost} href="#watch">
                 See how an operator works
               </a>
             </div>
           </div>
 
-          <div className={`${styles.receipt} ${styles.enter}`}>
-            <p className={styles.receiptLabel}>One operational improvement at a time</p>
-            <ol className={styles.receiptItems}>
-              <li>
-                <span className={styles.receiptNum}>01</span>
-                Find the bottleneck
-              </li>
-              <li>
-                <span className={styles.receiptNum}>02</span>
-                Build the operator
-              </li>
-              <li>
-                <span className={styles.receiptNum}>03</span>
-                Prove the improvement
-              </li>
-            </ol>
-            <p className={styles.receiptFoot}>More capacity. Less overhead.</p>
+          <div className={styles.enter}>
+            <InfraVideo />
           </div>
         </div>
 
@@ -128,16 +159,62 @@ export default function InfrastructurePage() {
           <div className={styles.wrap}>
             <h2 className={styles.h2}>A faster workflow still needs someone to run it.</h2>
             <p className={styles.lead}>
-              An AI agent can help a person complete the work. An operator takes responsibility for
-              a defined result, within agreed rules.
+              An AI agent can help a person complete the work. An operator removes the need for the
+              process that drives the work.
             </p>
             <WorkflowComparison />
             <p className={styles.callout}>
-              The steps still happen. The need to manually coordinate every step does not.
+              Operators render the steps to one input, one output.
             </p>
             <p className={styles.note}>
-              This is how we scope operators, not a claim that every AI agent works the same way.
+              Micro-scoping facilitates operators to transform any process into a predictable
+              automated routine.
             </p>
+          </div>
+        </section>
+
+        {/* ── Sound familiar ── */}
+        <section id="familiar" className={`${styles.section} ${styles.sectionSoft}`}>
+          <div className={styles.wrap}>
+            <p className={styles.workloadEyebrow}>Sound familiar?</p>
+            <h2 className={styles.h2}>The thing you keep putting off fixing.</h2>
+            <p className={styles.lead}>
+              The report. The chasing. The same details entered again. You know there should be a
+              better way.
+            </p>
+            <p className={styles.illustrativeLabel}>
+              Illustrative workloads · hours are total team time
+            </p>
+            <div className={styles.workloads}>
+              {workloads.map(({ quote, fix, effort, people, outcome }, i) => (
+                <article key={quote} className={styles.workload}>
+                  <span className={styles.workloadNum}>{String(i + 1).padStart(2, "0")}</span>
+                  <h3 className={styles.workloadQuote}>&ldquo;{quote}&rdquo;</h3>
+                  <p className={styles.workloadFix}>{fix}</p>
+                  <div className={styles.workloadChips}>
+                    <span className={styles.workloadChip}>{effort}</span>
+                    <span className={styles.workloadChip}>{people}</span>
+                  </div>
+                  <p className={styles.workloadOutcome}>{outcome}</p>
+                </article>
+              ))}
+            </div>
+            <p className={styles.workloadNote}>
+              Example estimates, not promised savings. We measure your workload and agree what can
+              improve before building.
+            </p>
+          </div>
+        </section>
+
+        {/* ── Watch a build ── */}
+        <section id="watch" className={styles.section}>
+          <div className={styles.wrap}>
+            <h2 className={styles.h2}>See how an operator works.</h2>
+            <p className={`${styles.lead} ${styles.leadFull}`}>
+              An agent would need you in the room for every step. The operator follows a defined
+              chain and just builds. These are real runs, replayed.
+            </p>
+            <BuildReplay />
           </div>
         </section>
 
@@ -145,11 +222,11 @@ export default function InfrastructurePage() {
         <section id="approach" className={`${styles.section} ${styles.sectionSoft}`}>
           <div className={styles.wrap}>
             <h2 className={`${styles.h2} ${styles.h2Center}`}>
-              More capacity. One improvement at a time.
+              You don&apos;t need a bigger team. You need one thing fixed.
             </h2>
             <p className={`${styles.lead} ${styles.leadCenter}`}>
-              Find one costly gap. Build the infrastructure to close it. Measure what changes before
-              deciding what comes next.
+              Bring us the process that&apos;s slowing you down. We&apos;ll build the fix, prove it
+              works in your business, then decide together what comes next.
             </p>
             <div className={styles.steps}>
               {steps.map(({ num, title, body }) => (
@@ -167,7 +244,7 @@ export default function InfrastructurePage() {
         <section className={styles.section}>
           <div className={styles.wrap}>
             <p className={styles.illustrativeLabel}>Illustrative workflow, not a client result</p>
-            <h2 className={styles.h2}>Start with one expensive handoff.</h2>
+            <h2 className={styles.h2}>Start with one thing that keeps costing your team time.</h2>
             <p className={styles.exampleSub}>Lead handling in a service business.</p>
             <div className={styles.exampleGrid}>
               <div className={styles.exampleCol}>
@@ -207,10 +284,10 @@ export default function InfrastructurePage() {
         {/* ── Accountability ── */}
         <section className={`${styles.section} ${styles.sectionDark}`}>
           <div className={styles.wrap}>
-            <h2 className={styles.h2}>Defined work. Clear boundaries. Accountable execution.</h2>
+            <h2 className={styles.h2}>It does the job. Inside rules you set.</h2>
             <p className={styles.lead}>
-              An operator is not an unrestricted assistant. Each build has acceptance criteria,
-              activity logs and a clear point at which it stops or asks for a decision.
+              Before anything runs, we agree what it handles, what it can touch and when it must
+              stop and ask you. Everything it does is logged.
             </p>
             <div className={styles.pillars}>
               {pillars.map((title) => (
@@ -239,7 +316,8 @@ export default function InfrastructurePage() {
               </h3>
               <p className={styles.compoundBody}>
                 Renaldo Edmondson spent 15 years in marketing, including as Head of Marketing at
-                Bisk. Sorted brings that experience of stretched teams and unrealised opportunities
+                Bisk Education, one of the oldest OPMs in America. Sorted brings that experience of
+                stretched teams and unrealised opportunities
                 to practical infrastructure development.
               </p>
             </div>
@@ -262,12 +340,11 @@ export default function InfrastructurePage() {
                 An open letter to the people running the business.
               </p>
               <p className={styles.letterLead}>
-                You probably already know where your business is losing time.
+                Your business is losing time, and you probably already know where.
               </p>
               <p className={styles.letterBody}>
                 The report someone rebuilds every week. The enquiry copied between systems. The
-                estimate waiting for information. The follow-up that depends on someone remembering
-                to send it.
+                estimate waiting for information. The creative asset still being manually built.
               </p>
               <p className={styles.letterBody}>
                 The problem isn&apos;t recognising the opportunity. It&apos;s finding the time and
@@ -279,7 +356,8 @@ export default function InfrastructurePage() {
                 build it.
               </p>
               <p className={styles.letterBody}>
-                I spent 15 years in marketing, including as Head of Marketing at Bisk. I saw the gap
+                I spent 15 years in marketing, including as Head of Marketing at Bisk Education, one
+                of the oldest OPMs in America. I saw the gap
                 between knowing what needed to improve and having the resources to make it happen.
                 Sorted exists to close that gap.
               </p>
@@ -326,7 +404,7 @@ export default function InfrastructurePage() {
               </div>
               <p className={styles.letterCta}>
                 <a href="#conversation" className={styles.letterCtaLink}>
-                  Let&apos;s find your first operator
+                  Let&apos;s fix your bottleneck
                 </a>
               </p>
             </div>
@@ -340,7 +418,7 @@ export default function InfrastructurePage() {
         >
           <div className={`${styles.wrap} ${styles.conversationGrid}`}>
             <div>
-              <h2 className={styles.h2}>Let&apos;s find your first operator.</h2>
+              <h2 className={styles.h2}>Let&apos;s fix your bottleneck.</h2>
               <p className={styles.lead}>
                 Bring one process that costs too much time or holds the business back. We&apos;ll
                 discuss the workflow, the systems it depends on and what a worthwhile improvement
