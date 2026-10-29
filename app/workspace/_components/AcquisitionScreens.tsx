@@ -311,7 +311,7 @@ export function FollowUpScreen({ workspace }: { workspace: Workspace }) {
             <span className={`mt-6 grid size-10 shrink-0 place-items-center rounded-full text-sm font-extrabold ${selected === i ? "bg-[#DFFF00]" : "bg-[#F0EBDD]"}`}>{i + 1}</span>
             <button type="button" aria-pressed={selected === i} aria-controls="workspace-email-preview" onClick={() => { setSelected(i); workspaceEvent(workspace, "follow_up_previewed", { email: item.name }); if (window.matchMedia("(max-width: 1023px)").matches) document.getElementById("workspace-email-preview")?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" }) }} className={`min-w-0 flex-1 rounded-[12px] border p-5 text-left transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#070707] ${selected === i ? "border-[#E8E5DD] bg-white" : "border-transparent hover:bg-white/70"}`}>
               <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#73736D]">{item.timing}</p><h2 className="mt-2 flex items-center justify-between gap-3 text-xl font-extrabold leading-tight tracking-[-0.035em]">{item.name}<ChevronRight className="size-4 shrink-0" /></h2><p className="mt-2 text-sm leading-relaxed text-[#73736D]">{item.purpose}</p>
-              {item.phase === "booking" ? <span className="mt-3 inline-block text-[10px] font-bold uppercase tracking-widest text-[#73736D]">Booked trial</span> : null}
+              {item.phase === "booking" ? <span className="mt-3 inline-block text-[10px] font-bold uppercase tracking-widest text-[#73736D]">{followUp.bookingPhaseLabel ?? "Booked trial"}</span> : null}
             </button>
           </li>)}
         </ol>

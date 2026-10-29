@@ -3,7 +3,7 @@ import type { ReactNode } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import localFont from "next/font/local"
-import { ArrowRight, Check, Clock3, Phone, TrendingUp } from "lucide-react"
+import { ArrowRight, Check, Clock3, Layers, Phone } from "lucide-react"
 
 const marker = localFont({
   src: "../../public/fonts/cc-ask-for-mercy.ttf",
@@ -14,7 +14,7 @@ const marker = localFont({
 export const metadata: Metadata = {
   title: "Sorted | Business modernisation company",
   description:
-    "Sorted is a business modernisation company. Start with Sorted Sites for websites or Sorted Ops for operational improvement.",
+    "Sorted is a business modernisation company. Operations and campaigns — start with whichever your business needs most.",
   alternates: {
     canonical: "/",
   },
@@ -25,6 +25,12 @@ const trustLogos = [
   { src: "/sorted/logos/Bisk_Logo.jpg", alt: "Bisk" },
   { src: "/sorted/logos/adxengine.png", alt: "ADX Engine" },
   { src: "/sorted/logos/ArcherLogoEPS.svg", alt: "Archer" },
+]
+
+const campaignAngles = [
+  { key: "A", name: "Price", dot: "bg-[#070707]" },
+  { key: "B", name: "Trust", dot: "bg-[#dfff00]" },
+  { key: "C", name: "Speed", dot: "bg-black/20" },
 ]
 
 export default function Home() {
@@ -44,11 +50,11 @@ export default function Home() {
           Sorted<span className="text-[#cfe900]">.</span>
         </Link>
         <nav className="flex items-center gap-3 text-[12px] font-black sm:gap-5 sm:text-[14px]">
-          <Link className="hidden min-h-11 items-center transition-opacity hover:opacity-60 sm:inline-flex" href="/sites">
-            Sorted Sites
-          </Link>
-          <Link className="hidden min-h-11 items-center transition-opacity hover:opacity-60 sm:inline-flex" href="/ops">
+          <Link className="hidden min-h-11 items-center transition-opacity hover:opacity-60 sm:inline-flex" href="/ops/infrastructure">
             Sorted Ops
+          </Link>
+          <Link className="hidden min-h-11 items-center transition-opacity hover:opacity-60 sm:inline-flex" href="/agencies">
+            Sorted Campaigns
           </Link>
           <a
             href="https://wa.me/447386468085"
@@ -67,45 +73,11 @@ export default function Home() {
         <span className="mx-auto mt-3 block h-[7px] w-[78%] max-w-[560px] rounded-full bg-[#dfff00]" />
       </section>
 
-      <section className="mx-auto grid max-w-[1120px] gap-5 px-5 pt-2 sm:px-8 lg:grid-cols-2 lg:gap-7">
+      <section className="mx-auto grid max-w-[1220px] gap-5 px-5 pt-2 sm:px-8 lg:grid-cols-2 lg:gap-6">
         <OfferCard
-          href="/sites"
-          theme="light"
-          icon={<TrendingUp className="size-9" strokeWidth={2.8} />}
-          title={
-            <>
-              Get a better
-              <br />
-              website.
-            </>
-          }
-          lines={["Show what you do clearly.", "Build trust faster.", "Turn visitors into enquiries."]}
-          cta="Explore Sorted Sites"
-        >
-          <div className="absolute -bottom-5 left-[18%] z-0 w-[96%] rotate-[-8deg] overflow-hidden rounded-[10px] border border-black/10 bg-white shadow-[0_28px_70px_rgba(24,18,10,0.15)] sm:bottom-4 sm:left-[22%] sm:w-[86%]">
-            <div className="grid aspect-[1.62] grid-cols-[0.9fr_1fr] gap-5 p-5">
-              <div>
-                <p className="text-[9px] font-black uppercase tracking-[0.22em]">Lumen</p>
-                <p className="mt-10 font-serif text-[24px] leading-[1.05] tracking-[-0.03em] text-black/88">
-                  Built for
-                  <br />
-                  what matters.
-                </p>
-                <span className="mt-5 inline-flex h-8 items-center gap-2 rounded-full bg-black px-4 text-[9px] font-black text-white">
-                  View the work <ArrowRight className="size-3" />
-                </span>
-              </div>
-              <div className="relative overflow-hidden rounded-[4px] bg-[#eee7db]">
-                <Image src="/sorted-sites/aboutHero.png" alt="" fill sizes="260px" className="object-cover opacity-80" />
-              </div>
-            </div>
-          </div>
-        </OfferCard>
-
-        <OfferCard
-          href="/ops"
+          href="/ops/infrastructure"
           theme="dark"
-          icon={<Clock3 className="size-10" strokeWidth={2.6} />}
+          icon={<Clock3 className="size-7" strokeWidth={2.6} />}
           title={
             <>
               Sort your
@@ -113,19 +85,19 @@ export default function Home() {
               operations.
             </>
           }
-          lines={["Remove repetitive work.", "Recover time.", "Stop losing customers."]}
+          description="AI-powered workflows for businesses without the time or expertise to build them."
           cta="Explore Sorted Ops"
         >
-          <div className="absolute -bottom-8 left-[8%] z-0 w-[94%] rotate-[-9deg] overflow-hidden rounded-[18px] border border-white/15 bg-[#0d0d0d] p-6 shadow-[0_28px_70px_rgba(0,0,0,0.42)] sm:bottom-4 sm:left-[13%] sm:w-[86%]">
-            <div className="mb-7 flex items-start justify-between">
+          <div className="absolute bottom-0 left-[4%] w-[102%] rotate-[-8deg] overflow-hidden rounded-[16px] border border-white/15 bg-[#0d0d0d] p-5 shadow-[0_24px_60px_rgba(0,0,0,0.42)]">
+            <div className="mb-4 flex items-start justify-between">
               <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.14em] text-white/80">Hours recovered</p>
-                <p className="mt-3 text-[52px] font-black leading-none tracking-[-0.08em] text-white">412</p>
+                <p className="text-[9px] font-black uppercase tracking-[0.14em] text-white/80">Hours recovered</p>
+                <p className="mt-2 text-[36px] font-black leading-none tracking-[-0.08em] text-white">412</p>
               </div>
-              <p className="mt-10 text-[16px] font-black text-[#dfff00]">+31%</p>
+              <p className="mt-7 text-[13px] font-black text-[#dfff00]">+31%</p>
             </div>
-            <div className="relative h-32 border-t border-white/10">
-              <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:42px_32px]" />
+            <div className="relative h-24 border-t border-white/10">
+              <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:34px_24px]" />
               <svg viewBox="0 0 360 130" className="absolute inset-0 h-full w-full" aria-hidden>
                 <path d="M8 100C42 28 79 97 112 63C146 29 175 95 210 54C245 13 281 101 352 42" fill="none" stroke="#dfff00" strokeWidth="5" strokeLinecap="round" />
                 <path d="M8 100C42 28 79 97 112 63C146 29 175 95 210 54C245 13 281 101 352 42V130H8Z" fill="url(#opsGlow)" opacity="0.22" />
@@ -136,6 +108,47 @@ export default function Home() {
                   </linearGradient>
                 </defs>
               </svg>
+            </div>
+          </div>
+        </OfferCard>
+
+        <OfferCard
+          href="/agencies"
+          theme="campaign"
+          icon={<Layers className="size-7" strokeWidth={2.6} />}
+          title={
+            <>
+              Improve your
+              <br />
+              campaigns.
+            </>
+          }
+          description="More creative angles and testing capacity for performance marketing teams."
+          cta="Explore Sorted Campaigns"
+        >
+          <div className="absolute bottom-0 left-[6%] w-[100%] rotate-[-5deg] rounded-[14px] border border-black/10 bg-white p-3 shadow-[0_24px_60px_rgba(24,18,10,0.15)]">
+            <div className="grid grid-cols-[0.8fr_1fr] gap-3">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[6px] bg-[#eee7db]">
+                <Image
+                  src="/workspace/baker-berte/ad-01-feed-1x1.webp"
+                  alt=""
+                  fill
+                  sizes="160px"
+                  className="object-cover object-left"
+                />
+              </div>
+              <div className="flex flex-col justify-center gap-1.5">
+                {campaignAngles.map((angle) => (
+                  <div key={angle.key} className="flex items-center gap-1.5 rounded-[5px] bg-[#f4f4f1] px-1.5 py-1">
+                    <span className="grid size-3.5 place-items-center rounded-[3px] bg-[#070707] text-[6px] font-black text-white">
+                      {angle.key}
+                    </span>
+                    <span className="text-[8.5px] font-black leading-none">{angle.name}</span>
+                    <span className={`ml-auto size-1.5 rounded-full ${angle.dot}`} />
+                  </div>
+                ))}
+                <p className="mt-1 text-[7px] font-black uppercase tracking-[0.12em] text-black/35">3 angles · 9 ads</p>
+              </div>
             </div>
           </div>
         </OfferCard>
@@ -180,46 +193,49 @@ function OfferCard({
   theme,
   icon,
   title,
-  lines,
+  description,
   cta,
   children,
 }: {
   href: string
-  theme: "light" | "dark"
+  theme: "light" | "dark" | "campaign"
   icon: ReactNode
   title: ReactNode
-  lines: string[]
+  description: string
   cta: string
   children: ReactNode
 }) {
-  const dark = theme === "dark"
+  const surface =
+    theme === "dark"
+      ? "bg-[#070707] text-white"
+      : theme === "campaign"
+        ? "bg-[#eff4d9] text-black"
+        : "bg-[#f7f1e8] text-black"
 
   return (
     <Link href={href} className="group block rounded-[20px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#dfff00]/70">
       <article
-        className={`relative isolate min-h-[660px] overflow-hidden rounded-[20px] p-8 shadow-[0_20px_60px_rgba(18,14,10,0.08)] transition-[background-color,color,box-shadow] duration-500 ease-out group-hover:bg-[#dfff00] group-hover:text-black group-hover:shadow-[0_28px_80px_rgba(19,24,0,0.22)] sm:min-h-[735px] sm:p-11 ${
-        dark ? "bg-[#070707] text-white" : "bg-[#f7f1e8] text-black"
-      }`}
+        className={`relative isolate flex min-h-[620px] flex-col overflow-hidden rounded-[20px] px-7 pt-7 pb-[92px] shadow-[0_20px_60px_rgba(18,14,10,0.08)] transition-[background-color,color,box-shadow] duration-500 ease-out group-hover:bg-[#dfff00] group-hover:text-black group-hover:shadow-[0_28px_80px_rgba(19,24,0,0.22)] sm:px-8 sm:pt-8 sm:pb-[96px] ${surface}`}
       >
         <div className="relative z-10">
-          <span className="grid size-20 place-items-center rounded-full bg-[#dfff00] text-black transition-colors duration-500 group-hover:bg-[#070707] group-hover:text-[#dfff00]">{icon}</span>
-          <h2 className="mt-9 text-[42px] font-black leading-[0.98] tracking-[-0.035em] sm:text-[54px]">{title}</h2>
-          <span className="mt-6 block h-[5px] w-32 rounded-full bg-[#dfff00] transition-colors duration-500 group-hover:bg-[#070707]" />
-          <div className={`mt-8 space-y-2 text-[21px] font-semibold leading-[1.24] tracking-[-0.02em] transition-colors duration-500 group-hover:text-black/78 ${dark ? "text-white/86" : "text-black/78"}`}>
-            {lines.map((line) => (
-              <p key={line}>{line}</p>
-            ))}
-          </div>
+          <span className="grid size-16 place-items-center rounded-full bg-[#dfff00] text-black transition-colors duration-500 group-hover:bg-[#070707] group-hover:text-[#dfff00]">{icon}</span>
+          <h2 className="mt-7 text-[clamp(2rem,3.2vw,2.45rem)] font-black leading-[1.0] tracking-[-0.035em]">{title}</h2>
+          <span className="mt-5 block h-[5px] w-24 rounded-full bg-[#dfff00] transition-colors duration-500 group-hover:bg-[#070707]" />
+          <p
+            className={`mt-6 max-w-[30ch] text-[16px] font-semibold leading-[1.4] tracking-[-0.01em] transition-colors duration-500 group-hover:text-black/78 ${
+              theme === "dark" ? "text-white/80" : "text-black/72"
+            }`}
+          >
+            {description}
+          </p>
         </div>
-        <div>
-          {children}
-        </div>
+        <div className="relative z-0 mt-auto min-h-[190px] w-full max-w-[360px] self-center">{children}</div>
         <span
-          className={`absolute inset-x-7 bottom-7 z-20 inline-flex h-16 items-center justify-center gap-5 rounded-full px-6 text-[15px] font-black shadow-[0_16px_38px_rgba(0,0,0,0.16)] transition-[background-color,color] duration-500 ease-out group-hover:bg-[#070707] group-hover:text-[#dfff00] sm:inset-x-9 sm:bottom-9 sm:h-[72px] sm:text-[18px] ${
-            dark ? "bg-white text-black" : "bg-[#070707] text-white"
+          className={`absolute inset-x-6 bottom-6 z-20 inline-flex h-14 items-center justify-center gap-4 rounded-full px-5 text-[13.5px] font-black shadow-[0_16px_38px_rgba(0,0,0,0.16)] transition-[background-color,color] duration-500 ease-out group-hover:bg-[#070707] group-hover:text-[#dfff00] ${
+            theme === "dark" ? "bg-white text-black" : "bg-[#070707] text-white"
           }`}
         >
-          {cta} <ArrowRight className="size-5" strokeWidth={3} />
+          {cta} <ArrowRight className="size-4" strokeWidth={3} />
         </span>
       </article>
     </Link>

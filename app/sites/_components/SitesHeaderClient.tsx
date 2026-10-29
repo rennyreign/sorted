@@ -13,13 +13,12 @@ export type HeaderCta = "company" | "website"
 const links = [
   ["how", "How we work", "/howitworks"],
   ["examples", "Our work", "/examples"],
-  ["operations", "Operations", "/ops"],
   ["pricing", "Pricing", "/pricing"],
-  ["whatelse", "What we improve", "/what-else-we-do"],
+  ["whatelse", "What's included", "/what-else-we-do"],
   ["about", "About", "/about"],
 ] as const
 
-export function SitesHeaderClient({ active, tone = "light", variant = "default", cta = "company" }: { active?: ActivePage; tone?: HeaderTone; variant?: "default" | "home"; cta?: HeaderCta }) {
+export function SitesHeaderClient({ active, tone = "light", variant = "default", cta = "website" }: { active?: ActivePage; tone?: HeaderTone; variant?: "default" | "home"; cta?: HeaderCta }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const menuButtonRef = useRef<HTMLButtonElement>(null)

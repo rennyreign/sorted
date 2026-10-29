@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import localFont from "next/font/local"
 import {
   ArrowRight,
@@ -85,6 +86,36 @@ const sprintCards = [
     ],
     question:
       "What demand might we be missing because we haven’t tested the right proposition?",
+  },
+]
+
+const angles = [
+  {
+    num: "01",
+    name: "Focus",
+    motivation: "A place to channel a child’s energy, with something to work towards week after week.",
+    ads: [
+      { src: "/workspace/gb-halesowen/kids-b-square-01-1x1.png", alt: "More focus. More purpose. ad" },
+      { src: "/workspace/gb-halesowen/kids-a-square-01-1x1.png", alt: "Confidence, one class at a time. ad" },
+    ],
+  },
+  {
+    num: "02",
+    name: "Reassurance",
+    motivation: "People facing a legal problem want to know where they stand before anything else.",
+    ads: [
+      { src: "/workspace/tann-law/ad-02-feed-1x1.webp", alt: "Tann Law reassurance ad" },
+      { src: "/workspace/tann-law/ad-01-feed-1x1.webp", alt: "Tann Law clear advice ad" },
+    ],
+  },
+  {
+    num: "03",
+    name: "Peace of mind",
+    motivation: "Homeowners aren’t buying a boiler service. They’re buying a winter without worry.",
+    ads: [
+      { src: "/workspace/adams/ad-01.webp", alt: "Adams Plumbing peace of mind ad" },
+      { src: "/workspace/adams/ad-02.webp", alt: "Adams Plumbing small jobs ad" },
+    ],
   },
 ]
 
@@ -238,16 +269,61 @@ export default function AgenciesPage() {
         </div>
       </section>
 
+      {/* ── Angles exhibit ───────────────────────────────── */}
+      <section id="angles" className="border-t border-[#E6E6E2] bg-[#F4F3EF]">
+        <div className="mx-auto max-w-[1180px] px-5 py-16 sm:px-8 lg:px-[60px] lg:py-24">
+          <h2 className="max-w-[24ch] text-[clamp(2.2rem,5vw,3.4rem)] font-black leading-[1.05] tracking-[-0.03em]">
+            Different reasons people buy.
+          </h2>
+          <p className="mt-4 max-w-[58ch] text-[15px] leading-[1.7] text-[#4a4a46]">
+            An angle isn’t a headline variation. It’s a different motivation, argued consistently from
+            ad to landing page to follow-up. Real angles we’ve manufactured:
+          </p>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {angles.map(({ num, name, motivation, ads }) => (
+              <article
+                key={num}
+                className="rounded-2xl border border-black/[0.08] bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#D4FF00] text-[13px] font-black">
+                    {num}
+                  </span>
+                  <h3 className="text-[1.05rem] font-extrabold tracking-tight">{name}</h3>
+                </div>
+                <p className="mt-3 text-[13.5px] leading-[1.7] text-[#4a4a46]">{motivation}</p>
+                <div className="mt-5 grid grid-cols-2 gap-3">
+                  {ads.map((ad) => (
+                    <div
+                      key={ad.src}
+                      className="relative aspect-square overflow-hidden rounded-lg border border-black/[0.06]"
+                    >
+                      <Image src={ad.src} alt={ad.alt} fill sizes="(min-width: 768px) 180px, 40vw" className="object-cover" />
+                    </div>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <p className="mt-6 text-[12.5px] leading-[1.6] text-[#6E6E6A]">
+            Real manufactured angles, shown with client permission. Each one ships with matching
+            landing pages, follow-up messaging and measurement.
+          </p>
+        </div>
+      </section>
+
       {/* ── Deliverables ─────────────────────────────────── */}
       <section className="border-t border-[#E6E6E2] bg-[#F4F3EF]">
         <div className="mx-auto max-w-[1180px] px-5 py-16 sm:px-8 lg:px-[60px] lg:py-24">
           <p className="flex items-center justify-center gap-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8a8a85]">
             <span className="h-px w-8 bg-[#c9c9c3]" aria-hidden="true" />
-            DELIVERABLES
+            LET&apos;S START WITH
             <span className="h-px w-8 bg-[#c9c9c3]" aria-hidden="true" />
           </p>
           <h2 className="mt-5 text-center text-[clamp(2.2rem,5vw,3.4rem)] font-black leading-[1.05] tracking-[-0.03em]">
-            What you receive
+            Two angles. Built to test.
           </h2>
           <p className="mx-auto mt-4 max-w-[52ch] text-center text-[15px] leading-[1.7] text-[#6E6E6A]">
             A complete, production-ready experiment, from strategy and creative to launch assets and measurement.
@@ -329,6 +405,75 @@ export default function AgenciesPage() {
                 Use the whole production chain or just what your team needs. Your agency keeps control of its campaigns, systems and clients.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Why it works ─────────────────────────────────── */}
+      <section className="border-t border-[#E6E6E2]">
+        <div className="mx-auto max-w-[1180px] px-5 py-16 sm:px-8 lg:px-[60px] lg:py-24">
+          <div className="grid gap-12 lg:grid-cols-[0.4fr_0.6fr] lg:gap-16">
+            <div>
+              <h2 className="text-[clamp(2.2rem,5vw,3.4rem)] font-black leading-[1.05] tracking-[-0.03em]">
+                Modern production. Experienced judgment.
+              </h2>
+              <p className="mt-5 max-w-[42ch] text-[16px] leading-[1.7] text-[#6E6E6A]">
+                Technology gives us production capacity. Marketing experience gives that production a purpose. Together, they make more meaningful experiments practical for your agency.
+              </p>
+            </div>
+
+            <ol className="border-t border-[#E6E6E2]">
+              {[
+                {
+                  n: "01",
+                  title: "A production system built for speed",
+                  body: "Modern production technology gives us the capacity to produce five campaign angles per hour, including landing pages, copy and ads built to a defined design system.",
+                  note: "Production capacity, not a fixed delivery promise. Scope, review and activation requirements are agreed for each project.",
+                },
+                {
+                  n: "02",
+                  title: "On-brand creative, not generic output",
+                  body: "Brand-guided image generation keeps creative aligned with your visual identity. Shared design specifications connect the ads and landing pages into one coherent campaign.",
+                },
+                {
+                  n: "03",
+                  title: "Commercial experience behind the work",
+                  body: "Fifteen years in marketing and leadership, hands-on Facebook advertising expertise and responsibility for more than $2 million in annual ad spend inform the angles we develop.",
+                },
+                {
+                  n: "04",
+                  title: "Measurement built into the journey",
+                  body: "Automated tracking and attribution infrastructure, paired with purpose-built dashboards, connect the campaign journey to the signals your team needs to evaluate each test.",
+                },
+                {
+                  n: "05",
+                  title: "A contributor, not just a production resource",
+                  body: "We contribute subject-matter input and help present the thinking behind each angle, so your team can discuss the proposition, not just review the assets.",
+                },
+              ].map(({ n, title, body, note }: { n: string; title: string; body: string; note?: string }) => (
+                <li key={n} className="flex gap-5 border-b border-[#E6E6E2] py-6 last:border-b-0 lg:py-7">
+                  <span
+                    aria-hidden="true"
+                    className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#D4FF00] text-[12px] font-black tabular-nums"
+                  >
+                    {n}
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-[19px] font-extrabold leading-snug tracking-[-0.01em]">
+                      {title}
+                    </span>
+                    <span className="mt-2 block text-[16px] leading-[1.7] text-[#6E6E6A]">
+                      {body}
+                    </span>
+                    {note ? (
+                      <span className="mt-2.5 block text-[14px] leading-[1.6] text-[#8a8a85]">
+                        {note}
+                      </span>
+                    ) : null}
+                  </span>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </section>

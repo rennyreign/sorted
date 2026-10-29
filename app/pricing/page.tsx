@@ -3,25 +3,25 @@ import type { Metadata } from "next"
 import { Check } from "lucide-react"
 import { SitesFooter, SitesHeader, SitesPage, Underline } from "../sites/_components/SitesPrimitives"
 import { MockupButton } from "../sites/_components/SitesMockupModal"
-import { BookDiscoveryButton } from "../v2/_components/V2Primitives"
+
 
 export const metadata: Metadata = {
   title: "Pricing | Sorted",
   description:
-    "A complete website launch at one fixed price — £3,000 in the UK or $3,500 in the US — plus operational improvements scoped and priced around the problem.",
+    "A complete website launch at one fixed price — £1,500 in the UK or $1,750 in the US — covering strategy, design, copy, build, CMS, analytics and launch.",
   alternates: {
     canonical: "/pricing",
   },
   openGraph: {
     title: "Pricing | Sorted",
     description:
-      "A complete website launch at one fixed price. Operational improvements scoped and priced around the problem.",
+      "A complete website launch at one fixed price — £1,500 in the UK or $1,750 in the US.",
     url: "/pricing",
   },
 }
 
 const exchangeSteps = [
-  ["We build", "Your first page, free."],
+  ["We design", "Your tailored first page."],
   ["You review", "See the work before deciding."],
   ["You approve", "{deposit} starts the complete build."],
   ["We launch", "{balance} when ready to launch."],
@@ -34,25 +34,19 @@ const websiteIncludes = [
   "Analytics and handover",
 ] as const
 
-const operationsOutline = [
-  "Find the gap worth fixing",
-  "Agree scope, price and timing",
-  "Build and review the change",
-] as const
-
 const faqs = [
   ["Is {total} the whole website price?", "Yes, for the agreed website launch scope. It includes the website, content editing, analytics, agreed ad creative and follow-up setup, and launch. Ad spend, ongoing management, paid third-party services and additional integrations are agreed separately."],
-  ["What is free?", "We build your first page free. You can review the work without committing to the complete website build."],
+  ["What do I see before paying?", "A tailored first page to review, designed around your business. You can review the work before committing to the complete website build."],
   ["When do I pay for the website?", "A {deposit} deposit starts the complete build after you approve the first version. The remaining {balance} is due when the site is ready to launch."],
-  ["How much do operational improvements cost?", "We quote after understanding the problem and confirming what is feasible. You agree the scope, price and timing before work starts."],
-  ["Do I need a retainer?", "No. Ongoing support can be agreed for a system that needs maintaining or improving, but it is not a requirement of the project."],
+  ["What if I already have a website?", "We can rebuild it. The process is the same — you see the new direction first, then decide whether to take it further."],
+  ["Do I need to pay monthly?", "No. The website launch is one fixed price. Ongoing support can be agreed for a site that needs maintaining or improving, but it is not a requirement."],
   ["Can I keep the website up to date?", "Yes. You can edit everyday content such as text, images, services, prices and contact details while the design stays protected."],
 ] as const
 
 export default function PricingPage() {
   return (
     <SitesPage>
-      <SitesHeader active="pricing" cta="company" />
+      <SitesHeader active="pricing" cta="website" />
 
       <section className="mx-auto max-w-[1220px] px-5 pb-8 pt-14 sm:px-8 sm:pt-20">
         <p className="text-[12px] font-black uppercase tracking-[0.16em] text-black/45">Pricing</p>
@@ -61,12 +55,12 @@ export default function PricingPage() {
         </h1>
         <Underline className="mt-5 w-[min(280px,72vw)]" />
         <p className="mt-6 max-w-[540px] text-[16px] font-semibold leading-[1.6] tracking-[-0.02em] text-black/72">
-          One fixed website launch price. Operational improvements priced around the problem.
+          One fixed website launch price. Everything your new website needs to go live.
         </p>
       </section>
 
       <section className="mx-auto max-w-[1220px] px-5 pb-14 sm:px-8 sm:pb-16">
-        <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
+        <div className="grid gap-6">
           <article id="included" className="flex scroll-mt-24 flex-col overflow-hidden rounded-[24px] bg-[#0a0a0a] p-6 text-white sm:p-8">
             <p className="text-[12px] font-black uppercase tracking-[0.16em] text-white/45">Website</p>
             <h2 className="mt-4 max-w-[460px] text-[clamp(1.9rem,2.6vw,2.6rem)] font-black leading-[0.98] tracking-[-0.045em]">
@@ -105,32 +99,6 @@ export default function PricingPage() {
             </div>
           </article>
 
-          <article id="operations" className="flex scroll-mt-24 flex-col overflow-hidden rounded-[24px] border border-black/10 bg-[#f7f1e8] p-6 sm:p-8">
-            <p className="text-[12px] font-black uppercase tracking-[0.16em] text-black/45">Operations</p>
-            <h2 className="mt-4 max-w-[460px] text-[clamp(1.9rem,2.6vw,2.6rem)] font-black leading-[0.98] tracking-[-0.045em]">
-              Smoother operations.
-            </h2>
-            <p className="mt-6 text-[clamp(2.2rem,3.4vw,3.2rem)] font-black leading-[0.9] tracking-[-0.05em]">
-              Quoted to scope.
-            </p>
-            <p className="mt-5 max-w-[420px] text-[14px] font-semibold leading-[1.55] text-black/70">
-              Repeated tasks, disconnected tools, missed enquiries and manual chasing. We agree the improvement before work starts.
-            </p>
-            <ul className="mt-8 grid gap-3">
-              {operationsOutline.map((item) => (
-                <li key={item} className="flex items-center gap-3 border-b border-black/10 pb-3 text-[14px] font-bold">
-                  <Check className="size-5 shrink-0 rounded-full bg-[#dfff00] p-1 text-black" strokeWidth={3.5} />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-5 text-[14px] font-semibold leading-[1.55] text-black/58">
-              Your quote follows a conversation about the problem. Ongoing support is optional and agreed separately.
-            </p>
-            <div className="mt-auto pt-7">
-              <BookDiscoveryButton label="Talk about your business" className="w-full !border-transparent !bg-[#070707] !text-white" />
-            </div>
-          </article>
         </div>
       </section>
 

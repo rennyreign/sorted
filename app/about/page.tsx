@@ -5,14 +5,14 @@ import { SitesFooter, SitesHeader, SitesPage, Underline } from "../sites/_compon
 import { ImprovementButton } from "../sites/_components/ImprovementEntry"
 
 export const metadata: Metadata = {
-  title: "About Sorted | Good at what you do? Your systems should be too.",
-  description: "Sorted modernises how local businesses win customers and get work done — closing the gap between the business and the systems around it.",
+  title: "About Sorted | Good at what you do? Your website should be too.",
+  description: "Sorted gives good local businesses the website they deserve — closing the gap between the quality of the work and how customers find and choose it.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title: "About Sorted | Good at what you do? Your systems should be too.",
-    description: "Sorted modernises how local businesses win customers and get work done — closing the gap between the business and the systems around it.",
+    title: "About Sorted | Good at what you do? Your website should be too.",
+    description: "Sorted gives good local businesses the website they deserve — closing the gap between the quality of the work and how customers find and choose it.",
     url: "/about",
   },
 }
@@ -35,17 +35,17 @@ export default function AboutPage() {
         <div>
           <h1 className="text-[clamp(3.35rem,6vw,6.4rem)] font-black leading-[0.94] tracking-[-0.045em]">
             Good at what<br />
-            you do? Your systems<br />
+            you do? Your website<br />
             <span className="inline-block [font-family:var(--font-sites-fave-script)] text-[clamp(5.6rem,9vw,9.2rem)] font-normal leading-[0.85] tracking-[0] text-[#d4ea00] max-sm:text-[clamp(4.8rem,25vw,5.6rem)]">should be too.</span>
           </h1>
           <Underline className="mt-5 w-[min(320px,75vw)]" />
           <p className="mt-7 max-w-[540px] text-[17px] font-semibold leading-[1.55] tracking-[-0.03em] text-black/78">
-            Plenty of competent local businesses lack the time, budget or technical support to modernise the systems around the work — how customers find them and how work gets done. That is the gap Sorted closes.
+            Plenty of competent local businesses lack the time, budget or technical support to give the business the website it deserves — how customers find them, judge them and get in touch. That is the gap Sorted closes.
           </p>
           <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <ImprovementButton />
             <a href="/what-else-we-do" className="inline-flex min-h-11 items-center gap-2 px-1 text-[12px] font-black transition-colors hover:text-black/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#dfff00] focus-visible:ring-offset-4">
-              What we improve <ArrowRight className="size-4" strokeWidth={2.8} />
+              What&apos;s included <ArrowRight className="size-4" strokeWidth={2.8} />
             </a>
           </div>
         </div>
@@ -137,7 +137,7 @@ export default function AboutPage() {
                   <span className="grid size-11 place-items-center bg-[#dfff00] text-[12px] font-black">02</span>
                   <div>
                     <h3 className="text-[21px] font-black tracking-[-0.04em]">Improve what happens behind the front door.</h3>
-                    <p className="mt-3 max-w-[600px] text-[14px] font-semibold leading-[1.6] text-black/66">Enquiries, follow-up, customer data, reviews, reporting and repetitive work all shape the experience. We address the next costly gap only when it has earned its place. <a href="/what-else-we-do" className="underline underline-offset-4 transition-colors hover:text-black">See what we improve</a>.</p>
+                    <p className="mt-3 max-w-[600px] text-[14px] font-semibold leading-[1.6] text-black/66">Enquiries, follow-up, customer data, reviews, reporting and repetitive work all shape the experience. We address the next costly gap only when it has earned its place. <a href="/what-else-we-do" className="underline underline-offset-4 transition-colors hover:text-black">See what&apos;s included</a>.</p>
                   </div>
                 </article>
               </div>

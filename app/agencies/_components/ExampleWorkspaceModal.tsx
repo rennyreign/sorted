@@ -33,8 +33,8 @@ export function ExampleWorkspaceModal({ dark = false }: { dark?: boolean }) {
         onClick={() => setOpen(true)}
         className={`mt-7 inline-flex items-center gap-2 rounded-full border bg-transparent px-5 py-2.5 text-[13.5px] font-semibold transition-all duration-200 ${
           dark
-            ? "border-white/25 text-white hover:border-white hover:bg-white hover:text-[#0C0C0C]"
-            : "border-black/[0.14] text-[#0C0C0C] hover:border-[#0C0C0C] hover:bg-[#0C0C0C] hover:text-[#FAFAF7]"
+            ? "border-white/25 text-white hover:border-[#D4FF00] hover:bg-[#D4FF00] hover:text-[#0C0C0C]"
+            : "border-black/[0.14] text-[#0C0C0C] hover:border-[#D4FF00] hover:bg-[#D4FF00] hover:text-[#0C0C0C]"
         }`}
       >
         See an example

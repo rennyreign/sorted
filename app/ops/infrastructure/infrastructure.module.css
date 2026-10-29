@@ -90,7 +90,7 @@
 .btnPrimary:hover {
   background: var(--ink);
   border-color: var(--ink);
-  color: var(--bg);
+  color: var(--lime);
 }
 .btnGhost {
   display: inline-flex;
@@ -175,6 +175,51 @@
   letter-spacing: -0.01em;
 }
 .heroCtas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+/* hero video */
+.videoCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--ink);
+  border: 1px solid var(--ink);
+}
+.video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+.videoOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border: 0;
+  cursor: pointer;
+  background: rgba(10, 10, 10, 0.2);
+  transition: background 0.2s ease;
+}
+.videoOverlay:hover { background: rgba(10, 10, 10, 0.3); }
+.videoPlayBtn {
+  display: flex;
+  height: 64px;
+  width: 64px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--lime);
+  color: var(--ink);
+  padding-left: 4px;
+}
+.videoCaption {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+}
 
 /* receipt */
 .receipt {
@@ -682,3 +727,316 @@
   padding-bottom: 1px;
 }
 .bookingLinks a:hover { border-bottom-color: var(--ink); }
+
+/* ── build replay ── */
+.replay {
+  display: grid;
+  gap: 24px;
+  margin-top: 40px;
+  border-top: 1px solid var(--line);
+  padding-top: 40px;
+}
+@media (min-width: 900px) {
+  .replay { grid-template-columns: 300px 1fr; gap: 40px; }
+}
+.replayEyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-55, rgba(12,12,12,0.55));
+  margin: 0 0 20px;
+}
+.replaySteps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.replayStep {
+  display: flex;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  opacity: 0.4;
+  transition: opacity 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+.replayStepDone { opacity: 0.7; }
+.replayStepDone .replayStepNum { color: var(--lime); background: var(--ink); }
+.replayStepActive {
+  opacity: 1;
+  background: #fff;
+  border-color: rgba(12, 12, 12, 0.12);
+}
+.replayStepNum {
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  padding: 2px 6px;
+  border-radius: 6px;
+  align-self: flex-start;
+  color: var(--ink-55, rgba(12,12,12,0.55));
+}
+.replayStepActive .replayStepNum { background: var(--lime); color: var(--ink); }
+.replayStepText { display: flex; flex-direction: column; gap: 2px; }
+.replayStepLabel { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+.replayStepDetail { font-size: 12.5px; color: var(--ink-55, rgba(12,12,12,0.55)); }
+.replayButton {
+  margin-top: 20px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.replayButton:hover { background: var(--ink); color: var(--lime); }
+
+.replayStage {
+  border-radius: 16px;
+  border: 1px solid rgba(12, 12, 12, 0.12);
+  background: #fff;
+  overflow: hidden;
+  min-height: 380px;
+  display: flex;
+}
+.replayCompact .replayStage { min-height: 300px; }
+.replayPanel {
+  margin: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  animation: replayFade 0.45s ease;
+}
+@keyframes replayFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.replayBrowserBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: rgba(12, 12, 12, 0.5);
+  border-bottom: 1px solid rgba(12, 12, 12, 0.08);
+  font-family: ui-monospace, monospace;
+}
+.replayBrowserBar span {
+  width: 10px; height: 10px; border-radius: 999px;
+  background: rgba(12, 12, 12, 0.15);
+  box-shadow: 16px 0 0 rgba(12,12,12,0.15), 32px 0 0 rgba(12,12,12,0.15);
+  margin-right: 36px;
+}
+.replayImg { width: 100%; display: block; }
+.replayCaption {
+  padding: 14px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  border-top: 1px solid rgba(12, 12, 12, 0.08);
+}
+.replayPanelLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-55, rgba(12,12,12,0.55));
+  padding: 20px 24px 4px;
+  margin: 0;
+}
+.replayFindings, .replayPlan {
+  list-style: none;
+  margin: 0;
+  padding: 16px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.replayFindings li, .replayPlan li {
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  animation: replayFade 0.5s ease forwards;
+}
+.replayFindings li {
+  background: rgba(12, 12, 12, 0.05);
+  border-left: 3px solid var(--ink);
+}
+.replayPlan li {
+  background: var(--ink);
+  color: var(--bg, #fafaf7);
+}
+.replayBuild { padding: 0; }
+.replayViewport {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  min-height: 320px;
+}
+.replayBuildImg {
+  width: 100%;
+  display: block;
+  animation: replayScroll 12s linear forwards;
+}
+@keyframes replayScroll {
+  from { transform: translateY(0); }
+  to { transform: translateY(calc(-100% + 320px)); }
+}
+.replayDone {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 32px;
+  gap: 14px;
+}
+.replayDoneTitle {
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.replayDoneBody {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-55, rgba(12,12,12,0.55));
+  max-width: 46ch;
+  margin: 0;
+}
+.replayLink {
+  display: inline-block;
+  margin-top: 8px;
+  background: var(--ink);
+  color: var(--bg, #fafaf7);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 22px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+.replayLink:hover { color: var(--lime); }
+
+@media (prefers-reduced-motion: reduce) {
+  .replayBuildImg { animation: none; }
+}
+.replayTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 26px 0 26px;
+}
+.replayTab {
+  appearance: none;
+  border: 1px solid rgba(12, 12, 12, 0.16);
+  background: transparent;
+  color: var(--ink-55, rgba(12, 12, 12, 0.55));
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.replayTab:hover { border-color: rgba(12, 12, 12, 0.35); color: var(--ink); }
+.replayTabActive {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg, #fafaf7);
+}
+.replayContrast {
+  margin: 18px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.55;
+  color: var(--ink-55, rgba(12,12,12,0.55));
+  border-top: 1px solid rgba(12, 12, 12, 0.1);
+  padding-top: 16px;
+}
+.leadFull { max-width: none; }
+
+/* ── Sound familiar / workloads ── */
+.workloadEyebrow {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-55, rgba(12,12,12,0.55));
+  margin: 0 0 14px;
+}
+.workloads {
+  display: grid;
+  gap: 16px;
+  margin-top: 28px;
+}
+@media (min-width: 900px) {
+  .workloads { grid-template-columns: 1fr 1fr; gap: 20px; }
+}
+.workload {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 26px 26px 22px;
+}
+.workloadNum {
+  display: inline-block;
+  background: var(--lime);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  padding: 4px 9px;
+  border-radius: 7px;
+}
+.workloadQuote {
+  margin: 16px 0 0;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.workloadFix {
+  margin: 10px 0 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink-70);
+}
+.workloadChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.workloadChip {
+  background: var(--bg-soft, #f4f3ef);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 6px 12px;
+  color: var(--ink-70);
+}
+.workloadOutcome {
+  margin: 18px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.workloadNote {
+  margin: 22px 0 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-55, rgba(12,12,12,0.55));
+}

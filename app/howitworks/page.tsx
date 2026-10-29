@@ -22,14 +22,14 @@ import { MockupButton } from "../sites/_components/SitesMockupModal"
 export const metadata: Metadata = {
   title: "How we work | Sorted",
   description:
-    "Websites built proof-first: we build your first page free, then agree the scope and price of the complete build before continuing.",
+    "Websites built proof-first: see a tailored first page before committing to the complete build, then agree the scope and price before continuing.",
   alternates: {
     canonical: "/howitworks",
   },
   openGraph: {
     title: "How we work | Sorted",
     description:
-      "Websites built proof-first: we build your first page free, then agree the scope and price of the complete build before continuing.",
+      "Websites built proof-first: see a tailored first page before committing to the complete build, then agree the scope and price before continuing.",
     url: "/howitworks",
   },
 }
@@ -60,8 +60,8 @@ function HeroSection() {
           </span>
         </h1>
         <p className="mt-6 max-w-[470px] text-[17px] font-semibold leading-[1.55] tracking-[-0.02em] text-black/75">
-          We build your first page free. Decide whether to take it further. If you want the complete build, we
-          agree the scope and price before continuing.
+          Your new website starts with a tailored first page you can review. If you want the complete
+          build, we agree the scope and price before continuing.
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-5">
           <MockupButton />
@@ -118,9 +118,9 @@ const processSteps: ProcessStep[] = [
     image: "/sorted-sites/howitworks-v2/card-gracie-barra-jiu-jitsu.webp",
     imageAlt: "Gracie Barra Jiu-Jitsu website first-page design.",
     icon: FileText,
-    title: "See your first page build",
-    description: "We build a tailored first page — the design, the copy and the structure — and send it to you to review.",
-    extra: "Free. No payment. No obligation.",
+    title: "See your first page",
+    description: "We design a tailored first page — the look, the copy and the structure — and send it to you to review.",
+    extra: "No payment. No obligation.",
   },
   {
     image: "/sorted-sites/howitworks-v2/card-basketball-coach.webp",
@@ -149,7 +149,7 @@ function ProcessSection() {
           <Underline className="mt-3 h-[5px] w-24" />
         </h2>
         <p className="mt-5 max-w-[560px] text-[15px] font-semibold leading-[1.55] text-black/62">
-          Our established website journey: a free first-page build, then a fixed-price complete build when you approve it.
+          Our established website journey: a tailored first page to review, then a fixed-price complete build when you approve it.
         </p>
       </div>
 
@@ -239,8 +239,8 @@ const timeline = [
   {
     icon: Clock3,
     time: "First, your first page",
-    title: "Free first-page build",
-    description: "We build a tailored first page and send it for you to review.",
+    title: "First-page preview",
+    description: "We design a tailored first page and send it for you to review.",
   },
   {
     icon: Code2,
@@ -334,7 +334,7 @@ function BottomCta() {
             ))}
           </ul>
           <p className="mt-6 max-w-[420px] text-[15px] font-semibold leading-[1.55] text-white/75">
-            We build your first page free. Decide whether to take it further. No payment. No obligation.
+            See the direction before you spend anything. Decide whether to take it further.
           </p>
           <div className="mt-7">
             <MockupButton variant="white" />
