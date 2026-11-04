@@ -11,7 +11,7 @@
 .headerDark{color:var(--paper)}.headerLight{color:var(--ink)}
 .label { display:flex; align-items:center; gap:.85rem; width:max-content; font:900 clamp(.57rem,.72vw,.72rem)/1 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.12em; text-transform:uppercase; }
 .label span:first-child { display:grid; place-items:center; width:2.25rem; height:2.25rem; border:1px solid currentColor; }
-.title,.heroTitle,.closeTitle { margin:clamp(1.2rem,3.3vh,2.5rem) 0 0; max-width:1120px; font-size:clamp(3rem,6.6vw,6.9rem); line-height:.88; letter-spacing:-.067em; font-weight:950; }
+.title,.heroTitle,.closeTitle { margin:clamp(1.2rem,3.3vh,2.5rem) 0 0; max-width:1120px; font-size:clamp(3rem,6.6vw,6.9rem); line-height:.88; letter-spacing:-.055em; font-weight:950; }
 .title em { color:var(--ink); font-style:normal; box-shadow:inset 0 -.16em 0 rgba(10,10,10,.14); }
 .whiteTitle em{color:var(--paper);box-shadow:inset 0 -.16em 0 rgba(250,250,250,.3)}
 .heroTitle { margin:auto 0; font-size:clamp(3.5rem,7.8vw,8.2rem); max-width:1320px; }
