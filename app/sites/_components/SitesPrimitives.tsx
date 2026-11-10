@@ -36,7 +36,7 @@ export function SitesPage({ children }: { children: ReactNode }) {
   return <main className={`${sitesMarker.variable} ${sitesHighlight.variable} ${sitesFaveScript.variable} ${sitesBakeshop.variable} sorted-sites-shell min-h-screen bg-[#fbfbfa] pt-[76px] text-[#070707]`}>{children}</main>
 }
 
-export function SitesHeader({ active, tone = "light", variant = "default", cta = "company" }: { active?: "how" | "examples" | "sites" | "operations" | "pricing" | "included" | "whatelse" | "about" | "updates"; tone?: "light" | "dark"; variant?: "default" | "home"; cta?: "company" | "website" }) {
+export function SitesHeader({ active, tone = "light", variant = "default", cta = "website" }: { active?: "how" | "examples" | "sites" | "operations" | "pricing" | "included" | "whatelse" | "about" | "updates"; tone?: "light" | "dark"; variant?: "default" | "home"; cta?: "company" | "website" }) {
   return <SitesHeaderClient active={active} tone={tone} variant={variant} cta={cta} />
 }
 
@@ -52,8 +52,8 @@ export function SitesFooter({ variant = "default", tone = "dark" }: { variant?: 
         <div className={compact ? "max-sm:col-span-2" : ""}>
           <Logo dark={!light} />
           <p className={`mt-4 text-[13px] font-semibold leading-[1.4] ${muted} ${compact ? "max-w-[230px]" : "max-w-[220px]"}`}>
-            We make good businesses more capable.
-            <span className={`mt-1.5 block text-[12px] ${faintMid}`}>Business modernisation for local businesses.</span>
+            Websites that do your business justice.
+            <span className={`mt-1.5 block text-[12px] ${faintMid}`}>Designed, built and launched for local businesses.</span>
           </p>
           {!compact ? (
             <>
@@ -64,8 +64,8 @@ export function SitesFooter({ variant = "default", tone = "dark" }: { variant?: 
             </>
           ) : null}
         </div>
-        <FooterLinks light={light} title="How we help" links={[["Websites", "/howitworks"], ["Operations", "/ops"], ["Pricing", "/pricing"], ["SortedUpdates", "/website-updates"]]} />
-        <FooterLinks light={light} title="Company" links={[["How we work", "/howitworks"], ["Our work", "/examples"], ["About us", "/about"], ["Reviews", compact ? "/#reviews" : "/examples"], ["Partner program", "/partners"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
+        <FooterLinks light={light} title="How we help" links={[["Websites", "/websites"], ["AI automation", "/v4"], ["Pricing", "/pricing"], ["SortedUpdates", "/website-updates"]]} />
+        <FooterLinks light={light} title="Company" links={[["How we work", "/howitworks"], ["Our work", "/examples"], ["All services", "/"], ["Reviews", compact ? "/#reviews" : "/examples"], ["Partner program", "/partners"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
         <div className={compact ? "max-sm:col-span-2" : ""}>
           <p className="mb-4 text-[12px] font-black">Let's talk</p>
           <a href="https://wa.me/447386468085" className={`inline-flex h-11 items-center gap-2 rounded-xl px-5 text-[12px] font-black text-black ${compact ? "bg-[#d7ff00]" : "bg-[#dfff00]"}`}>

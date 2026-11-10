@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import { ArrowRight, Check, Edit3, Eye, Rocket } from "lucide-react"
 import Image from "next/image"
 import { MockupButton } from "../sites/_components/SitesMockupModal"
-import { ImprovementButton } from "../sites/_components/ImprovementEntry"
 import { SitesFooter, SitesHeader, SitesPage, Underline } from "../sites/_components/SitesPrimitives"
 import { ExamplesGallery } from "./ExamplesGallery"
 import { ExamplesCaseStudyRail } from "./ExamplesCaseStudyRail"
@@ -58,7 +57,7 @@ export default async function ExamplesPage() {
             Our factory started with websites. Here&apos;s what we&apos;ve built, launched and explored for real businesses. Every project helps us improve the systems behind the work.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-6">
-            <ImprovementButton />
+            <MockupButton />
             <a href="#live-websites" className="inline-flex min-h-11 items-center gap-2 text-[13px] font-black transition-colors hover:text-black/55">
               Explore the work <ArrowRight className="size-4 rotate-90" strokeWidth={2.8} />
             </a>

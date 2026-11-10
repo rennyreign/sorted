@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react"
 import { ChevronDown } from "lucide-react"
-import { MARKET_PRICING, marketCopy, parseMarket, type Market } from "@/lib/market-pricing"
+import { WEBSITE_MARKETING_PRICING, websiteMarketingCopy, parseMarket, type Market } from "@/lib/market-pricing"
 
 const PREFERENCE_KEY = "sorted-market"
 const DETECTED_KEY = "sorted-detected-market"
@@ -71,11 +71,11 @@ export function useMarket() {
 }
 
 export function useMarketOffer() {
-  return MARKET_PRICING[useMarket()]
+  return WEBSITE_MARKETING_PRICING[useMarket()]
 }
 
 export function MarketCopy({ children }: { children: string }) {
-  return marketCopy(children, useMarket())
+  return websiteMarketingCopy(children, useMarket())
 }
 
 export function MarketSelector({ className = "" }: { className?: string }) {

@@ -2,17 +2,17 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import { ArrowRight, Eye, Handshake, Network, Rocket, ThumbsUp } from "lucide-react"
 import { SitesFooter, SitesHeader, SitesPage, Underline } from "../sites/_components/SitesPrimitives"
-import { ImprovementButton } from "../sites/_components/ImprovementEntry"
+import { MockupButton } from "../sites/_components/SitesMockupModal"
 
 export const metadata: Metadata = {
-  title: "About Sorted | Good at what you do? Your systems should be too.",
-  description: "Sorted modernises how local businesses win customers and get work done — closing the gap between the business and the systems around it.",
+  title: "About Sorted | Good at what you do? Your website should show it.",
+  description: "Sorted designs and builds websites for local businesses — making the quality of your work easier to see, trust and choose.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title: "About Sorted | Good at what you do? Your systems should be too.",
-    description: "Sorted modernises how local businesses win customers and get work done — closing the gap between the business and the systems around it.",
+    title: "About Sorted | Good at what you do? Your website should show it.",
+    description: "Sorted designs and builds websites for local businesses — making the quality of your work easier to see, trust and choose.",
     url: "/about",
   },
 }
@@ -35,15 +35,15 @@ export default function AboutPage() {
         <div>
           <h1 className="text-[clamp(3.35rem,6vw,6.4rem)] font-black leading-[0.94] tracking-[-0.045em]">
             Good at what<br />
-            you do? Your systems<br />
-            <span className="inline-block [font-family:var(--font-sites-fave-script)] text-[clamp(5.6rem,9vw,9.2rem)] font-normal leading-[0.85] tracking-[0] text-[#d4ea00] max-sm:text-[clamp(4.8rem,25vw,5.6rem)]">should be too.</span>
+            you do? Your website<br />
+            <span className="inline-block [font-family:var(--font-sites-fave-script)] text-[clamp(5.6rem,9vw,9.2rem)] font-normal leading-[0.85] tracking-[0] text-[#d4ea00] max-sm:text-[clamp(4.8rem,25vw,5.6rem)]">should show it.</span>
           </h1>
           <Underline className="mt-5 w-[min(320px,75vw)]" />
           <p className="mt-7 max-w-[540px] text-[17px] font-semibold leading-[1.55] tracking-[-0.03em] text-black/78">
-            Plenty of competent local businesses lack the time, budget or technical support to modernise the systems around the work — how customers find them and how work gets done. That is the gap Sorted closes.
+            Good local businesses don’t always have a website that shows what they’re capable of. We design, write and build that website, with a first-page preview before you commit.
           </p>
           <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <ImprovementButton />
+            <MockupButton />
             <a href="/what-else-we-do" className="inline-flex min-h-11 items-center gap-2 px-1 text-[12px] font-black transition-colors hover:text-black/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#dfff00] focus-visible:ring-offset-4">
               What we improve <ArrowRight className="size-4" strokeWidth={2.8} />
             </a>
@@ -150,7 +150,7 @@ export default function AboutPage() {
         <div>
           <h2 className="text-[2.45rem] font-black leading-[0.98] tracking-[-0.05em] lg:text-[2.55rem]">We don&apos;t sell.<br />We show.</h2>
           <Underline className="mt-6 w-48" />
-          <p className="mt-7 max-w-[300px] text-[14px] font-semibold leading-[1.6] text-black/65">Progressive proof makes modernisation less risky. You see useful work before we ask you to believe a promise.</p>
+          <p className="mt-7 max-w-[300px] text-[14px] font-semibold leading-[1.6] text-black/65">Seeing the website first makes the decision easier. You see useful work before we ask you to believe a promise.</p>
         </div>
 
         <div className="grid grid-cols-2 gap-x-5 gap-y-9 md:grid-cols-4 md:gap-7">
@@ -198,7 +198,7 @@ export default function AboutPage() {
           <div>
             <h2 className="text-[32px] font-black leading-[1] tracking-[-0.045em] sm:text-[38px]">A factory for increasing business capability.</h2>
             <Underline className="mt-5 w-48" />
-            <p className="mt-6 text-[14px] font-semibold leading-[1.6] text-black/66">Sorted was founded by operators who love websites, systems and doing things properly. Our factory model turns that knowledge into faster, more affordable infrastructure without lowering the standard.</p>
+            <p className="mt-6 text-[14px] font-semibold leading-[1.6] text-black/66">Sorted was founded by operators who love websites, systems and doing things properly. Our website process turns that knowledge into a clear design, a working build and a site you can keep up to date.</p>
           </div>
           <blockquote className="border-t border-black/15 pt-7 lg:border-l lg:border-t-0 lg:pl-9 lg:pt-0">
             <p className="[font-family:var(--font-sites-marker)] text-[2.15rem] leading-[1.05] sm:text-[2.7rem]">“Buying local shouldn&apos;t require lowering your expectations.”</p>
@@ -216,7 +216,7 @@ export default function AboutPage() {
           <div className="flex flex-col items-start gap-4 lg:items-end">
             <p className="max-w-[520px] text-[14px] font-semibold leading-[1.55] text-black/66 lg:text-right">If you run a business, see what better could look like. If you support businesses, explore what we could build through one trusted partnership.</p>
             <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-              <ImprovementButton variant="primary" />
+              <MockupButton variant="primary" />
               <a href="/partners/enterprise" className="inline-flex min-h-11 items-center gap-2 px-3 text-[12px] font-black transition-colors hover:text-black/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#dfff00] focus-visible:ring-offset-2">
                 Explore partnerships <Handshake className="size-4" strokeWidth={2.5} />
               </a>

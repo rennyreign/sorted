@@ -12,18 +12,18 @@ const signature = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sortmydigital.site"),
-  title: "Sorted | Business Modernisation",
+  title: "Sorted | Websites, customers and AI automation",
   description:
-    "We modernise how local businesses win customers and get work done. Better digital systems. Less unnecessary work. More capacity to grow.",
+    "A better website, more useful enquiries or less admin. Find the right place to start with Sorted.",
   icons: {
     icon: [
       { url: "/favicon.png", type: "image/png" },
     ],
   },
   openGraph: {
-    title: "Sorted | Business Modernisation",
+    title: "Sorted | Websites, customers and AI automation",
     description:
-      "We modernise how local businesses win customers and get work done. Better digital systems. Less unnecessary work. More capacity to grow.",
+      "A better website, more useful enquiries or less admin. Find the right place to start with Sorted.",
     locale: "en_GB",
     url: "https://sortmydigital.site",
     siteName: "Sorted",

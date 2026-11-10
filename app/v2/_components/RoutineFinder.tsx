@@ -39,10 +39,10 @@ const steps: Step[] = [
     question: "Which sounds most familiar?",
     options: [
       "We keep missing enquiries.",
-      "We spend too much time on admin.",
+      "Quotes take too long to send.",
       "Customers disappear after first contact.",
+      "We spend evenings chasing unpaid invoices.",
       "We answer the same questions all day.",
-      "We never ask for reviews.",
     ],
   },
   {
@@ -67,28 +67,22 @@ const steps: Step[] = [
 
 const recommendations = {
   enquiry: {
-    label: "Follow, the enquiry system",
-    summary: "Nobody consistently owns what happens after an enquiry arrives.",
-    impact: ["Faster replies", "Less chasing", "Clearer ownership", "More enquiries converted"],
-    href: "/ops/systems/enquiry-follow-up",
+    label: "Sorted Enquiry",
+    summary: "Enquiries are arriving but nobody consistently owns what happens next, so they go cold.",
+    impact: ["Every enquiry answered", "Job details collected", "Booked straight into your diary", "Summaries on your phone"],
+    href: "/v4/how-it-works#enquiry",
   },
-  admin: {
-    label: "An admin system",
-    summary: "The first opportunity is the internal work that keeps pulling people away from customers.",
-    impact: ["Fewer copied updates", "Cleaner handoffs", "Less duplicated work", "More time returned"],
-    href: "/ops/how-it-works",
+  estimator: {
+    label: "Sorted Estimator",
+    summary: "The enquiry lands but the quote takes too long — by the time it goes out, the customer has moved on.",
+    impact: ["Voice note to draft quote", "Your rates fill the draft", "Review before sending", "Faster quotes win more work"],
+    href: "/v4/how-it-works#estimator",
   },
-  reviews: {
-    label: "Reviews, the trust system",
-    summary: "You already have happy customers, but the request is not happening consistently enough.",
-    impact: ["More review requests", "Better timing", "Less manual asking", "Stronger local proof"],
-    href: "/ops/problems-we-solve",
-  },
-  response: {
-    label: "A customer response system",
-    summary: "The same questions are being answered manually when the first response could be systemised.",
-    impact: ["Quicker answers", "Less interruption", "More consistent replies", "Better customer experience"],
-    href: "/ops/problems/we-lose-customers",
+  chaser: {
+    label: "Sorted Chaser",
+    summary: "The work is done but payment is slow, and the chasing is landing on your evenings.",
+    impact: ["See what’s due", "Reminders on your schedule", "Stops when payment lands", "No more awkward calls"],
+    href: "/v4/how-it-works#chaser",
   },
 }
 
@@ -220,7 +214,7 @@ function QuestionStep({ step, value, onChoose }: { step: Step; value?: string; o
     <section className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
       <div>
         <p className="text-[12px] font-black text-black/45">{step.kicker}</p>
-        <h2 className="mt-5 max-w-[640px] [font-family:var(--font-v2-marker)] text-[clamp(3.3rem,7.2vw,7.6rem)] font-normal uppercase leading-[0.92] tracking-[0]">
+        <h2 className="mt-5 max-w-[640px] [font-family:var(--font-v2-marker)] text-[clamp(2.2rem,4.4vw,4.4rem)] font-normal uppercase leading-[0.98] tracking-[0]">
           {step.question}
         </h2>
         <div className="mt-6 h-[4px] w-80 max-w-full rounded-full bg-[#ff73d2]" />
@@ -343,8 +337,7 @@ function ResultStep({
 function getRecommendation(answers: Partial<Record<StepKey, string>>): (typeof recommendations)[RecommendationKey] {
   const frustration = answers.frustration || ""
 
-  if (frustration.includes("reviews")) return recommendations.reviews
-  if (frustration.includes("admin")) return recommendations.admin
-  if (frustration.includes("same questions")) return recommendations.response
+  if (frustration.includes("unpaid invoices")) return recommendations.chaser
+  if (frustration.includes("Quotes") || frustration.includes("disappear")) return recommendations.estimator
   return recommendations.enquiry
 }

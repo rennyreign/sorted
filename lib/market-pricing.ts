@@ -63,7 +63,23 @@ export const US_REFERRAL_WEBSITE_OFFER = {
 export type WebsiteLeadOfferContext = { market?: string; currency?: string; landing_page?: string }
 
 export function websiteLeadOffer(answers: WebsiteLeadOfferContext | null): Partial<Offer> | undefined {
+  if (parseMarket(answers?.currency ?? answers?.market) === "UK" && answers?.landing_page === "website_999_uk") {
+    return { ...WEBSITE_MARKETING_PRICING.UK, stripePaymentUrl: "", bankTransferEnabled: false }
+  }
   if (parseMarket(answers?.currency ?? answers?.market) !== "US") return undefined
   if (answers?.landing_page === "us_free_website") return US_REFERRAL_WEBSITE_OFFER
   return { ...MARKET_PRICING.US, stripePaymentUrl: "", bankTransferEnabled: false }
+}
+
+/** Public website offer only. Existing workspace/contract defaults remain unchanged. */
+export const WEBSITE_MARKETING_PRICING = {
+  UK: { currency: "GBP", total: 999, deposit: 499.5, balance: 499.5 },
+  US: MARKET_PRICING.US,
+} as const
+
+export function websiteMarketingCopy(text: string, market: Market): string {
+  const offer = WEBSITE_MARKETING_PRICING[market]
+  return text.replace(/\{(total|deposit|balance)\}/g, (_, key: "total" | "deposit" | "balance") =>
+    formatMoney(offer[key], offer.currency, offer[key] % 1 !== 0)
+  )
 }

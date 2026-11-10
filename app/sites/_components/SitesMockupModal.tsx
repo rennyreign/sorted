@@ -307,7 +307,7 @@ function ResultStep({ answers, summary }: { answers: Partial<Record<StepKey, str
         p_business_name: cleanBusinessName,
         p_website_url: websiteUrl.trim() || null,
         p_email: cleanEmail,
-        p_answers: { ...answers, market, currency: pricing.currency },
+        p_answers: { ...answers, market, currency: pricing.currency, ...(market === "UK" ? { landing_page: "website_999_uk" } : {}) },
         p_summary: summary,
         p_utm_source: attribution.utm_source,
         p_utm_medium: attribution.utm_medium,
