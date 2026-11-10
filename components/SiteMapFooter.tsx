@@ -11,7 +11,7 @@ const descriptions: Record<Experience, string> = {
 
 export function SiteMapFooter({ tone = "dark", experience = "company" }: { tone?: "light" | "dark"; experience?: Experience }) {
   const light = tone === "light"
-  const home = experience === "website" ? "/websites" : experience === "automation" ? "/v4" : "/"
+  const home = experience === "website" ? "/websites" : experience === "automation" ? "/automation" : "/"
   return (
     <footer className={`${light ? "bg-[#fafafa] text-[#111]" : experience === "website" ? "bg-[#070707] text-white" : "bg-[#00271f] text-white"} px-6 py-12 sm:px-10`}>
       <div className="mx-auto grid max-w-[1280px] grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1.2fr]">

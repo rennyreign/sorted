@@ -70,19 +70,19 @@ const recommendations = {
     label: "Sorted Enquiry",
     summary: "Enquiries are arriving but nobody consistently owns what happens next, so they go cold.",
     impact: ["Every enquiry answered", "Job details collected", "Booked straight into your diary", "Summaries on your phone"],
-    href: "/v4/how-it-works#enquiry",
+    href: "/automation/how-it-works#enquiry",
   },
   estimator: {
     label: "Sorted Estimator",
     summary: "The enquiry lands but the quote takes too long — by the time it goes out, the customer has moved on.",
     impact: ["Voice note to draft quote", "Your rates fill the draft", "Review before sending", "Faster quotes win more work"],
-    href: "/v4/how-it-works#estimator",
+    href: "/automation/how-it-works#estimator",
   },
   chaser: {
     label: "Sorted Chaser",
     summary: "The work is done but payment is slow, and the chasing is landing on your evenings.",
     impact: ["See what’s due", "Reminders on your schedule", "Stops when payment lands", "No more awkward calls"],
-    href: "/v4/how-it-works#chaser",
+    href: "/automation/how-it-works#chaser",
   },
 }
 

@@ -10,7 +10,7 @@ import s from "../v4.module.css"
 export const metadata: Metadata = {
   title: "How It Works | Sorted",
   description: "From first enquiry to paid invoice. Three operators work inside the tools you already use.",
-  alternates: { canonical: "/v4/how-it-works" },
+  alternates: { canonical: "/automation/how-it-works" },
 }
 
 const journey = [
@@ -59,7 +59,7 @@ export default function V4HowItWorks() {
                 Book a diagnostic
                 <ArrowRight className="size-4" strokeWidth={2.5} />
               </a>
-              <Link href="/v4/pricing" className={s.btnGhost}>
+              <Link href="/automation/pricing" className={s.btnGhost}>
                 See pricing
               </Link>
             </div>

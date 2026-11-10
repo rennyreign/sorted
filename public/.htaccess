@@ -6,6 +6,11 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^sites\.sortmydigital\.site$ [NC]
 RewriteRule ^(.*)$ https://sortmydigital.site/$1 [R=301,L]
 
+# The automation service replaces the old public /v4 page addresses.
+# Match pages only: /v4/*.webp and /v4/logos/* remain static asset URLs.
+RewriteRule ^v4/?$ /automation/ [R=301,L]
+RewriteRule ^v4/(how-it-works|pricing|about|demo)/?$ /automation/$1/ [R=301,L]
+
 # Rewrite /review/[slug]/next to /review-next/index.html (next step SPA shell)
 # Must come before the general review rewrite
 RewriteRule ^review/([^/]+)/next/?$ /review-next/index.html [L,NC]

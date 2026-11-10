@@ -13,12 +13,12 @@ export const metadata: Metadata = {
   title: "About Sorted | Good at what you do? Your systems should be too.",
   description: "Sorted modernises how local businesses win customers and get work done — closing the gap between the business and the systems around it.",
   alternates: {
-    canonical: "/v4/about",
+    canonical: "/automation/about",
   },
   openGraph: {
     title: "About Sorted | Good at what you do? Your systems should be too.",
     description: "Sorted modernises how local businesses win customers and get work done — closing the gap between the business and the systems around it.",
-    url: "/v4/about",
+    url: "/automation/about",
   },
 }
 

@@ -13,12 +13,12 @@ export const metadata: Metadata = {
   title: "Sorted | Capture every lead",
   description:
     "Digital staff that handle your enquiries, quotes and follow-ups — so you can keep up with demand without more admin.",
-  alternates: { canonical: "/v4" },
+  alternates: { canonical: "/automation" },
   openGraph: {
     title: "Sorted | Capture every lead",
     description:
       "Digital staff that handle your enquiries, quotes and follow-ups — so you can keep up with demand without more admin.",
-    url: "/v4",
+    url: "/automation",
   },
 }
 
@@ -121,7 +121,7 @@ export default function V4Home() {
               <div className={s.cardMedia}>
                 <Image src={image} alt={`${name} phone preview`} fill sizes="(min-width: 840px) 30vw, 100vw" />
               </div>
-              <a href="/v4/how-it-works" className={s.cardCta}>
+              <a href="/automation/how-it-works" className={s.cardCta}>
                 Explore {short}
                 <ArrowRight className="size-4" strokeWidth={2.5} />
               </a>

@@ -7,12 +7,12 @@ import { RoutineFinderButton } from "../../v2/_components/RoutineFinder"
 import s from "../v4.module.css"
 
 export function V4Nav({ overlay = false }: { overlay?: boolean }) {
-  const pathname = usePathname().replace(/\/$/, "")
+  const pathname = usePathname().replace(/\/$/, "").replace(/^\/v4(?=\/|$)/, "/automation")
   const active = (href: string) => pathname === href.split("#")[0]
   const links = AUTOMATION_NAV
   return (
     <header className={`${s.nav} ${overlay ? "" : s.navStatic}`}>
-      <Link href="/v4" aria-label="Sorted AI automation" className={s.wordmark}>
+      <Link href="/automation" aria-label="Sorted AI automation" className={s.wordmark}>
         Sorted<i>.</i>
       </Link>
       <nav className={s.navLinks} aria-label="Primary">

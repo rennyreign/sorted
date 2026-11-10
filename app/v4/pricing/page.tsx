@@ -8,7 +8,7 @@ import s from "../v4.module.css"
 export const metadata: Metadata = {
   title: "Pricing | Sorted",
   description: "Pay once to set up. Then one monthly fee. Choose where you need help: enquiries, quotes or getting paid.",
-  alternates: { canonical: "/v4/pricing" },
+  alternates: { canonical: "/automation/pricing" },
 }
 
 const tiers = [

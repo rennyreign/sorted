@@ -8,10 +8,10 @@ export const WEBSITE_NAV = [
 ] as const
 
 export const AUTOMATION_NAV = [
-  ["Operators", "/v4"],
-  ["How it works", "/v4/how-it-works"],
-  ["About us", "/v4/about"],
-  ["Pricing", "/v4/pricing"],
+  ["Operators", "/automation"],
+  ["How it works", "/automation/how-it-works"],
+  ["About us", "/automation/about"],
+  ["Pricing", "/automation/pricing"],
 ] as const
 
 export const FOOTER_GROUPS = [
