@@ -8,6 +8,7 @@ import s from "../v4.module.css"
 
 export const metadata: Metadata = {
   title: "Try an Operator on WhatsApp | Sorted",
+  robots: { index: false, follow: false },
   description: "Send a test message or voice note to our live sandbox and see how an operator qualifies, quotes and follows up in real time.",
   alternates: { canonical: "/v4/demo" },
 }

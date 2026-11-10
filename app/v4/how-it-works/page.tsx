@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, Calendar, Check } from "lucide-react"
 import { V4Cta, V4Nav } from "../_components/V4Shared"
-import { v4Display, v4Hand, WHATSAPP_NUMBER } from "../fonts"
+import { BOOKING_URL, v4Display, v4Hand, WHATSAPP_NUMBER } from "../fonts"
 import s from "../v4.module.css"
 
 export const metadata: Metadata = {
@@ -55,10 +55,10 @@ export default function V4HowItWorks() {
             </h1>
             <p className={s.pageSub}>Three operators work inside the tools you already use.</p>
             <div className={s.heroCtas}>
-              <Link href="/v4/demo" className={s.btnPrimary}>
-                Try the WhatsApp demo
+              <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className={s.btnPrimary}>
+                Book a diagnostic
                 <ArrowRight className="size-4" strokeWidth={2.5} />
-              </Link>
+              </a>
               <Link href="/v4/pricing" className={s.btnGhost}>
                 See pricing
               </Link>
