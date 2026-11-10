@@ -16,3 +16,11 @@ US pricing remains $3,500. Existing quotes/workspaces retain their agreed figure
 Value: Trust through one coherent company and correctly attributed website proof; Enquiries through three recognisable problems and useful destinations; Operations through the separate automation route. Observe entry-card clicks, preview requests and diagnostic bookings using existing analytics infrastructure. No performance guarantee.
 
 The root no longer contains the website review section; shared review links point to `/websites#reviews`. `/sites` uses the website destination’s canonical. Public service URLs are listed in `/sitemap.xml`; client/operator routes are not listed.
+
+## Service navigation (10 November follow-up)
+
+Headers serve the current experience and follow the customer's decision sequence:
+- Websites → What we improve → How it works → Our work → Pricing.
+- AI automation: Operators → How it works → Try the demo → Pricing.
+
+Header logos return to their own service home; mobile menus mirror the same sequence. Company information and cross-service navigation live in the shared sitemap footer, grouped under Websites, AI automation and Sorted. The footer exposes the switchboard, both services' pricing/process pages, reviews, content editing, company information, partnerships and the agency offer. Maintain `lib/public-navigation.ts` and `components/SiteMapFooter.tsx` as the shared sources; do not add isolated footer/navigation copies per page.

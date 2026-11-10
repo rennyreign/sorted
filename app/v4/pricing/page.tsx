@@ -1,6 +1,6 @@
+import { SiteMapFooter } from "@/components/SiteMapFooter"
 import type { Metadata } from "next"
-import Link from "next/link"
-import { ArrowRight, Check, Phone, Plus } from "lucide-react"
+import { ArrowRight, Check, Plus } from "lucide-react"
 import { V4Nav } from "../_components/V4Shared"
 import { BOOKING_URL, v4Display, v4Hand, WHATSAPP_NUMBER } from "../fonts"
 import s from "../v4.module.css"
@@ -174,40 +174,7 @@ export default function V4Pricing() {
         </div>
       </section>
 
-      <footer className={s.howFooter}>
-        <div className={s.howFooterGrid}>
-          <div>
-            <Link href="/v4" className={s.wordmark}>Sorted<i>.</i></Link>
-            <p>We make good businesses more capable.</p>
-            <p>Business modernisation for local businesses.</p>
-          </div>
-          <div>
-            <h3>How we help</h3>
-            <Link href="/v4">Websites</Link>
-            <Link href="/v4#operators">Operations</Link>
-            <Link href="/v4/pricing">Pricing</Link>
-            <Link href="/v4">SortedUpdates</Link>
-          </div>
-          <div>
-            <h3>Company</h3>
-            <Link href="/v4/how-it-works">How we work</Link>
-            <Link href="/examples">Our work</Link>
-            <Link href="/v4/about">About us</Link>
-            <Link href="/websites#reviews">Reviews</Link>
-            <Link href="/partners">Partner program</Link>
-            <a href="mailto:hello@sortmydigital.site">Contact</a>
-          </div>
-          <div>
-            <h3>Let’s talk</h3>
-            <a className={s.howWhatsapp} href={`https://wa.me/${WHATSAPP_NUMBER}`}><Phone size={14} />WhatsApp us</a>
-            <a href="mailto:hello@sortmydigital.site">hello@sortmydigital.site</a>
-          </div>
-        </div>
-        <div className={s.howLegal}>
-          <p>© 2026 Sorted. Sorted is a trading name of ADX Engine Ltd · Registered in England &amp; Wales · Company number 17327041</p>
-          <span><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></span>
-        </div>
-      </footer>
+      <SiteMapFooter tone="light" experience="automation" />
     </main>
   )
 }

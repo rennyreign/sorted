@@ -1,3 +1,4 @@
+import { SiteMapFooter } from "@/components/SiteMapFooter"
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
@@ -29,8 +30,7 @@ export default function SortedStart() {
         </nav>
       </header>
       <section className="mx-auto max-w-[1280px] px-6 pb-10 pt-12 sm:px-10 sm:pb-14 sm:pt-16">
-        <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-black/60">Good business. Next step.</p>
-        <h1 className="mt-5 max-w-[1000px] text-[clamp(2.9rem,6.3vw,5.7rem)] font-black leading-[1.02] tracking-[-0.055em]">Where’s your business<br className="hidden sm:block" /> getting stuck?</h1>
+        <h1 className="max-w-[1000px] text-[clamp(2.9rem,6.3vw,5.7rem)] font-black leading-[1.02] tracking-[-0.055em]">Where’s your business<br className="hidden sm:block" /> getting stuck?</h1>
         <p className="mt-6 max-w-[620px] text-[18px] leading-relaxed text-black/65">You don’t need to know which service you need.<br className="hidden sm:block" /> Start with what you’d like to improve.</p>
       </section>
       <section aria-label="Find your next step" className="mx-auto grid max-w-[1280px] gap-5 px-6 sm:px-10 lg:grid-cols-3">
@@ -53,14 +53,7 @@ export default function SortedStart() {
         <p className="mt-14 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-black/50">Trusted by businesses across the UK and beyond</p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-8 sm:gap-12">{logos.map(([slug, name]) => <Image key={slug} src={`/v4/logos/${slug}.webp`} alt={name} width={160} height={65} className={`h-14 w-32 object-contain grayscale ${slug === "gb-halesowen" ? "!w-16" : ""}`} />)}</div>
       </section>
-      <footer className="bg-[#00271f] px-6 py-10 text-white sm:px-10">
-        <div className="mx-auto grid max-w-[1200px] gap-10 sm:grid-cols-3">
-          <div><Link href="/" className="text-[34px] font-black tracking-[-0.045em]">Sorted<span className="text-[#e4ff29]">.</span></Link><p className="mt-4 max-w-[260px] text-[15px] leading-relaxed text-white/70">A better website. More useful enquiries. Less work slipping through the gaps.</p></div>
-          <div className="space-y-3 text-[14px]"><p className="mb-4 font-bold">Find your next step</p><Link className="block hover:underline" href="/websites">Your website</Link><Link className="block hover:underline" href="/what-else-we-do">Turn interest into enquiries</Link><Link className="block hover:underline" href="/v4">AI automation</Link><Link className="block hover:underline" href="/examples">Our work & reviews</Link></div>
-          <div className="space-y-3 text-[14px]"><p className="mb-4 font-bold">Let’s talk</p><a className="block hover:underline" href="https://wa.me/447386468085">WhatsApp us</a><a className="block hover:underline" href="mailto:hello@sortmydigital.site">hello@sortmydigital.site</a><Link className="block text-white/65 hover:underline" href="/agencies">For agencies</Link></div>
-        </div>
-        <div className="mx-auto mt-10 flex max-w-[1200px] flex-wrap justify-between gap-5 border-t border-white/15 pt-6 text-[11px] leading-relaxed text-white/55"><p>© 2026 Sorted. A trading name of ADX Engine Ltd.<br />Registered in England & Wales · Company number 17327041</p><span className="flex gap-6"><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></span></div>
-      </footer>
+      <SiteMapFooter experience="company" />
     </main>
   )
 }

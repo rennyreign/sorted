@@ -1,5 +1,7 @@
 "use client"
 
+import { usePathname } from "next/navigation"
+import { WEBSITE_NAV } from "@/lib/public-navigation"
 import { MarketSelector } from "@/components/MarketPricing"
 import { useEffect, useRef, useState } from "react"
 import { Menu, Phone, X } from "lucide-react"
@@ -10,17 +12,11 @@ type ActivePage = "how" | "examples" | "sites" | "operations" | "pricing" | "inc
 export type HeaderTone = "light" | "dark"
 export type HeaderCta = "company" | "website"
 
-const links = [
-  ["how", "How we work", "/howitworks"],
-  ["examples", "Our work", "/examples"],
-  ["sites", "Websites", "/websites"],
-  ["pricing", "Pricing", "/pricing"],
-  ["whatelse", "What we improve", "/what-else-we-do"],
-  ["operations", "AI automation", "/v4"],
-  ["about", "All services", "/"],
-] as const
+const links = WEBSITE_NAV
 
 export function SitesHeaderClient({ active, tone = "light", variant = "default", cta = "website" }: { active?: ActivePage; tone?: HeaderTone; variant?: "default" | "home"; cta?: HeaderCta }) {
+  const pathname = usePathname().replace(/\/$/, "")
+  const currentKey = pathname === "/sites" ? "sites" : links.find(([, , href]) => pathname === href)?.[0] ?? active
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
@@ -49,20 +45,21 @@ export function SitesHeaderClient({ active, tone = "light", variant = "default",
         <a href="/websites" className={`inline-block min-h-11 py-2 font-black leading-none tracking-[-0.045em] ${variant === "home" ? "text-[34px] sm:text-[36px]" : "text-[33px] sm:text-[40px]"}`} aria-label="Sorted websites">
           Sorted<span className={variant === "home" ? "text-[#d7ff00]" : "text-[#cfe900]"}>.</span>
         </a>
-        <nav className={`hidden items-center text-[12px] font-extrabold tracking-[-0.02em] xl:flex ${variant === "home" ? "gap-2.5 xl:gap-5" : "gap-5"}`}>
+        <nav aria-label="Website navigation" className={`hidden items-center text-[12px] font-extrabold tracking-[-0.02em] xl:flex ${variant === "home" ? "gap-2.5 xl:gap-5" : "gap-5"}`}>
           {links.map(([key, label, href]) => (
             <a
               key={key}
               href={href}
+              aria-current={currentKey === key ? "page" : undefined}
               className={`group relative py-2 transition-colors duration-200 ${
-                active === key ? "" : darkAtTop ? "text-white/65 hover:text-white" : "text-black/55 hover:text-black"
+                currentKey === key ? "" : darkAtTop ? "text-white/65 hover:text-white" : "text-black/55 hover:text-black"
               }`}
             >
               {label}
               <span
                 aria-hidden="true"
                 className={`absolute -bottom-0.5 left-1/2 h-[3px] -translate-x-1/2 rounded-full bg-[#dfff00] transition-all duration-300 ease-out ${
-                  active === key ? "w-full" : "w-0 group-hover:w-full"
+                  currentKey === key ? "w-full" : "w-0 group-hover:w-full"
                 }`}
               />
             </a>
@@ -96,18 +93,19 @@ export function SitesHeaderClient({ active, tone = "light", variant = "default",
       </div>
       {
         <div className={`mx-auto mt-3 max-w-[1220px] rounded-[16px] border border-black/10 bg-white/96 p-3 text-[#070707] shadow-[0_18px_44px_rgba(0,0,0,0.12)] backdrop-blur-xl xl:hidden ${menuOpen ? "" : "hidden"}`}>
-          <nav className="grid gap-1 text-[15px] font-black tracking-[-0.03em]">
+          <nav aria-label="Website mobile navigation" className="grid gap-1 text-[15px] font-black tracking-[-0.03em]">
             {links.map(([key, label, href]) => (
               <a
                 key={key}
                 href={href}
+                aria-current={currentKey === key ? "page" : undefined}
                 onClick={() => setMenuOpen(false)}
                 className={`flex min-h-12 items-center justify-between rounded-xl px-4 transition-colors duration-200 ${
-                  active === key ? "bg-[#dfff00] text-black" : "text-black/72 hover:bg-black/[0.05] hover:text-black"
+                  currentKey === key ? "bg-[#dfff00] text-black" : "text-black/72 hover:bg-black/[0.05] hover:text-black"
                 }`}
               >
                 {label}
-                {active === key ? <span className="size-2 rounded-full bg-black" /> : null}
+                {currentKey === key ? <span className="size-2 rounded-full bg-black" /> : null}
               </a>
             ))}
           </nav>
