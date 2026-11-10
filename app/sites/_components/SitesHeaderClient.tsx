@@ -13,13 +13,14 @@ export type HeaderCta = "company" | "website"
 const links = [
   ["how", "How we work", "/howitworks"],
   ["examples", "Our work", "/examples"],
-  ["operations", "Operations", "/ops"],
+  ["sites", "Websites", "/websites"],
   ["pricing", "Pricing", "/pricing"],
   ["whatelse", "What we improve", "/what-else-we-do"],
-  ["about", "About", "/about"],
+  ["operations", "AI automation", "/v4"],
+  ["about", "All services", "/"],
 ] as const
 
-export function SitesHeaderClient({ active, tone = "light", variant = "default", cta = "company" }: { active?: ActivePage; tone?: HeaderTone; variant?: "default" | "home"; cta?: HeaderCta }) {
+export function SitesHeaderClient({ active, tone = "light", variant = "default", cta = "website" }: { active?: ActivePage; tone?: HeaderTone; variant?: "default" | "home"; cta?: HeaderCta }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
@@ -45,7 +46,7 @@ export function SitesHeaderClient({ active, tone = "light", variant = "default",
       } ${darkAtTop ? "text-white" : "text-[#070707]"}`}
     >
       <div className={`mx-auto flex w-full items-center justify-between ${variant === "home" ? "max-w-[1280px]" : "max-w-[1220px]"}`}>
-        <a href="/" className={`inline-block min-h-11 py-2 font-black leading-none tracking-[-0.045em] ${variant === "home" ? "text-[34px] sm:text-[36px]" : "text-[33px] sm:text-[40px]"}`} aria-label="Sorted home">
+        <a href="/websites" className={`inline-block min-h-11 py-2 font-black leading-none tracking-[-0.045em] ${variant === "home" ? "text-[34px] sm:text-[36px]" : "text-[33px] sm:text-[40px]"}`} aria-label="Sorted websites">
           Sorted<span className={variant === "home" ? "text-[#d7ff00]" : "text-[#cfe900]"}>.</span>
         </a>
         <nav className={`hidden items-center text-[12px] font-extrabold tracking-[-0.02em] xl:flex ${variant === "home" ? "gap-2.5 xl:gap-5" : "gap-5"}`}>
