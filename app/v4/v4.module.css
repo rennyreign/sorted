@@ -1224,7 +1224,7 @@ strong.statusChip { display: inline-flex; width: fit-content; }
   .pricingPage .priceCard { min-height: clamp(382px, 43vw, 560px); }
   .pricingPage .navLinks { display: flex; gap: 30px; }
   .pricingPage .navLinks a { font-size: 12px; font-weight: 600; }
-  .pricingPage .navLinks a[href="/v4/pricing"] { font-weight: 800; }
+  .pricingPage .navLinks a[href="/automation/pricing"] { font-weight: 800; }
   .pricingPage .mobileMenu { display: none; }
   .pricingPage .priceDiag { grid-template-columns: 1fr auto; align-items: center; }
   .pricingPage .priceDiag .diagCta { justify-self: end; }

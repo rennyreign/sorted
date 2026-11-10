@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const paths = [
   { number: "01", Icon: Globe, title: "We need more people finding us.", copy: "Your work’s good. Your website should make that obvious. Give people a clearer picture of your business and an easy way to get in touch.", service: "Websites for local businesses", cta: "Help us get noticed", href: "/websites", image: "/sorted-home/hero-workshop.webp", alt: "A business website shown on a laptop in a workshop", surface: "bg-[#f6f5ec]", position: "object-center" },
   { number: "02", Icon: MessageSquare, title: "People look, but don’t get in touch.", copy: "Let’s look at what happens between finding you and choosing you: the message, the offer, the proof and the next step.", service: "Customer acquisition & conversion", cta: "Help us turn interest into enquiries", href: "/what-else-we-do", image: "/sorted-whatelse/hero-laptop.webp", alt: "Illustration of a website and customer enquiry tools", surface: "bg-[#e8f3fa]", position: "object-contain" },
-  { number: "03", Icon: Sparkles, title: "We get enquiries. Keeping up is the problem.", copy: "Enquiries waiting for replies. Quotes still unwritten. Invoices that need chasing. Put AI automation to work inside the tools you already use.", service: "AI automation services", cta: "Help us stop things slipping", href: "/v4", image: "/v4/how-it-works-hero.webp", alt: "Illustrative phone notification showing a received payment", surface: "bg-[#fceeee]", position: "object-contain" },
+  { number: "03", Icon: Sparkles, title: "We get enquiries. Keeping up is the problem.", copy: "Enquiries waiting for replies. Quotes still unwritten. Invoices that need chasing. Put AI automation to work inside the tools you already use.", service: "AI automation services", cta: "Help us stop things slipping", href: "/automation", image: "/v4/how-it-works-hero.webp", alt: "Illustrative phone notification showing a received payment", surface: "bg-[#fceeee]", position: "object-contain" },
 ]
 const logos = [["bodysharp", "BodySharp Fitness"], ["school-of-skill", "School of Skill"], ["gb-halesowen", "Gracie Barra Halesowen"], ["warwickshire-short-stays", "Warwickshire Short Stays"], ["edgbaston-tuition", "Edgbaston Tuition Centre"]]
 
@@ -25,7 +25,7 @@ export default function SortedStart() {
         <Link href="/" aria-label="Sorted home" className="text-[40px] font-black leading-none tracking-[-0.045em]">Sorted<span className="text-[#cfe900]">.</span></Link>
         <nav aria-label="Primary" className="flex items-center gap-5 text-[14px] font-semibold sm:gap-8">
           <Link href="/websites" className="hidden underline-offset-8 hover:underline focus-visible:underline sm:block">Websites</Link>
-          <Link href="/v4" className="hidden underline-offset-8 hover:underline focus-visible:underline sm:block">AI automation</Link>
+          <Link href="/automation" className="hidden underline-offset-8 hover:underline focus-visible:underline sm:block">AI automation</Link>
           <a href="https://wa.me/447386468085" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#00271f] px-4 text-[13px] transition-colors hover:bg-[#00271f] hover:text-white"><Phone size={15} />Let’s talk</a>
         </nav>
       </header>

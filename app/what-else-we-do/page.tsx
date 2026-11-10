@@ -194,7 +194,7 @@ export default function WhatElseWeDoPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1220px] px-6 py-10 text-[16px] leading-relaxed"><p>Already getting enquiries, but struggling to keep up? <a href="/v4" className="font-bold underline underline-offset-4">Explore AI automation for replies, quotes and payment chasing.</a></p></section>
+      <section className="mx-auto max-w-[1220px] px-6 py-10 text-[16px] leading-relaxed"><p>Already getting enquiries, but struggling to keep up? <a href="/automation" className="font-bold underline underline-offset-4">Explore AI automation for replies, quotes and payment chasing.</a></p></section>
       <SitesFooter variant="compact" tone="light" />
     </SitesPage>
   )

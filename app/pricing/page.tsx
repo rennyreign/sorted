@@ -105,7 +105,7 @@ export default function PricingPage() {
             <h2 className="mt-4 text-[clamp(1.9rem,2.6vw,2.6rem)] font-black leading-tight tracking-[-0.04em]">A website first.<br />The next step when you need it.</h2>
             <p className="mt-6 text-[16px] leading-relaxed">The fixed package is for a small-business website. Online shops, customer logins, bespoke integrations, additional pages and extra revision rounds need a separate quote.</p>
             <p className="mt-5 text-[16px] leading-relaxed">We confirm any hosting, domain, software and tax charges in your written quote before you commit.</p>
-            <div className="mt-8 space-y-5 text-[16px]"><a href="/what-else-we-do" className="block font-bold underline underline-offset-4">People visit, but don’t enquire? See what we improve.</a><a href="/v4" className="block font-bold underline underline-offset-4">Enquiries piling up? Explore AI automation.</a></div>
+            <div className="mt-8 space-y-5 text-[16px]"><a href="/what-else-we-do" className="block font-bold underline underline-offset-4">People visit, but don’t enquire? See what we improve.</a><a href="/automation" className="block font-bold underline underline-offset-4">Enquiries piling up? Explore AI automation.</a></div>
             <p className="mt-auto pt-8 text-[14px] leading-relaxed text-black/60">Existing client agreements and individual quotes retain their agreed scope and price.</p>
           </article>
         </div>

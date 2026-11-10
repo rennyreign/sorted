@@ -6,7 +6,7 @@ Sorted is one company, expressed conversationally at `/`: “Where’s your busi
 
 - More people finding us → `/websites`, the established black website design, restored to website language. `/sites` is a compatibility alias.
 - People look but don’t get in touch → `/what-else-we-do`, customer acquisition and conversion: offer, proof, discovery, contact and tracking. Additional campaign/follow-up work is separately scoped.
-- Enquiries arrive but keeping up is difficult → `/v4`, AI automation services and the three operators.
+- Enquiries arrive but keeping up is difficult → `/automation`, AI automation services and the three operators.
 - Agency campaign production remains public at `/agencies` but is a secondary audience link.
 
 The new UK website offer is £999: up to five pages, design and draft copy, one consolidated revision round, contact route, content editing, basic SEO/analytics and launch. First-page preview before commitment. Payment: £499.50 on approval and £499.50 when ready to launch. Extra pages, shops, logins, integrations, campaign creative, paid services, ad spend, follow-up automation and ongoing management are separately quoted. Hosting, domains and tax treatment confirmed in writing.
@@ -25,4 +25,6 @@ Headers serve the current experience and follow the customer's decision sequence
 
 Header logos return to their own service home; mobile menus mirror the same sequence. Company information and cross-service navigation live in the shared sitemap footer, grouped under Websites, AI automation and Sorted. The footer exposes the switchboard, both services' pricing/process pages, reviews, content editing, company information, partnerships and the agency offer. Maintain `lib/public-navigation.ts` and `components/SiteMapFooter.tsx` as the shared sources; do not add isolated footer/navigation copies per page.
 
-The operator demo is not available yet: keep `/v4/demo` unlisted and noindex, without header/footer/body promotion or a sitemap entry. About us belongs to the automation navigation at `/v4/about` and retains V4Nav. The How It Works hero offers a diagnostic booking instead.
+The operator demo is not available yet: keep `/automation/demo` unlisted and noindex, without header/footer/body promotion or a sitemap entry. About us belongs to the automation navigation at `/automation/about` and retains V4Nav. The How It Works hero offers a diagnostic booking instead.
+
+The public automation route is `/automation`, with `/automation/how-it-works`, `/automation/pricing` and `/automation/about`. The unlisted draft remains `/automation/demo`. Old /v4 page URLs permanently redirect in Hostinger; page wrappers reuse the existing v4 implementation. Assets deliberately remain in /v4 and are excluded from page redirects. Navigation, canonical metadata, sitemap and diagnostics use the new URLs.
