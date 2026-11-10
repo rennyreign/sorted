@@ -193,7 +193,7 @@ export default function V4Pricing() {
             <Link href="/v4/how-it-works">How we work</Link>
             <Link href="/examples">Our work</Link>
             <Link href="/v4/about">About us</Link>
-            <Link href="/#reviews">Reviews</Link>
+            <Link href="/websites#reviews">Reviews</Link>
             <Link href="/partners">Partner program</Link>
             <a href="mailto:hello@sortmydigital.site">Contact</a>
           </div>

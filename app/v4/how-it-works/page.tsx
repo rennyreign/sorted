@@ -176,7 +176,7 @@ export default function V4HowItWorks() {
         <div className={s.howFooterGrid}>
           <div><Link href="/v4" className={s.wordmark}>Sorted<i>.</i></Link><p>We make good businesses more capable.</p></div>
           <div><h3>How we help</h3><Link href="/v4#operators">Operators</Link><Link href="/v4/pricing">Pricing</Link><Link href="/v4/how-it-works">How It Works</Link><Link href="/v4/about">About</Link></div>
-          <div><h3>Company</h3><Link href="/examples">Our work</Link><Link href="/#reviews">Reviews</Link><Link href="/partners">Partner program</Link><a href="mailto:hello@sortmydigital.site">Contact</a></div>
+          <div><h3>Company</h3><Link href="/examples">Our work</Link><Link href="/websites#reviews">Reviews</Link><Link href="/partners">Partner program</Link><a href="mailto:hello@sortmydigital.site">Contact</a></div>
           <div><h3>Let’s talk</h3><a className={s.howWhatsapp} href={`https://wa.me/${WHATSAPP_NUMBER}`}><Phone size={14} />WhatsApp us</a><a href="mailto:hello@sortmydigital.site">hello@sortmydigital.site</a></div>
         </div>
         <div className={s.howLegal}><p>© 2026 Sorted. All rights reserved.</p><span><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></span></div>

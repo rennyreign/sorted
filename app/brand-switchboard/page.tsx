@@ -35,7 +35,7 @@ export default function SortedStart() {
       </section>
       <section aria-label="Find your next step" className="mx-auto grid max-w-[1280px] gap-5 px-6 sm:px-10 lg:grid-cols-3">
         {paths.map(({ Icon, ...path }) => (
-          <Link key={path.number} href={path.href} className={`group flex flex-col overflow-hidden rounded-[22px] p-7 outline-offset-4 transition-colors duration-200 hover:bg-[#e4ff29] focus-visible:outline-2 focus-visible:outline-black ${path.surface}`}>
+          <Link key={path.number} href={path.href} data-track="cta_click" data-cta-text={path.cta} data-cta-location="service_switchboard" className={`group flex flex-col overflow-hidden rounded-[22px] p-7 outline-offset-4 transition-colors duration-200 hover:bg-[#e4ff29] focus-visible:outline-2 focus-visible:outline-black ${path.surface}`}>
             <div className="flex items-center justify-between"><span className="grid size-12 place-items-center rounded-full bg-[#e4ff29] transition-colors group-hover:bg-black group-hover:text-white"><Icon size={23} strokeWidth={1.8} /></span><span className="text-[12px] font-semibold text-black/45">{path.number}</span></div>
             <h2 className="mt-7 text-[clamp(1.7rem,2.3vw,2.1rem)] font-black leading-[1.1] tracking-[-0.04em]">“{path.title}”</h2>
             <p className="mb-6 mt-5 text-[16px] leading-[1.6] text-black/70">{path.copy}</p>

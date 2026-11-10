@@ -14,3 +14,5 @@ The new UK website offer is £999: up to five pages, design and draft copy, one 
 US pricing remains $3,500. Existing quotes/workspaces retain their agreed figures. `WEBSITE_MARKETING_PRICING` governs new public marketing, while `MARKET_PRICING` remains the historic workspace default. New UK website submissions carry `landing_page: website_999_uk`; only those get the new workspace offer automatically, with checkout inheritance disabled.
 
 Value: Trust through one coherent company and correctly attributed website proof; Enquiries through three recognisable problems and useful destinations; Operations through the separate automation route. Observe entry-card clicks, preview requests and diagnostic bookings using existing analytics infrastructure. No performance guarantee.
+
+The root no longer contains the website review section; shared review links point to `/websites#reviews`. `/sites` uses the website destination’s canonical. Public service URLs are listed in `/sitemap.xml`; client/operator routes are not listed.

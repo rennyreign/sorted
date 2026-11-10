@@ -65,7 +65,7 @@ export function SitesFooter({ variant = "default", tone = "dark" }: { variant?: 
           ) : null}
         </div>
         <FooterLinks light={light} title="How we help" links={[["Websites", "/websites"], ["AI automation", "/v4"], ["Pricing", "/pricing"], ["SortedUpdates", "/website-updates"]]} />
-        <FooterLinks light={light} title="Company" links={[["How we work", "/howitworks"], ["Our work", "/examples"], ["All services", "/"], ["Reviews", compact ? "/#reviews" : "/examples"], ["Partner program", "/partners"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
+        <FooterLinks light={light} title="Company" links={[["How we work", "/howitworks"], ["Our work", "/examples"], ["All services", "/"], ["Reviews", compact ? "/websites#reviews" : "/examples"], ["Partner program", "/partners"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
         <div className={compact ? "max-sm:col-span-2" : ""}>
           <p className="mb-4 text-[12px] font-black">Let's talk</p>
           <a href="https://wa.me/447386468085" className={`inline-flex h-11 items-center gap-2 rounded-xl px-5 text-[12px] font-black text-black ${compact ? "bg-[#d7ff00]" : "bg-[#dfff00]"}`}>

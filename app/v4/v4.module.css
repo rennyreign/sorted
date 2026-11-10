@@ -1166,8 +1166,7 @@ strong.statusChip { display: inline-flex; width: fit-content; }
 }
 .faqRow { display: block; }
 
-:global(html) { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { :global(html) { scroll-behavior: auto; } }
+
 
 /* Pricing: match the approved 887px composition without affecting other pages. */
 .pricingPage {
