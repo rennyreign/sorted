@@ -1,10 +1,10 @@
+import { SiteMapFooter } from "@/components/SiteMapFooter"
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, ArrowDown, Check, Coins, Layers, MessageSquare } from "lucide-react"
 import { V4Cta, V4Nav } from "./_components/V4Shared"
 import { BOOKING_URL, v4Display, v4Hand } from "./fonts"
-import { SitesFooter } from "../sites/_components/SitesPrimitives"
 import s from "./v4.module.css"
 
 
@@ -204,7 +204,7 @@ export default function V4Home() {
 
       <V4Cta />
 
-      <SitesFooter tone="light" variant="compact" />
+      <SiteMapFooter tone="light" experience="automation" />
     </main>
   )
 }

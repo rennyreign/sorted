@@ -1,3 +1,4 @@
+import { SiteMapFooter } from "@/components/SiteMapFooter"
 import { MarketCopy } from "@/components/MarketPricing"
 import type { ReactNode } from "react"
 import Image from "next/image"
@@ -40,69 +41,8 @@ export function SitesHeader({ active, tone = "light", variant = "default", cta =
   return <SitesHeaderClient active={active} tone={tone} variant={variant} cta={cta} />
 }
 
-export function SitesFooter({ variant = "default", tone = "dark" }: { variant?: "default" | "compact"; tone?: "dark" | "light" }) {
-  const compact = variant === "compact"
-  const light = tone === "light"
-  const muted = light ? "text-black/60" : "text-white/80"
-  const faint = light ? "text-black/40" : "text-white/40"
-  const faintMid = light ? "text-black/50" : "text-white/55"
-  return (
-    <footer className={`${light ? "bg-white text-[#070707]" : "bg-[#070707] text-white"} px-5 sm:px-8 ${compact ? "py-7" : "py-8"}`}>
-      <div className={`mx-auto grid gap-8 ${compact ? "max-w-[1280px] max-sm:grid-cols-2 md:grid-cols-[1.35fr_0.8fr_0.8fr_1fr]" : "max-w-[1220px] md:grid-cols-[1.35fr_0.8fr_0.8fr_1fr]"}`}>
-        <div className={compact ? "max-sm:col-span-2" : ""}>
-          <Logo dark={!light} />
-          <p className={`mt-4 text-[13px] font-semibold leading-[1.4] ${muted} ${compact ? "max-w-[230px]" : "max-w-[220px]"}`}>
-            Websites that do your business justice.
-            <span className={`mt-1.5 block text-[12px] ${faintMid}`}>Designed, built and launched for local businesses.</span>
-          </p>
-          {!compact ? (
-            <>
-              <p className={`mt-7 text-[11px] font-medium ${faintMid}`}>© 2026 Sorted.</p>
-              <p className={`mt-2 text-[10px] font-medium leading-[1.5] ${faint}`}>
-                Sorted is a trading name of ADX Engine Ltd · Registered in England &amp; Wales · Company number 17327041
-              </p>
-            </>
-          ) : null}
-        </div>
-        <FooterLinks light={light} title="How we help" links={[["Websites", "/websites"], ["AI automation", "/v4"], ["Pricing", "/pricing"], ["SortedUpdates", "/website-updates"]]} />
-        <FooterLinks light={light} title="Company" links={[["How we work", "/howitworks"], ["Our work", "/examples"], ["All services", "/"], ["Reviews", compact ? "/websites#reviews" : "/examples"], ["Partner program", "/partners"], ["Contact", "mailto:hello@sortmydigital.site"]]} />
-        <div className={compact ? "max-sm:col-span-2" : ""}>
-          <p className="mb-4 text-[12px] font-black">Let's talk</p>
-          <a href="https://wa.me/447386468085" className={`inline-flex h-11 items-center gap-2 rounded-xl px-5 text-[12px] font-black text-black ${compact ? "bg-[#d7ff00]" : "bg-[#dfff00]"}`}>
-            <Phone className="size-4" strokeWidth={2.6} />
-            WhatsApp us
-          </a>
-          <p className={`mt-4 text-[12px] font-semibold ${muted}`}>hello@sortmydigital.site</p>
-        </div>
-      </div>
-      <div className={`mx-auto mt-8 flex ${compact && light ? "max-w-[1280px]" : "max-w-[1220px]"} gap-7 text-[10px] font-semibold ${faintMid} ${compact ? `items-center justify-between border-t pt-5 ${light ? "border-black/10" : "border-white/10"}` : "justify-end"}`}>
-        {compact ? (
-          <p className={`max-w-[460px] text-[10px] font-medium leading-[1.5] ${faint}`}>
-            © 2026 Sorted. Sorted is a trading name of ADX Engine Ltd · Registered in England &amp; Wales · Company number 17327041
-          </p>
-        ) : null}
-        <span className="flex gap-7">
-          <a href="/privacy" className={`transition-colors ${light ? "hover:text-black" : "hover:text-white"}`}>Privacy</a>
-          <a href="/terms" className={`transition-colors ${light ? "hover:text-black" : "hover:text-white"}`}>Terms</a>
-        </span>
-      </div>
-    </footer>
-  )
-}
-
-function FooterLinks({ title, links, light = false }: { title: string; links: [string, string][]; light?: boolean }) {
-  return (
-    <div>
-      <p className="mb-4 text-[12px] font-black">{title}</p>
-      <ul className={`space-y-1 text-[12px] font-semibold sm:space-y-3 ${light ? "text-black/70" : "text-white/82"}`}>
-        {links.map(([label, href]) => (
-          <li key={label}>
-            <a href={href} className={`inline-flex min-h-10 items-center transition-colors sm:min-h-0 ${light ? "hover:text-black" : "hover:text-[#dfff00]"}`}>{label}</a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
+export function SitesFooter({ tone = "dark" }: { variant?: "default" | "compact"; tone?: "dark" | "light" }) {
+  return <SiteMapFooter tone={tone} experience="website" />
 }
 
 export function Logo({ dark = false }: { dark?: boolean }) {

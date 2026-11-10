@@ -1,7 +1,8 @@
+import { SiteMapFooter } from "@/components/SiteMapFooter"
 import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Calendar, Check, Phone } from "lucide-react"
+import { ArrowRight, Calendar, Check } from "lucide-react"
 import { V4Cta, V4Nav } from "../_components/V4Shared"
 import { v4Display, v4Hand, WHATSAPP_NUMBER } from "../fonts"
 import s from "../v4.module.css"
@@ -172,15 +173,7 @@ export default function V4HowItWorks() {
         copy="Book a 15-minute diagnostic. We’ll identify where you’re losing jobs and show you what an operator looks like inside your workflow."
         note={null}
       />
-      <footer className={s.howFooter}>
-        <div className={s.howFooterGrid}>
-          <div><Link href="/v4" className={s.wordmark}>Sorted<i>.</i></Link><p>We make good businesses more capable.</p></div>
-          <div><h3>How we help</h3><Link href="/v4#operators">Operators</Link><Link href="/v4/pricing">Pricing</Link><Link href="/v4/how-it-works">How It Works</Link><Link href="/v4/about">About</Link></div>
-          <div><h3>Company</h3><Link href="/examples">Our work</Link><Link href="/websites#reviews">Reviews</Link><Link href="/partners">Partner program</Link><a href="mailto:hello@sortmydigital.site">Contact</a></div>
-          <div><h3>Let’s talk</h3><a className={s.howWhatsapp} href={`https://wa.me/${WHATSAPP_NUMBER}`}><Phone size={14} />WhatsApp us</a><a href="mailto:hello@sortmydigital.site">hello@sortmydigital.site</a></div>
-        </div>
-        <div className={s.howLegal}><p>© 2026 Sorted. All rights reserved.</p><span><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></span></div>
-      </footer>
+      <SiteMapFooter tone="light" experience="automation" />
     </main>
   )
 }

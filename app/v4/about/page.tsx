@@ -1,7 +1,8 @@
+import { SiteMapFooter } from "@/components/SiteMapFooter"
 import type { Metadata } from "next"
 import Image from "next/image"
 import { ArrowRight, Eye, Handshake, Network, Rocket, ThumbsUp } from "lucide-react"
-import { SitesFooter, SitesPage, Underline } from "../../sites/_components/SitesPrimitives"
+import { SitesPage, Underline } from "../../sites/_components/SitesPrimitives"
 import { ImprovementButton } from "../../sites/_components/ImprovementEntry"
 
 import { V4Nav } from "../_components/V4Shared"
@@ -230,7 +231,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <SitesFooter />
+      <SiteMapFooter tone="light" experience="automation" />
     </SitesPage>
     </div>
   )

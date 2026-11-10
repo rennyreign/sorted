@@ -1,6 +1,6 @@
+import { SiteMapFooter } from "@/components/SiteMapFooter"
 import type { Metadata } from "next"
 import Image from "next/image"
-import { SitesFooter } from "../../sites/_components/SitesPrimitives"
 import { V4Nav } from "../_components/V4Shared"
 import { v4Display, v4Hand } from "../fonts"
 import { DemoForm } from "./DemoForm"
@@ -35,7 +35,7 @@ export default function V4Demo() {
         </div>
       </section>
 
-      <SitesFooter tone="light" variant="compact" />
+      <SiteMapFooter tone="light" experience="automation" />
     </main>
   )
 }
