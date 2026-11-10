@@ -121,7 +121,7 @@ export default function V4Home() {
               <div className={s.cardMedia}>
                 <Image src={image} alt={`${name} phone preview`} fill sizes="(min-width: 840px) 30vw, 100vw" />
               </div>
-              <a href="#diagnostic" className={s.cardCta}>
+              <a href="/v4/how-it-works" className={s.cardCta}>
                 Explore {short}
                 <ArrowRight className="size-4" strokeWidth={2.5} />
               </a>
