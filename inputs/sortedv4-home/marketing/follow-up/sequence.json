@@ -1,0 +1,224 @@
+{
+  "schema_version": "1.0",
+  "sender": null,
+  "reply_to": null,
+  "timezone": null,
+  "proposed_timezone": "Europe/London",
+  "business_calendar": null,
+  "booking_model": null,
+  "events": [
+    "booking_request_captured",
+    "booking_confirmed",
+    "customer_replied",
+    "booking_rescheduled",
+    "booking_cancelled",
+    "appointment_attended",
+    "appointment_no_show",
+    "channel_suppressed"
+  ],
+  "messages": [
+    {
+      "id": "fu-01-received",
+      "subject": "We received your diagnostic request",
+      "preheader": "Your time is still to be confirmed.",
+      "cta": "Reply with updates",
+      "cta_url": "{{reply_url}}",
+      "sender": null,
+      "reply_to": null,
+      "trigger": "booking_request_captured",
+      "timing": "immediate",
+      "prerequisites": [],
+      "stop_conditions": [
+        "booking_confirmed",
+        "booking_cancelled",
+        "channel_suppressed"
+      ],
+      "required_variables": [
+        "reply_url"
+      ],
+      "dedupe": "request_id + message_id",
+      "html": "marketing/follow-up/emails/fu-01-received.html",
+      "plain_text": "marketing/follow-up/emails/fu-01-received.txt",
+      "status": "draft_live_bindings"
+    },
+    {
+      "id": "fu-02-next-step",
+      "subject": "One step to book your Sorted diagnostic",
+      "preheader": "Choose a time that works for you.",
+      "cta": "Choose a time",
+      "cta_url": "{{schedule_url}}",
+      "sender": null,
+      "reply_to": null,
+      "trigger": "booking_request_captured",
+      "timing": "next business day",
+      "prerequisites": [
+        "customer_owes_next_step",
+        "schedule_url"
+      ],
+      "stop_conditions": [
+        "booking_confirmed",
+        "customer_replied",
+        "booking_cancelled",
+        "next_step_completed",
+        "channel_suppressed"
+      ],
+      "required_variables": [
+        "schedule_url"
+      ],
+      "dedupe": "request_id + message_id",
+      "html": "marketing/follow-up/emails/fu-02-next-step.html",
+      "plain_text": "marketing/follow-up/emails/fu-02-next-step.txt",
+      "status": "draft_live_bindings"
+    },
+    {
+      "id": "fu-03-close-loop",
+      "subject": "Still want to book your diagnostic?",
+      "preheader": "Pick a time or tell us to close the request.",
+      "cta": "Choose a time",
+      "cta_url": "{{schedule_url}}",
+      "sender": null,
+      "reply_to": null,
+      "trigger": "booking_request_captured",
+      "timing": "three business days",
+      "prerequisites": [
+        "customer_owes_next_step",
+        "schedule_url"
+      ],
+      "stop_conditions": [
+        "booking_confirmed",
+        "customer_replied",
+        "booking_cancelled",
+        "next_step_completed",
+        "channel_suppressed"
+      ],
+      "required_variables": [
+        "schedule_url"
+      ],
+      "dedupe": "request_id + message_id",
+      "html": "marketing/follow-up/emails/fu-03-close-loop.html",
+      "plain_text": "marketing/follow-up/emails/fu-03-close-loop.txt",
+      "status": "draft_live_bindings"
+    },
+    {
+      "id": "fu-04-confirmed",
+      "subject": "Your Sorted diagnostic is booked",
+      "preheader": "Your time and joining details are inside.",
+      "cta": "Manage booking",
+      "cta_url": "{{manage_url}}",
+      "sender": null,
+      "reply_to": null,
+      "trigger": "booking_confirmed",
+      "timing": "immediate",
+      "prerequisites": [
+        "confirmed_current_version"
+      ],
+      "stop_conditions": [
+        "booking_cancelled",
+        "booking_rescheduled",
+        "channel_suppressed"
+      ],
+      "required_variables": [
+        "appointment_date",
+        "appointment_time",
+        "manage_url",
+        "meeting_url",
+        "timezone"
+      ],
+      "dedupe": "appointment_id + message_id + schedule_version",
+      "html": "marketing/follow-up/emails/fu-04-confirmed.html",
+      "plain_text": "marketing/follow-up/emails/fu-04-confirmed.txt",
+      "status": "draft_live_bindings"
+    },
+    {
+      "id": "fu-05-reminder-24h",
+      "subject": "Your Sorted diagnostic is in 24 hours",
+      "preheader": "Bring one recent job that got held up.",
+      "cta": "Manage booking",
+      "cta_url": "{{manage_url}}",
+      "sender": null,
+      "reply_to": null,
+      "trigger": "booking_confirmed",
+      "timing": "24 hours before",
+      "prerequisites": [
+        "confirmed_current_version",
+        "booked_more_than_24h_in_advance"
+      ],
+      "stop_conditions": [
+        "booking_cancelled",
+        "booking_rescheduled",
+        "channel_suppressed"
+      ],
+      "required_variables": [
+        "appointment_date",
+        "appointment_time",
+        "manage_url",
+        "meeting_url",
+        "timezone"
+      ],
+      "dedupe": "appointment_id + message_id + schedule_version",
+      "html": "marketing/follow-up/emails/fu-05-reminder-24h.html",
+      "plain_text": "marketing/follow-up/emails/fu-05-reminder-24h.txt",
+      "status": "draft_live_bindings"
+    },
+    {
+      "id": "fu-06-reminder-2h",
+      "subject": "Your Sorted diagnostic starts in two hours",
+      "preheader": "Here’s your joining link.",
+      "cta": "Join diagnostic",
+      "cta_url": "{{meeting_url}}",
+      "sender": null,
+      "reply_to": null,
+      "trigger": "booking_confirmed",
+      "timing": "2 hours before",
+      "prerequisites": [
+        "confirmed_current_version",
+        "booked_more_than_2h_in_advance",
+        "no_confirmation_or_reminder_in_last_2h"
+      ],
+      "stop_conditions": [
+        "booking_cancelled",
+        "booking_rescheduled",
+        "channel_suppressed"
+      ],
+      "required_variables": [
+        "appointment_date",
+        "appointment_time",
+        "meeting_url",
+        "timezone"
+      ],
+      "dedupe": "appointment_id + message_id + schedule_version",
+      "html": "marketing/follow-up/emails/fu-06-reminder-2h.html",
+      "plain_text": "marketing/follow-up/emails/fu-06-reminder-2h.txt",
+      "status": "draft_live_bindings"
+    },
+    {
+      "id": "fu-07-no-show",
+      "subject": "Want to pick another time?",
+      "preheader": "Choose a new time for your Sorted diagnostic.",
+      "cta": "Rebook diagnostic",
+      "cta_url": "{{schedule_url}}",
+      "sender": null,
+      "reply_to": null,
+      "trigger": "appointment_no_show",
+      "timing": "next business day",
+      "prerequisites": [
+        "explicit_no_show"
+      ],
+      "stop_conditions": [
+        "appointment_attended",
+        "customer_replied",
+        "booking_confirmed",
+        "booking_cancelled",
+        "channel_suppressed"
+      ],
+      "required_variables": [
+        "schedule_url"
+      ],
+      "dedupe": "appointment_id + message_id + schedule_version",
+      "html": "marketing/follow-up/emails/fu-07-no-show.html",
+      "plain_text": "marketing/follow-up/emails/fu-07-no-show.txt",
+      "status": "draft_live_bindings"
+    }
+  ],
+  "status": "draft_live_bindings"
+}

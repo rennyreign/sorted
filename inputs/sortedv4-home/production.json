@@ -1,0 +1,456 @@
+{
+  "schema_version": "1.0",
+  "job_id": "sorted-capture-every-lead",
+  "client": "Sorted",
+  "scope": "full",
+  "revision": 1,
+  "status": "draft",
+  "benchmark_coverage": "unconfigured",
+  "artifacts": [
+    {
+      "id": "website-mockup",
+      "path": "website/mockup.png",
+      "sha256": "2b631f02c922d6ae07eb9b6f1246ee39f3831d584d57c6ecf218b1fea643d106",
+      "depends_on": [],
+      "stage": "website",
+      "status": "ready"
+    },
+    {
+      "id": "brief",
+      "path": "brief.json",
+      "sha256": "55858200a25ceea92c5d61466738f8c0598ad35663ec56bd33a21aebc4e57055",
+      "depends_on": [
+        "website-mockup"
+      ],
+      "stage": "brief",
+      "status": "ready"
+    },
+    {
+      "id": "design-qa",
+      "path": "qa/design.json",
+      "sha256": "7501b772c31ad1043c9b97509eb83b4c2faa86a796b88442c17a3b0290efa905",
+      "depends_on": [
+        "website-mockup",
+        "brief"
+      ],
+      "stage": "qa",
+      "status": "ready"
+    },
+    {
+      "id": "concept-a",
+      "path": "marketing/ads/ad-01-feed-1x1.png",
+      "sha256": "f360c0664aefab109e0844cec05fb090becea4a81db7c7e354fcb6fcbd38ff6e",
+      "depends_on": [
+        "website-mockup",
+        "brief"
+      ],
+      "stage": "ads",
+      "status": "draft"
+    },
+    {
+      "id": "concept-b",
+      "path": "marketing/ads/ad-02-feed-1x1.png",
+      "sha256": "13c2497e415049555da47bd6f4c73851701bd2fb24984f67b3eadecb213f970f",
+      "depends_on": [
+        "website-mockup",
+        "brief"
+      ],
+      "stage": "ads",
+      "status": "draft"
+    },
+    {
+      "id": "ad-copy",
+      "path": "marketing/ads/ad-copy.json",
+      "sha256": "04f0f45d8c00f3900134444f898dec236de1b388350bc65562819efe0fdd737a",
+      "depends_on": [
+        "concept-a",
+        "concept-b"
+      ],
+      "stage": "ads",
+      "status": "draft"
+    },
+    {
+      "id": "campaign",
+      "path": "marketing/campaign.json",
+      "sha256": "1ef995118a5e1e67b22eb5455d3b3cffc5c8c3e94c6a1202d9bc23fc229f5055",
+      "depends_on": [
+        "ad-copy"
+      ],
+      "stage": "ads",
+      "status": "draft"
+    },
+    {
+      "id": "design-ir",
+      "path": "website/design-ir.json",
+      "sha256": "ea61f8b7e17f4521707296b6747e83887880eb47d92c662441dedf84ae8574af",
+      "depends_on": [
+        "website-mockup",
+        "brief"
+      ],
+      "stage": "website",
+      "status": "ready"
+    },
+    {
+      "id": "fu-01-received-html",
+      "path": "marketing/follow-up/emails/fu-01-received.html",
+      "sha256": "722604c4172064216e81a814a1c3e063a0e8deaaade9c67b8dfcf13a61a1c7c0",
+      "depends_on": [
+        "brief"
+      ],
+      "stage": "follow-up",
+      "status": "draft"
+    },
+    {
+      "id": "fu-01-received-text",
+      "path": "marketing/follow-up/emails/fu-01-received.txt",
+      "sha256": "57b90ede59104aab03bcd1b71694731a9e87eb4a51cbfe056ae8b3a32cb7dfbc",
+      "depends_on": [
+        "brief"
+      ],
+      "stage": "follow-up",
+      "status": "draft"
+    },
+    {
+      "id": "fu-02-next-step-html",
+      "path": "marketing/follow-up/emails/fu-02-next-step.html",
+      "sha256": "324188381d01ded3428bc9d4e843fe619da64014a9060ed90415bf887dd0cd4e",
+      "depends_on": [
+        "brief"
+      ],
+      "stage": "follow-up",
+      "status": "draft"
+    },
+    {
+      "id": "fu-02-next-step-text",
+      "path": "marketing/follow-up/emails/fu-02-next-step.txt",
+      "sha256": "2f1165232340c306494a814248b9d334a9d5e6b3879eebcf0cddfc8dd94e3249",
+      "depends_on": [
+        "brief"
+      ],
+      "stage": "follow-up",
+      "status": "draft"
+    },
+    {
+      "id": "fu-03-close-loop-html",
+      "path": "marketing/follow-up/emails/fu-03-close-loop.html",
+      "sha256": "f68431d817d7943172269103402e8534c83a8b659c1e8f60c14869e81e8ea0a0",
+      "depends_on": [
+        "brief"
+      ],
+      "stage": "follow-up",
+      "status": "draft"
+    },
+    {
+      "id": "fu-03-close-loop-text",
+      "path": "marketing/follow-up/emails/fu-03-close-loop.txt",
+      "sha256": "d0ec37f258034c15725d3658811e26df8d8000d151695678bf75b8d52f05991d",
+      "depends_on": [
+        "brief"
+      ],
+      "stage": "follow-up",
+      "status": "draft"
+    },
+    {
+      "id": "fu-04-confirmed-html",
+      "path": "marketing/follow-up/emails/fu-04-confirmed.html",
+      "sha256": "38c994361b551dad1ff853908c518f756212a5f3037841507a5f2e9971ecf50d",
+      "depends_on": [
+        "brief"
+      ],
+      "stage": "follow-up",
+      "status": "draft"
+    },
+    {
+      "id": "fu-04-confirmed-text",
+      "path": "marketing/follow-up/emails/fu-04-confirmed.txt",
+      "sha256": "3264744181e3a0aa7016a60ef74ccb4a5e16f6eeac62faa137a29cb0d8d14fd5",
+      "depends_on": [
+        "brief"
+      ],
+      "stage": "follow-up",
+      "status": "draft"
+    },
+    {
+      "id": "fu-05-reminder-24h-html",
+      "path": "marketing/follow-up/emails/fu-05-reminder-24h.html",
+      "sha256": "fe07620ca6423300233abdcc04f167fdccdedfc3695b812bb3c4c30197bef2a2",
+      "depends_on": [
+        "brief"
+      ],
+      "stage": "follow-up",
+      "status": "draft"
+    },
+    {
+      "id": "fu-05-reminder-24h-text",
+      "path": "marketing/follow-up/emails/fu-05-reminder-24h.txt",
+      "sha256": "2b5f0fc49e21b7f2262231f16e40581c663f4644f31dca505d52d5805504661f",
+      "depends_on": [
+        "brief"
+      ],
+      "stage": "follow-up",
+      "status": "draft"
+    },
+    {
+      "id": "fu-06-reminder-2h-html",
+      "path": "marketing/follow-up/emails/fu-06-reminder-2h.html",
+      "sha256": "36f3cd736a67cca492a4933915510d6a70ca4311575d6ba06cd77715fecf65ba",
+      "depends_on": [
+        "brief"
+      ],
+      "stage": "follow-up",
+      "status": "draft"
+    },
+    {
+      "id": "fu-06-reminder-2h-text",
+      "path": "marketing/follow-up/emails/fu-06-reminder-2h.txt",
+      "sha256": "72ab99f2b57367a2502adc2dc5b118f37e7859310d1aa5341a04bdd297948cfc",
+      "depends_on": [
+        "brief"
+      ],
+      "stage": "follow-up",
+      "status": "draft"
+    },
+    {
+      "id": "fu-07-no-show-html",
+      "path": "marketing/follow-up/emails/fu-07-no-show.html",
+      "sha256": "73f913405253ec9d067183c051e22879ead990f563e20fa4f1dcc9e9d6efc0f7",
+      "depends_on": [
+        "brief"
+      ],
+      "stage": "follow-up",
+      "status": "draft"
+    },
+    {
+      "id": "fu-07-no-show-text",
+      "path": "marketing/follow-up/emails/fu-07-no-show.txt",
+      "sha256": "7dd4e820ed378f28f282fec3f3bc9c90d262cae60685432f1f6407b9466bf3dd",
+      "depends_on": [
+        "brief"
+      ],
+      "stage": "follow-up",
+      "status": "draft"
+    },
+    {
+      "id": "followup-sequence",
+      "path": "marketing/follow-up/sequence.json",
+      "sha256": "7b402467acbb4e447e154961ddfa72ac97f6ed52e1ac700af03ba6bb8df878c0",
+      "depends_on": [
+        "fu-01-received-html",
+        "fu-01-received-text",
+        "fu-02-next-step-html",
+        "fu-02-next-step-text",
+        "fu-03-close-loop-html",
+        "fu-03-close-loop-text",
+        "fu-04-confirmed-html",
+        "fu-04-confirmed-text",
+        "fu-05-reminder-24h-html",
+        "fu-05-reminder-24h-text",
+        "fu-06-reminder-2h-html",
+        "fu-06-reminder-2h-text",
+        "fu-07-no-show-html",
+        "fu-07-no-show-text"
+      ],
+      "stage": "follow-up",
+      "status": "draft"
+    },
+    {
+      "id": "followup-handoff",
+      "path": "marketing/follow-up/sequence.md",
+      "sha256": "f4460ad342289ec3313a09419ea33064dfff608591df22baeb3c2860eed2d223",
+      "depends_on": [
+        "followup-sequence"
+      ],
+      "stage": "follow-up",
+      "status": "draft"
+    },
+    {
+      "id": "hero-tradesperson",
+      "path": "website/images/hero-tradesperson.png",
+      "sha256": "03579ded58d453eb8d0ab4f149318cce6342b306f303837f0a97f30af32b4eeb",
+      "depends_on": [
+        "website-mockup"
+      ],
+      "stage": "images",
+      "status": "ready"
+    },
+    {
+      "id": "intake-phone",
+      "path": "website/images/intake-phone.png",
+      "sha256": "0653e694e21458f1cacd23fdafd05bddaa4e495e41974082ebbf72c5e549da26",
+      "depends_on": [
+        "website-mockup"
+      ],
+      "stage": "images",
+      "status": "ready"
+    },
+    {
+      "id": "estimator-phone",
+      "path": "website/images/estimator-phone.png",
+      "sha256": "811d283ad8b87fd64ab9da1a8ee05eca8c21a35e917073404e52cf61722c9a07",
+      "depends_on": [
+        "website-mockup"
+      ],
+      "stage": "images",
+      "status": "ready"
+    },
+    {
+      "id": "chaser-phone",
+      "path": "website/images/chaser-phone.png",
+      "sha256": "41ba7576d5a4c8215426b22e51430d2e32743c5e249f48a9321ed99247eae103",
+      "depends_on": [
+        "website-mockup"
+      ],
+      "stage": "images",
+      "status": "ready"
+    },
+    {
+      "id": "results-fitness",
+      "path": "website/images/results-fitness.png",
+      "sha256": "bc6bf0d5ae6ce7ec016e6ca34992ac6fd0ef4feab6fe705148c38fd98edc1cfc",
+      "depends_on": [
+        "website-mockup"
+      ],
+      "stage": "images",
+      "status": "ready"
+    },
+    {
+      "id": "results-hospitality",
+      "path": "website/images/results-hospitality.png",
+      "sha256": "b8446921e4e457ac6634d50e9f0b721aaf4366e34c41a5ad67e96ff18ea5c9f2",
+      "depends_on": [
+        "website-mockup"
+      ],
+      "stage": "images",
+      "status": "ready"
+    },
+    {
+      "id": "results-tuition",
+      "path": "website/images/results-tuition.png",
+      "sha256": "0be3132d6d9e83510a8a5c0ea3cadeb5610ea5e4c55467fda03de0eeaf5a348c",
+      "depends_on": [
+        "website-mockup"
+      ],
+      "stage": "images",
+      "status": "ready"
+    },
+    {
+      "id": "asset-manifest",
+      "path": "website/asset-manifest.json",
+      "sha256": "d757f0808d8a1b82b2637f6c1a5a34766a35bf80e80d2446bdc3b6d9e9e38fb2",
+      "depends_on": [
+        "hero-tradesperson",
+        "intake-phone",
+        "estimator-phone",
+        "chaser-phone",
+        "results-fitness",
+        "results-hospitality",
+        "results-tuition"
+      ],
+      "stage": "images",
+      "status": "ready"
+    },
+    {
+      "id": "image-qa",
+      "path": "qa/images.json",
+      "sha256": "2d3bacdb5db6f02ed2f5086bbb5490a703cad30b89bc84841af0dd6707eaea7a",
+      "depends_on": [
+        "asset-manifest"
+      ],
+      "stage": "qa",
+      "status": "ready"
+    },
+    {
+      "id": "ad-qa",
+      "path": "qa/ads.json",
+      "sha256": "63b52cafb066d86c3aa838c34ffaef858db58ad5c41a064387f5ca620a1282a7",
+      "depends_on": [
+        "concept-a",
+        "concept-b"
+      ],
+      "stage": "qa",
+      "status": "draft"
+    },
+    {
+      "id": "followup-qa",
+      "path": "qa/followup.json",
+      "sha256": "e1c83df0f190c77ec0fb7283de9cc0b72148e6c130530be88caebf6834b74c83",
+      "depends_on": [
+        "followup-sequence"
+      ],
+      "stage": "qa",
+      "status": "draft"
+    }
+  ],
+  "approvals": [
+    {
+      "gate": "website",
+      "decision": "approved",
+      "artifact_hashes": {
+        "website-mockup": "2b631f02c922d6ae07eb9b6f1246ee39f3831d584d57c6ecf218b1fea643d106"
+      },
+      "user_message": "approved",
+      "recorded_at": "2026-11-09T22:55:50.464349+00:00"
+    }
+  ],
+  "checks": [
+    {
+      "name": "design-visual",
+      "result": "pass",
+      "artifact_hashes": {
+        "website-mockup": "2b631f02c922d6ae07eb9b6f1246ee39f3831d584d57c6ecf218b1fea643d106"
+      },
+      "evidence": "Inspected supplied desktop raster. See qa/design.json for visual findings and outstanding release checks."
+    },
+    {
+      "name": "images-visual",
+      "result": "pass",
+      "artifact_hashes": {
+        "hero-tradesperson": "03579ded58d453eb8d0ab4f149318cce6342b306f303837f0a97f30af32b4eeb",
+        "intake-phone": "0653e694e21458f1cacd23fdafd05bddaa4e495e41974082ebbf72c5e549da26",
+        "estimator-phone": "811d283ad8b87fd64ab9da1a8ee05eca8c21a35e917073404e52cf61722c9a07",
+        "chaser-phone": "41ba7576d5a4c8215426b22e51430d2e32743c5e249f48a9321ed99247eae103",
+        "results-fitness": "bc6bf0d5ae6ce7ec016e6ca34992ac6fd0ef4feab6fe705148c38fd98edc1cfc",
+        "results-hospitality": "b8446921e4e457ac6634d50e9f0b721aaf4366e34c41a5ad67e96ff18ea5c9f2",
+        "results-tuition": "0be3132d6d9e83510a8a5c0ea3cadeb5610ea5e4c55467fda03de0eeaf5a348c"
+      },
+      "evidence": "Compared all seven generated images to the approved mockup. Individual fidelity differences are recorded in qa/images.json."
+    }
+  ],
+  "blockers": [
+    "Ad concept approval pending"
+  ],
+  "unresolved_variables": [
+    {
+      "name": "proof_evidence",
+      "affected_outputs": [
+        "website",
+        "ads"
+      ],
+      "consequence": "Verify hero quote, three case study metrics and permission for the trust marks before publication. Keep claims out of ads until substantiated."
+    },
+    {
+      "name": "diagnostic_destination",
+      "affected_outputs": [
+        "website",
+        "ads",
+        "follow-up"
+      ],
+      "consequence": "Confirm booking URL and whether the customer books immediately or submits a request."
+    },
+    {
+      "name": "sender_and_calendar",
+      "affected_outputs": [
+        "follow-up"
+      ],
+      "consequence": "Confirm sender, reply inbox and calendar. Europe/London is proposed for the UK audience."
+    },
+    {
+      "name": "offer_claims",
+      "affected_outputs": [
+        "website",
+        "ads"
+      ],
+      "consequence": "Confirm WhatsApp and Xero compatibility, setup timing and the scope of each operator before launch."
+    }
+  ]
+}

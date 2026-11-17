@@ -1,0 +1,535 @@
+{
+  "schema_version": "1.0",
+  "page_id": "sorted-how-it-works",
+  "page_title": "From first enquiry to paid invoice",
+  "locale": "en-GB",
+  "source_mockup": "From enquiry to paid invoice.png",
+  "source_sha256": "4006e402fc71feb0f72e352df2d1cb4b3345e4071a171f3c626e63a504339404",
+  "source_library_file_id": "libfile_b2f10106ff908191baa960874c108b2b",
+  "viewport": {
+    "width": 887,
+    "height": 1774,
+    "unit": "source raster pixels",
+    "kind": "full-page desktop mockup"
+  },
+  "tokens": {
+    "status": "estimated from raster; production values may differ",
+    "colors": {
+      "paper": "#FAFAFA",
+      "ink": "#111111",
+      "olive": "#909900",
+      "lime": "#E4FF29",
+      "forest": "#002820",
+      "cream": "#F6F5EC",
+      "blue": "#E8F3FE",
+      "blush": "#FCEEEE"
+    },
+    "typography": {
+      "display": "heavy modern sans-serif",
+      "body": "regular sans-serif",
+      "label": "bold tracked uppercase",
+      "exact_families": null,
+      "reference_sizes_px": {
+        "hero": 46,
+        "operator_heading": 37,
+        "body": 16,
+        "label": 11
+      }
+    },
+    "spacing": {
+      "page_gutter_px": 40,
+      "panel_inset_px": 32,
+      "panel_gap_px": 13
+    },
+    "radii": {
+      "panel_px": 16,
+      "button": "pill"
+    },
+    "shadows": {
+      "demo": "soft diffuse"
+    }
+  },
+  "sections": [
+    {
+      "id": "header",
+      "role": "site_navigation",
+      "layout": {
+        "bbox_px_est": [
+          39,
+          0,
+          810,
+          52
+        ],
+        "description": "Wordmark left, four links centred, outlined CTA right."
+      },
+      "copy": {
+        "wordmark": "Sorted."
+      },
+      "components": [
+        {
+          "type": "wordmark",
+          "text": "Sorted.",
+          "original_asset_path": null
+        },
+        {
+          "type": "link",
+          "label": "Operators",
+          "target": null
+        },
+        {
+          "type": "link",
+          "label": "How It Works",
+          "target": null
+        },
+        {
+          "type": "link",
+          "label": "Pricing",
+          "target": null
+        },
+        {
+          "type": "link",
+          "label": "About",
+          "target": null
+        },
+        {
+          "type": "link",
+          "label": "Find Your Leaks",
+          "target": null,
+          "style": "outline"
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Keep the wordmark visible and collapse navigation behind a menu.",
+      "order": 1
+    },
+    {
+      "id": "hero",
+      "role": "page_intro",
+      "layout": {
+        "bbox_px_est": [
+          39,
+          81,
+          810,
+          203
+        ],
+        "description": "Left-aligned headline, two lines at reference width, open whitespace at right."
+      },
+      "copy": {
+        "eyebrow": "PLUGGED INTO YOUR WORKFLOW",
+        "headline": "From first enquiry to paid invoice.",
+        "accent": "paid invoice.",
+        "body": "Three operators work inside the tools you already use."
+      },
+      "components": [
+        {
+          "type": "link",
+          "label": "Try the WhatsApp demo",
+          "target": null,
+          "style": "forest-fill"
+        },
+        {
+          "type": "link",
+          "label": "See pricing",
+          "target": null,
+          "style": "outline"
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Allow natural headline reflow. Wrap or stack the actions.",
+      "order": 2
+    },
+    {
+      "id": "operator-journey",
+      "role": "section_index",
+      "layout": {
+        "bbox_px_est": [
+          39,
+          321,
+          810,
+          107
+        ],
+        "description": "Three equal stages on cream with arrow separators."
+      },
+      "copy": {},
+      "components": [
+        {
+          "type": "journey_step",
+          "number": "01",
+          "title": "Intake",
+          "subtitle": "Enquiry to booking",
+          "target": "#intake"
+        },
+        {
+          "type": "journey_step",
+          "number": "02",
+          "title": "Estimator",
+          "subtitle": "Voice note to quote",
+          "target": "#estimator"
+        },
+        {
+          "type": "journey_step",
+          "number": "03",
+          "title": "Chaser",
+          "subtitle": "Invoice to payment",
+          "target": "#chaser"
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Stack anchor links vertically in the same order when they no longer fit side by side.",
+      "order": 3
+    },
+    {
+      "id": "intake",
+      "role": "operator_detail",
+      "layout": {
+        "bbox_px_est": [
+          39,
+          465,
+          810,
+          284
+        ],
+        "description": "Two-column cream panel. Copy on the left."
+      },
+      "copy": {
+        "label": "01 / SORTED INTAKE",
+        "headline": "Turn enquiries into bookings.",
+        "bullets": [
+          "Replies on WhatsApp",
+          "Collects the job details",
+          "Books a slot in your diary"
+        ]
+      },
+      "components": [
+        {
+          "type": "operator_copy",
+          "position": "left",
+          "heading_level": 2,
+          "check_icon": "circle-check"
+        },
+        {
+          "type": "conversation_demo",
+          "illustrative": true,
+          "render_as": "live HTML and CSS",
+          "label": "WHATSAPP",
+          "messages": [
+            {
+              "sender": "customer",
+              "text": "Hi, my boiler’s stopped working. Can you help?"
+            },
+            {
+              "sender": "operator",
+              "text": "Sure — I can book a boiler visit for you. What day works best?"
+            },
+            {
+              "sender": "customer",
+              "text": "Thursday morning would be great."
+            }
+          ],
+          "status": "Boiler visit booked · Thu 11:30",
+          "status_icon": "calendar"
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Stack copy before example at narrow widths. Preserve the example as live text and keep the section anchor on the heading group.",
+      "order": 4
+    },
+    {
+      "id": "estimator",
+      "role": "operator_detail",
+      "layout": {
+        "bbox_px_est": [
+          39,
+          761,
+          810,
+          276
+        ],
+        "description": "Two-column blue panel. Copy on the right."
+      },
+      "copy": {
+        "label": "02 / SORTED ESTIMATOR",
+        "headline": "Talk through the job. Get a draft quote.",
+        "bullets": [
+          "Record a voice note",
+          "Your rates fill the draft",
+          "Review and approve before sending"
+        ]
+      },
+      "components": [
+        {
+          "type": "operator_copy",
+          "position": "right",
+          "heading_level": 2,
+          "check_icon": "circle-check"
+        },
+        {
+          "type": "estimate_demo",
+          "illustrative": true,
+          "render_as": "live HTML and CSS",
+          "heading": "Draft estimate",
+          "rows": [
+            {
+              "label": "Call-out",
+              "amount": "£80"
+            },
+            {
+              "label": "Replacement pump",
+              "amount": "£140"
+            },
+            {
+              "label": "Total",
+              "amount": "£220",
+              "highlight": true
+            }
+          ],
+          "status": "Awaiting your approval"
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Stack copy before example at narrow widths. Preserve the example as live text and keep the section anchor on the heading group.",
+      "order": 5
+    },
+    {
+      "id": "chaser",
+      "role": "operator_detail",
+      "layout": {
+        "bbox_px_est": [
+          39,
+          1050,
+          810,
+          268
+        ],
+        "description": "Two-column blush panel. Copy on the left."
+      },
+      "copy": {
+        "label": "03 / SORTED CHASER",
+        "headline": "Follow up on unpaid invoices.",
+        "bullets": [
+          "See what’s due",
+          "Send reminders on your schedule",
+          "Stop reminders when payment is recorded"
+        ]
+      },
+      "components": [
+        {
+          "type": "operator_copy",
+          "position": "left",
+          "heading_level": 2,
+          "check_icon": "circle-check"
+        },
+        {
+          "type": "invoice_timeline_demo",
+          "illustrative": true,
+          "render_as": "live HTML and CSS",
+          "heading": "Invoice #1042",
+          "events": [
+            {
+              "label": "Invoice sent",
+              "date": "Mon 10 Jun"
+            },
+            {
+              "label": "Reminder sent",
+              "date": "Thu 13 Jun"
+            },
+            {
+              "label": "Payment received · £220",
+              "date": "Mon 17 Jun",
+              "highlight": true
+            }
+          ]
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Stack copy before example at narrow widths. Preserve the example as live text and keep the section anchor on the heading group.",
+      "order": 6
+    },
+    {
+      "id": "setup",
+      "role": "implementation_process",
+      "layout": {
+        "bbox_px_est": [
+          39,
+          1340,
+          810,
+          178
+        ],
+        "description": "Heading then four cream cards linked by arrows."
+      },
+      "copy": {
+        "headline": "Works with the tools you already use.",
+        "accent": "already use."
+      },
+      "components": [
+        {
+          "type": "setup_step",
+          "number": 1,
+          "title": "Audit",
+          "body": "We look at how enquiries, quotes and payments reach you today, and where they slip."
+        },
+        {
+          "type": "setup_step",
+          "number": 2,
+          "title": "Build",
+          "body": "We set up your operator around your services, your rules and the way you talk to customers."
+        },
+        {
+          "type": "setup_step",
+          "number": 3,
+          "title": "Connect",
+          "body": "We link your WhatsApp, calendar and accounting software. You approve it before it goes live."
+        },
+        {
+          "type": "setup_step",
+          "number": 4,
+          "title": "Run",
+          "body": "It handles the admin. You get the summaries and keep working."
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Use two columns on medium widths and stack the ordered cards on narrow screens.",
+      "order": 7
+    },
+    {
+      "id": "diagnostic",
+      "role": "conversion",
+      "layout": {
+        "bbox_px_est": [
+          39,
+          1544,
+          810,
+          88
+        ],
+        "description": "Deep forest band. Heading, divider, body and lime CTA."
+      },
+      "copy": {
+        "headline": "Find where jobs get held up.",
+        "accent": "jobs get held up.",
+        "body": "Book a 15-minute diagnostic. We’ll identify where you’re losing jobs and show you what an operator looks like inside your workflow."
+      },
+      "components": [
+        {
+          "type": "link",
+          "label": "Book Diagnostic Call",
+          "target": null,
+          "style": "lime-fill"
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Stack headline, body and CTA. Drop the vertical divider.",
+      "order": 8
+    },
+    {
+      "id": "footer",
+      "role": "site_footer",
+      "layout": {
+        "bbox_px_est": [
+          39,
+          1645,
+          810,
+          115
+        ],
+        "description": "Four columns followed by a fine legal divider and bottom row."
+      },
+      "copy": {
+        "wordmark": "Sorted.",
+        "body": "We make good businesses more capable.",
+        "copyright": "© 2026 Sorted. All rights reserved."
+      },
+      "components": [
+        {
+          "type": "link_group",
+          "heading": "How we help",
+          "links": [
+            {
+              "type": "link",
+              "label": "Operators",
+              "target": null
+            },
+            {
+              "type": "link",
+              "label": "Pricing",
+              "target": null
+            },
+            {
+              "type": "link",
+              "label": "How It Works",
+              "target": null
+            },
+            {
+              "type": "link",
+              "label": "About",
+              "target": null
+            }
+          ]
+        },
+        {
+          "type": "link_group",
+          "heading": "Company",
+          "links": [
+            {
+              "type": "link",
+              "label": "Our work",
+              "target": null
+            },
+            {
+              "type": "link",
+              "label": "Reviews",
+              "target": null
+            },
+            {
+              "type": "link",
+              "label": "Partner program",
+              "target": null
+            },
+            {
+              "type": "link",
+              "label": "Contact",
+              "target": null
+            }
+          ]
+        },
+        {
+          "type": "link_group",
+          "heading": "Let’s talk",
+          "links": [
+            {
+              "type": "link",
+              "label": "WhatsApp us",
+              "target": null,
+              "style": "lime-fill"
+            },
+            {
+              "type": "link",
+              "label": "hello@sortmydigital.site",
+              "target": "mailto:hello@sortmydigital.site",
+              "source": "visible in mockup"
+            }
+          ]
+        },
+        {
+          "type": "link",
+          "label": "Privacy",
+          "target": null
+        },
+        {
+          "type": "link",
+          "label": "Terms",
+          "target": null
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Wrap link groups into two columns or stack. Keep legal links visible.",
+      "order": 9
+    }
+  ],
+  "assets": {
+    "image_assets": [],
+    "logo": "Use existing Sorted wordmark asset.",
+    "icons": "Use vector or CSS icons for arrows, checks, calendar and phone.",
+    "ui_demos": "Build the three illustrative examples from structured data and live text."
+  },
+  "implementation_notes": [
+    "Panel geometry and type sizes are approximate. Responsive behaviour is proposed from the desktop raster.",
+    "Non-anchor URLs require existing site route and booking bindings. Displayed email is transcribed from the mockup.",
+    "Demo messages, amounts and dates are illustrative."
+  ]
+}

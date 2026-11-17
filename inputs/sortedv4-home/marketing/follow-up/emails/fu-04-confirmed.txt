@@ -1,0 +1,8 @@
+Your Sorted diagnostic is booked
+Your time and joining details are inside.
+
+Your 15-minute Sorted diagnostic is booked for {{appointment_date}} at {{appointment_time}} ({{timezone}}). Join here: {{meeting_url}}. If you can, bring one recent example of an enquiry, quote or payment that got held up.
+
+Manage booking: {{manage_url}}
+
+Sorted

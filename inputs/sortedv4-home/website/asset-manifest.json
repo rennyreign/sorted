@@ -1,0 +1,411 @@
+{
+  "schema_version": "1.0",
+  "mockup_artifact_id": "website-mockup",
+  "assets": [
+    {
+      "id": "hero-tradesperson",
+      "path": "website/images/hero-tradesperson.png",
+      "role": "hero",
+      "source_region": {
+        "page": "home",
+        "section": "hero",
+        "relative_position": "hero upper right",
+        "neighbors": [
+          "hero headline",
+          "diagnostic CTA"
+        ],
+        "bbox_normalized": [
+          0.49121,
+          0.0,
+          0.50879,
+          0.3125
+        ]
+      },
+      "subject": "Near-square full bleed photographic portrait. Smiling dark-haired bearded tradesman, black hoodie under weathered dark charcoal work overalls with brass fittings, arms crossed, waist-up, looking above camera right, hand tools in waist pocket. Silver work van behind left and silver vehicle behind right, soft dark olive trees. Rebuild full rectangular image beyond the page's curved mask. Remove quote, annotation, navigation and arrow.",
+      "composition": "Square portrait",
+      "lighting": "Natural editorial light",
+      "palette": "olive and charcoal",
+      "mood": "Practical and warm",
+      "materials": "canvas and metal",
+      "style": "photographic reconstruction",
+      "aspect_ratio": "1:1",
+      "min_width": 1042,
+      "min_height": 960,
+      "requested_long_edge": 2048,
+      "width": 1254,
+      "height": 1254,
+      "transparent": false,
+      "focal_point": [
+        0.53,
+        0.4
+      ],
+      "crop": "cover",
+      "fidelity_status": "pass",
+      "reconstruction_prompt": "Near-square full bleed photographic portrait. Smiling dark-haired bearded tradesman, black hoodie under weathered dark charcoal work overalls with brass fittings, arms crossed, waist-up, looking above camera right, hand tools in waist pocket. Silver work van behind left and silver vehicle behind right, soft dark olive trees. Rebuild full rectangular image beyond the page's curved mask. Remove quote, annotation, navigation and arrow.",
+      "exclusions": [
+        "surrounding web UI",
+        "section copy",
+        "CTA"
+      ],
+      "generation_method": "reference-based built-in image generation",
+      "differences": "Waist-up pose and van match, with wider subject framing and added picture area outside the curved mask.",
+      "evidence_refs": [
+        "website-mockup"
+      ]
+    },
+    {
+      "id": "intake-phone",
+      "path": "website/images/intake-phone.png",
+      "role": "operators",
+      "source_region": {
+        "page": "home",
+        "section": "operators",
+        "relative_position": "first cream operator card",
+        "neighbors": [
+          "operator title",
+          "operator CTA"
+        ],
+        "bbox_normalized": [
+          0.03418,
+          0.50521,
+          0.30273,
+          0.11654
+        ]
+      },
+      "subject": "Landscape 3:2. Tight angled realistic black smartphone with a hand at lower left, tilted slightly anticlockwise, on a soft cream background. White rounded floating WhatsApp style notification with green phone bubble and exact text 'New enquiry' / 'Qualified and booked.' / 'Today, 3:30pm'. Subtle fade to cream at base. No web copy, badge or CTA.",
+      "composition": "Landscape 3:2",
+      "lighting": "Soft product light",
+      "palette": "cream",
+      "mood": "Practical and warm",
+      "materials": "glass and metal",
+      "style": "photographic reconstruction",
+      "aspect_ratio": "3:2",
+      "min_width": 620,
+      "min_height": 358,
+      "requested_long_edge": 2048,
+      "width": 1536,
+      "height": 1024,
+      "transparent": false,
+      "focal_point": [
+        0.5,
+        0.5
+      ],
+      "crop": "cover",
+      "fidelity_status": "pass",
+      "reconstruction_prompt": "Landscape 3:2. Tight angled realistic black smartphone with a hand at lower left, tilted slightly anticlockwise, on a soft cream background. White rounded floating WhatsApp style notification with green phone bubble and exact text 'New enquiry' / 'Qualified and booked.' / 'Today, 3:30pm'. Subtle fade to cream at base. No web copy, badge or CTA.",
+      "exclusions": [
+        "surrounding web UI",
+        "section copy",
+        "CTA"
+      ],
+      "generation_method": "reference-based built-in image generation",
+      "differences": "Notification matches; hand is larger and device framing is slightly wider.",
+      "evidence_refs": [
+        "website-mockup"
+      ]
+    },
+    {
+      "id": "estimator-phone",
+      "path": "website/images/estimator-phone.png",
+      "role": "operators",
+      "source_region": {
+        "page": "home",
+        "section": "operators",
+        "relative_position": "centre pale blue operator card",
+        "neighbors": [
+          "operator title",
+          "operator CTA"
+        ],
+        "bbox_normalized": [
+          0.34961,
+          0.50521,
+          0.30273,
+          0.11654
+        ]
+      },
+      "subject": "Landscape 3:2. Tight angled realistic black smartphone, tilted slightly anticlockwise, with hand at lower right, on a powder blue background. Floating dark forest-green voice note bar edged in white with white microphone icon and waveform and exact duration '0:30'. Subtle powder blue fade at base. No web copy, badge or CTA.",
+      "composition": "Landscape 3:2",
+      "lighting": "Soft product light",
+      "palette": "blue",
+      "mood": "Practical and warm",
+      "materials": "glass and metal",
+      "style": "photographic reconstruction",
+      "aspect_ratio": "3:2",
+      "min_width": 620,
+      "min_height": 358,
+      "requested_long_edge": 2048,
+      "width": 1536,
+      "height": 1024,
+      "transparent": false,
+      "focal_point": [
+        0.5,
+        0.5
+      ],
+      "crop": "cover",
+      "fidelity_status": "pass",
+      "reconstruction_prompt": "Landscape 3:2. Tight angled realistic black smartphone, tilted slightly anticlockwise, with hand at lower right, on a powder blue background. Floating dark forest-green voice note bar edged in white with white microphone icon and waveform and exact duration '0:30'. Subtle powder blue fade at base. No web copy, badge or CTA.",
+      "exclusions": [
+        "surrounding web UI",
+        "section copy",
+        "CTA"
+      ],
+      "generation_method": "reference-based built-in image generation",
+      "differences": "Voice note and hand match; wave detail and grip differ.",
+      "evidence_refs": [
+        "website-mockup"
+      ]
+    },
+    {
+      "id": "chaser-phone",
+      "path": "website/images/chaser-phone.png",
+      "role": "operators",
+      "source_region": {
+        "page": "home",
+        "section": "operators",
+        "relative_position": "third pale blush operator card",
+        "neighbors": [
+          "operator title",
+          "operator CTA"
+        ],
+        "bbox_normalized": [
+          0.66406,
+          0.50521,
+          0.30273,
+          0.11654
+        ]
+      },
+      "subject": "Landscape 3:2. Tight angled realistic black smartphone, tilted slightly anticlockwise, on a pale blush background. White rounded floating receipt with green circled tick and exact text 'Payment received' / '£1,250.00'. Soft blush fade at base. No web copy, badge or CTA.",
+      "composition": "Landscape 3:2",
+      "lighting": "Soft product light",
+      "palette": "blush",
+      "mood": "Practical and warm",
+      "materials": "glass and metal",
+      "style": "photographic reconstruction",
+      "aspect_ratio": "3:2",
+      "min_width": 620,
+      "min_height": 358,
+      "requested_long_edge": 2048,
+      "width": 1536,
+      "height": 1024,
+      "transparent": false,
+      "focal_point": [
+        0.5,
+        0.5
+      ],
+      "crop": "cover",
+      "fidelity_status": "pass",
+      "reconstruction_prompt": "Landscape 3:2. Tight angled realistic black smartphone, tilted slightly anticlockwise, on a pale blush background. White rounded floating receipt with green circled tick and exact text 'Payment received' / '£1,250.00'. Soft blush fade at base. No web copy, badge or CTA.",
+      "exclusions": [
+        "surrounding web UI",
+        "section copy",
+        "CTA"
+      ],
+      "generation_method": "reference-based built-in image generation",
+      "differences": "Payment text and amount match; notification tilt and device crop differ.",
+      "evidence_refs": [
+        "website-mockup"
+      ]
+    },
+    {
+      "id": "results-fitness",
+      "path": "website/images/results-fitness.png",
+      "role": "results",
+      "source_region": {
+        "page": "home",
+        "section": "results",
+        "relative_position": "first small results photo",
+        "neighbors": [
+          "result metric",
+          "result label"
+        ],
+        "bbox_normalized": [
+          0.43066,
+          0.69206,
+          0.16699,
+          0.06901
+        ]
+      },
+      "subject": "Landscape 3:2 photo. One muscular dark haired man in black tank top braced over a loaded barbell with black plates at both sides in dark modern gym, facing forward, light from windows to right, muted charcoal. No labels, results or overlays.",
+      "composition": "Landscape 3:2",
+      "lighting": "Natural editorial light",
+      "palette": "charcoal",
+      "mood": "Practical and warm",
+      "materials": "steel and rubber",
+      "style": "photographic reconstruction",
+      "aspect_ratio": "3:2",
+      "min_width": 620,
+      "min_height": 358,
+      "requested_long_edge": 2048,
+      "width": 1536,
+      "height": 1024,
+      "transparent": false,
+      "focal_point": [
+        0.5,
+        0.5
+      ],
+      "crop": "cover",
+      "fidelity_status": "pass",
+      "reconstruction_prompt": "Landscape 3:2 photo. One muscular dark haired man in black tank top braced over a loaded barbell with black plates at both sides in dark modern gym, facing forward, light from windows to right, muted charcoal. No labels, results or overlays.",
+      "exclusions": [
+        "surrounding web UI",
+        "section copy",
+        "CTA"
+      ],
+      "generation_method": "reference-based built-in image generation",
+      "differences": "Gym and lifter match; reconstruction shows more of the bar and a different grip.",
+      "evidence_refs": [
+        "website-mockup"
+      ]
+    },
+    {
+      "id": "results-hospitality",
+      "path": "website/images/results-hospitality.png",
+      "role": "results",
+      "source_region": {
+        "page": "home",
+        "section": "results",
+        "relative_position": "second small results photo",
+        "neighbors": [
+          "result metric",
+          "result label"
+        ],
+        "bbox_normalized": [
+          0.61035,
+          0.69206,
+          0.16699,
+          0.06901
+        ]
+      },
+      "subject": "Landscape 3:2 editorial food photograph of a central vertically stacked brunch dish with golden layers, green leaves and creamy topping on a white plate, table height camera, warm amber restaurant bokeh. No labels or overlays.",
+      "composition": "Landscape 3:2",
+      "lighting": "Natural editorial light",
+      "palette": "amber",
+      "mood": "Practical and warm",
+      "materials": "ceramic and food",
+      "style": "photographic reconstruction",
+      "aspect_ratio": "3:2",
+      "min_width": 620,
+      "min_height": 358,
+      "requested_long_edge": 2048,
+      "width": 1536,
+      "height": 1024,
+      "transparent": false,
+      "focal_point": [
+        0.5,
+        0.5
+      ],
+      "crop": "cover",
+      "fidelity_status": "pass",
+      "reconstruction_prompt": "Landscape 3:2 editorial food photograph of a central vertically stacked brunch dish with golden layers, green leaves and creamy topping on a white plate, table height camera, warm amber restaurant bokeh. No labels or overlays.",
+      "exclusions": [
+        "surrounding web UI",
+        "section copy",
+        "CTA"
+      ],
+      "generation_method": "reference-based built-in image generation",
+      "differences": "Stacked brunch and warm room match; garnish and plate framing differ.",
+      "evidence_refs": [
+        "website-mockup"
+      ]
+    },
+    {
+      "id": "results-tuition",
+      "path": "website/images/results-tuition.png",
+      "role": "results",
+      "source_region": {
+        "page": "home",
+        "section": "results",
+        "relative_position": "third small results photo",
+        "neighbors": [
+          "result metric",
+          "result label"
+        ],
+        "bbox_normalized": [
+          0.79102,
+          0.69206,
+          0.16699,
+          0.06901
+        ]
+      },
+      "subject": "Landscape 3:2 warm candid classroom photograph. Woman tutor with brown shoulder length hair and black glasses, light lilac blouse, leaning from right, looking down as she helps one brown-haired primary pupil in blue at left with a worksheet. Tight waist-up view at desk. No labels or overlays.",
+      "composition": "Landscape 3:2",
+      "lighting": "Natural editorial light",
+      "palette": "warm neutrals and lilac",
+      "mood": "Practical and warm",
+      "materials": "paper and textiles",
+      "style": "photographic reconstruction",
+      "aspect_ratio": "3:2",
+      "min_width": 620,
+      "min_height": 358,
+      "requested_long_edge": 2048,
+      "width": 1536,
+      "height": 1024,
+      "transparent": false,
+      "focal_point": [
+        0.5,
+        0.5
+      ],
+      "crop": "cover",
+      "fidelity_status": "pass",
+      "reconstruction_prompt": "Landscape 3:2 warm candid classroom photograph. Woman tutor with brown shoulder length hair and black glasses, light lilac blouse, leaning from right, looking down as she helps one brown-haired primary pupil in blue at left with a worksheet. Tight waist-up view at desk. No labels or overlays.",
+      "exclusions": [
+        "surrounding web UI",
+        "section copy",
+        "CTA"
+      ],
+      "generation_method": "reference-based built-in image generation",
+      "differences": "Tutor and pupil match in layout and clothing; faces, papers and crop differ.",
+      "evidence_refs": [
+        "website-mockup"
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "region_id": "hero-tradesperson-region",
+      "asset_id": "hero-tradesperson",
+      "location": "hero upper right",
+      "intentional_reuse": false
+    },
+    {
+      "region_id": "intake-phone-region",
+      "asset_id": "intake-phone",
+      "location": "first cream operator card",
+      "intentional_reuse": false
+    },
+    {
+      "region_id": "estimator-phone-region",
+      "asset_id": "estimator-phone",
+      "location": "centre pale blue operator card",
+      "intentional_reuse": false
+    },
+    {
+      "region_id": "chaser-phone-region",
+      "asset_id": "chaser-phone",
+      "location": "third pale blush operator card",
+      "intentional_reuse": false
+    },
+    {
+      "region_id": "results-fitness-region",
+      "asset_id": "results-fitness",
+      "location": "first small results photo",
+      "intentional_reuse": false
+    },
+    {
+      "region_id": "results-hospitality-region",
+      "asset_id": "results-hospitality",
+      "location": "second small results photo",
+      "intentional_reuse": false
+    },
+    {
+      "region_id": "results-tuition-region",
+      "asset_id": "results-tuition",
+      "location": "third small results photo",
+      "intentional_reuse": false
+    }
+  ],
+  "exclusions": [
+    "wordmarks and trust logos need original brand files",
+    "operator icons and accent lines should be built as UI"
+  ]
+}

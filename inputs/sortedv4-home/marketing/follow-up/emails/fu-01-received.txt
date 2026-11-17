@@ -1,0 +1,8 @@
+We received your diagnostic request
+Your time is still to be confirmed.
+
+Thanks for requesting a 15-minute Sorted diagnostic. We’ve received your request. Your appointment is pending confirmation. If you need to correct anything or add a detail, reply to this email.
+
+Reply with updates: {{reply_url}}
+
+Sorted

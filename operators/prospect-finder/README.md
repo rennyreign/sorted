@@ -16,9 +16,9 @@ Production-ready. Python 3.x. Apify Google Maps Scraper. Supabase storage.
 
 ## Targeting Standard
 
-Prospect Finder defaults to **Scenario 2, Tier A — High-Value Project Buyers** from [`doctrine/priority-manufacturing-categories.md`](../../doctrine/priority-manufacturing-categories.md). The active categories are builders, general contractors, extension specialists, loft conversion companies, kitchen and bathroom fitters, roofers, window and door installers, landscapers, and driveway companies.
+Prospect Finder's core focus is **Scenario 2, Tier A — High-Value Project Buyers** from [`doctrine/priority-manufacturing-categories.md`](../../doctrine/priority-manufacturing-categories.md), widened at Renaldo's request (2026-10-19) to include non-trades categories for outreach variety. The active categories are the Tier A trades (builders, general contractors, extension specialists, loft conversion companies, kitchen and bathroom fitters, roofers, window and door installers, landscapers, driveway companies) plus urgent-intent trades (plumbers, electricians), fitness and wellness (gyms, personal trainers, yoga studios, beauty/hair/nail salons, barbers), food and hospitality (restaurants, cafes, takeaways, boutique hotels), and professional services (dentists, accountants, solicitors, estate agents, cleaning services).
 
-Use this as the default acquisition focus. Change category priorities only when the commercial goal changes and record the corresponding doctrine scenario in `implementation/config.py`.
+Change category priorities only when the commercial goal changes and record the corresponding doctrine scenario in `implementation/config.py`.
 
 ---
 

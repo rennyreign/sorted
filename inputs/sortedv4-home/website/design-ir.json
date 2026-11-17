@@ -1,0 +1,298 @@
+{
+  "schema_version": "1.0",
+  "source_mockup": "website/mockup.png",
+  "source_sha256": "2b631f02c922d6ae07eb9b6f1246ee39f3831d584d57c6ecf218b1fea643d106",
+  "viewport": {
+    "width": 1024,
+    "height": 1536
+  },
+  "tokens": {
+    "status": "estimated from desktop raster",
+    "colors": {
+      "ink": "#111111",
+      "paper": "#FBFBFA",
+      "lime": "#E5FF2E",
+      "olive": "#909900",
+      "forest": "#00271F",
+      "cream": "#F8F7ED",
+      "blue": "#EAF4FC",
+      "blush": "#FCEEEA"
+    },
+    "typography": {
+      "display": "Heavy modern sans",
+      "body": "Regular sans",
+      "annotation": "Handwritten",
+      "exact_families": null
+    },
+    "spacing": {
+      "outer_gutter": 54,
+      "card_gap": 13
+    },
+    "radii": {
+      "card": 16,
+      "cta": "pill"
+    },
+    "shadows": {
+      "device": "soft diffuse"
+    }
+  },
+  "sections": [
+    {
+      "id": "navigation",
+      "role": "navigation",
+      "layout": "Horizontal wordmark, nav, outlined CTA",
+      "copy": [
+        "Sorted.",
+        "Operators",
+        "How It Works",
+        "Pricing",
+        "About",
+        "Find Your Leaks"
+      ],
+      "components": [
+        {
+          "type": "wordmark"
+        },
+        {
+          "type": "nav-links"
+        },
+        {
+          "type": "cta",
+          "destination": null
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Collapse navigation into menu at narrow widths.",
+      "order": 1
+    },
+    {
+      "id": "hero",
+      "role": "offer",
+      "layout": "Left copy and curved full-height right photo",
+      "copy": [
+        "REVENUE INFRASTRUCTURE & AI SYSTEMS",
+        "Capture every lead.",
+        "Never delay a quote.",
+        "Get paid on time.",
+        "Digital staff that handle your enquiries, quotes and follow-ups — so you can keep up with demand without more admin.",
+        "See The Operators",
+        "Book a 15-Min Diagnostic",
+        "Works with WhatsApp & Xero",
+        "No new software to learn",
+        "For UK local businesses",
+        "We haven’t worked a Sunday evening since week one."
+      ],
+      "components": [
+        {
+          "type": "photo",
+          "asset_id": "hero-tradesperson",
+          "crop": "cover under curved mask",
+          "focal_point": [
+            0.53,
+            0.4
+          ]
+        },
+        {
+          "type": "cta",
+          "target": "#operators"
+        },
+        {
+          "type": "cta",
+          "destination": null
+        },
+        {
+          "type": "quote",
+          "verification": "pending"
+        }
+      ],
+      "image_asset_ids": [
+        "hero-tradesperson"
+      ],
+      "responsive_intent": "Copy then portrait in one column, CTA rows wrap.",
+      "order": 2
+    },
+    {
+      "id": "operators",
+      "role": "product cards",
+      "layout": "Three equal cards with individual pastel fields",
+      "copy": [
+        "DIGITAL STAFF FOR LOCAL BUSINESSES",
+        "Three operators. Zero pipeline leaks.",
+        "Choose the operational bottleneck that’s holding you back today, or install the full stack."
+      ],
+      "components": [
+        {
+          "type": "operator-card",
+          "title": "Sorted Intake",
+          "description": "Never lose an enquiry.",
+          "asset_id": "intake-phone",
+          "cta": "Explore Intake",
+          "destination": null,
+          "crop": "cover with soft base fade",
+          "focal_point": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "type": "operator-card",
+          "title": "Sorted Estimator",
+          "description": "Never delay a quote.",
+          "asset_id": "estimator-phone",
+          "cta": "Explore Estimator",
+          "destination": null,
+          "crop": "cover with soft base fade",
+          "focal_point": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "type": "operator-card",
+          "title": "Sorted Chaser",
+          "description": "Get paid without the chase.",
+          "asset_id": "chaser-phone",
+          "cta": "Explore Chaser",
+          "destination": null,
+          "crop": "cover with soft base fade",
+          "focal_point": [
+            0.5,
+            0.5
+          ]
+        }
+      ],
+      "image_asset_ids": [
+        "intake-phone",
+        "estimator-phone",
+        "chaser-phone"
+      ],
+      "responsive_intent": "Stack full-width cards with generous gutters.",
+      "order": 3
+    },
+    {
+      "id": "results",
+      "role": "case-study proof",
+      "layout": "Intro on left with three small result tiles on right",
+      "copy": [
+        "REAL BUSINESSES. REAL RESULTS.",
+        "Local businesses keep more of the demand they generate.",
+        "See all results"
+      ],
+      "components": [
+        {
+          "type": "result",
+          "value": "+187%",
+          "label": "more enquiries",
+          "asset_id": "results-fitness",
+          "verification": "pending",
+          "crop": "cover with soft base fade",
+          "focal_point": [
+            0.5,
+            0.45
+          ]
+        },
+        {
+          "type": "result",
+          "value": "3x",
+          "label": "more bookings",
+          "asset_id": "results-hospitality",
+          "verification": "pending",
+          "crop": "cover with soft base fade",
+          "focal_point": [
+            0.5,
+            0.45
+          ]
+        },
+        {
+          "type": "result",
+          "value": "+62%",
+          "label": "more sign ups",
+          "asset_id": "results-tuition",
+          "verification": "pending",
+          "crop": "cover with soft base fade",
+          "focal_point": [
+            0.5,
+            0.45
+          ]
+        }
+      ],
+      "image_asset_ids": [
+        "results-fitness",
+        "results-hospitality",
+        "results-tuition"
+      ],
+      "responsive_intent": "Lead with intro, then stack proof tiles.",
+      "order": 4
+    },
+    {
+      "id": "trust",
+      "role": "brand strip",
+      "layout": "Single horizontal row",
+      "copy": [
+        "TRUSTED BY BUSINESSES ACROSS WARWICKSHIRE AND BEYOND",
+        "BodySharp FITNESS",
+        "THE YARD KITCHEN",
+        "SCHOOL OF SKILL",
+        "Edgbaston Tuition Centre",
+        "GB HALESOWEN",
+        "And many more local businesses"
+      ],
+      "components": [
+        {
+          "type": "logo-strip",
+          "original_marks_required": true
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Wrap logos in a simple grid.",
+      "order": 5
+    },
+    {
+      "id": "setup",
+      "role": "process",
+      "layout": "Cream horizontal strip with lime step discs",
+      "copy": [
+        "A simple setup.",
+        "Audit",
+        "Build",
+        "Connect",
+        "Run",
+        "Live in days, not months."
+      ],
+      "components": [
+        {
+          "type": "ordered-steps",
+          "items": [
+            "Audit",
+            "Build",
+            "Connect",
+            "Run"
+          ]
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Stack steps in order.",
+      "order": 6
+    },
+    {
+      "id": "diagnostic",
+      "role": "final conversion",
+      "layout": "Deep green panel with heading, explanatory copy and lime CTA",
+      "copy": [
+        "Ready to keep up with demand?",
+        "Book a 15-minute diagnostic. We'll identify where you’re losing deals and show you what an operator looks like inside your workflow.",
+        "Book Diagnostic Call",
+        "No pressure. No technical jargon. Just clear numbers."
+      ],
+      "components": [
+        {
+          "type": "cta",
+          "destination": null
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Stack content and CTA; preserve text breathing room.",
+      "order": 7
+    }
+  ]
+}

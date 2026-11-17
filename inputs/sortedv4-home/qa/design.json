@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "rubric_version": "round-1-2026-10-19",
+  "selected_benchmark_ids": [],
+  "benchmark_coverage": "unconfigured",
+  "additional_references": [
+    "Sorted design system",
+    "Sorted home project reference"
+  ],
+  "criteria": [
+    {
+      "id": "personality",
+      "result": "pass",
+      "severity": "advisory",
+      "location": "Hero and operator cards",
+      "evidence": "Local trade portrait and phone UI tell the enquiry, quote and payment story.",
+      "benchmark_ids": []
+    },
+    {
+      "id": "depth",
+      "result": "pass",
+      "severity": "advisory",
+      "location": "Hero and closing strip",
+      "evidence": "Curved photo, overlapping device notices and deep green frame the mostly light page.",
+      "benchmark_ids": []
+    },
+    {
+      "id": "geometry",
+      "result": "pass",
+      "severity": "advisory",
+      "location": "Hero, operator grid and setup strip",
+      "evidence": "Curved hero boundary contrasts with aligned card and process grids.",
+      "benchmark_ids": []
+    },
+    {
+      "id": "composition",
+      "result": "pass",
+      "severity": "advisory",
+      "location": "Page flow",
+      "evidence": "Offer, service comparison, evidence cards, trust row, process and booking band use distinct compositions.",
+      "benchmark_ids": []
+    },
+    {
+      "id": "typography",
+      "result": "pass",
+      "severity": "advisory",
+      "location": "Hero and operator cards",
+      "evidence": "Heavy sans headlines, plain sans body, handwritten proof accent. Exact families unconfirmed.",
+      "benchmark_ids": []
+    },
+    {
+      "id": "integration",
+      "result": "pass",
+      "severity": "advisory",
+      "location": "Hero and device cards",
+      "evidence": "Vans supply context in the hero and the phone images fade into their card bases.",
+      "benchmark_ids": []
+    },
+    {
+      "id": "spacing",
+      "result": "pass",
+      "severity": "advisory",
+      "location": "Desktop raster",
+      "evidence": "Hero and card groupings are clear. Proof, logos and setup run tightly at the bottom and need more spacing in a responsive build.",
+      "benchmark_ids": []
+    },
+    {
+      "id": "conversion",
+      "result": "pass",
+      "severity": "advisory",
+      "location": "Hero and bottom band",
+      "evidence": "Both support one diagnostic; maintain the same destination.",
+      "benchmark_ids": []
+    },
+    {
+      "id": "proof",
+      "result": "not_checked",
+      "severity": "release",
+      "location": "Hero quote, result cards and trust row",
+      "evidence": "Claims are visible in the supplied mockup. Independent evidence and permission are pending.",
+      "benchmark_ids": []
+    },
+    {
+      "id": "responsive",
+      "result": "not_checked",
+      "severity": "advisory",
+      "location": "Entire page",
+      "evidence": "Mobile layout, interaction, accessibility and performance require build testing.",
+      "benchmark_ids": []
+    }
+  ],
+  "spacing_baseline": {
+    "source_width": 1024,
+    "outer_hero_gutter_px_est": 54,
+    "operator_card_gap_px_est": 13,
+    "hero_headline_lines": 3
+  },
+  "spacing_regression": "not_applicable",
+  "typography_direction": "Heavy sans display, regular sans text, handwritten accent",
+  "cross_project_comparison": "partial",
+  "overall_status": "visual_review_complete",
+  "remaining_issues": [
+    "proof_evidence",
+    "diagnostic_destination",
+    "sender_and_calendar",
+    "offer_claims"
+  ]
+}

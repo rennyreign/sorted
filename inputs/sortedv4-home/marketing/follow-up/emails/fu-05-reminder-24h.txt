@@ -1,0 +1,8 @@
+Your Sorted diagnostic is in 24 hours
+Bring one recent job that got held up.
+
+We’re due to speak on {{appointment_date}} at {{appointment_time}} ({{timezone}}). Join here: {{meeting_url}}. A recent example of a delayed enquiry, quote or payment is plenty to get us started.
+
+Manage booking: {{manage_url}}
+
+Sorted

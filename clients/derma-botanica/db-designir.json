@@ -1,0 +1,547 @@
+{
+  "schema_version": "1.0",
+  "document_type": "design-ir",
+  "project": "Sorted onboarding workspace for Derma Botanica",
+  "screen": "Creator Feedback Hub project approval",
+  "revision": 1,
+  "status": "visual_direction_selected",
+  "source": {
+    "mockup": "exec-ada15b7b-5acd-4357-9a05-a4c7411aaf55.png",
+    "description": "Latest text-only onboarding mockup. This supersedes the earlier image-led onboarding concept, not the creator-index design.",
+    "geometry": "All CSS values below are proposed approximations from a raster.",
+    "fonts": "Exact raster font unverified; use the established Sorted UI sans or the proposed fallback."
+  },
+  "scope": {
+    "deliverable": "Implement the text-led onboarding page using existing project data and workflows.",
+    "visual_rule": "No photos, illustrations, app screenshots, avatars, charts, decorative graphics or background textures.",
+    "preserve": [
+      "Existing agreed scope and responsibilities",
+      "Actual project stage and completion records",
+      "Existing approval and signing backend",
+      "Existing authorised payment-confirmation process"
+    ],
+    "exclude": [
+      "New payment capture",
+      "Automatically sending contracts",
+      "Activating integrations on signature",
+      "Changing commercial milestones",
+      "Changing client permissions",
+      "Treating proposed feature copy as additional contractual scope"
+    ]
+  },
+  "commercial_terms": {
+    "currency": "GBP",
+    "total_build": 6000,
+    "starting_payment": 600,
+    "starting_percentage": 10,
+    "balance_at_handover": 5400,
+    "balance_percentage": 90,
+    "price_type": "one-off scoped implementation",
+    "ongoing_support": "Agreed separately for a defined need.",
+    "vat_status": null,
+    "note": "Preserve the latest supplied page's 10/90 split. Do not replace it with earlier conversational suggestions such as 40/40/20. Do not infer VAT inclusion."
+  },
+  "theme": {
+    "brand": "Sorted",
+    "colors": {
+      "canvas": "#F7F7F2",
+      "surface": "#FFFFFF",
+      "ink": "#0B1110",
+      "muted": "#68706D",
+      "border": "#D9DDD6",
+      "lime": "#D5FF30",
+      "dark_surface": "#0B1110",
+      "dark_text": "#FFFFFF",
+      "dark_muted": "#C8CFCA",
+      "focus": "#607800",
+      "error": "#A52D28"
+    },
+    "typography": {
+      "family_preferred": "Existing Sorted sans-serif",
+      "family_fallback": "Inter, Arial, sans-serif",
+      "serif_allowed": false,
+      "roles": {
+        "hero": {
+          "size_px": 58,
+          "weight": 800,
+          "line_height": 1.03,
+          "letter_spacing_em": -0.045
+        },
+        "section_heading": {
+          "size_px": 32,
+          "weight": 750,
+          "line_height": 1.12,
+          "letter_spacing_em": -0.025
+        },
+        "subheading": {
+          "size_px": 20,
+          "weight": 700,
+          "line_height": 1.3
+        },
+        "metric": {
+          "size_px": 54,
+          "weight": 800,
+          "line_height": 1.05,
+          "letter_spacing_em": -0.04
+        },
+        "body": {
+          "size_px": 16,
+          "weight": 400,
+          "line_height": 1.5
+        },
+        "small": {
+          "size_px": 13,
+          "weight": 400,
+          "line_height": 1.5
+        },
+        "eyebrow": {
+          "size_px": 11,
+          "weight": 650,
+          "line_height": 1.4,
+          "letter_spacing_em": 0.16
+        },
+        "button": {
+          "size_px": 14,
+          "weight": 600,
+          "line_height": 1.3
+        }
+      }
+    },
+    "spacing_px": [
+      4,
+      8,
+      12,
+      16,
+      20,
+      24,
+      32,
+      40,
+      48,
+      64,
+      80
+    ],
+    "radius_px": {
+      "panel": 8,
+      "input": 6,
+      "button": 6
+    },
+    "shadows": "none",
+    "borders": "1px solid var(--border)",
+    "button_min_height_px": 44
+  },
+  "layout": {
+    "content_max_width_px": 1160,
+    "desktop_gutter_px": 64,
+    "tablet_gutter_px": 32,
+    "mobile_gutter_px": 20,
+    "section_gap_px": 64,
+    "canvas": "Warm ivory with one edge-to-edge dark commercial band and a contained dark signing section.",
+    "section_order": [
+      "header",
+      "hero",
+      "project_journey",
+      "payment_band",
+      "outcomes_and_scope",
+      "potential_value",
+      "agreement",
+      "footer"
+    ],
+    "height": "Content-driven. Do not constrain to the raster height or shrink copy to fit."
+  },
+  "sections": [
+    {
+      "id": "header",
+      "layout": "Wordmark left; workspace label right; thin rule below.",
+      "copy": {
+        "brand": "Sorted.",
+        "context": "DERMA BOTANICA / PRIVATE WORKSPACE"
+      },
+      "style": {
+        "wordmark": "Bold sans with lime terminal dot",
+        "padding_y_px": 24
+      },
+      "note": "Reuse approved logo or typographic wordmark. No new illustration asset required."
+    },
+    {
+      "id": "hero",
+      "layout": {
+        "desktop_columns": [
+          "1.8fr",
+          "1fr"
+        ],
+        "gap_px": 40,
+        "padding_top_px": 40,
+        "padding_bottom_px": 40
+      },
+      "copy": {
+        "eyebrow": "CREATOR FEEDBACK HUB",
+        "heading": "Your prototype is ready.\nLet’s agree the next step.",
+        "current_stage_label": "CURRENT STAGE / DEMO REVIEW",
+        "description": "Review the workflow, confirm the scope and authorise implementation.",
+        "primary_cta": "Explore the prototype",
+        "secondary_cta": "Review scope and sign"
+      },
+      "bindings": {
+        "current_stage": "project.current_stage",
+        "prototype_url": null
+      },
+      "actions": {
+        "primary": "Open the existing prototype URL in a new tab with appropriate link security.",
+        "secondary": "Scroll to #agreement; focus its heading."
+      },
+      "style": {
+        "stage_dot": "Lime circular marker with adjacent text",
+        "primary_button": "Dark fill and white label",
+        "secondary": "Underlined text link"
+      },
+      "state_note": "Demo review is the pictured sample. Derive the current stage from real project state. Update the heading if prototype readiness changes."
+    },
+    {
+      "id": "project_journey",
+      "layout": "Three equal desktop columns, numbered circles and thin connecting rules; separate details disclosure below.",
+      "steps": [
+        {
+          "id": "review",
+          "number": "01",
+          "title": "Review",
+          "description": "Confirm the prototype and agreed scope.",
+          "sample_state": "current"
+        },
+        {
+          "id": "implement",
+          "number": "02",
+          "title": "Implement",
+          "description": "Connect services, permissions and live workflows.",
+          "sample_state": "upcoming"
+        },
+        {
+          "id": "handover",
+          "number": "03",
+          "title": "Handover",
+          "description": "Complete testing, transfer access and train your team.",
+          "sample_state": "upcoming"
+        }
+      ],
+      "details": {
+        "label": "View all seven project stages",
+        "default_open": false,
+        "items": [
+          "Brief",
+          "Prototype",
+          "Demo",
+          "Starting payment",
+          "Implementation",
+          "Final payment",
+          "Handoff"
+        ],
+        "source": "Existing project stage records and explanations."
+      },
+      "rules": [
+        "Aggregate seven existing stages for presentation without changing the stored state machine.",
+        "Brief and Prototype remain completed in the supplied scenario; Demo remains current.",
+        "No client-facing Mark done checkbox. Preserve any existing authorised stage management elsewhere.",
+        "Do not mark payment completed based on signature."
+      ]
+    },
+    {
+      "id": "payment_band",
+      "layout": "Full-width dark strip; inner content follows the main gutter; three equal columns with fine vertical separators.",
+      "padding_y_px": 40,
+      "columns": [
+        {
+          "eyebrow": "TOTAL BUILD",
+          "amount": "£6,000",
+          "description": "One-off scoped build.\nOngoing support is agreed separately."
+        },
+        {
+          "eyebrow": "TO START",
+          "amount": "£600",
+          "description": "10% before implementation.",
+          "amount_color": "lime"
+        },
+        {
+          "eyebrow": "AT HANDOVER",
+          "amount": "£5,400",
+          "description": "90% balance."
+        }
+      ],
+      "bindings": "Format all amounts from commercial_terms rather than duplicating independently editable strings.",
+      "note": "Information only. No payment collection action in this band."
+    },
+    {
+      "id": "outcomes_and_scope",
+      "layout": {
+        "desktop_columns": [
+          "1.2fr",
+          "1fr"
+        ],
+        "gap_px": 40
+      },
+      "left": {
+        "eyebrow": "WHAT CHANGES FOR YOUR TEAM.",
+        "items": [
+          {
+            "number": "01",
+            "title": "Less chasing",
+            "description": "A clear next action for every creator and trial."
+          },
+          {
+            "number": "02",
+            "title": "Evidence you can find",
+            "description": "Photos, feedback and permission records kept together."
+          },
+          {
+            "number": "03",
+            "title": "Decisions with context",
+            "description": "See who needs attention and who is ready for a partnership decision."
+          }
+        ],
+        "style": "Numbered rows with quiet rules, no decorative pictograms."
+      },
+      "right": {
+        "title": "What implementation includes",
+        "items": [
+          "Live email and signing integrations",
+          "User roles and permissions",
+          "Persistent records and file storage",
+          "Automation rules and exception handling",
+          "Production testing and handover"
+        ],
+        "note": "Final deliverables are defined in the agreed scope.",
+        "style": "One outlined panel with plain separated text rows; no illustrations."
+      },
+      "footer": "The prototype demonstrates the flow. Live wiring and production controls come next.",
+      "scope_instruction": "Confirm these headings against the existing signed scope before publishing. They are presentation summaries, not authority to add deliverables."
+    },
+    {
+      "id": "potential_value",
+      "heading": "Potential value. Clear assumptions.",
+      "layout": "Two equal metric columns, restrained vertical rules and generous spacing.",
+      "metrics": [
+        {
+          "id": "capacity",
+          "amount": "£1,461",
+          "unit": "/ month",
+          "title": "Illustrative team capacity released",
+          "calculation": "13.5 hours/week × 4.33 × £25",
+          "disclosure_label": "Review assumptions",
+          "default_open": false,
+          "assumptions": {
+            "weekly_cases": 30,
+            "current_minutes_per_case": 45,
+            "estimated_time_reduction": 0.6,
+            "weeks_per_month": 4.33,
+            "loaded_hourly_cost_gbp": 25,
+            "monthly_capacity_value_gbp": 1461.375,
+            "presentation_amount_gbp": 1461,
+            "rounding": "Nearest pound",
+            "validation_status": "Unvalidated assumption"
+          }
+        },
+        {
+          "id": "evidence",
+          "amount": "£450",
+          "unit": "/ month",
+          "title": "Illustrative additional usable evidence",
+          "calculation": "3 additional usable pairs × £150",
+          "disclosure_label": "Review assumptions",
+          "default_open": false,
+          "assumptions": {
+            "additional_pairs_per_month": 3,
+            "illustrative_value_per_pair_gbp": 150,
+            "monthly_illustrative_value_gbp": 450,
+            "validation_status": "Unvalidated assumption"
+          }
+        }
+      ],
+      "disclaimer": "Estimates to validate together. Capacity released is not automatically a cash saving. No measured savings or revenue are claimed.",
+      "comparison": {
+        "label": "Alternative costs and comparison assumptions",
+        "default_open": false,
+        "items": [
+          {
+            "name": "Sorted build",
+            "price_gbp": 6000,
+            "basis": "one-off scoped build"
+          },
+          {
+            "name": "Internal build",
+            "price_gbp": null,
+            "basis": "Varies; team time, dependencies and duration"
+          },
+          {
+            "name": "External bespoke build",
+            "price_gbp": 15000,
+            "basis": "Illustrative one-off assumption, not a verified quotation"
+          },
+          {
+            "name": "Subscription software",
+            "price_gbp": 800,
+            "basis": "Illustrative monthly assumption; excludes setup and process design"
+          }
+        ],
+        "alternative_build_difference_gbp": 9000,
+        "note": "Keep alternative-build price differences separate from operating benefits. Do not add them together or imply a measured return."
+      },
+      "omit_from_previous_design": [
+        "£31,932 headline total",
+        "19% of value claim",
+        "Guaranteed savings or payback figures"
+      ],
+      "rules": [
+        "Use existing editable assumption data when available; preserve source and validation status.",
+        "No ROI chart or comparison graphic.",
+        "Display units clearly and retain explanatory text when an accordion is closed."
+      ]
+    },
+    {
+      "id": "agreement",
+      "layout": {
+        "desktop_columns": [
+          "1fr",
+          "1fr"
+        ],
+        "gap_px": 40,
+        "padding_px": 32
+      },
+      "style": {
+        "background": "dark_surface",
+        "text": "dark_text",
+        "radius_px": 8,
+        "column_divider": "Thin muted vertical rule on desktop"
+      },
+      "left": {
+        "eyebrow": "YOUR NEXT ACTION",
+        "heading": "Confirm the plan.\nStart implementation.",
+        "description": "£600 starts the agreed build. £5,400 is due at handover.",
+        "scope_link": "Read scope and responsibilities"
+      },
+      "form": {
+        "fields": [
+          {
+            "id": "full_name",
+            "label": "YOUR FULL NAME",
+            "type": "text",
+            "placeholder": "Type your full name",
+            "required": true,
+            "autocomplete": "name",
+            "max_length": 200
+          },
+          {
+            "id": "agree",
+            "type": "checkbox",
+            "label": "I agree to the scope, responsibilities and payment plan.",
+            "required": true,
+            "default": false
+          }
+        ],
+        "submit_label": "Sign agreement",
+        "submit_style": "Lime fill with dark label",
+        "footnote": "Signing records agreement only. Payments are confirmed separately. Nothing is sent or activated without approval."
+      },
+      "bindings": {
+        "scope_document_url": null,
+        "agreement_handler": "Reuse existing approved agreement flow; no new endpoint is specified by this design."
+      },
+      "rules": [
+        "The scope and payment plan must be accessible before assent.",
+        "Do not submit on behalf of the user or preselect agreement.",
+        "Validate name and checkbox; return visible field errors without clearing input.",
+        "Reuse current server-side authorisation, agreement versioning and audit record behaviour.",
+        "A button click, local checkbox or success animation must not itself establish server-side agreement completion.",
+        "Do not charge, send contract requests, mark payments received or enable live automation as a new side effect of this redesign."
+      ]
+    },
+    {
+      "id": "footer",
+      "layout": "Thin rule; Sorted wordmark left and privacy/contact text right.",
+      "copy": {
+        "brand": "Sorted.",
+        "description": "Private onboarding workspace for Derma Botanica.",
+        "contact": "Questions? Contact Sorted."
+      },
+      "contact_destination": null
+    }
+  ],
+  "interaction_states": {
+    "accordions": "Real disclosure buttons with aria-expanded, visible focus and inline expanded content. No navigation required.",
+    "signing": {
+      "idle": "Name field and unchecked consent.",
+      "invalid": "Explain the field issue inline.",
+      "submitting": "Disable repeated submit; label Signing…; preserve values.",
+      "success": "Use the existing server-confirmed success state and next-step message.",
+      "failure": "Show a readable retry message; do not report success."
+    },
+    "links": "Use existing real destinations. Unresolved URLs must be configured before release; do not ship invented # or demo destinations as live actions."
+  },
+  "responsive": {
+    "status": "Proposed behaviour requiring implementation QA.",
+    "breakpoints": [
+      {
+        "min_width_px": 1024,
+        "behaviour": "Desktop split hero, three stage columns, three payment columns and two-column content/form."
+      },
+      {
+        "min_width_px": 640,
+        "max_width_px": 1023,
+        "behaviour": "Reduce gutter to 32px; permit hero to stack; retain metric/payment columns only while readable."
+      },
+      {
+        "max_width_px": 639,
+        "behaviour": "20px gutter, 36px hero heading, 27px section heading, 42px metrics. Stack hero, journey, payment information, outcomes, scope, metrics and form. Remove vertical column rules in favour of horizontal rules."
+      }
+    ],
+    "rules": [
+      "Never shrink explanatory body text just to retain desktop columns.",
+      "Keep all commercial terms and disclaimers visible.",
+      "Buttons and checkboxes have at least 44px touch targets.",
+      "Allow natural page height; no horizontal overflow."
+    ]
+  },
+  "accessibility": {
+    "requirements": [
+      "Semantic header, main, sections and footer.",
+      "One h1 and a consistent heading ladder.",
+      "Check contrast in build, especially lime surfaces and muted dark-panel text.",
+      "Visible keyboard focus on controls and links.",
+      "Persistent form labels and programmatically associated error text.",
+      "Stage state communicated by text as well as colour.",
+      "Respect reduced motion and focus when using anchor scrolling."
+    ]
+  },
+  "content_integrity": {
+    "prototype": "Demonstration of flow, not proof of operational integrations or security.",
+    "financial_figures": "Client-supplied estimates; not independently validated.",
+    "commercial_changes": "Do not alter price, payment split, tax treatment or signed scope through design implementation.",
+    "privacy": "Do not infer that a page labelled private has working access control. Retain or implement agreed protection before live release."
+  },
+  "unresolved_variables": [
+    {
+      "name": "prototype_url",
+      "consequence": "Wire Explore the prototype to the actual preview."
+    },
+    {
+      "name": "scope_document_url",
+      "consequence": "Provide the real scope before collecting agreement."
+    },
+    {
+      "name": "contact_destination",
+      "consequence": "Use the existing real contact route."
+    },
+    {
+      "name": "vat_status",
+      "consequence": "Confirm and disclose tax treatment in the actual commercial agreement."
+    }
+  ],
+  "acceptance_criteria": [
+    "No photographic or illustrative assets appear.",
+    "Current demo-review stage and primary actions are immediately clear.",
+    "£6,000 total, £600 start and £5,400 handover remain consistent everywhere.",
+    "The three broad stages disclose the original seven-stage journey without changing underlying state.",
+    "Practical outcomes and remaining implementation scope are distinct.",
+    "Potential-value assumptions are labelled and alternative-build figures are not counted as recurring savings.",
+    "No £31,932 combined value or 19% claim remains in this selected design.",
+    "Signing retains existing approved behaviour without new payment or activation side effects.",
+    "Desktop and mobile renders are checked for spacing, readability, focus and overflow."
+  ]
+}

@@ -11,7 +11,7 @@ Sorted is one company, expressed conversationally at `/`: “Where’s your busi
 
 The new UK website offer is £999: up to five pages, design and draft copy, one consolidated revision round, contact route, content editing, basic SEO/analytics and launch. First-page preview before commitment. Payment: £499.50 on approval and £499.50 when ready to launch. Extra pages, shops, logins, integrations, campaign creative, paid services, ad spend, follow-up automation and ongoing management are separately quoted. Hosting, domains and tax treatment confirmed in writing.
 
-US pricing remains $3,500. Existing quotes/workspaces retain their agreed figures. `WEBSITE_MARKETING_PRICING` governs new public marketing, while `MARKET_PRICING` remains the historic workspace default. New UK website submissions carry `landing_page: website_999_uk`; only those get the new workspace offer automatically, with checkout inheritance disabled.
+US pricing is $1,299 ($649.50 + $649.50), matching the £999 UK offer. Existing quotes/workspaces retain their agreed figures. `WEBSITE_MARKETING_PRICING` governs new public marketing and new US leads, while `MARKET_PRICING` remains the historic workspace default. New UK website submissions carry `landing_page: website_999_uk`; only those get the new workspace offer automatically, with checkout inheritance disabled.
 
 Value: Trust through one coherent company and correctly attributed website proof; Enquiries through three recognisable problems and useful destinations; Operations through the separate automation route. Observe entry-card clicks, preview requests and diagnostic bookings using existing analytics infrastructure. No performance guarantee.
 

@@ -1,0 +1,497 @@
+{
+  "schema_version": "1.0",
+  "page_id": "sorted-pricing",
+  "page_title": "Pricing",
+  "locale": "en-GB",
+  "source_mockup": "Sorted operator pricing page mockup.png",
+  "source_sha256": "aa18341a4af815fe314d2a9b7a7fe124bce476cbaf4dd3c07f515acb52644322",
+  "source_library_file_id": "libfile_24916c87c1748191966e9ea6449cb9d4",
+  "viewport": {
+    "width": 887,
+    "height": 1774,
+    "unit": "source raster pixels",
+    "kind": "full-page desktop mockup"
+  },
+  "tokens": {
+    "status": "estimated from raster",
+    "colors": {
+      "paper": "#FAFAFA",
+      "ink": "#111111",
+      "olive": "#909900",
+      "lime": "#E4FF29",
+      "forest": "#002820",
+      "cream": "#F6F5EC",
+      "pale_blue": "#E8F3FA",
+      "divider": "#CECECE"
+    },
+    "typography": {
+      "display": "heavy modern sans-serif",
+      "body": "regular sans-serif",
+      "eyebrow": "bold tracked uppercase",
+      "exact_families": null
+    },
+    "spacing": {
+      "card_gap_px_est": 10,
+      "section_gutter_px_est": 44
+    },
+    "radii": {
+      "panel_px_est": 16,
+      "button": "pill"
+    },
+    "shadows": {
+      "cards": "none"
+    }
+  },
+  "sections": [
+    {
+      "id": "header",
+      "role": "site_navigation",
+      "layout": {
+        "bbox_px_est": [
+          43,
+          12,
+          802,
+          42
+        ],
+        "description": "Wordmark left, navigation centred and outlined CTA right."
+      },
+      "copy": {
+        "wordmark": "Sorted."
+      },
+      "components": [
+        {
+          "type": "wordmark",
+          "text": "Sorted."
+        },
+        {
+          "type": "link",
+          "label": "Operators",
+          "target": null,
+          "active": false
+        },
+        {
+          "type": "link",
+          "label": "How It Works",
+          "target": null,
+          "active": false
+        },
+        {
+          "type": "link",
+          "label": "Pricing",
+          "target": null,
+          "active": true
+        },
+        {
+          "type": "link",
+          "label": "About",
+          "target": null,
+          "active": false
+        },
+        {
+          "type": "link",
+          "label": "Find Your Leaks",
+          "target": null,
+          "style": "outline"
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Collapse nav into a menu at narrow widths.",
+      "order": 1
+    },
+    {
+      "id": "hero",
+      "role": "page_intro",
+      "layout": {
+        "bbox_px_est": [
+          50,
+          102,
+          785,
+          101
+        ],
+        "description": "Left-aligned headline with second sentence in olive."
+      },
+      "copy": {
+        "eyebrow": "FIXED SCOPE. SIMPLE RETAINER.",
+        "headline": "Pay once to set up. Then one monthly fee.",
+        "accent": "Then one monthly fee.",
+        "subhead": "Choose where you need help: enquiries, quotes or getting paid."
+      },
+      "components": [],
+      "image_asset_ids": [],
+      "responsive_intent": "Let the headline reflow naturally with the same emphasis.",
+      "order": 2
+    },
+    {
+      "id": "packages",
+      "role": "price_comparison",
+      "layout": {
+        "bbox_px_est": [
+          27,
+          243,
+          833,
+          382
+        ],
+        "description": "Three equal-width cards. Centre card uses forest with lime badge and CTA. Keep CTAs aligned on desktop."
+      },
+      "copy": {},
+      "components": [
+        {
+          "type": "pricing_card",
+          "id": "single-operator",
+          "title": "Single Operator",
+          "buying_reason": "One part of the job keeps slipping.",
+          "badge": null,
+          "featured": false,
+          "surface": "cream",
+          "pricing": {
+            "currency": "GBP",
+            "setup_amount": 950,
+            "monthly_amount": 175,
+            "setup_display": "£950 setup",
+            "monthly_display": "+ £175 a month",
+            "vat_included": null
+          },
+          "operator_selection": "choose_one",
+          "operator_ids": [
+            "intake",
+            "estimator",
+            "chaser"
+          ],
+          "coverage_copy": "Choose Intake, Estimator or Chaser.",
+          "cta": {
+            "type": "link",
+            "label": "Book a diagnostic",
+            "target": null,
+            "style": "forest-fill",
+            "intent": "diagnostic_booking",
+            "package_id": "single-operator"
+          }
+        },
+        {
+          "type": "pricing_card",
+          "id": "dual-pipeline",
+          "title": "Dual Pipeline",
+          "buying_reason": "Enquiries and quotes both get held up.",
+          "badge": "Enquiry to quote",
+          "featured": true,
+          "surface": "forest",
+          "pricing": {
+            "currency": "GBP",
+            "setup_amount": 1850,
+            "monthly_amount": 295,
+            "setup_display": "£1,850 setup",
+            "monthly_display": "+ £295 a month",
+            "vat_included": null
+          },
+          "operator_selection": "all_listed",
+          "operator_ids": [
+            "intake",
+            "estimator"
+          ],
+          "coverage_copy": "Intake + Estimator",
+          "cta": {
+            "type": "link",
+            "label": "Book a diagnostic",
+            "target": null,
+            "style": "lime-fill",
+            "intent": "diagnostic_booking",
+            "package_id": "dual-pipeline"
+          }
+        },
+        {
+          "type": "pricing_card",
+          "id": "full-operations-stack",
+          "title": "Full Operations Stack",
+          "buying_reason": "You also spend time chasing invoices.",
+          "badge": null,
+          "featured": false,
+          "surface": "cream",
+          "pricing": {
+            "currency": "GBP",
+            "setup_amount": 2500,
+            "monthly_amount": 395,
+            "setup_display": "£2,500 setup",
+            "monthly_display": "+ £395 a month",
+            "vat_included": null
+          },
+          "operator_selection": "all_listed",
+          "operator_ids": [
+            "intake",
+            "estimator",
+            "chaser"
+          ],
+          "coverage_copy": "Intake + Estimator + Chaser",
+          "cta": {
+            "type": "link",
+            "label": "Book a diagnostic",
+            "target": null,
+            "style": "forest-fill",
+            "intent": "diagnostic_booking",
+            "package_id": "full-operations-stack"
+          }
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Stack Single, Dual and Full at narrow widths. Keep setup and monthly fees together on each card.",
+      "order": 3
+    },
+    {
+      "id": "fee-scope",
+      "role": "fee_breakdown",
+      "layout": {
+        "bbox_px_est": [
+          35,
+          675,
+          817,
+          327
+        ],
+        "description": "Section heading above a two-column fee breakdown with tinted panels."
+      },
+      "copy": {
+        "headline": "What your fees cover"
+      },
+      "components": [
+        {
+          "type": "fee_scope_panel",
+          "id": "setup-scope",
+          "title": "What we set up once",
+          "surface": "cream",
+          "items": [
+            "Map how you handle the work today",
+            "Configure your rules and connect the relevant tools",
+            "Test a typical job with you before launch"
+          ]
+        },
+        {
+          "type": "fee_scope_panel",
+          "id": "monthly-scope",
+          "title": "What we look after each month",
+          "surface": "pale-blue",
+          "items": [
+            "Monitor the connected workflows",
+            "Investigate issues when they come up",
+            "Maintain the operator as your tools change"
+          ],
+          "publication_status": "confirm_support_scope"
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Stack the setup panel first, followed by the monthly panel.",
+      "order": 4
+    },
+    {
+      "id": "faq",
+      "role": "purchase_questions",
+      "layout": {
+        "bbox_px_est": [
+          45,
+          1051,
+          794,
+          268
+        ],
+        "description": "Four closed accordion rows with fine separators and trailing plus icons."
+      },
+      "copy": {
+        "headline": "Questions before you book?"
+      },
+      "components": [
+        {
+          "type": "accordion_item",
+          "id": "tools",
+          "question": "Which tools do I need to connect?",
+          "answer": null,
+          "default_open": false,
+          "status": "answer_pending"
+        },
+        {
+          "type": "accordion_item",
+          "id": "upgrades",
+          "question": "Can I start with one operator and add another?",
+          "answer": null,
+          "default_open": false,
+          "status": "answer_pending"
+        },
+        {
+          "type": "accordion_item",
+          "id": "vat-and-fees",
+          "question": "Are VAT and software fees included?",
+          "answer": null,
+          "default_open": false,
+          "status": "answer_pending"
+        },
+        {
+          "type": "accordion_item",
+          "id": "commitment",
+          "question": "Is there a minimum commitment?",
+          "answer": null,
+          "default_open": false,
+          "status": "answer_pending"
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Use full-width, keyboard-operable accordion controls once answers are supplied.",
+      "order": 5
+    },
+    {
+      "id": "diagnostic",
+      "role": "conversion",
+      "layout": {
+        "bbox_px_est": [
+          28,
+          1358,
+          830,
+          178
+        ],
+        "description": "Forest band with heading and body left, lime pill CTA right."
+      },
+      "copy": {
+        "headline": "Which operator should you start with?",
+        "accent": "start with?",
+        "body": "Bring one recent job that got held up. In 15 minutes, we’ll walk through it and tell you where we’d start."
+      },
+      "components": [
+        {
+          "type": "link",
+          "label": "Book a diagnostic",
+          "target": null,
+          "style": "lime-fill",
+          "intent": "diagnostic_booking"
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Stack the copy and CTA while keeping the button prominent.",
+      "order": 6
+    },
+    {
+      "id": "footer",
+      "role": "site_footer",
+      "layout": {
+        "bbox_px_est": [
+          43,
+          1576,
+          802,
+          181
+        ],
+        "description": "Four columns, then legal row below a thin divider."
+      },
+      "copy": {
+        "wordmark": "Sorted.",
+        "body": [
+          "We make good businesses more capable.",
+          "Business modernisation for local businesses."
+        ],
+        "legal": "© 2026 Sorted. Sorted is a trading name of ADX Engine Ltd · Registered in England & Wales · Company number 17327041"
+      },
+      "components": [
+        {
+          "type": "link_group",
+          "heading": "How we help",
+          "links": [
+            {
+              "type": "link",
+              "label": "Websites",
+              "target": null
+            },
+            {
+              "type": "link",
+              "label": "Operations",
+              "target": null
+            },
+            {
+              "type": "link",
+              "label": "Pricing",
+              "target": null
+            },
+            {
+              "type": "link",
+              "label": "SortedUpdates",
+              "target": null
+            }
+          ]
+        },
+        {
+          "type": "link_group",
+          "heading": "Company",
+          "links": [
+            {
+              "type": "link",
+              "label": "How we work",
+              "target": null
+            },
+            {
+              "type": "link",
+              "label": "Our work",
+              "target": null
+            },
+            {
+              "type": "link",
+              "label": "About us",
+              "target": null
+            },
+            {
+              "type": "link",
+              "label": "Reviews",
+              "target": null
+            },
+            {
+              "type": "link",
+              "label": "Partner program",
+              "target": null
+            },
+            {
+              "type": "link",
+              "label": "Contact",
+              "target": null
+            }
+          ]
+        },
+        {
+          "type": "link_group",
+          "heading": "Let's talk",
+          "links": [
+            {
+              "type": "link",
+              "label": "WhatsApp us",
+              "target": null,
+              "style": "lime-fill"
+            },
+            {
+              "type": "link",
+              "label": "hello@sortmydigital.site",
+              "target": "mailto:hello@sortmydigital.site"
+            }
+          ]
+        },
+        {
+          "type": "link",
+          "label": "Privacy",
+          "target": null
+        },
+        {
+          "type": "link",
+          "label": "Terms",
+          "target": null
+        }
+      ],
+      "image_asset_ids": [],
+      "responsive_intent": "Wrap columns or stack groups. Keep contact and legal links visible.",
+      "order": 7
+    }
+  ],
+  "assets": {
+    "image_assets": [],
+    "wordmark": "Use the existing Sorted wordmark.",
+    "icons": "Use existing vector icons for arrows, checks, plus and phone."
+  },
+  "unresolved": {
+    "diagnostic_url": null,
+    "route_bindings": null,
+    "faq_answers": null,
+    "monthly_support_scope": null
+  },
+  "implementation_notes": [
+    "Geometry is estimated from the desktop mockup. Responsive behaviour is proposed.",
+    "Use the existing site route map and diagnostic booking destination. Package selection metadata can carry into the shared booking flow.",
+    "Confirm FAQ answers and monthly support scope before publishing."
+  ]
+}

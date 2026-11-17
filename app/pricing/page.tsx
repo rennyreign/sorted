@@ -8,7 +8,7 @@ import { MockupButton } from "../sites/_components/SitesMockupModal"
 export const metadata: Metadata = {
   title: "Pricing | Sorted",
   description:
-    "A small-business website for £999 in the UK or $3,500 in the US. Up to five pages, one revision round, content editing and basic analytics.",
+    "A small-business website for £999 in the UK or $1,299 in the US. Up to five pages, one revision round, content editing and basic analytics.",
   alternates: {
     canonical: "/pricing",
   },

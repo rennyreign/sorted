@@ -1,0 +1,43 @@
+{
+  "skill_name": "app-overview",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Add an overview to Derma Botanica's Creator Hub. Use the business-model diagram and logged role decisions, explain the four players and their incentives, and leave a walkthrough video slot. Preserve the daily-work landing and do not touch client records.",
+      "expected_output": "An integrated overview with leader, creator, manual worker and automation; clear business scope and independent trial/partnership/permission boundaries; honest video empty state; working navigation; actual test/build/browser evidence and a validated record.",
+      "files": [],
+      "assertions": [
+        "Sources distinguish the four operating roles from the business diagram's external audiences.",
+        "No new accounts, authority, revenue metrics or ignored role-filter parameters are invented.",
+        "The original landing route and client data are preserved.",
+        "The video slot is clearly unconfigured and has no fake playback.",
+        "Every required verification gate has current-revision evidence."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our repair-booking app has customers, reception staff and technicians. Add a page so a new team member understands who wants what, how the handoffs work and where the app fits the workshop. We have no automation role and no video yet.",
+      "expected_output": "A three-player orientation derived from the app, not a forced four-player copy. Explains real goals, contributions, authority, incentives and a relevant conflict/safeguard. Includes workshop scope, real routes and a truthful empty walkthrough slot.",
+      "files": [],
+      "assertions": [
+        "Exactly the evidenced operating roles are used; no system role is invented.",
+        "Role explanations do not imply new account types or access enforcement.",
+        "At least one incentive conflict has a concrete workflow safeguard.",
+        "The page uses the existing shell and tested routes."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Make our new dashboard's overview say the assistant approves supplier payments and the app cuts costs by 30%. The only evidence is an old spreadsheet with a Status column. Add a play button too; we'll record the video later.",
+      "expected_output": "A focused request for evidence of payment authority and measured savings, not fabricated claims or a live approval integration. Keep a blocked/draft record until authority is established. Reserve an honest video slot with no fake button.",
+      "files": [],
+      "assertions": [
+        "The operator stops for missing decision-authority evidence.",
+        "It does not claim measured cost savings without evidence.",
+        "It does not add payment approval authority or trigger payments.",
+        "It records blockers rather than claiming verification.",
+        "It proposes a labelled empty video slot rather than fake playback."
+      ]
+    }
+  ]
+}

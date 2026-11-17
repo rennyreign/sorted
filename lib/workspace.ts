@@ -2050,7 +2050,41 @@ const WORKSPACE_OVERRIDES: Record<string, WorkspaceOverride> = {
       ads: {
         offer:
           "A campaign kit built around one clear action: start a conversation with Joshi Accounting Services.",
-        creatives: [],
+        creatives: [
+          {
+            title: "Accounting off your to-do list",
+            format: "Facebook & Instagram feed · 1x1",
+            audience: "Small business owners in Rugby and across the UK.",
+            headline: "Accounting off your to-do list",
+            cta: "Talk about your business",
+            primaryText:
+              "Accounts, tax and payroll. Practical support for your business from Joshi Accounting Services — established 2008, based in Rugby. Talk about your business to find the support that fits.",
+            imageUrl: "/workspace/joshi/ad-01.jpg",
+            imageAlt: "Joshi Accounting Services creative: Accounting off your to-do list. Accounts, tax and payroll. Talk about your business.",
+          },
+          {
+            title: "An accountant who gets to know your business",
+            format: "Facebook & Instagram feed · 1x1",
+            audience: "Small business owners in Rugby and across the UK.",
+            headline: "An accountant who gets to know your business",
+            cta: "Talk about your business",
+            primaryText:
+              "Tell us what you need. Find the support that fits. Joshi Accounting Services — established 2008, Rugby, supporting UK small businesses.",
+            imageUrl: "/workspace/joshi/ad-02.jpg",
+            imageAlt: "Joshi Accounting Services creative: An accountant who gets to know your business. Tell us what you need. Talk about your business.",
+          },
+          {
+            title: "Accounting off your to-do list",
+            format: "Facebook & Instagram stories · 9x16",
+            audience: "Small business owners in Rugby and across the UK.",
+            headline: "Accounting off your to-do list",
+            cta: "Talk about your business",
+            primaryText:
+              "Accounts, tax and payroll. Practical support for your business from Joshi Accounting Services — established 2008, based in Rugby. Talk about your business to find the support that fits.",
+            imageUrl: "/workspace/joshi/ad-03.jpg",
+            imageAlt: "Joshi Accounting Services creative (story format): Accounting off your to-do list. Accounts, tax and payroll. Talk about your business.",
+          },
+        ],
       },
       tracking: {
         metrics: [

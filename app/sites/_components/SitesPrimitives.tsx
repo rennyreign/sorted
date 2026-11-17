@@ -37,8 +37,8 @@ export function SitesPage({ children }: { children: ReactNode }) {
   return <main className={`${sitesMarker.variable} ${sitesHighlight.variable} ${sitesFaveScript.variable} ${sitesBakeshop.variable} sorted-sites-shell min-h-screen bg-[#fbfbfa] pt-[76px] text-[#070707]`}>{children}</main>
 }
 
-export function SitesHeader({ active, tone = "light", variant = "default", cta = "website" }: { active?: "how" | "examples" | "sites" | "operations" | "pricing" | "included" | "whatelse" | "about" | "updates"; tone?: "light" | "dark"; variant?: "default" | "home"; cta?: "company" | "website" }) {
-  return <SitesHeaderClient active={active} tone={tone} variant={variant} cta={cta} />
+export function SitesHeader({ active, tone = "light", variant = "default", cta = "website", links, bare, logoHref }: { active?: "how" | "examples" | "sites" | "operations" | "pricing" | "included" | "whatelse" | "about" | "updates"; tone?: "light" | "dark"; variant?: "default" | "home"; cta?: "company" | "website"; links?: readonly (readonly [string, string, string])[]; bare?: boolean; logoHref?: string }) {
+  return <SitesHeaderClient active={active} tone={tone} variant={variant} cta={cta} links={links} bare={bare} logoHref={logoHref} />
 }
 
 export function SitesFooter({ tone = "dark" }: { variant?: "default" | "compact"; tone?: "dark" | "light" }) {

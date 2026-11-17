@@ -1,0 +1,495 @@
+{
+  "schema_version": "1.0",
+  "manifest_type": "sorted-design-ir",
+  "project": {
+    "name": "Sorted — Campaign Angle Manufacturing",
+    "page": "Single-page agency acquisition landing page",
+    "route": "/agencies",
+    "status": "approved raster mockup with clarified content",
+    "source_mockup": "a_clean_modern_landing_page_screenshot_website_m.png",
+    "source_dimensions_px": {
+      "width": 746,
+      "height": 2108
+    },
+    "scope": "Design IR only. No image reconstruction requested. Layout descriptions approximate; do not implement as fixed raster dimensions."
+  },
+  "intent": {
+    "audience": "Owners and heads of performance marketing agencies; university/OPM, ecommerce and lead-generation are examples, not separate page requirements",
+    "job": "Credibility checkpoint from outbound/social: immediately clarify offer and secure booked conversations",
+    "primary_conversion": "Cal.com Campaign Angle Conversation booking",
+    "secondary_engagement": "Read The Elephant in the Room editorial letter in-page",
+    "core_positioning": "You run the campaigns. We manufacture the angles.",
+    "tone": [
+      "direct",
+      "editorial",
+      "commercial",
+      "self-assured",
+      "uncluttered",
+      "human"
+    ],
+    "non_goals": [
+      "Additional internal pages",
+      "large examples gallery",
+      "unverified customer logos/reviews",
+      "guaranteed conversion performance"
+    ]
+  },
+  "brand": {
+    "name": "Sorted.",
+    "design_reference": "sorted-design-system.png",
+    "palette": {
+      "background": "#FAFAF7",
+      "paper": "#FFFFFF",
+      "foreground": "#0C0C0C",
+      "muted": "#6E6E6A",
+      "soft_panel": "#F4F3EF",
+      "divider": "#E6E6E2",
+      "lime": "#D4FF00",
+      "dark": "#080808"
+    },
+    "type": {
+      "primary": "Bold geometric sans-serif approximating Sorted reference; confirm licensed font from product assets",
+      "editorial_accent": "Loose handwritten/italic script in lime, occasional only",
+      "scale_desktop_px": {
+        "hero": 60,
+        "section": 38,
+        "body": 16,
+        "eyebrow": 11
+      },
+      "guidelines": [
+        "large deliberate linebreaks",
+        "tight heading tracking",
+        "comfortable reading line height",
+        "limited accent script use"
+      ]
+    },
+    "layout": {
+      "max_width_px": 1180,
+      "gutters_px": {
+        "mobile": 20,
+        "tablet": 32,
+        "desktop": 60
+      },
+      "section_space_px": {
+        "mobile": 56,
+        "desktop": 96
+      },
+      "card_radius_px": 16,
+      "image_radius_px": 12,
+      "responsive": "Desktop two-column hero; stack video below copy on mobile; touch-friendly buttons; max line length editorial letter approximately 65–75 characters"
+    },
+    "components": {
+      "primary_button": "black pill, white text, subtle arrow",
+      "secondary_button": "black text / thin neutral border or lime circular play",
+      "eyebrow": "small uppercase spaced text",
+      "panels": "white or off-white with restrained border/shadow",
+      "dark_cta": "black section with white text and real Cal.com embed panel"
+    }
+  },
+  "navigation": {
+    "mode": "single_page",
+    "items": [
+      {
+        "label": "Home",
+        "href": "#top"
+      },
+      {
+        "label": "The Sprint",
+        "href": "#sprint"
+      },
+      {
+        "label": "The Letter",
+        "href": "#letter"
+      },
+      {
+        "label": "Book",
+        "href": "#book"
+      }
+    ],
+    "note": "Keep compact; user explicitly wants one page, not multi-page site. Prior five-item navigation was superseded.",
+    "header_cta": {
+      "label": "Book a conversation",
+      "href": "#book"
+    },
+    "sticky": true
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "order": 1,
+      "layout": "desktop 52/48 text/video; mobile stacked",
+      "background": "paper",
+      "eyebrow": "FOR PERFORMANCE MARKETING TEAMS",
+      "headline_lines": [
+        {
+          "text": "More angles.",
+          "style": "heavy_black"
+        },
+        {
+          "text": "More experiments.",
+          "style": "heavy_black"
+        },
+        {
+          "text": "More opportunities",
+          "style": "lime_script"
+        },
+        {
+          "text": "to find what works.",
+          "style": "heavy_black"
+        }
+      ],
+      "body": [
+        "We manufacture complete, message-matched campaign journeys around the different reasons customers buy.",
+        "From ad creative and copy to landing pages and follow-up narratives, Sorted makes it practical to test more purchasing motivations without adding another production burden to your team."
+      ],
+      "primary_cta": {
+        "label": "Book a campaign angle conversation",
+        "href": "#book"
+      },
+      "media": {
+        "type": "founder_video",
+        "status": "placeholder — actual video not provided",
+        "poster": "placeholder — do not reuse generated founder likeness as verified photo",
+        "accessible_label": "Watch a two-minute introduction to Sorted",
+        "play_interaction": "opens playable real video only once URL supplied; otherwise render non-interactive placeholder",
+        "aspect_ratio": "4:5 or near-square"
+      },
+      "benefits": [
+        {
+          "icon": "zap",
+          "title": "Complete campaign journeys",
+          "subtitle": "Ads, landing pages, follow-ups and more."
+        },
+        {
+          "icon": "settings",
+          "title": "No platform adoption",
+          "subtitle": "We work with your existing tools."
+        },
+        {
+          "icon": "chart-no-axes-combined",
+          "title": "Built for real experiments",
+          "subtitle": "Turn customer motivations into test-ready hypotheses."
+        }
+      ]
+    },
+    {
+      "id": "sprint",
+      "order": 2,
+      "eyebrow": "THE SORTED CAMPAIGN ANGLE SPRINT",
+      "heading": "Give us two campaigns. We’ll show you two new ways to test them.",
+      "intro": "Choose two active client products or campaigns. We’ll develop an expansion angle for one and a completely different buying angle for the other.",
+      "layout": "two side-by-side comparison cards then deliverables strip",
+      "cards": [
+        {
+          "label": "A",
+          "title": "Angle Expansion",
+          "eyebrow": "MAKE AN EXISTING CAMPAIGN WORK HARDER",
+          "body": "Take an active campaign and identify additional customer motivations or messages within its established proposition. Deliver new ad concepts and creative, revised copy and a message-matched landing-page variant, with follow-up narratives where useful.",
+          "question": "What else could make this campaign resonate with the people we’re already trying to reach?"
+        },
+        {
+          "label": "B",
+          "title": "Angle Discovery",
+          "eyebrow": "EXPLORE A DIFFERENT REASON TO BUY",
+          "body": "Develop a distinct purchasing hypothesis for an existing product or service, then manufacture the campaign assets required to test it. New messaging, ad concepts, creative assets, a dedicated landing-page experience and a matching follow-up narrative.",
+          "question": "Who else might buy this product, and for a reason our current campaigns barely address?"
+        }
+      ]
+    },
+    {
+      "id": "deliverables",
+      "order": 3,
+      "eyebrow": "YOU RECEIVE",
+      "layout": "six compact icon-led items in responsive grid",
+      "items": [
+        {
+          "icon": "file-text",
+          "title": "Two documented angle hypotheses"
+        },
+        {
+          "icon": "eye",
+          "title": "Two visual campaign previews for approval"
+        },
+        {
+          "icon": "monitor",
+          "title": "Two responsive landing-page experiences"
+        },
+        {
+          "icon": "image",
+          "title": "Two sets of ad copy and creative assets"
+        },
+        {
+          "icon": "mail",
+          "title": "Matching follow-up messaging for each angle"
+        },
+        {
+          "icon": "chart-column",
+          "title": "Measurement and activation handover for both experiments"
+        }
+      ],
+      "delivery_clarification": "Two angles, including actual production outputs—rather than strategy-only recommendations. Scope, number of creative variants, integration support and turnaround confirmed before payment."
+    },
+    {
+      "id": "roles",
+      "order": 4,
+      "layout": "simple two-column editorial break",
+      "eyebrow": "YOU RUN THE CAMPAIGNS",
+      "heading": "We manufacture the angles.",
+      "body": "Your agency retains media buying, deployment into its automation systems, experimentation decisions and client ownership. Sorted manufactures and verifies the agreed assets on supported infrastructure, ready for your team to launch.",
+      "supporting_points": [
+        "No mandatory platform migration",
+        "Preview direction before full production",
+        "Clear handover and ownership boundaries"
+      ]
+    },
+    {
+      "id": "letter",
+      "order": 5,
+      "eyebrow": "THE ELEPHANT IN THE ROOM",
+      "heading_lines": [
+        "Another campaign.",
+        "Same conversation."
+      ],
+      "layout": "single narrow editorial column, cream/off-white background, longform readable text",
+      "intro": "An open letter to the people responsible for campaign performance.",
+      "content_blocks": [
+        {
+          "type": "lead",
+          "text": "If you’ve spent any meaningful time running performance marketing, you probably don’t need another person explaining the importance of testing."
+        },
+        {
+          "type": "paragraph",
+          "text": "You know your customers don’t all buy for the same reasons. You know your best campaign probably represents only a fraction of the purchasing motivations you could explore. And you almost certainly have people on your team who have already suggested some of them."
+        },
+        {
+          "type": "emphasis",
+          "text": "Knowing what might work and having the capacity to test it properly are two very different things."
+        },
+        {
+          "type": "paragraph",
+          "text": "Another creative? Fine. Another headline? Manageable. An entirely different buying motivation, carried consistently from the advertisement through the landing page, conversion experience and follow-up? That’s a project."
+        },
+        {
+          "type": "paragraph",
+          "text": "Someone needs to develop the argument. Someone needs to write it. Someone needs to design the creative. Someone needs to build the landing page. Someone needs to coordinate the follow-up. Someone needs to make sure everything is measurable. And all those people already have jobs to do."
+        },
+        {
+          "type": "paragraph",
+          "text": "So the idea joins the queue. Or gets simplified into another advert pointing at the existing landing page. Or disappears altogether. Not because it wasn’t worth testing. Because the organisation couldn’t afford to interrupt everything else to find out."
+        },
+        {
+          "type": "heading",
+          "text": "And that costs more than production time."
+        },
+        {
+          "type": "paragraph",
+          "text": "It means you keep spending money against the purchasing motivations you’ve already discovered, while potentially better ones remain unexplored. It means campaigns can become increasingly dependent on familiar propositions, even as their performance begins to deteriorate. It means your team is asked to extract more performance from the same arguments, rather than being given the capacity to investigate new ones."
+        },
+        {
+          "type": "paragraph",
+          "text": "And eventually, it means difficult conversations. Why isn’t the pipeline stronger? Why are leads becoming harder to convert? Why does the sales team keep questioning quality? Why are acquisition costs rising? Why haven’t we found another approach?"
+        },
+        {
+          "type": "emphasis",
+          "text": "Sometimes the problem isn’t that you’ve failed to optimise the campaigns you’re running. It’s that you haven’t been able to run enough meaningfully different campaigns to understand what else could work."
+        },
+        {
+          "type": "heading",
+          "text": "Another software platform isn’t necessarily the answer."
+        },
+        {
+          "type": "paragraph",
+          "text": "Your team probably has the tools it needs. What it doesn’t necessarily have is spare capacity to operate another production process. A new AI platform might produce landing pages faster. Another might generate creative variations. Another might automate follow-up. Each can be useful."
+        },
+        {
+          "type": "paragraph",
+          "text": "But somebody still needs to bring the thinking together, preserve the message across the journey, assess the quality and coordinate the experiment. And now you’ve introduced another system to learn, another workflow to establish and another thing for somebody to own."
+        },
+        {
+          "type": "emphasis",
+          "text": "I think most marketing leaders want the work done. Properly. Without creating another operational problem."
+        },
+        {
+          "type": "heading",
+          "text": "That’s why we built Sorted."
+        },
+        {
+          "type": "paragraph",
+          "text": "I spent years working in marketing, including as Head of Marketing at Bisk Education. I’ve experienced the distance between knowing what a campaign needs and having the resources available to make it happen."
+        },
+        {
+          "type": "paragraph",
+          "text": "Sorted was built around a simple idea: what if manufacturing another complete campaign angle wasn’t a major undertaking? Not another random set of AI-generated advertisements. A genuine purchasing hypothesis—developed into convincing advertising, relevant creative, a dedicated landing experience, matching follow-up messaging and the measurement requirements needed to test it."
+        },
+        {
+          "type": "paragraph",
+          "text": "And rather than asking your team to coordinate all of that, we take responsibility for manufacturing the agreed assets. You keep your campaigns, your technology, your customers and your judgement. We supply the work."
+        },
+        {
+          "type": "heading",
+          "text": "Here’s where we start."
+        },
+        {
+          "type": "paragraph",
+          "text": "Give us two active products or campaigns you believe have room to improve. For one, we’ll explore an additional motivation within the existing proposition. For the other, we’ll develop an entirely different reason somebody might buy."
+        },
+        {
+          "type": "paragraph",
+          "text": "We’ll show you the proposed campaign directions before full production. Once they’re approved, we’ll build the agreed advertising assets, landing pages and follow-up narratives, with a measurement and activation handover."
+        },
+        {
+          "type": "paragraph",
+          "text": "Your team runs the experiments. You see what resonates, what attracts the right people and what deserves further investment. We don’t know in advance which angle will win. That’s why we’re testing. But we can make it more practical to find out."
+        },
+        {
+          "type": "emphasis",
+          "text": "Your next meaningful improvement might not be a better version of the campaign you’re already running. It might be a conversation with customers you’ve never properly had."
+        }
+      ],
+      "signature": {
+        "display_name": "Renaldo Edmondson",
+        "role": "Founder, Sorted",
+        "signature_art": "optional handwritten signature only if authentic asset supplied"
+      },
+      "editorial_notes": [
+        "Use generous paragraph spacing; no cards or stock images in the letter",
+        "Keep candid, avoid claiming quantified lost revenue without proof",
+        "Preserve outcome responsibility and agency control"
+      ]
+    },
+    {
+      "id": "book",
+      "order": 6,
+      "layout": "dark two-column CTA + embedded booking form, stack on mobile",
+      "background": "dark",
+      "eyebrow": "READY TO EXPLORE WHAT’S POSSIBLE?",
+      "heading": "Book a campaign conversation.",
+      "body": "Let’s look at two campaigns and see what other opportunities might be worth testing.",
+      "embed": {
+        "provider": "Cal.com",
+        "type": "inline_embed",
+        "booking_url": null,
+        "booking_url_status": "required configuration — actual link not provided",
+        "event_name": "Campaign Angle Conversation",
+        "duration_minutes": null,
+        "duration_status": "not confirmed",
+        "state_loading": "Show accessible loading skeleton",
+        "state_unconfigured": "Show clear placeholder; do not fake availability or make an inert booking button",
+        "state_failure": "Offer direct link only when verified Cal.com URL is configured",
+        "privacy": "Respect consent and required cookie/embed controls"
+      },
+      "cta_fallback": {
+        "label": "Book a campaign conversation",
+        "target": "configured booking URL only"
+      }
+    },
+    {
+      "id": "footer",
+      "order": 7,
+      "layout": "minimal footer, off-white",
+      "left": "Sorted. — Campaign angle manufacturing for performance marketing teams.",
+      "nav": [
+        {
+          "label": "Top",
+          "href": "#top"
+        },
+        {
+          "label": "The Sprint",
+          "href": "#sprint"
+        },
+        {
+          "label": "The Letter",
+          "href": "#letter"
+        },
+        {
+          "label": "Book",
+          "href": "#book"
+        }
+      ],
+      "legal": {
+        "copyright": "© 2026 Sorted.",
+        "privacy_url": null,
+        "terms_url": null,
+        "instruction": "Do not invent legal destinations."
+      }
+    }
+  ],
+  "commercial": {
+    "product_name": "Two-Campaign Angle Sprint",
+    "proposed_price_gbp": 2250,
+    "status": "Proposed offer, validate before publicly committing",
+    "pricing_display": "Optional near sprint header; if displayed use “Proposed founding-partner sprint: £2,250” until confirmed",
+    "approval_gate": "Visual previews for review before production; do not imply completed campaigns are free",
+    "delivery_target": "Indicative 10 working days after concept approval and complete inputs, subject to written scope and capacity confirmation",
+    "limitations": [
+      "Results and conversion uplift not guaranteed",
+      "Agency owns media buying and campaign activation",
+      "CRM automation setup out of scope unless separately agreed",
+      "No unlimited creative revisions"
+    ]
+  },
+  "responsive_rules": [
+    {
+      "breakpoint": "<=767px",
+      "rule": "all columns stack; 20px gutters; hero text before video; six deliverables become two columns or one for very narrow screens; Cal.com iframe full width"
+    },
+    {
+      "breakpoint": "768–1023px",
+      "rule": "allow hero two-column if legible; increase gap; deliverables three columns"
+    },
+    {
+      "breakpoint": ">=1024px",
+      "rule": "hero and booking CTA two-column; sprint cards side-by-side; editorial letter max width ~720px"
+    }
+  ],
+  "implementation": {
+    "framework": "Next.js recommended (aligned with current Sorted stack)",
+    "styling": "CSS variables + responsive grid; do not rasterize text",
+    "video_asset": "not supplied; show tasteful empty poster slot until authentic recording",
+    "image_reconstruction": "explicitly excluded",
+    "source_image_handling": "Attached screenshot is reference only, not a shippable section image",
+    "calcom": "configure actual booking URL through environment/content setting",
+    "analytics_events": [
+      "hero_booking_cta_clicked",
+      "founder_video_played",
+      "letter_scrolled_75_percent",
+      "booking_section_viewed",
+      "calcom_booking_completed_if_supported"
+    ],
+    "accessibility": [
+      "semantic headings, one h1",
+      "proper link/button semantics",
+      "keyboard-accessible player and booking",
+      "contrast-check lime on pale backgrounds",
+      "prefers-reduced-motion"
+    ],
+    "acceptance_criteria": [
+      "one independent functional page",
+      "consistent Sorted visual design",
+      "all six sections present",
+      "full letter readable",
+      "no fabricated testimonials/clients",
+      "booking action operates once actual Cal.com URL added",
+      "desktop and mobile tested"
+    ]
+  },
+  "assets": {
+    "reconstructed_images": [],
+    "provided_media": [],
+    "required_from_owner": [
+      {
+        "kind": "video",
+        "description": "Actual founder introduction recording and optional thumbnail"
+      },
+      {
+        "kind": "url",
+        "description": "Actual Cal.com booking event link"
+      }
+    ]
+  },
+  "source_notes": [
+    "Manifest based on approved agency single-page screenshot and user-approved Elephant in the Room copy.",
+    "No image reconstruction or media generation included.",
+    "Treat portrait and calendar shown in mockup as placeholders, not actual connected media or a live booking widget."
+  ]
+}

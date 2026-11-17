@@ -11,6 +11,14 @@ This repo was scaffolded from the Sorted client-site template. It is a Stage 1 b
 
 Canonical execution/evidence: `/Users/renaldoedmondson/Projects/sorted/operators/skills/factory-operators.md`. Do not load or repeat the old deconstruction/generation chain for a complete pack.
 
+Standard handoff: build -> present local preview -> one original-mockup
+QA round. Read
+`/Users/renaldoedmondson/Projects/sorted/operators/skills/mockup-fidelity-gate.md`.
+Workspace manufacture requires >=98% evidence-backed checklist adherence,
+zero material failures/unknowns and passing current functional QA. This is
+visual readiness, not client approval or an approved commercial/creative
+workspace brief.
+
 The CMS (SortedUpdates) is applied in Stage 2 — after the client approves this build. Do not wire content to JSON files or configure Decap CMS during this task.
 
 Use pnpm for setup, development, verification and handoffs. Follow `/Users/renaldoedmondson/Projects/sorted/operators/skills/factory-operators.md` -> Package Manager And Handoffs before any dependency work; package/network permissions remain separate.

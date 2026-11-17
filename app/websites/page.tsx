@@ -12,7 +12,7 @@ import s from "../home.module.css"
 export const metadata: Metadata = {
   title: "Sorted | Websites for local businesses that look as good as the work",
   description:
-    "Your competitors aren't better. They just look better. See a free mockup of your new website before you pay anything — one complete website, one fixed price: £999 in the UK or $3,500 in the US.",
+    "Your competitors aren't better. They just look better. See a free mockup of your new website before you pay anything — one complete website, one fixed price: £999 in the UK or $1,299 in the US.",
   alternates: {
     canonical: "/websites",
   },

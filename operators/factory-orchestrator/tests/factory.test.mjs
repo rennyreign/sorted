@@ -16,6 +16,7 @@ const CLI = path.join(HERE, '..', 'dist', 'cli.js');
 const stateMod = await import(path.join(HERE, '..', 'dist', 'state.js'));
 const { createInitialBuildState, getNextAction, getNextOperator, OPERATOR_IDS } = stateMod;
 const mgr = await import(path.join(HERE, '..', 'dist', 'state-manager.js'));
+const { writeFidelityFixture } = await import('./mockup-fixture.mjs');
 
 // ── fixtures ─────────────────────────────────────────────────
 
@@ -654,6 +655,8 @@ test('workspace brief validation: wrong client/revision/price/missing link rejec
   // no brief at all → cannot start
   assert.notEqual(runCli(['start', 'workspace-build', build]).status, 0);
 
+  // Keep fidelity valid while testing independent commercial-brief failures.
+  writeFidelityFixture(build);
   for (const [name, mutate] of [
     ['wrong client', b => { b.client_slug = 'other'; }],
     ['wrong revision', b => { b.website_revision = 'deadbeef'; }],
@@ -667,8 +670,12 @@ test('workspace brief validation: wrong client/revision/price/missing link rejec
     assert.notEqual(r.status, 0, `${name} should reject`);
   }
 
-  // valid brief, empty proposed services allowed
+  // A valid brief must still reject an invalid fidelity report.
   fs.writeFileSync(briefPath, JSON.stringify(goodBrief, null, 2));
+  fs.writeFileSync(path.join(build, 'artifacts', 'mockup-fidelity-review.json'), '{}');
+  assert.notEqual(runCli(['start', 'workspace-build', build]).status, 0);
+  writeFidelityFixture(build);
+  // valid brief + fidelity report, empty proposed services allowed
   assert.equal(runCli(['start', 'workspace-build', build]).status, 0);
 });
 

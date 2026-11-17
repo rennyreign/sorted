@@ -1,0 +1,8 @@
+Still want to book your diagnostic?
+Pick a time or tell us to close the request.
+
+If you’d still like to walk through where enquiries, quotes or payments get held up, you can choose a time below. If you’d like us to close your request, just reply and let us know.
+
+Choose a time: {{schedule_url}}
+
+Sorted

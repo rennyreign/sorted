@@ -40,6 +40,22 @@ Sorted's operations service removes repetitive work, recovers time, and improves
 
 Full model: `doctrine/sorted-operating-model.md`
 
+## Client Operator Lines
+
+A third productised line sits alongside websites and operational improvement: building a working operator system for a client process that currently lives in a spreadsheet, an inbox and memory. Each line is its own repo in `Projects/`, tethered back to this one.
+
+- Doctrine: `doctrine/client-operator-lines.md`
+- Build skill: `operators/skills/client-operator-line.md`
+- Scaffold: `templates/client-operator-line/`
+- Reference build: `../derma-botanica`
+- Application orientation operator: `.devin/skills/app-overview/SKILL.md`
+
+**Operator vs skill:** an operator is the durable capability (inputs, preconditions, rules, outputs, validator, transitions, exception route). A skill is its current harness execution form. Build bounded jobs with schemas, not autonomous agents.
+
+Every line repo must contain a **Sorted tether** block in its `AGENTS.md` and a completed `SYSTEM-BREADCRUMB.md`. The breadcrumb's §8 feeds improvements back into the scaffold so each cycle is cheaper than the last.
+
+**Every Sorted-built client application needs an overview after its core workflow is evidenced.** Apply `app-overview`: explain purpose, audience, business contribution, operating players and incentives, decision boundaries, workflow, and a truthful video walkthrough slot. Derive roles from the client rather than copying a fixed player count. Preserve the daily-work landing and record verification; orientation is not client acceptance or launch approval.
+
 ---
 
 ## The Sorted Value Model
@@ -168,6 +184,13 @@ Full doctrine: `doctrine/cascade-deployment-discipline.md`
 ---
 
 ## Stage 1 Build — Skills Required
+
+Standard review sequence: build -> present local preview -> one original-mockup
+QA round -> workspace-readiness decision. Read
+`operators/skills/mockup-fidelity-gate.md`. Workspace manufacture requires
+>=98% evidence-backed fidelity-checklist adherence, no material failures or
+unknowns, and passing current functional QA. This does not grant client
+approval or waive the approved workspace brief.
 
 Every client site build (Stage 1) uses a three-level skill cascade.
 

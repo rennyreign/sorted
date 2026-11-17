@@ -1,0 +1,8 @@
+Your Sorted diagnostic starts in two hours
+Here’s your joining link.
+
+Your 15-minute Sorted diagnostic starts at {{appointment_time}} ({{timezone}}) on {{appointment_date}}. If you need to make a change, reply or use your original confirmation email.
+
+Join diagnostic: {{meeting_url}}
+
+Sorted

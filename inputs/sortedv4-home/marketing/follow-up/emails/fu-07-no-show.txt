@@ -1,0 +1,8 @@
+Want to pick another time?
+Choose a new time for your Sorted diagnostic.
+
+We missed you at the diagnostic. If you’d still like to go through where enquiries, quotes or payments are getting held up, you can book a new time below.
+
+Rebook diagnostic: {{schedule_url}}
+
+Sorted

@@ -14,6 +14,7 @@ import path from 'path';
 import crypto from 'crypto';
 import { EVIDENCE_STAGES } from './state.js';
 import { fingerprintSource } from './revision.js';
+import { evaluateMockupFidelity } from './mockup-fidelity.js';
 function err(errors, msg) {
     errors.push(msg);
 }
@@ -68,10 +69,13 @@ function checkEvidence(op, ctx, errors) {
 }
 // ── Workspace brief validation ────────────────────────────────
 export function validateWorkspaceBrief(buildDir, state) {
-    const errors = [];
+    const decision = evaluateMockupFidelity(buildDir);
+    const errors = decision.fidelity_passed
+        ? []
+        : [`Original-mockup fidelity gate blocked: ${JSON.stringify(decision)}`];
     const briefPath = path.join(buildDir, 'artifacts', 'workspace-brief.json');
     if (!fs.existsSync(briefPath)) {
-        return ['workspace-brief.json missing — workspace-build cannot start without an approved brief'];
+        return [...errors, 'workspace-brief.json missing — workspace-build cannot start without an approved brief'];
     }
     const brief = JSON.parse(fs.readFileSync(briefPath, 'utf-8'));
     if (!isObj(brief))

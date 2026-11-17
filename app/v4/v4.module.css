@@ -105,6 +105,23 @@
   gap: 12px;
 }
 
+.homeLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  background: var(--paper);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+
+.homeLink:hover { background: var(--lime); }
+
 .mobileMenu { display: block; position: relative; }
 .mobileMenu summary {
   list-style: none;

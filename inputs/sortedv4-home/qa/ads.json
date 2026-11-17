@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "status": "concept_review",
+  "concepts": [
+    {
+      "id": "concept-a",
+      "review": "Correct copy, curved crop, readable type and high CTA contrast. Square CTA pill and headline sit close to edge; preserve the production safety margin when composing variants."
+    },
+    {
+      "id": "concept-b",
+      "review": "Correct copy, readable list and high CTA contrast. Phone texture stays separate from text."
+    }
+  ],
+  "final_ad_visual_review": "pending"
+}

@@ -175,7 +175,36 @@ The canonical GTM import contains **0 tags, 2 triggers, and 21 variables**. Tags
 
 ---
 
+## Client Operator Lines
+
+### Build a client operator production line
+**Skill:** `client-operator-line` — `operators/skills/client-operator-line.md`
+**Doctrine:** `doctrine/client-operator-lines.md` · **Scaffold:** `templates/client-operator-line/`
+**Say:**
+- "build an operator for a client"
+- "build an operator production line"
+- "turn this spreadsheet into a system"
+- "start a new operator line"
+- "build the client dashboard"
+- "build the client workspace"
+- "productise this process"
+
+---
+
 ## Sync & Maintenance
+
+### Explain a client application and its players
+**Skill:** `app-overview` — `.devin/skills/app-overview/SKILL.md`
+**Say:**
+- "add an app overview"
+- "explain how this hub fits the business"
+- "show who the players are"
+- "add role-based orientation"
+- "add an application walkthrough page"
+
+Applies after the core workflow is evidenced for every Sorted-built client app.
+Includes purpose, business contribution, goals/incentives, decision authority,
+workflow, a video slot and a validated handoff record.
 
 ### Sync examples grid
 **Skill:** `examples-sync` — `operators/skills/examples-sync.md`

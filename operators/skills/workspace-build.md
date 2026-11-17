@@ -4,6 +4,14 @@ Use for the existing shared Sorted acquisition hub, not a new sibling site or a 
 
 ## Preconditions
 
+For factory-tracked builds, first pass the post-presentation original-mockup
+gate in `mockup-fidelity-gate.md`. The evaluator requires >=98% checklist
+adherence, no material failures/unknowns and current passing functional QA.
+This is visual readiness only; the human assessment and brief below remain
+separate. A missing/failed fidelity report blocks new workspace starts,
+including resumed builds. Existing workspace-only updates do not manufacture
+a factory job or retrospectively invent a mockup report.
+
 For a new manufacturing job: independently verified homepage, core QA, explicit human assessment of the current revision, then the human's offer/pricing/creative direction.
 
 For a workspace-only update: inspect the existing client configuration and supplied content. Do not require a new site scaffold or manufacture approval records for a job that is not part of this task.

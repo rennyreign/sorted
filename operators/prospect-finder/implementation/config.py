@@ -22,9 +22,12 @@ All other cities are defined in CITY_QUERIES and can be run manually:
 # Categories — shared across all cities
 # ---------------------------------------------------------------------------
 
-# Default acquisition focus: Scenario 2, Tier A — High-Value Project Buyers.
+# Core focus: Scenario 2, Tier A — High-Value Project Buyers.
 # Source of truth: doctrine/priority-manufacturing-categories.md.
+# Renaldo explicitly widened the mix (2026-10-19) to restore restaurants,
+# gyms and other non-trades categories for outreach variety.
 CATEGORIES = [
+    # Scenario 2, Tier A — High-Value Project Buyers
     "builder",
     "general contractor",
     "extension specialist",
@@ -35,6 +38,32 @@ CATEGORIES = [
     "window and door installer",
     "landscaper",
     "driveway company",
+
+    # Fitness & wellness
+    "gym",
+    "personal trainer",
+    "yoga studio",
+    "beauty salon",
+    "hair salon",
+    "nail salon",
+    "barber shop",
+
+    # Food & hospitality
+    "restaurant",
+    "cafe",
+    "takeaway",
+    "boutique hotel",
+
+    # Urgent-intent trades (Scenario 2, Tier B)
+    "plumber",
+    "electrician",
+
+    # Professional & other local services
+    "dentist",
+    "accountant",
+    "solicitor",
+    "estate agent",
+    "cleaning service",
 ]
 
 # ---------------------------------------------------------------------------

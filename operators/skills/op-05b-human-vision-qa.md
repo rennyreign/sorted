@@ -8,6 +8,11 @@ Before presenting the build for review, verify the internal-route checks in `ope
 **Depends on:** Op 5 (visual-qa) passed
 **Produces:** `artifacts/human-vision-qa.json`
 
+After presenting the build, perform the additional original-mockup fidelity
+review described in `mockup-fidelity-gate.md`. Do not reuse this gate's
+historic `passed` boolean as a 98% score. The post-presentation review
+requires full section coverage and an aligned whole-page comparison.
+
 ---
 
 ## What this operator does

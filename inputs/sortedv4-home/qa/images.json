@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "result": "pass",
+  "observations": [
+    {
+      "id": "hero-tradesperson",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "fidelity": "Waist-up pose and van match, with wider subject framing and added picture area outside the curved mask.",
+      "sha256": "03579ded58d453eb8d0ab4f149318cce6342b306f303837f0a97f30af32b4eeb"
+    },
+    {
+      "id": "intake-phone",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "fidelity": "Notification matches; hand is larger and device framing is slightly wider.",
+      "sha256": "0653e694e21458f1cacd23fdafd05bddaa4e495e41974082ebbf72c5e549da26"
+    },
+    {
+      "id": "estimator-phone",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "fidelity": "Voice note and hand match; wave detail and grip differ.",
+      "sha256": "811d283ad8b87fd64ab9da1a8ee05eca8c21a35e917073404e52cf61722c9a07"
+    },
+    {
+      "id": "chaser-phone",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "fidelity": "Payment text and amount match; notification tilt and device crop differ.",
+      "sha256": "41ba7576d5a4c8215426b22e51430d2e32743c5e249f48a9321ed99247eae103"
+    },
+    {
+      "id": "results-fitness",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "fidelity": "Gym and lifter match; reconstruction shows more of the bar and a different grip.",
+      "sha256": "bc6bf0d5ae6ce7ec016e6ca34992ac6fd0ef4feab6fe705148c38fd98edc1cfc"
+    },
+    {
+      "id": "results-hospitality",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "fidelity": "Stacked brunch and warm room match; garnish and plate framing differ.",
+      "sha256": "b8446921e4e457ac6634d50e9f0b721aaf4366e34c41a5ad67e96ff18ea5c9f2"
+    },
+    {
+      "id": "results-tuition",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "fidelity": "Tutor and pupil match in layout and clothing; faces, papers and crop differ.",
+      "sha256": "0be3132d6d9e83510a8a5c0ea3cadeb5610ea5e4c55467fda03de0eeaf5a348c"
+    }
+  ],
+  "limitation": "Generated scene reconstructions. Masters are 1254 or 1536px at the long edge."
+}

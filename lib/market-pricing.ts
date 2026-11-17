@@ -68,13 +68,13 @@ export function websiteLeadOffer(answers: WebsiteLeadOfferContext | null): Parti
   }
   if (parseMarket(answers?.currency ?? answers?.market) !== "US") return undefined
   if (answers?.landing_page === "us_free_website") return US_REFERRAL_WEBSITE_OFFER
-  return { ...MARKET_PRICING.US, stripePaymentUrl: "", bankTransferEnabled: false }
+  return { ...WEBSITE_MARKETING_PRICING.US, stripePaymentUrl: "", bankTransferEnabled: false }
 }
 
 /** Public website offer only. Existing workspace/contract defaults remain unchanged. */
 export const WEBSITE_MARKETING_PRICING = {
   UK: { currency: "GBP", total: 999, deposit: 499.5, balance: 499.5 },
-  US: MARKET_PRICING.US,
+  US: { currency: "USD", total: 1299, deposit: 649.5, balance: 649.5 },
 } as const
 
 export function websiteMarketingCopy(text: string, market: Market): string {

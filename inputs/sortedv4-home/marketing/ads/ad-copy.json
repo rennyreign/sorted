@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "ads": [
+    {
+      "id": "ad-01",
+      "concept": "A",
+      "placement": "feed",
+      "ratio": "1:1",
+      "width": 1080,
+      "height": 1080,
+      "image_path": "marketing/ads/ad-01-feed-1x1.png",
+      "on_image_text": [
+        "Sorted.",
+        "On the tools?",
+        "Keep enquiries moving.",
+        "Book Diagnostic Call"
+      ],
+      "primary_text": "When you’re on a job, new enquiries can sit unanswered. In a 15-minute diagnostic, we’ll look at how you currently handle enquiries and where Sorted Intake could help.",
+      "headline": "On the tools?",
+      "description": "15-minute diagnostic for UK local businesses",
+      "cta": "Book Diagnostic Call",
+      "destination_url": null,
+      "evidence_refs": [
+        "website-mockup",
+        "brief"
+      ],
+      "status": "awaiting_concept_approval"
+    },
+    {
+      "id": "ad-02",
+      "concept": "B",
+      "placement": "feed",
+      "ratio": "1:1",
+      "width": 1080,
+      "height": 1080,
+      "image_path": "marketing/ads/ad-02-feed-1x1.png",
+      "on_image_text": [
+        "Sorted.",
+        "Where are jobs getting stuck?",
+        "Enquiries",
+        "Quotes",
+        "Payments",
+        "Book Diagnostic Call"
+      ],
+      "primary_text": "Think of the last job that stalled. Was it waiting for a reply, a quote or a payment? Bring that example to a 15-minute diagnostic and we’ll walk through where the process got held up.",
+      "headline": "Where are jobs getting stuck?",
+      "description": "15-minute diagnostic for UK local businesses",
+      "cta": "Book Diagnostic Call",
+      "destination_url": null,
+      "evidence_refs": [
+        "website-mockup",
+        "brief"
+      ],
+      "status": "awaiting_concept_approval"
+    }
+  ]
+}

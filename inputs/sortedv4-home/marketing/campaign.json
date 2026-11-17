@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "client": "Sorted",
+  "audience": "UK local business owners",
+  "geography": "United Kingdom",
+  "offer": "Sorted Intake, Sorted Estimator and Sorted Chaser",
+  "conversion_action": "15-minute diagnostic",
+  "exact_cta": "Book Diagnostic Call",
+  "destination_url": null,
+  "booking_model": null,
+  "timezone": null,
+  "business_calendar": null,
+  "brand_source": "website/mockup.png",
+  "design_tokens": {
+    "palette": [
+      "off-white",
+      "near-black",
+      "acid lime",
+      "deep green"
+    ],
+    "typography": "Heavy sans, regular sans, selective handwritten annotation"
+  },
+  "evidence": [
+    "website-mockup"
+  ],
+  "assumptions": [
+    "Concept A focuses on enquiry handling for trades. Concept B focuses on what a diagnostic covers."
+  ],
+  "unresolved_variables": [
+    {
+      "name": "proof_evidence",
+      "affected_outputs": [
+        "website",
+        "ads"
+      ],
+      "consequence": "Verify hero quote, three case study metrics and permission for the trust marks before publication. Keep claims out of ads until substantiated."
+    },
+    {
+      "name": "diagnostic_destination",
+      "affected_outputs": [
+        "website",
+        "ads",
+        "follow-up"
+      ],
+      "consequence": "Confirm booking URL and whether the customer books immediately or submits a request."
+    },
+    {
+      "name": "sender_and_calendar",
+      "affected_outputs": [
+        "follow-up"
+      ],
+      "consequence": "Confirm sender, reply inbox and calendar. Europe/London is proposed for the UK audience."
+    },
+    {
+      "name": "offer_claims",
+      "affected_outputs": [
+        "website",
+        "ads"
+      ],
+      "consequence": "Confirm WhatsApp and Xero compatibility, setup timing and the scope of each operator before launch."
+    }
+  ],
+  "assets": [
+    "marketing/ads/ad-01-feed-1x1.png",
+    "marketing/ads/ad-02-feed-1x1.png"
+  ],
+  "status": "awaiting_concept_approval"
+}

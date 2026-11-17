@@ -79,6 +79,11 @@ This will:
 
 ## After starting: the operator sequence
 
+After building and presenting the local preview, run one consolidated
+original-mockup review using `operators/skills/mockup-fidelity-gate.md`.
+Its >=98% decision is required for workspace visual readiness, not client
+approval. Keep the human assessment and approved workspace brief separate.
+
 Once the build is initialised, run operators in sequence using the factory orchestrator:
 
 ```bash

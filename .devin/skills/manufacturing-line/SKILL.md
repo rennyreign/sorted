@@ -32,6 +32,12 @@ This reads `state/build-state.json` and tells you which operator to run next. Fo
 
 ## Full Lifecycle
 
+The standard handoff now includes build -> present -> one original-mockup
+QA round. Load `operators/skills/mockup-fidelity-gate.md` before workspace
+handoff; require its >=98% evidence-backed decision with no material
+failures/unknowns. It never substitutes for client approval or the
+approved commercial/creative brief.
+
 | # | Operator | Execution | Vision model? |
 |---|---|---|---|
 | 0 | Build Init | harness | No |

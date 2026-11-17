@@ -16,6 +16,7 @@ import crypto from 'crypto';
 import type { BuildState, OperatorId } from './state.js';
 import { EVIDENCE_STAGES } from './state.js';
 import { fingerprintSource } from './revision.js';
+import { evaluateMockupFidelity } from './mockup-fidelity.js';
 import type { InputContract } from './pack-intake.js';
 
 export interface PassContext {
@@ -85,10 +86,13 @@ function checkEvidence(op: OperatorId, ctx: PassContext, errors: string[]): void
 // ── Workspace brief validation ────────────────────────────────
 
 export function validateWorkspaceBrief(buildDir: string, state: BuildState): string[] {
-  const errors: string[] = [];
+  const decision = evaluateMockupFidelity(buildDir);
+  const errors: string[] = decision.fidelity_passed
+    ? []
+    : [`Original-mockup fidelity gate blocked: ${JSON.stringify(decision)}`];
   const briefPath = path.join(buildDir, 'artifacts', 'workspace-brief.json');
   if (!fs.existsSync(briefPath)) {
-    return ['workspace-brief.json missing — workspace-build cannot start without an approved brief'];
+    return [...errors, 'workspace-brief.json missing — workspace-build cannot start without an approved brief'];
   }
   const brief = JSON.parse(fs.readFileSync(briefPath, 'utf-8')) as Record<string, unknown>;
   if (!isObj(brief)) return ['workspace-brief.json is not an object'];

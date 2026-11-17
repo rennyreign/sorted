@@ -1,6 +1,7 @@
 "use client"
 
 import { AUTOMATION_NAV } from "@/lib/public-navigation"
+import { DoorOpen } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { RoutineFinderButton } from "../../v2/_components/RoutineFinder"
@@ -23,6 +24,9 @@ export function V4Nav({ overlay = false }: { overlay?: boolean }) {
         ))}
       </nav>
       <div className={s.navRight}>
+        <Link href="/" aria-label="Back to Sorted home" className={s.homeLink}>
+          <DoorOpen size={15} strokeWidth={2.2} aria-hidden="true" /> Home
+        </Link>
         <RoutineFinderButton
           label="Find Your Leaks"
           variant="secondary"

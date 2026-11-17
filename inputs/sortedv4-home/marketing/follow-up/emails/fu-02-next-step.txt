@@ -1,0 +1,8 @@
+One step to book your Sorted diagnostic
+Choose a time that works for you.
+
+We’re following up on your request for a 15-minute diagnostic. Choose an available time using the link below. If the options don’t work for you, reply and we’ll pick it up from there.
+
+Choose a time: {{schedule_url}}
+
+Sorted

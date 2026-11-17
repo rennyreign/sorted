@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "client": "Sorted",
+  "audience": "UK local business owners with enquiry, quoting and payment bottlenecks",
+  "geography": "United Kingdom",
+  "offer": "Sorted Intake, Sorted Estimator and Sorted Chaser",
+  "conversion": {
+    "action": "15-minute diagnostic",
+    "primary_cta": "Book Diagnostic Call",
+    "alternate_ctas": [
+      "Find Your Leaks",
+      "Book a 15-Min Diagnostic"
+    ],
+    "destination": null,
+    "booking_model": null
+  },
+  "sender": null,
+  "reply_route": null,
+  "calendar": null,
+  "timezone": null,
+  "proposed_timezone": "Europe/London",
+  "brand": {
+    "palette": [
+      "off-white",
+      "near-black",
+      "acid lime",
+      "deep green"
+    ],
+    "typography": "Heavy sans, regular sans, selective handwritten annotation"
+  },
+  "source": "website/mockup.png",
+  "unresolved_variables": [
+    {
+      "name": "proof_evidence",
+      "affected_outputs": [
+        "website",
+        "ads"
+      ],
+      "consequence": "Verify hero quote, three case study metrics and permission for the trust marks before publication. Keep claims out of ads until substantiated."
+    },
+    {
+      "name": "diagnostic_destination",
+      "affected_outputs": [
+        "website",
+        "ads",
+        "follow-up"
+      ],
+      "consequence": "Confirm booking URL and whether the customer books immediately or submits a request."
+    },
+    {
+      "name": "sender_and_calendar",
+      "affected_outputs": [
+        "follow-up"
+      ],
+      "consequence": "Confirm sender, reply inbox and calendar. Europe/London is proposed for the UK audience."
+    },
+    {
+      "name": "offer_claims",
+      "affected_outputs": [
+        "website",
+        "ads"
+      ],
+      "consequence": "Confirm WhatsApp and Xero compatibility, setup timing and the scope of each operator before launch."
+    }
+  ]
+}

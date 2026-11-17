@@ -1,6 +1,6 @@
 # UK and US pricing
 
-One website shares its design and routes across both markets. The public offer is £3,000 in the UK (£1,500 + £1,500), or $3,500 in the US ($1,750 + $1,750). These are fixed commercial prices, not exchange-rate conversions.
+One website shares its design and routes across both markets. The current public marketing offer is £999 in the UK (£499.50 + £499.50), or $1,299 in the US ($649.50 + $649.50). The historic workspace default remains £3,000 ($1,500 + £1,500) / $3,500 ($1,750 + $1,750) for existing quotes and leads without offer context. These are fixed commercial prices, not exchange-rate conversions.
 
 Value: Trust and Customers. This removes the gap between the currency a visitor expects, the offer they see and the payment requested. Verify by following each market from the homepage through pricing, the mockup request and workspace next steps.
 

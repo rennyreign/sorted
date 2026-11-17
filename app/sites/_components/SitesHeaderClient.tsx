@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation"
 import { WEBSITE_NAV } from "@/lib/public-navigation"
 import { MarketSelector } from "@/components/MarketPricing"
 import { useEffect, useRef, useState } from "react"
-import { Menu, Phone, X } from "lucide-react"
+import { DoorOpen, Menu, Phone, X } from "lucide-react"
 import { MockupButton } from "./SitesMockupModal"
 import { ImprovementButton } from "./ImprovementEntry"
 
@@ -12,9 +12,9 @@ type ActivePage = "how" | "examples" | "sites" | "operations" | "pricing" | "inc
 export type HeaderTone = "light" | "dark"
 export type HeaderCta = "company" | "website"
 
-const links = WEBSITE_NAV
+export type NavLink = readonly [key: string, label: string, href: string]
 
-export function SitesHeaderClient({ active, tone = "light", variant = "default", cta = "website" }: { active?: ActivePage; tone?: HeaderTone; variant?: "default" | "home"; cta?: HeaderCta }) {
+export function SitesHeaderClient({ active, tone = "light", variant = "default", cta = "website", links = WEBSITE_NAV, bare = false, logoHref = "/websites" }: { active?: ActivePage; tone?: HeaderTone; variant?: "default" | "home"; cta?: HeaderCta; links?: readonly NavLink[]; bare?: boolean; logoHref?: string }) {
   const pathname = usePathname().replace(/\/$/, "")
   const currentKey = pathname === "/sites" ? "sites" : links.find(([, , href]) => pathname === href)?.[0] ?? active
   const [scrolled, setScrolled] = useState(false)
@@ -42,7 +42,7 @@ export function SitesHeaderClient({ active, tone = "light", variant = "default",
       } ${darkAtTop ? "text-white" : "text-[#070707]"}`}
     >
       <div className={`mx-auto flex w-full items-center justify-between ${variant === "home" ? "max-w-[1280px]" : "max-w-[1220px]"}`}>
-        <a href="/websites" className={`inline-block min-h-11 py-2 font-black leading-none tracking-[-0.045em] ${variant === "home" ? "text-[34px] sm:text-[36px]" : "text-[33px] sm:text-[40px]"}`} aria-label="Sorted websites">
+        <a href={logoHref} className={`inline-block min-h-11 py-2 font-black leading-none tracking-[-0.045em] ${variant === "home" ? "text-[34px] sm:text-[36px]" : "text-[33px] sm:text-[40px]"}`} aria-label="Sorted">
           Sorted<span className={variant === "home" ? "text-[#d7ff00]" : "text-[#cfe900]"}>.</span>
         </a>
         <nav aria-label="Website navigation" className={`hidden items-center text-[12px] font-extrabold tracking-[-0.02em] xl:flex ${variant === "home" ? "gap-2.5 xl:gap-5" : "gap-5"}`}>
@@ -66,6 +66,18 @@ export function SitesHeaderClient({ active, tone = "light", variant = "default",
           ))}
         </nav>
         <div className="flex items-center gap-2 sm:gap-4">
+          {!bare && (
+            <>
+          <a
+            href="/"
+            aria-label="Back to Sorted home"
+            className={`inline-flex items-center gap-1.5 rounded-full border border-current/20 px-3 py-2 text-[12px] font-bold transition-colors duration-200 ${
+              darkAtTop ? "text-white/75 hover:text-white" : "text-black/60 hover:text-black"
+            }`}
+          >
+            <DoorOpen className="size-4" strokeWidth={2.2} aria-hidden="true" />
+            Home
+          </a>
           <MarketSelector />
           <a href="https://wa.me/447386468085" aria-label="WhatsApp Sorted" className={`hidden ${variant === "home" ? "xl:block" : "lg:block"} ${variant === "home" && darkAtTop ? "text-[#d7ff00]" : "text-[#04b800]"}`}>
             <Phone className="size-6" strokeWidth={2.4} />
@@ -77,6 +89,8 @@ export function SitesHeaderClient({ active, tone = "light", variant = "default",
               <ImprovementButton variant={darkAtTop ? "yellow" : "nav"} location="header" className={variant === "home" && darkAtTop ? "bg-[#d7ff00]!" : ""} />
             )}
           </div>
+            </>
+          )}
           <button
             ref={menuButtonRef}
             type="button"
@@ -109,7 +123,7 @@ export function SitesHeaderClient({ active, tone = "light", variant = "default",
               </a>
             ))}
           </nav>
-          <div className="mt-3 grid grid-cols-2 gap-3">
+          <div className={`mt-3 grid grid-cols-2 gap-3 ${bare ? "hidden" : ""}`}>
             <a href="https://wa.me/447386468085" className="inline-flex min-h-12 items-center justify-center rounded-full border border-black/12 text-[12px] font-black">
               WhatsApp
             </a>
