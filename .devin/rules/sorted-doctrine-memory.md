@@ -12,13 +12,14 @@ This file captures the core strategic and operational doctrine of Sorted so it r
 
 Sorted is **one business modernisation brand**.
 
-- **Core promise:** We make good businesses more capable.
+- **Core promise (activation voice, v2):** You're ready for more. Let's get your business there. A better website. More customers. Less admin. Plain descriptor: We make good businesses more capable.
+- **Voice shift:** salt (diagnose, reassure, leave space to decide) to sulphur (set direction, raise the aim, activate). Challenger brand. Advantage first, pain as one supporting line. Truth, no fabricated claims, no manufactured panic remain fixed. Canonical: `doctrine/sorted-brand-voice.md`.
 - **Supporting statement:** We modernise how local businesses win customers and get work done. Better digital systems. Less unnecessary work. More capacity to grow.
 - **Websites and operational improvements are services under Sorted, not separate public sub-brands.** How we work presents the website process; Operations sits within the main site at `/ops`.
 - **Pricing** combines the fixed £3,000 UK / $3,500 US website launch and one scoped operational-improvement offer. No invented retainer or starts-from price; ongoing support is agreed only for a defined need.
 - **Website CTA:** "Get your free site". Supporting disclosure: "We build your first page free. Decide whether to take it further."
 - **Existing website manufacturing, approval, analytics and submission infrastructure is unchanged.** Preserve legacy `/sites`, `/ops`, `/v2` and pricing addresses as compatibility routes.
-- **Homepage headline stays fixed;** future rotation means different copy per visit, never a timed carousel.
+- **Homepage headline stays fixed ("You're ready for more. Let's get your business there.");** future rotation means different copy per visit, never a timed carousel.
 
 The website should make visitors feel they are improving their business, not simply buying a website.
 
@@ -26,7 +27,7 @@ The website should make visitors feel they are improving their business, not sim
 
 ## Core Philosophy
 
-> **"We don't sell. We show."**
+> **"Others pitch. We build."** (Replaces "We don't sell. We show.", judged too defensive. Build-first mechanism unchanged: the free first page is the proof behind the push.)
 
 Before asking for commitment, Sorted demonstrates value:
 

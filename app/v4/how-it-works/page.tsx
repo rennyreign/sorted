@@ -53,10 +53,10 @@ export default function V4HowItWorks() {
             <h1 className={`${s.display} ${s.pageTitle}`}>
               From first enquiry to<br /> <span className={s.olive}>paid invoice.</span>
             </h1>
-            <p className={s.pageSub}>Three operators work inside the tools you already use.</p>
+            <p className={s.pageSub}>Three operators work inside the tools you already use, so you move faster than the competition.</p>
             <div className={s.heroCtas}>
               <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className={s.btnPrimary}>
-                Book a diagnostic
+                See your advantage
                 <ArrowRight className="size-4" strokeWidth={2.5} />
               </a>
               <Link href="/automation/pricing" className={s.btnGhost}>
@@ -92,7 +92,7 @@ export default function V4HowItWorks() {
           <article id="enquiry" className={`${s.feature} ${s.cardCream}`}>
             <div className={s.featureCopy}>
               <p className={s.featureNum}>01 / Sorted Enquiry</p>
-              <h2 className={`${s.display} ${s.featureTitle}`}>Turn enquiries<br />into bookings.</h2>
+              <h2 className={`${s.display} ${s.featureTitle}`}>Be first to reply.<br />Win the booking.</h2>
               <Bullets items={["Replies on WhatsApp", "Collects the job details", "Books a slot in your diary"]} />
             </div>
             <div className={s.demoCard} aria-hidden="true">
@@ -110,7 +110,7 @@ export default function V4HowItWorks() {
           <article id="estimator" className={`${s.feature} ${s.featureFlip} ${s.cardBlue}`}>
             <div className={s.featureCopy}>
               <p className={s.featureNum}>02 / Sorted Estimator</p>
-              <h2 className={`${s.display} ${s.featureTitle}`}>Talk through the job.<br />Get a draft quote.</h2>
+              <h2 className={`${s.display} ${s.featureTitle}`}>Talk through the job.<br />Quote it while it's hot.</h2>
               <Bullets items={["Record a voice note", "Your rates fill the draft", "Review and approve before sending"]} />
             </div>
             <div className={s.demoCard} aria-hidden="true">
@@ -125,7 +125,7 @@ export default function V4HowItWorks() {
           <article id="chaser" className={`${s.feature} ${s.cardBlush}`}>
             <div className={s.featureCopy}>
               <p className={s.featureNum}>03 / Sorted Chaser</p>
-              <h2 className={`${s.display} ${s.featureTitle}`}>Follow up on<br />unpaid invoices.</h2>
+              <h2 className={`${s.display} ${s.featureTitle}`}>Get paid like<br />a bigger business.</h2>
               <Bullets items={["See what’s due", "Send reminders on your schedule", "Stop reminders when payment is recorded"]} />
             </div>
             <div className={s.demoCard} aria-hidden="true">
@@ -169,8 +169,8 @@ export default function V4HowItWorks() {
       </section>
 
       <V4Cta
-        title={<>Find where<br /> <span className={s.lime}>jobs get held up.</span></>}
-        copy="Book a 15-minute diagnostic. We’ll identify where you’re losing jobs and show you what an operator looks like inside your workflow."
+        title={<>Find where you<br /> <span className={s.lime}>could be winning.</span></>}
+        copy="Book a 15-minute call. We’ll show you where you could be winning more work and what an operator looks like inside your workflow."
         note={null}
       />
       <SiteMapFooter tone="light" experience="automation" />

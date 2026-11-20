@@ -7,14 +7,14 @@ import s from "../v4.module.css"
 
 export const metadata: Metadata = {
   title: "Pricing | Sorted",
-  description: "Pay once to set up. Then one monthly fee. Choose where you need help: enquiries, quotes or getting paid.",
+  description: "Pay once to set up. Then one monthly fee. Choose where you want to win first: enquiries, quotes or getting paid.",
   alternates: { canonical: "/automation/pricing" },
 }
 
 const tiers = [
   {
     name: "Single Operator",
-    reason: "One part of the job keeps slipping.",
+    reason: "Win one part of the job first.",
     badge: null as string | null,
     featured: false,
     setup: "£950",
@@ -23,7 +23,7 @@ const tiers = [
   },
   {
     name: "Dual Pipeline",
-    reason: "Enquiries and quotes both get held up.",
+    reason: "Reply first and quote fast.",
     badge: "Enquiry to quote",
     featured: true,
     setup: "£1,850",
@@ -32,7 +32,7 @@ const tiers = [
   },
   {
     name: "Full Operations Stack",
-    reason: "You also spend time chasing invoices.",
+    reason: "Run the whole job like a bigger business.",
     badge: null as string | null,
     featured: false,
     setup: "£2,500",
@@ -69,7 +69,7 @@ const faqs = [
   },
   {
     q: "Can I start with one operator and add another?",
-    a: "Yes. Most people start with the one that fixes the biggest headache, then add the next once the first is running smoothly. The setup work carries over, so adding later is quicker and cheaper than starting again.",
+    a: "Yes. Most people start with the one that wins them the most, fastest, then add the next once the first is running smoothly. The setup work carries over, so adding later is quicker and cheaper than starting again.",
   },
   {
     q: "Are VAT and software fees included?",
@@ -91,7 +91,7 @@ export default function V4Pricing() {
         <h1 className={`${s.display} ${s.pageTitle}`}>
           Pay once to set up. <span className={s.olive}>Then one monthly fee.</span>
         </h1>
-        <p className={s.pageSub}>Choose where you need help: enquiries, quotes or getting paid.</p>
+        <p className={s.pageSub}>Choose where you want to win first: enquiries, quotes or getting paid.</p>
       </section>
 
       <section className={s.section}>
@@ -113,7 +113,7 @@ export default function V4Pricing() {
                 {tier.coverage}
               </p>
               <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className={`${s.priceCta} ${tier.featured ? s.priceCtaLime : ""}`}>
-                Book a diagnostic
+                See your advantage
                 <ArrowRight className="size-4" strokeWidth={2.5} />
               </a>
             </article>
@@ -161,14 +161,14 @@ export default function V4Pricing() {
         <div className={s.priceDiag}>
           <div>
             <h2 className={`${s.display} ${s.diagTitle}`}>
-              Which operator<br />should you <span className={s.lime}>start with?</span>
+              Where do you<br />want to <span className={s.lime}>win first?</span>
             </h2>
             <p className={s.diagCopy}>
-              Bring one recent job that got held up. In 15 minutes, we’ll walk through it and tell you where we’d start.
+              Bring one recent job. In 15 minutes, we’ll walk through it and show you where you’d win first.
             </p>
           </div>
           <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className={s.diagCta}>
-            Book a diagnostic
+            See your advantage
             <ArrowRight className="size-4" strokeWidth={2.5} />
           </a>
         </div>

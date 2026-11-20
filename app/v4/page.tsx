@@ -10,22 +10,22 @@ import s from "./v4.module.css"
 
 
 export const metadata: Metadata = {
-  title: "Sorted | Capture every lead",
+  title: "Sorted | First to reply wins",
   description:
-    "Digital staff that handle your enquiries, quotes and follow-ups — so you can keep up with demand without more admin.",
+    "Digital staff that answer your enquiries, send your quotes and follow up your payments, so you win more work without more admin.",
   alternates: { canonical: "/automation" },
   openGraph: {
-    title: "Sorted | Capture every lead",
+    title: "Sorted | First to reply wins",
     description:
-      "Digital staff that handle your enquiries, quotes and follow-ups — so you can keep up with demand without more admin.",
+      "Digital staff that answer your enquiries, send your quotes and follow up your payments, so you win more work without more admin.",
     url: "/automation",
   },
 }
 
 const operators = [
-  { name: "Sorted Enquiry", short: "Enquiry", description: "Never lose an enquiry.", image: "/v4/intake-phone.webp", cardClass: s.cardCream, Icon: MessageSquare },
-  { name: "Sorted Estimator", short: "Estimator", description: "Never delay a quote.", image: "/v4/estimator-phone.webp", cardClass: s.cardBlue, Icon: Layers },
-  { name: "Sorted Chaser", short: "Chaser", description: "Get paid without the chase.", image: "/v4/chaser-phone.webp", cardClass: s.cardBlush, Icon: Coins },
+  { name: "Sorted Enquiry", short: "Enquiry", description: "First to reply wins.", image: "/v4/intake-phone.webp", cardClass: s.cardCream, Icon: MessageSquare },
+  { name: "Sorted Estimator", short: "Estimator", description: "Quote while they're excited.", image: "/v4/estimator-phone.webp", cardClass: s.cardBlue, Icon: Layers },
+  { name: "Sorted Chaser", short: "Chaser", description: "Get paid like a bigger business.", image: "/v4/chaser-phone.webp", cardClass: s.cardBlush, Icon: Coins },
 ]
 
 const results = [
@@ -51,16 +51,16 @@ export default function V4Home() {
         <V4Nav overlay />
 
         <div className={s.heroCopy}>
-          <p className={s.kicker}>AI automation for local businesses</p>
+          <p className={s.kicker}>AI automation for businesses ready for more</p>
           <h1 className={`${s.display} ${s.heroTitle}`}>
-            Capture every <span className={s.olive}>lead.</span>
+            First to <span className={s.olive}>reply</span> wins.
             <br />
-            Never delay a <span className={s.olive}>quote.</span>
+            Quote while they're <span className={s.olive}>excited.</span>
             <br />
-            Get <span className={s.olive}>paid</span> on time.
+            More jobs. <span className={s.olive}>Same hours.</span>
           </h1>
           <p className={s.heroSub}>
-            Digital staff that handle your enquiries, quotes and follow-ups — so you can keep up with demand without more admin.
+            Digital staff that answer your enquiries, send your quotes and follow up your payments. No more lost enquiries, late quotes or unpaid invoices.
           </p>
           <div className={s.heroCtas}>
             <a href="#operators" className={s.btnPrimary}>
@@ -68,7 +68,7 @@ export default function V4Home() {
               <ArrowDown className="size-4" strokeWidth={2.5} />
             </a>
             <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className={s.btnGhost}>
-              Book a 15-Min Diagnostic
+              See Your Advantage (15 min)
               <ArrowRight className="size-4" strokeWidth={2.5} />
             </a>
           </div>
@@ -105,11 +105,11 @@ export default function V4Home() {
       </section>
 
       <section id="operators" className={s.section}>
-        <p className={s.kicker}>Digital Staff for Local Businesses</p>
+        <p className={s.kicker}>Your unfair advantage</p>
         <h2 className={`${s.display} ${s.sectionTitle}`}>
-          Three operators. <span className={s.olive}>Zero pipeline leaks.</span>
+          Three operators. <span className={s.olive}>One unfair advantage.</span>
         </h2>
-        <p className={s.sectionSub}>Choose the operational bottleneck that’s holding you back today, or install the full stack.</p>
+        <p className={s.sectionSub}>Start where you want to win first, or install the full stack.</p>
         <div className={s.operatorGrid}>
           {operators.map(({ name, short, description, image, cardClass, Icon }) => (
             <article key={name} className={`${s.card} ${cardClass}`}>
@@ -133,7 +133,7 @@ export default function V4Home() {
       <section className={s.section}>
         <div className={s.resultsLayout}>
           <div>
-            <h2 className={`${s.display} ${s.resultsTitle}`}>Local businesses keep more of the demand they generate.</h2>
+            <h2 className={`${s.display} ${s.resultsTitle}`}>Local businesses winning more of the work they go after.</h2>
             <Link href="/examples" className={s.resultsLink}>
               See all results
               <ArrowRight className="size-4" strokeWidth={2.5} />
@@ -156,7 +156,7 @@ export default function V4Home() {
       </section>
 
       <section className={`${s.section} ${s.trust}`}>
-        <p className={s.trustLabel}>Trusted by businesses across the UK and beyond</p>
+        <p className={s.trustLabel}>Already moving: businesses across the UK and beyond</p>
         <div className={s.logoRow}>
           {[
             ["bodysharp", "BodySharp Fitness"],
