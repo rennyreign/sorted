@@ -8,12 +8,12 @@ export { V4Nav } from "./V4Nav"
 export function V4Cta({
   title = (
     <>
-      Ready to <span className={s.lime}>keep up</span>
+      Ready to
       <br />
-      with <span className={s.lime}>demand?</span>
+      <span className={s.lime}>pull ahead?</span>
     </>
   ),
-  copy = "Book a 15-minute diagnostic. We’ll identify where you’re losing deals and show you what an operator looks like inside your workflow.",
+  copy = "Book a 15-minute call. We’ll show you where you could be winning more work and what an operator looks like inside your workflow.",
   note = "No pressure. No technical jargon. Just clear numbers.",
 }: {
   title?: React.ReactNode
@@ -28,7 +28,7 @@ export function V4Cta({
         <p className={s.diagCopy}>{copy}</p>
         <div className={s.diagAction}>
           <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className={s.diagCta}>
-            Book Diagnostic Call
+            See Your Advantage
             <ArrowRight className="size-4" strokeWidth={2.5} />
           </a>
           {note && <p className={s.diagNote}>{note}</p>}

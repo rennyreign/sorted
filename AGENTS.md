@@ -20,7 +20,7 @@ The previous standalone Sorted website positioning around "get picked, get enqui
 
 Approved public positioning:
 
-> Sorted is one business modernisation brand. Core promise: We make good businesses more capable. We modernise how local businesses win customers and get work done. Better digital systems. Less unnecessary work. More capacity to grow. Websites and operational improvements are services under Sorted, not separate public sub-brands. How we work presents the website process; Operations sits within the main site at /ops. Pricing combines the fixed £3,000 UK / $3,500 US website launch and one scoped operational-improvement offer. No invented retainer or starts-from price; ongoing support is agreed only for a defined need. Website CTA: Get your free site. Supporting disclosure: We build your first page free. Decide whether to take it further. Existing website manufacturing, approval, analytics and submission infrastructure is unchanged. Preserve legacy /sites /ops /v2 and pricing addresses as compatibility routes. Homepage headline stays fixed.
+> Sorted is one business modernisation brand. Core promise (activation voice, see `doctrine/sorted-brand-voice.md`): You're ready for more. Let's get your business there. A better website. More customers. Less admin. Descriptor: We make good businesses more capable. We modernise how local businesses win customers and get work done. Better digital systems. Less unnecessary work. More capacity to grow. Websites and operational improvements are services under Sorted, not separate public sub-brands. How we work presents the website process; Operations sits within the main site at /ops. Pricing combines the fixed £3,000 UK / $3,500 US website launch and one scoped operational-improvement offer. No invented retainer or starts-from price; ongoing support is agreed only for a defined need. Website CTA: Get your free site. Supporting disclosure: We build your first page free. Decide whether to take it further. Existing website manufacturing, approval, analytics and submission infrastructure is unchanged. Preserve legacy /sites /ops /v2 and pricing addresses as compatibility routes. Homepage headline stays fixed: "You're ready for more. Let's get your business there."
 
 ## What the Sorted Website Service Does
 
@@ -211,7 +211,7 @@ Key rules — apply to every Stage 1 build:
 - **Use the proven page pattern:** nav → hero + CTA → trust bar → services → why us → about → testimonials → contact → footer
 - **Design standards:** Obvious. Useful. Trustworthy. Frictionless. Local. Human. Competent. Polished.
 - **Avoid:** startup language, AI gradients, generic three-card rows, visual cleverness that hides information
-- **Copy:** Plain English. Real draft copy. No lorem ipsum. No "elevate / unleash / transform / seamless". Canonical voice: `doctrine/sorted-brand-voice.md` (constructive confrontation — honest but fair, challenge the gap not the person)
+- **Copy:** Plain English. Real draft copy. No lorem ipsum. No "elevate / unleash / transform / seamless". Canonical voice: `doctrine/sorted-brand-voice.md` (activation voice: challenger, advantage-first, pain as one supporting line; challenge the situation, never the person; truth and no fabricated claims are non-negotiable)
 - **Motion — Standard (default):** hover states, card lift, smooth scroll, staggered reveals. Premium only if brief specifies.
 
 **Level 3 — client customisation**
@@ -325,7 +325,7 @@ Before closing any client delivery:
 Scoped to Sorted's own public marketing pages only:
 
 - **Palette:** black / white / warm-neutral with lime `#D7FF00` accents (and the blue iceberg graphic on `/what-else-we-do`). Internal dashboards, operator tools and client workspaces remain on the monochrome design system — do not carry the marketing palette into them.
-- **Voice:** Sorted's canonical brand voice (constructive confrontation — honest but fair) applies to Sorted's own public communications. Client-brand copy always respects the approved client tone.
+- **Voice:** Sorted's canonical brand voice (activation: bold, challenger, advantage-first, honest on claims) applies to Sorted's own public communications. Client-brand copy always respects the approved client tone.
 - **Structure:** the homepage leads with the parent promise ("We make good businesses more capable.") and routes into the two services; `/what-else-we-do` (labelled "What we improve") explains the systems Sorted improves. The fixed website launch includes the website, agreed ad creative/campaign setup, tracking and follow-up setup; ad spend, ongoing management and future optimisation are always presented as separate and optional. Operations work is scoped case by case — no fixed fees or ready-made catalogue. Never claim false inclusions, performance or timing — no guaranteed results, no hard delivery promises, and do not market Booking & CRM as part of the standard proposition.
 
 ---

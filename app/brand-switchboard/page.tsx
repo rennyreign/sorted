@@ -5,16 +5,16 @@ import Link from "next/link"
 import { ArrowRight, Globe, MessageSquare, Phone, Sparkles } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Sorted | Where’s your business getting stuck?",
-  description: "A better website, more useful enquiries or less admin. Start with what your business needs and we’ll help you find the next step.",
+  title: "Sorted | You’re ready for more. Let’s get your business there.",
+  description: "A better website. More customers. Less admin. We help you put the right things in place to move your business forward.",
   alternates: { canonical: "/" },
-  openGraph: { title: "Sorted | Where’s your business getting stuck?", description: "A better website, more useful enquiries or less admin. Find your next step with Sorted.", url: "/" },
+  openGraph: { title: "Sorted | You’re ready for more.", description: "A better website. More customers. Less admin. Let’s get your business there.", url: "/" },
 }
 
 const paths = [
-  { number: "01", Icon: Globe, title: "We need more people finding us.", copy: "Your work’s good. Your website should make that obvious. Give people a clearer picture of your business and an easy way to get in touch.", service: "Websites for local businesses", cta: "Help us get noticed", href: "/websites", image: "/sorted-home/hero-workshop.webp", alt: "A business website shown on a laptop in a workshop", surface: "bg-[#f6f5ec]", position: "object-center" },
-  { number: "02", Icon: MessageSquare, title: "People look, but don’t get in touch.", copy: "Let’s look at what happens between finding you and choosing you: the message, the offer, the proof and the next step.", service: "Customer acquisition & conversion", cta: "Help us turn interest into enquiries", href: "/what-else-we-do", image: "/sorted-whatelse/hero-laptop.webp", alt: "Illustration of a website and customer enquiry tools", surface: "bg-[#e8f3fa]", position: "object-contain" },
-  { number: "03", Icon: Sparkles, title: "We get enquiries. Keeping up is the problem.", copy: "Enquiries waiting for replies. Quotes still unwritten. Invoices that need chasing. Put AI automation to work inside the tools you already use.", service: "AI automation services", cta: "Help us stop things slipping", href: "/automation", image: "/v4/how-it-works-hero.webp", alt: "Illustrative phone notification showing a received payment", surface: "bg-[#fceeee]", position: "object-contain" },
+  { number: "01", Icon: Globe, title: "We want to look as good as the work we do.", copy: "Show people what you do, why you’re worth choosing and how to get in touch. A website you’re proud to send customers to.", service: "Websites for growing businesses", cta: "Get a better website", href: "/websites", image: "/sorted-home/hero-workshop.webp", alt: "A business website shown on a laptop in a workshop", surface: "bg-[#f6f5ec]", position: "object-center" },
+  { number: "02", Icon: MessageSquare, title: "We want more of the right customers.", copy: "Give people a reason to choose you. We bring your campaigns, website and follow-up together to turn more interest into paying customers.", service: "Marketing & customer acquisition", cta: "Win more customers", href: "/what-else-we-do", image: "/sorted-whatelse/hero-laptop.webp", alt: "Illustration of a website and customer enquiry tools", surface: "bg-[#e8f3fa]", position: "object-contain" },
+  { number: "03", Icon: Sparkles, title: "We want to do more without taking on more admin.", copy: "Free your team to do the work that needs them. We put AI to work on everyday jobs, from answering enquiries to following up quotes and chasing payments.", service: "AI automation for everyday business", cta: "Make more time for what matters", href: "/automation", image: "/v4/how-it-works-hero.webp", alt: "Illustrative phone notification showing a received payment", surface: "bg-[#fceeee]", position: "object-contain" },
 ]
 const logos = [["bodysharp", "BodySharp Fitness"], ["school-of-skill", "School of Skill"], ["gb-halesowen", "Gracie Barra Halesowen"], ["warwickshire-short-stays", "Warwickshire Short Stays"], ["edgbaston-tuition", "Edgbaston Tuition Centre"]]
 
@@ -29,9 +29,10 @@ export default function SortedStart() {
           <a href="https://wa.me/447386468085" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#00271f] px-4 text-[13px] transition-colors hover:bg-[#00271f] hover:text-white"><Phone size={15} />Let’s talk</a>
         </nav>
       </header>
-      <section className="mx-auto max-w-[1280px] px-6 pb-10 pt-12 sm:px-10 sm:pb-14 sm:pt-16">
-        <h1 className="max-w-[1000px] text-[clamp(2.9rem,6.3vw,5.7rem)] font-black leading-[1.02] tracking-[-0.055em]">Where’s your business<br className="hidden sm:block" /> getting stuck?</h1>
-        <p className="mt-6 max-w-[620px] text-[18px] leading-relaxed text-black/65">You don’t need to know which service you need.<br className="hidden sm:block" /> Start with what you’d like to improve.</p>
+      <section className="mx-auto max-w-[1280px] px-6 pb-12 pt-10 sm:px-10 sm:pb-16 sm:pt-16">
+        <h1 className="text-[clamp(3.4rem,10.5vw,9.5rem)] font-black uppercase leading-[0.9] tracking-[-0.06em]">You’re ready<br />for more.</h1>
+        <p className="mt-6 inline-block bg-[#e4ff29] px-3 py-1 text-[clamp(1.8rem,5vw,4rem)] font-black leading-[1.05] tracking-[-0.045em] sm:mt-8 sm:px-5">Let’s get your business there.</p>
+        <p className="mt-8 max-w-[640px] text-[clamp(1.1rem,1.6vw,1.35rem)] font-semibold leading-snug">A better website. More customers. Less admin.<br className="hidden sm:block" /> <span className="font-normal text-black/65">We help you put the right things in place to move your business forward.</span></p>
       </section>
       <section aria-label="Find your next step" className="mx-auto grid max-w-[1280px] gap-5 px-6 sm:px-10 lg:grid-cols-3">
         {paths.map(({ Icon, ...path }) => (
@@ -46,13 +47,14 @@ export default function SortedStart() {
         ))}
       </section>
       <section className="mx-auto max-w-[1280px] px-6 py-14 sm:px-10 sm:py-20">
-        <div className="flex flex-col items-start justify-between gap-6 border-y border-black/10 py-8 md:flex-row md:items-center">
-          <div><h2 className="text-[25px] font-black tracking-[-0.03em]">Not sure where the problem starts?</h2><p className="mt-2 text-[16px] leading-relaxed text-black/65">Let’s look at it together. We’ll help you find a useful first step.</p></div>
-          <a href="https://cal.com/sortmydigital/15min" className="inline-flex min-h-12 shrink-0 items-center gap-4 rounded-full bg-[#00271f] px-6 text-[14px] font-bold text-white transition-colors hover:bg-black">Let’s talk it through<ArrowRight size={18} /></a>
+        <div className="flex flex-col items-start justify-between gap-8 rounded-[22px] bg-black p-8 text-white sm:p-12 md:flex-row md:items-center">
+          <div><h2 className="text-[clamp(2rem,4vw,3.25rem)] font-black leading-[1.05] tracking-[-0.045em]">What would you like to do next?</h2><p className="mt-3 max-w-[520px] text-[17px] leading-relaxed text-white/70">Tell us where you want to take your business. We’ll help you work out where to start.</p></div>
+          <a href="https://cal.com/sortmydigital/15min" data-track="cta_click" data-cta-text="Let’s talk it through" data-cta-location="conversation_strip" className="inline-flex min-h-14 shrink-0 items-center gap-4 rounded-full bg-[#e4ff29] px-8 text-[16px] font-black text-black transition-colors hover:bg-white">Let’s talk it through<ArrowRight size={20} /></a>
         </div>
-        <p className="mt-14 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-black/50">Trusted by businesses across the UK and beyond</p>
+        <p className="mt-14 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-black/50">Already moving: businesses across the UK and beyond</p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-8 sm:gap-12">{logos.map(([slug, name]) => <Image key={slug} src={`/v4/logos/${slug}.webp`} alt={name} width={160} height={65} className={`h-14 w-32 object-contain grayscale ${slug === "gb-halesowen" ? "!w-16" : ""}`} />)}</div>
       </section>
+      <p className="mx-auto max-w-[1280px] px-6 pb-10 text-center text-[clamp(1.1rem,2vw,1.5rem)] font-black tracking-[-0.03em] sm:px-10">A better website. More customers. Time to get on with business.</p>
       <SiteMapFooter experience="company" />
     </main>
   )

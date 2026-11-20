@@ -1,194 +1,230 @@
-# Sorted Brand Voice Doctrine
+# Sorted Brand Voice Doctrine: Activation
 
-**Status:** Canonical doctrine  
-**Repository path:** `doctrine/sorted-brand-voice.md`  
-**Scope:** Sorted brand, Sorted website and operations services, public website, prospecting, advertising, follow-ups, sales, and customer communications.
+**Status:** Canonical doctrine (v2, supersedes the "constructive confrontation" v1)
+**Repository path:** `doctrine/sorted-brand-voice.md`
+**Archived predecessor:** `archive/deprecated-doctrine/sorted-brand-voice-salt-2026-11.md`
+**Scope:** Sorted's own public communications: website, Operations/automation, prospecting, advertising, follow-ups, sales, customer communications. Client-brand copy still respects the approved client tone.
 
-## 1. The foundational principle: Constructive confrontation
+## 1. The shift: from salt to sulphur
 
-**Sorted says the uncomfortable thing out loud, fairly, then does something useful about it.**
+In the hermetic frame, **salt** is form, fixity and containment. **Sulphur** is fire, desire and activation.
 
-Our voice is **honest but fair; nice but firm**. We are direct, cheeky, commercially intelligent, and unafraid to challenge comfortable assumptions. We do not mistake bland politeness for respect, nor provocation for substance.
+Until now Sorted spoke in salt. We described the gap, steadied the buyer, offered proof and left the space to decide. That was careful, credible and quiet. It also asked the customer to bring their own ambition and supplied only the diagnosis.
 
-The aim is not to insult business owners. It is to expose the gap between the good business they have built and the way customers experience it online—and make the next useful step unusually easy.
+Sorted now speaks in sulphur. **We set the direction, name the bigger aim, and light the fuse.** We do not wait for demand to arrive already formed. We help create it.
 
-> **Spot what's wrong. Say it plainly. Show something better.**
+> **Sorted doesn't wait to be asked. Sorted tells you what's possible and starts moving.**
 
-This voice is an expression of Sorted's existing operating doctrine: **Substance before signal. We don't sell. We show.**
+The old voice answered *"What's wrong?"* The new voice answers *"What could this business become, and what happens first?"*
 
-## 2. The audience and the tension
+| Salt (retired as the lead) | Sulphur (the new lead) |
+| --- | --- |
+| Diagnose the gap | Declare the ambition |
+| Reduce the pain | Raise the aim |
+| Leave space to decide | Set the direction and make the first move easy |
+| "Decide whether to take it further" | "You're ready for more. Let's go." |
+| Reassure, then persuade | Activate, then prove |
+| Honest but fair; nice but firm | Bold, direct, generous with belief |
+| Pain relief as the product | Competitive advantage as the product |
+| Respond to demand | Create demand |
 
-Sorted primarily speaks to established local businesses with real-world competence, customer outcomes, reputation, and commercial substance, whose digital presentation or processes have not kept up.
+Salt is not deleted. It becomes the vessel that keeps the fire useful (section 8).
 
-We respect the work. We challenge the presentation and the excuses that allow a fixable gap to persist.
+## 2. The stance: challenger brand
 
-**The central contradiction:** Good businesses can look worse online than they are in reality. Customers often form a judgement before experiencing the actual service.
+Sorted is a challenger. A challenger picks a status quo and refuses it, loudly, on behalf of the customer.
 
-We do not claim every competitor is worse, every website is broken, or every business is losing sales. Provocative lines are creative hypotheses; personalised factual claims require evidence.
+**The enemy is never the prospect and never a named competitor.** The enemy is:
+
+- "Good enough."
+- Being brilliant at the job and invisible everywhere else.
+- Staying small because nobody built the system that lets you grow.
+- British understatement used as a reason to stay behind.
+- Doing by hand what a modern business does automatically.
+
+**The hero is the business owner.** They are already good. They are ready for more. Sorted is the push, the build crew and the unfair advantage.
+
+Modernisation is not a repair job. **It is a competitive weapon most local businesses haven't picked up yet.** Sorted hands it over.
 
 ## 3. The company promise
 
-> **We make good businesses more capable.**
+> **You're ready for more. Let's get your business there.**
 >
-> We modernise how local businesses win customers and get work done.
+> A better website. More customers. Less admin.
 >
-> Better digital systems. Less unnecessary work. More capacity to grow.
+> We help you put the right things in place to move your business forward.
 
-This is the anchor and direction of customer value, **not a guarantee** of specific outcomes, enquiry volumes, or sales.
+The earlier promise, **We make good businesses more capable**, remains the plain-English description of what Sorted does. It is the explanation. The line above is the activation. Lead with the activation.
 
-## 4. Company first. One brand, two services.
+The promise is a direction of travel, **not a guarantee** of specific enquiry volumes, revenue or sales.
 
-**Sorted is one business modernisation brand.** Websites and operational improvements are services under Sorted, not separate public sub-brands:
+## 4. The ordering rule: advantage first, pain as proof
 
-- **Websites** — the established fixed-scope website launch package (£3,000 UK / $3,500 US), including agreed acquisition setup. It is tangible, easy to understand, and can be demonstrated before commitment.
-- **Operations** — scoped operational improvement. Feasibility, scope, price and success measures are agreed case by case. There is no fixed operations fee and no ready-made catalogue.
+Every significant piece of copy follows this order:
 
-The website is a powerful starting point, not a mandatory entry or the boundary of the company.
+1. **Aspiration:** where this business could be.
+2. **Advantage:** the specific edge it gains over how most businesses operate.
+3. **Proof:** something real and shown.
+4. **Pain, as evidence:** one line naming what it replaces. It confirms the advantage is real. It is not the opening.
+5. **Action:** a bold, low-friction first move.
 
-For the website service, the offer stays concrete:
+Worked example (Operations):
 
-> **See it first. Then decide.**
+| Pain-led (retired as the lead) | Advantage-led (the lead) |
+| --- | --- |
+| Never lose an enquiry. | **First to reply wins.** |
+| Never delay a quote. | **Quote while they're still excited.** |
+| Get paid without the chase. | **Run like a business twice your size.** |
+| Zero pipeline leaks. | **Out-run the firm down the road.** |
+| Keep up with demand. | **Be the business that always answers.** |
 
-Sorted can manufacture a website preview before asking the prospect to buy. The preview is proof, not a lengthy pitch. Keep the website CTA simple: **Get your free site.** The supporting disclosure is **We build your first page free. Decide whether to take it further.** Describe the scope and timing accurately. The company-level CTA offers a chooser — **winning customers, getting work done, or not sure yet** — rather than assuming every visitor wants a website.
+The pain version stays as the supporting sentence: "No more lost enquiries, late quotes or unpaid invoices."
 
-The overall digital system is the frame:
+Pain remains a valid lead only for hyper-specific acquisition work where the recipient has already named the problem (for example a reply to an inbound enquiry about a broken site).
 
-- **Above the waterline:** The customer-facing presence people can see and evaluate.
-- **Below the waterline:** Discovery, enquiry handling, tracking, workflows, and content control.
+## 5. The audience
 
-A **What we improve** page explains these systems with an iceberg visual and practical customer context. The website launch may include the website plus agreed ad creative, campaign structure, tracking and follow-up setup. Ad spend, ongoing management and future optimisation remain separate and optional. Do not market Booking & CRM as part of the standard proposition unless a configured service is explicitly approved.
+Sorted speaks to established local and regional businesses with real competence, reputation and commercial substance. They are not in crisis. They are **capable and under-leveraged**.
 
-**Identify the gap → show the improvement → agree scope and price → deliver and review.** Expansion is earned, never automatic.
+Britain's mood is defensive: cautious, cost-conscious, waiting. That is the opening. A business that modernises while others hold still gains ground. Sorted sells **the move**, not the comfort.
 
-## 5. The psychological target: the story that permits inaction
-
-Sorted's strongest copy challenges a self-justification, not merely an ugly webpage. Common stories and appropriate counter-angles:
-
-| Comfortable story | Constructive challenge | Example hook |
-| --- | --- | --- |
-| “My competitors aren't any better.” | The relevant benchmark is how customers perceive and choose you, not the industry's lowest standard. | **Your competitors aren't better. They just look better.** |
-| “Word of mouth keeps us busy.” | Reputation is valuable; a credible digital presence can help people verify and act on it. | **Word of mouth is brilliant. It's not a website.** |
-| “My website has been fine for years.” | The business may have evolved while its presentation stood still. | **Your business grew up. Your website didn't.** |
-| “We're busy enough.” | More control over enquiries may mean better choice of work, not just more work. | **Being busy isn't the same as being in control.** |
-| “I'll get around to it.” | The delay may be about effort and uncertainty, which the preview-first model can reduce. | **You've been meaning to sort your website for how long?** |
-| “Our work speaks for itself.” | Prospective customers may not have experienced the work yet. | **Good at the job. Bad at showing it.** |
-
-A strong hook creates self-recognition and a reason to act. The follow-through must offer proof and an achievable next step—not manufactured panic.
-
-Appearance-led hooks (looking better, embarrassing websites, retiring sites) belong to **website campaigns and acquisition work**. Company-level copy leads with capability and modernisation, not just looks.
+We respect the work and we believe in the owner. We are not diagnosing a patient. We are recruiting a competitor.
 
 ## 6. The voice rules
 
-1. **Say what people are thinking.** Prefer plain, recognisable observations over polished agency language.
-2. **Challenge the gap, not the person.** Respect the owner's craft, history, customers, and ambition.
-3. **Use competitive discomfort thoughtfully.** Comparison can create urgency, but never invent a competitor's weakness or a customer's loss.
-4. **Be sharp about the problem and easy about the solution.** A bold headline should lead quickly to a tangible mockup, transparent scope, and low-pressure decision.
-5. **Write like a confident person, not a committee.** Short sentences, clear nouns, active verbs, dry humour where it helps.
-6. **Do not over-explain the punchline.** Let the observation land; avoid reflexively adding “Let's fix that” to every headline.
-7. **Show, don't just assert.** Before/after comparisons, actual work, credible reviews, and concrete demonstrations beat vague claims.
-8. **Avoid false guarantees.** Claims about results, speed, savings, reviews, and inclusion must be accurate and supportable.
-9. **Keep the same character after the sale.** Firm and candid can coexist with responsive, respectful customer care.
-10. **Use judgement, not an insult generator.** The voice should feel useful, never sneering, classist, or contemptuous of local businesses.
+1. **Lead with belief.** Assume the business can be bigger. Say so.
+2. **Be loud on purpose.** Short, punchy, confident lines. Large type, plain words, no hedging.
+3. **Set the direction.** Tell the reader where they could be in a year, not only what they could stop suffering.
+4. **Make rivals' standards the benchmark to beat.** Compare upward ("a business twice your size"), not downward at named competitors.
+5. **Name the choice.** Standing still is also a decision. State it plainly, without shaming.
+6. **Verbs that move:** win, build, launch, move, claim, grow, start. Avoid "help you cope", "reduce", "alleviate", "struggle".
+7. **Brash, not rude.** Cheeky and direct. Never sneering, classist or contemptuous of small businesses.
+8. **Don't over-explain the punchline.** Land it, then give the proof.
+9. **Show what's possible, early.** A real preview, real work, a real number beats a claim.
+10. **Keep the same energy after the sale.** Bold up front; accountable, responsive and plain-spoken in delivery.
+
+Words to retire from lead copy: *struggling, stuck, falling behind, headache, nightmare, burden, protect, safeguard, peace of mind*. They may appear inside a single supporting sentence.
 
 ## 7. Approved creative territory
 
-**Competitive discomfort**
-- “Your competitors aren't better. They just look better.”
-- “You're making your competitors look good.”
+**Aspiration**
+- "You're ready for more."
+- "Let's get your business there."
+- "Built for the next version of your business."
 
-**Business pride and presentation**
-- “Nice business. Shame about the website.”
-- “Your work is good. Your website is embarrassing.” *(Use only when the actual site supports the criticism.)*
-- “Your business has standards. Your website apparently doesn't.”
+**Competitive advantage**
+- "First to reply wins."
+- "Quote while they're still excited."
+- "Run like a business twice your size."
+- "Your competitors are still answering tomorrow."
+- "Look as good as the work you do."
 
-**Visibility and opportunity**
-- “Being good at what you do doesn't mean people know you exist.”
-- “You're the best-kept secret in your own town.”
+**Capacity and ambition**
+- "More jobs. Same hours."
+- "Do more without taking on more admin."
+- "Be the business that always answers."
 
-**Procrastination**
-- “You've been meaning to sort your website for how long?”
-- “Your website called. It's ready to retire.”
+**Challenger rhetoric**
+- "Being local shouldn't mean being behind."
+- "Modern business capability isn't just for companies with big budgets."
+- "Good enough is a decision. Make a better one."
 
-**The operational extension**
-- “An enquiry isn't a customer. Yet.”
-- “Your business shouldn't stop selling when you're on a job.”
+These are tone examples, not universal facts. Competitive claims about named rivals, specific outcomes or timings require evidence. Statements like "your competitors are still answering tomorrow" are creative hypotheses and must not be presented as a personalised factual claim about a named business.
 
-These are **examples of tone, not universal factual statements**. Select and adapt based on the audience and evidence.
+## 8. The vessel: what stays fixed (salt as container)
 
-## 8. Copy architecture for the website service
+Sulphur without a vessel burns the house down. These constraints are non-negotiable and are not inversions of anything:
 
-**Hero:** Provocation → why the gap matters → concrete website offer → free-site CTA → accurate risk reduction.
+1. **Truth.** No fabricated testimonials, results, competitor weaknesses or customer losses. Numbers need a source. Performance figures on public pages (for example enquiry or booking uplifts) are used only where evidenced and described accurately.
+2. **No manufactured panic.** Urgency comes from opportunity, never invented scarcity or fear.
+3. **Challenge the situation, not the person.** The owner is the hero.
+4. **No guarantees of outcome.**
+5. **Real offer, accurately described.** Scope, price, timing and inclusions are stated exactly as sold. The pricing page is the source of truth for price. Do not hard-code prices in copy elsewhere without checking it.
+6. **Accountable delivery.** We do what we said. The fire is only worth lighting if the build lands.
 
-Example:
+## 9. The offer under the new voice
 
-> **Your competitors aren't better. They just look better.**
->
-> And that's a problem. Customers judge what they see before they experience what you do.
->
-> We build brilliant websites for local businesses. See yours before you spend a penny.
->
-> **Get your free site.** We build your first page free. No payment. No obligation.
+The mechanics of the offer do not change. The framing does.
 
-**Benefits:** Lead with look good → get enquiries → turn them into customers. Clarify which acquisition setup is included and which ongoing services remain optional.
+- **We still build first.** The preview is no longer a risk-reduction footnote. It is the dare: **"We'll build your first page free. See what's possible."** The accurate disclosure, that the first page is free and the client decides whether to take it further, stays visible but sits after the invitation, not in front of it.
+- **Website CTA:** Get your free site. Homepage service CTAs: Get a better website, Win more customers, Make more time for what matters.
+- **Conversation CTA:** "Let's talk it through." Framed as a strategy conversation about where to take the business, not a diagnostic of what is broken.
+- **Operations CTA:** Prefer advantage framing ("See your advantage", "Find out how far ahead you could be") over medical framing ("diagnostic"). The 15-minute call itself is unchanged.
+- **Expansion remains earned.** The sequence stays: identify the opportunity, show the improvement, agree scope and price, deliver and review. Sulphur sets direction; it does not skip agreement.
+- **Pricing structure is a commercial decision, not a voice decision.** Tier labels may shift from symptoms ("keeps slipping") to ambition ("Start winning faster", "Run like a bigger business", "The full advantage"). Prices and scope stay as set on the pricing page.
 
-**Process:** Show a short, concrete sequence: tell us about the business → see a tailored design → decide → build and launch. Avoid jargon, discovery-theatre, and unnecessary meetings.
+## 10. Copy architecture
 
-**Proof:** Show real local-business examples, credible reviews, and before/after evidence. Never fabricate testimonials or performance numbers.
+**Hero:** Aspiration (huge) → direction line → one-sentence outcome set ("A better website. More customers. Less admin.") → bold CTA.
 
-**Pricing:** State the fixed price and exactly what is included. Separate included setup from ongoing spend, management and optimisation. Avoid surprise charges.
+**Service cards:** Voice of the owner's ambition in quotes ("We want more of the right customers.") → what Sorted puts in place → service label → verb-led CTA.
 
-**Expansion:** Introduce **What we improve** as a parallel door into the company, not a subordinate add-on. Explain why presence, acquisition, enquiry handling, tracking, workflows and content control matter to the business — and which parts are established website launch delivery versus scoped operational work.
+**Proof:** Real work and evidenced results, placed immediately after the claim they support.
 
-**Final CTA:** Reconnect the uncomfortable observation with a low-friction action: see the improvement before deciding.
+**Pain line:** One supporting line per section at most.
 
-## 9. Channel adaptation
+**Conversation strip:** "What would you like to do next?" Direction-setting, not triage.
 
-- **Homepage:** The fixed anchor — **We make good businesses more capable.** — followed immediately by explanation, proof, and an easy CTA. The headline stays fixed; any future rotation means different copy per visit, never a timed carousel.
-- **Outbound:** Ground the critique in the recipient's actual site; show the improved preview rather than making a generic insult.
-- **Ads and short-form content:** Sharper hooks and visual contrasts are appropriate; the landing experience must fulfil the expectation.
-- **Follow-up:** Helpful, concise, specific, and respectful. Do not repeat insults or use fake scarcity.
-- **Sales calls:** Speak plainly, ask good questions, and let evidence carry the argument.
-- **Customer support:** Direct about problems, accountable about fixes, and free of unnecessary bravado.
+**Footer line:** A better website. More customers. Time to get on with business.
 
-## 10. What Sorted must not become
+## 11. Channel adaptation
 
-- A generic “we help businesses thrive” digital agency.
-- An AI buzzword brand that asks buyers to understand the factory.
+- **Homepage:** Fixed anchor is the activation headline, **You're ready for more. Let's get your business there.** Future rotation, if any, means different copy per visit, never a timed carousel.
+- **Automation / Operations:** Advantage-led operator names and taglines; results framed as winning; closing CTA framed as advantage, not diagnosis.
+- **Outbound:** Open with what the business could be and a real preview. Ground any critique in the recipient's actual site.
+- **Ads and short-form:** The loudest register. Big hook, direct challenge to the status quo, landing page must fulfil it.
+- **Follow-up:** Concise, confident, specific. Momentum, not pressure.
+- **Sales calls:** Set the aim first ("Where do you want this to be in twelve months?"), then work backwards.
+- **Customer support:** Direct, accountable, free of bravado.
+
+## 12. What Sorted must not become
+
+- A reassurance brand that waits for the customer to arrive ready.
+- A generic "we help businesses thrive" agency.
+- A shouty brand with nothing behind the shout.
 - A rude or smug commentator on small businesses.
-- A company that uses fabricated competitive claims to create anxiety.
-- A website subscription trap or an indiscriminate upsell machine.
-- A business that confuses attention with trust or provocation with proof.
+- A company that invents rivals' weaknesses or customers' losses.
+- An AI buzzword brand that asks buyers to understand the factory.
 
-**Provocation gets the conversation. Proof earns the nod. Delivery earns the relationship.**
+**Activation gets the move. Proof earns the nod. Delivery earns the relationship.**
 
-## 11. Review and quality gate
+## 13. Review and quality gate
 
 Before publishing significant brand copy, check:
 
-1. **Recognition:** Does it name a real tension the intended buyer may recognise?
-2. **Fairness:** Does it critique an observable gap without belittling the business owner?
-3. **Distinctiveness:** Could a bland agency say this unchanged? If yes, sharpen it.
-4. **Truth:** Are any factual comparisons, outcomes, timings, or inclusions supported?
-5. **Clarity:** Can a local business owner immediately understand the offer?
-6. **Action:** Is the next nod obvious and genuinely low friction?
-7. **Continuity:** Does the promise align with Sorted's actual website factory and optional services?
+1. **Aim:** Does it raise the reader's sights, or only describe their problem?
+2. **Advantage:** Does it name a specific edge gained, not just a pain removed?
+3. **Direction:** Does the reader know what moving looks like and what happens first?
+4. **Distinctiveness:** Could a bland agency say this unchanged? If yes, sharpen it.
+5. **Fairness:** Does the owner remain the hero?
+6. **Truth:** Is every claim, number, timing and inclusion supported?
+7. **Action:** Is the next step bold and low friction?
+8. **Order:** Is pain at most one supporting line?
 
-When an angle is deployed at scale, compare real conversion and customer-quality outcomes through controlled tests. Do not canonise a favourite headline solely because it sounds compelling.
+When an angle is deployed at scale, compare real conversion and customer-quality outcomes through controlled tests. Do not canonise a headline because it sounds brave. The thesis (activation creates customers that reassurance does not) is a hypothesis to measure against the old copy, not a given.
 
-## 12. Relationship to existing doctrine
+## 14. Relationship to existing doctrine
 
-This document defines **brand voice and commercial expression**, not a replacement for Sorted's operating model.
+This document defines **brand voice and commercial expression**, not the operating model.
 
-It inherits and must remain consistent with:
-- **Substance before signal** — represent real business quality, not fabricated substance.
-- **We don't sell. We show.** — demonstrate improvement before demanding trust.
-- **The Nod Pipeline** — progressive proof earns progressive commitment.
-- **The Sorted Value Model** — trust, enquiries, customers, operations.
-- **The Trust Loop** — every intervention must be genuinely useful.
-- **Website-led acquisition** — the website is the primary entry point, not the limit of the relationship.
+It inherits and stays consistent with:
+- **Others pitch. We build.** The offensive build-first angle (replaces "We don't sell. We show.", which read as defensive): the free first page is the proof behind the push.
+- **The Four Nods and the reversed product cycle:** build, show, quote, charge, deliver.
+- **The Sorted Value Model:** trust, enquiries, customers, operations.
+- **Substance before signal:** represent real business quality.
+- **The Trust Loop:** every intervention must be genuinely useful.
+
+It inverts and replaces the following from v1:
+- "Constructive confrontation / honest but fair; nice but firm" as the lead register.
+- "Spot what's wrong. Say it plainly. Show something better." as the foundational sequence.
+- The "story that permits inaction" table as the primary hook engine. Challenging a comfortable story remains a tool but is no longer the lead.
+- "Decide whether to take it further" as the lead framing of the free preview.
+- "The headline stays fixed" as applied to the old headline.
 
 **Canonical summary:**
 
-> **Sorted is constructively confrontational. We make good businesses more capable — calling out the gap between how good a local business is and how well its systems support it, making the better alternative visible, and earning the right to improve what comes next.**
+> **Others pitch. We build.**
 >
-> **Honest but fair. Nice but firm. We don't sell. We show.**
+> **Sorted is a challenger. We tell good businesses they're ready for more, set the direction, and build the first move for free. Bold up front, accountable in delivery.**
+>
+> **You're ready for more. Let's get your business there.**

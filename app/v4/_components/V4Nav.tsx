@@ -28,7 +28,7 @@ export function V4Nav({ overlay = false }: { overlay?: boolean }) {
           <DoorOpen size={15} strokeWidth={2.2} aria-hidden="true" /> Home
         </Link>
         <RoutineFinderButton
-          label="Find Your Leaks"
+          label="Find Your Edge"
           variant="secondary"
           className="!h-11 !border-2 !border-[#00271f] !bg-[#fbfbfa] !px-5 !text-[13px] !font-bold !text-[#00271f] max-sm:!hidden"
         />
