@@ -112,7 +112,7 @@ export function JobHook() {
         <p className="text-[13px] font-black uppercase tracking-[0.12em] text-black/45">Got it. Here&apos;s your job:</p>
         <p className="mt-4 text-[clamp(1.3rem,2.4vw,1.8rem)] font-black leading-[1.2] tracking-[-0.03em]">&ldquo;{job.trim()}&rdquo;</p>
         <p className="mt-4 text-[17px] font-semibold leading-[1.55] text-black/65">We&apos;ll be in touch to set up an assistant for it.</p>
-        <a href="#phone" className="mt-6 inline-flex min-h-11 items-center gap-2 text-[13px] font-black underline underline-offset-4 transition-colors hover:text-black/60">
+        <a href="/assistants/demo/" className="mt-6 inline-flex min-h-11 items-center gap-2 text-[13px] font-black underline underline-offset-4 transition-colors hover:text-black/60">
           See a job in action <ArrowRight className="size-4" strokeWidth={2.8} />
         </a>
       </div>
