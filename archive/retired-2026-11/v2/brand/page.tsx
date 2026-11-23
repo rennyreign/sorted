@@ -21,13 +21,13 @@ import {
 import BrandAssetDownloads from "./BrandAssetDownloads"
 
 const heroHighlight = localFont({
-  src: "../../../public/fonts/Sans-Andreas-Bold-Demo.ttf",
+  src: "../../../../public/fonts/Sans-Andreas-Bold-Demo.ttf",
   variable: "--font-brand-hero-highlight",
   display: "swap",
 })
 
 const heroScript = localFont({
-  src: "../../../public/fonts/Fave-ScriptPro.ttf",
+  src: "../../../../public/fonts/Fave-ScriptPro.ttf",
   variable: "--font-brand-hero-script",
   display: "swap",
 })
