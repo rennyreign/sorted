@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useRouter } from "next/navigation"
 import { ArrowRight } from "lucide-react"
 import { supabase } from "@/lib/supabase"
 import { getAttribution } from "@/lib/attribution"
@@ -25,6 +26,7 @@ function isValidContact(value: string) {
 }
 
 export function JobHook() {
+  const router = useRouter()
   const [job, setJob] = useState("")
   const [business, setBusiness] = useState("")
   const [contact, setContact] = useState("")
@@ -106,15 +108,18 @@ export function JobHook() {
     setStatus("done")
   }
 
+  useEffect(() => {
+    if (status === "done") router.push("/assistants/demo/")
+  }, [status, router])
+
   if (status === "done") {
     return (
       <div className="rounded-[22px] border border-black/10 bg-white p-7 shadow-[0_14px_38px_rgba(0,0,0,0.05)]" aria-live="polite">
         <p className="text-[13px] font-black uppercase tracking-[0.12em] text-black/45">Got it. Here&apos;s your job:</p>
         <p className="mt-4 text-[clamp(1.3rem,2.4vw,1.8rem)] font-black leading-[1.2] tracking-[-0.03em]">&ldquo;{job.trim()}&rdquo;</p>
-        <p className="mt-4 text-[17px] font-semibold leading-[1.55] text-black/65">We&apos;ll be in touch to set up an assistant for it.</p>
-        <a href="/assistants/demo/" className="mt-6 inline-flex min-h-11 items-center gap-2 text-[13px] font-black underline underline-offset-4 transition-colors hover:text-black/60">
-          See a job in action <ArrowRight className="size-4" strokeWidth={2.8} />
-        </a>
+        <p className="mt-4 inline-flex items-center gap-2 text-[15px] font-black text-black/70">
+          Taking you to the demo <ArrowRight className="size-4 animate-pulse" strokeWidth={2.8} />
+        </p>
       </div>
     )
   }

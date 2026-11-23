@@ -5,15 +5,15 @@ import { SitesFooter, SitesHeader, SitesPage, Underline } from "../sites/_compon
 import { MockupButton } from "../sites/_components/SitesMockupModal"
 
 export const metadata: Metadata = {
-  title: "What we improve | Sorted",
+  title: "Win more customers | Sorted",
   description:
-    "Turn website visits into useful enquiries. Clearer messages, stronger proof, easier contact and separately scoped campaign support.",
+    "Marketing and advertising that brings the right customers to your business — campaigns, creative, tracking and follow-up working together.",
   alternates: {
     canonical: "/what-else-we-do",
   },
   openGraph: {
-    title: "What we improve | Sorted",
-    description: "A website visit is a start. We help make the next step clearer: what you offer, why people should trust you and how to get in touch.",
+    title: "Win more customers | Sorted",
+    description: "Campaigns, creative and follow-up that turn attention into paying customers — the full acquisition suite, scoped around your offer.",
     url: "/what-else-we-do",
   },
 }
@@ -27,15 +27,15 @@ export default function WhatElseWeDoPage() {
         <div className="mx-auto grid max-w-[1280px] gap-10 px-5 pb-7 pt-7 sm:px-8 lg:grid-cols-5 lg:items-center lg:gap-6 lg:px-10 lg:pt-9">
           <div className="lg:col-span-2">
             <h1 className="text-[clamp(2.4rem,3.7vw,3.25rem)] font-black leading-[0.94] tracking-[-0.05em]">
-              <span className="block">People are looking.</span>
-              <span className="block lg:whitespace-nowrap">Let’s help them choose you.</span>
+              <span className="block">Ready for more of</span>
+              <span className="block lg:whitespace-nowrap">the right customers?</span>
             </h1>
             <Underline className="mt-5 w-40" />
             <p className="mt-5 max-w-[470px] text-[16px] font-semibold leading-[1.55] tracking-[-0.02em] text-black/78">
-              A website visit is a start. We help make the next step clearer: what you offer, why people should trust you and how to get in touch.
+              Marketing and advertising that brings the right people to your business — the campaigns, the creative, the tracking and the follow-up, working together.
             </p>
             <p className="mt-4 max-w-[470px] text-[14.5px] font-semibold leading-[1.6] text-black/60">
-              If people visit but don’t enquire, the answer isn’t always more traffic. Let’s look at what’s getting in their way.
+              Not more noise. A joined-up acquisition setup built around your offer — so attention turns into paying customers, not just clicks.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-6">
               <MockupButton />
@@ -55,13 +55,13 @@ export default function WhatElseWeDoPage() {
         <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[0.34fr_0.36fr_0.3fr] lg:items-center lg:px-10">
           <div>
             <h2 className="text-[clamp(2rem,3.4vw,2.75rem)] font-black leading-[0.95] tracking-[-0.05em]">
-              More than a
+              More than an
               <br />
-              first impression.
+              advert.
             </h2>
             <Underline className="mt-5 w-32" />
             <p className="mt-5 max-w-[340px] text-[14.5px] font-semibold leading-[1.6] text-white/70">
-              A good-looking website needs a clear offer, useful proof and an easy next step beneath the surface. We help those parts work together.
+              Winning customers isn't one channel. It's the campaign, the offer, the website and the follow-up pulling in the same direction — we make those parts work together.
             </p>
             <div className="mt-6">
               <MockupButton className="border border-white/35 !bg-transparent !text-white hover:!border-white" />
@@ -72,7 +72,7 @@ export default function WhatElseWeDoPage() {
 
           <ul className="grid gap-5 border-white/15 lg:border-l lg:pl-8">
             {[
-              [Eye, "Being found", "Ways to get in front of the right people, when advertising makes sense."],
+              [Eye, "Getting found", "Adverts and campaigns that put you in front of the right people."],
               [BarChart3, "Handling enquiries", "See what is working and give every genuine enquiry a clear route in."],
               [Users, "Building confidence", "Show the work, answers and customer proof that help people choose you."],
               [Settings, "Staying in control", "One place to see the website, the plan and what happens next."],
@@ -97,9 +97,9 @@ export default function WhatElseWeDoPage() {
       <section className="mx-auto max-w-[1280px] px-5 py-7 sm:px-8 lg:px-10">
         <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
           <h2 className="text-[clamp(1.9rem,2.9vw,2.125rem)] font-black leading-[1.02] tracking-[-0.045em]">
-            What helps people choose you,
+            What wins customers,
             <br />
-            from first impression
+            from the first advert
             <br />
             to the first enquiry.
           </h2>
@@ -142,13 +142,13 @@ export default function WhatElseWeDoPage() {
         <div className="mx-auto grid max-w-[1280px] gap-8 lg:grid-cols-[0.35fr_0.65fr] lg:items-center lg:px-10">
           <div>
             <h2 className="text-[clamp(1.9rem,3vw,2.5rem)] font-black leading-[0.97] tracking-[-0.05em]">
-              A clearer path
+              The full journey,
               <br />
-              to becoming a customer.
+              working together.
             </h2>
             <Underline className="mt-4 w-32" />
             <p className="mt-5 max-w-[360px] text-[13.5px] font-semibold leading-[1.6] text-black/62">
-              Your website is one part of the journey. We agree which parts need attention before doing the work. Ad spend and ongoing campaign management are separate.
+              Adverts bring the right people in; the website, tracking and follow-up turn them into customers. We agree which parts need attention first. Ad spend and ongoing campaign management are separate.
             </p>
           </div>
           <ol className="grid gap-6 sm:grid-cols-3 lg:grid-cols-5 lg:gap-0">
@@ -194,15 +194,15 @@ export default function WhatElseWeDoPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1220px] px-6 py-10 text-[16px] leading-relaxed"><p>Already getting enquiries, but struggling to keep up? <a href="/assistants" className="font-bold underline underline-offset-4">Explore AI assistants for replies, quotes and follow-ups.</a></p></section>
+      <section className="mx-auto max-w-[1220px] px-6 py-10 text-[16px] leading-relaxed"><p>Getting the enquiries but struggling to keep up? <a href="/assistants" className="font-bold underline underline-offset-4">Meet the AI assistants that handle replies, quotes and follow-ups.</a></p></section>
       <SitesFooter variant="compact" tone="light" />
     </SitesPage>
   )
 }
 
 const capabilityCards: [typeof LayoutGrid, string, string, string, number, number, boolean][] = [
+  [Megaphone, "Advertising & campaigns", "Creative, copy and campaign structure built around your offer. Separately scoped; ad spend and ongoing management are additional.", "ad-creatives", 60, 120, true],
   [LayoutGrid, "Website and presence", "A real design and build for your business — not a template with your logo dropped in. Part of a defined website scope.", "custom-website-design", 42, 140, true],
-  [Megaphone, "Customer acquisition", "Creative, copy and campaign structure prepared for your offer when needed. Separately scoped; ad spend and ongoing management are additional.", "ad-creatives", 60, 120, true],
   [Mail, "Enquiry handling", "A clear next step after someone gets in touch. Follow-up copy and connections can be scoped separately; your team handles the replies.", "follow-up-automations", 70, 90, false],
   [BarChart3, "Tracking and visibility", "See where visitors come from and which website actions they take. Tracking setup agreed around how people enquire.", "analytics-tracking", 62, 80, false],
   [Settings, "Offers and next steps", "Make it clear what you offer, who it is for and what someone should do next. Give interest a useful place to go.", "analytics-tracking", 62, 80, false],

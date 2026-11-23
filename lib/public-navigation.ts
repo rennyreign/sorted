@@ -1,7 +1,7 @@
 /** Headers follow each service's decision sequence. Footers expose the wider site. */
 export const WEBSITE_NAV = [
   ["sites", "Websites", "/websites"],
-  ["whatelse", "What we improve", "/what-else-we-do"],
+  ["whatelse", "Win more customers", "/what-else-we-do"],
   ["how", "How it works", "/howitworks"],
   ["examples", "Our work", "/examples"],
   ["pricing", "Pricing", "/pricing"],

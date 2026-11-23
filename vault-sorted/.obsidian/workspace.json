@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "How Sortme Works — Technical Anatomy.md",
+                "file": "Untitled.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "How Sortme Works — Technical Anatomy"
+              "title": "Untitled"
             }
           }
         ]
@@ -191,6 +191,7 @@
   "active": "ab1cef9c6d276851",
   "lastOpenFiles": [
     "Sorted AI Assistants.md",
+    "How Sortme Works — Technical Anatomy.md",
     "Untitled.md"
   ]
 }
