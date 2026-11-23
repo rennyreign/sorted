@@ -8,15 +8,15 @@ export const WEBSITE_NAV = [
 ] as const
 
 export const AUTOMATION_NAV = [
-  ["Operators", "/automation"],
-  ["How it works", "/automation/how-it-works"],
-  ["About us", "/automation/about"],
-  ["Pricing", "/automation/pricing"],
+  ["AI assistants", "/assistants"],
+  ["How it works", "/assistants#try"],
+  ["About us", "/assistants/about"],
+  ["Pricing", "/assistants/pricing"],
 ] as const
 
 export const FOOTER_GROUPS = [
   { title: "Websites", links: [...WEBSITE_NAV.map(([, label, href]) => [label, href] as const), ["Website reviews", "/websites#reviews"], ["About our websites", "/about"], ["Content editing", "/website-updates"]] },
-  { title: "AI automation", links: AUTOMATION_NAV },
+  { title: "AI assistants", links: AUTOMATION_NAV },
   { title: "Sorted", links: [
     ["All services", "/"],
     ["Partnerships", "/partners"], ["For agencies", "/agencies"],

@@ -83,7 +83,32 @@ function GoogleReviewsCards({ data }: { data: GoogleReviewsData }) {
   )
 }
 
-export function GoogleReviews({ data, variant = "default" }: { data: GoogleReviewsData; variant?: "default" | "cards" }) {
+function GoogleReviewsPill({ data }: { data: GoogleReviewsData }) {
+  return (
+    <div aria-label="Google reviews" className="flex flex-wrap items-center gap-x-5 gap-y-2.5">
+      <a
+        href={data.profileUrl}
+        target="_blank"
+        rel="noreferrer"
+        className="group inline-flex items-center gap-3 rounded-full border border-black/12 bg-white px-4 py-2 transition-colors hover:border-black/25 max-sm:w-full max-sm:flex-wrap"
+      >
+        <GoogleMark />
+        <strong className="text-[17px] tracking-[-0.03em]">{data.rating.toFixed(1)}</strong>
+        <Stars rating={data.rating} light />
+        <span className="text-[11px] font-bold text-black/55">
+          {data.reviewCount} Google reviews for {data.businessName}
+        </span>
+        <ArrowUpRight className="size-4 text-black/40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={2.4} />
+      </a>
+      <a href={data.writeReviewUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-[11px] font-black text-black/70 underline decoration-black/20 underline-offset-4 transition-colors hover:text-black">
+        Leave a Google review <ArrowUpRight className="size-3.5" strokeWidth={2.5} />
+      </a>
+    </div>
+  )
+}
+
+export function GoogleReviews({ data, variant = "default" }: { data: GoogleReviewsData; variant?: "default" | "cards" | "pill" }) {
+  if (variant === "pill") return <GoogleReviewsPill data={data} />
   if (variant === "cards") return <GoogleReviewsCards data={data} />
   return (
     <section aria-labelledby="google-reviews-heading" className="overflow-hidden rounded-[18px] bg-white/[0.055] shadow-[0_22px_55px_rgba(0,0,0,0.22)] ring-1 ring-white/10">

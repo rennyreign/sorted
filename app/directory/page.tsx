@@ -46,14 +46,14 @@ const groups: Group[] = [
     ],
   },
   {
-    id: "automation",
-    title: "AI automation",
-    blurb: "Operators that take repetitive work off a business’s plate.",
+    id: "assistants",
+    title: "AI assistants",
+    blurb: "A tailored AI assistant that does real work for a business.",
     items: [
-      { label: "Automation home", href: "/automation", note: "The three operators" },
-      { label: "How it works", href: "/automation/how-it-works", note: "Diagnostic → operator model" },
-      { label: "Automation pricing", href: "/automation/pricing" },
-      { label: "About us", href: "/automation/about" },
+      { label: "Assistants home", href: "/assistants", note: "Now the homepage" },
+      { label: "How it works", href: "/assistants#try", note: "One job, one result" },
+      { label: "Assistants pricing", href: "/assistants/pricing" },
+      { label: "About us", href: "/assistants/about" },
     ],
   },
   {

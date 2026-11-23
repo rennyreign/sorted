@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import styles from "../../ops/infrastructure/infrastructure.module.css"
+import styles from "../../../archive/retired-2026-11/ops/infrastructure/infrastructure.module.css"
 
 const brief = [
   "Twenty years of domestic and commercial electrical work",

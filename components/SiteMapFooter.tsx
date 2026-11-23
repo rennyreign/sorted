@@ -2,24 +2,31 @@ import Link from "next/link"
 import { Phone } from "lucide-react"
 import { FOOTER_GROUPS } from "@/lib/public-navigation"
 
-type Experience = "website" | "automation" | "company"
+type Experience = "website" | "automation" | "company" | "assistants"
 const descriptions: Record<Experience, string> = {
   website: "Websites that do your business justice. Designed, built and launched for local businesses.",
   automation: "AI automation for enquiries, quotes and payment follow-ups. Less work slipping through the gaps.",
   company: "A better website. More useful enquiries. Less work slipping through the gaps.",
+  assistants: "AI assistants that do the work. We build yours and put it to work in your business.",
 }
+
+const ASSISTANTS_FOOTER_GROUPS = [
+  { title: "AI assistants", links: [["What they do", "/"], ["How it works", "/assistants#try"], ["Pricing", "/assistants/pricing"]] },
+  { title: "Explore Sorted", links: [["Sorted Sites", "/websites"], ["For partners", "/partners"], ["About Sorted", "/assistants/about"]] },
+]
 
 export function SiteMapFooter({ tone = "dark", experience = "company" }: { tone?: "light" | "dark"; experience?: Experience }) {
   const light = tone === "light"
-  const home = experience === "website" ? "/websites" : experience === "automation" ? "/automation" : "/"
+  const home = experience === "website" ? "/websites" : experience === "automation" ? "/assistants" : experience === "assistants" ? "/" : "/"
+  const groups = experience === "assistants" ? ASSISTANTS_FOOTER_GROUPS : FOOTER_GROUPS
   return (
-    <footer className={`${light ? "bg-[#fafafa] text-[#111]" : experience === "website" ? "bg-[#070707] text-white" : "bg-[#00271f] text-white"} px-6 py-12 sm:px-10`}>
-      <div className="mx-auto grid max-w-[1280px] grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1.2fr]">
+    <footer className={`${light ? "bg-[#fafafa] text-[#111]" : "bg-[#070707] text-white"} px-6 py-12 sm:px-10 ${light ? "" : "border-t border-white/10"}`}>
+      <div className={`mx-auto grid max-w-[1280px] grid-cols-2 gap-x-8 gap-y-10 ${experience === "assistants" ? "lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]" : "lg:grid-cols-[1.3fr_1fr_1fr_1fr_1.2fr]"}`}>
         <div className="col-span-2 lg:col-span-1">
           <Link href={home} aria-label="Sorted home" className="text-[36px] font-black leading-none tracking-[-0.045em]">Sorted<span className="text-[#cfe900]">.</span></Link>
           <p className="mt-5 max-w-[250px] text-[14px] leading-relaxed opacity-65">{descriptions[experience]}</p>
         </div>
-        {FOOTER_GROUPS.map(group => (
+        {groups.map(group => (
           <nav key={group.title} aria-label={`${group.title} footer`}>
             <h2 className="mb-4 text-[13px] font-bold">{group.title}</h2>
             <ul className="space-y-1">{group.links.map(([label, href]) => <li key={href}><Link href={href} className="inline-block py-1.5 text-[13px] leading-relaxed opacity-70 underline-offset-4 transition-opacity hover:underline hover:opacity-100 focus-visible:opacity-100">{label}</Link></li>)}</ul>

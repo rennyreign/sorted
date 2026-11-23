@@ -1,1 +1,1 @@
-export { metadata, default } from "../v2/brand/page"
+export { metadata, default } from "../../archive/retired-2026-11/v2/brand/page"
