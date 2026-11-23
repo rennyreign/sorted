@@ -6,10 +6,22 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^sites\.sortmydigital\.site$ [NC]
 RewriteRule ^(.*)$ https://sortmydigital.site/$1 [R=301,L]
 
-# The automation service replaces the old public /v4 page addresses.
+# AI assistants are now the flagship offer. The old /v4 and /automation
+# page addresses redirect to the assistants equivalents.
 # Match pages only: /v4/*.webp and /v4/logos/* remain static asset URLs.
-RewriteRule ^v4/?$ /automation/ [R=301,L]
-RewriteRule ^v4/(how-it-works|pricing|about|demo)/?$ /automation/$1/ [R=301,L]
+RewriteRule ^v4/?$ /assistants/ [R=301,L]
+RewriteRule ^automation/?$ /assistants/ [R=301,L]
+RewriteRule ^v4/pricing/?$ /assistants/pricing/ [R=301,L]
+RewriteRule ^automation/pricing/?$ /assistants/pricing/ [R=301,L]
+RewriteRule ^v4/about/?$ /assistants/about/ [R=301,L]
+RewriteRule ^automation/about/?$ /assistants/about/ [R=301,L]
+RewriteRule ^v4/(how-it-works|demo)/?$ /assistants/ [R=301,L]
+RewriteRule ^automation/(how-it-works|demo)/?$ /assistants/ [R=301,L]
+
+# The operations offer is now served by AI assistants. Retired /ops
+# and /v2 landing pages redirect to the assistants homepage.
+RewriteRule ^ops/?$ /assistants/ [R=301,L]
+RewriteRule ^v2/?$ /assistants/ [R=301,L]
 
 # Rewrite /review/[slug]/next to /review-next/index.html (next step SPA shell)
 # Must come before the general review rewrite
